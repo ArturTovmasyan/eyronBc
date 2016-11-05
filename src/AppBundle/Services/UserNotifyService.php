@@ -68,10 +68,12 @@ class UserNotifyService
         $bodyTransId = 'email_body_for_' . $type;
 
         //get receiver language
-        $language = $receiver->getLanguage() ? $receiver->getLanguage() : 'en';
+//        $language = $receiver->getLanguage() ? $receiver->getLanguage() : 'en';
+        $language = 'en';
 
         $doer = null;
         $object = null;
+        $router = $this->container->get('router');
 
         // check type
         switch ($type){
@@ -105,15 +107,26 @@ class UserNotifyService
 //                $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
 //                $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
 //                break;
-//            case self::NEW_GOAL_FRIEND:
-//                $prepareData = array('%senderName%' => $userName);
-//                $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
-//                $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
-//                break;
-//            case self::NEW_IDEA:
-//                $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
-//                $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
-//                break;
+            case self::NEW_GOAL_FRIEND:
+                $count = $options['count'];
+                $goalFriendsLink = $router->generate('goal_friends', array(), true);
+                $goalFriendsLink .= '#/recently';
+                $linkStyle = 'color: #333333;font-size:16px;';
+                $prepareData = array('%count%' => $count, '%goalFriendsLink%' => $goalFriendsLink, '%linkStyle%' => $linkStyle);
+                $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
+                $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
+                break;
+            case self::NEW_IDEA:
+                if(array_key_exists('count', $options)){
+                    $count = $options['count'];
+                    $ideasLink = $router->generate('goals_list', array(), true);
+                    $linkStyle = 'color: #333333;font-size:16px;';
+                    $parameters = array('%count%' => $count, '%ideasLink%' => $ideasLink, '%linkStyle%' => $linkStyle);
+                    $subject = $this->container->get('translator')->trans($subjectTransId, $parameters, 'email', $language);
+                    $body = $this->container->get('translator')->trans($bodyTransId, $parameters, 'email', $language);
+                }
+
+                break;
         }
 
         // check texts
@@ -141,7 +154,7 @@ class UserNotifyService
             array(
                 'body' => $body,
                 'object' => $object,
-//                'type' => 'comments',
+                'receiver' => $receiver,
                 'doer' => $doer,
 //                'mailText' => 'notify_comment',
                 'language' => $language

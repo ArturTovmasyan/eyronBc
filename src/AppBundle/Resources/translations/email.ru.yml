@@ -34,8 +34,8 @@ email_subject_for_reply_comment: Вы получили ответ на ваш к
 email_body_for_deadline: Завтра истекает крайний срок достижения вашей Цели <a href="%goalLink%">%goalName%</a>.
 email_subject_for_deadline: Завтра истекает крайний срок достижения вашей Цели %goalName% .
 
-email_body_for_new_goalfriend: У вас %count% новых Единомышленников.
+email_body_for_new_goalfriend: У вас %count% <a href="%goalFriendsLink%" style="%linkStyle%">новых Единомышленников</a> .
 email_subject_for_new_goalfriend: У вас %count% новых Единомышленников.
 
-email_body_for_new_idea: У нас %count% <a href="%ideasLink%">новых Идей</a> в списке.
+email_body_for_new_idea: У нас %count% <a href="%ideasLink%" style="%linkStyle%">новых Идей</a> в списке.
 email_subject_for_new_idea: У нас %count% новых Идей в списке.
