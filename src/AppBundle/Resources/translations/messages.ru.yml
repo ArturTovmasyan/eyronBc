@@ -469,3 +469,17 @@ overall:
   good: Good job! You are in sync with your projected goals.
   excellent: Excellent! You are outperforming!
   falling: Get a move on! You are falling behind your goals.
+
+#notify settings
+notify_settings:
+  user_activity: Важные события
+  comment_goal: Комментарии к Целям
+  comment_idea: Комментарии к Идеям
+  success_story_goal: Истории успеха к Целям
+  success_story_idea: Истории успеха к Идеям
+  success_story_like: Отмеченные Истории успеха
+  publish_goal: Подтвержденные Идеи
+  reply_comment: Ответы на комментарии
+  deadline: Истечение срока достижения Цели
+  new_goalfriend: Новые Единомышленники
+  new_idea: Новые Идеи
