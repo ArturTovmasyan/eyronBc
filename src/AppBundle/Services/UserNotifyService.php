@@ -68,8 +68,7 @@ class UserNotifyService
         $bodyTransId = 'email_body_for_' . $type;
 
         //get receiver language
-//        $language = $receiver->getLanguage() ? $receiver->getLanguage() : 'en';
-        $language = 'ru';
+        $language = $receiver->getLanguage() ? $receiver->getLanguage() : 'en';
 
         $object = null;
         $router = $this->container->get('router');
@@ -83,12 +82,42 @@ class UserNotifyService
                 $subject = $this->container->get('translator')->trans($subjectTransId, array(), 'email', $language);
                 $body = $this->container->get('translator')->trans($bodyTransId, array(), 'email', $language);
                 break;
-//            case self::COMMENT_GOAL:
-//            case self::COMMENT_IDEA:
-//                break;
-//            case self::SUCCESS_STORY_GOAL:
-//            case self::SUCCESS_STORY_IDEA:
-//                break;
+            case self::COMMENT_GOAL:
+            case self::COMMENT_IDEA:
+                if(array_key_exists('goalId', $options) && array_key_exists('commentId', $options)) {
+                    $goalId = $options['goalId'];
+                    $commentId = $options['commentId'];
+                    $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
+                    $comment = $em->getRepository('ApplicationCommentBundle:Comment')->find($commentId);
+
+                    // check goal
+                    if($goal && $comment){
+                        $sender = $comment->getAuthor();
+                        $viewLink = $router->generate('inner_goal', array('slug' => $goal->getSlug()), true);
+                        $prepareData = array('%goalName%' => $goal->getTitle(), '%senderName%' => $sender->showName());
+                        $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
+                        $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
+                    }
+                }
+            break;
+                break;
+            case self::SUCCESS_STORY_GOAL:
+            case self::SUCCESS_STORY_IDEA:
+                if(array_key_exists('successStoryId', $options)) {
+                    $successStoryId = $options['successStoryId'];
+                    $successStory = $em->getRepository('AppBundle:SuccessStory')->find($successStoryId);
+
+                    // check goal
+                    if($successStory){
+                        $sender = $successStory->getUser();
+                        $goal =  $successStory->getGoal();
+                        $viewLink = $router->generate('inner_goal', array('slug' => $goal->getSlug()), true);
+                        $prepareData = array('%goalName%' => $goal->getTitle(), '%senderName%' => $sender->showName());
+                        $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
+                        $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
+                    }
+                }
+                break;
             case self::SUCCESS_STORY_LIKE:
                 if(array_key_exists('goalId', $options) && array_key_exists('senderId', $options)) {
                     $goalId = $options['goalId'];
@@ -162,17 +191,6 @@ class UserNotifyService
         if(!isset($subject) || !isset($body)){
             return;
         }
-
-        //get put notification service
-        $sendNoteService = $this->container->get('bl_put_notification_service');
-
-
-        //get receiver email
-        $email = $receiver->getEmail();
-
-//        //send notification to mobile
-//        $sendNoteService->sendPushNote($user, $subject);
-//
         //generate content for email
         $content = $this->container->get('templating')->render(
             'AppBundle:Templates:userNotifyEmail.html.twig',
@@ -187,9 +205,23 @@ class UserNotifyService
             )
         );
 
+        // check and send email
+        if($receiver->mustEmailNotify($type)){
+            //get receiver email
+            $email = $receiver->getEmail();
+            $this->sendEmail($email, $content, $content);
+        }
+
+        // check and send push notify
+        if($receiver->mustPushedNotify($type)){
+            //get put notification service
+            $sendNoteService = $this->container->get('bl_put_notification_service');
+
+            //send notification to mobile
+            $sendNoteService->sendPushNote($receiver, $subject);
+        }
+
         return $content;
-//
-//        $this->sendEmail($email, $content, $subject);
 
     }
 

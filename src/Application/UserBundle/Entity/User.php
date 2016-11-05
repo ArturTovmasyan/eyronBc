@@ -1955,4 +1955,23 @@ class User extends BaseUser
     {
         return $this->userGoalRemoveDate;
     }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function mustEmailNotify($type)
+    {
+        return false;
+
+    }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function mustPushedNotify($type)
+    {
+        return false;
+    }
 }

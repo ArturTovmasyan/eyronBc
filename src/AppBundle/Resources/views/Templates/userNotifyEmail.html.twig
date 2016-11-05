@@ -6,7 +6,6 @@
     {#{% set firstName = user.firstName %}#}
     {#{% set senderName = user.showName %}#}
     {#{% set author = goal.author %}#}
-    {#{% set email = author.email %}#}
     {#{% set slug = goal.slug %}#}
     {#{% set goalUrl = url('inner_goal', {'slug': slug})~'#'~type %}#}
     {#{% set homePageUrl = url('homepage') %}#}
@@ -14,6 +13,8 @@
 
     {% set baseUrl = app.request.getSchemeAndHttpHost() %}
     {% set homePageUrl = url('homepage') %}
+    {% set email = receiver.email %}
+
 
 
     {% autoescape false %}
@@ -35,10 +36,10 @@
 
                 <div style="clear:both;margin:10px 0;padding: 20px 0 0;height:70px;">
 
-                    {% if doer %}
-                        {% if doer.getPhotoLink %}
+                    {% if sender %}
+                        {% if sender.getPhotoLink %}
                             <figure style="float:left;width:65px;height:65px !important;overflow:hidden;margin:0 20px;border:1px solid #cccccc; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
-                                <img src="{{ doer.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ doer.filename }}"
+                                <img src="{{ sender.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ sender.filename }}"
                                      style="width:65px;height:65px !important; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
                             </figure>
                         {% else %}
@@ -54,35 +55,33 @@
 
                     <div style="float:left">
                         <p style="color: #333;margin: 5px 0;font-size:16px;">{{ body }}</p>
-                        {#<a href="{{ goalUrl }}" style="color: #333333;font-size:16px;">{{ goal.title }}</a>#}
                         <p style="color:#999999;margin:5px 0 0;font-size:14px;font-weight:700;">{{ 'now'|date('d M Y') }} at {{ 'now'|date('H:m') }}</p>
                     </div>
                 </div>
 
-                {#<div style="width:460px;margin:0 auto 20px;clear:both;">#}
-                    {#<span style="display:block;width: 0;height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent;border-bottom: 10px solid #f2f2f2;top: -8px;#}
-            {#margin-left: 15px;"></span>#}
-                    {#<p style="background-color: #f2f2f2;font-size: 16px;padding: 20px;color: #333;margin-top:0;">{{ eventText }}</p>#}
-                {#</div>#}
+                {% if goal %}
 
-                {#{% set cover = goal.getCoverPhotoDownloadLink %}#}
+                    {% set cover = goal.getCoverPhotoDownloadLink %}
 
-                {#<figure style="margin:20px 0 0;background-color: #011420;width: 510px;overflow:hidden;text-align:center;">#}
-                    {#<img src="#}
-                        {#{% if cover %}#}
-                            {#{% set goalPhoto = baseUrl~cover %}#}
-                            {#{{ goalPhoto|blImageFilter('goal_bg') }}#}
-                        {#{% endif %}"#}
-                         {#alt="{{ goal.title }}"  height="230" width="100%"/>#}
-                    {#<figcaption style=";text-align:center;">#}
-                        {#<h3 style="color:#ffffff;font-size: 24px;padding: 10px 25px;text-transform: capitalize;margin:0;line-height: 30px;font-weight: 700;">{{ goal.title }}</h3>#}
-                    {#</figcaption>#}
-                {#</figure>#}
+                    <figure style="margin:20px 0 0;background-color: #011420;width: 510px;overflow:hidden;text-align:center;">
+                        <img src="
+                            {% if cover %}
+                                {% set goalPhoto = baseUrl~cover %}
+                                {{ goalPhoto|blImageFilter('goal_bg') }}
+                            {% endif %}"
+                             alt="{{ goal.title }}"  height="230" width="100%"/>
+                        <figcaption style=";text-align:center;">
+                            <h3 style="color:#ffffff;font-size: 24px;padding: 10px 25px;text-transform: capitalize;margin:0;line-height: 30px;font-weight: 700;">{{ goal.title }}</h3>
+                        </figcaption>
+                    </figure>
+                {% endif %}
 
-                {#<p style="text-align:center;padding:28px 0 30px;margin:0;">#}
-                    {#<a href = "{{ goalUrl }}" style="background: #7724F6;display: inline-block;color:#ffffff;padding:15px 60px;font-size:14px;text-decoration:none;border-radius: 6px;-webkit-border-radius: 6px;-moz-border-radius: 6px;-ms-border-radius: 6px;-o-border-radius: 6px;">#}
-                        {#{{ 'email_bucketlist_link'|trans({}, 'email', language) }}</a>#}
-                {#</p>#}
+                {% if viewLink %}
+                    <p style="text-align:center;padding:28px 0 30px;margin:0;">
+                        <a href = "{{ viewLink }}" style="background: #7724F6;display: inline-block;color:#ffffff;padding:15px 60px;font-size:14px;text-decoration:none;border-radius: 6px;-webkit-border-radius: 6px;-moz-border-radius: 6px;-ms-border-radius: 6px;-o-border-radius: 6px;">
+                            {{ 'email_bucketlist_link'|trans({}, 'email', language) }}</a>
+                    </p>
+                {% endif %}
 
                 <hr style="border:1px solid #cccccc;margin:0;" />
 
@@ -140,7 +139,7 @@
 
                     </ul>
 
-                   <p style="text-align:center;color: #666666;font-size:12px;line-height: 17px;"> {{ 'notify_email_footer'|trans({'%email%': email}, 'email', language) }}</p>
+                   <p style="text-align:center;color: #666666;font-size:12px;line-height: 17px;"> {{ 'notify_email_footer'|trans({'%email%': receiver}, 'email', language) }}</p>
 
                 </footer>
             </div>

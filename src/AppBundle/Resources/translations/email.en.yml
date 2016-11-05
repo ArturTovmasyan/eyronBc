@@ -11,16 +11,16 @@ email_bucketlist_link: View on Bucket List 127
 email_body_for_user_activity: There's a lot going on at Bucket List 127. Come around and check it out.
 email_subject_for_user_activity: There's a lot going on at Bucket List 127. Come around and check it out.
 
-email_body_for_comment_goal: <a href="%profileLink%">%avatar%</a> %senderName% <a style="%linkStyle%" href="%commentLink%">commented</a> on your Goal %goalName%.
+email_body_for_comment_goal: %senderName% commented on your Goal %goalName%.
 email_subject_for_comment_goal: %senderName% commented on your Goal.
 
-email_body_for_comment_idea: <a href="%profileLink%">%avatar%</a> %senderName% <a style="%linkStyle%" href="%commentLink%">commented</a> on your Idea %goalName%.
+email_body_for_comment_idea: %senderName% commented on your Idea %goalName%.
 email_subject_for_comment_idea: %senderName% commented on your Idea.
 
-email_body_for_success_story_goal: <a href="%profileLink%">%avatar%</a> %senderName% wrote a <a  style="%linkStyle%" href="%successStoryLink%">Success story</a> for your Goal %goalName%.
+email_body_for_success_story_goal:  %senderName% wrote a Success story for your Goal %goalName%.
 email_subject_for_success_story_goal: %senderName% wrote a Success story for your Goal
 
-email_body_for_success_story_idea: <a href="%profileLink%">%avatar%</a> %senderName% wrote a <a style="%linkStyle%" href="%successStoryLink%">Success story</a> for your Idea %goalName%.
+email_body_for_success_story_idea: %senderName% wrote a Success story for your Idea %goalName%.
 email_subject_for_success_story_idea: %senderName% wrote a Success story for your Idea
 
 email_body_for_success_story_like: %senderName%  liked your Success story .
