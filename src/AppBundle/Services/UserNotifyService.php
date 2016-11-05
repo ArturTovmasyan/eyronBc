@@ -71,11 +71,11 @@ class UserNotifyService
 //        $language = $receiver->getLanguage() ? $receiver->getLanguage() : 'en';
         $language = 'ru';
 
-        $doer = null;
         $object = null;
         $router = $this->container->get('router');
         $viewLink = null;
         $goal = null;
+        $sender = null;
 
         // check type
         switch ($type){
@@ -85,22 +85,42 @@ class UserNotifyService
                 break;
 //            case self::COMMENT_GOAL:
 //            case self::COMMENT_IDEA:
-//                $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
-//                $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
 //                break;
 //            case self::SUCCESS_STORY_GOAL:
 //            case self::SUCCESS_STORY_IDEA:
-//                $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
-//                $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
 //                break;
-//            case self::SUCCESS_STORY_LIKE:
-//                $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
-//                $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
-//                break;
-//            case self::PUBLISH_GOAL:
-//                $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
-//                $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
-//                break;
+            case self::SUCCESS_STORY_LIKE:
+                if(array_key_exists('goalId', $options) && array_key_exists('senderId', $options)) {
+                    $goalId = $options['goalId'];
+                    $senderId = $options['senderId'];
+                    $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
+                    $sender = $em->getRepository('ApplicationUserBundle:User')->find($senderId);
+
+                    // check goal
+                    if($goal && $sender){
+                        $viewLink = $router->generate('inner_goal', array('slug' => $goal->getSlug()), true);
+                        $anchor = array_key_exists('anchor', $options) ? $options['anchor'] : '#';
+                        $viewLink .= $anchor;
+                        $prepareData = array('%goalName%' => $goal->getTitle(), '%senderName%' => $sender->showName());
+                        $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
+                        $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
+                    }
+                }
+                break;
+            case self::PUBLISH_GOAL:
+            case self::DEADLINE:
+                if(array_key_exists('goalId', $options)) {
+                    $goalId = $options['goalId'];
+                    $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
+                    // check goal
+                    if($goal){
+                        $viewLink = $router->generate('inner_goal', array('slug' => $goal->getSlug()), true);
+                        $prepareData = array('%goalName%' => $goal->getTitle());
+                        $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
+                        $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
+                    }
+                }
+                break;
             case self::REPLY_COMMENT:
                     if(array_key_exists('goalId', $options)) {
                         $goalId = $options['goalId'];
@@ -115,19 +135,6 @@ class UserNotifyService
                             $body = $this->container->get('translator')->trans($bodyTransId, [], 'email', $language);
                         }
                     }
-                break;
-            case self::DEADLINE:
-                if(array_key_exists('goalId', $options)) {
-                    $goalId = $options['goalId'];
-                    $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
-                    // check goal
-                    if($goal){
-                        $viewLink = $router->generate('inner_goal', array('slug' => $goal->getSlug()), true);
-                        $prepareData = array('%goalName%' => $goal->getTitle(),);
-                        $subject = $this->container->get('translator')->trans($subjectTransId, $prepareData, 'email', $language);
-                        $body = $this->container->get('translator')->trans($bodyTransId, $prepareData, 'email', $language);
-                    }
-                }
                 break;
             case self::NEW_GOAL_FRIEND:
                 if(array_key_exists('count', $options)) {
@@ -163,10 +170,6 @@ class UserNotifyService
         //get receiver email
         $email = $receiver->getEmail();
 
-        //get subject for email
-        //get content for email
-//        $subject = $this->container->get('translator')->trans('subject_for_comment_email', array('%senderName%' => $userName), 'email', $language);
-
 //        //send notification to mobile
 //        $sendNoteService->sendPushNote($user, $subject);
 //
@@ -178,7 +181,7 @@ class UserNotifyService
                 'body' => $body,
                 'object' => $object,
                 'receiver' => $receiver,
-                'doer' => $doer,
+                'sender' => $sender,
                 'viewLink' => $viewLink,
                 'language' => $language
             )

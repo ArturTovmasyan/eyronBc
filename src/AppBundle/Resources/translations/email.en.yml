@@ -23,7 +23,7 @@ email_subject_for_success_story_goal: %senderName% wrote a Success story for you
 email_body_for_success_story_idea: <a href="%profileLink%">%avatar%</a> %senderName% wrote a <a style="%linkStyle%" href="%successStoryLink%">Success story</a> for your Idea %goalName%.
 email_subject_for_success_story_idea: %senderName% wrote a Success story for your Idea
 
-email_body_for_success_story_like: <a  style="%linkStyle%" href="%profileLink%">%avatar%</a> %senderName%  liked your <a  style="%linkStyle%" href="%successStoryLink%">Success story</a> .
+email_body_for_success_story_like: %senderName%  liked your Success story .
 email_subject_for_success_story_like: %senderName%  liked your Success story .
 
 email_body_for_publish_goal: Your Goal %goalName% has been published in the Ideas list.

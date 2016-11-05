@@ -22,7 +22,7 @@ email_subject_for_success_story_goal:  %senderName%  написал(а) Исто
 email_body_for_success_story_idea: <a href="%profileLink%">%avatar%</a> %senderName%  написал(а) <a href="%successStoryLink%">Историю успеха</a> к вашей Идее %goalName%.
 email_subject_for_success_story_idea: %senderName%  написал(а) Историю успехак вашей Идее
 
-email_body_for_success_story_like: <a href="%profileLink%">%avatar%</a> %senderName%  понравилась ваша <a href="%successStoryLink%">История успеха</a> .
+email_body_for_success_story_like:  %senderName%  понравилась ваша История успеха .
 email_subject_for_success_story_like: %senderName%  понравилась ваша История успеха .
 
 email_body_for_publish_goal: Ваша Цель %goalName% добавлена в общий список Идей.
