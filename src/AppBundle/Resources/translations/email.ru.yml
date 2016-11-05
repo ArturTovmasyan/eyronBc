@@ -25,17 +25,17 @@ email_subject_for_success_story_idea: %senderName%  написал(а) Исто�
 email_body_for_success_story_like: <a href="%profileLink%">%avatar%</a> %senderName%  понравилась ваша <a href="%successStoryLink%">История успеха</a> .
 email_subject_for_success_story_like: %senderName%  понравилась ваша История успеха .
 
-email_body_for_publish_goal: Ваша Цель <a href="%goalLink%">%goalName%</a> добавлена в общий список Идей.
+email_body_for_publish_goal: Ваша Цель %goalName% добавлена в общий список Идей.
 email_subject_for_publish_goal: Ваша Цель %goalName% добавлена в общий список Идей.
 
-email_body_for_reply_comment: Вы получили <a href="%replyLink%">ответ</a> на ваш комментарий.
+email_body_for_reply_comment: Вы получили ответ на ваш комментарий.
 email_subject_for_reply_comment: Вы получили ответ на ваш комментарий.
 
-email_body_for_deadline: Завтра истекает крайний срок достижения вашей Цели <a href="%goalLink%">%goalName%</a>.
+email_body_for_deadline: Завтра истекает крайний срок достижения вашей Цели %goalName%.
 email_subject_for_deadline: Завтра истекает крайний срок достижения вашей Цели %goalName% .
 
-email_body_for_new_goalfriend: У вас %count% <a href="%goalFriendsLink%" style="%linkStyle%">новых Единомышленников</a> .
+email_body_for_new_goalfriend: У вас %count% новых Единомышленников .
 email_subject_for_new_goalfriend: У вас %count% новых Единомышленников.
 
-email_body_for_new_idea: У нас %count% <a href="%ideasLink%" style="%linkStyle%">новых Идей</a> в списке.
+email_body_for_new_idea: У нас %count% новых Идей в списке.
 email_subject_for_new_idea: У нас %count% новых Идей в списке.

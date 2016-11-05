@@ -26,17 +26,17 @@ email_subject_for_success_story_idea: %senderName% wrote a Success story for you
 email_body_for_success_story_like: <a  style="%linkStyle%" href="%profileLink%">%avatar%</a> %senderName%  liked your <a  style="%linkStyle%" href="%successStoryLink%">Success story</a> .
 email_subject_for_success_story_like: %senderName%  liked your Success story .
 
-email_body_for_publish_goal: Your Goal <a  style="%linkStyle%" href="%goalLink%">%goalName%</a> has been published in the Ideas list.
+email_body_for_publish_goal: Your Goal %goalName% has been published in the Ideas list.
 email_subject_for_publish_goal: Your Goal has been published .
 
-email_body_for_reply_comment: You have a <a  style="%linkStyle%" href="%replyLink%">reply</a> for your comment.
+email_body_for_reply_comment: You have a reply for your comment.
 email_subject_for_reply_comment: You have a reply for your comment.
 
-email_body_for_deadline: The deadline for your Goal <a  style="%linkStyle%" href="%goalLink%">%goalName%</a> expires tomorrow.
+email_body_for_deadline: The deadline for your Goal %goalName% expires tomorrow.
 email_subject_for_deadline: The deadline for your Goal %goalName% expires tomorrow.
 
-email_body_for_new_goalfriend: You have %count% <a href="%goalFriendsLink%" style="%linkStyle%">new Goalfriends</a> .
+email_body_for_new_goalfriend: You have %count% new Goalfriends .
 email_subject_for_new_goalfriend: You have %count% new Goalfriends.
 
-email_body_for_new_idea: We have %count% <a href="%ideasLink%" style="%linkStyle%">new Ideas</a> in the list.
+email_body_for_new_idea: We have %count% new Ideas in the list.
 email_subject_for_new_idea: We have %count%  new Ideas in the list.
