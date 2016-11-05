@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Services\UserNotifyService;
 use Application\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -41,6 +42,15 @@ class MainController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $goal = $em->getRepository("AppBundle:Goal")->find(3424);
+        $user = $em->getRepository("ApplicationUserBundle:user")->find(123);
+        $service = $this->get('user_notify')->prepareAndSendNotifyViaProcess(123, UserNotifyService::USER_ACTIVITY
+            );
+
+        return new Response($service);
+        exit;
+
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
