@@ -119,36 +119,41 @@ class SendNotifyCommand extends ContainerAwareCommand
         $userNotify = $this->getContainer()->get('user_notify'); // get user notify service
         $today = new \DateTime(); // new date
 
-//        // get goals
-//        $goalsCount = $em->createQuery("SELECT count(g)
-//                           FROM AppBundle:Goal g
-//                           WHERE g.created is not null AND DATE_DIFF(:today, g.created ) > 30 AND g.publish = 1
-//                           ")
-//            ->setParameter('today', $today)
-//            ->getSingleScalarResult();
-//
-//        if($goalsCount > 0){
-//            // get all users
-//            $users = $em->createQuery("SELECT u.id
-//                           FROM ApplicationUserBundle:User u
-//                           ")
-//                ->getResult();
-//
-//            $users = array_map(function ($item){return $item['id'];}, $users);
-//
-//            $progress = new ProgressBar($output, count($users));
-//
-//            $progress->start();
-//            foreach ($users as $id){
-//
-//                // send email
-//                $userNotify->prepareAndSendNotifyViaProcess($id, UserNotifyService::NEW_IDEA, ['count' => $goalsCount], true);
-//
-//                $progress->advance();
-//            }
-//            $progress->finish();
-//        }
+        // get all users
+        $users = $em->createQuery("SELECT u.id
+                           FROM ApplicationUserBundle:User u
+                           ")
+            ->getResult();
 
+        $users = array_map(function ($item){return $item['id'];}, $users);
+
+        $progress = new ProgressBar($output, count($users));
+
+        $progress->start();
+        foreach ($users as $id){
+
+            $friendsCount = $em
+                ->createQueryBuilder()
+                ->select('count(DISTINCT u)')
+                ->from('ApplicationUserBundle:User', 'u', 'u.id')
+                ->join('u.userGoal', 'ug')
+                ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
+                ->where("u.id != :userId AND u.isAdmin = false")
+                ->andWhere("DATE_DIFF(:today, ug1.listedDate) < 30 ")
+                ->setParameter('today', $today)
+                ->setParameter('userId', $id)
+                ->getQuery()
+                ->getSingleScalarResult();
+
+            if($friendsCount){
+                // send email
+                $userNotify->prepareAndSendNotifyViaProcess($id, UserNotifyService::NEW_GOAL_FRIEND, ['count' => $friendsCount], true);
+                $progress->advance();
+            }
+
+
+        }
+        $progress->finish();
 
         $output->writeln('end sending notify');
     }
@@ -169,7 +174,7 @@ class SendNotifyCommand extends ContainerAwareCommand
         // get goals
         $goalsCount = $em->createQuery("SELECT count(g)
                            FROM AppBundle:Goal g
-                           WHERE g.created is not null AND DATE_DIFF(:today, g.created ) > 30 AND g.publish = 1
+                           WHERE g.created is not null AND DATE_DIFF(:today, g.created ) < 30 AND g.publish = 1
                            ")
             ->setParameter('today', $today)
             ->getSingleScalarResult();
