@@ -696,11 +696,28 @@ angular.module('goal', ['Interpolation',
 
         $( '.swipebox-main' ).swipebox();
     }])
-    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location',
-        function($scope, lsInfiniteItems, $timeout, envPrefix, $location){
-        var path = $location.$$path;
+    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location', 'CacheFactory',
+        function($scope, lsInfiniteItems, $timeout, envPrefix, $location, CacheFactory){
+        var path = $location.$$path,
+            positionCache = CacheFactory.get('bucketlist_by_position');
+            $scope.notAllowed = true;
+
+        if(!positionCache){
+            positionCache = CacheFactory('bucketlist_by_position', {
+                maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
+                deleteOnExpire: 'aggressive'
+            });
+        }
+
+        $scope.position = positionCache.get('position');
+
+        if(!Object.keys($scope.position).length){
+            $scope.position = null;
+        } else {
+            $scope.notAllowed = false;
+        }
+
         $scope.browseError = '';
-        $scope.notAllowed = true;
         $scope.browserAllowed = false;
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
@@ -734,6 +751,12 @@ angular.module('goal', ['Interpolation',
             function success(position) {
                 $scope.notAllowed = false;
                 $scope.position = position;
+                positionCache.put('position', {
+                    coords: {
+                        latitude: $scope.position.coords.latitude,
+                        longitude: $scope.position.coords.longitude
+                    }
+                });
                 $scope.userLocation = position.coords;
                 $scope.Ideas.reset();
                 $scope.Ideas.nearBy($scope.userLocation );
@@ -770,11 +793,11 @@ angular.module('goal', ['Interpolation',
                 $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
             } else {
                 $scope.$emit('location-resize');
-                if(!$scope.browserAllowed){
+                if(!$scope.browserAllowed && (!$scope.position || !$scope.position.coords)){
                     $scope.browserAllowed = true;
                     $scope.allowBrowserLocation();
                 }
-                if($scope.position){
+                if($scope.position && $scope.position.coords){
                     $scope.Ideas.reset();
                     $scope.Ideas.nearBy($scope.position.coords);
 

@@ -189,7 +189,7 @@ angular.module('Google', [])
             }
         };
     }])
-    .directive('autocompleteMap',['$rootScope', '$timeout', function($rootScope, $timeout){
+    .directive('autocompleteMap',['$rootScope', '$timeout', '$window', function($rootScope, $timeout, $window){
 
         function Initialize(el, zoom){
             var m, data = {};
@@ -207,8 +207,13 @@ angular.module('Google', [])
             scope: {
                 zoom: '=',
                 refresh: '=',
+                markers: '=',
+                itemPageUrl: '@',
                 isBounded: '=',
                 onMarkerClick: '&',
+                activeGoalMarkerIcon1: '@',
+                passiveMarkerIcon: '@',
+                activeGoalMarkerIcon2: '@',
                 activeMarkerIcon: '@'
             },
             templateUrl: '/app/scripts/Google/autocompleteMap.html',
@@ -246,6 +251,8 @@ angular.module('Google', [])
 
                return function initMap(scope, el) {
                     scope.map = Initialize(document.getElementById('autocompleteMap'),scope.zoom);
+                    scope.mapMarkers = {};
+
                     var input = (document.getElementById('pac-input'));
 
                     var types = document.getElementById('type-selector');
@@ -260,6 +267,92 @@ angular.module('Google', [])
                         map: scope.map,
                         anchorPoint: new google.maps.Point(0, -29)
                     });
+
+                   scope.$on('addGoal', function(ev, data){
+                       if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+                           var icon = {
+                               url: scope.activeGoalMarkerIcon1,
+                               scaledSize:new google.maps.Size(35, 50)
+                           };
+                           scope.mapMarkers[data].setIcon(icon);
+                       }
+                   });
+
+                   $rootScope.$on('lsJqueryModalClosedSaveGoal', function (ev, userGoal) {
+                       if(!userGoal || !userGoal.status || !scope.mapMarkers[userGoal.goal.id] || !scope.mapMarkers[userGoal.goal.id].map)
+                           return;
+
+                       var icon = {
+                           url: scope['activeGoalMarkerIcon'+userGoal.status],
+                           scaledSize:new google.maps.Size(35, 50)
+                       };
+                       scope.mapMarkers[userGoal.goal.id].setIcon(icon);
+                   });
+
+                   scope.$on('doneGoal', function(ev, data){
+                       if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+                           var icon = {
+                               url: scope.activeGoalMarkerIcon2,
+                               scaledSize:new google.maps.Size(35, 50)
+                           };
+                           scope.mapMarkers[data].setIcon(icon);
+                       }
+                   });
+
+                   scope.$watch('markers',function(d){
+                       if(!d){
+                           return;
+                       }
+
+                       scope.bounds = new google.maps.LatLngBounds(null);
+
+                       angular.forEach(scope.mapMarkers, function(v, k){
+                           v.setMap(null);
+                       });
+
+                       angular.forEach(d, function(v, k){
+                           if(v.latitude && v.longitude) {
+                               v.id = v.id ? v.id : k;
+                               if(!scope.mapMarkers[v.id] || !scope.mapMarkers[v.id].map ) {
+                                   var m = addMarker(v, scope.passiveMarkerIcon, scope.map);
+
+                                   scope.mapMarkers[v.id] = m;
+
+                                   if(v.status == 1 || v.status == 2){
+                                       var icon = {
+                                           url: scope['activeGoalMarkerIcon' + v.status],
+                                           scaledSize:new google.maps.Size(35, 50)
+                                       };
+                                       scope.mapMarkers[v.id].setIcon(icon);
+                                   }
+
+                                   var infowindow = new google.maps.InfoWindow({
+                                       content: v.title
+                                   });
+
+                                   m.addListener('mouseover', function() {
+                                       infowindow.open(scope.map, m);
+                                   });
+
+                                   m.addListener('mouseout', function() {
+                                       infowindow.close();
+                                   });
+
+                                   m.addListener('click', function () {
+                                       if(scope.itemPageUrl && v.slug){
+                                           $window.location.href = scope.itemPageUrl+ v.slug;
+                                       }
+
+                                   });
+
+                               }
+
+                               scope.bounds.extend(scope.mapMarkers[v.id].getPosition());
+                           }
+                       });
+
+                       scope.map.fitBounds(scope.bounds);
+                   },true);
 
                     autocomplete.addListener('place_changed', function() {
                         infowindow.close();
@@ -324,6 +417,7 @@ angular.module('Google', [])
                    $rootScope.$on('location-resize', function () {
                        $timeout(function() {
                            google.maps.event.trigger(scope.map, 'resize');
+                           scope.map.fitBounds(true);
                        }, 500);
                    });
 
