@@ -1,7 +1,7 @@
 
 {% block body_text %}
 
-    {% set baseUrl = app.request.getSchemeAndHttpHost() %}
+    {#{% set baseUrl = app.request.getSchemeAndHttpHost() %}#}
     {#{% set lastName = user.lastName %}#}
     {#{% set firstName = user.firstName %}#}
     {#{% set senderName = user.showName %}#}
@@ -11,7 +11,7 @@
     {#{% set homePageUrl = url('homepage') %}#}
 
 
-    {% set baseUrl = app.request.getSchemeAndHttpHost() %}
+    {% set baseUrl = app.request.getSchemeAndHttpHost()|default("www.bucketlist127.com") %}
     {% set homePageUrl = url('homepage') %}
     {% set email = receiver.email %}
 

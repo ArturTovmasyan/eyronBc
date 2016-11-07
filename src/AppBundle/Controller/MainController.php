@@ -45,8 +45,8 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
         $goal = $em->getRepository("AppBundle:Goal")->find(3424);
         $user = $em->getRepository("ApplicationUserBundle:user")->find(123);
-        $service = $this->get('user_notify')->prepareAndSendNotifyViaProcess(123, UserNotifyService::USER_ACTIVITY
-            );
+        $service = $this->get('user_notify')->prepareAndSendNotifyViaProcess(123, UserNotifyService::NEW_IDEA,
+            array('count'=>5));
 
         return new Response($service);
         exit;

@@ -40,7 +40,14 @@ class UserNotifyService
         $this->container = $container;
     }
 
-    public function prepareAndSendNotifyViaProcess($receiverId, $type, array $options = [])
+    /**
+     * @param $receiverId
+     * @param $type
+     * @param array $options
+     * @param bool $byPool
+     * @return string|void
+     */
+    public function prepareAndSendNotifyViaProcess($receiverId, $type, array $options = [], $byPool = false)
     {
 
         //get user notify value in parameter
@@ -209,17 +216,23 @@ class UserNotifyService
         if($receiver->mustEmailNotify($type)){
             //get receiver email
             $email = $receiver->getEmail();
-            $this->sendEmail($email, $content, $content);
+
+            if($byPool){
+                $this->sendEmailByPool($email, $content, $content);
+            }
+            else{
+                $this->sendEmail($email, $content, $content);
+            }
         }
 
-        // check and send push notify
-        if($receiver->mustPushedNotify($type)){
-            //get put notification service
-            $sendNoteService = $this->container->get('bl_put_notification_service');
-
-            //send notification to mobile
-            $sendNoteService->sendPushNote($receiver, $subject);
-        }
+//        // check and send push notify
+//        if($receiver->mustPushedNotify($type)){
+//            //get put notification service
+//            $sendNoteService = $this->container->get('bl_put_notification_service');
+//
+//            //send notification to mobile
+//            $sendNoteService->sendPushNote($receiver, $subject);
+//        }
 
         return $content;
 
@@ -390,6 +403,32 @@ class UserNotifyService
 
             throw $e;
         }
+    }
+
+
+    /**
+     * @param $email
+     * @param $content
+     * @param $subject
+     */
+    public function sendEmailByPool($email, $content, $subject)
+    {
+        //get no-reply email
+        $noReplyEmail = $this->container->getParameter('no_reply');
+
+        //get project name
+        $projectName = $this->container->getParameter('email_sender');
+        $spool = new \Swift_FileSpool($this->container->get('kernel')->getRootDir(). "/spool");
+        $transporter = new \Swift_SpoolTransport($spool);
+        $mailer = new \Swift_Mailer($transporter);
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom($noReplyEmail, $projectName)
+            ->setTo($email)
+            ->setContentType('text/html; charset=UTF-8')
+            ->setBody($content, 'text/html');
+
+        $mailer->send($message);
     }
 
 }
