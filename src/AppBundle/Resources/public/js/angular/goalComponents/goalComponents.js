@@ -36,6 +36,10 @@ angular.module('goalComponents', ['Interpolation',
         });
       });
 
+      $rootScope.$on('lsGoActivity', function () {
+        $scope.overallProgress = 0;
+      });
+
       $rootScope.$on('removeUserGoal', function () {
         UserGoalDataManager.overall($scope.currentPage, function (data) {
           $scope.overallProgress = data.progress;

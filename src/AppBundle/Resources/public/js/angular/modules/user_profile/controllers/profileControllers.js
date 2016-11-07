@@ -93,6 +93,7 @@ angular.module('profile')
             $scope.ProfileItems.busy = true;
             $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
             $scope.Activities.nextActivity();
+            $scope.$emit('lsGoActivity');
             break;
           case 5:
             $scope.ProfileItems.busy = false;
