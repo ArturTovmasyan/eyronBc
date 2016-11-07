@@ -111,7 +111,8 @@
                                     {% set xs = 3 %}
                                     <li class="col-xs-3 clone">
                                         <a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">
-                                            <span class="glyphicon glyphicon-copy "></span>{{ 'clone'|trans }}
+                                            {#<span class="glyphicon glyphicon-copy "></span>#}
+                                            <img src="{{ asset('bundles/app/images/clone-icon.svg') }}" width="25" height="25"/>{{ 'clone'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}

@@ -15,8 +15,8 @@
             <span class="overlay"></span>
 
             <div>
-                <h2 data-ng-class="{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author.show_name}">
-                    <span>[[ userGoal.goal.title ]]</span>
+                <h2>
+                    <span data-ng-class="{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal.author.show_name}">[[ userGoal.goal.title ]]</span>
                 </h2>
                 {% if app.user %}
                     <p data-ng-if="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == {{ app.user.id }}">
@@ -77,13 +77,36 @@
                                 <p>{{ "goal.in_proces"|trans }}</p>
 
 
-                                <div data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)" class="clearfix">
-                                    <md-radio-group data-ng-model="complete.switch" name="goal_status" layout-gt-sm="row">
+                                <div data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)" class="clearfix purple-checkbox">
 
-                                        <md-radio-button value="0" class="md-primary pull-left">{{ "user_goal.active"|trans }}</md-radio-button>
-                                        <md-radio-button value="1" class="md-primary pull-left"> {{ "user_goal.completed"|trans }}</md-radio-button>
+                                    <label class="relative">
+                                        <span class="my-md-container" data-ng-class="{'my-md-checked': complete.switch == 0}">
+                                            <span class="md-off"></span>
+                                            <span class="md-on"></span>
+                                        </span>
 
-                                    </md-radio-group>
+                                        <input type="radio" value="0" data-ng-model="complete.switch" style="display: none">
+
+                                        <span class="my-md-label">
+                                            <span class="ng-scope">{{ "user_goal.active"|trans }}</span>
+                                        </span>
+
+                                    </label>
+
+                                    <label class="relative">
+                                        <span class="my-md-container"  data-ng-class="{'my-md-checked': complete.switch == 1}">
+                                            <span class="md-off"></span>
+                                            <span class="md-on"></span>
+                                        </span>
+
+                                        <input type="radio" value="1"  data-ng-model="complete.switch" style="display: none">
+
+                                        <span class="my-md-label">
+                                            <span class="ng-scope">{{ "user_goal.completed"|trans }}</span>
+                                        </span>
+
+                                    </label>
+
                                 </div>
 
                             </div>
@@ -219,16 +242,30 @@
                                 <h3>{{ 'goal.priority'|trans() }}</h3>
                                 <h6>{{ "goal.deside"|trans }}</h6>
 
-                                <div class="priority">
+                                <div class="priority purple-checkbox">
 
-                                    <md-checkbox aria-label="Urgent" calss="md-primary"
-                                                 data-ng-model="userGoal.urgent">
-                                        {{ 'goal.urgent'|trans }}
-                                    </md-checkbox>
-                                    <md-checkbox aria-label="Important" calss="md-primary"
-                                                 data-ng-model="userGoal.important">
-                                        {{ 'goal.important'|trans }}
-                                    </md-checkbox>
+                                    <label class="relative">
+                                        <span class="my-md-container" data-ng-class="{'my-md-checked': userGoal.urgent}">
+                                            <span class="my-md-icon"></span>
+                                            <input type="checkbox" data-ng-model="userGoal.urgent" style="display: none">
+                                        </span>
+
+                                        <span class="my-md-label">
+                                            <span class="ng-scope">{{ 'goal.urgent'|trans }}</span>
+                                        </span>
+
+                                    </label>
+
+                                    <label class="relative">
+                                        <span class="my-md-container" data-ng-class="{'my-md-checked': userGoal.important}">
+                                            <div class="my-md-icon"></div>
+                                            <input type="checkbox" data-ng-model="userGoal.important" style="display: none">
+                                        </span>
+
+                                        <span class="my-md-label">
+                                            <span class="ng-scope">{{ 'goal.important'|trans }}</span>
+                                        </span>
+                                    </label>
 
                                 </div>
 
@@ -284,14 +321,21 @@
                                  data-dnd-selected="models.selected = step"
                                  data-ng-class="{'selected': models.selected === step, 'noselect': !step.text}">
 
-                                <div class="col-xs-2 col-sm-1 task-checkbox">
-                                    <md-checkbox id="myonoffswitch[[k]]"
-                                                 aria-label="steps"
-                                                 name="{% if app.environment !='test' %}switch[ [[k]] ]{% endif %}"
-                                                 calss="md-primary"
-                                                 data-ng-model="step.switch"
-                                                 data-ng-disabled="complete.switch == 1 || !step.text">
-                                    </md-checkbox>
+                                <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
+
+                                    <label class="relative">
+                                        <span class="my-md-container" data-ng-class="{'my-md-checked': step.switch}">
+                                            <span class="my-md-icon"></span>
+                                            <input id="myonoffswitch[[k]]"
+                                                    type="checkbox" aria-label="steps"
+                                                   name="{% if app.environment !='test' %}switch[ [[k]] ]{% endif %}"
+                                                   data-ng-model="step.switch"
+                                                   data-ng-disabled="complete.switch == 1 || !step.text"
+                                                   style="display: none" />
+                                        </span>
+
+                                    </label>
+
                                 </div>
 
                                 <div class="col-xs-10 col-sm-11">
@@ -321,14 +365,19 @@
                                  data-ng-repeat="(k, step) in userGoal.formatted_steps | filter: {switch: true}"
                                  data-ng-show="completedStepsShow">
 
-                                <div class="col-xs-2 col-sm-1 task-checkbox">
-                                    <md-checkbox id="myonoffswitch[[k]]"
-                                                 aria-label="steps"
-                                                 name="{% if app.environment !='test' %}switch[ [[k]] ]{% endif %}"
-                                                 calss="md-primary"
-                                                 data-ng-model="step.switch"
-                                                 data-ng-disabled="complete.switch == 1 || !step.text">
-                                    </md-checkbox>
+                                <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
+
+                                    <label class="relative">
+                                        <span class="my-md-container my-md-checked">
+                                            <span class="my-md-icon"></span>
+                                            <input id="myonoffswitch[[k]]" type="checkbox" aria-label="steps"
+                                                   name="{% if app.environment !='test' %}switch[ [[k]] ]{% endif %}"
+                                                   data-ng-model="step.switch"
+                                                   data-ng-disabled="complete.switch == 1 || !step.text"
+                                                   style="display: none" />
+                                        </span>
+
+                                    </label>
                                 </div>
 
                                 <div class="col-xs-10 col-sm-11">
@@ -371,13 +420,35 @@
                                 <span>{{ "goal.visible_text"|trans }}</span>
                             </p>
 
-                            <div class="clearfix">
-                                <md-radio-group data-ng-model="userGoal.is_visible" id="goal-is-visible">
+                            <div class="clearfix purple-checkbox" id="goal-is-visible" data-ng-model="userGoal.is_visible">
 
-                                    <md-radio-button data-ng-value="true" class="md-primary pull-left">{{ "goal.visible"|trans }}</md-radio-button>
-                                    <md-radio-button data-ng-value="false" class="md-primary pull-left"> {{ "my_bucket_list.invisible"|trans }}</md-radio-button>
+                                <label class="relative">
+                                    <span class="my-md-container" data-ng-class="{'my-md-checked': userGoal.is_visible == true}">
+                                        <span class="md-off"></span>
+                                        <span class="md-on"></span>
+                                    </span>
 
-                                </md-radio-group>
+                                    <input type="radio" data-ng-model="userGoal.is_visible" data-ng-value="true" style="display: none">
+
+                                    <span class="my-md-label">
+                                        <span class="ng-scope">{{ "goal.visible"|trans }}</span>
+                                    </span>
+
+                                </label>
+
+                                <label class="relative">
+                                    <span class="my-md-container"  data-ng-class="{'my-md-checked': userGoal.is_visible == false}">
+                                        <span class="md-off"></span>
+                                        <span class="md-on"></span>
+                                    </span>
+
+                                    <input type="radio" data-ng-value="false" data-ng-model="userGoal.is_visible" style="display: none">
+
+                                    <span class="my-md-label">
+                                        <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                                    </span>
+
+                                </label>
                             </div>
 
                         </div>
