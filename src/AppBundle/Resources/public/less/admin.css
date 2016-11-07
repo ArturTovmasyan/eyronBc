@@ -144,9 +144,13 @@ ul.blog {
 }
 
 ul.blog > div {
-    border: 1px solid black;
+    border: 1px solid #cccccc;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 8px;
+    -webkit-border-radius:8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
     margin-bottom: 20px;
     background-color: #f4f4f4;
 }
