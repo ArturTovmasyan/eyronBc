@@ -612,8 +612,7 @@ a:focus {
 .text-center {
   text-align: center;
 }
-<<<<<<< HEAD
-=======
+
 div.sonata-preview-form-container .row {
   display: none;
 }
@@ -623,4 +622,4 @@ div.sonata-preview-form-container .row {
 .bg-grey {
   background-color: #f4f4f4;
 }
->>>>>>> e34599d2b803369d56b5bf1a21e1df92772aca57
+
