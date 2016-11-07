@@ -26,188 +26,132 @@ header #line {
 header .navbar {
   min-height: 81px;
 }
-header .navbar-fixed-top .navbar-collapse {
-  max-height: 400px;
-}
-header .navbar-default {
-  background: #061b28;
-  z-index: 10000;
-  border: 0;
-}
-header .navbar-default .navbar-brand {
+header .logo {
   width: 150px;
   display: block;
-  padding: 14px 30px 21px 20px;
-}
-header .navbar-default .navbar-header {
+  padding: 14px 0 21px 20px;
   float: left;
 }
-header .navbar-default .navbar-toggle {
-  margin-top: 19px;
-  background-color: transparent;
-  border: 0;
+header .join amp-img {
+  float: left;
+  margin: 20px 8px;
 }
-header .navbar-default .navbar-toggle .icon-bar {
-  background-color: #ffffff;
-}
-header .navbar-default .navbar-toggle i {
+header .join span {
   display: inline-block;
-  font-size: 36px;
-  margin-top: -11px;
-  color: #ffffff;
-  background-color: transparent;
-}
-header .navbar-default .navbar-toggle i:hover,
-header .navbar-default .navbar-toggle i:focus,
-header .navbar-default .navbar-toggle i:active {
-  text-decoration: none;
-}
-header .navbar-default .navbar-toggle:hover,
-header .navbar-default .navbar-toggle:focus,
-header .navbar-default .navbar-toggle:active {
-  background: transparent;
-}
-header .navbar-default .navbar-collapse {
-  border-color: #4421AB;
-}
-header .navbar-default .navbar-nav {
-  float: left;
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-header .navbar-default .navbar-nav figure {
-  height: 40px;
-  width: 40px;
-  overflow: hidden;
-}
-header .navbar-default .navbar-nav figure img {
-  height: 40px;
-}
-header .navbar-default .navbar-nav li {
-  list-style-type: none;
-  border-left: 1px solid #030d14;
-  float: left;
-}
-header .navbar-default .navbar-nav li a {
-  color: #E5E5E5;
+  color: #e5e5e5;
   font-weight: bold;
-  font-size: 16px;
-  padding: 21px 19px;
-  display: block;
-  text-decoration: none;
-  cursor: pointer;
+  line-height: 75px;
+  float: left;
 }
-header .navbar-default .navbar-nav li a i {
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 30px;
-}
-header .navbar-default .navbar-nav li a span {
-  padding-left: 7px;
-  vertical-align: top;
-  padding-top: 5px;
-  display: none;
-}
-header .navbar-default .navbar-nav li a:hover {
-  text-decoration: none;
-}
-header .navbar-default .navbar-nav li a:focus {
-  outline: none;
-  color: #E5E5E5;
-  text-decoration: none;
-}
-header .navbar-default .navbar-nav li:hover {
-  background-color: #000000;
+header .join span:hover {
   color: #ffffff;
 }
-header .navbar-default .navbar-nav li.no-border {
-  border-left: 0;
-}
-header .navbar-default .navbar-nav .active a {
-  background-color: #061b28;
-  color: #E5E5E5;
-}
-header .navbar-default .navbar-nav .active a:hover,
-header .navbar-default .navbar-nav .active a:focus {
-  background-color: #000000;
-  color: #E5E5E5;
-}
-header .navbar-default .navbar-form {
-  border: 0;
-  box-shadow: none;
-}
-header .navbar-default .navbar-right {
-  float: right;
-  text-align: center;
-}
-header .navbar-default .navbar-right li {
-  border-bottom: 0;
-}
-header .navbar-default .navbar-right li a {
-  padding-top: 25px;
-  padding-bottom: 25px;
-}
-header .navbar-default .navbar-right li:last-child .user {
-  display: block;
-  padding: 19px 5px 19px 15px;
-  position: relative;
-}
-header .navbar-default .navbar-right li:last-child .user figure {
-  background-color: transparent;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  float: left;
-  margin: 0 10px 0 0;
-  border: 2px solid #cecece;
-}
-header .navbar-default .navbar-right li:last-child .user figure img {
-  height: 40px;
-}
-header .navbar-default .navbar-right li:last-child .user p {
-  float: left;
+header .no-image {
   width: 40px;
   height: 40px;
   line-height: 34px;
-  vertical-align: middle;
-  margin: 0 5px;
-  font-size: 14px;
-  font-weight: 600;
+  margin-bottom: 0;
 }
-header .navbar-default .navbar-right li:last-child .user span.name {
-  float: left;
-  padding: 9px 0 4px 8px;
-  display: inline-block;
+header .user-no1 {
+  background: #475d50;
+  /* Old browsers */
+  background: -moz-linear-gradient(left, #475d50 0%, #495e4d 9%, #4d5f4f 12%, #52614c 17%, #5f644d 22%, #61654a 24%, #64674c 25%, #64674a 27%, #6f6a4a 31%, #736d49 35%, #7b6f49 37%, #807148 41%, #8a754a 44%, #8e7847 47%, #927b49 48%, #997b47 50%, #a27f47 59%, #9f7b41 68%, #947139 75%, #896a34 79%, #836330 81%, #836332 82%, #7f612f 83%, #644d21 92%, #5e481f 96%, #5d471e 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #475d50 0%, #495e4d 9%, #4d5f4f 12%, #52614c 17%, #5f644d 22%, #61654a 24%, #64674c 25%, #64674a 27%, #6f6a4a 31%, #736d49 35%, #7b6f49 37%, #807148 41%, #8a754a 44%, #8e7847 47%, #927b49 48%, #997b47 50%, #a27f47 59%, #9f7b41 68%, #947139 75%, #896a34 79%, #836330 81%, #836332 82%, #7f612f 83%, #644d21 92%, #5e481f 96%, #5d471e 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #475d50 0%, #495e4d 9%, #4d5f4f 12%, #52614c 17%, #5f644d 22%, #61654a 24%, #64674c 25%, #64674a 27%, #6f6a4a 31%, #736d49 35%, #7b6f49 37%, #807148 41%, #8a754a 44%, #8e7847 47%, #927b49 48%, #997b47 50%, #a27f47 59%, #9f7b41 68%, #947139 75%, #896a34 79%, #836330 81%, #836332 82%, #7f612f 83%, #644d21 92%, #5e481f 96%, #5d471e 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#475d50', endColorstr='#5d471e', GradientType=1);
+}
+header .user-no2 {
+  background: #124c72;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #124c72 0%, #15507c 1%, #195480 6%, #1a5982 15%, #1e5c85 19%, #1e5e82 23%, #206086 24%, #206084 26%, #246688 35%, #236587 39%, #226484 40%, #246585 41%, #236484 43%, #21627e 45%, #225f7b 50%, #215d77 51%, #1e566f 58%, #1c5066 60%, #19485a 67%, #144355 70%, #103547 79%, #0e3242 83%, #0f303f 84%, #0c2c3b 91%, #0b2934 96%, #0a2a35 99%, #0b313c 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #124c72 0%, #15507c 1%, #195480 6%, #1a5982 15%, #1e5c85 19%, #1e5e82 23%, #206086 24%, #206084 26%, #246688 35%, #236587 39%, #226484 40%, #246585 41%, #236484 43%, #21627e 45%, #225f7b 50%, #215d77 51%, #1e566f 58%, #1c5066 60%, #19485a 67%, #144355 70%, #103547 79%, #0e3242 83%, #0f303f 84%, #0c2c3b 91%, #0b2934 96%, #0a2a35 99%, #0b313c 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #124c72 0%, #15507c 1%, #195480 6%, #1a5982 15%, #1e5c85 19%, #1e5e82 23%, #206086 24%, #206084 26%, #246688 35%, #236587 39%, #226484 40%, #246585 41%, #236484 43%, #21627e 45%, #225f7b 50%, #215d77 51%, #1e566f 58%, #1c5066 60%, #19485a 67%, #144355 70%, #103547 79%, #0e3242 83%, #0f303f 84%, #0c2c3b 91%, #0b2934 96%, #0a2a35 99%, #0b313c 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#124c72', endColorstr='#0b313c', GradientType=0);
+}
+header .user-no3 {
+  background: #0f2763;
+  /* Old browsers */
+  background: -moz-linear-gradient(left, #0f2763 0%, #102a65 3%, #122b6b 4%, #122b6b 5%, #152e70 6%, #173575 8%, #1e3b7d 10%, #335998 16%, #4e78b2 22%, #507bb0 22%, #5d8bbc 25%, #6b9bc3 29%, #6f9dbf 29%, #7ca9c8 32%, #8ab1ce 37%, #94bacf 42%, #95bbce 43%, #9ebfd2 47%, #9dc0d4 48%, #a1c2d5 49%, #a3c2d4 50%, #a7c4d6 51%, #a7c4d4 51%, #afcbd7 56%, #b5d1dc 64%, #b2d0db 69%, #aeccd7 70%, #abcdd9 71%, #a7c8d9 73%, #94bed4 78%, #8fbcd1 78%, #86b4cc 80%, #7cadcd 82%, #74a6c7 83%, #5a94c2 87%, #528cba 88%, #4783b9 90%, #4076b2 92%, #3067a7 97%, #2c62a2 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #0f2763 0%, #102a65 3%, #122b6b 4%, #122b6b 5%, #152e70 6%, #173575 8%, #1e3b7d 10%, #335998 16%, #4e78b2 22%, #507bb0 22%, #5d8bbc 25%, #6b9bc3 29%, #6f9dbf 29%, #7ca9c8 32%, #8ab1ce 37%, #94bacf 42%, #95bbce 43%, #9ebfd2 47%, #9dc0d4 48%, #a1c2d5 49%, #a3c2d4 50%, #a7c4d6 51%, #a7c4d4 51%, #afcbd7 56%, #b5d1dc 64%, #b2d0db 69%, #aeccd7 70%, #abcdd9 71%, #a7c8d9 73%, #94bed4 78%, #8fbcd1 78%, #86b4cc 80%, #7cadcd 82%, #74a6c7 83%, #5a94c2 87%, #528cba 88%, #4783b9 90%, #4076b2 92%, #3067a7 97%, #2c62a2 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #0f2763 0%, #102a65 3%, #122b6b 4%, #122b6b 5%, #152e70 6%, #173575 8%, #1e3b7d 10%, #335998 16%, #4e78b2 22%, #507bb0 22%, #5d8bbc 25%, #6b9bc3 29%, #6f9dbf 29%, #7ca9c8 32%, #8ab1ce 37%, #94bacf 42%, #95bbce 43%, #9ebfd2 47%, #9dc0d4 48%, #a1c2d5 49%, #a3c2d4 50%, #a7c4d6 51%, #a7c4d4 51%, #afcbd7 56%, #b5d1dc 64%, #b2d0db 69%, #aeccd7 70%, #abcdd9 71%, #a7c8d9 73%, #94bed4 78%, #8fbcd1 78%, #86b4cc 80%, #7cadcd 82%, #74a6c7 83%, #5a94c2 87%, #528cba 88%, #4783b9 90%, #4076b2 92%, #3067a7 97%, #2c62a2 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0f2763', endColorstr='#2c62a2', GradientType=1);
+}
+header .user-no4 {
+  background: #475d50;
+  /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #475d50 0%, #495e4d 9%, #4d5f4f 12%, #52614c 17%, #5f644d 22%, #61654a 24%, #64674c 25%, #64674a 27%, #6f6a4a 31%, #736d49 35%, #7b6f49 37%, #807148 41%, #8a754a 44%, #8e7847 47%, #927b49 48%, #997b47 50%, #a27f47 59%, #9f7b41 68%, #947139 75%, #896a34 79%, #836330 81%, #836332 82%, #7f612f 83%, #644d21 92%, #5e481f 96%, #5d471e 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #475d50 0%, #495e4d 9%, #4d5f4f 12%, #52614c 17%, #5f644d 22%, #61654a 24%, #64674c 25%, #64674a 27%, #6f6a4a 31%, #736d49 35%, #7b6f49 37%, #807148 41%, #8a754a 44%, #8e7847 47%, #927b49 48%, #997b47 50%, #a27f47 59%, #9f7b41 68%, #947139 75%, #896a34 79%, #836330 81%, #836332 82%, #7f612f 83%, #644d21 92%, #5e481f 96%, #5d471e 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #475d50 0%, #495e4d 9%, #4d5f4f 12%, #52614c 17%, #5f644d 22%, #61654a 24%, #64674c 25%, #64674a 27%, #6f6a4a 31%, #736d49 35%, #7b6f49 37%, #807148 41%, #8a754a 44%, #8e7847 47%, #927b49 48%, #997b47 50%, #a27f47 59%, #9f7b41 68%, #947139 75%, #896a34 79%, #836330 81%, #836332 82%, #7f612f 83%, #644d21 92%, #5e481f 96%, #5d471e 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#475d50', endColorstr='#5d471e', GradientType=1);
+}
+.sidebar {
+  background-color: #021523;
+  padding: 0 10px;
+}
+.sidebar li {
+  display: block;
+  border-left: 0;
   text-align: left;
-  font-size: 18px;
+  margin-bottom: 0;
 }
-header .navbar-default .navbar-right li:last-child .user i {
+.sidebar li a {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+  color: #ffffff;
+  font-family: 'Open Sans', sans-serif;
+}
+.sidebar li a span {
   display: inline-block;
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 27px;
+  vertical-align: top;
+  padding: 5px 0 5px 7px;
 }
-header .navbar-default .navbar-right li:last-child .user i.menu-hamburger {
-  background: url('../images/grey-burger.svg') no-repeat center center;
+.sidebar-right {
+  float: right;
+  text-align: center;
+  margin: 0 15px 0 0;
 }
-header .navbar-default .navbar-right li:last-child .user i.menu-hamburger:hover {
-  background: url('../images/white-burger.svg') no-repeat center center;
+.sidebar-right a {
+  display: block;
+  cursor: pointer;
 }
-header .navbar-default .navbar-right li:last-child .user i.menu-remove {
-  background: url('../images/grey-remove.svg') no-repeat center center;
+.sidebar-right figure,
+.sidebar-right p {
+  margin: 15px;
+  float: left;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 4px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  overflow: hidden;
+  color: #ffffff;
+  border: 2px solid #cecece;
 }
-header .navbar-default .navbar-right li:last-child .user i.menu-remove:hover {
-  background: url('../images/white-remove.svg') no-repeat center center;
+.sidebar-right .name {
+  display: inline-block;
+  color: #e5e5e5;
+  font-weight: bold;
+  line-height: 75px;
 }
-header .navbar-default .navbar-right li:last-child .join-class {
-  min-width: 320px;
-  background-color: #021523;
-  color: #e3e3e3;
-}
-header .navbar-default .navbar-right li:last-child .join-class:hover {
-  background-color: #021523;
+.sidebar-right .name:hover {
+  color: #ffffff;
 }
 .header {
   position: relative;
@@ -253,6 +197,33 @@ header .navbar-default .navbar-right li:last-child .join-class:hover {
 section.category {
   margin-top: 35px;
 }
+amp-sidebar {
+  width: 250px;
+  padding-right: 10px;
+  background: #021523;
+}
+.amp-sidebar-image {
+  line-height: 100px;
+  vertical-align: middle;
+}
+.amp-close-image {
+  top: 15px;
+  left: 225px;
+  cursor: pointer;
+}
+li {
+  margin-bottom: 20px;
+  list-style: none;
+}
+button {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-size: 16px;
+}
+button:focus {
+  outline: 0;
+}
 .category {
   margin: 0 auto;
   padding: 0;
@@ -286,6 +257,7 @@ footer ul li {
   display: inline-block;
   list-style: none;
   padding: 5px 13px;
+  margin-bottom: 0;
 }
 footer ul li a {
   color: #E5E5E5;
@@ -343,13 +315,14 @@ footer .footer-bottom ul li a:hover {
 }
 .amp-live-list-item {
   justify-content: center;
-  display: flex;
   margin: 0 auto;
 }
 .blog {
   padding: 0;
   background: #fff;
   width: 300px;
+  margin: 0 auto;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 .blog p {
   padding: 0 8px 8px;
@@ -370,38 +343,41 @@ footer .footer-bottom ul li a:hover {
   justify-content: flex-start;
   flex-grow: 0;
 }
-.samples .card {
+.samples figure {
   background: white;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin: 8px;
-  padding: 0;
+  padding: 0 0 10px 0;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  float: none;
+  overflow: hidden;
+  border-radius: 2px;
+  min-width: 300px;
+  max-width: 400px;
 }
-.samples .card p {
-  font-size: 14px;
-  color: #000333;
+.samples figure figcaption {
+  height: 155px;
+  overflow: hidden;
 }
-.samples .card h3 {
+.samples figure figcaption h3 {
   font-size: 24px;
   color: #333;
   margin: 20px 10px;
 }
-.samples .card a {
+.samples figure figcaption p {
+  font-size: 16px;
+  line-height: 26px;
+  color: #000333;
+}
+a {
   text-decoration: none;
 }
-.samples .card a:hover,
-.samples .card a:focus {
+a:hover,
+a:focus {
   text-decoration: none;
-}
-.card {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  float: none;
-  overflow: hidden;
-  padding: 8px;
-  margin: 16px;
-  border-radius: 2px;
 }
 .title {
   font-size: 30px;
@@ -429,6 +405,9 @@ footer .footer-bottom ul li a:hover {
   width: 280px;
   overflow: hidden;
   margin: 0 auto 15px;
+}
+.content-inner p {
+  padding: 0 20px;
 }
 .content-inner .goals-information {
   width: 280px;
@@ -466,54 +445,6 @@ footer .footer-bottom ul li a:hover {
   color: red;
 }
 @media (min-width: 768px) {
-  header .navbar {
-    min-height: 82px;
-  }
-  header .navbar-default .navbar-nav figure {
-    height: auto;
-  }
-  header .navbar-default .navbar-nav figure img {
-    height: auto;
-  }
-  header .navbar-default .navbar-nav li {
-    border-left: 1px solid #030d14;
-    border-bottom: 0;
-  }
-  header .navbar-default .navbar-nav li a {
-    font-size: 16px;
-    padding-top: 22px;
-    padding-bottom: 21px;
-  }
-  header .navbar-default .navbar-brand {
-    height: 78px;
-    padding: 15px 20px 18px 5px;
-  }
-  header .navbar-default .navbar-right li a {
-    padding-top: 24px;
-    padding-bottom: 24px;
-  }
-  header .navbar-default .navbar-right li:last-child {
-    width: 210px;
-  }
-  header .navbar-default .navbar-right li:last-child .user {
-    padding: 15px 5px 13px 15px;
-  }
-  header .navbar-default .navbar-right li:last-child .user figure {
-    width: 50px;
-    height: 50px;
-  }
-  header .navbar-default .navbar-right li:last-child .user figure img {
-    height: 50px;
-  }
-  header .navbar-default .navbar-right li:last-child .user p {
-    width: 50px;
-    height: 50px;
-    line-height: 46px;
-  }
-  header .navbar-default .navbar-right li:last-child .user span.name {
-    padding: 15px 0 4px 8px;
-    font-size: 16px;
-  }
   .header {
     height: 270px;
     line-height: 270px;
@@ -557,6 +488,7 @@ footer .footer-bottom ul li a:hover {
   }
   .content-inner .goals-information div h3 {
     font-size: 24px;
+    margin: 15px 0;
   }
   .content-inner .goals-information div p {
     font-size: 14px;
@@ -598,59 +530,11 @@ footer .footer-bottom ul li a:hover {
   .amp-live-list-item {
     margin: inherit;
   }
-  .samples .card {
+  .samples figure {
     min-width: 300px;
     max-width: 300px;
     width: 300px;
-  }
-  header .navbar {
-    min-height: 84px;
-  }
-  header .navbar-brand {
-    height: 80px;
-    padding: 16px 30px 21px 5px;
-  }
-  header .navbar-default .navbar-nav li a {
-    font-size: 16px;
-    padding: 22px 23px;
-  }
-  header .navbar-default .navbar-nav li a i.mybucketlist-icon {
-    margin-right: 6px;
-  }
-  header .navbar-default .navbar-nav li a span {
-    display: inline-block;
-  }
-  header .navbar-default .navbar-nav li a:hover {
-    background-color: #000000;
-    color: #ffffff;
-  }
-  header .navbar-default .navbar-right li:last-child {
-    width: 235px;
-  }
-  header .navbar-default .navbar-right li:last-child .user {
-    padding: 16px 5px 14px 15px;
-  }
-  header .navbar-default .navbar-right li:last-child .user span.name {
-    padding: 13px 0 4px 8px;
-  }
-  header .navbar-default .navbar-right li:last-child .user .icon-arrow-down,
-  header .navbar-default .navbar-right li:last-child .user .icon-icon-up {
-    margin-right: 10px;
-    margin-top: 7px;
-  }
-  header .navbar-default .navbar-right li:last-child .user-menu {
-    width: 235px;
-  }
-  header .navbar-default .navbar-right li:last-child .user-menu li a {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  header .navbar-default .navbar-right li:last-child .join-class {
-    min-width: 234px;
-  }
-  header .navbar-default .navbar-right li:last-child .popover-content a {
-    font-size: 14px;
+    float: left;
   }
   footer ul li a {
     font-size: 16px;
@@ -666,11 +550,14 @@ footer .footer-bottom ul li a:hover {
     font-size: 48px;
   }
 }
-.clearfix {
+.clear {
   content: "";
   display: table;
   clear: both;
 }
 .text-center {
   text-align: center;
+}
+div.sonata-preview-form-container .row {
+  display: none;
 }

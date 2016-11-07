@@ -79,6 +79,8 @@ class Builder implements ContainerAwareInterface
                 // add menu
                 $menu->addChild($page->getName(), array('route' => 'page', 'routeParameters' => array('slug' => $page->getSlug())));
             }
+
+            $menu->addChild($tr->trans('menu.bucketlist_stories'), array('route' => 'blog_list'));
         }
 
         return $menu;
