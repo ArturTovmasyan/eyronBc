@@ -163,7 +163,7 @@ class UserNotify
     private $isNewIdeaPush = true;
 
     /**
-     * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="userNotifySettings")
+     * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\User", mappedBy="userNotifySettings")
      */
     private $user;
 

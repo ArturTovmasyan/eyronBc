@@ -359,7 +359,7 @@ class User extends BaseUser
     private $userGoalRemoveDate;
 
     /**
-     * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", mappedBy="user", cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", inversedBy="user", cascade={"persist"})
      */
     private $userNotifySettings;
 
