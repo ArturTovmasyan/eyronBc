@@ -18,7 +18,7 @@ use AppBundle\Entity\UserGoal;
  * Class AllTwigExtension
  * @package AppBundle\Twig\Extension
  */
-class AllTwigExtension extends \Twig_Extension
+class AllTwigExtension extends \Twig_Extension implements \Twig_Extension_InitRuntimeInterface
 {
     /**
      * @var
@@ -326,6 +326,6 @@ class AllTwigExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'bl_oll_twig_extensions';
+        return 'bl_all_twig_extensions';
     }
 }
