@@ -49,7 +49,6 @@ class UserNotifyService
      */
     public function prepareAndSendNotifyViaProcess($receiverId, $type, array $options = [], $byPool = false)
     {
-
         //get user notify value in parameter
         $enabledByConfig = $this->container->getParameter('user_notify');
 
@@ -57,9 +56,9 @@ class UserNotifyService
         $notProd = $this->container->getParameter('kernel.debug');
 
         //check if user notify is disabled
-//        if(!$enabledByConfig || $notProd) {
-//            return;
-//        }
+        if(!$enabledByConfig || $notProd) {
+            return;
+        }
 
         // get doctrine manager
         $em = $this->container->get('doctrine')->getManager();
@@ -225,14 +224,14 @@ class UserNotifyService
             }
         }
 
-//        // check and send push notify
-//        if($receiver->mustPushedNotify($type)){
-//            //get put notification service
-//            $sendNoteService = $this->container->get('bl_put_notification_service');
-//
-//            //send notification to mobile
-//            $sendNoteService->sendPushNote($receiver, $subject);
-//        }
+        // check and send push notify
+        if($receiver->mustPushedNotify($type)){
+            //get put notification service
+            $sendNoteService = $this->container->get('bl_put_notification_service');
+
+            //send notification to mobile
+            $sendNoteService->sendPushNote($receiver, $subject);
+        }
 
         return $content;
 
