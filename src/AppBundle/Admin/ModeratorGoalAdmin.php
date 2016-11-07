@@ -105,6 +105,7 @@ class ModeratorGoalAdmin extends AbstractAdmin
             ->add('author.lastname', null, array('label'=>'Author last name', 'show_filter' => true))
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
+            ->add('slug', null, array('label'=>'admin.label.name.slug','show_filter' => true))
             ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
             ->add('tags', null, array('label'=>'admin.label.name.tags','show_filter' => true))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink','show_filter' => true))
