@@ -80,8 +80,7 @@ class BlogAdmin extends AbstractAdmin
 
         $formMapper
             // ... other fields ...
-            ->add('file', 'file', $fileFieldOptions)
-        ;
+            ->add('file', 'file', $fileFieldOptions);
 
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))

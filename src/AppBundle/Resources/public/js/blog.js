@@ -22,12 +22,36 @@ jQuery(document).ready(function() {
     // index when inserting a new item (e.g. 2)
     $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
+    // $('input[type="file"]').change(function(){
+    //     var f = this.files[0];
+    //
+    //     var reader = new FileReader();
+    //
+    //     // Closure to capture the file information.
+    //     reader.onload = (function(theFile) {
+    //         return function(e) {
+    //             var img = $('<img style="width: 270px;height: 200px;margin-bottom: 13px;" src="' + e.target.result + '" alt="goal image" id="__file">');
+    //             img.prependTo($('input[type="file"]').parent())
+    //         };
+    //     })(f);
+    // });
+
     for(var index = 0; index < $collectionHolder.data('index'); index++){
         if($("div[id$='_" + index+"_type']").length){
             simpleTypeByIndex(index, 'div[id$="_bl_multiple_blog_'+index+'"');
             addTagFormDeleteLink($('div[id$="_bl_multiple_blog_'+index+'"'));
         }
+        var blogElement = $("div[id$='_bl_multiple_blog_" + index+"']");
+        if(blogElement.length){
+            blogElement.addClass('blog');
+        }
     }
+
+    $( "ul.blog" ).sortable({
+        items: "> div",
+        appendTo: document.body
+    });
+    $( "ul.blog" ).disableSelection();
 
     $addTagLink.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
@@ -51,9 +75,10 @@ function addTagForm($collectionHolder, $newLinkLi) {
 
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);
+    $(newForm).find("div[id$='_bl_multiple_blog_" + index+"']").addClass('blog');
 
     // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
+    var $newFormLi = $(newForm);
     addTagFormDeleteLink($newFormLi);
     $newLinkLi.before($newFormLi);
     simpleTypeByIndex(index, newForm);
