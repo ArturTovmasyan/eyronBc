@@ -36,14 +36,14 @@ class NewFeedRepository extends EntityRepository
         if (is_null($singleUserId)) {
 
             $newFeedIdsQuery
-                ->join('nf.user', 'u', 'WITH', "u != :user AND u.isAdmin = false")
+                ->join('nf.user', 'u', 'WITH', "u != :user")
                 ->join('u.userGoal', 'gfUserGoal')
                 ->join('AppBundle:UserGoal', 'userUserGoal', 'WITH', 'userUserGoal.goal = gfUserGoal.goal AND userUserGoal.user = :user')
                 ->setParameter('user', $userId);
         }
         else {
             $newFeedIdsQuery
-                ->join('nf.user', 'u', 'WITH', "u = :user AND u.isAdmin = false")
+                ->join('nf.user', 'u', 'WITH', "u = :user")
                 ->setParameter('user', $singleUserId);
         }
 
