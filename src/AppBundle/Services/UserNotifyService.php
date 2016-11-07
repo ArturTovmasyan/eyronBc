@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Container;
  * Class UserNotifyService
  * @package AppBundle\Services
  */
-class UserNotifyService
+class UserNotifyService extends AbstractProcessService
 {
     // constants for notify type
     const USER_ACTIVITY = 'user_activity';
@@ -55,10 +55,10 @@ class UserNotifyService
         //get kernel debug
         $notProd = $this->container->getParameter('kernel.debug');
 
-        //check if user notify is disabled
-        if(!$enabledByConfig || $notProd) {
-            return;
-        }
+//        //check if user notify is disabled
+//        if(!$enabledByConfig || $notProd) {
+//            return;
+//        }
 
         // get doctrine manager
         $em = $this->container->get('doctrine')->getManager();
@@ -239,13 +239,25 @@ class UserNotifyService
 
 
     /**
-     * @param User $doer
      * @param User $receiver
      * @param $type
+     * @param array $options
      */
-    public function sendNotifyToUser(User $doer,User $receiver, $type)
+    public function sendNotifyToUser(User $receiver, $type, array $options = [])
     {
+        //get user notify value in parameter
+        $enabledByConfig = $this->container->getParameter('user_notify');
 
+        //get kernel debug
+        $notProd = $this->container->getParameter('kernel.debug');
+
+//        //check if user notify is disabled
+//        if(!$enabledByConfig || $notProd) {
+//            return;
+//        }
+
+        // todo change to process
+        $this->prepareAndSendNotifyViaProcess($receiver->getId(), $type, $options);
     }
 
 

@@ -10,6 +10,7 @@ namespace Application\CommentBundle\Services;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Services\AbstractProcessService;
+use AppBundle\Services\UserNotifyService;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
@@ -73,6 +74,10 @@ class CommentService extends AbstractProcessService
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Body can not be empty');
         }
 
+        // get user notify service
+        $userNotify = $this->container->get('user_notify');
+
+
         $comment = new Comment();
         $comment->setThread($thread);
         $comment->setAuthor($user);
@@ -88,6 +93,12 @@ class CommentService extends AbstractProcessService
 
         $em->flush();
 
+        // check if parent comment
+        if($parentComment){
+            $userNotify->sendNotifyToUser($parentComment->getAuthor(),
+                UserNotifyService::REPLY_COMMENT,
+                ['goalId'=> $goal->getId()]);
+        }
 
         $this->runAsProcess('application.comment', 'sendNotification',
             array($goal->getId(), $user->getId(), $parentComment ? $parentComment->getId() : null ));
