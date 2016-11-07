@@ -48,7 +48,7 @@ class Affiliate
     protected $link;
 
     /**
-     * @ORM\Column(name="ufi", type="string", length=20, nullable=true)
+     * @ORM\Column(name="ufi", type="string", length=20, nullable=true, unique=true)
      */
     protected $ufi;
 
@@ -244,6 +244,21 @@ class Affiliate
     public function setLinks($links)
     {
         $this->links = $links;
+
+        return $this;
+    }
+
+    /**
+     * @param $link
+     * @return $this
+     */
+    public function addLink($link)
+    {
+        if (!is_array($this->links)){
+            $this->links = [];
+        }
+
+        $this->links[] = $link;
 
         return $this;
     }

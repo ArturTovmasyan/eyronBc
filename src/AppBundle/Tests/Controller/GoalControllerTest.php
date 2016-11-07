@@ -54,6 +54,7 @@ class GoalControllerTest extends BaseClass
 //
 
 
+
     /**
      * This function is used to check goal add page
      */
@@ -121,6 +122,37 @@ class GoalControllerTest extends BaseClass
 
         // get goal id
        return $goal->getId();
+    }
+
+    /**
+     * This test is used to check leader board functionality with profile created goals part
+     *
+     */
+    public function testOwnedGoals()
+    {
+        $crawler = $this->client2->request('GET', '/leaderboard');
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal list page!');
+
+        $userCount = $crawler->filter('html:contains("user1")')->count();
+
+        $this->assertEquals(1, $userCount, 'Leaderboard part don\'t work correctly');
+
+        //get user uid
+        $userId = $this->em->getRepository('ApplicationUserBundle:User')->findOneBy(['firstname' => 'user1']);
+        $uid = $userId->getUId();
+
+        //generate profile owned url
+        $profileUrl = sprintf('profile/%s#/owned', $uid);
+
+        // try to open goal list page
+        $crawler = $this->client2->request('GET', $profileUrl);
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal list page!');
+
+        $count = $crawler->filter('i[class="icon-manage"]')->count();
+
+        $this->assertEquals(1, $count, 'Created in profile page don\'t work correctly');
     }
 
 //    /**

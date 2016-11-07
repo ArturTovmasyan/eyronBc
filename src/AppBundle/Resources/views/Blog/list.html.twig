@@ -7,7 +7,8 @@
     {% set itemCount = blogs.getTotalItemCount() %}
 
     <div class="header">
-        <h1 class="text-white">{{ 'menu.bucketlist_stories' }}</h1>
+
+        <h1 class="text-white text-center stories-title">{{ 'menu.bucketlist_stories'|trans }}</h1>
 
         <figure>
             {% if itemCount %}
@@ -19,6 +20,7 @@
             <amp-img src="{{ image }}"  layout="responsive"  width="1280"
                      height="853"></amp-img>
         </figure>
+
     </div>
 
     <section class="category">
@@ -27,14 +29,16 @@
             <div class="amp-live-list-item">
                 {% for blog in blogs %}
                     <figure class="blog">
-                        <a href="{{ path('blog_show', {'slug' : blog.slug}) }}" target="_blank">
+                        <a href="{{ path('blog_show', {'slug' : blog.slug}) }}">
                             <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
                                      layout="responsive"
                                      width="1280"
-                                     height="853">
+                                     height="853"
+                                     alt="{{ blog.title }}">
                             </amp-img>
 
                             <figcaption>
+                                <span class="transparent"></span>
                                 <h3 class="text-center text-blue">{{ blog.title }}</h3>
 
                                 <p class="text-center text-blue">{{ blog.metaDescription|markdown|striptags }}</p>
@@ -54,8 +58,10 @@
 
 {% endblock %}
 
-{#{%- block title -%}#}
-{#{%- endblock -%}#}
+{%- block title -%}
+    {{- 'goal.stories_title'|trans -}}
+{%- endblock -%}
 
-{#{%- block meta_description -%}#}
-{#{%- endblock -%}#}
+{%- block meta_description -%}
+    {{- 'goal.stories_description'|trans -}}
+{%- endblock -%}

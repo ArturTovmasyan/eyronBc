@@ -104,7 +104,7 @@ goal:
       create_idea: Поздравляем, идея была успешно добавлена в качестве вашей цели
       empty_draft: На данный момент у вас нет черновиков.
       empty_private_ideas: На данный момент в списке ваших личных целей нет ни одной цели
-      deadline: Deadline
+      deadline: Крайний срок
       priority: Приоритет
       steps: Шаги
       view_access_denied: Вы не имеете доступ просмотра этой идеи
@@ -139,9 +139,9 @@ Type in a youtube or vimeo link in the field: Вставьте ссылку на
 Done: Выполнить
 
 ideas_list_title: Ознакомьтесь с тысячами вдохновляющих идей для вашего Бакетлиста
-ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Allow</span> your Browser Loction Service or enter your location
-nearby: Nearby
-explore: Explore
+ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Включите</span> службу распознавания местоположения вашего браузера или введите свое местоположение
+nearby: Поблизости
+explore: Подтвердить
 
 # home
 homepage_title: Цель – это когда у вас есть воспоминания, а не только мечты!
@@ -480,9 +480,9 @@ overall:
   falling: Торопитесь! Вы отстаете от своего графика.
 
 leaderboard:
-  name: leaderboard
-  title: Bucketlist 127-Leaderboard
-  description: This board is meant to display the ranking of leaders in a competitive event, in this particular case events in travelling, innovation and S.S. writing.
-  traveler: Traveler
-  innovator: Innovator
-  writer: S.S. writer
+  name: Доска лидеров
+  title: Bucketlist 127-Доска лидеров
+  description: Таблица лидеров Bucket List 127 отображает рейтинг активных пользователей по разным направлениям.
+  traveler: Путешественник
+  innovator: Иноватор
+  writer: Ментор

@@ -47,7 +47,7 @@
                  layout="nodisplay"
                  side="right">
         <amp-img class='amp-close-image'
-                 src="/img/ic_close_black_18dp_2x.png"
+                 src="{{ asset('bundles/app/images/white-remove.svg') }}"
                  width="20"
                  height="20"
                  alt="close sidebar"
@@ -57,17 +57,19 @@
 
         <ul class="sidebar">
 
-            {#<li>#}
-                {#<a href="{{ path('notifications') }}">#}
-                    {#<amp-img src="{{ asset('bundles/app/images/no-note.svg') }}" alt="Leaderboard" width="27" height="27"></amp-img>#}
-                    {#<span class="text">{{ 'notification'|trans | capitalize}}</span>#}
-                {#</a>#}
-            {#</li>#}
+            {% if user %}
+            <li>
+                <a href="{{ path('notifications') }}">
+                    <amp-img src="{{ asset('bundles/app/images/bell.png') }}" alt="Notifications" width="20" height="24"></amp-img>
+                    <span class="note-text">{{ 'notification_menu'|trans | capitalize}}</span>
+                </a>
+            </li>
+            {% endif %}
 
             {% if user and user.activity %}
                 <li>
                     <a href="{{ path('activity') }}">
-                        <amp-img src="{{ asset('bundles/app/images/activity.svg') }}" alt="Activity" width="25" height="30"></amp-img>
+                        <amp-img src="{{ asset('bundles/app/images/activity.svg') }}" alt="Activity" width="27" height="30"></amp-img>
                         <span>{{ 'activity'|trans }}</span>
                     </a>
                 </li>
@@ -79,6 +81,7 @@
                     <span class="text">{{ 'leaderboard.name'|trans | capitalize}}</span>
                 </a>
             </li>
+            {% if user %}
 
             <li>
                 <a href="{{ path('goal_friends') }}">
@@ -87,6 +90,7 @@
                     <span class="text">{{ 'goalfriends'|trans }}</span>
                 </a>
             </li>
+            {% endif %}
 
             <li>
                 <a href="{{ path('goals_list') }}">
@@ -94,6 +98,8 @@
                     <span>{{ 'ideas'|trans | capitalize }}</span>
                 </a>
             </li>
+
+            {% if user %}
 
             <li>
                 <a href="{{ path('user_profile') }}">
@@ -122,12 +128,13 @@
                     <span>{{ 'logout'|trans }}</span>
                 </a>
             </li>
+            {% endif %}
         </ul>
     </amp-sidebar>
     <div id="mainframe">
         <div id="wrap">
             <header>
-                <nav class="navbar navbar-fixed-top">
+                <nav class="amp-navbar">
                     <div id="line"></div>
                     <div class="category">
                         <a class="logo" href="{{ path("homepage") }}">
@@ -136,33 +143,13 @@
 
                         <div class="sidebar-right">
 
-                            {% if not user %}
-                                <div class="join">
-                                    <amp-img src="{{ asset('bundles/app/images/join-icon.svg') }}" alt="Ideas" width="30" height="30"></amp-img>
-                                    <span>{{ 'join'|trans |upper }}</span>
-                                </div>
-                            {% else %}
+                                {#<button on='tap:sidebar.toggle'>#}
+                                    {#<amp-img src="{{ asset('bundles/app/images/grey-burger.svg') }}" alt="Menu" width="30" height="30"></amp-img>#}
+                                {#</button>#}
 
-                                {% set lastName = user.lastName %}
-                                {% set firstName = user.firstName %}
-                                {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
-                                {% set className = "user-no" ~ random(4) %}
 
-                                <button on='tap:sidebar.toggle'>
-                                    <a class="user">
 
-                                        {% if user.getPhotoLink %}
-                                            <figure>
-                                                <amp-img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" width="50" height="50"></amp-img>
-                                            </figure>
-                                        {% else %}
-                                            <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
-                                        {% endif %}
-
-                                        <span class="name">{{ user.firstName|slice(0, 8) }} {{ user.firstName|length > 8 ? '...' : '' }}</span>
-                                    </a>
-                                </button>
-                            {% endif %}
+                            {{ render_esi(controller('AppBundle:Main:esiUserForAmp')) }}
 
                         </div>
 

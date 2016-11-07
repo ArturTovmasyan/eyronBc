@@ -71,20 +71,43 @@ class UserGoalRepository extends EntityRepository
         return $query;
     }
 
+
     /**
      * @param $owner
-     * @return array
+     * @param bool $getLastDate
+     * @return array|mixed
      */
-    public function findOwnedUserGoals($owner)
+    public function findOwnedUserGoals($owner, $getLastDate = false)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT ug
-                           FROM AppBundle:UserGoal ug
-                           LEFT JOIN ug.goal g
-                           WHERE g.author = :owner
-                           ")
-            ->setParameter('owner', $owner)
-            ->getResult();
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->from('AppBundle:UserGoal', 'ug')
+                ->join('ug.goal', 'g')
+                ->where('g.author = :owner')
+                ->setParameter('owner', $owner)
+        ;
+
+        if($getLastDate){
+            $result = $query
+                ->select('max(ug.updated)')
+                ->getQuery()
+                ->getOneOrNullResult();
+
+            if($result){
+                $result = new \DateTime(reset($result));
+            }
+
+        }
+        else{
+            $result = $query
+                ->select('ug')
+                ->getQuery()
+                ->getResult();
+        }
+
+        return $result;
+
     }
     
 
@@ -171,7 +194,8 @@ class UserGoalRepository extends EntityRepository
         if ($getLastDate){
 
             $dates = $query
-                ->select('ug.id, ug.updated as updated')
+                ->select('ug.updated')
+                ->orderBy('ug.updated', 'desc')
                 ->getQuery()
                 ->getResult();
 
@@ -179,17 +203,18 @@ class UserGoalRepository extends EntityRepository
                 return null;
             }
 
-            $lastModifiedDate = $dates[0]['updated'];
-            $etag = $dates[0]['id'];
-            for($i = 1; $i < count($dates); $i++){
-                if ($lastModifiedDate < $dates[$i]['updated']){
-                    $lastModifiedDate = $dates[$i]['updated'];
-                }
+            $lastModifiedDate = reset($dates);
+            return $lastModifiedDate['updated'];
+//            $etag = $dates[0]['id'];
+//            for($i = 1; $i < count($dates); $i++){
+//                if ($lastModifiedDate < $dates[$i]['updated']){
+//                    $lastModifiedDate = $dates[$i]['updated'];
+//                }
+//
+//                $etag .=  '_' . $dates[$i]['id'];
+//            }
 
-                $etag .=  '_' . $dates[$i]['id'];
-            }
-
-            return ['lastDate' => $lastModifiedDate, 'etag' => md5($etag)];
+//            return ['lastDate' => $lastModifiedDate, 'etag' => md5($etag)];
         }
 
         $query

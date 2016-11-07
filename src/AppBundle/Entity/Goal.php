@@ -31,6 +31,7 @@ use AppBundle\Validator\Constraints as AppAssert;
  *          @ORM\Index(name="fulltext_index_title", columns={"title"}, flags={"fulltext"}),
  *          @ORM\Index(name="fulltext_index_description", columns={"description"}, flags={"fulltext"}),
  *          @ORM\Index(name="fulltext_index", columns={"title", "description"}, flags={"fulltext"}),
+ *          @ORM\Index(name="idx_active_publish", columns={"publish", "archived"}),
  * })
  */
 class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface, ImageableInterface, \Serializable
@@ -55,7 +56,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"goal", "tiny_goal", "goal_draft", "blog"})
+     * @Groups({"goal", "tiny_goal", "goal_draft"})
      */
     protected $id;
 
@@ -69,7 +70,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * )
      * @Assert\NotBlank(message = "Goal description can't be blank", groups={"goal"})
      * @ORM\Column(name="description", type="text", length=10000, nullable=false)
-     * @Groups({"goal", "goal_description", "blog"})
+     * @Groups({"goal", "goal_description"})
      */
     protected $description;
 
@@ -83,7 +84,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
      * @ORM\Column(name="title", type="string", length=64, nullable=false)
-     * @Groups({"goal", "tiny_goal", "goal_draft", "blog"})
+     * @Groups({"goal", "tiny_goal", "goal_draft"})
      */
     protected $title;
 
@@ -160,7 +161,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
 
     /**
      * @var
-     * @ORM\Column(name="publish", type="boolean", nullable=true)
+     * @ORM\Column(name="publish", type="boolean")
      * @Groups({"tiny_goal", "goal"})
      */
     protected $publish = PublishAware::NOT_PUBLISH;
@@ -250,7 +251,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
 
     /**
      * @SerializedName("image_path")
-     * @Groups({"tiny_goal", "goal", "image_link", "blog"})
+     * @Groups({"tiny_goal", "goal", "image_link"})
      */
     private $mobileImagePath;
 
