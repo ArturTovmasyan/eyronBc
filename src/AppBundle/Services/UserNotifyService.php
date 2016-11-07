@@ -284,12 +284,12 @@ class UserNotifyService extends AbstractProcessService
         $author = $goal->getAuthor();
 
         //get comment notify settings value
-//        $enabled = $author->getIsCommentNotify();
+        $enabled = $author->getIsCommentNotify();
 
         //check if user notify is disabled
-//        if(!$enabledByConfig || $notProd || !$enabled) {
-//            return;
-//        }
+        if(!$enabledByConfig || $notProd || !$enabled) {
+            return;
+        }
 
         //check if comment text is null
         if(!$commentText) {
