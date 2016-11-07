@@ -49,7 +49,7 @@ class UserNotifyType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Application\UserBundle\Entity\UserNotify',
-            'validation_groups' => 'Settings'
+            'validation_groups' => 'NotifySettings'
         ));
     }
 

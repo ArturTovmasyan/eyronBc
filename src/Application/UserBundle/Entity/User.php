@@ -349,7 +349,7 @@ class User extends BaseUser
     private $userGoalRemoveDate;
 
     /**
-     * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", mappedBy="user", cascade={"persist"})
      */
     private $userNotifySettings;
 
@@ -1990,6 +1990,7 @@ class User extends BaseUser
     public function setUserNotifySettings(\Application\UserBundle\Entity\UserNotify $userNotifySettings = null)
     {
         $this->userNotifySettings = $userNotifySettings;
+        $userNotifySettings->setUser($this);
 
         return $this;
     }
