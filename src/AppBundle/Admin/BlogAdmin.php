@@ -66,7 +66,7 @@ class BlogAdmin extends AbstractAdmin
         $image = $this->getSubject();
 
         // use $fileFieldOptions so we can add other options to the field
-        $fileFieldOptions = array('label'=>'admin.label.name.images', 'required' => false);
+        $fileFieldOptions = array('label'=>'admin.label.name.blog_images', 'required' => false);
 
         if ($image && ($webPath = $image->getDownloadLink())) {
 
@@ -85,7 +85,7 @@ class BlogAdmin extends AbstractAdmin
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('posts', 'sonata_type_model_autocomplete', array('label'=>'admin.label.name.posts', 'property'=>'title', 'multiple' => true, 'required' => false))
+            ->add('children', 'sonata_type_model_autocomplete', array('label'=>'admin.label.name.posts', 'property'=>'title', 'multiple' => true, 'required' => true))
             ->add('metaDescription', 'textarea', array('label'=>'admin.label.name.meta_description'))
             ->add('publishedDate', 'sonata_type_date_picker', array('label'=>'admin.label.name.published_date', 'required'=>false))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))

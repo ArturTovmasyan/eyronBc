@@ -87,7 +87,7 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //get blog
-        $blog = $em->getRepository('AppBundle:Blog')->findOneBy(['slug' => $slug]);
+        $blog = $em->getRepository('AppBundle:Blog')->findBySlug($slug);
 
         if(is_null($blog)){
             throw $this->createNotFoundException("Blog not found");

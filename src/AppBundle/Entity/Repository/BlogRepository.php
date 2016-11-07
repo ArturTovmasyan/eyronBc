@@ -48,4 +48,20 @@ class BlogRepository extends EntityRepository
                            ")
             ->getResult();
     }
+
+    /**
+     * @param $slug
+     * @return array
+     */
+    public function findBySlug($slug)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT b, ch
+                           FROM AppBundle:Blog b
+                           LEFT JOIN b.children ch
+                           WHERE b.slug = :slug
+                           ")
+            ->setParameter('slug', $slug)
+            ->getOneOrNullResult();
+    }
 }
