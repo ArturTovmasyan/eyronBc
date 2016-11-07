@@ -241,7 +241,7 @@ class SuccessStoryService extends AbstractProcessService
         //check if goal author not admin and not null
         if($goal->hasAuthorForNotify($user->getId()) && $isNew) {
 
-            $this->container->get('user_notify')->sendNotifyToUser($goal->getAuthor()->getId(),
+            $this->container->get('user_notify')->sendNotifyToUser($goal->getAuthor(),
                 UserNotifyService::SUCCESS_STORY_GOAL,
                 ['successStoryId'=> $successStoryId]);
 

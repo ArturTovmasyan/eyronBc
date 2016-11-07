@@ -100,6 +100,12 @@ class CommentService extends AbstractProcessService
                 ['goalId'=> $goal->getId()]);
         }
 
+        if($goal->hasAuthorForNotify($user->getId())) {
+            $this->container->get('user_notify')->sendNotifyToUser($goal->getAuthor(),
+                UserNotifyService::COMMENT_GOAL,
+                ['goalId'=> $goal->getId(), 'commentId' => $comment->getId()]);
+        }
+
         $this->runAsProcess('application.comment', 'sendNotification',
             array($goal->getId(), $user->getId(), $parentComment ? $parentComment->getId() : null ));
 
