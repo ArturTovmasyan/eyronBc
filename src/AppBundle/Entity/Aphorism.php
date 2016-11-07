@@ -33,7 +33,7 @@ class Aphorism
 
 
     /**
-     * @ORM\Column(name="author", type="string", nullable=true)
+     * @ORM\Column(name="author", type="string", nullable=true, length=40)
      */
     protected $author;
 

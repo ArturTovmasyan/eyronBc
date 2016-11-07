@@ -101,9 +101,8 @@ class UserControllerTest extends WebTestCase
 
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+            $this->assertLessThan(8, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
         }
-
     }
 
     /**
@@ -146,6 +145,11 @@ class UserControllerTest extends WebTestCase
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->client->getResponse()->headers
         );
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(8, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+        }
 
         //get response content
         $responseResults = json_decode($this->client->getResponse()->getContent(), true);
@@ -207,6 +211,11 @@ class UserControllerTest extends WebTestCase
             $this->clientAuthorized->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->clientAuthorized->getResponse()->headers
         );
+
+        if ($profile = $this->clientAuthorized->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(7, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+        }
 
         //get response content
         $responseResults = json_decode($this->clientAuthorized->getResponse()->getContent(), true);
@@ -277,6 +286,11 @@ class UserControllerTest extends WebTestCase
             $this->clientAuthorized->getResponse()->headers
         );
 
+        if ($profile = $this->clientAuthorized->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(4, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+        }
+
         $url = sprintf('/api/v1.0/users/%s/registered', 'nonExistentEmail');
 
         // try to get user registered status
@@ -309,6 +323,11 @@ class UserControllerTest extends WebTestCase
             $this->client->getResponse()->headers
         );
 
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(2, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+        }
+
         //get response content
         $responseResults = json_decode($this->client->getResponse()->getContent(), true);
 
@@ -333,6 +352,11 @@ class UserControllerTest extends WebTestCase
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->client->getResponse()->headers
         );
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(3, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+        }
 
         //get response content
         $responseResults = json_decode($this->client->getResponse()->getContent(), true);
@@ -361,6 +385,11 @@ class UserControllerTest extends WebTestCase
             $this->client->getResponse()->headers
         );
 
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(1, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+        }
+
         //get response content
         $responseResults = json_decode($this->client->getResponse()->getContent(), true);
 
@@ -388,7 +417,7 @@ class UserControllerTest extends WebTestCase
 
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal testGetCurrentUser rest!");
+            $this->assertLessThan(6, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal testGetCurrentUser rest!");
         }
 
         //get response content

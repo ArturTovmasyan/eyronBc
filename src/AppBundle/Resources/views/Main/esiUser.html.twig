@@ -34,8 +34,8 @@
         </span>
 
         {% if not isMobile() %}
-            <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
-            <i class="icon-icon-up ng-hide"  data-ng-show="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
+            <i class="menu-hamburger" data-ng-hide="$parent.joinToggle1"></i>
+            <i class="menu-remove ng-hide" data-ng-show="$parent.joinToggle1"></i>
         {% else %}
             {#todo it automaticaly opened in ipad#}
             {#<div data-open-popover data-dir="true"></div>#}

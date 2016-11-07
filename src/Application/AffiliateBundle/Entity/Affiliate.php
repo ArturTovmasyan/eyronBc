@@ -48,7 +48,7 @@ class Affiliate
     protected $link;
 
     /**
-     * @ORM\Column(name="ufi", type="string", length=20, nullable=true)
+     * @ORM\Column(name="ufi", type="string", length=20, nullable=true, unique=true)
      */
     protected $ufi;
 
@@ -71,14 +71,14 @@ class Affiliate
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\AffiliateBundle\Entity\AffiliateType")
-     * @ORM\JoinColumn(name="affiliate_type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="affiliate_type_id", referencedColumnName="id", nullable=false)
      *
      * @Groups({"affiliate_affiliateType"})
      */
     protected $affiliateType;
 
     /**
-     * @ORM\Column(name="publish", type="boolean", nullable=true)
+     * @ORM\Column(name="publish", type="boolean")
      */
     protected $publish = false;
 
@@ -244,6 +244,21 @@ class Affiliate
     public function setLinks($links)
     {
         $this->links = $links;
+
+        return $this;
+    }
+
+    /**
+     * @param $link
+     * @return $this
+     */
+    public function addLink($link)
+    {
+        if (!is_array($this->links)){
+            $this->links = [];
+        }
+
+        $this->links[] = $link;
 
         return $this;
     }

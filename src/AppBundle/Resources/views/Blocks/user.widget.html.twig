@@ -1,7 +1,5 @@
 <ul class="user-menu hidden-xs">
 
-    <li class="divider"></li>
-
     {% if app.user and app.user.activity %}
         <li>
             <a href="{{ path('activity') }}">
@@ -11,7 +9,12 @@
         </li>
     {% endif %}
 
-    <li class="divider hidden-xs"></li>
+    <li>
+        <a href="{{ path('leaderboard') }}">
+            <i class="icon-suggest-icon"></i>
+            <span class="text">{{ 'leaderboard.name'|trans | capitalize}}</span>
+        </a>
+    </li>
 
     <li>
         <a href="{{ path('goal_friends') }}">
@@ -20,16 +23,12 @@
         </a>
     </li>
 
-    <li class="divider hidden-xs"></li>
-
     <li>
         <a href="{{ path('goals_list') }}">
             <i class="icons ideas-icon"></i>
             <span>{{ 'ideas'|trans | capitalize }}</span>
         </a>
     </li>
-
-    <li class="divider hidden-xs"></li>
 
     <li>
         <a href="{{ path('user_profile') }}">
@@ -38,8 +37,6 @@
         </a>
     </li>
 
-    <li class="divider hidden-xs"></li>
-
     <li>
         <a href="{{ path('add_goal') }}">
             <i class="icons add-goal"></i>
@@ -47,16 +44,12 @@
         </a>
     </li>
 
-    <li class="divider hidden-xs"></li>
-
     <li>
         <a href="{{ path("edit_user_profile") }}">
             <i class="icons settings-icon"></i>
             <span>{{ 'settings'|trans }}</span>
         </a>
     </li>
-
-    <li class="divider hidden-xs"></li>
 
     <li>
         <a href="{{ path("fos_user_security_logout") }}">

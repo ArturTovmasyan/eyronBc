@@ -36,6 +36,10 @@ angular.module('goalComponents', ['Interpolation',
         });
       });
 
+      $rootScope.$on('lsGoActivity', function () {
+        $scope.overallProgress = 0;
+      });
+
       $rootScope.$on('removeUserGoal', function () {
         UserGoalDataManager.overall($scope.currentPage, function (data) {
           $scope.overallProgress = data.progress;
@@ -135,6 +139,65 @@ angular.module('goalComponents', ['Interpolation',
       $scope.getPopularGoals(id);
     })
   }])
+  .controller('topInLeaderboardController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'UserContext',
+    function($scope, $http, CacheFactory, envPrefix, UserContext){
+      var path = envPrefix + "api/v1.0/badges";
+      $scope.users = {};
+      $scope.allUsers = [];
+      $scope.index = 0;
+      $scope.currentUserId = UserContext.id;
+      $scope.isMobile = (window.innerWidth < 768);
+      var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
+
+      if(!leaderboardCache){
+        leaderboardCache = CacheFactory('bucketlist_by_leaderboard', {
+          maxAge: 24 * 60 * 60 * 1000 ,// 1 day
+          deleteOnExpire: 'aggressive'
+        });
+      }
+
+      $scope.initUsers = function () {
+        angular.forEach($scope.allUsers, function (k,item) {
+          $scope.users[item] = ($scope.index < k.length)?k[$scope.index]:k[($scope.index % k.length)];
+        });
+      };
+      
+      $scope.refreshLeaderboard = function () {
+        if($scope.normOfTop > 0) {
+          $scope.index = ($scope.index == 9) ? 0 : $scope.index + 1;
+
+          $scope.initUsers();
+        }
+      };
+
+      $scope.getFullName = function (user) {
+        if($scope.isMobile){
+          return (user.first_name.length > 16)?(user.first_name.substr(0,13) + '...'):(user.first_name.length + user.last_name.length > 16)?(user.first_name + ' ' + user.last_name.substr(0,13 - user.first_name.length) + '...'): user.first_name + ' ' + user.last_name;
+        } else {
+          return user.first_name + ' ' + user.last_name;
+        }
+      };
+
+      var leaderboards = leaderboardCache.get('leaderboards');
+
+      if (!leaderboards || !leaderboards.length) {
+        $http.get(path)
+          .success(function(data){
+            if(data.badges){
+              $scope.allUsers = data.badges;
+              $scope.minimums = data.min;
+              $scope.normOfTop = $scope.minimums.innovator + $scope.minimums.motivator + $scope.minimums.traveller;
+              $scope.initUsers();
+              leaderboardCache.put('leaderboards', data);
+            }
+          });
+      }else {
+        $scope.allUsers = leaderboards.badges;
+        $scope.minimums = leaderboards.min;
+        $scope.normOfTop = $scope.minimums.innovator + $scope.minimums.motivator + $scope.minimums.traveller;
+        $scope.initUsers();
+      }
+    }])
   .controller('calendarController', ['$scope', '$http', 'CacheFactory', 'envPrefix', '$timeout',
     function($scope, $http, CacheFactory, envPrefix, $timeout){
       $scope.isHover = false;
@@ -217,12 +280,14 @@ angular.module('goalComponents', ['Interpolation',
         
         $scope.weekDay = $scope.dateByFormat($scope.currentYear, $scope.currentMonth, 1).weekday();
         $scope.dayDifferent = (-$scope.weekDay);
-        $scope.prevMonthDay = $scope.getDaysInMonth($scope.currentMonth -1, $scope.currentYear);
+        $scope.prevMonthDay = $scope.getDaysInMonth(($scope.currentMonth == 1)?12:$scope.currentMonth -1, ($scope.currentMonth == 1)?$scope.currentYear - 1:$scope.currentYear);
         $scope.currentMonthDay = $scope.getDaysInMonth($scope.currentMonth, $scope.currentYear);
 
         angular.forEach($scope.days, function (v,k) {
           $scope.days[k].day = (k + $scope.dayDifferent > 0)?((k + $scope.dayDifferent <= $scope.currentMonthDay)?(k + $scope.dayDifferent):(k + $scope.dayDifferent - $scope.currentMonthDay)):(k + $scope.dayDifferent + $scope.prevMonthDay);
           $scope.days[k].status = (k + $scope.dayDifferent > 0 && k + $scope.dayDifferent <= $scope.currentMonthDay)?'active':'inActive';
+          $scope.days[k].year = ($scope.days[k].status == 'active')?$scope.currentYear:((k + $scope.dayDifferent > $scope.currentMonthDay && $scope.currentMonth == 12)? (+$scope.currentYear + 1):(k + $scope.dayDifferent <= 0 && $scope.currentMonth == 1)?$scope.currentYear - 1:$scope.currentYear);
+          $scope.days[k].month = ($scope.days[k].status == 'active')?$scope.currentMonth:(k + $scope.dayDifferent > $scope.currentMonthDay)? ($scope.currentMonth == 12)?1:(+$scope.currentMonth + 1):(k + $scope.dayDifferent <= 0)?($scope.currentMonth == 1)?12:($scope.currentMonth - 1):$scope.currentMonth;
         });
 
         $scope.noShowLast = ($scope.days[42].day != 42 && $scope.days[42].day >= 7);
@@ -404,11 +469,30 @@ angular.module('goalComponents', ['Interpolation',
     var path = envPrefix + "api/v1.0/goal/random/friends";
 
     var profileCache = CacheFactory.get('bucketlist');
+    var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
     var deg = 360;
+    $scope.topUsers = [];
 
     if(!profileCache){
       profileCache = CacheFactory('bucketlist');
     }
+
+    if(!leaderboardCache){
+      leaderboardCache = CacheFactory('bucketlist_by_leaderboard');
+    }
+
+    var leaderboards = leaderboardCache.get('leaderboards');
+    
+    if(leaderboards){
+      $scope.haveTop = (leaderboards.users && leaderboards.users.length > 0);
+      $scope.topUsers = leaderboards.users;
+    } else {
+      $scope.haveTop = false;
+    }
+
+    $scope.inArray = function (id) {
+      return ($scope.topUsers.indexOf(id) != -1)
+    };
 
     $scope.getGaolFriends = function(id){
 

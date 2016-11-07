@@ -164,15 +164,41 @@
                             </figcaption>
                         </figure>
                     </div>
-                    <div class="col-sm-4 hidden-xs">
+                    <div class="col-sm-4 hidden-xs relative">
+
                         {% if profileUser.showName %}
                             <h1>
                                 <span class="bg-blue {% if profileUser.showName|length > 11 %}title-smaller{% endif %}">{{ profileUser.showName }}</span>
                             </h1>
                         {% endif %}
+
                         {% if  profileUser.getAge  %}
                             <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
                         {% endif %}
+
+                        {% set badges = profileUser.getBadges %}
+
+                        <ul class="badge-place">
+
+                            {% set badgeTitles = {
+                            1 : 'leaderboard.traveler'|trans,
+                            2 : 'leaderboard.writer'|trans,
+                            3 : 'leaderboard.innovator'|trans
+                            } %}
+
+                            {% for badge in badges %}
+
+                                {% set score = badgeNormalizer(badge.type, badge.Score) %}
+
+                                {% if score  > 0 %}
+                                    <li>
+                                        <i title="{{ badgeTitles[badge.type] }}" class="badge-{{ badge.type }}"></i>
+                                        <a href="{{ path('leaderboard') }}#/{{ badgeTitles[badge.type] }}">{{ score|round(0, 'ceil')}}</a>
+                                    </li>
+                                {% endif %}
+
+                            {% endfor %}
+                        </ul>
                     </div>
 
                     {% if profileUser.id == app.user.id %}

@@ -69,6 +69,14 @@
             <argument/>
         </service>
 
+        <service id="bl.badge.service" class="Application\UserBundle\Services\BadgeService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="user_notify" />
+            <argument type="service" id="bl_put_notification_service" />
+            <argument type="service" id="bl_notification" />
+            <argument type="service" id="router" />
+        </service>
+
     </services>
 
 </container>

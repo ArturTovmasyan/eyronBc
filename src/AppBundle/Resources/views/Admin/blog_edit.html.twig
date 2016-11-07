@@ -1,0 +1,28 @@
+{% extends "SonataAdminBundle:CRUD:base_edit.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+<<<<<<< HEAD
+    <link rel="stylesheet" href="{{ asset("bundles/app/less/admin.css") }}">
+=======
+
+    <link rel="stylesheet" href="{{ asset("bundles/app/less/admin.css") }}">
+
+>>>>>>> e34599d2b803369d56b5bf1a21e1df92772aca57
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {% javascripts output='js/app_admin_blog_edit.js'
+    'app/bower_components/angular/angular.min.js'
+    'app/scripts/Interpolation/Interpolation.js'
+    'app/scripts/PathPrefix/PathPrefix.js'
+    'bundles/app/js/blog.js'
+
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}

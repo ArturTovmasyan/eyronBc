@@ -26,13 +26,12 @@
             <div class="row">
                 <ul class="menu">
 
-                    {% if not  myProfile%}
-                        <li data-ng-class="{'active': profile.status == '{{ activity }}' }">
-                            <a href="#{{ activity }}" data-ng-click="goTo(4)">
-                                {{ 'menu.activity'|trans }}
-                            </a>
-                        </li>
-                    {% endif %}
+                    <li data-ng-class="{'active': profile.status == '{{ activity }}' }">
+                        <a href="#{{ activity }}" data-ng-click="goTo(4)">
+                            {{ 'menu.activity'|trans }}
+                        </a>
+                    </li>
+
                     <li data-ng-class="{'active': profile.status == '{{ all }}' }">
                         <a href="#all" data-ng-click="goTo(0)">
                             {% if myProfile %}{{ 'menu.bucket'|trans }}{% else %}{{ 'right_menu.show'|trans }}{% endif %}
@@ -55,18 +54,20 @@
                             </a>
                         </li>
 
-                        <li data-ng-class="{'active': profile.status == '{{ owned }}' }">
-                            <a href="#{{ owned }}" data-ng-click="goTo(5)">
-                                {{ 'menu.owned'|trans }}
-                            </a>
-                        </li>
-
                     {% endif %}
-                    <li class="pull-right">
 
-                        <a href="#" class="calendar" data-ng-class="{'calendar-active': showCalendar}" data-ng-click="showCalendar = !showCalendar">
-                            <img src="{{ asset('bundles/app/images/calendar-icon.svg') }}" class="svg"/>
+                    <li data-ng-class="{'active': profile.status == '{{ owned }}' }">
+                        <a href="#{{ owned }}" data-ng-click="goTo(5)">
+                            {{ 'menu.owned'|trans }}
                         </a>
+                    </li>
+
+                    <li class="pull-right">
+                        {% if  myProfile%}
+                            <a href="#" class="calendar" data-ng-class="{'calendar-active': showCalendar}" data-ng-click="showCalendar = !showCalendar">
+                                <img src="{{ asset('bundles/app/images/calendar-icon.svg') }}" class="svg"/>
+                            </a>
+                        {% endif %}
 
                         <a href="#" data-ng-class="{'map-marker-active': showMap}"
                            data-ng-click="showMap=!showMap; triggerMap('.google-map')">
@@ -98,7 +99,7 @@
 
     {% if myProfile %}
 
-        <div class="container">
+        <div class="container slide" data-ng-show="profile.status != '{{ activity }}'">
             <div class="row">
 
                 <div class="col-sm-12">
@@ -134,14 +135,14 @@
         <div class="row">
 
             <div class="col-md-8">
-                {% if not  myProfile%}
-                    <div id="news-feed" class="user-activities" data-ng-show="profile.status == '{{ activity }}'"
-                         data-ng-cloak
-                         data-infinite-scroll='Activities.nextActivity()'
-                         data-infinite-scroll-disabled='Activities.noItem || Activities.busy || profile.status != "{{ activity }}"'>
-                        {%  include "AppBundle:Blocks:activities.html.twig" with {'single': true, 'activity': activity, 'userId': profileUser.id} %}
-                    </div>
-                {% endif %}
+
+                <div id="news-feed" class="user-activities" data-ng-show="profile.status == '{{ activity }}'"
+                     data-ng-cloak
+                     data-infinite-scroll='Activities.nextActivity()'
+                     data-infinite-scroll-disabled='Activities.noItem || Activities.busy || profile.status != "{{ activity }}"'>
+                    {%  include "AppBundle:Blocks:activities.html.twig" with {'single': true, 'activity': activity, 'userId': profileUser.id} %}
+                </div>
+
                 <div class="{% if myProfile %}ng-hide goals-information{% else %} user-goals{% endif %}"
                      data-ng-show="profile.status != '{{ activity }}'"
                      data-ng-cloak

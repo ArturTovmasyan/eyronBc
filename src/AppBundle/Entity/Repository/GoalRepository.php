@@ -24,6 +24,80 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalRepository extends EntityRepository
 {
     const TopIdeasCount = 100;
+    const NEAR_BY_GOAL_COUNT = 10;
+
+    /**
+     * @param $text
+     * @param $count
+     * @return array
+     */
+    public function findGoalsByAutocomplete($text, $count)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('g.id as id, g.title as value, g.title as label')
+                ->from('AppBundle:Goal', 'g', 'g.id')
+                ->where('g.publish = :publish')
+                ->andWhere('g.title LIKE :text')
+                ->setParameter('publish', PublishAware::PUBLISH)
+                ->setParameter('text', '%' . $text . '%')
+                ->setMaxResults($count);
+        ;
+        
+        return $query->getQuery()->getResult();
+    }
+    
+    /**
+     * @param $latitude
+     * @param $longitude
+     * @return array
+     */
+    public function findNearbyGoals($latitude, $longitude)
+    {
+        $result = [];
+        //3959 search in miles
+        //6371 search in km
+        $ids =  $this->getEntityManager()
+            ->createQuery("SELECT g.id,
+                           (6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
+                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist
+                           FROM AppBundle:Goal g
+                           WHERE g.lat is not null and g.lng is not null
+                           ORDER BY dist
+                         ")
+            ->setParameter('lat', $latitude)
+            ->setParameter('lng', $longitude)
+            ->setMaxResults(self::NEAR_BY_GOAL_COUNT)
+            ->getArrayResult()
+        ;
+
+        if($ids){
+
+            $ids = array_map(function($item){return $item['id'];}, $ids);
+
+            //3959 search in miles
+            //6371 search in km
+            $result =  $this->getEntityManager()
+                ->createQuery("SELECT g, i,
+                           (6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
+                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images i
+                           WHERE g.id in (:ids)
+                           ORDER BY dist
+                         ")
+                ->setParameter('lat', $latitude)
+                ->setParameter('lng', $longitude)
+                ->setParameter('ids', $ids)
+                ->getResult()
+            ;
+
+        }
+
+
+        return $result;
+    }
 
     /**
      * @param $count
@@ -403,6 +477,7 @@ class GoalRepository extends EntityRepository
             ->getResult();
     }
 
+
     /**
      * @param $userId
      * @param $type
@@ -725,11 +800,12 @@ class GoalRepository extends EntityRepository
     public function findCommonGoals($user1Id, $user2Id, $first, $count)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g
+            ->createQuery("SELECT g, img
                            FROM AppBundle:Goal g
                            INDEX BY g.id
                            JOIN g.userGoal ug WITH ug.user = :user1Id
-                           JOIN g.userGoal ug1 WITH ug1.user = :user2Id")
+                           JOIN g.userGoal ug1 WITH ug1.user = :user2Id
+                           LEFT JOIN g.images img")
             ->setParameter('user1Id', $user1Id)
             ->setParameter('user2Id', $user2Id)
             ->setFirstResult($first)
@@ -741,22 +817,56 @@ class GoalRepository extends EntityRepository
      * @param $owner
      * @param $first
      * @param $count
+     * @param $publish
+     * @param bool $getLastUpdated
      * @return array
      */
-    public function findOwnedGoals($owner, $first, $count)
+    public function findOwnedGoals($owner, $first, $count, $publish, $getLastUpdated = false)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT g
-                           FROM AppBundle:Goal g
-                           LEFT JOIN g.images i
-                           WHERE g.author = :owner AND g.publish = :publish
-                           
-                           ")
+
+        $filter = $this->getEntityManager()->getFilters();
+        $filter->isEnabled('visibility_filter') ? $filter->disable('visibility_filter') : null;
+
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('ug, g, i')
+            ->from('AppBundle:UserGoal', 'ug')
+            ->join('ug.goal', 'g')
+            ->leftJoin('g.images', 'i')
+            ->where('g.author = :owner')
+            ->andWhere('ug.user = :owner')
             ->setParameter('owner', $owner)
-            ->setParameter('publish', PublishAware::PUBLISH)
             ->setFirstResult($first)
             ->setMaxResults($count)
-            ->getResult();
+            ->orderBy('g.created', 'DESC')
+            ->addOrderBy('ug.updated', 'DESC')
+
+        ;
+
+        if($publish){
+            $query
+                ->andWhere('g.publish = :publish')
+                ->setParameter('publish', PublishAware::PUBLISH);
+        }
+
+        if($getLastUpdated){
+            $result = $query
+                ->select('ug.updated')
+                ->getQuery()
+                ->getResult();
+            ;
+
+            $lastUpdated = null;
+
+            array_map(function ($item) use (&$lastUpdated){
+                $lastUpdated = $item['updated'] > $lastUpdated ? $item['updated'] : $lastUpdated;
+            }, $result);
+
+            return $lastUpdated;
+        }
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        return $paginator->getIterator()->getArrayCopy();
     }
 
 
@@ -845,15 +955,60 @@ class GoalRepository extends EntityRepository
     public function findUserUnConfirmInPlace($userId)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, p
+            ->createQuery("SELECT g, p, img, ug
                            FROM AppBundle:Goal g
                            JOIN g.place p
-                           LEFT JOIN AppBundle:UserGoal ug WITH ug.goal = g and ug.user = :userId
+                           LEFT JOIN g.userGoal ug
                            LEFT JOIN ug.user u
-                           WHERE (ug.id is null or ug.confirmed = :status)")
+                           LEFT JOIN g.images img
+                           WHERE (ug.goal = g and ug.user = :userId) and ug.id is null or (ug.confirmed != :status AND ug.status != :completed) ")
             ->setParameter('userId', $userId)
-            ->setParameter('status', false)
+            ->setParameter('status', true)
+            ->setParameter('completed', UserGoal::COMPLETED)
             ->getResult();
     }
-    
+
+    /**
+     * @param $goalIds
+     * @return array
+     */
+    public function findGoalByIds($goalIds)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                "SELECT g, im
+                 FROM AppBundle:Goal g
+                 INDEX BY g.id
+                 LEFT JOIN g.images im
+                 WHERE g.id in (:ids)")
+            ->setParameter('ids', $goalIds)
+            ->getResult();
+    }
+
+    /**
+     * This function is used to get random goal
+     *
+     * @param $count
+     * @return array
+     */
+    public function findRandomGoal($count)
+    {
+        //get random goal ids
+        $goalIds = $this->getEntityManager()
+            ->createQuery("SELECT g.id, RAND() as HIDDEN rand
+                           FROM AppBundle:Goal g
+                           ORDER BY rand 
+                           ")
+            ->setMaxResults($count)
+            ->getResult();
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, img 
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images img
+                           WHERE g.id in (:ids)
+                           ")
+            ->setParameter('ids', $goalIds)
+            ->getResult();
+    }
 }

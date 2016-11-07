@@ -16,3 +16,6 @@ services:
         class: Application\AffiliateBundle\Form\Type\AdminFileType
         tags:
             - { name: form.type }
+
+    application_affiliate.find_ufi:
+        class: Application\AffiliateBundle\Services\FindAffiliateUfiService

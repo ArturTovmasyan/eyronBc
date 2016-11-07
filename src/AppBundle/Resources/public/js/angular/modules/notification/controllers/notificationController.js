@@ -30,6 +30,10 @@ angular.module('notification')
         }
       };
 
+      $scope.$on('tooltip.hide', function () {
+        $scope.joinToggle1 = false;
+      });
+
       NotificationManager.getAll({id: 0,where: 10}, function (res) {
         $scope.newNotCount = res.unreadCount?res.unreadCount:0;
         $scope.notifies = res.userNotifications;

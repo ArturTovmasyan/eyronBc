@@ -6,6 +6,7 @@ search: Поиск
 join: Присоединиться
 copyright: 2015 BUCKET LIST 127
 join_now: Присоединиться сейчас
+tasks: Задачи
 
 #blocks
 most_popular: Самое популярное
@@ -71,6 +72,10 @@ goal:
       as_visible: Установить статус “Видимый”
       visible: Видимый
       see_also: Посмотрите далее
+      in_proces: Активная Цель значит, что цель еще не достигнута
+      status: Статус Цели
+      take_note: Делая заметки вы ничего не пропустите
+      deside: Правильные приоритеты помогут в достижении цели
       not_found: |
                     <p class="empty-text text-center">
                          К сожалению, не найдено ни одной цели по заданным критериям
@@ -89,7 +94,7 @@ goal:
       completed_text: Если вы считаете, что Цель еще не достигнута, вы можете изменить статус цели вновь на активную.
       active_text: Если ваша Цель достигнута, просто отметьте ее
       completion_date: Дата завершения :
-      complete_step: Делайте что-нибудь – достигайте ваших целей!
+      complete_step: Подробные шаги сделают вас ближе к цели!
       private_text: Вы добавили эту цель только для вашего списка
       invisible_text: Вы можете скрыть Цель от других пользователей
       visible_text: Вы можете показать Цель от других пользователей
@@ -99,9 +104,9 @@ goal:
       create_idea: Поздравляем, идея была успешно добавлена в качестве вашей цели
       empty_draft: На данный момент у вас нет черновиков.
       empty_private_ideas: На данный момент в списке ваших личных целей нет ни одной цели
-      deadline: Deadline
+      deadline: Крайний срок
       priority: Приоритет
-      steps: Steps
+      steps: Шаги
       view_access_denied: Вы не имеете доступ просмотра этой идеи
       edit_access_denied: Вы не имеете доступ изменения этой идеи
       delete_access_denied: Вы не имеете доступ удаления этой идеи
@@ -134,6 +139,9 @@ Type in a youtube or vimeo link in the field: Вставьте ссылку на
 Done: Выполнить
 
 ideas_list_title: Ознакомьтесь с тысячами вдохновляющих идей для вашего Бакетлиста
+ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Включите</span> службу распознавания местоположения вашего браузера или введите свое местоположение
+nearby: Поблизости
+explore: Подтвердить
 
 # home
 homepage_title: Цель – это когда у вас есть воспоминания, а не только мечты!
@@ -142,6 +150,7 @@ homepage_description: Подготовьте список целей на жиз
 homepage_success_story: Истории, которые вдохновляют
 
 #notification
+notification: Оповещение
 test_message: тестирование уведомлений в BucketList
 reminder_message: Крайний срок вашей цельи близок к концу.Сделайте все возможное, чтобы уложиться в срок.
 notify:
@@ -239,8 +248,8 @@ menu:
   activity: Лента
   completed: Достигнутые
   map: Карта
-  common: Опшие
-  owned: Owned
+  common: Общие
+  owned: Созданные
 
 right_menu:
   my_ideas: Мои Идеи
@@ -462,13 +471,13 @@ report:
   thanks: Спасибо
   message: Мы получили ваш рапорт
 
-achievment: Achievment
+achievment: Достижение
 
 overall:
-  progress: Overall Progress
-  good: Good job! You are in sync with your projected goals.
-  excellent: Excellent! You are outperforming!
-  falling: Get a move on! You are falling behind your goals.
+  progress: Общий прогресс
+  good: Отличная работа! У вас все идет по плану.
+  excellent: Отлично! Вы опережайте свой график!
+  falling: Торопитесь! Вы отстаете от своего графика.
 
 #notify settings
 notify_settings:
@@ -483,3 +492,11 @@ notify_settings:
   deadline: Истечение срока достижения Цели
   new_goalfriend: Новые Единомышленники
   new_idea: Новые Идеи
+
+leaderboard:
+  name: Доска лидеров
+  title: Bucketlist 127-Доска лидеров
+  description: Таблица лидеров Bucket List 127 отображает рейтинг активных пользователей по разным направлениям.
+  traveler: Путешественник
+  innovator: Иноватор
+  writer: Ментор

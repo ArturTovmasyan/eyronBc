@@ -1,0 +1,82 @@
+{% extends "AppBundle:Main:activities.html.twig" %}
+
+{% block angularApp %}
+<html data-ng-app="leaderboard" data-ng-controller="leaderboardController">
+{% endblock %}
+
+{% block left_content  %}
+
+    <div id="leaderboard-place">
+        <figure class="round">
+
+            <img data-ng-src="[[ (isMobile?'{{ asset('bundles/app/images/leaderboard-phone.svg') }}':'{{ asset('bundles/app/images/leaderboard-image.jpg') }}') ]]" alt="Bucket List 127" class="img-responsive"/>
+
+            <figcaption>
+                <ul class="badge-place">
+                    <li class="ng-hide">
+                        <a href="#{{ 'leaderboard.traveler'| trans }}" data-ng-click="goTo(LeaderboardConstant['TYPE_TRAVELLER'])">
+                            <i class="badge-1"></i>
+                            <span class="text-dark-gray" data-ng-class="{'text-orange': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}">{{ 'leaderboard.traveler'| trans }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#{{ 'leaderboard.innovator'| trans }}" data-ng-click="goTo(LeaderboardConstant['TYPE_INNOVATOR'])">
+                            <i class="badge-3"></i>
+                            <span class="text-dark-gray" data-ng-class="{'text-orange': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}">{{ 'leaderboard.innovator'| trans }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#{{ 'leaderboard.writer'| trans }}" data-ng-click="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])">
+                            <i class="badge-2"></i>
+                            <span class="text-dark-gray" data-ng-class="{'text-orange': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}">{{ 'leaderboard.writer'| trans }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </figcaption>
+        </figure>
+
+        <ul class="bg-white round goals-animate"
+            data-ng-cloak
+            data-ng-class="{'margin-top': $index == 0}"
+            data-ng-repeat="user in users">
+            <li class="text-orange">[[ $index + 1]]</li>
+
+            <li>
+                <figure class="img-circle">
+                    {% set className = "user-no" ~ random(4) %}
+                    <img data-ng-if="user.user.image_path.length" data-ng-src="[[ user.user.image_path]]" alt="user image"/>
+                    <p data-ng-if="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>
+                </figure>
+            </li>
+
+            <li>
+                <a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>
+            </li>
+
+            <li class="text-orange">[[ user.score]]</li>
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block rigth_content %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts output='js/app_leaderboard.js'
+    'bundles/app/js/angular/modules/leaderboard/leaderboard.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{%- block title -%}
+    {{- 'leaderboard.title'|trans -}}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{- 'leaderboard.description'|trans -}}
+{%- endblock -%}

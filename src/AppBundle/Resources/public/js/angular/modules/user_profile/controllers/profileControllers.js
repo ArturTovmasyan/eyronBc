@@ -1,8 +1,18 @@
 'use strict';
 
 angular.module('profile')
-  .controller('profileController',['$scope', '$rootScope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate', '$location', 'UserGoalConstant',
-    function ($scope, $rootScope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant) {
+  .controller('profileController',
+    ['$scope',
+      '$rootScope',
+      '$timeout',
+      'lsInfiniteGoals',
+      '$http',
+      '$compile',
+      'refreshingDate',
+      '$location',
+      'UserGoalConstant',
+      'UserContext',
+    function ($scope, $rootScope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant, UserContext) {
       var path = $location.$$path;
       $scope.errorMessages = [];
       $scope.userGoalIds = [];
@@ -83,6 +93,7 @@ angular.module('profile')
             $scope.ProfileItems.busy = true;
             $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
             $scope.Activities.nextActivity();
+            $scope.$emit('lsGoActivity');
             break;
           case 5:
             $scope.ProfileItems.busy = false;
@@ -147,7 +158,7 @@ angular.module('profile')
       });
 
       $scope.isEmpty = function (object) {
-        return !Object.keys(object).length;
+        return (angular.isUndefined(object) || !Object.keys(object).length);
       };
 
       $scope.isLate = function (date) {
@@ -208,6 +219,12 @@ angular.module('profile')
       $scope.friendName = '';
       $scope.category = 'all';
 
+      $scope.$on('lsGoalUsersModalClosed', function(){
+        if(!angular.isUndefined($scope.Friends)){
+          $scope.Friends.busy = true;
+        }
+      });
+
       $scope.getCategory = function(category){
         $scope.category = category;
         $scope.Friends.reset();
@@ -220,7 +237,7 @@ angular.module('profile')
         $scope.Friends = new lsInfiniteGoals(20);
       }
 
-      if(path.length){
+      if(path.length && !$scope.goalId){
         $timeout(function () {
           path = path.slice(1);
           switch (path){

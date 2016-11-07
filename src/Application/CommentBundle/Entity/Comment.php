@@ -34,6 +34,7 @@ class Comment implements ActivityableInterface
      *
      * @var Thread
      * @ORM\ManyToOne(targetEntity="Thread", inversedBy="comments")
+     * @ORM\JoinColumn(name="thread_id", referencedColumnName="id", nullable=false)
      */
     protected $thread;
 
@@ -41,6 +42,7 @@ class Comment implements ActivityableInterface
      * Author of the comment
      *
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", nullable=false)
      * @Groups({"comment_author"})
      */
     protected $author;

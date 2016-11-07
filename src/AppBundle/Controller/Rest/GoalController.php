@@ -16,6 +16,7 @@ use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -31,6 +32,142 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalController extends FOSRestController
 {
     const RandomGoalFriendCounts = 3;
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get autocomplete goals",
+     *  statusCodes={
+     *         204="No content",
+     *         400="Bad request"
+     *  },
+     * )
+     *
+     * @return mixed
+     * @param Request $request
+     *
+     * @Rest\View()
+     * @Rest\Get("/goals/get-autocomplete-items", name="app_rest_goal_autocomplete",))
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function gerAutocompleteAction(Request $request)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+        $count = 10;
+
+        $search = $request->get('text');
+
+        // get near by goals
+        $goals = $em->getRepository('AppBundle:Goal')->findGoalsByAutocomplete($search, $count);
+
+        return array('items' => array_values($goals), 'more'=>false, 'status'=>'OK');
+    }
+
+    /**
+     * @Rest\Get("/goals/nearby/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}, name="get_goal_nearby", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get near by goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *         400="Bad request",
+     *  },
+     *
+     * )
+     * @param Request $request
+     * @param $longitude
+     * @param $latitude
+     * @param Request $request
+     * @return mixed
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     */
+    public function getNearbyAction(Request $request, $latitude, $longitude)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+        $user      = $this->getUser();
+
+        // get near by goals
+        $nearbyGoals = $em->getRepository('AppBundle:Goal')->findNearbyGoals($latitude, $longitude);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        $filters = [
+            0 => 'goal_list_small',
+            1 => 'goal_list_small',
+            2 => 'goal_list_small',
+            3 => 'goal_list_small',
+            4 => 'goal_list_horizontal',
+            5 => 'goal_list_big',
+            6 => 'goal_list_vertical',
+            7 => 'goal_list_small',
+            8 => 'goal_list_small',
+            9 => 'goal_list_small',
+        ];
+
+        //This part is used to calculate goal stats
+        $goalIds   = [];
+        $authorIds = [];
+        foreach($nearbyGoals as $goal){
+            $goalIds[$goal->getId()] = 1;
+            if ($goal->getAuthor()) {
+                $authorIds[] = $goal->getAuthor()->getId();
+            }
+        }
+
+        $goalStats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+        $authorstats = $em->getRepository("ApplicationUserBundle:User")->findUsersStats($authorIds);
+
+        foreach($nearbyGoals as $goal){
+            $goal->setStats([
+                'listedBy' => $goalStats[$goal->getId()]['listedBy'],
+                'doneBy'   => $goalStats[$goal->getId()]['doneBy'],
+            ]);
+
+            if ($goal->getAuthor()) {
+                $stats = $authorstats[$goal->getAuthor()->getId()];
+                $goal->getAuthor()->setStats([
+                    "listedBy" => $stats['listedBy'] + $stats['doneBy'],
+                    "active"   => $stats['listedBy'],
+                    "doneBy"   => $stats['doneBy']
+                ]);
+            }
+        }
+
+        if($user){
+            $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
+
+        }
+
+        // cached images
+        foreach($nearbyGoals as $key => $goal) {
+            if ($goal->getListPhotoDownloadLink()) {
+                try {
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $filters[$key]));
+                } catch (\Exception $e) {
+                    $goal->setCachedImage("");
+                }
+            }
+        }
+
+
+
+
+
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        for($i = 0; $i < 10; $i++){
+            if (isset($goals[$i]) && $goals[$i]->getListPhotoDownloadLink()) {
+                $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), $filters[$i]));
+            }
+        }
+
+        return  $nearbyGoals;
+    }
 
     /**
      * @Rest\Get("/goals/{userId}/owned/{first}/{count}", defaults={"first"=null, "count"=null}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_owned", options={"method_prefix"=false})
@@ -49,30 +186,102 @@ class GoalController extends FOSRestController
      * @param int $count
      * @param Request $request
      * @return mixed
-     * @Rest\View(serializerGroups={"tiny_goal"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "tiny_goal", "goal_author", "tiny_user"})
      */
     public function getOwnedAction(Request $request, $userId, $first = null, $count = null)
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        $publish = $this->getUser()->getId() != $userId;
+        $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
+
+        // check user
+        if(!$user) {
+            return new JsonResponse(array('error' => 'User not found'), Response::HTTP_NOT_FOUND);
+        }
+
+        $response = new Response();
+
+        // get last updated
+        $lastUpdated = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish, true);
+
+        if (is_null($lastUpdated)) {
+            return  ['goals' => [] ];
+        }
+
+        $lastDeleted = $user->getUserGoalRemoveDate();
+        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
+
+        $response->setLastModified($lastModified);
+
+        // check is modified
+        if ($response->isNotModified($request)) {
+            return $response;
+
+        }
+
         // get owned goals
-        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count);
+        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($user->getId(), $first, $count, $publish);
 
         $liipManager = $this->get('liip_imagine.cache.manager');
 
+        //This part is used to calculate goal stats
+        $goalIds   = [];
+        $authorIds = [];
+        foreach($ownedGoals as $userGoal){
+            $goalIds[$userGoal->getGoal()->getId()] = 1;
+            if ($userGoal->getGoal()->getAuthor()) {
+                $authorIds[] = $userGoal->getGoal()->getAuthor()->getId();
+            }
+        }
+
+        $goalStats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+        $authorstats = $em->getRepository("ApplicationUserBundle:User")->findUsersStats($authorIds);
+
+        foreach($ownedGoals as $userGoal){
+            $userGoal->getGoal()->setStats([
+                'listedBy' => $goalStats[$userGoal->getGoal()->getId()]['listedBy'],
+                'doneBy'   => $goalStats[$userGoal->getGoal()->getId()]['doneBy'],
+            ]);
+
+            if ($userGoal->getGoal()->getAuthor()) {
+                $stats = $authorstats[$userGoal->getGoal()->getAuthor()->getId()];
+                $userGoal->getGoal()->getAuthor()->setStats([
+                    "listedBy" => $stats['listedBy'] + $stats['doneBy'],
+                    "active"   => $stats['listedBy'],
+                    "doneBy"   => $stats['doneBy']
+                ]);
+            }
+        }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
+
         // cached images
-        foreach($ownedGoals as $goal) {
+        foreach($ownedGoals as $userGoal) {
+
+            $goal = $userGoal->getGoal();
+
             if ($goal->getListPhotoDownloadLink()) {
                 try {
-                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $this->getUser()->getId() == $userId ? 'goal_bucketlist' : 'goal_list_horizontal'));
                 } catch (\Exception $e) {
                     $goal->setCachedImage("");
                 }
             }
         }
 
-        return  ['goals' => $ownedGoals];
+
+        $serializer = $this->get('serializer');
+
+        $result = ['goals' => $ownedGoals];
+
+        $serializedContent = $serializer->serialize($result, 'json',
+            SerializationContext::create()->setGroups(array("userGoal", "userGoal_goal", "tiny_goal", "goal_author", "tiny_user")));
+
+        $response->setContent($serializedContent);
+
+        return $response;
     }
 
 
@@ -708,6 +917,29 @@ class GoalController extends FOSRestController
         return $goal;
     }
 
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get goal image path",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     * )
+     *
+     * @Rest\View()
+     *
+     * @Rest\Get("/goals/title/{id}", requirements={"id"="\d+"}, name="app_rest_goal_title",)
+     * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @param Goal $goal
+     * @return array
+     */
+    public function getTitleAction(Goal $goal)
+    {
+        return array("title" => $goal->getTitle());
+    }
+
 //    /**
 //     * @ApiDoc(
 //     *  resource=true,
@@ -814,6 +1046,51 @@ class GoalController extends FOSRestController
         $em = $this->get("doctrine")->getManager();
 
         $goals = $em->getRepository("AppBundle:Goal")->findUserUnConfirmInPlace($user);
+
+        //set confirm default value
+        $confirm = false;
+
+        //check if goals exist
+        if ($goals) {
+
+            //confirm done goal
+            foreach ($goals as $goal)
+            {
+
+                //get user goal by user id
+                $userGoals = $goal->getUserGoal();
+
+                //get current user userGoal
+                $relatedUserGoal = $userGoals->filter(function ($item) use ($user) {
+                    return $item->getUser() == $user ? true : false;
+                });
+
+                //check if user have user goal
+                if ($relatedUserGoal->count() > 0) {
+
+                    //get related user goal
+                    $userGoal = $relatedUserGoal->first();
+
+                    //check if user goal is not completed
+                    if (!$userGoal->getConfirmed()) {
+
+                        //confirmed done goal for user
+                        $userGoal->setConfirmed(true);
+
+                        //set confirm value
+                        $confirm = true;
+
+                        $em->persist($userGoal);
+                    }
+                }
+            }
+
+            //check if user has confirmed goal
+            if ($confirm) {
+                $em->flush();
+                $em->clear();
+            }
+        }
 
         return $goals;
     }

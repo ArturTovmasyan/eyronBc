@@ -47,60 +47,26 @@ class SuccessStoryController extends FOSRestController
      * )
      *
      * @Security("has_role('ROLE_USER')")
-     * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findGoalWithAuthor"})
      *
-     * @param Goal $goal
+     * @param $goal
      * @param Request $request
      * @return JsonResponse|Response
      * @deprecated
      * TODO will be changed after mobile changes
      */
-    public function putSuccessstoryAction(Goal $goal, Request $request)
+    public function putSuccessstoryAction($goal, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $validator = $this->container->get('validator');
-
-        // get date from request parameters
-        $story = $request->get('story');
-        $videoLink = $request->get('videoLink');
-
-        // create new SuccessStory
-        $successStory = new SuccessStory();
-        $successStory->setVideoLink($videoLink);
-        $successStory->setGoal($goal);
-        $successStory->setUser($this->getUser());
-        $successStory->setStory($story);
-
-
-        $errors = $validator->validate($successStory);
-        if(count($errors) > 0) {
-            $errorsString = (string)$errors;
-
-            return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
-        }
-
-        //TODO: duplicate, will be deleted with this action
+        $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId());
-        $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
-        $body = $this->get('translator')->trans('notification.important_goal_success_story', [], null, 'en');
-        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $importantAddedUsers);
+        $em = $this->container->get('doctrine')->getManager();
+        $objGoal = $em->getRepository("AppBundle:Goal")->findWithRelations($goal);
 
-        //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($this->getUser()->getId())) {
-            //send success story notify
-            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
-
-            //TODO: duplicate, will be deleted with this action
-            //Send notification to goal author
-            $body = $this->get('translator')->trans('notification.success_story', [], null, 'en');
-            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $goal->getAuthor());
+        if(!$objGoal){
+            return new JsonResponse('Goal not found', Response::HTTP_NOT_FOUND);
         }
 
-        $em->persist($successStory);
-        $em->flush();
-
-        return new JsonResponse($successStory->getId(), Response::HTTP_OK);
+        return $this->get('bl_story_service')->putSuccessStory($request, $objGoal, $this->getUser());
+        
     }
 
 
@@ -124,100 +90,24 @@ class SuccessStoryController extends FOSRestController
      * )
      *
      * @Security("has_role('ROLE_USER')")
-     * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findGoalWithAuthor"})
      *
-     * @param Goal $goal
+     * @param $goal
      * @param Request $request
      * @return JsonResponse|Response
      */
-    public function putStoryAction(Goal $goal, Request $request)
+    public function putStoryAction($goal, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $validator = $this->container->get('validator');
-
-        $content = json_decode($request->getContent());
-        if (!isset($content->story)){
-            return new JsonResponse("story is empty", Response::HTTP_BAD_REQUEST);
-        }
-//
-//        $story     = $content->story;
-//        $videoLink = $content->videoLink;
-
-        // get date from request parameters
-//        $story = $request->get('story');
-//        $videoLink = $request->get('videoLink');
-
-//        if (!isset($story)){
-//            return new JsonResponse("story is empty", Response::HTTP_BAD_REQUEST);
-//        }
-//
-        $story     = $content->story;
-        $videoLink = $content->videoLink;
-        $videoLink = array_values($videoLink);
-        $videoLink = array_filter($videoLink);
-
-        $lastStory = $em->getRepository('AppBundle:SuccessStory')->findUserGoalStory($this->getUser()->getId(), $goal->getId());
-
-        $imageIds = $content->files;
-//        $imageIds = $request->get('files');
-        if (count($lastStory) == 0){
-            $successStory = new SuccessStory();
-            $successStory->setGoal($goal);
-            $successStory->setUser($this->getUser());
-        }
-        else {
-            $successStory = $lastStory[0];
-            foreach($successStory->getFiles() as $file){
-                if (!in_array($file->getId(), $imageIds)){
-                    $em->remove($file);
-                    $successStory->removeFile($file);
-                }
-            }
-        }
-
-        $successStory->setVideoLink($videoLink);
-        $successStory->setStory($story);
-
-        if($imageIds){
-
-            $imageIds = array_unique($imageIds);
-            $storyImages = $em->getRepository('AppBundle:StoryImage')->findByIDs($imageIds);
-
-            if(count($storyImages) != 0){
-                foreach($storyImages as $storyImage){
-                    $successStory->addFile($storyImage);
-                }
-            }
-        }
-
-        $errors = $validator->validate($successStory);
-        if(count($errors) > 0) {
-            $errorsString = (string)$errors;
-
-            return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
-        }
-
+        $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId());
-        $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
-        $body = $this->get('translator')->trans('notification.important_goal_success_story', [], null, 'en');
-        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $importantAddedUsers);
+        $em = $this->container->get('doctrine')->getManager();
+        $objGoal = $em->getRepository("AppBundle:Goal")->findWithRelations($goal);
 
-        //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($this->getUser()->getId()) && is_null($successStory->getId())) {
-            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
-
-            //Send notification to goal author
-            $body = $this->get('translator')->trans('notification.success_story', [], null, 'en');
-            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $goal->getAuthor());
+        if(!$objGoal){
+            return new JsonResponse('Goal not found', Response::HTTP_NOT_FOUND);
         }
 
-        $em->persist($successStory);
-        $em->flush();
-
-
-
-        return new JsonResponse($successStory->getId(), Response::HTTP_OK);
+        return $this->get('bl_story_service')->putStory($request, $objGoal, $this->getUser());
+        
     }
 
     /**
@@ -409,16 +299,7 @@ class SuccessStoryController extends FOSRestController
      */
     public function removeStoryVoteAction($storyId)
     {
-        $em = $this->getDoctrine()->getManager();
-        $successStory = $em->getRepository('AppBundle:SuccessStory')->findStoryWithVotes($storyId);
-        if (is_null($successStory)){
-            throw new HttpException(Response::HTTP_NOT_FOUND);
-        }
-
-        $successStory->removeVoter($this->getUser());
-        $em->flush();
-
-        return new JsonResponse();
+        return $this->get('bl_story_service')->removeVoteStory($storyId, $this->getUser());
     }
 
     /**

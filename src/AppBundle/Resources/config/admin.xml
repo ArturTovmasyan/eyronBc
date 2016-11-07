@@ -30,14 +30,6 @@
             <argument/>
         </service>
 
-        <!-- TimeSentence -->
-        <service id="sonata.admin.app.time.sentence" class="AppBundle\Admin\TimeSentenceAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.time_sentence"/>
-            <argument/>
-            <argument>AppBundle\Entity\TimeSentence</argument>
-            <argument/>
-        </service>
-
         <!-- Place -->
         <service id="sonata.admin.app.place" class="AppBundle\Admin\PlaceAdmin">
             <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.place"/>
@@ -121,6 +113,14 @@
                 <argument>merge</argument>
                 <argument>AppBundle:Admin:goal_merge.html.twig</argument>
             </call>
+        </service>
+
+        <!-- Blog -->
+        <service id="sonata.admin.app.blog" class="AppBundle\Admin\BlogAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Blog" label="admin.label.name.blog"/>
+            <argument/>
+            <argument>AppBundle\Entity\Blog</argument>
+            <argument>AppBundle:Admin/Blog</argument>
         </service>
 
     </services>

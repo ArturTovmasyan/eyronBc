@@ -25,8 +25,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class UserGoal implements ActivityableInterface
 {
-    use Location;
-
     // constants for status
     const ACTIVE = 1;
     const COMPLETED = 2;
@@ -60,7 +58,7 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
-     * @ORM\Column(name="status", type="smallint", nullable=true)
+     * @ORM\Column(name="status", type="smallint")
      * @Groups({"userGoal"})
      */
     protected $status = self::ACTIVE;
@@ -81,28 +79,28 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
-     * @ORM\Column(name="is_visible", type="boolean", nullable=true)
+     * @ORM\Column(name="is_visible", type="boolean")
      * @Groups({"userGoal"})
      */
     protected $isVisible = false;
 
     /**
      * @var
-     * @ORM\Column(name="urgent", type="boolean", nullable=true)
+     * @ORM\Column(name="urgent", type="boolean")
      * @Groups({"userGoal"})
      */
     protected $urgent = false;
 
     /**
      * @var
-     * @ORM\Column(name="important", type="boolean", nullable=true)
+     * @ORM\Column(name="important", type="boolean")
      * @Groups({"userGoal"})
      */
     protected $important = true;
 
     /**
      * @var
-     * @ORM\Column(name="note", type="text", nullable=true)
+     * @ORM\Column(name="note", type="string", length=1000, nullable=true)
      * @Groups({"userGoal"})
      */
     protected $note;
@@ -130,7 +128,7 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
-     * @ORM\Column(name="listed_date", type="datetime", nullable=true)
+     * @ORM\Column(name="listed_date", type="datetime")
      * @Gedmo\Timestampable(on="create")
      * @Groups({"userGoal"})
      */
@@ -138,14 +136,14 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
-     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id", nullable=false)
      * @Groups({"userGoal_goal"})
      **/
     protected $goal;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="userGoal")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id",  nullable=false)
      * @Groups({"user"})
      **/
     protected $user;
@@ -664,4 +662,32 @@ class UserGoal implements ActivityableInterface
     {
         return $this->confirmed;
     }
+
+
+    /**
+     * @deprecated
+     * @return int
+     */
+    public function getLat()
+    {
+        return 0;
+    }
+
+    /**
+     * @deprecated
+     * @return int
+     */
+    public function getLng()
+    {
+        return 0;
+    }
+    /**
+     * @deprecated
+     * @return int
+     */
+    public function getLocation()
+    {
+        return null;
+    }
+
 }
