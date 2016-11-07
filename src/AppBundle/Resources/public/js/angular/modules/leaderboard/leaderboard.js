@@ -11,7 +11,7 @@ angular.module('leaderboard', ['Interpolation',
   TYPE_MOTIVATOR : 2,
   TYPE_INNOVATOR : 3,
   TRAVELLER_PATH : 'Traveller',
-  MOTIVATOR_PATH : 'S.S. writer',
+  MOTIVATOR_PATH : 'Mentor',
   INNOVATOR_PATH : 'Innovator',
   MAXIMUM_NORMALIZE_SCORE : 10
   })

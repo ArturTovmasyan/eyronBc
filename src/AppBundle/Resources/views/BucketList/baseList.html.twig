@@ -193,7 +193,7 @@
                                 {% if score  > 0 %}
                                     <li>
                                         <i title="{{ badgeTitles[badge.type] }}" class="badge-{{ badge.type }}"></i>
-                                        <a href="{{ path('leaderboard') }}">{{ score|round(0, 'ceil')}}</a>
+                                        <a href="{{ path('leaderboard') }}#/{{ badgeTitles[badge.type] }}">{{ score|round(0, 'ceil')}}</a>
                                     </li>
                                 {% endif %}
 
