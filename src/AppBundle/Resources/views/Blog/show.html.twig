@@ -4,7 +4,7 @@
 
     <div class="bg-dark-grey">
     {% set blogData = blog.data %}
-
+    {#{% set posts = blog.posts %}#}
 
 
     {% if is_mobile() and not is_tablet() %}
@@ -72,7 +72,7 @@
     </div>
 
     <div class="bg-grey">
-        {{ render_esi(controller('AppBundle:Goal:randomGoal')) }}
+        {#{{ include('AppBundle:Blog:relatedPosts.html.twig',  {'posts': posts} ) }}#}
     </div>
 
     </div>

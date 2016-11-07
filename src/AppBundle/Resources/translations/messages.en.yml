@@ -476,6 +476,7 @@ admin:
       meta_description: Meta Desc.
       generate_affiliate: Generate Affiliate
       published_date: Published Date
+      posts: Posts
 
 # end sonata admin lable
 

@@ -107,19 +107,15 @@ class Blog implements ImageableInterface, PublishAware
     private $updated;
 
     /**
-     * @ORM\OneToMany(targetEntity="Blog", mappedBy="parent", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Blog", mappedBy="blog", cascade={"persist", "remove"})
      */
-    private $blog;
+    private $posts;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Blog")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Blog", inversedBy="posts")
+     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id", nullable=false)
      */
-    private $parent;
-
-//    public function __construct() {
-//        $this->blog = new \Doctrine\Common\Collections\ArrayCollection();
-//    }
+    private $blog;
 
     /**
      * Get id
@@ -413,64 +409,66 @@ class Blog implements ImageableInterface, PublishAware
      */
     public function __construct()
     {
-        $this->blog = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add blog
+     * Add post
      *
-     * @param \AppBundle\Entity\Blog $blog
+     * @param Blog $post
      *
      * @return Blog
      */
-    public function addBlog(\AppBundle\Entity\Blog $blog)
+    public function addPost(Blog $post)
     {
-        $this->blog[] = $blog;
+        $this->posts[] = $post;
 
+        $this->setBlog($post);
+        
         return $this;
     }
 
     /**
-     * Remove blog
+     * Remove post
      *
-     * @param \AppBundle\Entity\Blog $blog
+     * @param Blog $post
      */
-    public function removeBlog(\AppBundle\Entity\Blog $blog)
+    public function removePost(Blog $post)
     {
-        $this->blog->removeElement($blog);
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Set blog
+     *
+     * @param Blog $blog
+     *
+     * @return Blog
+     */
+    public function setBlog(Blog $blog = null)
+    {
+        $this->blog = $blog;
+
+        return $this;
     }
 
     /**
      * Get blog
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Blog
      */
     public function getBlog()
     {
         return $this->blog;
-    }
-
-    /**
-     * Set parent
-     *
-     * @param \AppBundle\Entity\Blog $parent
-     *
-     * @return Blog
-     */
-    public function setParent(\AppBundle\Entity\Blog $parent = null)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return \AppBundle\Entity\Blog
-     */
-    public function getParent()
-    {
-        return $this->parent;
     }
 }
