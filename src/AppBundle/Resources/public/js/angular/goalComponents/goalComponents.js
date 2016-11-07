@@ -10,7 +10,6 @@ angular.module('goalComponents', ['Interpolation',
   'angulartics.google.analytics',
   'PathPrefix',
   'dndLists',
-  'ngMaterial',
   'Facebook'
   ])
   .config(function(uiSelectConfig) {
