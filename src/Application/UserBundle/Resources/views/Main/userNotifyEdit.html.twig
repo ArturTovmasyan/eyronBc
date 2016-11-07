@@ -2,10 +2,31 @@
 
 {% block settings_content %}
 
-    {#{% set commentValue = user.isCommentNotify %}#}
-    {#{% set storyValue = user.isSuccessStoryNotify %}#}
-
     {% set notifySettings = form.children.userNotifySettings %}
+    {% set notifyValues = user.getUserNotifySettings() %}
+    {% if notifyValues %}
+        {% set commentGoalValue = notifyValues.isCommentOnGoalNotify %}
+        {% set commentIdeaValue = notifyValues.isCommentOnIdeaNotify %}
+        {% set successStoryGoalValue = notifyValues.IsSuccessStoryOnGoalNotify %}
+        {% set successStoryIdeaValue = notifyValues.IsSuccessStoryOnIdeaNotify %}
+        {% set successStoryLikeValue = notifyValues.IsSuccessStoryLikeNotify %}
+        {% set publishGoalValue = notifyValues.IsGoalPublishNotify %}
+        {% set commentReplyValue = notifyValues.IsCommentReplyNotify %}
+        {% set deadlineExpValue = notifyValues.IsDeadlineExpNotify %}
+        {% set newGoalFriendValue = notifyValues.IsNewGoalFriendNotify %}
+        {% set newIdeaValue = notifyValues.IsNewIdeaNotify %}
+    {% else %}
+        {% set commentGoalValue = 1 %}
+        {% set commentIdeaValue = 1 %}
+        {% set successStoryGoalValue = 1 %}
+        {% set successStoryIdeaValue = 1 %}
+        {% set successStoryLikeValue = 1 %}
+        {% set publishGoalValue = 1 %}
+        {% set commentReplyValue = 1 %}
+        {% set deadlineExpValue = 1 %}
+        {% set newGoalFriendValue = 1 %}
+        {% set newIdeaValue = 1 %}
+    {% endif %}
 
     <div class="row">
         <div class="col-md-8">
@@ -16,7 +37,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="commentGoal.switch={{ commentGoalValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="commentGoal.switch={{ commentGoalValue }}">
                     <span data-ng-show="commentGoal.switch">{{ 'notify_settings.comment_goal'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="commentGoal.switch">{{ 'notify_settings.comment_goal'|trans({}, 'messages') }}</span>
                 </label>
@@ -39,7 +60,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="commentIdea.switch={{ commentIdeaValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="commentIdea.switch={{ commentIdeaValue }}">
                     <span data-ng-show="commentIdea.switch">{{ 'notify_settings.comment_idea'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="commentIdea.switch">{{ 'notify_settings.comment_idea'|trans({}, 'messages') }}</span>
                 </label>
@@ -62,7 +83,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="successStoryGoal.switch={{ successStoryGoalValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="successStoryGoal.switch={{ successStoryGoalValue }}">
                     <span data-ng-show="successStoryGoal.switch">{{ 'notify_settings.success_story_goal'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="successStoryGoal.switch">{{ 'notify_settings.success_story_goal'|trans({}, 'messages') }}</span>
                 </label>
@@ -85,7 +106,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="successStoryIdea.switch={{ successStoryIdeaValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="successStoryIdea.switch={{ successStoryIdeaValue }}">
                     <span data-ng-show="successStoryIdea.switch">{{ 'notify_settings.success_story_idea'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="successStoryIdea.switch">{{ 'notify_settings.success_story_idea'|trans({}, 'messages') }}</span>
                 </label>
@@ -108,7 +129,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="successStoryLike.switch={{ successStoryLikeValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="successStoryLike.switch={{ successStoryLikeValue }}">
                     <span data-ng-show="successStoryLike.switch">{{ 'notify_settings.success_story_like'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="successStoryLike.switch">{{ 'notify_settings.success_story_like'|trans({}, 'messages') }}</span>
                 </label>
@@ -131,7 +152,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="publishGoal.switch={{ publishGoalValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="publishGoal.switch={{ publishGoalValue }}">
                     <span data-ng-show="publishGoal.switch">{{ 'notify_settings.publish_goal'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="publishGoal.switch">{{ 'notify_settings.publish_goal'|trans({}, 'messages') }}</span>
                 </label>
@@ -154,7 +175,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="commentReply.switch={{ commentReplyValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="commentReply.switch={{ commentReplyValue }}">
                     <span data-ng-show="commentReply.switch">{{ 'notify_settings.reply_comment'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="commentReply.switch">{{ 'notify_settings.reply_comment'|trans({}, 'messages') }}</span>
                 </label>
@@ -162,7 +183,7 @@
                 <div class="col-xs-5 col-sm-2">
                     <div class="onoffswitch">
                         <input type="checkbox"
-                               name="{{ notifySettings.isGoalPublishNotify.vars.full_name }}"
+                               name="{{ notifySettings.isCommentReplyNotify.vars.full_name }}"
                                data-ng-model="commentReply.switch"
                                data-ls-checked="commentReply.switch"
                                class="onoffswitch-checkbox"
@@ -177,7 +198,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="deadlineExp.switch={{ deadlineExpValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="deadlineExp.switch={{ deadlineExpValue }}">
                     <span data-ng-show="deadlineExp.switch">{{ 'notify_settings.deadline'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="deadlineExp.switch">{{ 'notify_settings.deadline'|trans({}, 'messages') }}</span>
                 </label>
@@ -200,7 +221,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="newGoalFriend.switch={{ newGoalFriendValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="newGoalFriend.switch={{ newGoalFriendValue }}">
                     <span data-ng-show="newGoalFriend.switch">{{ 'notify_settings.new_goalfriend'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="newGoalFriend.switch">{{ 'notify_settings.new_goalfriend'|trans({}, 'messages') }}</span>
                 </label>
@@ -223,7 +244,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="newIdea.switch={{ newIdeaValue|default("0") }}">
+                <label class="col-xs-7 col-sm-10 control-label text-left" data-ng-init="newIdea.switch={{ newIdeaValue }}">
                     <span data-ng-show="newIdea.switch">{{ 'notify_settings.new_idea'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="newIdea.switch">{{ 'notify_settings.new_idea'|trans({}, 'messages') }}</span>
                 </label>

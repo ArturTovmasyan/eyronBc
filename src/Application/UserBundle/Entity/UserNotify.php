@@ -113,11 +113,11 @@ class UserNotify
     private $isCommentReplyNotify = true;
 
     /**
-     * @ORM\Column(name="is_comment_replyh_push", type="boolean" )
+     * @ORM\Column(name="is_comment_reply_push", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
-    private $isCommentReplyhPush = true;
+    private $isCommentReplyPush = true;
 
     /**
      * @ORM\Column(name="is_deadline_exp_notify", type="boolean" )
@@ -489,30 +489,6 @@ class UserNotify
     }
 
     /**
-     * Set isCommentReplyhPush
-     *
-     * @param boolean $isCommentReplyhPush
-     *
-     * @return UserNotify
-     */
-    public function setIsCommentReplyhPush($isCommentReplyhPush)
-    {
-        $this->isCommentReplyhPush = $isCommentReplyhPush;
-
-        return $this;
-    }
-
-    /**
-     * Get isCommentReplyhPush
-     *
-     * @return boolean
-     */
-    public function getIsCommentReplyhPush()
-    {
-        return $this->isCommentReplyhPush;
-    }
-
-    /**
      * Set isDeadlineExpNotify
      *
      * @param boolean $isDeadlineExpNotify
@@ -678,5 +654,29 @@ class UserNotify
     public function getIsNewGoalFriendPush()
     {
         return $this->isNewGoalFriendPush;
+    }
+
+    /**
+     * Set isCommentReplyPush
+     *
+     * @param boolean $isCommentReplyPush
+     *
+     * @return UserNotify
+     */
+    public function setIsCommentReplyPush($isCommentReplyPush)
+    {
+        $this->isCommentReplyPush = $isCommentReplyPush;
+
+        return $this;
+    }
+
+    /**
+     * Get isCommentReplyPush
+     *
+     * @return boolean
+     */
+    public function getIsCommentReplyPush()
+    {
+        return $this->isCommentReplyPush;
     }
 }
