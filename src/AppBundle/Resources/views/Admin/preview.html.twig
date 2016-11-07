@@ -9,8 +9,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset("bundles/app/less/admin.css") }}">
-
-    {#TODO MAYBE MUST BE MOVE amp.less style in admin.css and remove below style block#}
+    
     {% stylesheets output='css/blog_preview.css'
     'bundles/app/less/amp.less'
     filter='less,cssrewrite' %}
