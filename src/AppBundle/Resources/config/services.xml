@@ -43,7 +43,7 @@
         </service>
 
          <!--service for twig extension replace in string -->
-        <service id="bl.oll.in" class="AppBundle\Twig\Extension\AllTwigExtension">
+        <service id="bl.all.extensions" class="AppBundle\Twig\Extension\AllTwigExtension">
             <argument type="service" id="service_container" />
             <tag name="twig.extension"/>
         </service>
