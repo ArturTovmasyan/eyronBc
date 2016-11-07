@@ -1972,11 +1972,11 @@ class User extends BaseUser
         $userNotify = $this->getUserNotifySettings();
 
         // by default send notification
-        if($userNotify || $type == UserNotifyService::USER_ACTIVITY){
+        if($type == UserNotifyService::USER_ACTIVITY){
             return true;
         }
 
-        return $userNotify->mustEmailNotify($type);
+        return !$userNotify ? true : $userNotify->mustEmailNotify($type);
     }
 
     /**
@@ -1993,7 +1993,7 @@ class User extends BaseUser
             return true;
         }
 
-        return $userNotify->mustPushedNotify($type);
+        return !$userNotify ? true : $userNotify->mustEmailNotify($type);
     }
 
     /**
