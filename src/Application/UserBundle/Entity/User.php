@@ -304,6 +304,7 @@ class User extends BaseUser
     private $commonGoalsCount = null;
 
     /**
+     * @deprecated
      * @ORM\Column(name="is_comment_notify", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
@@ -311,6 +312,7 @@ class User extends BaseUser
     private $isCommentNotify = true;
 
     /**
+     * @deprecated
      * @ORM\Column(name="is_success_story_notify", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
@@ -318,6 +320,7 @@ class User extends BaseUser
     private $isSuccessStoryNotify = true;
 
     /**
+     * @deprecated
      * @ORM\Column(name="is_comment_push_note", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
@@ -325,6 +328,7 @@ class User extends BaseUser
     private $isCommentPushNote = true;
 
     /**
+     * @deprecated
      * @ORM\Column(name="is_success_story_push_note", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})

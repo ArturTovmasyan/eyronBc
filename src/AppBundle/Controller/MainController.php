@@ -43,15 +43,6 @@ class MainController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $goal = $em->getRepository("AppBundle:Goal")->find(3424);
-        $user = $em->getRepository("ApplicationUserBundle:user")->find(123);
-        $service = $this->get('user_notify')->prepareAndSendNotifyViaProcess(123, UserNotifyService::NEW_IDEA,
-            array('count'=>5));
-
-        return new Response($service);
-        exit;
-
-        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
         if (!is_object($user)){
