@@ -179,4 +179,17 @@ class Badge
     {
         return $this->updated;
     }
+
+
+    /**
+     * @return array
+     */
+    static public function getTypesAsString()
+    {
+        return array(
+            self::TYPE_INNOVATOR => 'innovator',
+            self::TYPE_MOTIVATOR => 'mentor',
+            self::TYPE_TRAVELLER => 'traveler',
+        );
+    }
 }
