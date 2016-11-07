@@ -127,3 +127,27 @@
     width: 400px;
     margin: 10px;
 }
+
+.add-button{
+    margin-bottom: 24px;
+}
+ul.blog {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+}
+ul.blog > div {
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    background-color: #f4f4f4;
+}
+
+img.admin-preview {
+    max-height: 270px;
+    max-width: 270px;
+}
+
+/*ul.blog div span { position: absolute; margin-left: -1.3em; }*/
