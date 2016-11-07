@@ -21,56 +21,56 @@ class UserNotify
     protected $id;
 
     /**
-     * @ORM\Column(name="is_comment_on_goal_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_comment_on_goal_notify", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isCommentOnGoalNotify = true;
 
     /**
-     * @ORM\Column(name="is_comment_on_idea_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_comment_on_idea_notify", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isCommentOnIdeaNotify = true;
 
     /**
-     * @ORM\Column(name="is_comment_on_goal_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_comment_on_goal_push", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isCommentOnGoalPush = true;
 
     /**
-     * @ORM\Column(name="is_comment_on_idea_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_comment_on_idea_push", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isCommentOnIdeaPush = true;
 
     /**
-     * @ORM\Column(name="is_success_story_on_goal_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_success_story_on_goal_notify", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isSuccessStoryOnGoalNotify = true;
 
     /**
-     * @ORM\Column(name="is_success_story_on_idea_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_success_story_on_idea_notify", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isSuccessStoryOnIdeaNotify = true;
 
     /**
-     * @ORM\Column(name="is_success_story_on_goal_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_success_story_on_goal_push", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isSuccessStoryOnGoalPush = true;
 
     /**
-     * @ORM\Column(name="is_success_story_on_idea_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_success_story_on_idea_push", type="boolean")
      * @var
      * @Groups({"settings"})
      */
@@ -78,84 +78,84 @@ class UserNotify
 
 
     /**
-     * @ORM\Column(name="is_success_story_like_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_success_story_like_notify", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isSuccessStoryLikeNotify = true;
 
     /**
-     * @ORM\Column(name="is_success_story_like_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_success_story_like_push", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isSuccessStoryLikePush = true;
 
     /**
-     * @ORM\Column(name="is_goal_publish_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_goal_publish_notify", type="boolean")
      * @var
      * @Groups({"settings"})
      */
     private $isGoalPublishNotify = true;
 
     /**
-     * @ORM\Column(name="is_goal_publish_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_goal_publish_push", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
     private $isGoalPublishPush = true;
 
     /**
-     * @ORM\Column(name="is_comment_reply_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_comment_reply_notify", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
     private $isCommentReplyNotify = true;
 
     /**
-     * @ORM\Column(name="is_comment_replyh_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_comment_replyh_push", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
     private $isCommentReplyhPush = true;
 
     /**
-     * @ORM\Column(name="is_deadline_exp_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_deadline_exp_notify", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
     private $isDeadlineExpNotify = true;
 
     /**
-     * @ORM\Column(name="is_deadline_exp_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_deadline_exp_push", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
     private $isDeadlineExpPush = true;
 
     /**
-     * @ORM\Column(name="is_new_goal_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_new_goal_notify", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
     private $isNewGoalNotify = true;
 
     /**
-     * @ORM\Column(name="is_new_goal_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_new_goal_push", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
     private $isNewGoalPush = true;
 
     /**
-     * @ORM\Column(name="is_new_idea_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_new_idea_notify", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
     private $isNewIdeaNotify = true;
 
     /**
-     * @ORM\Column(name="is_new_idea_push", type="boolean", nullable=true)
+     * @ORM\Column(name="is_new_idea_push", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
