@@ -9,6 +9,7 @@
 namespace Application\UserBundle\Entity;
 
 use AppBundle\Entity\UserGoal;
+use AppBundle\Services\UserNotifyService;
 use AppBundle\Traits\File;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -1967,8 +1968,15 @@ class User extends BaseUser
      */
     public function mustEmailNotify($type)
     {
-        return false;
+        // get user notification
+        $userNotify = $this->getUserNotifySettings();
 
+        // by default send notification
+        if($userNotify || $type == UserNotifyService::USER_ACTIVITY){
+            return true;
+        }
+
+        return $userNotify->mustEmailNotify($type);
     }
 
     /**
@@ -1977,7 +1985,15 @@ class User extends BaseUser
      */
     public function mustPushedNotify($type)
     {
-        return false;
+        // get user notification
+        $userNotify = $this->getUserNotifySettings();
+
+        // by default send notification
+        if($userNotify || $type == UserNotifyService::USER_ACTIVITY){
+            return true;
+        }
+
+        return $userNotify->mustPushedNotify($type);
     }
 
     /**

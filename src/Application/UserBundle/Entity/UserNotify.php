@@ -1,6 +1,7 @@
 <?php
 namespace Application\UserBundle\Entity;
 
+use AppBundle\Services\UserNotifyService;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -678,5 +679,93 @@ class UserNotify
     public function getIsCommentReplyPush()
     {
         return $this->isCommentReplyPush;
+    }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function mustEmailNotify($type)
+    {
+        $result = false;
+
+        switch ($type){
+            case UserNotifyService::COMMENT_GOAL:
+                $result = $this->getIsCommentOnGoalNotify();
+                break;
+            case UserNotifyService::COMMENT_IDEA:
+                $result = $this->getIsCommentOnIdeaNotify();
+                break;
+            case UserNotifyService::SUCCESS_STORY_GOAL:
+                $result = $this->getIsSuccessStoryOnGoalNotify();
+                break;
+            case UserNotifyService::SUCCESS_STORY_IDEA:
+                $result = $this->getIsSuccessStoryOnIdeaNotify();
+                break;
+            case UserNotifyService::SUCCESS_STORY_LIKE:
+                $result = $this->getIsSuccessStoryLikeNotify();
+                break;
+            case UserNotifyService::PUBLISH_GOAL:
+                $result = $this->getIsGoalPublishNotify();
+                break;
+            case UserNotifyService::REPLY_COMMENT:
+                $result = $this->getIsCommentReplyNotify();
+                break;
+            case UserNotifyService::DEADLINE:
+                $result = $this->getIsDeadlineExpNotify();
+                break;
+            case UserNotifyService::NEW_GOAL_FRIEND:
+                $result = $this->getIsNewGoalFriendNotify();
+                break;
+            case UserNotifyService::NEW_IDEA:
+                $result = $this->getIsNewIdeaNotify();
+                break;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function mustPushedNotify($type)
+    {
+        $result = false;
+
+        switch ($type){
+            case UserNotifyService::COMMENT_GOAL:
+                $result = $this->getIsCommentOnGoalPush();
+                break;
+            case UserNotifyService::COMMENT_IDEA:
+                $result = $this->getIsCommentOnIdeaPush();
+                break;
+            case UserNotifyService::SUCCESS_STORY_GOAL:
+                $result = $this->getIsSuccessStoryOnGoalPush();
+                break;
+            case UserNotifyService::SUCCESS_STORY_IDEA:
+                $result = $this->getIsSuccessStoryOnIdeaPush();
+                break;
+            case UserNotifyService::SUCCESS_STORY_LIKE:
+                $result = $this->getIsSuccessStoryLikePush();
+                break;
+            case UserNotifyService::PUBLISH_GOAL:
+                $result = $this->getIsGoalPublishPush();
+                break;
+            case UserNotifyService::REPLY_COMMENT:
+                $result = $this->getIsCommentReplyPush();
+                break;
+            case UserNotifyService::DEADLINE:
+                $result = $this->getIsDeadlineExpPush();
+                break;
+            case UserNotifyService::NEW_GOAL_FRIEND:
+                $result = $this->getIsNewGoalFriendPush();
+                break;
+            case UserNotifyService::NEW_IDEA:
+                $result = $this->getIsNewIdeaPush();
+                break;
+        }
+
+        return $result;
     }
 }
