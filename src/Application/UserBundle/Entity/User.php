@@ -1979,4 +1979,28 @@ class User extends BaseUser
     {
         return false;
     }
+
+    /**
+     * Set userNotifySettings
+     *
+     * @param \Application\UserBundle\Entity\UserNotify $userNotifySettings
+     *
+     * @return User
+     */
+    public function setUserNotifySettings(\Application\UserBundle\Entity\UserNotify $userNotifySettings = null)
+    {
+        $this->userNotifySettings = $userNotifySettings;
+
+        return $this;
+    }
+
+    /**
+     * Get userNotifySettings
+     *
+     * @return \Application\UserBundle\Entity\UserNotify
+     */
+    public function getUserNotifySettings()
+    {
+        return $this->userNotifySettings;
+    }
 }

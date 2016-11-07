@@ -37,7 +37,7 @@ class UserNotifyType extends AbstractType
             ->add('isGoalPublishNotify', CheckboxType::class, array('required'=> false))
             ->add('isCommentReplyNotify', CheckboxType::class, array('required'=> false))
             ->add('isDeadlineExpNotify', CheckboxType::class, array('required'=> false))
-            ->add('isNewGoalNotify', CheckboxType::class, array('required'=> false))
+            ->add('isNewGoalFriendNotify', CheckboxType::class, array('required'=> false))
             ->add('isNewIdeaNotify', CheckboxType::class, array('required'=> false))
         ;
     }

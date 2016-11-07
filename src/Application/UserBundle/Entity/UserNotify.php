@@ -134,18 +134,18 @@ class UserNotify
     private $isDeadlineExpPush = true;
 
     /**
-     * @ORM\Column(name="is_new_goal_notify", type="boolean" )
+     * @ORM\Column(name="is_new_goal_friend_notify", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
-    private $isNewGoalNotify = true;
+    private $isNewGoalFriendNotify = true;
 
     /**
-     * @ORM\Column(name="is_new_goal_push", type="boolean" )
+     * @ORM\Column(name="is_new_goal_friend_push", type="boolean" )
      * @var
      * @Groups({"settings"})
      */
-    private $isNewGoalPush = true;
+    private $isNewGoalFriendPush = true;
 
     /**
      * @ORM\Column(name="is_new_idea_notify", type="boolean" )
@@ -561,54 +561,6 @@ class UserNotify
     }
 
     /**
-     * Set isNewGoalNotify
-     *
-     * @param boolean $isNewGoalNotify
-     *
-     * @return UserNotify
-     */
-    public function setIsNewGoalNotify($isNewGoalNotify)
-    {
-        $this->isNewGoalNotify = $isNewGoalNotify;
-
-        return $this;
-    }
-
-    /**
-     * Get isNewGoalNotify
-     *
-     * @return boolean
-     */
-    public function getIsNewGoalNotify()
-    {
-        return $this->isNewGoalNotify;
-    }
-
-    /**
-     * Set isNewGoalPush
-     *
-     * @param boolean $isNewGoalPush
-     *
-     * @return UserNotify
-     */
-    public function setIsNewGoalPush($isNewGoalPush)
-    {
-        $this->isNewGoalPush = $isNewGoalPush;
-
-        return $this;
-    }
-
-    /**
-     * Get isNewGoalPush
-     *
-     * @return boolean
-     */
-    public function getIsNewGoalPush()
-    {
-        return $this->isNewGoalPush;
-    }
-
-    /**
      * Set isNewIdeaNotify
      *
      * @param boolean $isNewIdeaNotify
@@ -654,5 +606,77 @@ class UserNotify
     public function getIsNewIdeaPush()
     {
         return $this->isNewIdeaPush;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\UserBundle\Entity\User $user
+     *
+     * @return UserNotify
+     */
+    public function setUser(\Application\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set isNewGoalFriendNotify
+     *
+     * @param boolean $isNewGoalFriendNotify
+     *
+     * @return UserNotify
+     */
+    public function setIsNewGoalFriendNotify($isNewGoalFriendNotify)
+    {
+        $this->isNewGoalFriendNotify = $isNewGoalFriendNotify;
+
+        return $this;
+    }
+
+    /**
+     * Get isNewGoalFriendNotify
+     *
+     * @return boolean
+     */
+    public function getIsNewGoalFriendNotify()
+    {
+        return $this->isNewGoalFriendNotify;
+    }
+
+    /**
+     * Set isNewGoalFriendPush
+     *
+     * @param boolean $isNewGoalFriendPush
+     *
+     * @return UserNotify
+     */
+    public function setIsNewGoalFriendPush($isNewGoalFriendPush)
+    {
+        $this->isNewGoalFriendPush = $isNewGoalFriendPush;
+
+        return $this;
+    }
+
+    /**
+     * Get isNewGoalFriendPush
+     *
+     * @return boolean
+     */
+    public function getIsNewGoalFriendPush()
+    {
+        return $this->isNewGoalFriendPush;
     }
 }
