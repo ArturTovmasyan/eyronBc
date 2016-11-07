@@ -54,7 +54,8 @@ class BlogAdmin extends AbstractAdmin
             ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
             ->add('getImagePath', null, array('template'=>'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
             ->add('publishedDate', 'datetime', array('label'=>'admin.label.name.published_date'))
-            ->add('updated', null)
+            ->add('created')
+            ->add('updated')
         ;
     }
 
@@ -98,11 +99,18 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title', 'show_filter' => true))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('slug', null, array('label'=>'admin.label.name.slug', 'show_filter' => true))
+            ->add('created', 'doctrine_orm_date_range', array('label' => 'admin.label.name.created'), 'sonata_type_date_range_picker',
+                array('field_options_start'=>array('format'=>'yyyy-MM-dd'),
+                    'field_options_end'=>array('format'=>'yyyy-MM-dd')))
+
+            ->add('updated', 'doctrine_orm_date_range', array('label' => 'admin.label.name.updated'), 'sonata_type_date_range_picker',
+                array('field_options_start'=>array('format'=>'yyyy-MM-dd'),
+                    'field_options_end'=>array('format'=>'yyyy-MM-dd')))
+
             ->add('publishedDate', 'doctrine_orm_date_range', array('label' => 'admin.label.name.published_date'), 'sonata_type_date_range_picker',
                 array('field_options_start'=>array('format'=>'yyyy-MM-dd'),
                     'field_options_end'=>array('format'=>'yyyy-MM-dd'))
             );
-        ;
     }
 
     // Fields to be shown on lists
