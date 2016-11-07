@@ -138,7 +138,7 @@
                     <div id="line"></div>
                     <div class="category">
                         <a class="logo" href="{{ path("homepage") }}">
-                            <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" width="125" height="50"></amp-img>
+                            <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" width="125" height="48"></amp-img>
                         </a>
 
                         <div class="sidebar-right">
@@ -159,7 +159,7 @@
             {% block content %}{% endblock %}
         </div>
 
-        <footer>
+        <footer class="amp-footer">
 
             <div class="category">
                 <ul class="apps clear">
@@ -218,14 +218,14 @@
 
             </div>
 
-        <div class="footer-bottom">
-            <div class="category">
-                <small>&copy; {{ 'copyright'|trans | upper }}</small>
-                {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
+            <div class="footer-bottom">
+                <div class="category">
+                    <small>&copy; {{ 'copyright'|trans | upper }}</small>
+                    {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
+                </div>
             </div>
-        </div>
 
-    </footer>
+        </footer>
     </div>
 {% endblock %}
 </body>

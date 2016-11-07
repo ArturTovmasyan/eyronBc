@@ -136,3 +136,26 @@ img.admin-preview {
     max-height: 270px;
     max-width: 270px;
 }
+
+
+.sonata-preview-form-container{
+    margin: 0 0 20px 0;
+}
+
+.sonata-preview-form-container button{
+    margin: 0 5px;
+}
+
+
+ul li {margin-bottom:0;}
+
+header #notification a.relative {
+    padding: 25px 20px 15px !important;
+}
+
+
+@media (min-width: 768px){
+    footer .social {
+        padding: 25px 0 10px;
+    }
+}

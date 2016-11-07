@@ -22,7 +22,9 @@
 {% block content %}
 
     <div class="header">
-        <h1 class="text-white">{{ blog.title }}</h1>
+        <div>
+            <h1 class="text-white">{{ blog.title }}</h1>
+        </div>
         <figure>
             <span class="overlay"></span>
             <img src="{{ blog.imagePath|blImageFilter('user_cover') }}" alt="{{ blog.title }}" width="100%">
@@ -55,7 +57,11 @@
 
                         <div>
                             <span class="transparent"></span>
-                            <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}"><h3 class="text-blue">{{ goal.title }}</h3></a>
+
+                            <h3>
+                                <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" class="text-blue">{{ goal.title }}</a>
+                            </h3>
+
                             {% if goal.description %}
                                 {{ goal.description|removeTag|markdown }}
                             {% endif %}
@@ -68,7 +74,9 @@
     </div>
 
     <div class="sonata-preview-form-container">
-        {{ block('parentForm') }}
+        <div class="container">
+            {{ block('parentForm') }}
+        </div>
     </div>
 
 {% endblock %}
