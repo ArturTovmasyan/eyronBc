@@ -349,6 +349,11 @@ class User extends BaseUser
     private $userGoalRemoveDate;
 
     /**
+     * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", mappedBy="user")
+     */
+    private $userNotifySettings;
+
+    /**
      * @return mixed
      */
     public function getDraftCount()

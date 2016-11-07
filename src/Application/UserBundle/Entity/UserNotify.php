@@ -162,6 +162,11 @@ class UserNotify
     private $isNewIdeaPush = true;
 
     /**
+     * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="userNotifySettings")
+     */
+    private $user;
+
+    /**
      * Get id
      *
      * @return integer
