@@ -61,10 +61,29 @@ class BlogAdmin extends AbstractAdmin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
+        // get the current Image instance
+        $image = $this->getSubject();
+
+        // use $fileFieldOptions so we can add other options to the field
+        $fileFieldOptions = array('label'=>'admin.label.name.images', 'required' => false);
+
+        if ($image && ($webPath = $image->getDownloadLink())) {
+
+            // get the container so the full path to the image can be set
+            $container = $this->getConfigurationPool()->getContainer();
+            $fullPath = $container->get('request')->getSchemeAndHttpHost().$webPath;
+
+            // add a 'help' option containing the preview's img tag
+            $fileFieldOptions['help'] = '<img src="'.$fullPath.'" class="admin-preview" />';
+        }
+
+        $formMapper
+            // ... other fields ...
+            ->add('file', 'file', $fileFieldOptions);
+
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('file', 'file', array('label'=>'admin.label.name.images', 'required'=>false))
             ->add('metaDescription', 'textarea', array('label'=>'admin.label.name.meta_description'))
             ->add('publishedDate', 'sonata_type_date_picker', array('label'=>'admin.label.name.published_date', 'required'=>false))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))

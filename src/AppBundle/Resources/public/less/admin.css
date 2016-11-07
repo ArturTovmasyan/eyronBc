@@ -144,4 +144,10 @@ ul.blog > div {
     margin-bottom: 20px;
     background-color: #f4f4f4;
 }
+
+img.admin-preview {
+    max-height: 270px;
+    max-width: 270px;
+}
+
 /*ul.blog div span { position: absolute; margin-left: -1.3em; }*/
