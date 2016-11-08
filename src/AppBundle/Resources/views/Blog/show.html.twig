@@ -3,15 +3,15 @@
 {% block meta %}
     {{ parent() }}
     <script type="application/ld+json">
-              {
-                "@context": "http://schema.org",
-                "@type": "{{ blog.title }}",
-                "headline": "{{- blog.metaDescription|markdown|sliceString -}}",
-                "datePublished": "{{ blog.updated|date('Y-m-d') }}",
-                "image": [
-                  {{ host ~ logo }}
-                ]
-              }
+      {
+        "@context": "http://schema.org",
+        "@type": "{{ blog.title }}",
+        "headline": "{{- blog.metaDescription|markdown|sliceString -}}",
+        "datePublished": "{{ blog.updated|date('Y-m-d') }}",
+        "image": [
+          {{ host ~ logo }}
+        ]
+      }
     </script>
 {% endblock %}
 
