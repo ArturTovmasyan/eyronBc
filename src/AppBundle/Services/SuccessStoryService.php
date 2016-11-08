@@ -233,7 +233,10 @@ class SuccessStoryService extends AbstractProcessService
         $user = $em->getRepository("ApplicationUserBundle:User")->find($userId);
 
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId());
+
+        $authorId = $goal->getAuthor() ? $goal->getAuthor()->getId() : null;
+
+        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId(), $authorId);
         $link = $this->container->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
         $body = $this->container->get('translator')->trans('notification.important_goal_success_story', [], null, 'en');
         $this->container->get('bl_notification')->sendNotification($user, $link, $goal->getId(), $body, $importantAddedUsers);

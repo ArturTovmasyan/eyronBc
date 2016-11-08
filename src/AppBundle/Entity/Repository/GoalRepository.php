@@ -898,16 +898,26 @@ class GoalRepository extends EntityRepository
 
     /**
      * @param $goalId
+     * @param $authorId
      * @return array
      */
-    public function findImportantAddedUsers($goalId)
+    public function findImportantAddedUsers($goalId, $authorId = null)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT u
-                           FROM ApplicationUserBundle:User u
-                           JOIN u.userGoal ug WITH ug.goal = :goalId AND ug.important = true")
-            ->setParameter('goalId', $goalId)
-            ->getResult();
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('u')
+            ->from('ApplicationUserBundle:User', 'u')
+            ->join('u.userGoal', 'ug', 'with', 'ug.goal = :goalId AND ug.important = true');
+
+        if($authorId){
+            $query
+                ->andWhere('u.id != :authorId')
+                ->setParameter('authorId', $authorId)
+                ->setParameter('goalId', $goalId)
+            ;
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     /**
