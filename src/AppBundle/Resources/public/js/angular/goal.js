@@ -726,7 +726,7 @@ angular.module('goal', ['Interpolation',
 
         $scope.position = positionCache.get('position');
 
-        if(!Object.keys($scope.position).length){
+        if(!$scope.position || !Object.keys($scope.position).length){
             $scope.position = null;
         } else {
             $scope.notAllowed = false;
