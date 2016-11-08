@@ -66,6 +66,8 @@ class ImageFilterExtension extends \Twig_Extension
      */
     public function blImageFilterForCli($path, $filter)
     {
+        $baseUrl = $this->container->getParameter('project_name');
+
         // check has http in path
         if(strpos($path, 'http') === false){
 
@@ -76,13 +78,13 @@ class ImageFilterExtension extends \Twig_Extension
                 $params = ['path' => ltrim($path, '/'), 'filter' => $filter];
                 $srcPath = $route->generate('liip_imagine_filter', $params);
 
-                return $srcPath;
+                return $baseUrl . $srcPath;
             }catch (\Exception $e){
-                return $path;
+                return $baseUrl . $path;
             }
         }
         else{
-            return $path;
+            return $baseUrl . $path;
         }
     }
 

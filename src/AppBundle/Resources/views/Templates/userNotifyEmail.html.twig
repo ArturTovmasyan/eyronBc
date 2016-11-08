@@ -66,7 +66,7 @@
                     <figure style="margin:20px 0 0;background-color: #011420;width: 510px;overflow:hidden;text-align:center;">
                         <img src="
                             {% if cover %}
-                                {% set goalPhoto = baseUrl~cover %}
+                                {% set goalPhoto = cover %}
                                 {{ goalPhoto|blImageFilterForCli('goal_bg') }}
                             {% endif %}"
                              alt="{{ goal.title }}"  height="230" width="100%"/>
