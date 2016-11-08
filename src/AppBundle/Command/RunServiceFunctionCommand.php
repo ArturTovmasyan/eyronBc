@@ -53,6 +53,11 @@ class RunServiceFunctionCommand extends ContainerAwareCommand
         // get service
         $service = $container->get($serviceName);
 
+        $arguments = array_map(function($item){
+            $data = json_decode($item, true);
+            return is_null($data) ? $item : $data;
+        }, $arguments);
+
         // run service function
         call_user_func_array(array($service, $function), $arguments);
 

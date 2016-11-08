@@ -546,6 +546,21 @@ overall:
   excellent: Excellent! You are outperforming!
   falling: Get a move on! You are falling behind your goals.
 
+
+#notify settings
+notify_settings:
+  user_activity: Highlights
+  comment_goal: Goals commented
+  comment_idea: Ideas commented
+  success_story_goal: Success stories for Goals
+  success_story_idea: Success stories for Ideas
+  success_story_like: Success stories liked
+  publish_goal: Published Ideas
+  reply_comment: Comments replied
+  deadline: Deadline expires
+  new_goalfriend: New Goalfriends
+  new_idea: New Ideas
+
 leaderboard:
   name: leaderboard
   title: Bucketlist 127-Leaderboard
@@ -553,3 +568,4 @@ leaderboard:
   traveler: Traveler
   innovator: Innovator
   writer: Mentor
+

@@ -9,6 +9,7 @@
 namespace Application\UserBundle\Entity;
 
 use AppBundle\Entity\UserGoal;
+use AppBundle\Services\UserNotifyService;
 use AppBundle\Traits\File;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -308,6 +309,7 @@ class User extends BaseUser
     private $commonGoalsCount = null;
 
     /**
+     * @deprecated
      * @ORM\Column(name="is_comment_notify", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
@@ -315,6 +317,7 @@ class User extends BaseUser
     private $isCommentNotify = true;
 
     /**
+     * @deprecated
      * @ORM\Column(name="is_success_story_notify", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
@@ -322,6 +325,7 @@ class User extends BaseUser
     private $isSuccessStoryNotify = true;
 
     /**
+     * @deprecated
      * @ORM\Column(name="is_comment_push_note", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
@@ -329,6 +333,7 @@ class User extends BaseUser
     private $isCommentPushNote = true;
 
     /**
+     * @deprecated
      * @ORM\Column(name="is_success_story_push_note", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
@@ -352,6 +357,11 @@ class User extends BaseUser
      * @ORM\Column(name="user_goal_remove_date", type="datetime", nullable=true)
      */
     private $userGoalRemoveDate;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", inversedBy="user", cascade={"persist"})
+     */
+    private $userNotifySettings;
 
     /**
      * @return mixed
@@ -1957,6 +1967,65 @@ class User extends BaseUser
     public function getUserGoalRemoveDate()
     {
         return $this->userGoalRemoveDate;
+    }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function mustEmailNotify($type)
+    {
+        // get user notification
+        $userNotify = $this->getUserNotifySettings();
+
+        // by default send notification
+        if($type == UserNotifyService::USER_ACTIVITY){
+            return true;
+        }
+
+        return !$userNotify ? true : $userNotify->mustEmailNotify($type);
+    }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function mustPushedNotify($type)
+    {
+        // get user notification
+        $userNotify = $this->getUserNotifySettings();
+
+        // by default send notification
+        if($userNotify || $type == UserNotifyService::USER_ACTIVITY){
+            return true;
+        }
+
+        return !$userNotify ? true : $userNotify->mustEmailNotify($type);
+    }
+
+    /**
+     * Set userNotifySettings
+     *
+     * @param \Application\UserBundle\Entity\UserNotify $userNotifySettings
+     *
+     * @return User
+     */
+    public function setUserNotifySettings(\Application\UserBundle\Entity\UserNotify $userNotifySettings = null)
+    {
+        $this->userNotifySettings = $userNotifySettings;
+        $userNotifySettings->setUser($this);
+
+        return $this;
+    }
+
+    /**
+     * Get userNotifySettings
+     *
+     * @return \Application\UserBundle\Entity\UserNotify
+     */
+    public function getUserNotifySettings()
+    {
+        return $this->userNotifySettings;
     }
 
     /**
