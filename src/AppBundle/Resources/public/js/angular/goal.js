@@ -753,7 +753,18 @@ angular.module('goal', ['Interpolation',
             $scope.Ideas.busy = true;
             $timeout(function () {
                 path = path.slice(1);
+
+                if(path == 'discover'){
+                    path = ''
+                }
+
                 $scope.goTo(path);
+            },100);
+        } else {
+            $timeout(function () {
+                if(!$scope.activeCategory){
+                    $scope.goTo('nearby');
+                }
             },100);
         }
 
