@@ -51,6 +51,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
+            ->add('posts', null, array('label'=>'admin.label.name.posts'))
             ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
             ->add('getImagePath', null, array('template'=>'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
             ->add('publishedDate', 'datetime', array('label'=>'admin.label.name.published_date'))
@@ -66,7 +67,7 @@ class BlogAdmin extends AbstractAdmin
         $image = $this->getSubject();
 
         // use $fileFieldOptions so we can add other options to the field
-        $fileFieldOptions = array('label'=>'admin.label.name.images', 'required' => false);
+        $fileFieldOptions = array('label'=>'admin.label.name.blog_images', 'required' => false);
 
         if ($image && ($webPath = $image->getDownloadLink())) {
 
@@ -85,6 +86,7 @@ class BlogAdmin extends AbstractAdmin
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
+            ->add('posts', 'sonata_type_model_autocomplete', array('label'=>'admin.label.name.posts', 'property'=>'title', 'multiple' => true, 'required' => false))
             ->add('metaDescription', 'textarea', array('label'=>'admin.label.name.meta_description'))
             ->add('publishedDate', 'sonata_type_date_picker', array('label'=>'admin.label.name.published_date', 'required'=>false))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))
@@ -121,6 +123,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
             ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
+            ->add('posts', null, array('label'=>'admin.label.name.posts'))
             ->add('publishedDate', 'datetime', array('label'=>'admin.label.name.published_date'))
             ->add('updated')
             ->add('created')

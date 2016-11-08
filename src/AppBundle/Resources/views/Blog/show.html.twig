@@ -3,7 +3,9 @@
 {% block content %}
 
     <div class="bg-dark-grey">
+
     {% set blogData = blog.data %}
+    {% set posts = blog.posts %}
 
     {% if is_mobile() and not is_tablet() %}
         <h1 class="text-blue text-center {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
@@ -70,7 +72,7 @@
     </div>
 
     <div class="bg-grey">
-        {{ render_esi(controller('AppBundle:Goal:randomGoal')) }}
+        {{ include('AppBundle:Blog:relatedPosts.html.twig',  {'posts': posts} ) }}
     </div>
 
     </div>

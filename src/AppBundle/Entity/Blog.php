@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
-use JMS\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\SerializedName;
@@ -105,6 +104,15 @@ class Blog implements ImageableInterface, PublishAware
      * @Gedmo\Timestampable(on="update")
      */
     private $updated;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Blog", cascade={"persist"})
+     * @ORM\JoinTable(name="blog_posts",
+     *      joinColumns={@ORM\JoinColumn(name="blog_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")}
+     *      )
+     */
+    private $posts;
 
     /**
      * Get id
@@ -243,7 +251,7 @@ class Blog implements ImageableInterface, PublishAware
     public function setMobileImagePath($path)
     {
         $this->mobileImagePath = $path;
-        
+
         return $this;
     }
 
@@ -311,8 +319,7 @@ class Blog implements ImageableInterface, PublishAware
     {
         $ids = [];
 
-        foreach ($this->data as $data)
-        {
+        foreach ($this->data as $data) {
             if ($data['type'] == self::TYPE_GOAL) {
                 $ids[] = $data['content'];
             }
@@ -324,10 +331,10 @@ class Blog implements ImageableInterface, PublishAware
     /**
      * @return array
      */
-    public function  getBlMultipleBlog()
+    public function getBlMultipleBlog()
     {
         //check data and return array
-        if($this->data){
+        if ($this->data) {
 
             return $this->data;
         }
@@ -338,11 +345,11 @@ class Blog implements ImageableInterface, PublishAware
     /**
      * @param $multipleBlog
      */
-    public function  setBlMultipleBlog($multipleBlog)
+    public function setBlMultipleBlog($multipleBlog)
     {
         $this->data = array_values($multipleBlog);
     }
-    
+
     /**
      * This function is used to add goal in each array data
      *
@@ -353,8 +360,7 @@ class Blog implements ImageableInterface, PublishAware
     {
         $blogData = $this->data;
 
-        foreach ($blogData as $key => $blog)
-        {
+        foreach ($blogData as $key => $blog) {
             if ($blog['type'] == self::TYPE_GOAL && $blog['content']) {
                 $goalId = $blog['content'];
                 $blogData[$key]['goals'] = $goals[$goalId];
@@ -392,6 +398,48 @@ class Blog implements ImageableInterface, PublishAware
      */
     public function __toString()
     {
-        return (string) $this->id;
+        return (string)$this->title;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
+
+    /**
+     * Add post
+     *
+     * @param Blog $post
+     *
+     * @return Blog
+     */
+    public function addPost(Blog $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param Blog $post
+     */
+    public function removePost(Blog $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }
