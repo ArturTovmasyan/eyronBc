@@ -55,10 +55,10 @@ class UserNotifyService extends AbstractProcessService
         //get kernel debug
         $notProd = $this->container->getParameter('kernel.debug');
 
-//        //check if user notify is disabled
-//        if(!$enabledByConfig || $notProd) {
-//            return;
-//        }
+        //check if user notify is disabled
+        if(!$enabledByConfig || $notProd) {
+            return;
+        }
 
         // get doctrine manager
         $em = $this->container->get('doctrine')->getManager();
@@ -251,13 +251,16 @@ class UserNotifyService extends AbstractProcessService
         //get kernel debug
         $notProd = $this->container->getParameter('kernel.debug');
 
-//        //check if user notify is disabled
-//        if(!$enabledByConfig || $notProd) {
-//            return;
-//        }
+        //check if user notify is disabled
+        if(!$enabledByConfig || $notProd) {
+            return;
+        }
 
-        // todo change to process
-        $this->prepareAndSendNotifyViaProcess($receiver->getId(), $type, $options);
+        // json data for array
+        $options = "'" . json_encode($options) . "'";
+
+        $this->runAsProcess('user_notify', 'prepareAndSendNotifyViaProcess',
+            array($receiver->getId(), $type, $options));
     }
 
 

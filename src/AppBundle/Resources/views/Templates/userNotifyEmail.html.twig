@@ -39,7 +39,7 @@
                     {% if sender %}
                         {% if sender.getPhotoLink %}
                             <figure style="float:left;width:65px;height:65px !important;overflow:hidden;margin:0 20px;border:1px solid #cccccc; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
-                                <img src="{{ sender.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ sender.filename }}"
+                                <img src="{{ sender.getPhotoLink|blImageFilterForCli('user_icon') }}" alt="{{ sender.filename }}"
                                      style="width:65px;height:65px !important; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
                             </figure>
                         {% else %}
@@ -67,7 +67,7 @@
                         <img src="
                             {% if cover %}
                                 {% set goalPhoto = baseUrl~cover %}
-                                {{ goalPhoto|blImageFilter('goal_bg') }}
+                                {{ goalPhoto|blImageFilterForCli('goal_bg') }}
                             {% endif %}"
                              alt="{{ goal.title }}"  height="230" width="100%"/>
                         <figcaption style=";text-align:center;">

@@ -28,6 +28,7 @@ class ImageFilterExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('blImageFilter', array($this, 'blImageFilter')),
+            new \Twig_SimpleFilter('blImageFilterForCli', array($this, 'blImageFilterForCli')),
         );
     }
 
@@ -47,6 +48,33 @@ class ImageFilterExtension extends \Twig_Extension
                 $this->container->get('liip_imagine.controller')->filterAction($request, $path, $filter);
                 $cacheManager = $this->container->get('liip_imagine.cache.manager');
                 $srcPath = $cacheManager->getBrowserPath($path, $filter);
+
+                return $srcPath;
+            }catch (\Exception $e){
+                return $path;
+            }
+        }
+        else{
+            return $path;
+        }
+    }
+
+    /**
+     * @param $path
+     * @param $filter
+     * @return mixed
+     */
+    public function blImageFilterForCli($path, $filter)
+    {
+        // check has http in path
+        if(strpos($path, 'http') === false){
+
+            try{
+                $route = $this->container->get('router');
+                $liipManager = $this->container->get('liip_imagine.cache.manager');
+                $liipManager->getBrowserPath($path, $filter);
+                $params = ['path' => ltrim($path, '/'), 'filter' => $filter];
+                $srcPath = $route->generate('liip_imagine_filter', $params);
 
                 return $srcPath;
             }catch (\Exception $e){
