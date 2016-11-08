@@ -115,6 +115,17 @@ class BlogController extends Controller
 
         return $this->render('AppBundle:Blog:show.html.twig', ['blog' => $blog], $response);
     }
+
+    /**
+     * This action is used to include amp menu in blog page
+     *
+     * @Template()
+     * @return array
+     */
+    public function ampMenuAction()
+    {
+        return [];
+    }
 }
 
 
