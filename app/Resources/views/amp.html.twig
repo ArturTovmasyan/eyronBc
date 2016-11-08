@@ -1,5 +1,9 @@
 <!DOCTYPE html >
 <html amp lang="en">
+
+{% set logo = asset('bundles/app/images/logo.png') %}
+{% set host = app.request.getSchemeAndHttpHost() %}
+
 <head>
     <meta charset="utf-8" />
     <title>{%- block title -%}BucketList{%- endblock -%}</title>
@@ -50,7 +54,7 @@
                     <div id="line"></div>
                     <div class="category">
                         <a class="logo" href="{{ path("homepage") }}">
-                            <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" width="125" height="48"></amp-img>
+                            <amp-img src="{{ logo }}" alt="Bucket List 127" width="125" height="48"></amp-img>
                         </a>
 
                         <div class="sidebar-right">

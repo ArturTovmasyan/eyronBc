@@ -71,7 +71,7 @@ class BlogController extends Controller
             self::LIMIT
         );
 
-        return $this->render('AppBundle:Blog:list.html.twig', ['blogs' => $pagination], $response);
+        return $this->render('AppBundle:Blog:list.html.twig', ['blogs' => $pagination, 'updated' => $lastModifiedDate], $response);
     }
 
     /**

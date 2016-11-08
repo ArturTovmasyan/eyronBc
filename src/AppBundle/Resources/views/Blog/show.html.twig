@@ -1,5 +1,20 @@
 {% extends "::amp.html.twig" %}
 
+{% block meta %}
+    {{ parent() }}
+    <script type="application/ld+json">
+              {
+                "@context": "http://schema.org",
+                "@type": "{{ blog.title }}",
+                "headline": "{{- blog.metaDescription|markdown|sliceString -}}",
+                "datePublished": "{{ blog.updated|date('Y-m-d') }}",
+                "image": [
+                  {{ host ~ logo }}
+                ]
+              }
+    </script>
+{% endblock %}
+
 {% block content %}
 
     <div class="bg-dark-grey">
@@ -83,5 +98,5 @@
 {%- endblock -%}
 
 {%- block meta_description -%}
-    {{- blog.metaDescription|markdown|replace({'#': ''})|striptags|sliceString -}}
+    {{- blog.metaDescription|markdown|sliceString -}}
 {%- endblock -%}

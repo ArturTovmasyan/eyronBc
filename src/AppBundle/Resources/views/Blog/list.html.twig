@@ -1,5 +1,20 @@
 {% extends "::amp.html.twig" %}
 
+{% block meta %}
+    {{ parent() }}
+    <script type="application/ld+json">
+              {
+                "@context": "http://schema.org",
+                "@type": "{{- 'goal.stories_title'|trans -}}",
+                "headline": "{{- 'goal.stories_description'|trans -}}",
+                "datePublished": "{{ updated|date('Y-m-d') }}",
+                "image": [
+                  {{ host ~ logo }}
+                ]
+              }
+    </script>
+{% endblock %}
+
 {% block content %}
 
     {% set className = "profile-image profile-image" ~ random(4) %}
