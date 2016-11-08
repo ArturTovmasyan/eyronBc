@@ -217,10 +217,10 @@ class UserNotifyService extends AbstractProcessService
             $email = $receiver->getEmail();
 
             if($byPool){
-                $this->sendEmailByPool($email, $content, $content);
+                $this->sendEmailByPool($email, $content, $subject);
             }
             else{
-                $this->sendEmail($email, $content, $content);
+                $this->sendEmail($email, $content, $subject);
             }
         }
 
