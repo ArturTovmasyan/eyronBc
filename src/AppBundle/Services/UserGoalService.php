@@ -195,7 +195,7 @@ class UserGoalService extends AbstractProcessService
             $userGoal->setIsVisible(true);
         }
 
-        if($goal->getAuthor() && !$goal->getAuthor()->isAdmin()){
+        if($goal->getAuthor() && !$goal->getAuthor()->isAdmin() && $goal->getPublish() == Goal::PUBLISH){
             // check badge
             if($addBadge > 0){
 
