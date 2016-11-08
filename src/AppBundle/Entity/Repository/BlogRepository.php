@@ -58,7 +58,7 @@ class BlogRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT b, pt
                            FROM AppBundle:Blog b
-                           JOIN b.posts pt
+                           LEFT JOIN b.posts pt
                            WHERE b.slug = :slug
                            ")
             ->setParameter('slug', $slug)
