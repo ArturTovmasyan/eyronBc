@@ -60,27 +60,23 @@ class Builder implements ContainerAwareInterface
      */
     public function mainMenu(FactoryInterface $factory, array $options)
     {
-
         // get e
         $menu = $factory->createItem('root');
 
         //get translator
         $tr = $this->container->get('translator');
 
-        //get security
-        $security = $this->container->get('security.authorization_checker');
-
         // check pages
         if($this->otherMenu){
 
             // loop for all pages
-            foreach($this->otherMenu as $page){
-
+            foreach($this->otherMenu as $page)
+            {
                 // add menu
-                $menu->addChild($page->getName(), array('route' => 'page', 'routeParameters' => array('slug' => $page->getSlug())));
+                $menu->addChild($page->getName(), array('route' => 'page', 'routeParameters' => array('slug' => $page->getSlug())))->setExtra('translation_domain', false);
             }
 
-            $menu->addChild($tr->trans('menu.bucketlist_stories'), array('route' => 'blog_list'));
+            $menu->addChild($tr->trans('menu.bucketlist_stories'), array('route' => 'blog_list'))->setExtra('translation_domain', false);
         }
 
         return $menu;
@@ -105,7 +101,7 @@ class Builder implements ContainerAwareInterface
                 // add menu
                 $menu->addChild($page->getName(), array(
                     'route' => 'page',
-                    'routeParameters' => array('slug' => $page->getSlug())));
+                    'routeParameters' => array('slug' => $page->getSlug())))->setExtra('translation_domain', false);
             }
         }
 
