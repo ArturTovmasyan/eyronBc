@@ -36,7 +36,7 @@
 
         <div class="container">
             <div class="row no-gutter">
-                <div class="col-xs-10 col-sm-11" data-ng-init="activeCategory = '{{ category }}'">
+                <div class="col-xs-10 col-sm-11" data-ng-init="activeCategory = '{{ category?category:'nearby' }}'">
                     {% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories, 'selected': category } %}
                 </div>
 

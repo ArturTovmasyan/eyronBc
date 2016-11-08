@@ -114,6 +114,7 @@ angular.module('goal', ['Interpolation',
                 this.start += this.count;
                 this.reserve = this.items.concat(data);
                 this.busy = data.length ? false : true;
+                this.getNearByReserve(position);
             }.bind(this));
         };
 
@@ -762,7 +763,7 @@ angular.module('goal', ['Interpolation',
             },100);
         } else {
             $timeout(function () {
-                if(!$scope.activeCategory){
+                if(!$scope.activeCategory || $scope.activeCategory == 'nearby'){
                     $scope.goTo('nearby');
                 }
             },100);
