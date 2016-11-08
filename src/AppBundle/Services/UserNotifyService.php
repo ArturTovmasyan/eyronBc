@@ -52,11 +52,8 @@ class UserNotifyService extends AbstractProcessService
         //get user notify value in parameter
         $enabledByConfig = $this->container->getParameter('user_notify');
 
-        //get kernel debug
-        $notProd = $this->container->getParameter('kernel.debug');
-
         //check if user notify is disabled
-        if(!$enabledByConfig || $notProd) {
+        if(!$enabledByConfig) {
             return;
         }
 
@@ -248,11 +245,8 @@ class UserNotifyService extends AbstractProcessService
         //get user notify value in parameter
         $enabledByConfig = $this->container->getParameter('user_notify');
 
-        //get kernel debug
-        $notProd = $this->container->getParameter('kernel.debug');
-
         //check if user notify is disabled
-        if(!$enabledByConfig || $notProd) {
+        if(!$enabledByConfig ) {
             return;
         }
 
