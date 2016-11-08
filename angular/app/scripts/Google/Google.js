@@ -420,6 +420,8 @@ angular.module('Google', [])
                        scope.bounds.extend(scope.myLocation.getPosition());
                        scope.map.fitBounds(scope.bounds);
                        infowindow.close();
+                       // infowindow.setContent('<div><strong> your Location </strong><br>');
+                       // infowindow.open(scope.map, marker);
                    });
 
                    $rootScope.$on('location-resize', function () {
