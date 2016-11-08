@@ -24,7 +24,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalRepository extends EntityRepository
 {
     const TopIdeasCount = 100;
-    const NEAR_BY_GOAL_COUNT = 10;
 
     /**
      * @param $text
@@ -47,13 +46,15 @@ class GoalRepository extends EntityRepository
         
         return $query->getQuery()->getResult();
     }
-    
+
     /**
      * @param $latitude
      * @param $longitude
+     * @param $first
+     * @param $count
      * @return array
      */
-    public function findNearbyGoals($latitude, $longitude)
+    public function findNearbyGoals($latitude, $longitude, $first, $count)
     {
         $result = [];
         //3959 search in miles
@@ -68,7 +69,8 @@ class GoalRepository extends EntityRepository
                          ")
             ->setParameter('lat', $latitude)
             ->setParameter('lng', $longitude)
-            ->setMaxResults(self::NEAR_BY_GOAL_COUNT)
+            ->setFirstResult($first)
+            ->setMaxResults($count)
             ->getArrayResult()
         ;
 

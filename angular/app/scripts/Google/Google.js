@@ -209,7 +209,6 @@ angular.module('Google', [])
                 refresh: '=',
                 markers: '=',
                 itemPageUrl: '@',
-                isBounded: '=',
                 onMarkerClick: '&',
                 activeGoalMarkerIcon1: '@',
                 passiveMarkerIcon: '@',
@@ -359,7 +358,7 @@ angular.module('Google', [])
                         marker.setVisible(false);
                         var place = autocomplete.getPlace();
 
-                        scrollToGoals(el);
+                        // scrollToGoals(el);
 
                         $rootScope.$broadcast('location_place_changed',
                           {
@@ -409,15 +408,24 @@ angular.module('Google', [])
                     });
 
                    $rootScope.$on('allowLocation', function (ev, position) {
-                       scrollToGoals(el);
+                       // scrollToGoals(el);
+                       
+                       if(position.coords){
+                           position = position.coords
+                       }
 
-                       scope.myLocation = addMarker(position.coords, scope.activeMarkerIcon, scope.map);
+                       scope.myLocation = addMarker(position, scope.activeMarkerIcon, scope.map);
+                       scope.myLocation.setVisible(false);
+                       marker.setPosition(scope.myLocation.getPosition());
+                       scope.bounds.extend(scope.myLocation.getPosition());
+                       scope.map.fitBounds(scope.bounds);
+                       infowindow.close();
                    });
 
                    $rootScope.$on('location-resize', function () {
                        $timeout(function() {
                            google.maps.event.trigger(scope.map, 'resize');
-                           scope.map.fitBounds(true);
+                           scope.map.fitBounds(scope.bounds);
                        }, 500);
                    });
 

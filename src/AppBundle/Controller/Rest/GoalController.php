@@ -66,7 +66,7 @@ class GoalController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/goals/nearby/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}, name="get_goal_nearby", options={"method_prefix"=false})
+     * @Rest\Get("/goals/nearby/{latitude}/{longitude}/{first}/{count}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}, name="get_goal_nearby", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
@@ -79,19 +79,21 @@ class GoalController extends FOSRestController
      * )
      * @param Request $request
      * @param $longitude
+     * @param $first
+     * @param $count
      * @param $latitude
      * @param Request $request
      * @return mixed
      * @Rest\View(serializerGroups={"tiny_goal"})
      */
-    public function getNearbyAction(Request $request, $latitude, $longitude)
+    public function getNearbyAction(Request $request, $latitude, $longitude, $first, $count)
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
         $user      = $this->getUser();
 
         // get near by goals
-        $nearbyGoals = $em->getRepository('AppBundle:Goal')->findNearbyGoals($latitude, $longitude);
+        $nearbyGoals = $em->getRepository('AppBundle:Goal')->findNearbyGoals($latitude, $longitude, $first, $count);
 
         $liipManager = $this->get('liip_imagine.cache.manager');
 
@@ -103,9 +105,6 @@ class GoalController extends FOSRestController
             4 => 'goal_list_horizontal',
             5 => 'goal_list_big',
             6 => 'goal_list_vertical',
-            7 => 'goal_list_small',
-            8 => 'goal_list_small',
-            9 => 'goal_list_small',
         ];
 
         //This part is used to calculate goal stats

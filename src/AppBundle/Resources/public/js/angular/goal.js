@@ -67,7 +67,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.noItem = false;
             this.category = "";
-            this.nearByPath = envPrefix + "api/v1.0/goals/nearby/{latitude}/{longitude}";
+            this.nearByPath = envPrefix + "api/v1.0/goals/nearby/{latitude}/{longitude}/{first}/{count}";
             this.isReset = false;
             this.request = 0;
             this.start = 0;
@@ -104,16 +104,31 @@ angular.module('goal', ['Interpolation',
                 return;
             }
 
-            var url = this.nearByPath.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude);
+            var url = this.nearByPath.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude).replace('{first}', this.start).replace('{count}', this.count);
 
             $http.get(url).success(function(data) {
                 if(!data.length){
                     this.noItem = true;
                 }
-
-                this.items = this.items.concat(data);
+                
+                this.start += this.count;
+                this.reserve = this.items.concat(data);
                 this.busy = data.length ? false : true;
             }.bind(this));
+        };
+
+        lsInfiniteItems.prototype.getNearByReserve = function(position) {
+            var url = this.nearByPath.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude).replace('{first}', this.start).replace('{count}', this.count);;
+            this.items = this.items.concat(this.reserve);
+
+            $http.get(url).success(function(data) {
+                this.reserve = data;
+                this.busy = data.length ? false : true;
+                this.start += this.count;
+            }.bind(this));
+            
+            $analytics.eventTrack('Load more in select category', {  category: 'Goal', label: 'Load more in category nearBy from Web' });
+
         };
 
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
@@ -715,6 +730,7 @@ angular.module('goal', ['Interpolation',
             $scope.position = null;
         } else {
             $scope.notAllowed = false;
+            $scope.userLocation = $scope.position.coords;
         }
 
         $scope.browseError = '';
@@ -751,12 +767,14 @@ angular.module('goal', ['Interpolation',
             function success(position) {
                 $scope.notAllowed = false;
                 $scope.position = position;
+                
                 positionCache.put('position', {
                     coords: {
                         latitude: $scope.position.coords.latitude,
                         longitude: $scope.position.coords.longitude
                     }
                 });
+                
                 $scope.userLocation = position.coords;
                 $scope.Ideas.reset();
                 $scope.Ideas.nearBy($scope.userLocation );
@@ -800,19 +818,24 @@ angular.module('goal', ['Interpolation',
                 if($scope.position && $scope.position.coords){
                     $scope.Ideas.reset();
                     $scope.Ideas.nearBy($scope.position.coords);
+                    $scope.userLocation = $scope.position.coords;
 
                     $timeout(function(){
                         $scope.$emit('allowLocation', $scope.position);
                     },10);
                 } else if($scope.userLocation){
+                    $timeout(function(){
+                        $scope.$emit('allowLocation', $scope.userLocation);
+                    },10);
+                    
                     $scope.Ideas.reset();
                     $scope.Ideas.nearBy($scope.userLocation);
 
-                    $timeout(function () {
-                        $('html, body').stop().animate( {
-                            'scrollTop': $('div[data-autocomplete-map]').offset().top + $('div[data-autocomplete-map]').outerHeight()
-                        }, 900);
-                    }, 1000);
+                    // $timeout(function () {
+                    //     $('html, body').stop().animate( {
+                    //         'scrollTop': $('div[data-autocomplete-map]').offset().top + $('div[data-autocomplete-map]').outerHeight()
+                    //     }, 900);
+                    // }, 1000);
                 }
             }
 
@@ -924,24 +947,26 @@ angular.module('goal', ['Interpolation',
                 }
             }
 
-            angular.forEach(d, function(item) {
-                var location = {};
-                if(item.location && locationsIds.indexOf(item.id) == -1){
-                    location.id = item.id;
-                    locationsIds.push(location.id);
-                    location.latitude = item.location.latitude;
-                    location.longitude = item.location.longitude;
-                    location.title = item.title;
-                    location.slug = item.slug;
-                    location.status = item.is_my_goal;
-                    $scope.locations.push(location);
-                }
-            });
+            if($scope.activeCategory == 'nearby'){
+                angular.forEach(d, function(item) {
+                    var location = {};
+                    if(item.location && locationsIds.indexOf(item.id) == -1){
+                        location.id = item.id;
+                        locationsIds.push(location.id);
+                        location.latitude = item.location.latitude;
+                        location.longitude = item.location.longitude;
+                        location.title = item.title;
+                        location.slug = item.slug;
+                        location.status = item.is_my_goal;
+                        $scope.locations.push(location);
+                    }
+                });
+            }
 
-            $timeout(function() {
-                $scope.fadeMapIcon = ($scope.locations.length > 0);
-                $scope.showMap = $scope.showMap && $scope.fadeMapIcon ;
-            }, 1000);
+            // $timeout(function() {
+            //     $scope.fadeMapIcon = ($scope.locations.length > 0);
+            //     $scope.showMap = $scope.showMap && $scope.fadeMapIcon ;
+            // }, 1000);
         });
 
         $scope.adventureText = function(slug, cJson){
