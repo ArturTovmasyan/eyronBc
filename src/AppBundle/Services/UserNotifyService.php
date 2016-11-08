@@ -229,9 +229,6 @@ class UserNotifyService extends AbstractProcessService
             //send notification to mobile
             $sendNoteService->sendPushNote($receiver, $subject);
         }
-
-        return $content;
-
     }
 
 
