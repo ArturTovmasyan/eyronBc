@@ -71,7 +71,7 @@ class BlogController extends Controller
             self::LIMIT
         );
 
-        return $this->render('AppBundle:Blog:list.html.twig', ['blogs' => $pagination], $response);
+        return $this->render('AppBundle:Blog:list.html.twig', ['blogs' => $pagination, 'updated' => $lastModifiedDate], $response);
     }
 
     /**
@@ -114,6 +114,17 @@ class BlogController extends Controller
         $blog->addGoalsInData($relatedGoals);
 
         return $this->render('AppBundle:Blog:show.html.twig', ['blog' => $blog], $response);
+    }
+
+    /**
+     * This action is used to include amp menu in blog page
+     *
+     * @Template()
+     * @return array
+     */
+    public function ampMenuAction()
+    {
+        return [];
     }
 }
 
