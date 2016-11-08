@@ -62,6 +62,14 @@ class SuccessStoryService extends AbstractProcessService
 
         // get success story author
         $successStoryAuthor = $successStory->getUser();
+
+
+        // get user notify service
+        $this->container->get('user_notify')->sendNotifyToUser($successStory->getUser(),
+            UserNotifyService::SUCCESS_STORY_LIKE,
+            ['goalId'=> $successStory->getGoal()->getId(), 'senderId' => $user->getId()]);
+
+
         // add score for
         $this->runAsProcess('bl.badge.service', 'addScore', array(Badge::TYPE_MOTIVATOR, $successStoryAuthor->getId(), 1));
 
@@ -128,7 +136,7 @@ class SuccessStoryService extends AbstractProcessService
         $em->flush();
 
         $this->runAsProcess('bl_story_service', 'sendNotification',
-            array($goal->getId(), $user->getId(), $story, true));
+            array($goal->getId(), $user->getId(), $story, true, $successStory->getId()));
 
         return new JsonResponse($successStory->getId(), Response::HTTP_OK);
 
@@ -203,7 +211,7 @@ class SuccessStoryService extends AbstractProcessService
         $em->flush();
 
         $this->runAsProcess('bl_story_service', 'sendNotification',
-            array($goal->getId(), $user->getId(), $story, $isNew));
+            array($goal->getId(), $user->getId(), $story, $isNew, $successStory->getId()));
 
         return new JsonResponse($successStory->getId(), Response::HTTP_OK);
 
@@ -215,23 +223,32 @@ class SuccessStoryService extends AbstractProcessService
      * @param $userId
      * @param $story
      * @param $isNew
+     * @param $successStoryId
      * @throws \Throwable
      */
-    public function sendNotification($goalId, $userId, $story, $isNew)
+    public function sendNotification($goalId, $userId, $story, $isNew, $successStoryId)
     {
         $em = $this->container->get('doctrine')->getManager();
         $goal = $em->getRepository("AppBundle:Goal")->find($goalId);
         $user = $em->getRepository("ApplicationUserBundle:User")->find($userId);
 
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId());
+
+        $authorId = $goal->getAuthor() ? $goal->getAuthor()->getId() : null;
+
+        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId(), $authorId);
         $link = $this->container->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
         $body = $this->container->get('translator')->trans('notification.important_goal_success_story', [], null, 'en');
         $this->container->get('bl_notification')->sendNotification($user, $link, $goal->getId(), $body, $importantAddedUsers);
 
         //check if goal author not admin and not null
         if($goal->hasAuthorForNotify($user->getId()) && $isNew) {
-            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story);
+
+            $this->container->get('user_notify')->sendNotifyToUser($goal->getAuthor(),
+                UserNotifyService::SUCCESS_STORY_GOAL,
+                ['successStoryId'=> $successStoryId]);
+
+//            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story);
 
             //Send notification to goal author
             $body = $this->container->get('translator')->trans('notification.success_story', [], null, 'en');

@@ -22,7 +22,7 @@ header {
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 10001;
+  z-index: 9998;
   top: 0;
 }
 header #line {
@@ -85,7 +85,8 @@ header .logo {
 h1.text-center {
   font-weight: 300;
   font-size: 22px;
-  padding: 0 10px 5px;
+  padding: 10px 10px 5px;
+  margin-top: 0;
 }
 .header {
   position: relative;
@@ -143,7 +144,6 @@ amp-sidebar {
   width: 250px;
   padding-right: 10px;
   background: #021523;
-  margin-top: 4em;
 }
 .amp-sidebar-image {
   line-height: 100px;
@@ -182,14 +182,14 @@ button:focus {
 .text-white {
   color: #ffffff;
 }
-footer {
+.amp-footer {
   width: 100%;
   position: absolute;
   bottom: 0;
   height: 300px;
   background-color: #021523;
 }
-footer small {
+.amp-footer .category small {
   display: block;
   padding: 24px 0 0 12px;
   color: #ffffff;
@@ -197,72 +197,72 @@ footer small {
   font-size: 9px;
   float: left;
 }
-footer ul {
+.amp-footer .category ul {
   padding: 0;
   text-align: center;
 }
-footer ul li {
+.amp-footer .category ul li {
   display: inline-block;
   list-style: none;
   padding: 5px 13px;
   margin-bottom: 0;
 }
-footer ul li a {
+.amp-footer .category ul li a {
   color: #E5E5E5;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 12px;
   text-decoration: none;
 }
-footer ul li a:hover {
+.amp-footer .category ul li a:hover {
   color: #E5E5E5;
   text-decoration: underline;
 }
-footer ul li a:focus {
+.amp-footer .category ul li a:focus {
   color: #E5E5E5;
   outline: 0;
 }
-footer .social {
+.amp-footer .category .social {
   padding: 0;
 }
-footer .social li {
+.amp-footer .category .social li {
   padding: 5px 4px;
 }
-footer .social li a {
+.amp-footer .category .social li a {
   display: block;
   width: 40px;
   height: 40px;
 }
-footer .apps {
+.amp-footer .category .apps {
   margin: 0 auto;
   padding: 40px 0 0;
 }
-footer .apps li {
+.amp-footer .category .apps li {
   float: left;
   padding: 5px;
 }
-footer .footer-bottom {
+.amp-footer .footer-bottom {
   position: absolute;
   bottom: 0;
   width: 100%;
   background-color: #000000;
 }
-footer .footer-bottom ul {
+.amp-footer .footer-bottom ul {
   padding: 0;
   text-align: right;
   float: right;
 }
-footer .footer-bottom ul li {
+.amp-footer .footer-bottom ul li {
   padding: 1px 12px 5px 5px;
 }
-footer .footer-bottom ul li a {
+.amp-footer .footer-bottom ul li a {
   display: inline-block;
   font-size: 8px;
   text-transform: uppercase;
   color: #D3D3D3;
   font-weight: 600;
 }
-footer .footer-bottom ul li a:hover {
+.amp-footer .footer-bottom ul li a:hover {
   text-decoration: underline;
 }
 .amp-live-list-item {
@@ -313,6 +313,7 @@ footer .footer-bottom ul li a:hover {
   overflow: hidden;
   position: relative;
   padding: 0 15px;
+  background-color: #ffffff;
 }
 .samples figure figcaption h3 {
   font-size: 20px;
@@ -354,7 +355,8 @@ a:focus {
   height: 35px;
   position: absolute;
   bottom: -37px;
-  z-index: 10000;
+  z-index: 9997;
+  left: 0;
   box-shadow: 0 -21px 10px rgba(255, 255, 255, 0.52);
 }
 .content-inner {
@@ -419,7 +421,7 @@ a:focus {
 }
 @media (min-width: 768px) {
   header {
-    height: 78px;
+    height: 80px;
   }
   .category {
     min-width: 768px;
@@ -524,28 +526,28 @@ a:focus {
   .content-inner .goals-information div p {
     font-size: 14px;
   }
-  footer ul li {
-    display: inline-block;
-    padding: 5px 25px;
-  }
-  footer ul li a {
-    font-size: 14px;
-  }
-  footer .social {
-    padding: 10px 0 0;
-  }
-  footer .social li {
-    padding: 5px 10px;
-  }
-  footer small {
+  .amp-footer .category small {
     float: left;
     padding: 24px 0 15px 15px;
     font-size: 12px;
   }
-  footer .footer-bottom ul li {
+  .amp-footer .category ul li {
+    display: inline-block;
+    padding: 5px 25px;
+  }
+  .amp-footer .category ul li a {
+    font-size: 14px;
+  }
+  .amp-footer .category .social {
+    padding: 10px 0 0;
+  }
+  .amp-footer .category .social li {
+    padding: 5px 10px;
+  }
+  .amp-footer .footer-bottom ul li {
     padding: 5px 15px 5px 25px;
   }
-  footer .footer-bottom ul li a {
+  .amp-footer .footer-bottom ul li a {
     font-size: 12px;
   }
   .title {
@@ -559,7 +561,7 @@ a:focus {
     height: 84px;
   }
   header .logo {
-    padding: 14px 0 21px 5px;
+    padding: 15px 0 21px 5px;
   }
   .category {
     max-width: 1170px;
@@ -590,14 +592,14 @@ a:focus {
     width: 360px;
     margin: 15px;
   }
-  footer ul li a {
+  .amp-footer .category small {
+    padding: 25px 30px;
+  }
+  .amp-footer .category ul li a {
     font-size: 16px;
   }
-  footer .apps {
+  .amp-footer .category .apps {
     padding: 30px 0 0;
-  }
-  footer small {
-    padding: 25px 30px;
   }
   .title {
     padding: 20px 0 ;
@@ -612,14 +614,9 @@ a:focus {
 .text-center {
   text-align: center;
 }
-
-div.sonata-preview-form-container .row {
-  display: none;
-}
 .bg-dark-grey {
   background-color: #d8d8d8;
 }
 .bg-grey {
   background-color: #f4f4f4;
 }
-

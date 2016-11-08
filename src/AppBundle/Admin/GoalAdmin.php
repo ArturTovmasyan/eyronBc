@@ -16,6 +16,7 @@ use AppBundle\Form\Type\BlMultipleFileType;
 use AppBundle\Form\Type\BlMultipleVideoType;
 use AppBundle\Form\Type\LocationType;
 use AppBundle\Model\PublishAware;
+use AppBundle\Services\UserNotifyService;
 use AppBundle\Traits\GoalAdminTrait;
 use Application\UserBundle\Entity\Badge;
 use Doctrine\ORM\EntityRepository;
@@ -211,6 +212,12 @@ class GoalAdmin extends AbstractAdmin
                 $link = $container->get('router')->generate('inner_goal', ['slug' => $object->getSlug()]);
                 $body = $container->get('translator')->trans('notification.publish_goal', ['%goal%' => $object->getTitle()], null, 'en');
                 $container->get('bl_notification')->sendNotification(null, $link, $object->getId(), $body, $object->getAuthor());
+
+                // get user notify service
+                $container->get('user_notify')->sendNotifyToUser($object->getAuthor(),
+                    UserNotifyService::PUBLISH_GOAL,
+                    ['goalId'=> $object->getId()]);
+
             }
         }
 

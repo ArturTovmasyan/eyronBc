@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Services\UserNotifyService;
 use Application\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

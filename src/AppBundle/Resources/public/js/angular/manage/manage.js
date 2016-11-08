@@ -30,7 +30,7 @@ angular.module('manage', ['Interpolation',
             id = UserContext.id,
             locale = UserContext.locale,
             changedLanguage = false,
-            cacheVersion = 11;
+            cacheVersion = 12;
 
         var templateCache = CacheFactory.get('bucketlist_templates_v' + cacheVersion);
 

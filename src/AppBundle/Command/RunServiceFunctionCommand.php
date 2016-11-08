@@ -46,12 +46,21 @@ class RunServiceFunctionCommand extends ContainerAwareCommand
         // get container
         $container = $this->getContainer();
 
+        $context = $container->get('router')->getContext();
+        $context->setHost($container->getParameter('project_name'));
+        $context->setScheme('https');
+
         $serviceName = $input->getArgument('serviceName'); // get service name
         $function = $input->getArgument('function'); // get function name
         $arguments = $input->getArgument('arguments'); // get arguments
 
         // get service
         $service = $container->get($serviceName);
+
+        $arguments = array_map(function($item){
+            $data = json_decode($item, true);
+            return is_null($data) ? $item : $data;
+        }, $arguments);
 
         // run service function
         call_user_func_array(array($service, $function), $arguments);

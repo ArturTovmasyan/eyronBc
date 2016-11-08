@@ -10,6 +10,7 @@ namespace Application\CommentBundle\Services;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Services\AbstractProcessService;
+use AppBundle\Services\UserNotifyService;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
@@ -73,6 +74,10 @@ class CommentService extends AbstractProcessService
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Body can not be empty');
         }
 
+        // get user notify service
+        $userNotify = $this->container->get('user_notify');
+
+
         $comment = new Comment();
         $comment->setThread($thread);
         $comment->setAuthor($user);
@@ -88,6 +93,18 @@ class CommentService extends AbstractProcessService
 
         $em->flush();
 
+        // check if parent comment
+        if($parentComment){
+            $userNotify->sendNotifyToUser($parentComment->getAuthor(),
+                UserNotifyService::REPLY_COMMENT,
+                ['goalId'=> $goal->getId()]);
+        }else{
+            if($goal->hasAuthorForNotify($user->getId())) {
+                $this->container->get('user_notify')->sendNotifyToUser($goal->getAuthor(),
+                    UserNotifyService::COMMENT_GOAL,
+                    ['goalId'=> $goal->getId(), 'commentId' => $comment->getId()]);
+            }
+        }
 
         $this->runAsProcess('application.comment', 'sendNotification',
             array($goal->getId(), $user->getId(), $parentComment ? $parentComment->getId() : null ));
@@ -111,14 +128,16 @@ class CommentService extends AbstractProcessService
             $em->getRepository("ApplicationCommentBundle:Comment")->find($parentCommentId) : null;
 
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goalId);
+
+        $authorId = $goal->getAuthor() ? $goal->getAuthor()->getId() : null;
+
+        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goalId, $authorId);
         $link = $this->container->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
         $body = $this->container->get('translator')->trans(is_null($parentComment) ? 'notification.important_goal_comment' : 'notification.important_goal_reply', [], null, 'en');
         $this->container->get('bl_notification')->sendNotification($user, $link, $goal->getId(), $body, $importantAddedUsers);
 
         //check if goal author is not admin and not null
         if($goal && $goal->hasAuthorForNotify($user->getId())) {
-            $this->container->get('user_notify')->sendNotifyAboutNewComment($goal, $user, $body);
 
             //Send notification to goal author
             $body = $this->container->get('translator')->trans(is_null($parentComment) ? 'notification.comment' : 'notification.reply', [], null, 'en');
