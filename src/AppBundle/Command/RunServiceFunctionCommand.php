@@ -46,6 +46,11 @@ class RunServiceFunctionCommand extends ContainerAwareCommand
         // get container
         $container = $this->getContainer();
 
+        $context = $container->get('router')->getContext();
+        $context->setHost('bucketlist127.com');
+        $context->setScheme('https');
+//        $context->setBaseUrl('/');
+
         $serviceName = $input->getArgument('serviceName'); // get service name
         $function = $input->getArgument('function'); // get function name
         $arguments = $input->getArgument('arguments'); // get arguments
