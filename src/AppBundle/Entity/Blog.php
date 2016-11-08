@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
-use JMS\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\SerializedName;
@@ -107,15 +106,13 @@ class Blog implements ImageableInterface, PublishAware
     private $updated;
 
     /**
-     * @ORM\OneToMany(targetEntity="Blog", mappedBy="parent")
+     * @ORM\ManyToMany(targetEntity="Blog", cascade={"persist"})
+     * @ORM\JoinTable(name="blog_posts",
+     *      joinColumns={@ORM\JoinColumn(name="blog_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")}
+     *      )
      */
-    private $children;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Blog", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=false)
-     */
-    private $parent;
+    private $posts;
 
     /**
      * Get id
@@ -403,70 +400,46 @@ class Blog implements ImageableInterface, PublishAware
     {
         return (string)$this->title;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**
-     * Set parent
+     * Add post
      *
-     * @param \AppBundle\Entity\Blog $parent
+     * @param Blog $post
      *
      * @return Blog
      */
-    public function setParent(\AppBundle\Entity\Blog $parent)
+    public function addPost(Blog $post)
     {
-        $this->parent = $parent;
+        $this->posts[] = $post;
 
         return $this;
     }
 
     /**
-     * Get parent
+     * Remove post
      *
-     * @return \AppBundle\Entity\Blog
+     * @param Blog $post
      */
-    public function getParent()
+    public function removePost(Blog $post)
     {
-        return $this->parent;
+        $this->posts->removeElement($post);
     }
 
     /**
-     * Add child
-     *
-     * @param \AppBundle\Entity\Blog $child
-     *
-     * @return Blog
-     */
-    public function addChild(\AppBundle\Entity\Blog $child)
-    {
-        $child->setParent($this);
-        $this->children[] = $child;
-
-        return $this;
-    }
-
-    /**
-     * Remove child
-     *
-     * @param \AppBundle\Entity\Blog $child
-     */
-    public function removeChild(\AppBundle\Entity\Blog $child)
-    {
-        $this->children->removeElement($child);
-    }
-
-    /**
-     * Get children
+     * Get posts
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getChildren()
+    public function getPosts()
     {
-        return $this->children;
+        return $this->posts;
     }
 }

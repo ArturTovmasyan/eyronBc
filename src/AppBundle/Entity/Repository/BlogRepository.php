@@ -56,9 +56,9 @@ class BlogRepository extends EntityRepository
     public function findBySlug($slug)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT b, ch
+            ->createQuery("SELECT b, pt
                            FROM AppBundle:Blog b
-                           LEFT JOIN b.children ch
+                           JOIN b.posts pt
                            WHERE b.slug = :slug
                            ")
             ->setParameter('slug', $slug)
