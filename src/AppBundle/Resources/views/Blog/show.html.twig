@@ -5,13 +5,33 @@
     <script type="application/ld+json">
       {
         "@context": "http://schema.org",
-        "@type": "{{ blog.title }}",
-        "headline": "{{- blog.metaDescription|markdown|sliceString -}}",
-        "datePublished": "{{ blog.updated|date('Y-m-d') }}",
-        "image": [
-          {{ host ~ logo }}
-        ]
-      }
+        "@type": "NewsArticle",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "{{ host }}/{{ blog.slug }}"
+           },
+        "headline": "{{ blog.title }}",
+        "image": {
+          "@type": "ImageObject",
+          "url": "{{ blog.imagePath|blImageFilter('goal_list_small') }}",
+          "height": 400,
+          "width": 700
+        },
+        "datePublished": "{{ blog.publishedDate|date('c') }}",
+        "dateModified": "{{ blog.updated|date('c') }}",
+        "author": {
+          "@type": "Organization",
+          "name": "Bucketlist127"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Bucketlist127",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "{{ host ~ logo }}"
+       }},
+    "description": "{{- blog.metaDescription|markdown|sliceString -}}"
+    }
     </script>
 {% endblock %}
 
@@ -19,76 +39,76 @@
 
     <div class="bg-dark-grey">
 
-    {% set blogData = blog.data %}
-    {% set posts = blog.posts %}
+        {% set blogData = blog.data %}
+        {% set posts = blog.posts %}
 
-    {% if is_mobile() and not is_tablet() %}
-        <h1 class="text-blue text-center {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
-    {% endif %}
-
-    {% if not is_mobile() or is_tablet() %}
-        <div class="header">
-            <div>
-                <h1 class="text-white {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
-            </div>
-            <figure>
-                <span class="overlay"></span>
-                <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="1280"
-                         height="853"></amp-img>
-            </figure>
-        </div>
-    {% endif %}
-
-    <div class="bg-white content-inner">
-        <figure class="goal-cover">
-            <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}" layout="responsive"
-                     width="1280" height="853" alt="{{ blog.title }}" title="{{ blog.title }}"></amp-img>
-        </figure>
-
-        <div class="text-justify">
-            {% if blogData|length > 0 %}
-
-            {% for data in blogData %}
-
-                {% if data.type == 'text' %}
-
-                    <p>{{ data.content|removeTag|markdown }}</p>
-
-                {% elseif data.type == 'goal' and data.goals is defined %}
-
-                    {% set goal = data.goals %}
-
-                    <div class="goals-information">
-                        <figure>
-                            <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
-                                <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
-                                         layout="responsive"
-                                         width="1280"
-                                         height="853">
-                                </amp-img>
-                            </a>
-                        </figure>
-
-                        <div>
-                            <span class="transparent"></span>
-                            <h3>
-                                <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" class="text-blue">{{ goal.title }}</a>
-                            </h3>
-                            {% if goal.description %}
-                                {{ goal.description|removeTag|markdown }}
-                            {% endif %}
-                        </div>
-                    </div>
-
-                {% endif %}
-            {% endfor %}
+        {% if is_mobile() and not is_tablet() %}
+            <h1 class="text-blue text-center {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
         {% endif %}
-        </div>
-    </div>
 
-    <div class="bg-grey">
-        {{ include('AppBundle:Blog:relatedPosts.html.twig',  {'posts': posts} ) }}
-    </div>
+        {% if not is_mobile() or is_tablet() %}
+            <div class="header">
+                <div>
+                    <h1 class="text-white {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
+                </div>
+                <figure>
+                    <span class="overlay"></span>
+                    <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="1280"
+                             height="853"></amp-img>
+                </figure>
+            </div>
+        {% endif %}
+
+        <div class="bg-white content-inner">
+            <figure class="goal-cover">
+                <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}" layout="responsive"
+                         width="1280" height="853" alt="{{ blog.title }}" title="{{ blog.title }}"></amp-img>
+            </figure>
+
+            <div class="text-justify">
+                {% if blogData|length > 0 %}
+
+                    {% for data in blogData %}
+
+                        {% if data.type == 'text' %}
+
+                            <p>{{ data.content|removeTag|markdown }}</p>
+
+                        {% elseif data.type == 'goal' and data.goals is defined %}
+
+                            {% set goal = data.goals %}
+
+                            <div class="goals-information">
+                                <figure>
+                                    <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
+                                        <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                                 layout="responsive"
+                                                 width="1280"
+                                                 height="853">
+                                        </amp-img>
+                                    </a>
+                                </figure>
+
+                                <div>
+                                    <span class="transparent"></span>
+                                    <h3>
+                                        <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" class="text-blue">{{ goal.title }}</a>
+                                    </h3>
+                                    {% if goal.description %}
+                                        {{ goal.description|removeTag|markdown }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="bg-grey">
+            {{ include('AppBundle:Blog:relatedPosts.html.twig',  {'posts': posts} ) }}
+        </div>
 
     </div>
 {% endblock %}
