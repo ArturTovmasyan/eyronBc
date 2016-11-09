@@ -97,6 +97,10 @@ class User extends BaseUser
      **/
     protected $authorGoals;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Email", mappedBy="user")
+     **/
+    protected $sentEmails;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Goal", indexBy="goal_id", mappedBy="editor", cascade={"persist"})
@@ -431,9 +435,9 @@ class User extends BaseUser
         parent::__construct();
         $this->enabled = true;
 
-
         $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
         $this->matchedUsers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sentEmails = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -2061,5 +2065,39 @@ class User extends BaseUser
     public function getBadges()
     {
         return $this->badges;
+    }
+
+    /**
+     * Add sentEmail
+     *
+     * @param \AppBundle\Entity\Email $sentEmail
+     *
+     * @return User
+     */
+    public function addSentEmail(\AppBundle\Entity\Email $sentEmail)
+    {
+        $this->sentEmails[] = $sentEmail;
+
+        return $this;
+    }
+
+    /**
+     * Remove sentEmail
+     *
+     * @param \AppBundle\Entity\Email $sentEmail
+     */
+    public function removeSentEmail(\AppBundle\Entity\Email $sentEmail)
+    {
+        $this->sentEmails->removeElement($sentEmail);
+    }
+
+    /**
+     * Get sentEmails
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSentEmails()
+    {
+        return $this->sentEmails;
     }
 }
