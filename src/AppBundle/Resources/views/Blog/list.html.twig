@@ -5,13 +5,34 @@
     <script type="application/ld+json">
       {
         "@context": "http://schema.org",
-        "@type": "{{- 'goal.stories_title'|trans -}}",
-        "headline": "{{- 'goal.stories_description'|trans -}}",
-        "datePublished": "{{ updated|date('Y-m-d') }}",
-        "image": [
-          {{ host ~ logo }}
-        ]
-      }
+        "@type": "NewsArticle",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "{{ host }}/blog"
+           },
+        "headline": "{{- 'goal.stories_title'|trans -}}",
+        "image": {
+          "@type": "ImageObject",
+          "url": "{{ blogs[0].imagePath|blImageFilter('goal_list_small') }}",
+          "height": 400,
+          "width": 700
+        },
+        "datePublished": "{{ blogs[0].publishedDate|date('c') }}",
+        "dateModified": "{{ updated|date('c') }}",
+        "author": {
+          "@type": "Organization",
+          "name": "Bucketlist127"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Bucketlist127",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "{{ host ~ logo }}"
+         }
+       },
+    "description": "{{- 'goal.stories_description'|trans -}}"
+    }
     </script>
 {% endblock %}
 
