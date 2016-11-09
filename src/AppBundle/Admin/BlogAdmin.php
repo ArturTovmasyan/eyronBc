@@ -53,11 +53,10 @@ class BlogAdmin extends AbstractAdmin
             ->add('publish', null, ['label'=>'admin.label.name.publish'])
             ->add('posts', null, ['label'=>'admin.label.name.posts'])
             ->add('metaDescription', null, ['label'=>'admin.label.name.meta_description'])
-            ->add('getImagePath', null, ['template'=>'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images']
-            )
+            ->add('getImagePath', null, ['template'=>'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'])
             ->add('publishedDate', 'datetime', ['label'=>'admin.label.name.published_date'])
-            ->add('created')
-            ->add('updated')
+            ->add('created', null, ['label'=>'admin.label.name.created'])
+            ->add('updated', null, ['label'=>'admin.label.name.updated'])
         ;
     }
 
@@ -87,11 +86,9 @@ class BlogAdmin extends AbstractAdmin
         $formMapper
             ->add('title', null, ['label'=>'admin.label.name.title'])
             ->add('publish', null, ['label'=>'admin.label.name.publish'])
-            ->add('posts', 'sonata_type_model_autocomplete', ['label'=>'admin.label.name.posts', 'property'=>'title', 'multiple' => true, 'required' => false]
-            )
+            ->add('posts', 'sonata_type_model_autocomplete', ['label'=>'admin.label.name.posts', 'property'=>'title', 'multiple' => true, 'required' => false])
             ->add('metaDescription', 'textarea', ['label'=>'admin.label.name.meta_description'])
-            ->add('publishedDate', 'sonata_type_date_picker', ['label'=>'admin.label.name.published_date', 'required'=>false]
-            )
+            ->add('publishedDate', 'sonata_type_date_picker', ['label'=>'admin.label.name.published_date', 'required'=>false])
             ->add('bl_multiple_blog', BlMultipleBlogType::class, ['label'=>'admin.label.name.blog_data'])
         ;
     }
@@ -136,8 +133,8 @@ class BlogAdmin extends AbstractAdmin
             ->add('publish', null, ['editable' => true, 'label'=>'admin.label.name.publish'])
             ->add('posts', null, ['label'=>'admin.label.name.posts'])
             ->add('publishedDate', 'datetime', ['label'=>'admin.label.name.published_date'])
-            ->add('updated')
-            ->add('created')
+            ->add('updated', null, ['label'=>'admin.label.name.updated'])
+            ->add('created', null, ['label'=>'admin.label.name.created'])
             ->add('getImagePath', null, ['template' => 'AppBundle:Admin:blog_image_list.html.twig', 'label'=>'admin.label.name.images']
             )
             ->add('_action', 'actions', [

@@ -67,7 +67,8 @@ class PageAdmin extends AbstractAdmin
                     'description' => [
                             'attr' => ['class' => 'tinymce']
                     ],
-                ]
+                ],
+                'label'=>'admin.label.name.translations'
             ]
             )
             ->add('position', null, ['label'=>'admin.label.name.position'])

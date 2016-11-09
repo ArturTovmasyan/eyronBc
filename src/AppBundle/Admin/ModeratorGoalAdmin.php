@@ -64,17 +64,13 @@ class ModeratorGoalAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, ['label'=>'admin.label.name.id', 'template' => 'AppBundle:Admin:goal_show_link.html.twig']
-            )
+            ->add('id', null, ['label'=>'admin.label.name.id', 'template' => 'AppBundle:Admin:goal_show_link.html.twig'])
             ->add('title', null, ['label'=>'admin.label.name.title'])
-            ->add('author', null, ['template' => 'AppBundle:Admin:author_name_show.html.twig', 'label' => 'admin.label.name.author_name']
-            )
+            ->add('author', null, ['template' => 'AppBundle:Admin:author_name_show.html.twig', 'label' => 'admin.label.name.author_name'])
             ->add('description', null, ['label'=>'admin.label.name.description'])
             ->add('tags', null, ['label'=>'admin.label.name.tags'])
-            ->add('videoLink', null, ['template' => 'AppBundle:Admin:goal_video_show.html.twig', 'label'=>'admin.label.name.videoLink']
-            )
-            ->add('images', null, ['template' => 'AppBundle:Admin:goal_image_show.html.twig', 'label'=>'admin.label.name.images']
-            )
+            ->add('videoLink', null, ['template' => 'AppBundle:Admin:goal_video_show.html.twig', 'label'=>'admin.label.name.videoLink'])
+            ->add('images', null, ['template' => 'AppBundle:Admin:goal_image_show.html.twig', 'label'=>'admin.label.name.images'])
         ;
     }
 
@@ -84,9 +80,7 @@ class ModeratorGoalAdmin extends AbstractAdmin
 
         $formMapper
             ->add('title', null, ['required' => true, 'label'=>'admin.label.name.title'])
-            ->add('description', TextareaType::class, ['required' => false, 'label'=>'admin.label.name.description', 'attr'=> ['rows'=>8]]
-            )
-//            , 'attr' => array('class' => 'tinymce')
+            ->add('description', TextareaType::class, ['required' => false, 'label'=>'admin.label.name.description', 'attr'=> ['rows'=>8]])
             ->add('tags', null, ['label'=>'admin.label.name.tags'])
             ->add('slug', null, ['label'=>'admin.label.name.slug', 'required' => false])
             ->add('publish', null, ['label'=>'admin.label.name.publish'])
@@ -106,9 +100,9 @@ class ModeratorGoalAdmin extends AbstractAdmin
         $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $datagridMapper
-            ->add('author.email', null, ['label'=>'Author email', 'show_filter' => true])
-            ->add('author.firstname', null, ['label'=>'Author first name', 'show_filter' => true])
-            ->add('author.lastname', null, ['label'=>'Author last name', 'show_filter' => true])
+            ->add('author.email', null, ['label'=>'admin.label.name.author_email', 'show_filter' => true])
+            ->add('author.firstname', null, ['label'=>'admin.label.name.author_first_name', 'show_filter' => true])
+            ->add('author.lastname', null, ['label'=>'admin.label.name.author_last_name', 'show_filter' => true])
             ->add('id', null, ['label'=>'admin.label.name.id', 'show_filter' => true])
             ->add('title', null, ['label'=>'admin.label.name.title','show_filter' => true])
             ->add('slug', null, ['label'=>'admin.label.name.slug','show_filter' => true])
@@ -117,9 +111,7 @@ class ModeratorGoalAdmin extends AbstractAdmin
             ->add('videoLink', null, ['label'=>'admin.label.name.videoLink','show_filter' => true])
             ->add('archived', null, ['label'=>'admin.label.name.archived','show_filter' => true])
             ->add('mergedGoalId', null, ['label'=>'admin.label.name.merged_id','show_filter' => true])
-
             ->add('status', null, ['label'=>'admin.label.name.goal_public', 'show_filter' => true, 'editable' => true])
-
             ->add('created', 'doctrine_orm_callback', [
                 'show_filter' => true,
                 'callback' => function($queryBuilder, $alias, $field, $value) {
@@ -148,8 +140,6 @@ class ModeratorGoalAdmin extends AbstractAdmin
 
         $listMapper
             ->add('id', null, ['label'=>'admin.label.name.id'])
-//            ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
-//            ->add('goalStatus', null, array('mapped' => false, 'template' => 'AppBundle:Admin:goal_status.html.twig', 'label'=>'admin.label.name.goal_status'))
             ->add('title', null, ['label'=>'admin.label.name.title'])
             ->add('author', null, ['template' => 'AppBundle:Admin:author_name_list.html.twig', 'label' => 'admin.label.name.author_name']
             )

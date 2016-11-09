@@ -99,28 +99,22 @@ class GoalAdmin extends AbstractAdmin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-
         $formMapper
             ->add('title', null, ['required' => true, 'label'=>'admin.label.name.title'])
-            ->add('description', TextareaType::class, ['required' => false, 'label'=>'admin.label.name.description', 'attr'=> ['rows'=>8]]
-            )
-            ->add('featuredDate', 'date', ['widget' => 'single_text', 'label'=>'admin.label.name.featured_date', 'required' => false]
-            )
-            ->add('tags', 'sonata_type_model_autocomplete', ['label'=>'admin.label.name.tags', 'property'=>'tag', 'multiple' => true, 'required' => false]
-            )
+            ->add('description', TextareaType::class, ['required' => false, 'label'=>'admin.label.name.description', 'attr'=> ['rows'=>8]])
+            ->add('featuredDate', 'date', ['widget' => 'single_text', 'label'=>'admin.label.name.featured_date', 'required' => false])
+            ->add('tags', 'sonata_type_model_autocomplete', ['label'=>'admin.label.name.tags', 'property'=>'tag', 'multiple' => true, 'required' => false])
             ->add('slug', null, ['label'=>'admin.label.name.slug', 'required' => false])
             ->add('publish', null, ['label'=>'admin.label.name.publish'])
             ->add('status', null, ['label'=>'admin.label.name.goal_status'])
             ->add('archived', null, ['label'=>'admin.label.name.archived'])
-            ->add('place', 'sonata_type_model_autocomplete', ['label'=>'admin.label.name.place', 'property'=>'name', 'multiple' => true, 'required' => false]
-            )
+            ->add('place', 'sonata_type_model_autocomplete', ['label'=>'admin.label.name.place', 'property'=>'name', 'multiple' => true, 'required' => false])
             ->add('mergedGoalId', null, ['label'=>'admin.label.name.merged_id'])
             ->add('rawLocation', LocationType::class, ['label' => false])
             ->add('videoLink', BlMultipleVideoType::class, ['label' => false])
-            ->add('language', ChoiceType::class, ['required' => true, 'choices' => ['en' => 'en', 'ru' => 'ru', 'fr' => 'French', 'nl' => 'Dutch']]
-            )
-            ->add('bl_multiple_file', BlMultipleFileType::class, ['label'=>'admin.label.name.images', 'required' => false]
-            );
+            ->add('language', ChoiceType::class, ['label'=>'admin.label.name.language', 'required' => true, 'choices' => ['en' => 'admin.label.name.en', 'ru' => 'admin.label.name.ru']])
+            ->add('bl_multiple_file', BlMultipleFileType::class, ['label'=>'admin.label.name.images', 'required' => false])
+        ;
     }
 
     // Fields to be shown on filter forms
@@ -133,9 +127,9 @@ class GoalAdmin extends AbstractAdmin
         $container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $datagridMapper
-            ->add('author.email', null, ['label'=>'Author email'])
-            ->add('author.firstname', null, ['label'=>'Author first name'])
-            ->add('author.lastname', null, ['label'=>'Author last name'])
+            ->add('author.email', null, ['label'=>'admin.label.name.author_email'])
+            ->add('author.firstname', null, ['label'=>'admin.label.name.author_first_name'])
+            ->add('author.lastname', null, ['label'=>'admin.label.name.author_last_name'])
             ->add('id', null, ['label'=>'admin.label.name.id'])
             ->add('publish', null, ['label'=>'admin.label.name.publish'])
             ->add('title', null, ['label'=>'admin.label.name.title'])

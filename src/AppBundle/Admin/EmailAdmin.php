@@ -16,10 +16,10 @@ class EmailAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('sent')
-            ->add('seen')
-            ->add('device')
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('sent', null, ['label'=>'admin.label.name.sent'])
+            ->add('seen', null, ['label'=>'admin.label.name.seen'])
+            ->add('device', null, ['label'=>'admin.label.name.device'])
         ;
     }
 
@@ -29,10 +29,10 @@ class EmailAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('sent')
-            ->add('seen')
-            ->add('device')
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('sent', null, ['label'=>'admin.label.name.sent'])
+            ->add('seen', null, ['label'=>'admin.label.name.seen'])
+            ->add('device', null, ['label'=>'admin.label.name.device'])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -50,11 +50,10 @@ class EmailAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
-            ->add('content')
-            ->add('sent')
-            ->add('seen')
-            ->add('device')
+            ->add('content', null, ['label'=>'admin.label.name.content'])
+            ->add('sent', null, ['label'=>'admin.label.name.sent'])
+            ->add('seen', null, ['label'=>'admin.label.name.seen'])
+            ->add('device', null, ['label'=>'admin.label.name.device'])
         ;
     }
 
@@ -64,11 +63,11 @@ class EmailAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('content')
-            ->add('sent')
-            ->add('seen')
-            ->add('device')
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('content', null, ['label'=>'admin.label.name.content'])
+            ->add('sent', null, ['label'=>'admin.label.name.sent'])
+            ->add('seen', null, ['label'=>'admin.label.name.seen'])
+            ->add('device', null, ['label'=>'admin.label.name.device'])
         ;
     }
 }

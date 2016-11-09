@@ -21,20 +21,21 @@ class AffiliateTypeAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('name')
-            ->add('zone', null, [], ChoiceType::class, array(
+            ->add('id', null, ['label' => 'admin.label.name.id'])
+            ->add('name', null, ['label' => 'admin.label.name.name'])
+            ->add('zone', null, ['label' => 'admin.label.name.zone'], ChoiceType::class, [
                 'choices' => [
-                    AffiliateType::LEFT_ZONE    => 'Left',
-                    AffiliateType::RIGHT_ZONE   => 'Right',
-                    AffiliateType::TOP_ZONE     => 'Top',
-                    AffiliateType::BOTTOM_ZONE  => 'Bottom',
-                    AffiliateType::INNER_ZONE   => 'Inner',
+                    AffiliateType::LEFT_ZONE    => 'admin.label.name.left',
+                    AffiliateType::RIGHT_ZONE   => 'admin.label.name.right',
+                    AffiliateType::TOP_ZONE     => 'admin.label.name.top',
+                    AffiliateType::BOTTOM_ZONE  => 'admin.label.name.bottom',
+                    AffiliateType::INNER_ZONE   => 'admin.label.name.inner',
                 ]
-            ))
-            ->add('defaultLink')
-            ->add('htmlContent')
-            ->add('jsContent')
+            ]
+            )
+            ->add('defaultLink', null, ['label' => 'admin.label.name.default_link'])
+            ->add('htmlContent', null, ['label' => 'admin.label.name.html_content'])
+            ->add('jsContent', null, ['label' => 'admin.label.name.js_content'])
         ;
     }
 
@@ -46,17 +47,18 @@ class AffiliateTypeAdmin extends AbstractAdmin
         AffiliateType::$bookingAId = $this->getConfigurationPool()->getContainer()->getParameter('booking_aid');
 
         $listMapper
-            ->add('id')
-            ->add('name')
-            ->add('zoneString')
-            ->add('htmlContent', null, ['label' => 'Content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateTypeList.html.twig'])
-            ->add('_action', null, array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('id', null, ['label' => 'admin.label.name.id'])
+            ->add('name', null, ['label' => 'admin.label.name.name'])
+            ->add('zoneString', null, ['label' => 'admin.label.name.zone'])
+            ->add('htmlContent', null, ['label' => 'admin.label.name.content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateTypeList.html.twig'])
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]
+            )
         ;
     }
 
@@ -66,20 +68,22 @@ class AffiliateTypeAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', TextType::class)
-            ->add('defaultLink', TextType::class)
-            ->add('zone', ChoiceType::class, array(
+            ->add('name', TextType::class, ['label' => 'admin.label.name.name'])
+            ->add('defaultLink', TextType::class, ['label' => 'admin.label.name.default_link'])
+            ->add('zone', ChoiceType::class, [
+                'label' => 'admin.label.name.zone',
                 'choices' => [
-                    AffiliateType::LEFT_ZONE    => 'Left',
-                    AffiliateType::RIGHT_ZONE   => 'Right',
-                    AffiliateType::TOP_ZONE     => 'Top',
-                    AffiliateType::BOTTOM_ZONE  => 'Bottom',
-                    AffiliateType::INNER_ZONE   => 'Inner',
+                    AffiliateType::LEFT_ZONE    => 'admin.label.name.left',
+                    AffiliateType::RIGHT_ZONE   => 'admin.label.name.right',
+                    AffiliateType::TOP_ZONE     => 'admin.label.name.top',
+                    AffiliateType::BOTTOM_ZONE  => 'admin.label.name.bottom',
+                    AffiliateType::INNER_ZONE   => 'admin.label.name.inner',
                 ]
-            ))
-            ->add('htmlContent', TextareaType::class, ['required' => false])
-            ->add('jsContent', TextareaType::class, ['required' => false])
-            ->add('file', AdminFileType::class, ['required' => false])
+            ]
+            )
+            ->add('htmlContent', TextareaType::class, ['label' => 'admin.label.name.html_content', 'required' => false])
+            ->add('jsContent', TextareaType::class, ['label' => 'admin.label.name.js_content', 'required' => false])
+            ->add('file', AdminFileType::class, ['label' => 'admin.label.name.images', 'required' => false])
         ;
     }
 
@@ -89,10 +93,10 @@ class AffiliateTypeAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('name')
-            ->add('zoneString')
-            ->add('htmlContent', null, ['template' => 'ApplicationAffiliateBundle:Admin:affiliateTypeList.html.twig'])
+            ->add('id', null, ['label' => 'admin.label.name.id'])
+            ->add('name', null, ['label' => 'admin.label.name.name'])
+            ->add('zoneString', null, ['label' => 'admin.label.name.zone'])
+            ->add('htmlContent', null, ['label' => 'admin.label.name.html_content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateTypeList.html.twig'])
         ;
     }
 
