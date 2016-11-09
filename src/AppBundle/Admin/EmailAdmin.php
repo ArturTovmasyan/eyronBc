@@ -64,6 +64,7 @@ class EmailAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
+            ->add('title')
             ->add('content')
             ->add('sent')
             ->add('seen')
