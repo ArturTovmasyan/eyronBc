@@ -56,7 +56,7 @@ class Email
     private $device = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="emails")
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="sentEmails")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
