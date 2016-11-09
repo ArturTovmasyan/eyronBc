@@ -85,13 +85,15 @@
         {% endif %}
         </div>
 
+        {% set pathComment = host ~ path('blog_comment', {'id' : blog.id}) %}
+
         <amp-iframe width="500"
                     height="281"
                     layout="responsive"
-                    sandbox="allow-scripts allow-same-origin allow-popups"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
                     allowfullscreen
                     frameborder="0"
-                    src="{{ path('blog_comment', {'id' : blog.id}) }}">
+                    src="{{ pathComment }}">
         </amp-iframe>
     </div>
 

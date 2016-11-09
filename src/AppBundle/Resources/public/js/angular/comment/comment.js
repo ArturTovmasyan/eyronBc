@@ -16,6 +16,7 @@ angular.module('comments', ['Interpolation',
       restrict: 'EA',
       scope: {
         lsGoalId: '@',
+        lsBlogId: '@',
         lsTitle: '@',
         lsSlug: '@',
         lsInner: '@',
@@ -32,7 +33,7 @@ angular.module('comments', ['Interpolation',
         var busy = false;
         scope.currentUserId = UserContext.id;
 
-        CommentManager.comments({param1:'goal_'+scope.lsSlug}, function (resource){
+        CommentManager.comments({path: (scope.lsGoalId?'comments':'blogComment'), param1:(scope.lsSlug?('goal_' + scope.lsSlug):(scope.lsBlogId))}, function (resource){
           scope.comments = resource;
           scope.commentsLength = scope.comments.length - 2;
         });
@@ -68,8 +69,9 @@ angular.module('comments', ['Interpolation',
             if(!busy) {
               busy = true;
               CommentManager.add({
-                param1: scope.lsGoalId,
-                param2: comment.id
+                param1: (scope.lsGoalId?scope.lsGoalId:scope.lsBlogId),
+                param2: comment.id,
+                path: (scope.lsGoalId?'comments':'blogComment')
               }, {'commentBody': comment.replyBody}, function (data) {
                 comment.reply = true;
                 comment.replyBody = '';
@@ -86,7 +88,7 @@ angular.module('comments', ['Interpolation',
             ev.stopPropagation();
             if(!busy){
               busy = true;
-              CommentManager.add({param1:scope.lsGoalId}, {'commentBody': scope.commentBody},function (data) {
+              CommentManager.add({param1:(scope.lsGoalId?scope.lsGoalId:scope.lsBlogId), path: (scope.lsGoalId?'comments':'blogComment')}, {'commentBody': scope.commentBody},function (data) {
                 scope.commentBody = '';
                 busy = false;
                 scope.comments.push(data);
