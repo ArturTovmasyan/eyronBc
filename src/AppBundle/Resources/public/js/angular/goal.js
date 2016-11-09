@@ -652,7 +652,7 @@ angular.module('goal', ['Interpolation',
             }
             
             if($scope.successStoryActiveIndex === null){
-                $scope.successStoryActiveIndex = 3;
+                $scope.successStoryActiveIndex = $scope.storiesCount;
             }
 
            var startIndex = $scope.successStoryActiveIndex;
