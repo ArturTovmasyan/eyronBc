@@ -313,9 +313,10 @@
                              data-dnd-drop="dropCallback(event, index, item, external, type, '')">
                             <div class="form-group row"
                                  data-ng-repeat="(k, step) in userGoal.formatted_steps"
-                                 data-ng-show="!step.switch && !(!step.text && complete.switch == 1)"
+                                 data-ng-init="myStep[k] = step.switch"
+                                 data-ng-if="(!step.switch || !myStep[k]) && !(!step.text && complete.switch == 1)"
                                  data-dnd-draggable="step"
-                                 data-dnd-disable-if="!step.text"
+                                 data-dnd-disable-if="!step.text || step.switch"
                                  data-dnd-moved="moveElement($index)"
                                  data-dnd-effect-allowed="move"
                                  data-dnd-selected="models.selected = step"
@@ -330,6 +331,7 @@
                                                     type="checkbox" aria-label="steps"
                                                    name="{% if app.environment !='test' %}switch[ [[k]] ]{% endif %}"
                                                    data-ng-model="step.switch"
+                                                   data-ng-change="myStep[k] = false"
                                                    data-ng-disabled="complete.switch == 1 || !step.text"
                                                    style="display: none" />
                                         </span>
@@ -343,11 +345,12 @@
 
                                         <input type="text"
                                                class="form-control"
+                                               data-ng-class="{'market-step': step.switch}"
                                                data-step
                                                data-key="k"
                                                data-array="userGoal.formatted_steps"
                                                data-ng-model="step.text"
-                                               data-ng-disabled="complete.switch == 1"
+                                               data-ng-disabled="complete.switch == 1 || step.switch"
                                                name="{% if app.environment !='test' %}stepText[ [[ k ]] ]{% endif %}"
                                                placeholder="{{ "goal.add_step"|trans }}">
                                     </div>

@@ -4125,4 +4125,20 @@ div[dnd-list] {
 
 }
 
+div[data-dnd-draggable]{
+  div.to-do-list{
+
+    input{
+      cursor: move;
+    }
+
+    input[disabled]{
+      cursor: no-drop;
+
+      &.market-step{
+        text-decoration: line-through;
+      }
+    }
+  }
+}
 /*end input styles*/

@@ -816,6 +816,7 @@ angular.module('goalComponents', ['Interpolation',
     ){
       var myDate = moment(new Date()).format('YYYY');
       $scope.completedStepCount = 0;
+      $scope.myStep = {};
       $scope.years = _.map($(Array(50)), function (val, i) { return +myDate + i; });
       $scope.completeYears = _.map($(Array(50)), function (val, i) { return myDate - i; });
       $scope.days = _.map($(Array(31)), function (val, i) { return i + 1; });
