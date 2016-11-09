@@ -85,7 +85,7 @@
         {% endif %}
         </div>
 
-        {% set pathComment = host ~ path('blog_comment', {'id' : blog.id}) %}
+        {% set pathComment = iframe_host ~ path('blog_comment', {'id' : blog.id}) %}
 
         <amp-iframe width="500"
                     height="281"

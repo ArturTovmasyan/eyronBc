@@ -84,6 +84,7 @@ twig:
         booking_aid: %booking_aid%
         env_prefix: ~
         remote_console: %remote_console%
+        iframe_host: %iframe_host%
 
     paths:
         '%kernel.root_dir%/../web': ~

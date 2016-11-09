@@ -52,4 +52,6 @@ parameters:
     google_server_key: AIzaSyBF1IdBXbTiF_E-idTFMmDMdGnQtLjfWlk
     remote_console: ~
 
+    iframe_host: https://iframe.bucketlist127.com
+
 
