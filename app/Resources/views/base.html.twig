@@ -31,14 +31,14 @@
         {# styles #}
         {% block stylesheets %}
 
-            {% stylesheets output='css/bootstrap.css'
-                    '@AppBundle/Resources/public/less/bootstrap.less'
-                    filter='less' %}
-                <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
-            {% endstylesheets %}
+            {#{% stylesheets output='css/bootstrap.css'#}
+                    {#'@AppBundle/Resources/public/less/bootstrap.less'#}
+                    {#filter='less' %}#}
+                {#<link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>#}
+            {#{% endstylesheets %}#}
 
             {% stylesheets output='css/base.css'
-
+            'bundles/app/less/bootstrap.css'
             'bundles/app/less/icons.css'
             'app/bower_components/angular-motion/dist/angular-motion.min.css'
             'app/bower_components/jquery-nice-select/css/nice-select.css'
