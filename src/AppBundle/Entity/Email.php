@@ -36,7 +36,7 @@ class Email
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\Column(type="string", length=10000)
      */
     private $content;
 
