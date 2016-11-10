@@ -30,20 +30,21 @@ class NewFeedRepository extends EntityRepository
         $newFeedIdsQuery = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('nf.id')
-            ->from('AppBundle:NewFeed', 'nf')
-            ->groupBy('nf.id');
+            ->from('AppBundle:NewFeed', 'nf');
 
         if (is_null($singleUserId)) {
 
             $newFeedIdsQuery
-                ->join('nf.user', 'u', 'WITH', "u != :user")
-                ->join('u.userGoal', 'gfUserGoal')
-                ->join('AppBundle:UserGoal', 'userUserGoal', 'WITH', 'userUserGoal.goal = gfUserGoal.goal AND userUserGoal.user = :user')
+                ->where("nf.user IN (SELECT IDENTITY(ug2.user)
+					                 FROM AppBundle:UserGoal ug1
+					                 JOIN AppBundle:UserGoal ug2 WITH ug1.goal = ug2.goal AND ug2.isVisible = true
+					                 WHERE ug1.user = :user)")
                 ->setParameter('user', $userId);
         }
         else {
             $newFeedIdsQuery
                 ->join('nf.user', 'u', 'WITH', "u = :user")
+                ->groupBy('nf.id')
                 ->setParameter('user', $singleUserId);
         }
 
@@ -92,7 +93,20 @@ class NewFeedRepository extends EntityRepository
             return $res ? $res[0]['cnt'] : 0;
         }
 
-        $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
+        if (is_null($singleUserId)) {
+            $filters = $this->getEntityManager()->getFilters();
+            if ($filters->isEnabled('visibility_filter')) {
+                $filters->disable('visibility_filter');
+            }
+
+            $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
+
+            $filters->enable('visibility_filter');
+        }
+        else {
+            $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
+        }
+
 
         if (count($newFeedIds) < self::MIN_COUNT && (($lastDate && $lastId) || (!$lastDate && !$lastId)) && is_null($singleUserId)) {
             $dateLimit = new \DateTime($lastDate);
