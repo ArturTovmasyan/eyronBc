@@ -47,16 +47,16 @@ class BlogAdmin extends AbstractAdmin
     {
         //get product id for edit
         $showMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('slug', null, array('label'=>'admin.label.name.slug'))
-            ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('posts', null, array('label'=>'admin.label.name.posts'))
-            ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
-            ->add('getImagePath', null, array('template'=>'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
-            ->add('publishedDate', 'datetime', array('label'=>'admin.label.name.published_date'))
-            ->add('created')
-            ->add('updated')
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('title', null, ['label'=>'admin.label.name.title'])
+            ->add('slug', null, ['label'=>'admin.label.name.slug'])
+            ->add('publish', null, ['label'=>'admin.label.name.publish'])
+            ->add('posts', null, ['label'=>'admin.label.name.posts'])
+            ->add('metaDescription', null, ['label'=>'admin.label.name.meta_description'])
+            ->add('getImagePath', null, ['template'=>'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'])
+            ->add('publishedDate', 'datetime', ['label'=>'admin.label.name.published_date'])
+            ->add('created', null, ['label'=>'admin.label.name.created'])
+            ->add('updated', null, ['label'=>'admin.label.name.updated'])
         ;
     }
 
@@ -67,7 +67,7 @@ class BlogAdmin extends AbstractAdmin
         $image = $this->getSubject();
 
         // use $fileFieldOptions so we can add other options to the field
-        $fileFieldOptions = array('label'=>'admin.label.name.blog_images', 'required' => false);
+        $fileFieldOptions = ['label'=>'admin.label.name.blog_images', 'required' => false];
 
         if ($image && ($webPath = $image->getDownloadLink())) {
 
@@ -84,12 +84,12 @@ class BlogAdmin extends AbstractAdmin
             ->add('file', 'file', $fileFieldOptions);
 
         $formMapper
-            ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('posts', 'sonata_type_model_autocomplete', array('label'=>'admin.label.name.posts', 'property'=>'title', 'multiple' => true, 'required' => false))
-            ->add('metaDescription', 'textarea', array('label'=>'admin.label.name.meta_description'))
-            ->add('publishedDate', 'sonata_type_date_picker', array('label'=>'admin.label.name.published_date', 'required'=>false))
-            ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))
+            ->add('title', null, ['label'=>'admin.label.name.title'])
+            ->add('publish', null, ['label'=>'admin.label.name.publish'])
+            ->add('posts', 'sonata_type_model_autocomplete', ['label'=>'admin.label.name.posts', 'property'=>'title', 'multiple' => true, 'required' => false])
+            ->add('metaDescription', 'textarea', ['label'=>'admin.label.name.meta_description'])
+            ->add('publishedDate', 'sonata_type_date_picker', ['label'=>'admin.label.name.published_date', 'required'=>false])
+            ->add('bl_multiple_blog', BlMultipleBlogType::class, ['label'=>'admin.label.name.blog_data'])
         ;
     }
 
@@ -97,21 +97,29 @@ class BlogAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
-            ->add('title', null, array('label'=>'admin.label.name.title', 'show_filter' => true))
-            ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('slug', null, array('label'=>'admin.label.name.slug', 'show_filter' => true))
-            ->add('created', 'doctrine_orm_date_range', array('label' => 'admin.label.name.created'), 'sonata_type_date_range_picker',
-                array('field_options_start'=>array('format'=>'yyyy-MM-dd'),
-                    'field_options_end'=>array('format'=>'yyyy-MM-dd')))
+            ->add('id', null, ['label'=>'admin.label.name.id', 'show_filter' => true])
+            ->add('title', null, ['label'=>'admin.label.name.title', 'show_filter' => true])
+            ->add('publish', null, ['label'=>'admin.label.name.publish'])
+            ->add('slug', null, ['label'=>'admin.label.name.slug', 'show_filter' => true])
+            ->add('created', 'doctrine_orm_date_range', ['label' => 'admin.label.name.created'], 'sonata_type_date_range_picker',
+                [
+                    'field_options_start'=> ['format'=>'yyyy-MM-dd'],
+                    'field_options_end'=> ['format'=>'yyyy-MM-dd']
+                ]
+            )
 
-            ->add('updated', 'doctrine_orm_date_range', array('label' => 'admin.label.name.updated'), 'sonata_type_date_range_picker',
-                array('field_options_start'=>array('format'=>'yyyy-MM-dd'),
-                    'field_options_end'=>array('format'=>'yyyy-MM-dd')))
+            ->add('updated', 'doctrine_orm_date_range', ['label' => 'admin.label.name.updated'], 'sonata_type_date_range_picker',
+                [
+                    'field_options_start'=> ['format'=>'yyyy-MM-dd'],
+                    'field_options_end'=> ['format'=>'yyyy-MM-dd']
+                ]
+            )
 
-            ->add('publishedDate', 'doctrine_orm_date_range', array('label' => 'admin.label.name.published_date'), 'sonata_type_date_range_picker',
-                array('field_options_start'=>array('format'=>'yyyy-MM-dd'),
-                    'field_options_end'=>array('format'=>'yyyy-MM-dd'))
+            ->add('publishedDate', 'doctrine_orm_date_range', ['label' => 'admin.label.name.published_date'], 'sonata_type_date_range_picker',
+                [
+                    'field_options_start'=> ['format'=>'yyyy-MM-dd'],
+                    'field_options_end'=> ['format'=>'yyyy-MM-dd']
+                ]
             );
     }
 
@@ -119,23 +127,25 @@ class BlogAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('slug', null, array('label'=>'admin.label.name.slug'))
-            ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
-            ->add('posts', null, array('label'=>'admin.label.name.posts'))
-            ->add('publishedDate', 'datetime', array('label'=>'admin.label.name.published_date'))
-            ->add('updated')
-            ->add('created')
-            ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_list.html.twig', 'label'=>'admin.label.name.images'))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                    'blog_link' => array('template' => 'AppBundle:Admin:blog_list_action_link.html.twig'),
-                )
-            )) ;
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('title', null, ['label'=>'admin.label.name.title'])
+            ->add('slug', null, ['label'=>'admin.label.name.slug'])
+            ->add('publish', null, ['editable' => true, 'label'=>'admin.label.name.publish'])
+            ->add('posts', null, ['label'=>'admin.label.name.posts'])
+            ->add('publishedDate', 'datetime', ['label'=>'admin.label.name.published_date'])
+            ->add('updated', null, ['label'=>'admin.label.name.updated'])
+            ->add('created', null, ['label'=>'admin.label.name.created'])
+            ->add('getImagePath', null, ['template' => 'AppBundle:Admin:blog_image_list.html.twig', 'label'=>'admin.label.name.images']
+            )
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                    'blog_link' => ['template' => 'AppBundle:Admin:blog_list_action_link.html.twig'],
+                ]
+            ]
+            ) ;
     }
 
     /**

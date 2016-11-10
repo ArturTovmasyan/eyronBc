@@ -22,19 +22,19 @@ class AffiliateAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('name')
-            ->add('link')
-            ->add('links')
-            ->add('ufi')
-            ->add('placeType', null, [],  ChoiceType::class, ['required' => false,
+            ->add('id', null, ['label' => 'admin.label.name.id'])
+            ->add('name', null, ['label' => 'admin.label.name.name'])
+            ->add('link', null, ['label' => 'admin.label.name.link'])
+            ->add('links', null, ['label' => 'admin.label.name.link'])
+            ->add('ufi', null, ['label' => 'admin.label.name.ufi'])
+            ->add('placeType', null, ['label' => 'admin.label.name.place_type'],  ChoiceType::class, ['required' => false,
                 'choices' => [
-                    Affiliate::CITY_TYPE    => 'City',
-                    Affiliate::REGION_TYPE  => 'Region',
-                    Affiliate::COUNTRY_TYPE => 'Country',
+                    Affiliate::CITY_TYPE    => 'admin.label.name.city',
+                    Affiliate::REGION_TYPE  => 'admin.label.name.region',
+                    Affiliate::COUNTRY_TYPE => 'admin.label.name.country',
                 ]
             ])
-            ->add('affiliateType')
+            ->add('affiliateType', null, ['label' => 'admin.label.name.affiliate_type'])
         ;
     }
 
@@ -46,20 +46,21 @@ class AffiliateAdmin extends AbstractAdmin
         AffiliateType::$bookingAId = $this->getConfigurationPool()->getContainer()->getParameter('booking_aid');
 
         $listMapper
-            ->add('publish', null, ['editable' => true])
-            ->add('name')
-            ->add('ufi')
-            ->add('placeType')
-            ->add('links', null, ['template' => 'ApplicationAffiliateBundle:Admin:listLinks.html.twig'])
-            ->add('affiliateType.name')
-            ->add('affiliateType.id', null, ['label' => 'Content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
-            ->add('_action', null, array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('publish', null, ['label' => 'admin.label.name.publish', 'editable' => true])
+            ->add('name', null, ['label' => 'admin.label.name.name'])
+            ->add('ufi', null, ['label' => 'admin.label.name.ufi'])
+            ->add('placeType', null, ['label' => 'admin.label.name.place_type'])
+            ->add('links', null, ['label' => 'admin.label.name.links', 'template' => 'ApplicationAffiliateBundle:Admin:listLinks.html.twig'])
+            ->add('affiliateType.name', null, ['label' => 'admin.label.name.type_name'])
+            ->add('affiliateType.id', null, ['label' => 'admin.label.name.content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]
+            )
         ;
     }
 
@@ -69,27 +70,29 @@ class AffiliateAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', TextType::class, ['required' => false])
-            ->add('link', TextType::class, ['required' => false])
-            ->add('ufi', TextType::class, ['required' => false])
-            ->add('placeType', ChoiceType::class, ['required' => false,
+            ->add('name', TextType::class, ['label' => 'admin.label.name.name', 'required' => false])
+            ->add('link', TextType::class, ['label' => 'admin.label.name.link', 'required' => false])
+            ->add('ufi', TextType::class, ['label' => 'admin.label.name.ufi', 'required' => false])
+            ->add('placeType', ChoiceType::class, ['label' => 'admin.label.name.place_type', 'required' => false,
                 'choices' => [
-                    Affiliate::CITY_TYPE    => 'City',
-                    Affiliate::REGION_TYPE  => 'Region',
-                    Affiliate::COUNTRY_TYPE => 'Country',
+                    Affiliate::CITY_TYPE    => 'admin.label.name.city',
+                    Affiliate::REGION_TYPE  => 'admin.label.name.region',
+                    Affiliate::COUNTRY_TYPE => 'admin.label.name.country',
                 ]
             ])
-            ->add('affiliateType')
-            ->add('publish')
-            ->add('links', CollectionType::class, array(
+            ->add('affiliateType', null, ['label' => 'admin.label.name.affiliate_type'])
+            ->add('publish', null, ['label' => 'admin.label.name.publish'])
+            ->add('links', CollectionType::class, [
+                'label' => 'admin.label.name.links',
                 'entry_type'   => TextType::class,
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'delete_empty' => true,
                 'required'     => false
-            ))
-            ->add('sizeString', TextType::class, ['required' => false])
-            ->add('file', AdminFileType::class, ['required' => false])
+            ]
+            )
+            ->add('sizeString', TextType::class, ['label' => 'admin.label.name.size', 'required' => false])
+            ->add('file', AdminFileType::class, ['label' => 'admin.label.name.images', 'required' => false])
         ;
     }
 
@@ -99,16 +102,16 @@ class AffiliateAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('name')
-            ->add('publish')
-            ->add('sizeString')
-            ->add('link')
-            ->add('ufi')
-            ->add('placeType')
-            ->add('links')
-            ->add('affiliateType.name')
-            ->add('affiliateType.id', null, ['template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
+            ->add('id', null, ['label' => 'admin.label.name.id'])
+            ->add('name', null, ['label' => 'admin.label.name.name'])
+            ->add('publish', null, ['label' => 'admin.label.name.publish'])
+            ->add('sizeString', null, ['label' => 'admin.label.name.size'])
+            ->add('link', null, ['label' => 'admin.label.name.link'])
+            ->add('ufi', null, ['label' => 'admin.label.name.ufi'])
+            ->add('placeType', null, ['label' => 'admin.label.name.place_type'])
+            ->add('links', null, ['label' => 'admin.label.name.links'])
+            ->add('affiliateType.name', null, ['label' => 'admin.label.name.type_name'])
+            ->add('affiliateType.id', null, ['label' => 'admin.label.name.type_id', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
         ;
     }
 
@@ -133,7 +136,6 @@ class AffiliateAdmin extends AbstractAdmin
             $filterConfiguration->set('affiliate_image', $configuration);
 
             $imagemanagerResponse->filterAction($this->getRequest(), $object->getDownloadLink(), 'affiliate_image');
-//            $browserPath = $liipManager->getBrowserPath($object->getDownloadLink(), 'affiliate_image');
         }
     }
 

@@ -22,9 +22,9 @@ class PlaceAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('name', null, array('label'=>'admin.label.name.name'))
-            ->add('placeType', null, array('label'=>'admin.label.name.type'))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('name', null, ['label'=>'admin.label.name.name'])
+            ->add('placeType', null, ['label'=>'admin.label.name.type'])
         ;
     }
 
@@ -33,8 +33,8 @@ class PlaceAdmin extends AbstractAdmin
     {
 
         $formMapper
-            ->add('name', null, array('label'=>'admin.label.name.name'))
-            ->add('placeType', null, array('label'=>'admin.label.name.type', 'required' => true))
+            ->add('name', null, ['label'=>'admin.label.name.name'])
+            ->add('placeType', null, ['label'=>'admin.label.name.type', 'required' => true])
         ;
     }
 
@@ -42,9 +42,9 @@ class PlaceAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
-            ->add('name', null, array('label'=>'admin.label.name.name', 'show_filter' => true))
-            ->add('placeType.name', null, array('label'=>'admin.label.name.type', 'show_filter' => true))
+            ->add('id', null, ['label'=>'admin.label.name.id', 'show_filter' => true])
+            ->add('name', null, ['label'=>'admin.label.name.name', 'show_filter' => true])
+            ->add('placeType.name', null, ['label'=>'admin.label.name.type', 'show_filter' => true])
         ;
     }
 
@@ -52,16 +52,17 @@ class PlaceAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('name', null, array('label'=>'admin.label.name.name'))
-            ->add('placeType.name', 'text', array('label'=>'admin.label.name.type'))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('name', null, ['label'=>'admin.label.name.name'])
+            ->add('placeType.name', 'text', ['label'=>'admin.label.name.type'])
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]
+            )
         ;
     }
 }
