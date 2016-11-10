@@ -53,8 +53,44 @@
                 <a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>
             </li>
 
+            <li class="text-orange">[[ user.points]]</li>
+
             <li class="text-orange">[[ user.score]]</li>
         </ul>
+
+        {% if app.user %}
+            <h3 class="text-dark-gray ng-hide" data-ng-show="users.length">{{ 'leaderboard.position'| trans }}</h3>
+
+            <div class="bg-purple round goals-animate"
+                 data-ng-cloak
+                 data-ng-show="users.length"
+                 data-ng-class="{'margin-top': $index == 0, 'bg-white': user.user.id == {{ app.user.id }} }"
+                 data-ng-repeat="user in users">
+                <ul>
+                    <li class="text-orange">[[ user.position]]</li>
+
+                    <li>
+                        <figure class="img-circle">
+                            {% set className = "user-no" ~ random(4) %}
+                            <img data-ng-if="user.user.image_path.length" data-ng-src="[[ user.user.image_path]]" alt="user image"/>
+                            <p data-ng-if="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>
+                        </figure>
+                    </li>
+
+                    <li>
+                        <a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>
+                    </li>
+
+                    <li class="text-orange">[[ user.points]]</li>
+
+                    <li class="text-orange">[[ user.score]]</li>
+                </ul>
+                <div data-ng-show="user.user.id == {{ app.user.id }}">
+                    <hr class="text-dark-gray"/>
+                    <p class="text-dark-gray text-center">{{ 'leaderboard.position_text'| trans }}</p>
+                </div>
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}
