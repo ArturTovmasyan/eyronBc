@@ -407,12 +407,6 @@ Report Type: Report Type
 Name: Name
 Page Create: Page Create
 Dashboard: Dashboard
-Goal: Goal
-Select goal: Select goal
-Tags: Tags
-Success story: Success story
-Comment: Comment
-User: User
 
 notification:
   no_notification: No notifications
@@ -539,6 +533,7 @@ admin:
       device: Device
       seen: Seen
       sent: Sent
+      select_goal: Select goal
 
 # sonata admin breadcrumb and filter
 User List: User List
