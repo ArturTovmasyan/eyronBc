@@ -820,7 +820,7 @@ class GoalController extends FOSRestController
 
         if (!is_null($goalId)){
             $users = $em->getRepository('AppBundle:Goal')
-                ->findGoalUsers($goalId, $slug == 1 ? null : UserGoal::COMPLETED, $first, $count, $search);
+                ->findGoalUsers($goalId, $slug == 1 ? UserGoal::ACTIVE : UserGoal::COMPLETED, $first, $count, $search);
         }
         else {
             $type = $request->get('type', 'all');

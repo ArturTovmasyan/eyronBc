@@ -158,7 +158,7 @@ class GoalRepository extends EntityRepository
                            FROM AppBundle:Goal g
                            INDEX BY g.id
                            LEFT JOIN g.userGoal ug
-                           WHERE g.id IN (:goalIds)
+                           WHERE g.id IN (:goalIds) AND ug.status = :status
                            GROUP BY g.id
                           ")
             ->setParameter('goalIds', array_keys($goals))
@@ -620,7 +620,7 @@ class GoalRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('u, ug')
             ->from('ApplicationUserBundle:User', 'u', 'u.id')
-            ->join('u.userGoal', 'ug', 'WITH', 'ug.status = :status OR :status IS NULl')
+            ->join('u.userGoal', 'ug', 'WITH', 'ug.status = :status')
             ->join('ug.goal', 'g', 'WITH', 'g.id = :goalId')
             ->setParameter('status', $status)
             ->setParameter('goalId', $goalId);
