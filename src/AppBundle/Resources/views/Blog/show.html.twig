@@ -5,29 +5,46 @@
     <script type="application/ld+json">
       {
         "@context": "http://schema.org",
-        "@type": "{{ blog.title }}",
-        "headline": "{{- blog.metaDescription|markdown|sliceString -}}",
-        "datePublished": "{{ blog.updated|date('Y-m-d') }}",
-        "image": [
-          {{ host ~ logo }}
-        ]
-      }
+        "@type": "NewsArticle",
+         "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "{{ host }}/{{ blog.slug }}"
+           },
+        "headline": "{{ blog.title }}",
+        "image": {
+          "@type": "ImageObject",
+          "url": "{{ blog.imagePath|blImageFilter('goal_list_small') }}",
+          "height": 400,
+          "width": 700
+        },
+        "datePublished": "{{ blog.publishedDate|date('c') }}",
+        "dateModified": "{{ blog.updated|date('c') }}",
+        "author": {
+          "@type": "Organization",
+          "name": "Bucketlist127"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Bucketlist127",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "{{ host ~ logo }}"
+       }},
+    "description": "{{- blog.metaDescription|markdown|sliceString -}}"
+    }
     </script>
 {% endblock %}
 
 {% block content %}
 
-    <div class="bg-dark-grey">
+    <div class="bg-dark-grey padding-bottom">
 
-    {% set blogData = blog.data %}
-    {% set posts = blog.posts %}
+        {% set blogData = blog.data %}
+        {% set posts = blog.posts %}
 
-    {% if is_mobile() and not is_tablet() %}
         <h1 class="text-blue text-center {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
-    {% endif %}
 
-    {% if not is_mobile() or is_tablet() %}
-        <div class="header">
+        <div class="header blog-inner">
             <div>
                 <h1 class="text-white {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
             </div>
@@ -37,69 +54,91 @@
                          height="853"></amp-img>
             </figure>
         </div>
-    {% endif %}
 
-    <div class="bg-white content-inner">
-        <figure class="goal-cover">
-            <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}" layout="responsive"
-                     width="1280" height="853" alt="{{ blog.title }}" title="{{ blog.title }}"></amp-img>
-        </figure>
 
-        <div class="text-justify">
-            {% if blogData|length > 0 %}
+        <div class="bg-white content-inner">
+            <figure class="goal-cover">
+                <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}"
+                         {#srcset="{{ blog.imagePath|blImageFilter('goal_bg') }} 1080w,#}
+                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 900w,#}
+                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 800w,#}
+                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 700w,#}
+                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 600w,#}
+                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 500w,#}
+                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 400w,#}
+                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 300w,"#}
+                         layout="responsive"
+                         sizes="(min-width: 750px) 750px, 100vw"
+                         width="1280" height="853" alt="{{ blog.title }}" title="{{ blog.title }}"></amp-img>
+            </figure>
 
-            {% for data in blogData %}
+            <div class="text-justify">
+                {% if blogData|length > 0 %}
 
-                {% if data.type == 'text' %}
+                    {% for data in blogData %}
 
-                    <p>{{ data.content|removeTag|markdown }}</p>
+                        {% if data.type == 'text' %}
 
-                {% elseif data.type == 'goal' and data.goals is defined %}
+                            <p>{{ data.content|removeTag|markdown }}</p>
 
-                    {% set goal = data.goals %}
+                        {% elseif data.type == 'goal' and data.goals is defined %}
 
-                    <div class="goals-information">
-                        <figure>
-                            <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
-                                <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
-                                         layout="responsive"
-                                         width="1280"
-                                         height="853">
-                                </amp-img>
-                            </a>
-                        </figure>
+                            {% set goal = data.goals %}
 
-                        <div>
-                            <span class="transparent"></span>
-                            <h3>
-                                <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" class="text-blue">{{ goal.title }}</a>
-                            </h3>
-                            {% if goal.description %}
-                                {{ goal.description|removeTag|markdown }}
-                            {% endif %}
-                        </div>
-                    </div>
+                            <div class="goals-information">
+                                <figure>
+                                    <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
+                                        <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                             {#srcset="{{ goal.imagePath|blImageFilter('goal_list_small') }} 1080w,#}
+                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 900w,#}
+                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 800w,#}
+                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 700w,#}
+                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 600w,#}
+                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 500w,#}
+                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 400w,#}
+                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 300w,#}
+                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 200w,#}
+                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 100w,#}
+                                                     {#"#}
+                                                 {#sizes="(min-width: 320px) 320px, 100vw"#}
+                                                 layout="responsive"
+                                                 width="1280"
+                                                 height="853">
+                                        </amp-img>
+                                    </a>
+                                </figure>
 
+                                <div>
+                                    <span class="transparent"></span>
+                                    <h3 class="goal-title">
+                                        <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" class="text-blue">{{ goal.title }}</a>
+                                    </h3>
+                                    {% if goal.description %}
+                                        {{ goal.description|removeTag|markdown }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
-            {% endfor %}
-        {% endif %}
+            </div>
+
+            {% set pathComment = iframe_host ~ path('blog_comment', {'id' : blog.id}) %}
+
+            <amp-iframe width="500"
+                        height="281"
+                        layout="responsive"
+                        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                        allowfullscreen
+                        frameborder="0"
+                        src="{{ pathComment }}">
+            </amp-iframe>
         </div>
 
-        {% set pathComment = iframe_host ~ path('blog_comment', {'id' : blog.id}) %}
-
-        <amp-iframe width="500"
-                    height="281"
-                    layout="responsive"
-                    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-                    allowfullscreen
-                    frameborder="0"
-                    src="{{ pathComment }}">
-        </amp-iframe>
-    </div>
-
-    <div class="bg-grey">
-        {{ include('AppBundle:Blog:relatedPosts.html.twig',  {'posts': posts} ) }}
-    </div>
+        <div class="bg-grey">
+            {{ include('AppBundle:Blog:relatedPosts.html.twig',  {'posts': posts} ) }}
+        </div>
 
     </div>
 {% endblock %}

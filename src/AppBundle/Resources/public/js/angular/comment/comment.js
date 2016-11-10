@@ -32,18 +32,19 @@ angular.module('comments', ['Interpolation',
         var forEnd = 0;
         var busy = false;
         scope.currentUserId = UserContext.id;
+        scope.commentsDefaultCount = 5;
 
         CommentManager.comments({path: (scope.lsGoalId?'comments':'blogComment'), param1:(scope.lsSlug?('goal_' + scope.lsSlug):(scope.lsBlogId))}, function (resource){
           scope.comments = resource;
-          scope.commentsLength = scope.comments.length - 2;
+          scope.commentsLength = scope.comments.length - scope.commentsDefaultCount;
         });
         
         scope.showMoreComment = function () {
-          if(scope.commentIndex === forEnd){
+          if(scope.commentsLength === forEnd){
             return;
           }
-          if(!scope.commentIndex){
-            scope.commentIndex = scope.comments.length - 3;
+          if(angular.isUndefined(scope.commentIndex)){
+            scope.commentIndex = scope.comments.length - scope.commentsDefaultCount - 1;
           }
 
           var startIndex = scope.commentIndex;
