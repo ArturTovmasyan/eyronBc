@@ -233,6 +233,10 @@ class GoalAdmin extends AbstractAdmin
      */
     private function addBadge($object, $originObject)
     {
+        if (count($originObject) == 0){
+            return;
+        }
+
         $addBadge = 0;
         $removeBadge = 0;
 
