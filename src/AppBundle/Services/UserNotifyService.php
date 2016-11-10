@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\Email;
 use AppBundle\Entity\Goal;
 use Application\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\Container;
@@ -194,22 +195,32 @@ class UserNotifyService extends AbstractProcessService
         if(!isset($subject) || !isset($body)){
             return;
         }
-        //generate content for email
-        $content = $this->container->get('templating')->render(
-            'AppBundle:Templates:userNotifyEmail.html.twig',
-            array(
+
+        // check and send email
+        if($receiver->mustEmailNotify($type)){
+
+            $contentParameters =  array(
                 'goal' => $goal,
                 'body' => $body,
                 'object' => $object,
                 'receiver' => $receiver,
                 'sender' => $sender,
                 'viewLink' => $viewLink,
-                'language' => $language
-            )
-        );
+                'language' => $language,
+            );
 
-        // check and send email
-        if($receiver->mustEmailNotify($type)){
+            $id = $this->createEmailRecorder($receiver, $subject, $contentParameters);
+            $emailRecordLink =  $viewLink = $router->generate('open-email',
+                array('id' => $id), true);
+
+            $contentParameters['openEmailLink'] = $emailRecordLink;
+
+            //generate content for email
+            $content = $this->container->get('templating')->render(
+                'AppBundle:Templates:userNotifyEmail.html.twig',
+                $contentParameters
+            );
+
             //get receiver email
             $email = $receiver->getEmail();
 
@@ -229,7 +240,35 @@ class UserNotifyService extends AbstractProcessService
             //send notification to mobile
             $sendNoteService->sendPushNote($receiver, $subject);
         }
+        return;
     }
+
+    /**
+     * @param User $receiver
+     * @param $title
+     * @param $contentParameters
+     * @return int
+     */
+    public function createEmailRecorder(User $receiver, $title, $contentParameters)
+    {
+        $em = $this->container->get('doctrine')->getManager();
+
+        //generate content for email
+        $content = $this->container->get('templating')->render(
+            'AppBundle:Templates:userNotifyEmail.html.twig',
+            $contentParameters
+        );
+
+        $email = new Email();
+        $email->setUser($receiver);
+        $email->setTitle($title);
+        $email->setContent($content);
+        $em->persist($email);
+        $em->flush();
+
+        return $email->getId();
+    }
+
 
 
     /**

@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class EmailController extends Controller
 {
     /**
-     * @Route("/email.gif")
+     * @Route("/email.gif", name="open-email")
      */
     public function openAction(Request $request)
     {
