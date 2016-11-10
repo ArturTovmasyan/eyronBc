@@ -31,8 +31,8 @@ class TagAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('tag')
+            ->add('id', null, ['label' => 'admin.label.name.id'])
+            ->add('tag', null, ['label' => 'admin.label.name.tag'])
 
         ;
     }

@@ -105,7 +105,7 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('id', null, ['label' => 'admin.label.name.id'])
             ->add('name', null, ['label' => 'admin.label.name.name'])
             ->add('publish', null, ['label' => 'admin.label.name.publish'])
-            ->add('sizeString', null, ['label' => 'admin.label.name.string'])
+            ->add('sizeString', null, ['label' => 'admin.label.name.size'])
             ->add('link', null, ['label' => 'admin.label.name.link'])
             ->add('ufi', null, ['label' => 'admin.label.name.ufi'])
             ->add('placeType', null, ['label' => 'admin.label.name.place_type'])
@@ -136,7 +136,6 @@ class AffiliateAdmin extends AbstractAdmin
             $filterConfiguration->set('affiliate_image', $configuration);
 
             $imagemanagerResponse->filterAction($this->getRequest(), $object->getDownloadLink(), 'affiliate_image');
-//            $browserPath = $liipManager->getBrowserPath($object->getDownloadLink(), 'affiliate_image');
         }
     }
 
