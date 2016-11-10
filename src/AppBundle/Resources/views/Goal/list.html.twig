@@ -35,19 +35,10 @@
         <hr/>
 
         <div class="container">
-            <div class="row no-gutter">
-                <div class="col-xs-10 col-sm-11" data-ng-init="activeCategory = '{{ category?category:'nearby' }}'">
+            <div class="row no-gutter" data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
+                <div class="col-xs-12" data-ng-init="activeCategory = '{{ category?category:'nearby' }}'">
                     {% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories, 'selected': category } %}
                 </div>
-
-                <div class="col-xs-2 col-sm-1 text-right"  data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
-                    {#<a href="javascript:void(0)" data-ng-show="fadeMapIcon" data-ng-click="showMap=!showMap" data-ng-class="{'map-marker-active': showMap}" class="map-top ng-hide" data-ng-cloak>#}
-                        {#<i class="map-marker-new" data-ng-class="{'map-marker-active': showMap}"></i>#}
-                        {#<img src="{{ asset('bundles/app/images/map-icon.svg') }}"  class="svg" alt="Map"/>#}
-                        {#<span>{{ 'menu.map'|trans | capitalize}}</span>#}
-                    {#</a>#}
-                </div>
-
             </div>
         </div>
 
@@ -81,7 +72,7 @@
              data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"
              data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"
              data-active-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
-         style="width: 100%; height: 300px;margin-bottom:30px;margin-top:30px;">
+             class="map-autocomplete">
         </div>
 
     </div>

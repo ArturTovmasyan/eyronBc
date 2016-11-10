@@ -65,6 +65,7 @@ class EmailAdmin extends AbstractAdmin
         $showMapper
             ->add('id', null, ['label'=>'admin.label.name.id'])
             ->add('content', null, ['label'=>'admin.label.name.content'])
+            ->add('title', null, ['label'=>'admin.label.name.title'])
             ->add('sent', null, ['label'=>'admin.label.name.sent'])
             ->add('seen', null, ['label'=>'admin.label.name.seen'])
             ->add('device', null, ['label'=>'admin.label.name.device'])

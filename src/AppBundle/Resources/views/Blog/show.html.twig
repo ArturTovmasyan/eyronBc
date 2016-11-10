@@ -37,27 +37,24 @@
 
 {% block content %}
 
-    <div class="bg-dark-grey">
+    <div class="bg-dark-grey padding-bottom">
 
         {% set blogData = blog.data %}
         {% set posts = blog.posts %}
 
-        {% if is_mobile() and not is_tablet() %}
-            <h1 class="text-blue text-center {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
-        {% endif %}
+        <h1 class="text-blue text-center {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
 
-        {% if not is_mobile() or is_tablet() %}
-            <div class="header">
-                <div>
-                    <h1 class="text-white {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
-                </div>
-                <figure>
-                    <span class="overlay"></span>
-                    <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="1280"
-                             height="853"></amp-img>
-                </figure>
+        <div class="header blog-inner">
+            <div>
+                <h1 class="text-white {% if blog.title|length > 40 %}title-small{% endif %}">{{ blog.title }}</h1>
             </div>
-        {% endif %}
+            <figure>
+                <span class="overlay"></span>
+                <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="1280"
+                         height="853"></amp-img>
+            </figure>
+        </div>
+
 
         <div class="bg-white content-inner">
             <figure class="goal-cover">
@@ -91,7 +88,7 @@
 
                                 <div>
                                     <span class="transparent"></span>
-                                    <h3>
+                                    <h3 class="goal-title">
                                         <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" class="text-blue">{{ goal.title }}</a>
                                     </h3>
                                     {% if goal.description %}

@@ -20,7 +20,7 @@ class Email
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="string", length=36)
+     * @ORM\Column(type="string", length=36)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      */
@@ -29,14 +29,21 @@ class Email
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=1000)
+     * @ORM\Column(type="string", length=60)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=1000)
      */
     private $content;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="sent", type="datetime")
+     * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
     private $sent;
@@ -44,14 +51,14 @@ class Email
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="seen", type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $seen;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="device", type="smallint")
+     * @ORM\Column(type="smallint")
      */
     private $device = 0;
 
@@ -60,6 +67,14 @@ class Email
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
+
+    /**
+     * @return int|string
+     */
+    public function __toString()
+    {
+        return ($this->id) ? $this->id : '';
+    }
 
     /**
      * Get id
@@ -192,10 +207,26 @@ class Email
     }
 
     /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Email
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
      * @return string
      */
-    public function __toString()
+    public function getTitle()
     {
-        return (string) $this->id;
+        return $this->title;
     }
 }
