@@ -72,7 +72,7 @@
                         {% if cover %}
                             {{ cover|blImageFilterForCli('goal_bg') }}
                         {% else %}
-                            {{ asset(randomImage)}}
+                            {{ baseUrl }}/{{ asset(randomImage)}}
                         {% endif %}"
                              alt="{{ goal.title }}"  height="230" width="100%"/>
                         <figcaption style=";text-align:center;">
