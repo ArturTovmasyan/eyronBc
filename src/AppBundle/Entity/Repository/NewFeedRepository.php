@@ -93,20 +93,14 @@ class NewFeedRepository extends EntityRepository
             return $res ? $res[0]['cnt'] : 0;
         }
 
+        $filters = $this->getEntityManager()->getFilters();
         if (is_null($singleUserId)) {
-            $filters = $this->getEntityManager()->getFilters();
             if ($filters->isEnabled('visibility_filter')) {
                 $filters->disable('visibility_filter');
             }
-
-            $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
-
-            $filters->enable('visibility_filter');
-        }
-        else {
-            $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
         }
 
+        $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
 
         if (count($newFeedIds) < self::MIN_COUNT && (($lastDate && $lastId) || (!$lastDate && !$lastId)) && is_null($singleUserId)) {
             $dateLimit = new \DateTime($lastDate);
@@ -117,6 +111,10 @@ class NewFeedRepository extends EntityRepository
             if (count($newFeedIds) == 0){
                 return [];
             }
+        }
+
+        if (is_null($singleUserId)) {
+            $filters->enable('visibility_filter');
         }
 
         return $this->getEntityManager()
