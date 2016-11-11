@@ -32,6 +32,10 @@ class BadgeRepository extends EntityRepository
             ->setMaxResults($count)
             ->getResult();
 
+        foreach($topBadges as $key => $topBadge){
+            $topBadge->position = $key + 1;
+        }
+
         if (is_null($userId)){
             return $topBadges;
         }
@@ -64,13 +68,10 @@ class BadgeRepository extends EntityRepository
             ->setMaxResults($userPosition - 2 <= 10 ? $userPosition - 7 : 5)
             ->getResult();
 
-        foreach($topBadges as $key => $topBadge){
-            $topBadge->position = $key;
-        }
 
         $startPosition = $userPosition - 2 <= 10 ? 10 : $userPosition - 2;
         foreach($nearBadges as $nearBadge){
-            $nearBadge->position = $startPosition;
+            $nearBadge->position = $startPosition + 1;
             $startPosition++;
         }
 
