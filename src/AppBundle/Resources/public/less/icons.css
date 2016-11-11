@@ -24,84 +24,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-mail-purple .path1:before {
-    content: "\e900";
-    color: rgb(104, 84, 163);
-}
-.icon-mail-purple .path2:before {
-    content: "\e901";
-    margin-left: -1em;
-    color: rgb(104, 84, 163);
-}
-.icon-mail-purple .path3:before {
-    content: "\e902";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-mail-purple .path4:before {
-    content: "\e903";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-mail-purple .path5:before {
-    content: "\e904";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-mail-purple .path6:before {
-    content: "\e905";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-mail-purple .path7:before {
-    content: "\e906";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-mail-purple .path8:before {
-    content: "\e907";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-print-purple .path1:before {
-    content: "\e908";
-    color: rgb(104, 84, 163);
-}
-.icon-print-purple .path2:before {
-    content: "\e909";
-    margin-left: -1em;
-    color: rgb(104, 84, 163);
-}
-.icon-print-purple .path3:before {
-    content: "\e90a";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-print-purple .path4:before {
-    content: "\e90b";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-print-purple .path5:before {
-    content: "\e90c";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-print-purple .path6:before {
-    content: "\e90d";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-print-purple .path7:before {
-    content: "\e90e";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-print-purple .path8:before {
-    content: "\e90f";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
 .icon-ok-white .path1:before {
     content: "\e910";
     color: rgb(255, 255, 255);
@@ -254,55 +176,7 @@
 .icon-user:before {
     content: "\e931";
 }
-.icon-twitter .path1:before {
-    content: "\e932";
-    color: rgb(43, 169, 224);
-}
-.icon-twitter .path2:before {
-    content: "\e933";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-twitter .path3:before {
-    content: "\e934";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-twitter .path4:before {
-    content: "\e935";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-twitter .path5:before {
-    content: "\e936";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-twitter .path6:before {
-    content: "\e937";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-twitter .path7:before {
-    content: "\e938";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-twitter .path8:before {
-    content: "\e939";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-twitter .path9:before {
-    content: "\e93a";
-    margin-left: -1em;
-    color: rgba(1, 1, 1, 0.2);
-}
-.icon-twitter .path10:before {
-    content: "\e93b";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
+
 .icon-trash:before {
     content: "\e93c";
 }
@@ -426,40 +300,7 @@
     margin-left: -1em;
     color: rgb(176, 176, 176);
 }
-.icon-print .path1:before {
-    content: "\e95a";
-    color: rgb(227, 227, 227);
-}
-.icon-print .path2:before {
-    content: "\e95b";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-print .path3:before {
-    content: "\e95c";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-print .path4:before {
-    content: "\e95d";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-print .path5:before {
-    content: "\e95e";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-print .path6:before {
-    content: "\e95f";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-print .path7:before {
-    content: "\e960";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
+
 .icon-plus-icon .path1:before {
     content: "\e961";
     color: rgb(176, 176, 176);
@@ -495,15 +336,11 @@
 .icon-location-icon:before {
     content: "\e969";
 }
-.icon-list-icon:before {
-    content: "\e96a";
-}
+
 .icon-info:before {
     content: "\e96b";
 }
-.icon-ideas-icon:before {
-    content: "\e96c";
-}
+
 .icon-green-plus .path1:before {
     content: "\e96d";
     color: rgb(112, 191, 68);
@@ -537,170 +374,11 @@
     margin-left: -1em;
     color: rgb(255, 255, 255);
 }
-.icon-google .path1:before {
-    content: "\e974";
-    color: rgb(219, 85, 66);
-}
-.icon-google .path2:before {
-    content: "\e975";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-google .path3:before {
-    content: "\e976";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-google .path4:before {
-    content: "\e977";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-google .path5:before {
-    content: "\e978";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-google .path6:before {
-    content: "\e979";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-google .path7:before {
-    content: "\e97a";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-google .path8:before {
-    content: "\e97b";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-google .path9:before {
-    content: "\e97c";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-google .path10:before {
-    content: "\e97d";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-google .path11:before {
-    content: "\e97e";
-    margin-left: -1em;
-    color: rgba(1, 1, 1, 0.2);
-}
-.icon-goalfrined-icon .path1:before {
-    content: "\e97f";
-    color: rgb(201, 201, 201);
-}
-.icon-goalfrined-icon .path2:before {
-    content: "\e980";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-goalfrined-icon .path3:before {
-    content: "\e981";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-goalfrined-icon .path4:before {
-    content: "\e982";
-    margin-left: -1em;
-    color: rgb(201, 201, 201);
-}
-.icon-facebook .path1:before {
-    content: "\e983";
-    color: rgb(55, 96, 159);
-}
-.icon-facebook .path2:before {
-    content: "\e984";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-facebook .path3:before {
-    content: "\e985";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-facebook .path4:before {
-    content: "\e986";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-facebook .path5:before {
-    content: "\e987";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-facebook .path6:before {
-    content: "\e988";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-facebook .path7:before {
-    content: "\e989";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-facebook .path8:before {
-    content: "\e98a";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-facebook .path9:before {
-    content: "\e98b";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
-.icon-facebook .path10:before {
-    content: "\e98c";
-    margin-left: -1em;
-    color: rgba(1, 1, 1, 0.2);
-}
-.icon-facebook .path11:before {
-    content: "\e98d";
-    margin-left: -1em;
-    color: rgb(255, 255, 255);
-}
+
 .icon-eye:before {
     content: "\e98e";
 }
-.icon-email .path1:before {
-    content: "\e98f";
-    color: rgb(164, 164, 164);
-}
-.icon-email .path2:before {
-    content: "\e990";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-email .path3:before {
-    content: "\e991";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-email .path4:before {
-    content: "\e992";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-email .path5:before {
-    content: "\e993";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-email .path6:before {
-    content: "\e994";
-    margin-left: -1em;
-    color: rgb(164, 164, 164);
-}
-.icon-email .path7:before {
-    content: "\e995";
-    margin-left: -1em;
-    color: rgb(227, 227, 227);
-}
+
 .icon-dreaming:before {
     content: "\e996";
 }
@@ -724,12 +402,10 @@
 }
 .icon-arrow-left .path1:before {
     content: "\e99c";
-    /*color: rgb(176, 176, 176);*/
 }
 .icon-arrow-left .path2:before {
     content: "\e99d";
     margin-left: -1em;
-    /*color: rgb(227, 227, 227);*/
 }
 .icon-arrow-down .path1:before {
     content: "\e99e";
@@ -740,9 +416,7 @@
     margin-left: -1em;
     color: rgb(227, 227, 227);
 }
-.icon-activity-icon:before {
-    content: "\e9a0";
-}
+
 .icon-pencil:before {
     content: "\e9a1";
 }
