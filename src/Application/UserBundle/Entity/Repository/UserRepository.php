@@ -22,6 +22,28 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class UserRepository extends EntityRepository
 {
     /**
+     * This function is used to get users in where user is goalfriend
+     *
+     * @param $userId
+     * @return array
+     */
+    public function getInWhereGoalFriends($userId)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           JOIN ApplicationUserBundle:User friend WITH friend = u
+                           JOIN friend.closeGoalFriends cf
+                           WITH cf.id = :userId
+                           ")
+            ->setParameter("userId", $userId)
+            ->getResult();
+
+        return $result;
+
+    }
+
+    /**
      * This function is used to get user by email token
      *
      * @param $emailToken
