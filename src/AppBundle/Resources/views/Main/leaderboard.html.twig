@@ -35,38 +35,104 @@
             </figcaption>
         </figure>
 
-        <ul class="bg-white round goals-animate"
-            data-ng-cloak
-            data-ng-class="{'margin-top': $index == 0}"
-            data-ng-repeat="user in users">
-            <li class="text-orange">[[ $index + 1]]</li>
+        <h3 class="text-dark-gray">{{ 'leaderboard.top'| trans }}</h3>
 
-            <li>
-                <figure class="img-circle">
-                    {% set className = "user-no" ~ random(4) %}
-                    <img data-ng-if="user.user.image_path.length" data-ng-src="[[ user.user.image_path]]" alt="user image"/>
-                    <p data-ng-if="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>
-                </figure>
-            </li>
+        {#<ul class="leaderboard-titles clearfix">#}
+            {#<li>{{ 'leaderboard.rank'| trans }}</li>#}
+            {#<li>{{ 'leaderboard.leaders'| trans }}</li>#}
+            {#<li>{{ 'leaderboard.score'| trans }}</li>#}
+            {#<li>{{ 'leaderboard.level'| trans }}</li>#}
+        {#</ul>#}
 
-            <li>
-                <a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>
-            </li>
 
-            <li class="text-orange">[[ user.points]]</li>
+                <div class="leaderboard-space">
+                    <div class="row no-gutter">
+                        <div class="col-xs-7 col-sm-9">
 
-            <li class="text-orange">[[ user.score]]</li>
-        </ul>
+                            <ul class="leaderboard-titles clearfix">
+                                <li class="rank">{{ 'leaderboard.rank'| trans }}</li>
+                                <li>{{ 'leaderboard.leaders'| trans }}</li>
+                            </ul>
+
+                        </div>
+                        <div class="col-xs-5 col-sm-3">
+
+                            <ul class="leaderboard-titles clearfix">
+                                <li>{{ 'leaderboard.score'| trans }}</li>
+                                <li class="level">{{ 'leaderboard.level'| trans }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="leaderboard-space">
+                    <div class="row no-gutter">
+                        <div class="col-xs-7 col-sm-9">
+                            <ul class="bg-white round goals-animate"
+                                data-ng-cloak
+                                data-ng-repeat="user in users  | limitTo: 10">
+                                <li class="text-orange">[[ $index + 1]]</li>
+
+                                <li>
+                                    <figure class="img-circle">
+                                        {% set className = "user-no" ~ random(4) %}
+                                        <img data-ng-if="user.user.image_path.length" data-ng-src="[[ user.user.image_path]]" alt="user image"/>
+                                        <p data-ng-if="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>
+                                    </figure>
+                                </li>
+
+                                <li>
+                                    <a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col-xs-5 col-sm-3">
+                            <ul class="bg-white round leaderboard-right goals-animate"
+                                data-ng-cloak
+                                data-ng-repeat="user in users  | limitTo: 10">
+
+                                <li class="text-orange">[[ user.points]]</li>
+
+                                <li class="text-orange level">[[ user.score]]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+        {#<ul class="bg-white round goals-animate"#}
+            {#data-ng-cloak#}
+            {#&#123;&#35;data-ng-class="{'margin-top': $index == 0}"&#35;&#125;#}
+            {#data-ng-repeat="user in users  | limitTo: 10">#}
+            {#<li class="text-orange">[[ $index + 1]]</li>#}
+
+            {#<li>#}
+                {#<figure class="img-circle">#}
+                    {#{% set className = "user-no" ~ random(4) %}#}
+                    {#<img data-ng-if="user.user.image_path.length" data-ng-src="[[ user.user.image_path]]" alt="user image"/>#}
+                    {#<p data-ng-if="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>#}
+                {#</figure>#}
+            {#</li>#}
+
+            {#<li>#}
+                {#<a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>#}
+            {#</li>#}
+
+            {#<li class="text-orange">[[ user.points]]</li>#}
+
+            {#<li class="text-orange">[[ user.score]]</li>#}
+        {#</ul>#}
 
         {% if app.user %}
-            <h3 class="text-dark-gray ng-hide" data-ng-show="users.length">{{ 'leaderboard.position'| trans }}</h3>
+            <h3 class="text-dark-gray ng-hide" data-ng-show="users.length > 10">{{ 'leaderboard.position'| trans }}</h3>
 
-            <div class="bg-purple round goals-animate"
+            <div class="bg-white round goals-animate"
                  data-ng-cloak
                  data-ng-show="users.length"
-                 data-ng-class="{'margin-top': $index == 0, 'bg-white': user.user.id == {{ app.user.id }} }"
-                 data-ng-repeat="user in users">
-                <ul>
+                 data-ng-class="{'margin-top': $index == 0}"
+                 data-ng-repeat="user in users | limitTo: 5: 10">
+                <ul class="bg-grey-darker" data-ng-class="{'bg-white': user.user.id == {{ app.user.id }} }">
                     <li class="text-orange">[[ user.position]]</li>
 
                     <li>
@@ -85,11 +151,13 @@
 
                     <li class="text-orange">[[ user.score]]</li>
                 </ul>
+
                 <div data-ng-show="user.user.id == {{ app.user.id }}">
-                    <hr class="text-dark-gray"/>
-                    <p class="text-dark-gray text-center">{{ 'leaderboard.position_text'| trans }}</p>
+                    <p class="text-gray leaderboard-text">{{ 'leaderboard.position_text'| trans }}</p>
                 </div>
+
             </div>
+
         {% endif %}
     </div>
 
