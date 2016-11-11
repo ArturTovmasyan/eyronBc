@@ -418,6 +418,7 @@ notification:
   done_goal: You done '%goal%' goal
   title: Bucketlist 127-Notifications
   description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
+  close_friend_story: close friend wrote success story
 
 # sonata admin lable
 admin:
