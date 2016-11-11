@@ -52,25 +52,37 @@ class GoalRepository extends EntityRepository
      * @param $longitude
      * @param $first
      * @param $count
+     * @param $userId
+     * @param $isCompleted
      * @return array
      */
-    public function findNearbyGoals($latitude, $longitude, $first, $count)
+    public function findNearbyGoals($latitude, $longitude, $first, $count, $isCompleted, $userId)
     {
         $result = [];
         //3959 search in miles
         //6371 search in km
-        $ids =  $this->getEntityManager()
-            ->createQuery("SELECT g.id,
-                           (6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
-                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist
-                           FROM AppBundle:Goal g
-                           WHERE g.lat is not null and g.lng is not null
-                           ORDER BY dist
-                         ")
+        $query =  $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('g.id', '(6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
+                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist')
+            ->from('AppBundle:Goal', 'g')
+            ->where('g.lat is not null and g.lng is not null')
+            ->orderBy('dist')
             ->setParameter('lat', $latitude)
-            ->setParameter('lng', $longitude)
+            ->setParameter('lng', $longitude);
+
+        if(($isCompleted == 'false' || !$isCompleted ) && !is_null($userId)){
+            $query
+                ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
+                ->andWhere('ug.id IS NULL or ug.status = :status')
+                ->setParameter('status', UserGoal::ACTIVE)
+                ->setParameter('user', $userId);
+        }
+        
+        $ids = $query
             ->setFirstResult($first)
             ->setMaxResults($count)
+            ->getQuery()
             ->getArrayResult()
         ;
 
