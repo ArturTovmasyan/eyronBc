@@ -1008,6 +1008,7 @@ class UserController extends FOSRestController
      *     },
      * )
      * @Secure(roles="ROLE_USER")
+     * @Rest\View(serializerGroups={"tiny_user"})
      * @return JsonResponse|Response
      */
     public function getCloseFriendAction()
@@ -1016,7 +1017,7 @@ class UserController extends FOSRestController
         $currentUser = $this->getUser();
         $goalFriends = $currentUser->getCloseGoalFriends();
 
-        return new JsonResponse($goalFriends);
+        return $goalFriends;
     }
 }
 
