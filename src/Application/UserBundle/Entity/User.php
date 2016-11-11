@@ -362,6 +362,16 @@ class User extends BaseUser
      */
     private $userGoalRemoveDate;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User")
+     * @ORM\JoinTable(name="close_goal_friend",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="goal_friend_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $closeGoalFriends;
+
     /**
      * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", inversedBy="user", cascade={"persist"})
      */
@@ -2099,5 +2109,39 @@ class User extends BaseUser
     public function getSentEmails()
     {
         return $this->sentEmails;
+    }
+
+    /**
+     * Add closeGoalFriend
+     *
+     * @param \Application\UserBundle\Entity\User $closeGoalFriend
+     *
+     * @return User
+     */
+    public function addCloseGoalFriend(\Application\UserBundle\Entity\User $closeGoalFriend)
+    {
+        $this->closeGoalFriends[] = $closeGoalFriend;
+
+        return $this;
+    }
+
+    /**
+     * Remove closeGoalFriend
+     *
+     * @param \Application\UserBundle\Entity\User $closeGoalFriend
+     */
+    public function removeCloseGoalFriend(\Application\UserBundle\Entity\User $closeGoalFriend)
+    {
+        $this->closeGoalFriends->removeElement($closeGoalFriend);
+    }
+
+    /**
+     * Get closeGoalFriends
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCloseGoalFriends()
+    {
+        return $this->closeGoalFriends;
     }
 }

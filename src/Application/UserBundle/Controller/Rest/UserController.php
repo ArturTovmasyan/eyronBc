@@ -20,6 +20,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 /**
@@ -931,6 +932,91 @@ class UserController extends FOSRestController
 
         return new JsonResponse($states);
 
+    }
+
+    /**
+     * This function is used to create close goal friend
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to create close goal friend",
+     *  statusCodes={
+     *         204="Not content",
+     *         404="Not found"
+     *     },
+     * )
+     * @ParamConverter("user", class="ApplicationUserBundle:User")
+     * @Secure(roles="ROLE_USER")
+     * @param User $user
+     * @return JsonResponse|Response
+     */
+    public function putCloseFriendAction(User $user)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get current user
+        $currentUser = $this->getUser();
+        $currentUser->addCloseGoalFriend($user);
+        $em->persist($currentUser);
+        $em->flush();
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * This function is used to delete close goal friend
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to delete close goal friend",
+     *  statusCodes={
+     *         204="Not content",
+     *         404="Not found"
+     *     },
+     * )
+     * @ParamConverter("user", class="ApplicationUserBundle:User")
+     * @Secure(roles="ROLE_USER")
+     * @param User $user
+     * @return JsonResponse|Response
+     */
+    public function deleteCloseFriendAction(User $user)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get current user
+        $currentUser = $this->getUser();
+        $currentUser->removeCloseGoalFriend($user);
+        $em->persist($currentUser);
+        $em->flush();
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * This function is used to get close goal friend
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to get close goal friend",
+     *  statusCodes={
+     *         200="ok",
+     *     },
+     * )
+     * @Secure(roles="ROLE_USER")
+     * @return JsonResponse|Response
+     */
+    public function getCloseFriendAction()
+    {
+        // get current user
+        $currentUser = $this->getUser();
+        $goalFriends = $currentUser->getCloseGoalFriends();
+
+        return new JsonResponse($goalFriends);
     }
 }
 
