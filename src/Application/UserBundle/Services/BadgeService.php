@@ -208,7 +208,7 @@ class BadgeService extends AbstractProcessService
 
             // add to cache
             apc_delete(self::BADGE_MAX_SCORE);
-            apc_add(self::BADGE_MAX_SCORE, $maxScore);
+            apc_store(self::BADGE_MAX_SCORE, $maxScore);
         }
 
         // check has changed
@@ -329,7 +329,7 @@ class BadgeService extends AbstractProcessService
 
                 // add to cache
                 apc_delete(self::BADGE_MAX_SCORE);
-                apc_add(self::BADGE_MAX_SCORE, $maxScore);
+                apc_store(self::BADGE_MAX_SCORE, $maxScore);
             }
 
             // check has changed
@@ -360,7 +360,7 @@ class BadgeService extends AbstractProcessService
         if(!$badgeMaxScore || $getNewFromDb){
 
             $badgeMaxScore = $this->em->getRepository('ApplicationUserBundle:Badge')->getMaxScores();
-            apc_add(self::BADGE_MAX_SCORE, $badgeMaxScore);
+            apc_store(self::BADGE_MAX_SCORE, $badgeMaxScore);
         }
 
         return $badgeMaxScore;
