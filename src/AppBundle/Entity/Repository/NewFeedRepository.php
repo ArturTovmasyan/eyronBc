@@ -38,7 +38,7 @@ class NewFeedRepository extends EntityRepository
                 ->where("nf.user IN (SELECT IDENTITY(ug2.user)
 					                 FROM AppBundle:UserGoal ug1
 					                 JOIN AppBundle:UserGoal ug2 WITH ug1.goal = ug2.goal AND ug2.isVisible = true
-					                 WHERE ug1.user = :user)")
+					                 WHERE ug1.user = :user) AND nf.user != :user")
                 ->setParameter('user', $userId);
         }
         else {
