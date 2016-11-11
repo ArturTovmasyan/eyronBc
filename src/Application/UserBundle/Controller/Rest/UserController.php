@@ -691,7 +691,7 @@ class UserController extends FOSRestController
 
                         $goalPercent = $userGoal->getCompleted();
                         $currentTimePercent = (100 * $timesAgo)/$allTimes;
-                        $currentOverall = ($userGoal->getSteps())?($goalPercent * 100/$currentTimePercent):(($currentLimit > $limit || !$limit)?0:(100 - ($currentLimit*100/$limit)));
+                        $currentOverall = ($userGoal->getSteps() && $goalPercent)?($goalPercent * 100/$currentTimePercent):(($currentLimit > $limit || !$limit)?0:(100 - ($currentLimit*100/$limit)));
                         $overall += $currentOverall;
                         $count++;
                     }
