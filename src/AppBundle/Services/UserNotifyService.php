@@ -255,7 +255,7 @@ class UserNotifyService extends AbstractProcessService
 
         //generate content for email
         $content = $this->container->get('templating')->render(
-            'AppBundle:Templates:userNotifyEmail.html.twig',
+            'AppBundle:Templates:userNotifyEmailForDB.html.twig',
             $contentParameters
         );
 
