@@ -65,14 +65,14 @@
                 {% if goal %}
 
                     {% set cover = goal.getCoverPhotoDownloadLink %}
-                    {% set randomImage ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
+                    {% set randomImage = {{ baseUrl }} ~ '/bundles/app/images/cover' ~ random(4) ~ '.png' %}
 
                     <figure style="margin:20px 0 0;background-color: #011420;width: 510px;overflow:hidden;text-align:center;">
                         <img src="
-                        {% if cover %}
+                        {% if cover and cover|length > 2 %}
                             {{ cover|blImageFilterForCli('goal_bg') }}
                         {% else %}
-                            {{ baseUrl }}/{{ asset(randomImage)}}
+                            {{randomImage}}
                         {% endif %}"
                              alt="{{ goal.title }}"  height="230" width="100%"/>
                         <figcaption style=";text-align:center;">
@@ -91,7 +91,7 @@
                 <hr style="border:1px solid #cccccc;margin:0;" />
 
                 {% if openEmailLink is defined and openEmailLink is not null %}
-                    <img src="{{ openEmailLink }}">
+                    <img style="display: none" src="{{ openEmailLink }}">
                 {% endif %}
 
                 <footer>
