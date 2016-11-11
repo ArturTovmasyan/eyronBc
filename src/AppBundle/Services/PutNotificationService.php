@@ -93,11 +93,16 @@ class PutNotificationService
             // create ios message
             $push = new AndroidMessage();
             $push->setGCM(true);
+
+            $isAutocomplete = is_array($message) && array_key_exists('isAutocomplete', $message) ?
+                $message['isAutocomplete'] : false;
+
             // check is array
             if (is_array($message)) {
                 // set message
                 $push->setMessage($message['message']);
-                $push->setData(array('adId' => $message['adId']));
+
+                $push->setData(array('adId' => $message['adId'], 'isAutocomplete' => $isAutocomplete));
             } else {
                 $push->setMessage($message);
             }
@@ -191,5 +196,20 @@ class PutNotificationService
         }
 
         $this->sendPushNote($currentUser, $massage);
+    }
+
+
+    /**
+     * @param $userId
+     */
+    public function sendPushNotForAutocomplete($userId)
+    {
+        // get user
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->find($userId);
+
+        if($user){
+            $messages = ['message'=> 'Message for autocomplete', 'adId'=> null ,'isAutocomplete' => true];
+            $this->sendPushNote($user, $messages);
+        }
     }
 }
