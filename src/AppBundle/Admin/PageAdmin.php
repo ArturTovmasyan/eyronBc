@@ -47,11 +47,11 @@ class PageAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('name', null, array('label'=>'admin.label.name.name'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('description', null, array('label'=>'admin.label.name.description'))
-            ->add('position', null, array('label'=>'admin.label.name.position'))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('name', null, ['label'=>'admin.label.name.name'])
+            ->add('title', null, ['label'=>'admin.label.name.title'])
+            ->add('description', null, ['label'=>'admin.label.name.description'])
+            ->add('position', null, ['label'=>'admin.label.name.position'])
 
         ;
     }
@@ -60,16 +60,18 @@ class PageAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('translations', 'a2lix_translations_gedmo', array(
+            ->add('translations', 'a2lix_translations_gedmo', [
                 'by_reference' => false,
                 'translatable_class' => 'AppBundle\Entity\Page',
-                'fields' => array(                      // [optional] Manual configuration of fields to display and options. If not specified, all translatable fields will be display, and options will be auto-detected
-                    'description' => array(
-                            'attr' => array('class' => 'tinymce')
-                    ),
-                )
-            ))
-            ->add('position', null, array('label'=>'admin.label.name.position'))
+                'fields' => [                      // [optional] Manual configuration of fields to display and options. If not specified, all translatable fields will be display, and options will be auto-detected
+                    'description' => [
+                            'attr' => ['class' => 'tinymce']
+                    ],
+                ],
+                'label'=>'admin.label.name.translations'
+            ]
+            )
+            ->add('position', null, ['label'=>'admin.label.name.position'])
         ;
     }
 
@@ -77,11 +79,11 @@ class PageAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
-            ->add('name', null, array('label'=>'admin.label.name.name','show_filter' => true))
-            ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
-            ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
-            ->add('position', null, array('label'=>'admin.label.name.position','show_filter' => true))
+            ->add('id', null, ['label'=>'admin.label.name.id','show_filter' => true])
+            ->add('name', null, ['label'=>'admin.label.name.name','show_filter' => true])
+            ->add('title', null, ['label'=>'admin.label.name.title','show_filter' => true])
+            ->add('description', null, ['label'=>'admin.label.name.description','show_filter' => true])
+            ->add('position', null, ['label'=>'admin.label.name.position','show_filter' => true])
         ;
     }
 
@@ -89,17 +91,18 @@ class PageAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('name', null, array('label'=>'admin.label.name.name'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('position', null, array('label'=>'admin.label.name.position'))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('name', null, ['label'=>'admin.label.name.name'])
+            ->add('title', null, ['label'=>'admin.label.name.title'])
+            ->add('position', null, ['label'=>'admin.label.name.position'])
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]
+            )
         ;
     }
 }

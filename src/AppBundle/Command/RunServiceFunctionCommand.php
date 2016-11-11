@@ -48,7 +48,6 @@ class RunServiceFunctionCommand extends ContainerAwareCommand
 
         $context = $container->get('router')->getContext();
         $context->setHost($container->getParameter('project_name'));
-        $context->setScheme('https');
 
         $serviceName = $input->getArgument('serviceName'); // get service name
         $function = $input->getArgument('function'); // get function name

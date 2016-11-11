@@ -49,10 +49,11 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
-            ->add('downloadLink', null, array('template' => 'AppBundle:Admin:image_show.html.twig', 'label'=>'admin.label.name.downloadLink'))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('title', null, ['label'=>'admin.label.name.title'])
+            ->add('tags', null, ['label'=>'admin.label.name.tags'])
+            ->add('downloadLink', null, ['template' => 'AppBundle:Admin:image_show.html.twig', 'label'=>'admin.label.name.downloadLink']
+            )
 
         ;
     }
@@ -61,26 +62,27 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('translations', 'a2lix_translations_gedmo', array(
+            ->add('translations', 'a2lix_translations_gedmo', [
                 'label'=>'admin.label.name.title',
                 'translatable_class' => 'AppBundle\Entity\Category',
-            ))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
-            ->add('file', 'file', array('required' => false, 'label'=>'admin.label.name.file'))
+            ]
+            )
+            ->add('tags', null, ['label'=>'admin.label.name.tags'])
+            ->add('file', 'file', ['required' => false, 'label'=>'admin.label.name.file'])
         ;
     }
 
-    protected $formOptions = array(
-        'validation_groups' => array('logo')
-    );
+    protected $formOptions = [
+        'validation_groups' => ['logo']
+    ];
 
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
-            ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('id', null, ['label'=>'admin.label.name.id','show_filter' => true])
+            ->add('title', null, ['label'=>'admin.label.name.title','show_filter' => true])
+            ->add('tags', null, ['label'=>'admin.label.name.tags'])
         ;
     }
 
@@ -88,17 +90,19 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
-            ->add('downloadLink', null, array('template' => 'AppBundle:Admin:image_list.html.twig', 'label'=>'admin.label.name.downloadLink'))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('title', null, ['label'=>'admin.label.name.title'])
+            ->add('tags', null, ['label'=>'admin.label.name.tags'])
+            ->add('downloadLink', null, ['template' => 'AppBundle:Admin:image_list.html.twig', 'label'=>'admin.label.name.downloadLink']
+            )
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]
+            )
         ;
     }
 

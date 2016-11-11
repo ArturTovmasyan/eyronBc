@@ -16,7 +16,7 @@ class ThreadAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
+            ->add('id', null, ['label'=>'admin.label.name.id'])
         ;
     }
 
@@ -26,17 +26,18 @@ class ThreadAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('numComments')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'show'      => array(),
-                    'edit'      => array(),
-                    'delete'    => array(),
-                    'goal_link' => array('template' => 'ApplicationCommentBundle:Admin:thread_list_action_link.html.twig'),
-                    'comments'  => array('template' => 'ApplicationCommentBundle:Admin:comments.html.twig'),
-                )
-            ))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('numComments', null, ['label'=>'admin.label.name.num_comments'])
+            ->add('_action', null, [
+                'actions' => [
+                    'show'      => [],
+                    'edit'      => [],
+                    'delete'    => [],
+                    'goal_link' => ['template' => 'ApplicationCommentBundle:Admin:thread_list_action_link.html.twig'],
+                    'comments'  => ['template' => 'ApplicationCommentBundle:Admin:comments.html.twig'],
+                ]
+            ]
+            )
         ;
     }
 
@@ -46,8 +47,8 @@ class ThreadAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
-            ->add('numComments')
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('numComments', null, ['label'=>'admin.label.name.num_comments'])
         ;
     }
 
@@ -57,8 +58,8 @@ class ThreadAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('numComments')
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('numComments', null, ['label'=>'admin.label.name.num_comments'])
         ;
     }
 }

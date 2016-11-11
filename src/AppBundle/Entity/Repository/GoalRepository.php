@@ -152,18 +152,33 @@ class GoalRepository extends EntityRepository
         }
 
         $stats = $this->getEntityManager()
-            ->createQuery("SELECT g.id as goalId, COUNT(ug) as listedBy,
-                          (SELECT COUNT (ug1) from AppBundle:UserGoal ug1
-                           WHERE ug1.status != :status and ug1.goal = g) as doneBy
+            ->createQuery("SELECT g.id as goalId,
+                              SUM(CASE WHEN ug.status = :status THEN 1 ELSE  0 END) AS listedBy,
+                              SUM(CASE WHEN ug.status != :status THEN 1 ELSE 0 END) AS doneBy
                            FROM AppBundle:Goal g
-                           INDEX BY g.id
                            LEFT JOIN g.userGoal ug
+                           INDEX BY g.id
                            WHERE g.id IN (:goalIds)
                            GROUP BY g.id
                           ")
             ->setParameter('goalIds', array_keys($goals))
             ->setParameter('status', UserGoal::ACTIVE)
             ->getResult();
+
+
+//        $stats = $this->getEntityManager()
+//            ->createQuery("SELECT g.id as goalId, COUNT(ug) as listedBy,
+//                          (SELECT COUNT (ug1) from AppBundle:UserGoal ug1
+//                           WHERE ug1.status != :status and ug1.goal = g) as doneBy
+//                           FROM AppBundle:Goal g
+//                           INDEX BY g.id
+//                           LEFT JOIN g.userGoal ug
+//                           WHERE g.id IN (:goalIds)
+//                           GROUP BY g.id
+//                          ")
+//            ->setParameter('goalIds', array_keys($goals))
+//            ->setParameter('status', UserGoal::ACTIVE)
+//            ->getResult();
 
         if ($getStats){
             return $stats;
@@ -620,7 +635,7 @@ class GoalRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('u, ug')
             ->from('ApplicationUserBundle:User', 'u', 'u.id')
-            ->join('u.userGoal', 'ug', 'WITH', 'ug.status = :status OR :status IS NULl')
+            ->join('u.userGoal', 'ug', 'WITH', 'ug.status = :status')
             ->join('ug.goal', 'g', 'WITH', 'g.id = :goalId')
             ->setParameter('status', $status)
             ->setParameter('goalId', $goalId);

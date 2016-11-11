@@ -19,6 +19,7 @@ parameters:
     project_name: bucketlist.loc
     email_sender: Bucket List 127
     no_reply: no-reply@bucketlist.com
+    protocol: http
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
