@@ -59,17 +59,19 @@
         <div class="bg-white content-inner">
             <figure class="goal-cover">
                 <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}"
-                         {#srcset="{{ blog.imagePath|blImageFilter('goal_bg') }} 1080w,#}
-                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 900w,#}
-                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 800w,#}
-                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 700w,#}
-                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 600w,#}
-                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 500w,#}
-                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 400w,#}
-                                                     {#{{ blog.imagePath|blImageFilter('goal_bg') }} 300w,"#}
+                         srcset="{{ blog.imagePath|blImageFilter('goal_bg') }} 1080w,
+                                 {{ blog.imagePath|blImageFilter('goal_bg') }} 900w,
+                                 {{ blog.imagePath|blImageFilter('goal_bg') }} 800w,
+                                 {{ blog.imagePath|blImageFilter('goal_bg') }} 700w,
+                                 {{ blog.imagePath|blImageFilter('goal_list_small') }} 600w,
+                                 {{ blog.imagePath|blImageFilter('goal_list_small') }} 500w,
+                                 {{ blog.imagePath|blImageFilter('goal_list_small') }} 400w,
+                                 {{ blog.imagePath|blImageFilter('goal_list_small') }} 300w,
+                                 "
                          layout="responsive"
-                         sizes="(min-width: 750px) 750px, 100vw"
-                         width="1280" height="853" alt="{{ blog.title }}" title="{{ blog.title }}"></amp-img>
+                         width="1080"
+                         height="610"
+                         alt="{{ blog.title }}" title="{{ blog.title }}"></amp-img>
             </figure>
 
             <div class="text-justify">
@@ -89,21 +91,19 @@
                                 <figure>
                                     <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
                                         <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
-                                             {#srcset="{{ goal.imagePath|blImageFilter('goal_list_small') }} 1080w,#}
-                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 900w,#}
-                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 800w,#}
-                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 700w,#}
-                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 600w,#}
-                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 500w,#}
-                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 400w,#}
-                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 300w,#}
-                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 200w,#}
-                                                     {#{{ goal.imagePath|blImageFilter('goal_list_small') }} 100w,#}
-                                                     {#"#}
-                                                 {#sizes="(min-width: 320px) 320px, 100vw"#}
+                                             srcset="{{ goal.imagePath|blImageFilter('goal_list_small') }} 1080w,
+                                                     {{ goal.imagePath|blImageFilter('goal_bg') }} 900w,
+                                                     {{ goal.imagePath|blImageFilter('goal_bg') }} 800w,
+                                                     {{ goal.imagePath|blImageFilter('goal_bg') }} 700w,
+                                                     {{ goal.imagePath|blImageFilter('goal_bg') }} 600w,
+                                                     {{ goal.imagePath|blImageFilter('goal_list_small') }} 500w,
+                                                     {{ goal.imagePath|blImageFilter('goal_list_small') }} 400w,
+                                                     {{ goal.imagePath|blImageFilter('goal_list_small') }} 300w,
+                                                     "
                                                  layout="responsive"
-                                                 width="1280"
-                                                 height="853">
+                                                 width="1080"
+                                                 height="610"
+                                                 alt="{{ goal.title }}" title="{{ goal.title }}">
                                         </amp-img>
                                     </a>
                                 </figure>
