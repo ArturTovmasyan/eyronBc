@@ -935,12 +935,12 @@ class UserController extends FOSRestController
     }
 
     /**
-     * This function is used to create follower
+     * This function is used to create following users
      *
      * @ApiDoc(
      *  resource=true,
      *  section="User",
-     *  description="This function is used to create follower",
+     *  description="This function is used to create following users",
      *  statusCodes={
      *         204="Not content",
      *         404="Not found"
@@ -951,14 +951,14 @@ class UserController extends FOSRestController
      * @param User $user
      * @return JsonResponse|Response
      */
-    public function putFollowerdAction(User $user)
+    public function putFollowingAction(User $user)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
         // get current user
         $currentUser = $this->getUser();
-        $currentUser->addFollower($user);
+        $currentUser->addFollowing($user);
         $em->persist($currentUser);
         $em->flush();
 
@@ -966,12 +966,12 @@ class UserController extends FOSRestController
     }
 
     /**
-     * This function is used to delete follower
+     * This function is used to delete following users
      *
      * @ApiDoc(
      *  resource=true,
      *  section="User",
-     *  description="This function is used to delete follower",
+     *  description="This function is used to delete following users",
      *  statusCodes={
      *         204="Not content",
      *         404="Not found"
@@ -982,14 +982,14 @@ class UserController extends FOSRestController
      * @param User $user
      * @return JsonResponse|Response
      */
-    public function deleteFollowerAction(User $user)
+    public function deleteFollowingAction(User $user)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
         // get current user
         $currentUser = $this->getUser();
-        $currentUser->removeFollower($user);
+        $currentUser->removeFollowing($user);
         $em->persist($currentUser);
         $em->flush();
 
@@ -997,12 +997,12 @@ class UserController extends FOSRestController
     }
 
     /**
-     * This function is used to get my follow users
+     * This function is used to get my followings users
      *
      * @ApiDoc(
      *  resource=true,
      *  section="User",
-     *  description="This function is used to get my follow users",
+     *  description="This function is used to get my followings users",
      *  statusCodes={
      *         200="ok",
      *     },
@@ -1011,11 +1011,11 @@ class UserController extends FOSRestController
      * @Rest\View(serializerGroups={"tiny_user"})
      * @return JsonResponse|Response
      */
-    public function getFollowersAction()
+    public function getFollowingsAction()
     {
         // get current user
         $currentUser = $this->getUser();
-        $goalFriends = $currentUser->getFollowers();
+        $goalFriends = $currentUser->getFollowings();
 
         return $goalFriends;
     }

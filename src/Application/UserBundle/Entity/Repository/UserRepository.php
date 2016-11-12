@@ -27,13 +27,13 @@ class UserRepository extends EntityRepository
      * @param $userId
      * @return array
      */
-    public function geFollowerToMe($userId)
+    public function findMyFollowers($userId)
     {
         $result = $this->getEntityManager()
             ->createQuery("SELECT u
                            FROM ApplicationUserBundle:User u
-                           JOIN ApplicationUserBundle:User friend WITH friend = u
-                           JOIN friend.followers f
+                           JOIN ApplicationUserBundle:User folowers WITH folowers = u
+                           JOIN folowers.followings f
                            WITH f.id = :userId
                            ")
             ->setParameter("userId", $userId)

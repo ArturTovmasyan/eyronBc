@@ -365,12 +365,12 @@ class User extends BaseUser
 
     /**
      * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User")
-     * @ORM\JoinTable(name="follower",
+     * @ORM\JoinTable(name="following",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="follow_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="following_id", referencedColumnName="id")}
      *      )
      */
-    protected $followers;
+    protected $followings;
 
     /**
      * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", inversedBy="user", cascade={"persist"})
@@ -2113,36 +2113,36 @@ class User extends BaseUser
 
 
     /**
-     * Add follower
+     * Add following
      *
-     * @param \Application\UserBundle\Entity\User $follower
+     * @param \Application\UserBundle\Entity\User $following
      *
      * @return User
      */
-    public function addFollower(\Application\UserBundle\Entity\User $follower)
+    public function addFollowing(\Application\UserBundle\Entity\User $following)
     {
-        $this->followers[] = $follower;
+        $this->followings[] = $following;
 
         return $this;
     }
 
     /**
-     * Remove follower
+     * Remove following
      *
-     * @param \Application\UserBundle\Entity\User $follower
+     * @param \Application\UserBundle\Entity\User $following
      */
-    public function removeFollower(\Application\UserBundle\Entity\User $follower)
+    public function removeFollowing(\Application\UserBundle\Entity\User $following)
     {
-        $this->followers->removeElement($follower);
+        $this->followings->removeElement($following);
     }
 
     /**
-     * Get followers
+     * Get followings
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getFollowers()
+    public function getFollowings()
     {
-        return $this->followers;
+        return $this->followings;
     }
 }
