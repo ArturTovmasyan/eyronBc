@@ -46,7 +46,7 @@
     {% endblock %}
 </head>
 
-<body>
+<body {%  block body_class %}{% endblock %}>
 {% block body %}
 
     {{ render_esi(controller('AppBundle:Blog:ampMenu')) }}
