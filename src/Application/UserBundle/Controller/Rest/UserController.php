@@ -951,50 +951,59 @@ class UserController extends FOSRestController
      * @param User $user
      * @return JsonResponse|Response
      */
-    public function putFollowingAction(User $user)
+    public function postToggleFollowingAction(User $user)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
         // get current user
         $currentUser = $this->getUser();
-        $currentUser->addFollowing($user);
+
+        $goalFriends = $currentUser->getFollowings();
+
+        if($goalFriends->contains($user)){
+            $currentUser->removeFollowing($user);
+        }else{
+            $currentUser->addFollowing($user);
+
+        }
+
         $em->persist($currentUser);
         $em->flush();
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * This function is used to delete following users
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  section="User",
-     *  description="This function is used to delete following users",
-     *  statusCodes={
-     *         204="Not content",
-     *         404="Not found"
-     *     },
-     * )
-     * @ParamConverter("user", class="ApplicationUserBundle:User")
-     * @Secure(roles="ROLE_USER")
-     * @param User $user
-     * @return JsonResponse|Response
-     */
-    public function deleteFollowingAction(User $user)
-    {
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get current user
-        $currentUser = $this->getUser();
-        $currentUser->removeFollowing($user);
-        $em->persist($currentUser);
-        $em->flush();
-
-        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
-    }
+//    /**
+//     * This function is used to delete following users
+//     *
+//     * @ApiDoc(
+//     *  resource=true,
+//     *  section="User",
+//     *  description="This function is used to delete following users",
+//     *  statusCodes={
+//     *         204="Not content",
+//     *         404="Not found"
+//     *     },
+//     * )
+//     * @ParamConverter("user", class="ApplicationUserBundle:User")
+//     * @Secure(roles="ROLE_USER")
+//     * @param User $user
+//     * @return JsonResponse|Response
+//     */
+//    public function deleteFollowingAction(User $user)
+//    {
+//        // get entity manager
+//        $em = $this->getDoctrine()->getManager();
+//
+//        // get current user
+//        $currentUser = $this->getUser();
+//        $currentUser->removeFollowing($user);
+//        $em->persist($currentUser);
+//        $em->flush();
+//
+//        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+//    }
 
     /**
      * This function is used to get my followings users
