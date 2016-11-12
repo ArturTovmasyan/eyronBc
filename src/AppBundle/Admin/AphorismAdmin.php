@@ -50,21 +50,20 @@ class AphorismAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('author', null, array('label'=>'admin.label.name.author'))
-            ->add('content', null, array('label'=>'admin.label.name.content'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('author', null, ['label'=>'admin.label.name.author'])
+            ->add('content', null, ['label'=>'admin.label.name.content'])
+            ->add('tags', null, ['label'=>'admin.label.name.tags'])
         ;
     }
 
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-
         $formMapper
-            ->add('author', null, array('label'=>'admin.label.name.author'))
-            ->add('content', 'textarea', array('label'=>'admin.label.name.content'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('author', null, ['label'=>'admin.label.name.author'])
+            ->add('content', 'textarea', ['label'=>'admin.label.name.content'])
+            ->add('tags', null, ['label'=>'admin.label.name.tags'])
         ;
     }
 
@@ -72,10 +71,10 @@ class AphorismAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
-            ->add('author', null, array('label'=>'admin.label.name.author','show_filter' => true))
-            ->add('content', null, array('label'=>'admin.label.name.content','show_filter' => true))
-            ->add('tags', null, array('label'=>'admin.label.name.tags','show_filter' => true))
+            ->add('id', null, ['label'=>'admin.label.name.id','show_filter' => true])
+            ->add('author', null, ['label'=>'admin.label.name.author','show_filter' => true])
+            ->add('content', null, ['label'=>'admin.label.name.content','show_filter' => true])
+            ->add('tags', null, ['label'=>'admin.label.name.tags','show_filter' => true])
         ;
     }
 
@@ -83,20 +82,18 @@ class AphorismAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('author', null, array('label'=>'admin.label.name.author'))
-            ->add('content', null, array('label'=>'admin.label.name.content'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
-        ;
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('author', null, ['label'=>'admin.label.name.author'])
+            ->add('content', null, ['label'=>'admin.label.name.content'])
+            ->add('tags', null, ['label'=>'admin.label.name.tags'])
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]);
     }
-
 
     /**
      * {@inheritdoc}

@@ -66,7 +66,8 @@ class ImageFilterExtension extends \Twig_Extension
      */
     public function blImageFilterForCli($path, $filter)
     {
-        $baseUrl = $this->container->getParameter('project_name');
+        $baseUrl = $this->container->getParameter('protocol') . '://';
+        $baseUrl .= $this->container->getParameter('project_name');
 
         // check has http in path
         if(strpos($path, 'http') === false){

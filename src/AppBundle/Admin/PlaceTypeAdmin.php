@@ -22,8 +22,8 @@ class PlaceTypeAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('name', null, ['label'=>'admin.label.name.name'])
         ;
     }
 
@@ -31,7 +31,7 @@ class PlaceTypeAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('name', null, ['label'=>'admin.label.name.name'])
         ;
     }
 
@@ -39,8 +39,8 @@ class PlaceTypeAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
-            ->add('name', null, array('label'=>'admin.label.name.name', 'show_filter' => true))
+            ->add('id', null, ['label'=>'admin.label.name.id', 'show_filter' => true])
+            ->add('name', null, ['label'=>'admin.label.name.name', 'show_filter' => true])
         ;
     }
 
@@ -48,15 +48,16 @@ class PlaceTypeAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('name', null, array('label'=>'admin.label.name.name'))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('name', null, ['label'=>'admin.label.name.name'])
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]
+            )
         ;
     }
 }

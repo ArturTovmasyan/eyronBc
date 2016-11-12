@@ -24,12 +24,16 @@ class BlogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', ChoiceType::class,  array('choices' => [Blog::TYPE_TEXT => 'Text', Blog::TYPE_GOAL => 'Goal']))
-            ->add('content', TextareaType::class, array('required' => false))
-            ->add('position', HiddenType::class, array('required' => false))
-            ->add('goal', 'text', array(
+            ->add('type', ChoiceType::class,  ['label'=>'admin.label.name.type',
+                                              'choices' => [Blog::TYPE_TEXT => 'admin.label.name.text',
+                                                            Blog::TYPE_GOAL => 'admin.label.name.goal']])
+            ->add('content', TextareaType::class, ['label'=>'admin.label.name.content', 'required' => false])
+            ->add('position', HiddenType::class, ['label'=>'admin.label.name.position', 'required' => false])
+            ->add('goal', 'text', [
+                'label'=>'admin.label.name.goal',
                 'required' => false,
-            ))
+            ]
+            )
         ;
     }
 
