@@ -263,7 +263,7 @@ menu:
   map: Map
   common: In Common
   owned: Created
-  bucketlist_stories: Bucketlist Stories
+  bucketlist_stories: Bucket List Stories
 
 right_menu:
   my_ideas: My Ideas
@@ -632,4 +632,15 @@ leaderboard:
   traveler: Traveler
   innovator: Innovator
   writer: Mentor
+  position: Your Position
+  position_text: Want to rise on the leaderboard? Devote more time to your Bucket List.
+  rewards: Rewards
+  travelerText: <strong class="text-dark-gray">Traveler</strong> is a person who has seen the world more than users does
+  innovatorText: <strong class="text-dark-gray">Innovator</strong> is a person who has suggested a lot of goal ideas that we have accepted and shared
+  motivatorText: <strong class="text-dark-gray">Mentor</strong> is a person who has inspired a lot of people, with his motivational success stories
+  top: Top 10
+  rank: Rank
+  leaders: Leaders
+  score: Score
+  level: Level
 

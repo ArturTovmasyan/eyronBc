@@ -250,6 +250,7 @@ menu:
   map: Карта
   common: Общие
   owned: Созданные
+  bucketlist_stories: Bucket List Статьи
 
 right_menu:
   my_ideas: Мои Идеи
@@ -500,3 +501,14 @@ leaderboard:
   traveler: Путешественник
   innovator: Иноватор
   writer: Ментор
+  position: Твоя Позиция
+  position_text: Хотите стать лидером и заслужить признание? Просто ставьте цели, достигайте их и делитесь историями своих успехов.
+  rewards: Награды
+  travelerText: <strong class="text-dark-gray">Путешественник</strong> – это пользователь, который посетил больше мест чем другие
+  innovatorText: <strong class="text-dark-gray">Иноватор</strong> – это пользователь, который предложил больше идей и получил подтверждение чем другие
+  motivatorText: <strong class="text-dark-gray">Ментор</strong> – это пользователь, который написал больше историй успехов чем другие
+  top: Топ 10
+  rank: Рейтинг
+  leaders: Лидеры
+  score: Очки
+  level: Уровень

@@ -44,6 +44,7 @@ framework:
     templating:
         engines: ['twig']
         assets_version: v572
+
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~

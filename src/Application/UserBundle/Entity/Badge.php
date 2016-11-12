@@ -40,6 +40,14 @@ class Badge
     public $normalizedScore;
 
     /**
+     * This value is used to show position
+     *
+     * @Groups({"badge"})
+     * @var
+     */
+    public $position;
+
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\generatedValue(strategy="AUTO")
@@ -56,6 +64,8 @@ class Badge
     /**
      * @Assert\NotBlank(message="badge.type.notBlank")
      * @ORM\Column(name="score", type="float")
+     * @Groups({"badge"})
+     * @Serializer\SerializedName("points")
      */
     protected $score = 0;
 
