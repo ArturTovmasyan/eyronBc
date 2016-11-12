@@ -210,13 +210,15 @@ angular.module('manage', ['Interpolation',
 
                         tmp.on($.modal.CLOSE, function(){
                             if(scope.closePrefix){
-                                if(!scope.isSave){
-                                    UserGoalDataManager.creates({id: scope.lsGoalId}, {is_visible: true}, function (resource){
-                                        // userGoalData.data = resource;
-                                    });
-                                } else {
-                                    scope.isSave = false;
-                                }
+                                $timeout(function () {
+                                    if(!scope.isSave){
+                                        UserGoalDataManager.creates({id: scope.lsGoalId}, {is_visible: true}, function (resource){
+                                            // userGoalData.data = resource;
+                                        });
+                                    } else {
+                                        scope.isSave = false;
+                                    }
+                                }, 1000);
                             }
                             tmp.remove();
                         })

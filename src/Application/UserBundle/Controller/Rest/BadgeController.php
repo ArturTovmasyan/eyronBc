@@ -77,7 +77,8 @@ class BadgeController extends Controller
         $this->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         //get top users
-        $badges = $em->getRepository('ApplicationUserBundle:Badge')->findTopUsersByType($type, $count);
+        $userId = is_object($this->getUser()) ? $this->getUser()->getId() : null;
+        $badges = $em->getRepository('ApplicationUserBundle:Badge')->findTopUsersByType($type, $count, $userId);
 
         if($badges){
             $maxScoreBadge = reset($badges);
