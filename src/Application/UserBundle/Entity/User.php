@@ -365,12 +365,12 @@ class User extends BaseUser
 
     /**
      * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User")
-     * @ORM\JoinTable(name="close_goal_friend",
+     * @ORM\JoinTable(name="follower",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="goal_friend_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="follow_id", referencedColumnName="id")}
      *      )
      */
-    protected $closeGoalFriends;
+    protected $followers;
 
     /**
      * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", inversedBy="user", cascade={"persist"})
@@ -2111,37 +2111,38 @@ class User extends BaseUser
         return $this->sentEmails;
     }
 
+
     /**
-     * Add closeGoalFriend
+     * Add follower
      *
-     * @param \Application\UserBundle\Entity\User $closeGoalFriend
+     * @param \Application\UserBundle\Entity\User $follower
      *
      * @return User
      */
-    public function addCloseGoalFriend(\Application\UserBundle\Entity\User $closeGoalFriend)
+    public function addFollower(\Application\UserBundle\Entity\User $follower)
     {
-        $this->closeGoalFriends[] = $closeGoalFriend;
+        $this->followers[] = $follower;
 
         return $this;
     }
 
     /**
-     * Remove closeGoalFriend
+     * Remove follower
      *
-     * @param \Application\UserBundle\Entity\User $closeGoalFriend
+     * @param \Application\UserBundle\Entity\User $follower
      */
-    public function removeCloseGoalFriend(\Application\UserBundle\Entity\User $closeGoalFriend)
+    public function removeFollower(\Application\UserBundle\Entity\User $follower)
     {
-        $this->closeGoalFriends->removeElement($closeGoalFriend);
+        $this->followers->removeElement($follower);
     }
 
     /**
-     * Get closeGoalFriends
+     * Get followers
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCloseGoalFriends()
+    public function getFollowers()
     {
-        return $this->closeGoalFriends;
+        return $this->followers;
     }
 }

@@ -134,7 +134,12 @@ class CommentService extends AbstractProcessService
         $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goalId, $authorId);
         $link = $this->container->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
         $body = $this->container->get('translator')->trans(is_null($parentComment) ? 'notification.important_goal_comment' : 'notification.important_goal_reply', [], null, 'en');
+        $followingBody = $this->container->get('translator')->trans('notification.following_comment', [], null, 'en');
+
+        // followers to me
+        $followingMe = $em->getRepository('ApplicationUserBundle:User')->geFollowerToMe($user->getId());
         $this->container->get('bl_notification')->sendNotification($user, $link, $goal->getId(), $body, $importantAddedUsers);
+        $this->container->get('bl_notification')->sendNotification($user, $link, $goal->getId(), $followingBody, $followingMe);
 
         //check if goal author is not admin and not null
         if($goal && $goal->hasAuthorForNotify($user->getId())) {

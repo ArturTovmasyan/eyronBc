@@ -22,19 +22,19 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class UserRepository extends EntityRepository
 {
     /**
-     * This function is used to get users in where user is goalfriend
+     * This function is used to get users who follow me
      *
      * @param $userId
      * @return array
      */
-    public function getInWhereGoalFriends($userId)
+    public function geFollowerToMe($userId)
     {
         $result = $this->getEntityManager()
             ->createQuery("SELECT u
                            FROM ApplicationUserBundle:User u
                            JOIN ApplicationUserBundle:User friend WITH friend = u
-                           JOIN friend.closeGoalFriends cf
-                           WITH cf.id = :userId
+                           JOIN friend.followers f
+                           WITH f.id = :userId
                            ")
             ->setParameter("userId", $userId)
             ->getResult();

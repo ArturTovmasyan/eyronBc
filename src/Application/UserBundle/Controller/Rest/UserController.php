@@ -935,12 +935,12 @@ class UserController extends FOSRestController
     }
 
     /**
-     * This function is used to create close goal friend
+     * This function is used to create follower
      *
      * @ApiDoc(
      *  resource=true,
      *  section="User",
-     *  description="This function is used to create close goal friend",
+     *  description="This function is used to create follower",
      *  statusCodes={
      *         204="Not content",
      *         404="Not found"
@@ -951,7 +951,7 @@ class UserController extends FOSRestController
      * @param User $user
      * @return JsonResponse|Response
      */
-    public function putCloseFriendAction(User $user)
+    public function putFollowerdAction(User $user)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -966,12 +966,12 @@ class UserController extends FOSRestController
     }
 
     /**
-     * This function is used to delete close goal friend
+     * This function is used to delete follower
      *
      * @ApiDoc(
      *  resource=true,
      *  section="User",
-     *  description="This function is used to delete close goal friend",
+     *  description="This function is used to delete follower",
      *  statusCodes={
      *         204="Not content",
      *         404="Not found"
@@ -982,7 +982,7 @@ class UserController extends FOSRestController
      * @param User $user
      * @return JsonResponse|Response
      */
-    public function deleteCloseFriendAction(User $user)
+    public function deleteFollowerAction(User $user)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -997,12 +997,12 @@ class UserController extends FOSRestController
     }
 
     /**
-     * This function is used to get close goal friend
+     * This function is used to get my follow users
      *
      * @ApiDoc(
      *  resource=true,
      *  section="User",
-     *  description="This function is used to get close goal friend",
+     *  description="This function is used to get my follow users",
      *  statusCodes={
      *         200="ok",
      *     },
@@ -1011,11 +1011,11 @@ class UserController extends FOSRestController
      * @Rest\View(serializerGroups={"tiny_user"})
      * @return JsonResponse|Response
      */
-    public function getCloseFriendAction()
+    public function getFollowersAction()
     {
         // get current user
         $currentUser = $this->getUser();
-        $goalFriends = $currentUser->getCloseGoalFriends();
+        $goalFriends = $currentUser->geFollowerToMe();
 
         return $goalFriends;
     }
