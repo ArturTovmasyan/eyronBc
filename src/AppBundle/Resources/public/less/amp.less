@@ -240,7 +240,7 @@ button {
         a{
           color:#E5E5E5;
           text-transform: uppercase;
-          font-weight: bold;
+          font-weight: 700;
           font-size:12px;
           text-decoration: none;
 
@@ -417,7 +417,6 @@ a{
 }
 
 .content-inner{
-  //width: 320px;
   margin: 0 auto 20px;
   padding: 0 0 20px 0;
   position: relative;
@@ -511,8 +510,6 @@ a{
     font-size: 15px;
     line-height: 26px;
   }
-
-
 }
 
 .blog-inner{
@@ -672,13 +669,6 @@ a{
           padding: 0;
           height: 170px;
 
-          //p,h1,h2,h3,h4,h5,h6,li,span{
-          //  margin: 0;
-          //  font-size: 14px;
-          //  line-height: 21px;
-          //  padding: 0;
-          //}
-
           h3.goal-title{
             font-size: 22px;
             margin: 15px 0;
@@ -692,13 +682,9 @@ a{
               }
             }
           }
-
-
         }
       }
     }
-
-
   }
 
   .amp-footer{
@@ -794,8 +780,8 @@ a{
 
 
   section.category{
-    min-width: inherit;
-    max-width: 1170px;
+    //min-width: inherit;
+    max-width: 780px;
   }
 
   .amp-live-list-item {
@@ -907,5 +893,11 @@ a{
   }
   .last,.first{
     display: none;
+  }
+}
+
+@media(min-width: 1175px){
+  section.category{
+    max-width: 1170px;
   }
 }
