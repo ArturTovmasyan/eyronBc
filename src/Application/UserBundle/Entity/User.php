@@ -2137,6 +2137,15 @@ class User extends BaseUser
     }
 
     /**
+     * @param $user
+     * @return mixed
+     */
+    public function isFollowing($user)
+    {
+        return $this->followings->contains($user);
+    }
+
+    /**
      * Get followings
      *
      * @return \Doctrine\Common\Collections\Collection

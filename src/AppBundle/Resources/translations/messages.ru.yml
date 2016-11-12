@@ -129,6 +129,7 @@ goal_friend_menu:
       recently_matched: Последние соответствия
       most_matching: Максимальные соответствия
       most_activity: Самые активные
+      follow: Подписчики
 activities:
       title: Действия
       description: Описание действий
@@ -298,6 +299,8 @@ my_bucket_list:
   edit: Редактировать
   missed_deadline: Срок достижения цели нарушен
   year_old: -летний
+  follow: Подписаться
+  un_follow: Отписаться
 
   calendar:
       completed: Достигнутый цель

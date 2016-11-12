@@ -517,9 +517,16 @@ class GoalRepository extends EntityRepository
                     ->createQueryBuilder()
                     ->select('DISTINCT u')
                     ->from('ApplicationUserBundle:User', 'u', 'u.id')
-                    ->join('u.userGoal', 'ug')
-                    ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
                     ->where("u.id != :userId AND u.isAdmin = false");
+
+        ;
+
+
+        if($type != "follow"){
+            $query
+                ->join('u.userGoal', 'ug')
+                ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId');
+        }
 
         if ($search){
             $query->andWhere("u.firstname LIKE :search
@@ -544,6 +551,13 @@ class GoalRepository extends EntityRepository
                     ->where('u.isAdmin = false')
                     ->orderBy('m_user.commonFactor', 'DESC')
                     ->addOrderBy('m_user.commonCount', 'DESC')
+                ;
+                break;
+            case 'follow':
+                $query
+                    ->join('ApplicationUserBundle:User', 'fu', 'WITH', 'fu = :userId')
+                    ->join('fu.followings', 'fus')
+                    ->andWhere('fus = u')
                 ;
                 break;
             case 'active':

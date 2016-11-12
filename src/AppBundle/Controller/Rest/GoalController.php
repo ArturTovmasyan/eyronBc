@@ -824,7 +824,7 @@ class GoalController extends FOSRestController
         }
         else {
             $type = $request->get('type', 'all');
-            if (!in_array($type, ["all","recently","match","active"])){
+            if (!in_array($type, ["all","recently","match","active", "follow"])){
                 throw new HttpException(Response::HTTP_BAD_REQUEST);
             }
 
