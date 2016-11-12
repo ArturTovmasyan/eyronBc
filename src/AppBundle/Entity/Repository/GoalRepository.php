@@ -922,13 +922,15 @@ class GoalRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('u')
             ->from('ApplicationUserBundle:User', 'u')
-            ->join('u.userGoal', 'ug', 'with', 'ug.goal = :goalId AND ug.important = true');
+            ->join('u.userGoal', 'ug', 'with', 'ug.goal = :goalId AND ug.important = true')
+            ->setParameter('goalId', $goalId)
+
+        ;
 
         if($authorId){
             $query
                 ->andWhere('u.id != :authorId')
                 ->setParameter('authorId', $authorId)
-                ->setParameter('goalId', $goalId)
             ;
         }
 

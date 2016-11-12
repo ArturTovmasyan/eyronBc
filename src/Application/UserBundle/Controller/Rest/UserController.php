@@ -958,7 +958,7 @@ class UserController extends FOSRestController
 
         // get current user
         $currentUser = $this->getUser();
-        $currentUser->addCloseGoalFriend($user);
+        $currentUser->addFollower($user);
         $em->persist($currentUser);
         $em->flush();
 
@@ -989,7 +989,7 @@ class UserController extends FOSRestController
 
         // get current user
         $currentUser = $this->getUser();
-        $currentUser->removeCloseGoalFriend($user);
+        $currentUser->removeFollower($user);
         $em->persist($currentUser);
         $em->flush();
 
@@ -1015,7 +1015,7 @@ class UserController extends FOSRestController
     {
         // get current user
         $currentUser = $this->getUser();
-        $goalFriends = $currentUser->geFollowerToMe();
+        $goalFriends = $currentUser->getFollowers();
 
         return $goalFriends;
     }
