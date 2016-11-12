@@ -34,9 +34,19 @@ angular.module('comments', ['Interpolation',
         scope.currentUserId = UserContext.id;
         scope.commentsDefaultCount = 5;
 
-        CommentManager.comments({path: (scope.lsGoalId?'comments':'blogComment'), param1:(scope.lsSlug?('goal_' + scope.lsSlug):(scope.lsBlogId))}, function (resource){
+        CommentManager.comments({path: 'comments', param1:(scope.lsGoalId?'goal_':'blog_') + scope.lsSlug}, function (resource){
           scope.comments = resource;
           scope.commentsLength = scope.comments.length - scope.commentsDefaultCount;
+
+          if(scope.lsBlogId){
+            $timeout(function () {
+              window.parent.postMessage({
+                sentinel: 'amp',
+                type: 'embed-size',
+                height: document.body.scrollHeight
+              }, '*');
+            }, 1000);
+          }
         });
         
         scope.showMoreComment = function () {
@@ -61,6 +71,15 @@ angular.module('comments', ['Interpolation',
             scope.comments[i].visible = true;
           }
 
+          if(scope.lsBlogId) {
+            $timeout(function () {
+              window.parent.postMessage({
+                sentinel: 'amp',
+                type: 'embed-size',
+                height: document.body.scrollHeight
+              }, '*');
+            }, 1000);
+          }
         };
 
         scope.writeReply = function(ev, comment){
@@ -72,12 +91,22 @@ angular.module('comments', ['Interpolation',
               CommentManager.add({
                 param1: (scope.lsGoalId?scope.lsGoalId:scope.lsBlogId),
                 param2: comment.id,
-                path: (scope.lsGoalId?'comments':'blogComment')
+                path: (scope.lsGoalId?'comments':'blog-comment')
               }, {'commentBody': comment.replyBody}, function (data) {
                 comment.reply = true;
                 comment.replyBody = '';
                 busy = false;
                 comment.children.push(data);
+
+                if(scope.lsBlogId) {
+                  $timeout(function () {
+                    window.parent.postMessage({
+                      sentinel: 'amp',
+                      type: 'embed-size',
+                      height: document.body.scrollHeight
+                    }, '*');
+                  }, 1000);
+                }
               });
             }
           }
@@ -89,10 +118,21 @@ angular.module('comments', ['Interpolation',
             ev.stopPropagation();
             if(!busy){
               busy = true;
-              CommentManager.add({param1:(scope.lsGoalId?scope.lsGoalId:scope.lsBlogId), path: (scope.lsGoalId?'comments':'blogComment')}, {'commentBody': scope.commentBody},function (data) {
+              CommentManager.add({param1:(scope.lsGoalId?scope.lsGoalId:scope.lsBlogId), path: (scope.lsGoalId?'comments':'blog-comment')}, {'commentBody': scope.commentBody},function (data) {
                 scope.commentBody = '';
                 busy = false;
                 scope.comments.push(data);
+
+                if(scope.lsBlogId) {
+                  $timeout(function () {
+                    window.parent.postMessage({
+                      sentinel: 'amp',
+                      type: 'embed-size',
+                      height: document.body.scrollHeight
+                    }, '*');
+                  }, 1000);
+                }
+
               });
             }
           }
