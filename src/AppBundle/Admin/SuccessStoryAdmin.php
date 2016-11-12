@@ -33,11 +33,11 @@ class SuccessStoryAdmin extends AbstractAdmin
         return $query;
     }
 
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_page' => 1,
         '_sort_order' => 'DESC',
         '_sort_by' => 'updated',
-    );
+    ];
 
     /**
      * @param string $name
@@ -61,8 +61,8 @@ class SuccessStoryAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('created', 'doctrine_orm_callback', array(
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('created', 'doctrine_orm_callback', [
                 'show_filter' => true,
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
@@ -77,10 +77,11 @@ class SuccessStoryAdmin extends AbstractAdmin
                     return true;
                 },
                 'label'=>'admin.label.name.created'
-            ), 'date', array('widget' => 'single_text'))
-            ->add('story')
-            ->add('goal.title', null, array('label'=>'admin.label.name.goal'))
-            ->add('isInspire')
+            ], 'date', ['widget' => 'single_text']
+            )
+            ->add('story', null, ['label'=>'admin.label.name.story'])
+            ->add('goal.title', null, ['label'=>'admin.label.name.goal'])
+            ->add('isInspire', null, ['label'=>'admin.label.name.is_inspire'])
         ;
     }
 
@@ -90,20 +91,21 @@ class SuccessStoryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('created')
-            ->add('updated')
-            ->addIdentifier('goal.title', null, array('label'=>'admin.label.name.goal'))
-            ->add('story', null, array('template' => 'AppBundle:Admin:success_story_list_field.html.twig'))
-            ->add('isInspire', null, ['editable' => true])
-            ->add('files', null, array('template' => 'AppBundle:Admin:success_story_image_list.html.twig'))
-            ->add('_action', null, array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                    'goal_link' => array('template' => 'AppBundle:Admin:success_story_list_action_link.html.twig'),
-                )
-            ))
+            ->add('created', null, ['label'=>'admin.label.name.created'])
+            ->add('updated', null, ['label'=>'admin.label.name.updated'])
+            ->addIdentifier('goal.title', null, ['label'=>'admin.label.name.goal'])
+            ->add('story', null, ['label'=>'admin.label.name.story', 'template' => 'AppBundle:Admin:success_story_list_field.html.twig'])
+            ->add('isInspire', null, ['label'=>'admin.label.name.is_inspire', 'editable' => true])
+            ->add('files', null, ['label'=>'admin.label.name.images', 'template' => 'AppBundle:Admin:success_story_image_list.html.twig'])
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                    'goal_link' => ['template' => 'AppBundle:Admin:success_story_list_action_link.html.twig'],
+                ]
+            ]
+            )
         ;
     }
 
@@ -113,12 +115,12 @@ class SuccessStoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('created', DateType::class, array('widget' => 'single_text'))
-            ->add('updated', DateType::class, array('widget' => 'single_text'))
-            ->add('story')
-            ->add('isInspire')
-            ->add('videoLink', BlMultipleVideoType::class)
-            ->add('files', StoryMultipleFileType::class)
+            ->add('created', DateType::class, ['label'=>'admin.label.name.created', 'widget' => 'single_text'])
+            ->add('updated', DateType::class, ['label'=>'admin.label.name.updated', 'widget' => 'single_text'])
+            ->add('story', null ,['label'=>'admin.label.name.story'])
+            ->add('isInspire', null, ['label'=>'admin.label.name.is_inspire'])
+            ->add('videoLink', BlMultipleVideoType::class, ['label'=>'admin.label.name.video_link'])
+            ->add('files', StoryMultipleFileType::class, ['label'=>'admin.label.name.images'])
         ;
     }
 
@@ -128,14 +130,14 @@ class SuccessStoryAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('story_goal', null, array('template' => 'AppBundle:Admin:success_story_show_link.html.twig', 'mapped' => false))
-            ->add('created')
-            ->add('updated')
-            ->add('story')
-            ->add('isInspire')
-            ->add('files', null, array('template' => 'AppBundle:Admin:success_story_image_show.html.twig'))
-            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig'))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('story_goal', null, ['template' => 'AppBundle:Admin:success_story_show_link.html.twig', 'mapped' => false])
+            ->add('created', null, ['label'=>'admin.label.name.created'])
+            ->add('updated', null, ['label'=>'admin.label.name.updated'])
+            ->add('story', null, ['label'=>'admin.label.name.story'])
+            ->add('isInspire', null, ['label'=>'admin.label.name.is_inspire'])
+            ->add('files', null, ['label'=>'admin.label.name.images', 'template' => 'AppBundle:Admin:success_story_image_show.html.twig'])
+            ->add('videoLink', null, ['label'=>'admin.label.name.video_link', 'template' => 'AppBundle:Admin:goal_video_show.html.twig'])
         ;
     }
 

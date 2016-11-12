@@ -11,11 +11,11 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class CommentAdmin extends AbstractAdmin
 {
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_page' => 1,
         '_sort_order' => 'DESC',
         '_sort_by' => 'createdAt',
-    );
+    ];
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -23,10 +23,10 @@ class CommentAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('body')
-            ->add('thread')
-            ->add('createdAt', 'doctrine_orm_callback', array(
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('body', null, ['label'=>'admin.label.name.body'])
+            ->add('thread', null, ['label'=>'admin.label.name.thread'])
+            ->add('createdAt', 'doctrine_orm_callback', [
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
                         return;
@@ -40,9 +40,11 @@ class CommentAdmin extends AbstractAdmin
                     return true;
                 },
                 'label'=>'admin.label.name.created'
-            ), 'date', array('widget' => 'single_text'))
+            ], 'date', ['widget' => 'single_text']
+            )
 
-            ->add('goal', 'doctrine_orm_callback', array('mapped' => false,
+            ->add('goal', 'doctrine_orm_callback', [
+                'mapped' => false,
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
                         return;
@@ -62,7 +64,9 @@ class CommentAdmin extends AbstractAdmin
                     return $queryBuilder;
                 },
 
-                'label'=>'admin.label.name.goal_link'))
+                'label'=>'admin.label.name.goal_link'
+            ]
+            )
         ;
     }
 
@@ -72,16 +76,17 @@ class CommentAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('body')
-            ->add('createdAt')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                    'goal_link' => array('template' => 'ApplicationCommentBundle:Admin:comment_list_action_link.html.twig'),
-                )
-            ))
+            ->add('body', null, ['label'=>'admin.label.name.body'])
+            ->add('createdAt', null, ['label'=>'admin.label.name.created'])
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                    'goal_link' => ['template' => 'ApplicationCommentBundle:Admin:comment_list_action_link.html.twig'],
+                ]
+            ]
+            )
         ;
     }
 
@@ -91,7 +96,7 @@ class CommentAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('body')
+            ->add('body', null, ['label'=>'admin.label.name.body'])
         ;
     }
 
@@ -101,9 +106,9 @@ class CommentAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('body')
-            ->add('createdAt')
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('body', null, ['label'=>'admin.label.name.body'])
+            ->add('createdAt', null, ['label'=>'admin.label.name.created'])
         ;
     }
 }

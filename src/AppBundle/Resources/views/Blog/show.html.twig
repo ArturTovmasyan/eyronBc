@@ -58,8 +58,14 @@
 
         <div class="bg-white content-inner">
             <figure class="goal-cover">
-                <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}" layout="responsive"
-                         width="1280" height="853" alt="{{ blog.title }}" title="{{ blog.title }}"></amp-img>
+                <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}"
+                         srcset="{{ blog.imagePath|blImageFilter('goal_bg') }} 1080w,
+                                 {{ blog.imagePath|blImageFilter('goal_bg') }} 500w,
+                                 {{ blog.imagePath|blImageFilter('goal_list_small') }} 400w,"
+                         layout="responsive"
+                         width="1080"
+                         height="610"
+                         alt="{{ blog.title }}" title="{{ blog.title }}"></amp-img>
             </figure>
 
             <div class="text-justify">
@@ -79,9 +85,15 @@
                                 <figure>
                                     <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
                                         <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
-                                                 layout="responsive"
-                                                 width="1280"
-                                                 height="853">
+                                              srcset="{{ goal.imagePath|blImageFilter('goal_list_small') }} 1080w,
+                                                      {{ goal.imagePath|blImageFilter('goal_bg') }} 700w,
+                                                      {{ goal.imagePath|blImageFilter('goal_bg') }} 500w,
+                                                      {{ goal.imagePath|blImageFilter('goal_list_small') }} 400w,
+                                                      "
+                                              layout="responsive"
+                                              width="1080"
+                                              height="610"
+                                              alt="{{ goal.title }}" title="{{ goal.title }}">
                                         </amp-img>
                                     </a>
                                 </figure>

@@ -263,7 +263,7 @@ menu:
   map: Map
   common: In Common
   owned: Created
-  bucketlist_stories: Bucketlist Stories
+  bucketlist_stories: Bucket List Stories
 
 right_menu:
   my_ideas: My Ideas
@@ -375,6 +375,7 @@ delete_message: |
 
 complete_message: Complete your profile
 
+most-popular: Most popular
 added: Added
 addedU: ADDED
 completed: Completed
@@ -392,8 +393,20 @@ image_complete_text: Upload an image
 goalfriends: Goalfriends
 Add a note: Add a note
 
+#static translations
 dreaming: Dreaming
 users: users
+is empty: is empty
+is not empty: is not empty
+between: between
+not between: not between
+From: From
+To: To
+Story Goal: Story Goal
+Report Type: Report Type
+Name: Name
+Page Create: Page Create
+Dashboard: Dashboard
 
 notification:
   no_notification: No notifications
@@ -406,7 +419,6 @@ notification:
   title: Bucketlist 127-Notifications
   description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
 
-most-popular: Most popular
 # sonata admin lable
 admin:
   label:
@@ -426,6 +438,9 @@ admin:
       downloadLink: Icon
       file: File
       author: Author
+      author_email: Authhor Email
+      author_first_name: Author First Name
+      author_last_name: Author last name
       content: Content
       content_type: Content Type
       replaceString: Replace String
@@ -464,6 +479,7 @@ admin:
       place: Place
       type: Type
       report_type: Report Type
+      report_user: Report User
       place_type: Place Type
       user_place: User Place
       goal: Goal
@@ -478,11 +494,48 @@ admin:
       published_date: Published Date
       posts: Posts
       blog_images: Images *
-
-# end sonata admin lable
+      left: Left
+      right: Right
+      top: Top
+      bottom: Bottom
+      inner: Inner
+      zone: Zone
+      default_link: Default Link
+      html_content: Html Content
+      js_content: Js Content
+      affiliate: Affiliate
+      affiliate_type: Affiliate Type
+      sent_email: Sent Email
+      link: Link
+      links: Links
+      ufi: Ufi
+      type_name: Type Name
+      type_id: Type Id
+      size: Size
+      city: City
+      region: region
+      country: Country
+      en: english
+      ru: russian
+      fr: French
+      dutch: Dutch
+      language: Language
+      text: Text
+      is_inspire: Is Inspire
+      story: Story
+      video_link: Video Link
+      report_spam: It's annoying or spam
+      report_not: I think it shouldn't be on BucketList127
+      body: Body
+      thread: Thread
+      num_comments: Num Comments
+      translations: Translations
+      device: Device
+      seen: Seen
+      sent: Sent
+      select_goal: Select goal
 
 # sonata admin breadcrumb and filter
-
 User List: User List
 Tag List: Tag List
 Category List: Category List
@@ -495,6 +548,17 @@ contains: contains
 does not contain: does not contain
 is equal to: is equal to
 is not equal to: is not equal to
+Affiliate Type List: Affiliate Type List
+Affiliate List: Affiliate List
+Place List: Place List
+Place Type List: Place Type List
+Blog List: Blog List
+Success Story List: Success Story List
+Report List: Report List
+Comment List: Comment List
+Email List: Email List
+Thread List: Thread List
+
 =: =
 >=: >=
 >: >
@@ -568,4 +632,15 @@ leaderboard:
   traveler: Traveler
   innovator: Innovator
   writer: Mentor
+  position: Your Position
+  position_text: Want to rise on the leaderboard? Devote more time to your Bucket List.
+  rewards: Rewards
+  travelerText: <strong class="text-dark-gray">Traveler</strong> is a person who has seen the world more than users does
+  innovatorText: <strong class="text-dark-gray">Innovator</strong> is a person who has suggested a lot of goal ideas that we have accepted and shared
+  motivatorText: <strong class="text-dark-gray">Mentor</strong> is a person who has inspired a lot of people, with his motivational success stories
+  top: Top 10
+  rank: Rank
+  leaders: Leaders
+  score: Score
+  level: Level
 

@@ -12,11 +12,11 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ReportAdmin extends AbstractAdmin
 {
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_page' => 1,
         '_sort_order' => 'DESC',
         '_sort_by' => 'created',
-    );
+    ];
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -27,22 +27,26 @@ class ReportAdmin extends AbstractAdmin
         $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $datagridMapper
-            ->add('id')
-            ->add('user')
-            ->add('reportedUser')
-            ->add('contentType', null, [], ChoiceType::class, array(
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('user', null, ['label'=>'admin.label.name.user'])
+            ->add('reportedUser', null, ['label'=>'admin.label.name.report_user'])
+            ->add('contentType', null, ['label'=>'admin.label.name.content_type'], ChoiceType::class, [
                 'choices' => [
-                    Report::COMMENT       => 'comment',
-                    Report::SUCCESS_STORY => 'Success story'
-                ]))
-            ->add('reportType', null, [], ChoiceType::class, array(
+                    Report::COMMENT       => 'admin.label.name.comments',
+                    Report::SUCCESS_STORY => 'admin.label.name.success_story'
+                ]
+            ]
+            )
+            ->add('reportType', null, [], ChoiceType::class, [
                 'choices' => [
-                    Report::SPAM       => "It's annoying or spam",
-                    Report::SHOULD_NOT => "I think it shouldn't be on BucketList127"
-                ]))
-            ->add('contentId')
-            ->add('message')
-            ->add('created', 'doctrine_orm_callback', array(
+                    Report::SPAM       => 'admin.label.name.report_spam',
+                    Report::SHOULD_NOT => 'admin.label.name.report_not'
+                ]
+            ]
+            )
+            ->add('contentId', null, ['label'=>'admin.label.name.content'])
+            ->add('message', null, ['label'=>'admin.label.name.messages'])
+            ->add('created', 'doctrine_orm_callback', [
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
                         return;
@@ -55,7 +59,9 @@ class ReportAdmin extends AbstractAdmin
 
                     return true;
                 },
-            ), 'date', array('widget' => 'single_text'))
+                'label'=>'admin.label.name.created',
+            ], 'date', ['widget' => 'single_text']
+            )
         ;
     }
 
@@ -77,22 +83,24 @@ class ReportAdmin extends AbstractAdmin
         $this->successStories = $em->getRepository('AppBundle:SuccessStory')->findByIds($ids['successStoryIds']);
 
         $listMapper
-            ->add('id')
-            ->add('user')
-            ->add('reportedUser')
-            ->add('contentTypeString', null, array('label'=>'admin.label.name.content_type'))
-            ->add('reportTypeString', null, array('label'=>'admin.label.name.report_type'))
-            ->add('contentId', null, array('template' => 'ApplicationUserBundle:Admin:content_list_field.html.twig', 'label'=>'admin.label.name.content'))
-            ->add('message')
-            ->add('created')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                    'goal_link' => array('template' => 'ApplicationUserBundle:Admin:report_list_action_link.html.twig'),
-                )
-            ))
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('user', null, ['label'=>'admin.label.name.user'])
+            ->add('reportedUser', null, ['label'=>'admin.label.name.report_user'])
+            ->add('contentTypeString', null, ['label'=>'admin.label.name.content_type'])
+            ->add('reportTypeString', null, ['label'=>'admin.label.name.report_type'])
+            ->add('contentId', null, ['template' => 'ApplicationUserBundle:Admin:content_list_field.html.twig', 'label'=>'admin.label.name.content']
+            )
+            ->add('message', null, ['label'=>'admin.label.name.messages'])
+            ->add('created', null, ['label'=>'admin.label.name.created'])
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                    'goal_link' => ['template' => 'ApplicationUserBundle:Admin:report_list_action_link.html.twig'],
+                ]
+            ]
+            )
         ;
     }
 
@@ -105,21 +113,27 @@ class ReportAdmin extends AbstractAdmin
         $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $formMapper
-            ->add('id')
-            ->add('user')
-            ->add('reportedUser')
-            ->add('contentType', ChoiceType::class, array(
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('user', null, ['label'=>'admin.label.name.user'])
+            ->add('reportedUser', null, ['label'=>'admin.label.name.report_user'])
+            ->add('contentType', ChoiceType::class, [
                 'choices' => [
-                    Report::COMMENT       => 'comment',
-                    Report::SUCCESS_STORY => 'Success story'
-                ]))
-            ->add('reportType', ChoiceType::class, array(
+                    Report::COMMENT       => 'admin.label.name.comment',
+                    Report::SUCCESS_STORY => 'admin.label.name.success_story'
+                ],
+               'label'=>'admin.label.name.content_type'
+            ]
+            )
+            ->add('reportType', ChoiceType::class, [
                 'choices' => [
-                    Report::SPAM       => "It's annoying or spam",
-                    Report::SHOULD_NOT => "I think it shouldn't be on BucketList127"
-                ]))
-            ->add('contentId')
-            ->add('message')
+                    Report::SPAM       => 'admin.label.name.report_spam',
+                    Report::SHOULD_NOT => 'admin.label.name.report_not'
+                ],
+                'label'=>'admin.label.name.report_type'
+            ]
+            )
+            ->add('contentId', null, ['label'=>'admin.label.name.content'])
+            ->add('message', null, ['label'=>'admin.label.name.messages'])
         ;
     }
 
@@ -129,14 +143,14 @@ class ReportAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('user')
-            ->add('reportedUser')
-            ->add('contentTypeString')
-            ->add('reportTypeString')
-            ->add('contentId')
-            ->add('message')
-            ->add('created')
+            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('user', null, ['label'=>'admin.label.name.user'])
+            ->add('reportedUser', null, ['label'=>'admin.label.name.report_user'])
+            ->add('contentTypeString', null, ['label'=>'admin.label.name.content_type'])
+            ->add('reportTypeString',  null, ['label'=>'admin.label.name.report_type'])
+            ->add('contentId', null, ['label'=>'admin.label.name.content'])
+            ->add('message', null, ['label'=>'admin.label.name.messages'])
+            ->add('created', null, ['label'=>'admin.label.name.created'])
         ;
     }
 }
