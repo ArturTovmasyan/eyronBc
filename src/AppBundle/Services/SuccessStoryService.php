@@ -239,6 +239,12 @@ class SuccessStoryService extends AbstractProcessService
         $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId(), $authorId);
         $link = $this->container->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
         $body = $this->container->get('translator')->trans('notification.important_goal_success_story', [], null, 'en');
+        $followerBody = $this->container->get('translator')->trans('notification.following_story', [], null, 'en');
+
+        // followers to me
+        $followers = $em->getRepository('ApplicationUserBundle:User')->findMyFollowers($user->getId());
+
+        $this->container->get('bl_notification')->sendNotification($user, $link, $goal->getId(), $followerBody, $followers);
         $this->container->get('bl_notification')->sendNotification($user, $link, $goal->getId(), $body, $importantAddedUsers);
 
         //check if goal author not admin and not null
