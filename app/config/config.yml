@@ -82,6 +82,7 @@ twig:
         project_name: %project_name%
         google_api_key: %google_api_key%
         ga_id: %ga_id%
+        facebook_api_id: %facebook_client_id%
         booking_aid: %booking_aid%
         env_prefix: ~
         remote_console: %remote_console%
