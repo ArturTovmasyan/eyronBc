@@ -362,6 +362,16 @@ class User extends BaseUser
      */
     private $userGoalRemoveDate;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User")
+     * @ORM\JoinTable(name="following",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="following_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $followings;
+
     /**
      * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", inversedBy="user", cascade={"persist"})
      */
@@ -2099,5 +2109,49 @@ class User extends BaseUser
     public function getSentEmails()
     {
         return $this->sentEmails;
+    }
+
+
+    /**
+     * Add following
+     *
+     * @param \Application\UserBundle\Entity\User $following
+     *
+     * @return User
+     */
+    public function addFollowing(\Application\UserBundle\Entity\User $following)
+    {
+        $this->followings[] = $following;
+
+        return $this;
+    }
+
+    /**
+     * Remove following
+     *
+     * @param \Application\UserBundle\Entity\User $following
+     */
+    public function removeFollowing(\Application\UserBundle\Entity\User $following)
+    {
+        $this->followings->removeElement($following);
+    }
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function isFollowing($user)
+    {
+        return $this->followings->contains($user);
+    }
+
+    /**
+     * Get followings
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFollowings()
+    {
+        return $this->followings;
     }
 }

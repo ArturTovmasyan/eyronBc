@@ -10,6 +10,15 @@
     <meta name="description" content="{%- block meta_description -%}BucketList{%- endblock -%}">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
+    <meta property="og:title" content="{%- block og_title -%}{{ block('title') }}{%- endblock -%}" />
+    <meta property="og:url" content="{%- block og_url -%}{{- app.request.uri -}} {%- endblock -%}" />
+    <meta property="og:description" content="{%- block og_description -%}{{ block('meta_description') }}{%- endblock -%}" />
+    <meta property="og:site_name" content="BucketList127" />
+    {#<meta property="og:image" content="{%- block og_image -%}{{ 'bl.w3docs.com/favicon.ico' }}{%- endblock -%}" />#}
+    <meta property="og:image" content="{%- block og_image -%}{{ app.request.schemeAndHttpHost }}/bundles/app/images/bucketlist_new.png{%- endblock -%}" />
+    <meta property="og:type" content="article">
+    <meta property="fb:pages" content="1711606329055370" />
+
     {# this allows to add additional meta data #}
     {% block meta %}{% endblock %}
 
@@ -24,6 +33,7 @@
     <script async src="https://cdn.ampproject.org/v0.js"></script>
 
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
     {#<script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>#}
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>

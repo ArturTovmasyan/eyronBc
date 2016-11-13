@@ -120,7 +120,19 @@
                     <div class="col-sm-4">
                         <figure>
 
-                            <a href="{{ path("edit_user_profile") }}" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
+                            {% if profileUser.id == app.user.id %}
+                                <a href="{{ path("edit_user_profile") }}" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
+                            {% else %}
+                                <div class="follow mobile-follow text-right show-xs hidden-sm hidden-md hidden-lg"
+                                     data-ls-follow-manage
+                                     data-ng-cloak
+                                     data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"
+                                     data-ls-user-id="{{ profileUser.id }}"
+                                     data-ls-is-follow="isFollow">
+                                    <img data-ng-show="!isFollow" src="{{ asset('bundles/app/images/follow.svg') }}" alt="Follow" title="{{ "my_bucket_list.follow"|trans }}"/>
+                                    <img data-ng-show="isFollow" src="{{ asset('bundles/app/images/unfollow.svg') }}" alt="Unfollow" title="{{ "my_bucket_list.un_follow"|trans }}"/>
+                                </div>
+                            {% endif %}
 
                             {% block profileImage %}
                             <div>
@@ -238,6 +250,16 @@
 
                                 </div>
                             {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="col-sm-4 hidden-xs follow text-right"
+                             data-ls-follow-manage
+                             data-ng-cloak
+                             data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"
+                             data-ls-user-id="{{ profileUser.id }}"
+                             data-ls-is-follow="isFollow">
+                            <img data-ng-show="!isFollow" src="{{ asset('bundles/app/images/follow.svg') }}" alt="Follow" title="{{ "my_bucket_list.follow"|trans }}"/>
+                            <img data-ng-show="isFollow" src="{{ asset('bundles/app/images/unfollow.svg') }}" alt="Unfollow" title="{{ "my_bucket_list.un_follow"|trans }}"/>
                         </div>
                     {% endif %}
                 </div>

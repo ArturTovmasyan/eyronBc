@@ -14,4 +14,27 @@ angular.module('profile', ['Interpolation',
   'notification',
   'activity',
   'PathPrefix'
-]);
+])
+  .directive('lsFollowManage',['envPrefix',
+    '$http',
+    function(envPrefix, $http){
+      return {
+        restrict: 'EA',
+        scope: {
+          lsUserId: '@',
+          lsIsFollow: '='
+        },
+        link: function(scope, el){
+
+          var path = envPrefix + 'api/v1.0/users/{user}/toggles/followings';
+          path = path.replace('{user}', scope.lsUserId);
+
+          el.bind('click', function(){
+            $http.post(path).success(function(){
+              scope.lsIsFollow = !scope.lsIsFollow;
+            })
+          });
+        }
+      }
+    }
+  ]);
