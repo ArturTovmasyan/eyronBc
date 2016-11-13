@@ -13,9 +13,9 @@
         "headline": "{{ blog.title }}",
         "image": {
           "@type": "ImageObject",
-          "url": "{{ blog.imagePath|blImageFilter('goal_list_small') }}",
-          "height": 400,
-          "width": 700
+          "url": "{{ blog.imagePath|blImageFilter('slide_max_size') }}",
+          "height": 900,
+          "width": 1280
         },
         "datePublished": "{{ blog.publishedDate|date('c') }}",
         "dateModified": "{{ blog.updated|date('c') }}",
@@ -155,4 +155,8 @@
 
 {%- block meta_description -%}
     {{- blog.metaDescription|markdown|sliceString -}}
+{%- endblock -%}
+
+{%- block og_image -%}
+    {{ blog.imagePath|blImageFilter('slide_max_size') }}
 {%- endblock -%}
