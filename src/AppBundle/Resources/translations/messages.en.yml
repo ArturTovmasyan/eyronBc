@@ -549,10 +549,15 @@ admin:
       note: Note
       do_date: Do Date
       completion_date: Completion Date
-      listed_date: Listed Date
+      listed_date: Listed Date/Created
       goal_title: Goal Title
       user_name: User Name
       confirmed: Confirmed
+      android: Android
+      ios: Ios
+      all: All
+      only_year: Only Year
+      only_year_month: Only Year Month
 
 
 # sonata admin breadcrumb and filter
