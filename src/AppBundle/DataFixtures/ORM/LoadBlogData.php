@@ -38,6 +38,7 @@ class LoadBlogData extends AbstractFixture implements OrderedFixtureInterface, C
         $blog1->setMetaDescription('Description for new blog!!!!!');
         $blog1->setFileName('blogPhoto.jpg');
         $blog1->setFileOriginalName('blogPhoto.jpg');
+        $blog1->setPublishedDate(new \DateTime());
         $blog1->setData([['type' => Blog::TYPE_GOAL, 'content' => $goal1->getId()],
                         ['type' => Blog::TYPE_TEXT, 'content' => 'TEXT FOR BLOG DESCRIPTION....']]);
 
@@ -49,6 +50,7 @@ class LoadBlogData extends AbstractFixture implements OrderedFixtureInterface, C
         $blog2->setMetaDescription('Description for new blog!!!!!');
         $blog2->setFileName('blogPhoto.jpg');
         $blog2->setFileOriginalName('blogPhoto.jpg');
+        $blog2->setPublishedDate(new \DateTime());
         $blog2->setData([['type' => Blog::TYPE_GOAL, 'content' => $goal2->getId()],
                         ['type' => Blog::TYPE_TEXT, 'content' => 'TEXT FOR BLOG TEST BLOG DESCRIPTION....']]);
 
