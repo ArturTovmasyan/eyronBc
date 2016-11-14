@@ -160,13 +160,13 @@ file that was distributed with this source code.
                                                     {% if not loop.last  %}
                                                         <li>
                                                             {% if menu.uri is not empty %}
-                                                                <a href="{{ menu.uri }}">{{ menu.label|raw }}</a>
+                                                                <a href="{{ menu.uri }}">{{ menu.label|trans({}, 'SonataUserBundle') }}</a>
                                                             {% else %}
-                                                                {{ menu.label }}
+                                                                {{ menu.label|trans({}, 'SonataUserBundle') }}
                                                             {% endif %}
                                                         </li>
                                                     {% else %}
-                                                        <li class="active"><span>{{ menu.label }}</span></li>
+                                                        <li class="active"><span>{{ menu.label|trans({}, 'SonataUserBundle') }}</span></li>
                                                     {% endif %}
                                                 {% endfor %}
                                             {% endif %}
