@@ -86,7 +86,7 @@ class BlogAdmin extends AbstractAdmin
         $formMapper
             ->add('title', null, ['label'=>'admin.label.name.title'])
             ->add('publish', null, ['label'=>'admin.label.name.publish'])
-            ->add('publishedDate', 'sonata_type_date_picker', ['label'=>'admin.label.name.published_date', 'required'=>false])
+            ->add('publishedDate', 'sonata_type_date_picker', ['label'=>'admin.label.name.published_date', 'required' => false])
             ->add('posts', 'sonata_type_model_autocomplete', ['label'=>'admin.label.name.posts', 'property'=>'title', 'multiple' => true, 'required' => false])
             ->add('metaDescription', 'textarea', ['label'=>'admin.label.name.meta_description'])
             ->add('bl_multiple_blog', BlMultipleBlogType::class, ['label'=>'admin.label.name.blog_data'])
