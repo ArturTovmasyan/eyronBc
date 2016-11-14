@@ -2142,7 +2142,7 @@ class User extends BaseUser
      */
     public function isFollowing($user)
     {
-        return $this->followings->contains($user);
+        return $this->followings->contains($user)?1:0;
     }
 
     /**
