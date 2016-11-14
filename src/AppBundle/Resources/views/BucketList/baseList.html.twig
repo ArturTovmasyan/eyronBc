@@ -122,17 +122,17 @@
 
                             {% if profileUser.id == app.user.id %}
                                 <a href="{{ path("edit_user_profile") }}" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
-                            {% else %}
-                                <div class="follow mobile-follow text-right show-xs hidden-sm hidden-md hidden-lg"
-                                     data-ls-follow-manage
-                                     data-ng-cloak
-                                     data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"
-                                     data-ls-user-id="{{ profileUser.id }}"
-                                     data-ls-is-follow="isFollow">
+                            {#{% else %}#}
+                                {#<div class="follow mobile-follow text-right show-xs hidden-sm hidden-md hidden-lg"#}
+                                     {#data-ls-follow-manage#}
+                                     {#data-ng-cloak#}
+                                     {#data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"#}
+                                     {#data-ls-user-id="{{ profileUser.id }}"#}
+                                     {#data-ls-is-follow="isFollow">#}
 
-                                    <i class="icon-follow" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>
-                                    <i class="icon-unfollow" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>
-                                </div>
+                                    {#<i class="icon-follow" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>#}
+                                    {#<i class="icon-unfollow" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>#}
+                                {#</div>#}
                             {% endif %}
 
                             {% block profileImage %}
@@ -146,17 +146,32 @@
                             {% endblock %}
 
                             <figcaption>
+
                                 <h3>
                                     <span class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}" data-ng-if="isMobile">
                                         {% if profileUser.showName %}
                                             {{ profileUser.showName }}
                                         {% endif %}
 
-                                        {% if  profileUser.getAge  %}
-                                            {{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}
-                                        {% endif %}
+                                        {#{% if  profileUser.getAge  %}#}
+                                            {#{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}#}
+                                        {#{% endif %}#}
                                     </span>
                                 </h3>
+
+                                {% if profileUser.id != app.user.id %}
+                                    <span class="close-friends hidden-sm hidden-md hidden-lg"
+                                          data-ls-follow-manage
+                                          data-ng-cloak
+                                          data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"
+                                          data-ls-user-id="{{ profileUser.id }}"
+                                          data-ls-is-follow="isFollow">
+                                        <i class="follow-icon" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>
+                                        <i class="closefriend-icon" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>
+                                        <span data-ng-show="!isFollow">{{ 'goalfriend' | trans | upper }}</span>
+                                        <span data-ng-show="isFollow">{{ 'closefrined' | trans | upper }}</span>
+                                    </span>
+                                {% endif %}
 
                                 <ul>
                                     <li>
@@ -185,8 +200,22 @@
                             </h1>
                         {% endif %}
 
-                        {% if  profileUser.getAge  %}
-                            <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
+                        {#{% if  profileUser.getAge  %}#}
+                            {#<p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>#}
+                        {#{% endif %}#}
+                        {% if profileUser.id != app.user.id %}
+                            <span class="close-friends hidden-xs"
+                                    data-ls-follow-manage
+                                    data-ng-cloak
+                                    data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"
+                                    data-ls-user-id="{{ profileUser.id }}"
+                                    title="[[ !isFollow ? '{{ "my_bucket_list.follow"|trans }}' : '{{ "my_bucket_list.un_follow"|trans }}' ]]"
+                                    data-ls-is-follow="isFollow">
+                                <i class="follow-icon" data-ng-show="!isFollow"></i>
+                                <i class="closefriend-icon" data-ng-show="isFollow"></i>
+                                <span data-ng-show="!isFollow">{{ 'goalfriend' | trans | upper }}</span>
+                                <span data-ng-show="isFollow">{{ 'closefrined' | trans | upper }}</span>
+                            </span>
                         {% endif %}
 
                         {% set badges = profileUser.getBadges %}
@@ -252,18 +281,18 @@
                                 </div>
                             {% endif %}
                         </div>
-                    {% else %}
-                        <div class="col-sm-4 hidden-xs">
-                             <div class="follow text-right"
-                                  data-ls-follow-manage
-                                  data-ng-cloak
-                                  data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"
-                                  data-ls-user-id="{{ profileUser.id }}"
-                                  data-ls-is-follow="isFollow">
-                                <i class="icon-follow" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>
-                                <i class="icon-unfollow" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>
-                             </div>
-                        </div>
+                    {#{% else %}#}
+                        {#<div class="col-sm-4 hidden-xs">#}
+                             {#<div class="follow text-right"#}
+                                  {#data-ls-follow-manage#}
+                                  {#data-ng-cloak#}
+                                  {#data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"#}
+                                  {#data-ls-user-id="{{ profileUser.id }}"#}
+                                  {#data-ls-is-follow="isFollow">#}
+                                {#<i class="icon-follow" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>#}
+                                {#<i class="icon-unfollow" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>#}
+                             {#</div>#}
+                        {#</div>#}
                     {% endif %}
                 </div>
                 {% if app.session.flashBag.has('success') %}
