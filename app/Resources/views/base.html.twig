@@ -38,6 +38,10 @@
                 {#<link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>#}
             {#{% endstylesheets %}#}
 
+            <style>
+                [ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{display:none !important}
+            </style>
+
             {% stylesheets output='css/base.css'
             'bundles/app/less/bootstrap.css'
             'bundles/app/less/icons.css'
