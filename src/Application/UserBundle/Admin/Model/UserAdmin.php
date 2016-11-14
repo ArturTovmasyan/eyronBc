@@ -52,28 +52,28 @@ class UserAdmin extends AbstractAdmin
     {
         $showMapper
             ->tab('General')
-                ->with('User')
-                    ->add('id', null, ['label' =>'show.label_id'])
-                    ->add('email', null, ['label' => 'show.label_email'])
-                    ->add('firstname', null, ['label'=>'show.label_firstname'])
-                    ->add('lastname', null, ['label' => 'show.label_lastname'])
-                    ->add('picture', null, ['label' => 'show.label_picture', 'template' => 'ApplicationUserBundle:Admin:user_show_picture.html.twig'])
-                    ->add('profile', null, ['label' => 'show.label_profile', 'template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'])
-                    ->add('userSocial', null, ['label' => 'show.label_user_social', 'template' => 'ApplicationUserBundle:Admin:user_social_icon_show.html.twig'])
-                    ->add('userMobileOs', null, ['label' => 'show.label_user_mobile', 'template' => 'ApplicationUserBundle:Admin:user_mobile_os_icon_show.html.twig'])
-                    ->add('enabled', null, ['label' => 'form.label_enabled'])
-                    ->add('listedGoals', null, ['label' => 'show.label_listed_goal', 'template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'])
-                    ->add('createdGoals', null, ['label' => 'show.label_created_goal', 'template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'])
-                    ->add('successStory', null, ['label' => 'show.label_story_count', 'template' => 'ApplicationUserBundle:Admin:user_show_goal_story.html.twig'])
-                    ->add('sex', null, ['label' => 'show.label_sex'])
-                    ->add('lastLogin', null, ['label' => 'show.label_last_login'])
-                    ->add('createdAt', 'datetime', ['label' => 'show.label_reg_date'])
-                ->end()
+            ->with('User')
+            ->add('id', null, ['label' =>'show.label_id'])
+            ->add('email', null, ['label' => 'show.label_email'])
+            ->add('firstname', null, ['label'=>'show.label_firstname'])
+            ->add('lastname', null, ['label' => 'show.label_lastname'])
+            ->add('picture', null, ['label' => 'show.label_picture', 'template' => 'ApplicationUserBundle:Admin:user_show_picture.html.twig'])
+            ->add('profile', null, ['label' => 'show.label_profile', 'template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'])
+            ->add('userSocial', null, ['label' => 'show.label_user_social', 'template' => 'ApplicationUserBundle:Admin:user_social_icon_show.html.twig'])
+            ->add('userMobileOs', null, ['label' => 'show.label_user_mobile', 'template' => 'ApplicationUserBundle:Admin:user_mobile_os_icon_show.html.twig'])
+            ->add('enabled', null, ['label' => 'form.label_enabled'])
+            ->add('listedGoals', null, ['label' => 'show.label_listed_goal', 'template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'])
+            ->add('createdGoals', null, ['label' => 'show.label_created_goal', 'template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'])
+            ->add('successStory', null, ['label' => 'show.label_story_count', 'template' => 'ApplicationUserBundle:Admin:user_show_goal_story.html.twig'])
+            ->add('sex', null, ['label' => 'show.label_sex'])
+            ->add('lastLogin', null, ['label' => 'show.label_last_login'])
+            ->add('createdAt', 'datetime', ['label' => 'show.label_reg_date'])
+            ->end()
             ->end()
             ->tab('Emails')
-                ->with('Sent Emails')
-                    ->add('sentEmails', null, ['label' => 'show.label_sent_email', 'template' => 'ApplicationUserBundle:Admin:user_emails.html.twig'])
-                ->end()
+            ->with('Sent Emails')
+            ->add('sentEmails', null, ['label' => 'show.label_sent_email', 'template' => 'ApplicationUserBundle:Admin:user_emails.html.twig'])
+            ->end()
             ->end()
         ;
     }
@@ -105,16 +105,19 @@ class UserAdmin extends AbstractAdmin
         $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $datagridMapper
-            ->add('id', null, ['label'=>'show.label_id','show_filter' => true])
+            ->add('id', null, ['label'=>'show.label_id', 'show_filter' => true])
+            ->add('registrationIds', null, ['label' => 'show.label_user_mobile', 'show_filter' => true],
+                'choice', ['choices'=>['android' => 'admin.label.name.android', 'ios'=>'admin.label.name.ios']
+                ])
             ->add('email', null, ['label'=>'show.label_email_username','show_filter' => true])
             ->add('firstname', null, ['label'=>'show.label_firstname','show_filter' => true])
             ->add('lastname', null, ['label'=>'show.label_lastname','show_filter' => true])
             ->add('createdAt','doctrine_orm_date_range', ['label' => 'form.label_created_at', 'show_filter' => true], 'sonata_type_date_range_picker',
-                    [
-                        'field_options_start' => ['format' => 'yyyy-MM-dd'],
-                        'field_options_end' => ['format' => 'yyyy-MM-dd']
-                    ]
-                );
+                [
+                    'field_options_start' => ['format' => 'yyyy-MM-dd'],
+                    'field_options_end' => ['format' => 'yyyy-MM-dd']
+                ]
+            );
     }
 
     protected function configureListFields(ListMapper $listMapper)
@@ -130,14 +133,14 @@ class UserAdmin extends AbstractAdmin
             ->add('enabled', null, ['label'=>'form.label_enabled'])
             ->add('createdAt', 'datetime', ['label' => 'show.label_created_at'])
             ->add('_action', 'actions', [
-                'label' => 'show.label_actions',
-                'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
-                    'pushNote' => ['template' => 'ApplicationUserBundle:Admin:test_message.html.twig']
+                    'label' => 'show.label_actions',
+                    'actions' => [
+                        'show' => [],
+                        'edit' => [],
+                        'delete' => [],
+                        'pushNote' => ['template' => 'ApplicationUserBundle:Admin:test_message.html.twig']
+                    ]
                 ]
-            ]
             )
         ;
     }
