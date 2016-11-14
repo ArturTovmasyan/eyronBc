@@ -23,6 +23,8 @@
 
                 <hr style="border: 1px solid #cccccc;margin:0;"/>
 
+                <p style="color: #333333;font-size:16px;line-height: 24px;">{{ 'hello' | trans({}, 'email', language) }} {{ receiver.showName }}</p>
+
                 <div style="clear:both;margin:10px 0;padding: 20px 0 0;height:70px;">
 
                     {% if sender %}
@@ -148,7 +150,7 @@
 
                     </ul>
 
-                   <p style="text-align:center;color: #666666;font-size:12px;line-height: 17px;"> {{ 'notify_email_footer'|trans({'%email%': receiver}, 'email', language) }}</p>
+                   <p style="text-align:center;color: #666666;font-size:12px;line-height: 17px;"> {{ 'notify_email_footer'|trans({'%email%': receiver, '%link%': userEmail, '%style%' : 'color: #7724F6;text-decoration:none'}, 'email', language) }}</p>
 
                 </footer>
             </div>

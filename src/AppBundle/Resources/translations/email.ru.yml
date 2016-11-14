@@ -2,7 +2,7 @@ notify_comment: <a style="%profileStyle%" href="%profile%">%senderName%</a> wrot
 notify_success_story: <a style="%profileStyle%" href="%profile%">%senderName%</a> wrote a <a href= %link% style="%style%">success story</a> in your goal:
 subject_for_comment_email: %senderName% wrote a comment
 subject_for_story_email: %senderName% wrote a success story
-notify_email_footer: Данное сообщение было отправлено на %email%. Если Вы в дальнейшем не хотите получать электронные письма от Bucket List 127, пожалуйста, откажитесь от подписки.
+notify_email_footer: Данное сообщение было отправлено на %email%. Если Вы в дальнейшем не хотите получать электронные письма от Bucket List 127, пожалуйста, откажитесь от <a href= %link% style="%style%" target="_blank">подписки</a>.
 email_bucketlist_link: Просмотреть на Bucket List 127
 
 #emails
@@ -39,3 +39,5 @@ email_subject_for_new_goalfriend: У вас %count% новых Единомыш�
 
 email_body_for_new_idea: У нас %count% новых Идей в списке.
 email_subject_for_new_idea: У нас %count% новых Идей в списке.
+
+hello: Здравствуйте
