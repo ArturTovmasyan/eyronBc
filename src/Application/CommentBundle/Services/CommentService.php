@@ -8,6 +8,7 @@
 
 namespace Application\CommentBundle\Services;
 
+use AppBundle\Entity\Blog;
 use AppBundle\Entity\Goal;
 use AppBundle\Services\AbstractProcessService;
 use AppBundle\Services\UserNotifyService;
@@ -108,6 +109,64 @@ class CommentService extends AbstractProcessService
 
         $this->runAsProcess('application.comment', 'sendNotification',
             array($goal->getId(), $user->getId(), $parentComment ? $parentComment->getId() : null ));
+
+        return $comment;
+
+    }
+
+
+    /**
+     * @param Request $request
+     * @param Blog $blog
+     * @param User $user
+     * @param Comment|null $parentComment
+     * @return Comment
+     * @throws \Throwable
+     */
+    public function putBlogComment(Request $request, Blog $blog, User $user,  Comment $parentComment = null)
+    {
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        $em = $this->container->get('doctrine')->getManager();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+
+        $threadId = 'blog_' . $blog->getSlug();
+        $thread = $em->getRepository('ApplicationCommentBundle:Thread')->find($threadId);
+        if (is_null($thread)){
+            $thread = new Thread();
+            $thread->setId($threadId);
+
+            $em->persist($thread);
+        }
+
+        if (!is_null($parentComment)){
+            if ($parentComment->getThread()->getId() != $thread->getId()){
+                throw new HttpException(Response::HTTP_BAD_REQUEST);
+            }
+        }
+
+        $body = $request->get('commentBody', null);
+        if (is_null($body)){
+            throw new HttpException(Response::HTTP_BAD_REQUEST, 'Body can not be empty');
+        }
+
+        $comment = new Comment();
+        $comment->setThread($thread);
+        $comment->setAuthor($user);
+        $comment->setBody($body);
+        $comment->setParent($parentComment);
+        $thread->addComment($comment);
+        $em->persist($comment);
+
+
+        $this->container->get('request_stack')->getCurrentRequest()->getSession()
+            ->getFlashBag()
+            ->set('comments','Add comment from Web');
+
+        $em->flush();
 
         return $comment;
 

@@ -7,6 +7,7 @@
  */
 namespace Application\CommentBundle\Controller\Rest;
 
+use AppBundle\Entity\Blog;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use Application\CommentBundle\Entity\Comment;
@@ -64,6 +65,38 @@ class CommentController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="Comment",
+     *  description="This function is used to put comment in blog",
+     *  statusCodes={
+     *         201="Returned when comment was added",
+     *         401="Returned when user not found",
+     *         400="Body is empty or parent's thread isn't given parent"
+     *     },
+     *  parameters={
+     *      {"name"="commentBody", "dataType"="string", "required"=true, "description"="Comment body"},
+     * }
+     * )
+     *
+     * @Rest\PUT("/blog-comment/{blog}/{parentComment}", requirements={"goal"="\d+", "parentComment"="\d+"}, defaults={"parentComment"=null}, name="put_blog_comment", options={"method_prefix"=false})
+     * @Rest\PUT("/blog/{blog}/comment", requirements={"goal"="\d+", "parentComment"="\d+"}, name="mobile_put_blog_comment", options={"method_prefix"=false})
+     * @Security("has_role('ROLE_USER')")
+     * @ParamConverter("blog", class="AppBundle:Blog")
+     * @Rest\View(serializerGroups={"comment", "comment_children", "comment_author", "tiny_user"})
+     *
+     * @param Request $request
+     * @param Blog $blog
+     * @param Comment $parentComment
+     * @return Response
+     */
+    public function putBlogAction(Request $request, Blog $blog, Comment $parentComment = null)
+    {
+        return $this->container->get("application.comment")
+            ->putBlogComment($request, $blog, $this->getUser(), $parentComment);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Comment",
      *  description="This function is used to get comments by thread id",
      *  statusCodes={
      *         200="Returned when all ok",
@@ -75,7 +108,7 @@ class CommentController extends FOSRestController
      * @Rest\View(serializerGroups={"comment", "comment_children", "comment_author", "tiny_user"})
      * @Rest\Get("/comments/{threadId}/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, defaults={"first"=null, "count"=null}, name="get_comment", options={"method_prefix"=false})
      *
-     * @param Thread $thread
+     * @param Thread $threadId
      * @param null $first
      * @param null $count
      * @return array

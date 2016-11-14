@@ -112,6 +112,18 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
+
+                {% set pathComment = iframe_host ~ path('blog_comment', {'id' : blog.id, 'slug': blog.slug }) %}
+
+                <amp-iframe width="500"
+                            height="281"
+                            layout="responsive"
+                            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                            resizable
+                            frameborder="0"
+                            src="{{ pathComment }}">
+                    <div overflow tabindex=0 role=button aria-label="Read more">Read more!</div>
+                </amp-iframe>
             </div>
 
             <br />
