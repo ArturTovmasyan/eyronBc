@@ -53,5 +53,6 @@ parameters:
     remote_console: ~
 
     iframe_host: https://iframe.bucketlist127.com
+    cookie_domain: .bucketlist127.com
 
 

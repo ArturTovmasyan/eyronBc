@@ -146,7 +146,8 @@ angular.module('comments', ['Interpolation',
     '$rootScope',
     'template',
     'userData',
-    function($compile, $http, $rootScope, template, userData){
+    'envPrefix',
+    function($compile, $http, $rootScope, template, userData, envPrefix){
       return {
         restrict: 'EA',
         scope: {
@@ -170,9 +171,20 @@ angular.module('comments', ['Interpolation',
 
           scope.runCallback = function(){
             var sc = $rootScope.$new();
-            var tmp = $compile(template.reportTemplate)(sc);
-            scope.openModal(tmp);
-            $(".modal-loading").hide();
+
+            if (!template.reportTemplate) {
+              var reportUrl = envPrefix + "user/report";
+              $http.get(reportUrl).success(function(data){
+                template.reportTemplate = data;
+                var tmp = $compile(template.reportTemplate)(sc);
+                scope.openModal(tmp);
+                $(".modal-loading").hide();
+              })
+            } else {
+              var tmp = $compile(template.reportTemplate)(sc);
+              scope.openModal(tmp);
+              $(".modal-loading").hide();
+            }
           };
 
           scope.openModal = function(tmp){
@@ -190,4 +202,33 @@ angular.module('comments', ['Interpolation',
         }
       }
     }
-  ]);
+  ])
+  .controller('reportController',['$scope', 'userData', 'UserGoalDataManager', '$timeout',
+  function ($scope, userData, UserGoalDataManager, $timeout) {
+    $scope.reportDate = {};
+    $scope.reportDate.contentId = userData.report.comment;
+    $scope.reportDate.contentType = userData.report.type;
+    $scope.isReported = false;
+    UserGoalDataManager.getReport({type: userData.report.type, commentId: userData.report.comment}, function (data) {
+      if(data.content_id){
+        $scope.reportOption = data.report_type?data.report_type:null;
+        $scope.reportText = data.message?data.message:'';
+      }
+    });
+
+    $scope.report = function(){
+      if(!($scope.reportOption || $scope.reportText))return;
+
+      $scope.reportDate.reportType = $scope.reportOption?$scope.reportOption:null;
+      $scope.reportDate.message = $scope.reportText?$scope.reportText:null;
+
+      UserGoalDataManager.report({}, $scope.reportDate, function () {
+        $scope.isReported = true;
+        $timeout(function(){
+          $('#report-modal .close-icon').click();
+        },1500);
+      })
+    }
+
+  }
+]);
