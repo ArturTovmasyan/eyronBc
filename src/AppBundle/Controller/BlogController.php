@@ -93,7 +93,7 @@ class BlogController extends Controller
      * @param $slug
      * @param Request $request
      * @Template()
-     * @Route("/{slug}", name="blog_show")
+     * @Route("/blog/{slug}", name="blog_show")
      * @return Response
      */
     public function showAction(Request $request, $slug)
