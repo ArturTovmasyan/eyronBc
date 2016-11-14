@@ -138,12 +138,24 @@
     }
   }
 
-  .follow{
-    img{
+  .follow,.mobile-follow{
+    i{
       width: 43px;
       height: 43px;
       background-size: 100%;
       cursor: pointer;
+      display: inline-block;
+    }
+
+    .icon-follow{
+      background: url('../images/follow.svg') no-repeat center center;
+      &:hover{
+        background: url('../images/unfollow.svg') no-repeat center center;
+      }
+    }
+
+    .icon-unfollow{
+      background: url('../images/unfollow.svg') no-repeat center center;
     }
   }
 
