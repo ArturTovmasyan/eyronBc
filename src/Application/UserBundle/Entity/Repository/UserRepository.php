@@ -22,6 +22,28 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class UserRepository extends EntityRepository
 {
     /**
+     * This function is used to get users who follow me
+     *
+     * @param $userId
+     * @return array
+     */
+    public function findMyFollowers($userId)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           JOIN ApplicationUserBundle:User folowers WITH folowers = u
+                           JOIN folowers.followings f
+                           WITH f.id = :userId
+                           ")
+            ->setParameter("userId", $userId)
+            ->getResult();
+
+        return $result;
+
+    }
+
+    /**
      * This function is used to get user by email token
      *
      * @param $emailToken

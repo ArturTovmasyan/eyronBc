@@ -250,6 +250,9 @@ angular.module('profile')
             case 'active':
               $scope.getCategory(path);
               break;
+            case 'follow':
+              $scope.getCategory(path);
+              break;
             default:
               $scope.getCategory('all');
           }

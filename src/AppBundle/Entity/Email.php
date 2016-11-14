@@ -36,7 +36,7 @@ class Email
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=10000)
+     * @ORM\Column(type="binary", length=2000)
      */
     private $content;
 
@@ -95,8 +95,7 @@ class Email
      */
     public function setContent($content)
     {
-        $this->content = $content;
-
+        $this->content = gzcompress($content);
         return $this;
     }
 
@@ -107,6 +106,14 @@ class Email
      */
     public function getContent()
     {
+        if(is_resource($this->content)){
+            $stream = stream_get_contents($this->content);
+            if($stream){
+                $unGzip = gzuncompress($stream);
+                return  $unGzip;
+            }
+        }
+
         return $this->content;
     }
 

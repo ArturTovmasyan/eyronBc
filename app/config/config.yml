@@ -43,7 +43,8 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v568
+        assets_version: v579
+
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -83,6 +84,7 @@ twig:
         project_name: %project_name%
         google_api_key: %google_api_key%
         ga_id: %ga_id%
+        facebook_api_id: %facebook_client_id%
         booking_aid: %booking_aid%
         env_prefix: ~
         remote_console: %remote_console%

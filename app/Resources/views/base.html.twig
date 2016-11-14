@@ -13,11 +13,12 @@
         <meta property="og:title" content="{%- block og_title -%}{{ block('title') }}{%- endblock -%}" />
         <meta property="og:url" content="{%- block og_url -%}{{- app.request.uri -}} {%- endblock -%}" />
         <meta property="og:description" content="{%- block og_description -%}{{ block('meta_description') }}{%- endblock -%}" />
-        <meta property="og:site_name" content="BucketList" />
+        <meta property="og:site_name" content="BucketList127" />
         {#<meta property="og:image" content="{%- block og_image -%}{{ 'bl.w3docs.com/favicon.ico' }}{%- endblock -%}" />#}
         <meta property="og:image" content="{%- block og_image -%}{{ app.request.schemeAndHttpHost }}/bundles/app/images/bucketlist_new.png{%- endblock -%}" />
         <meta property="og:type" content="article">
         <meta property="fb:pages" content="1711606329055370" />
+        <meta property="fb:app_id" content="{{ facebook_api_id }}" />
         <meta name='B-verify' content='8bfd63c976e1100818e071965bd9a439cc72f0f4' />
         
         <link rel="canonical" href="https://www.bucketlist127.com{{ app.request.getPathInfo }}" />
@@ -40,6 +41,7 @@
             {% stylesheets output='css/base.css'
             'bundles/app/less/bootstrap.css'
             'bundles/app/less/icons.css'
+            'bundles/app/less/font.css'
             'app/bower_components/angular-motion/dist/angular-motion.min.css'
             'app/bower_components/jquery-nice-select/css/nice-select.css'
             'app/bower_components/jquery-modal/jquery.modal.css'
@@ -79,7 +81,7 @@
         <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset('bucketlist120x120.png') }}">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bucketlist72x72.png') }}">
         <link rel="apple-touch-icon-precomposed" href="{{ asset('bucketlist57x57.png') }}">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        {#<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>#}
 
         {% if not app.debug and testUrl != "http://behat.bucketlist.loc" %}
             <script>

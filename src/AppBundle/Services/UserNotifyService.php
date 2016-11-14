@@ -207,6 +207,7 @@ class UserNotifyService extends AbstractProcessService
                 'sender' => $sender,
                 'viewLink' => $viewLink,
                 'language' => $language,
+                'userEmail' => $router->generate('edit_user_notify', array(), true)
             );
 
             $id = $this->createEmailRecorder($receiver, $subject, $contentParameters);
@@ -255,7 +256,7 @@ class UserNotifyService extends AbstractProcessService
 
         //generate content for email
         $content = $this->container->get('templating')->render(
-            'AppBundle:Templates:userNotifyEmail.html.twig',
+            'AppBundle:Templates:userNotifyEmailForDB.html.twig',
             $contentParameters
         );
 

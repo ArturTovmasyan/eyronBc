@@ -52,25 +52,37 @@ class GoalRepository extends EntityRepository
      * @param $longitude
      * @param $first
      * @param $count
+     * @param $userId
+     * @param $isCompleted
      * @return array
      */
-    public function findNearbyGoals($latitude, $longitude, $first, $count)
+    public function findNearbyGoals($latitude, $longitude, $first, $count, $isCompleted, $userId)
     {
         $result = [];
         //3959 search in miles
         //6371 search in km
-        $ids =  $this->getEntityManager()
-            ->createQuery("SELECT g.id,
-                           (6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
-                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist
-                           FROM AppBundle:Goal g
-                           WHERE g.lat is not null and g.lng is not null
-                           ORDER BY dist
-                         ")
+        $query =  $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('g.id', '(6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
+                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist')
+            ->from('AppBundle:Goal', 'g')
+            ->where('g.lat is not null and g.lng is not null')
+            ->orderBy('dist')
             ->setParameter('lat', $latitude)
-            ->setParameter('lng', $longitude)
+            ->setParameter('lng', $longitude);
+
+        if(($isCompleted == 'false' || !$isCompleted ) && !is_null($userId)){
+            $query
+                ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
+                ->andWhere('ug.id IS NULL or ug.status = :status')
+                ->setParameter('status', UserGoal::ACTIVE)
+                ->setParameter('user', $userId);
+        }
+        
+        $ids = $query
             ->setFirstResult($first)
             ->setMaxResults($count)
+            ->getQuery()
             ->getArrayResult()
         ;
 
@@ -152,18 +164,33 @@ class GoalRepository extends EntityRepository
         }
 
         $stats = $this->getEntityManager()
-            ->createQuery("SELECT g.id as goalId, COUNT(ug) as listedBy,
-                          (SELECT COUNT (ug1) from AppBundle:UserGoal ug1
-                           WHERE ug1.status != :status and ug1.goal = g) as doneBy
+            ->createQuery("SELECT g.id as goalId,
+                              SUM(CASE WHEN ug.status = :status THEN 1 ELSE  0 END) AS listedBy,
+                              SUM(CASE WHEN ug.status != :status THEN 1 ELSE 0 END) AS doneBy
                            FROM AppBundle:Goal g
-                           INDEX BY g.id
                            LEFT JOIN g.userGoal ug
+                           INDEX BY g.id
                            WHERE g.id IN (:goalIds)
                            GROUP BY g.id
                           ")
             ->setParameter('goalIds', array_keys($goals))
             ->setParameter('status', UserGoal::ACTIVE)
             ->getResult();
+
+
+//        $stats = $this->getEntityManager()
+//            ->createQuery("SELECT g.id as goalId, COUNT(ug) as listedBy,
+//                          (SELECT COUNT (ug1) from AppBundle:UserGoal ug1
+//                           WHERE ug1.status != :status and ug1.goal = g) as doneBy
+//                           FROM AppBundle:Goal g
+//                           INDEX BY g.id
+//                           LEFT JOIN g.userGoal ug
+//                           WHERE g.id IN (:goalIds)
+//                           GROUP BY g.id
+//                          ")
+//            ->setParameter('goalIds', array_keys($goals))
+//            ->setParameter('status', UserGoal::ACTIVE)
+//            ->getResult();
 
         if ($getStats){
             return $stats;
@@ -502,9 +529,16 @@ class GoalRepository extends EntityRepository
                     ->createQueryBuilder()
                     ->select('DISTINCT u')
                     ->from('ApplicationUserBundle:User', 'u', 'u.id')
-                    ->join('u.userGoal', 'ug')
-                    ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
                     ->where("u.id != :userId AND u.isAdmin = false");
+
+        ;
+
+
+        if($type != "follow"){
+            $query
+                ->join('u.userGoal', 'ug')
+                ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId');
+        }
 
         if ($search){
             $query->andWhere("u.firstname LIKE :search
@@ -529,6 +563,13 @@ class GoalRepository extends EntityRepository
                     ->where('u.isAdmin = false')
                     ->orderBy('m_user.commonFactor', 'DESC')
                     ->addOrderBy('m_user.commonCount', 'DESC')
+                ;
+                break;
+            case 'follow':
+                $query
+                    ->join('ApplicationUserBundle:User', 'fu', 'WITH', 'fu = :userId')
+                    ->join('fu.followings', 'fus')
+                    ->andWhere('fus = u')
                 ;
                 break;
             case 'active':
@@ -620,7 +661,7 @@ class GoalRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('u, ug')
             ->from('ApplicationUserBundle:User', 'u', 'u.id')
-            ->join('u.userGoal', 'ug', 'WITH', 'ug.status = :status OR :status IS NULl')
+            ->join('u.userGoal', 'ug', 'WITH', 'ug.status = :status')
             ->join('ug.goal', 'g', 'WITH', 'g.id = :goalId')
             ->setParameter('status', $status)
             ->setParameter('goalId', $goalId);
@@ -907,13 +948,15 @@ class GoalRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('u')
             ->from('ApplicationUserBundle:User', 'u')
-            ->join('u.userGoal', 'ug', 'with', 'ug.goal = :goalId AND ug.important = true');
+            ->join('u.userGoal', 'ug', 'with', 'ug.goal = :goalId AND ug.important = true')
+            ->setParameter('goalId', $goalId)
+
+        ;
 
         if($authorId){
             $query
                 ->andWhere('u.id != :authorId')
                 ->setParameter('authorId', $authorId)
-                ->setParameter('goalId', $goalId)
             ;
         }
 

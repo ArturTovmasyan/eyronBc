@@ -138,6 +138,7 @@ goal_friend_menu:
       recently_matched: Recently Matched
       most_matching: Most Matching
       most_activity: Most Active
+      follow: Following
 
 activities:
       title: Bucket List 127-Activity
@@ -263,7 +264,7 @@ menu:
   map: Map
   common: In Common
   owned: Created
-  bucketlist_stories: Bucketlist Stories
+  bucketlist_stories: Bucket List Stories
 
 right_menu:
   my_ideas: My Ideas
@@ -315,6 +316,8 @@ my_bucket_list:
   edit: edit
   missed_deadline: Missed deadline
   year_old: y.o.
+  follow: Follow
+  un_follow: Unfollow
   completed_description: See the list of goals you have to completed. Get inspired of them and continue working hard to achieve your goals and make your dreams come true.
   active_description: See the list of your active goals. Be aware of the deadline and completion date of your goals and do your best to meet the scheduled date.
 
@@ -418,6 +421,8 @@ notification:
   done_goal: You done '%goal%' goal
   title: Bucketlist 127-Notifications
   description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
+  following_story: follower wrote success story
+  following_comment: follower wrote comment
 
 # sonata admin lable
 admin:
@@ -632,4 +637,15 @@ leaderboard:
   traveler: Traveler
   innovator: Innovator
   writer: Mentor
+  position: Your Position
+  position_text: Want to rise on the leaderboard? Devote more time to your Bucket List.
+  rewards: Rewards
+  travelerText: <strong class="text-dark-gray">Traveler</strong> is a person who has seen the world more than users does
+  innovatorText: <strong class="text-dark-gray">Innovator</strong> is a person who has suggested a lot of goal ideas that we have accepted and shared
+  motivatorText: <strong class="text-dark-gray">Mentor</strong> is a person who has inspired a lot of people, with his motivational success stories
+  top: Top 10
+  rank: Rank
+  leaders: Leaders
+  score: Score
+  level: Level
 
