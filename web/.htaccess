@@ -3,6 +3,7 @@
     RewriteBase /
     RewriteCond %{HTTP_HOST} !^www\. [NC]
     RewriteCond %{HTTP_HOST} !^stage\. [NC]
+    RewriteCond %{HTTP_HOST} !^cdn\. [NC]
     RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
 </IfDefine>
 
