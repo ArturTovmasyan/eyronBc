@@ -741,6 +741,8 @@ angular.module('goal', ['Interpolation',
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
         $scope.locations = [];
+        $scope.isHover = false;
+        $scope.hoveredText = '';
         $scope.ideasTitle = true;
         $scope.noIdeas = false;
         $scope.isSearching = false;
@@ -750,6 +752,10 @@ angular.module('goal', ['Interpolation',
         
         $scope.scrollTop = function () {
             $("html, body").animate({ scrollTop: 0 }, "slow");
+        };
+            
+        $scope.notInterest = function (id) {
+            
         };
 
         if(path.length){
@@ -770,6 +776,21 @@ angular.module('goal', ['Interpolation',
                 }
             },100);
         }
+
+        $scope.hoverIn = function (ev, text) {
+            $scope.isHover = true;
+            $scope.hoveredText = text;
+            var left = $(ev.target).offset().left;
+            var top  = $(ev.target).offset().top - 50;
+
+            if(left > window.innerWidth/2){
+                left = left - 100;
+                $('.list-tooltip .arrow-up').css({left: 110});
+            } else {
+                $('.list-tooltip .arrow-up').css({left: 14});
+            }
+            $('.list-tooltip').css({top: top,left: left});
+        };
 
         $scope.allowBrowserLocation = function () {
 

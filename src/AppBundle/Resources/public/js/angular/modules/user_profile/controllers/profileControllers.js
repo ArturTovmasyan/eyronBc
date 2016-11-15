@@ -16,6 +16,8 @@ angular.module('profile')
       var path = $location.$$path;
       $scope.errorMessages = [];
       $scope.userGoalIds = [];
+      $scope.isHover = false;
+      $scope.hoveredText = '';
       angular.element(".settings select").niceSelect();
       
       $scope.ProfileItems = new lsInfiniteGoals(10);
@@ -29,6 +31,21 @@ angular.module('profile')
 
       $scope.scrollTop = function () {
         $("html, body").animate({ scrollTop: 0 }, "slow");
+      };
+
+      $scope.hoverIn = function (ev, text) {
+        $scope.isHover = true;
+        $scope.hoveredText = text;
+        var left = $(ev.target).offset().left;
+        var top  = $(ev.target).offset().top - 30;
+
+        if(left > window.innerWidth/2){
+          left = left - 100;
+          $('.follow-tooltip .arrow-up').css({left: 110});
+        } else {
+          $('.follow-tooltip .arrow-up').css({left: 14});
+        }
+        $('.follow-tooltip').css({top: top,left: left});
       };
 
       $timeout(function () {
