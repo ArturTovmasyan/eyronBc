@@ -12,7 +12,7 @@
            data-ng-init="goal_location={{ form.vars.value|default("{}") }}"
            value="{{ form.vars.value }}">
 
-    <div class="map-marker" data-ng-show="goal_location.location.latitude"
+    <div class="map-marker"
          data-simple-map-marker
          data-zoom="14"
          data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"
