@@ -87,7 +87,14 @@
                          data-ng-cloak data-ng-show="activity.success_story"
                          data-ng-init="$parent.count[ activity.success_story.id ] = activity.success_story.voters_count;
                          $parent.vote[activity.success_story.id] = isVoting(activity.success_story.is_vote, activity.success_story)">
-                        <span class="text-purple">[[ $parent.count[ activity.success_story.id ] ]]</span>
+                        <span class="text-purple ng-hide" data-ng-show="$parent.count[ activity.success_story.id ] < 1">0</span>
+                        <a data-ls-goal-users
+                           class="text-purple ng-hide"
+                           data-ng-show="$parent.count[ activity.success_story.id ] > 0"
+                           href="javascript:void(0)"
+                           data-ls-item-id="[[ activity.success_story.id ]]"
+                           data-ls-count="[[ $parent.count[ activity.success_story.id ] ]]"
+                           data-ls-category="3">[[ $parent.count[ activity.success_story.id ] ]]</a>
                         <i data-ng-class="{'like-active': $parent.vote[activity.success_story.id],'user-story':(activity.success_story.user.id == {{ app.user.id }})}" data-ng-click="manageVote(activity.success_story.id, (activity.success_story.user.id != {{ app.user.id }}))" class="like-icon"></i>
                     </div>
                 </div>
@@ -131,7 +138,7 @@
                                         <a data-ls-goal-users
                                            href="javascript:void(0)"
                                            data-ls-goal-id="[[ singleGoal.id ]]"
-                                           data-ls-category="listed"
+                                           data-ls-category="1"
                                            data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
                                            data-ng-show="castInt(singleGoal.stats.listedBy)">
                                                             <span>
@@ -234,7 +241,7 @@
                                 <a data-ls-goal-users
                                    href="javascript:void(0)"
                                    data-ls-goal-id="[[ singleGoal.id ]]"
-                                   data-ls-category="listed"
+                                   data-ls-category="1"
                                    data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
                                    class="ng-scope">
                                     <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::singleGoal.stats.listedBy ]] </span>
