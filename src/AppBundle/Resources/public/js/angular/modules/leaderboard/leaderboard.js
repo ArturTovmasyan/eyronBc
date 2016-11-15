@@ -69,8 +69,9 @@ angular.module('leaderboard', ['Interpolation',
     };
 
     $scope.getFullName = function (user) {
+      var name = user.first_name + user.last_name;
       if($scope.isMobile){
-        return (user.first_name.length > 9)?(user.first_name.substr(0,6) + '...'):(user.first_name.length + user.last_name.length > 9)?(user.first_name + ' ' + user.last_name.substr(0,6 - user.first_name.length) + '...'): user.first_name + ' ' + user.last_name;
+        return (name.length > 9)?(name.substr(0,6) + '...'):name
       } else {
         return user.first_name + ' ' + user.last_name;
       }

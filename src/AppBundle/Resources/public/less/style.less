@@ -409,7 +409,6 @@ header{
             overflow: hidden;
             float:left;
             margin: 0 10px 0 0;
-            border: 2px solid #cecece;
             img{
               height:40px;
             }
@@ -1047,23 +1046,49 @@ label{
 
 
 .profile-image1{
-  background: url('../images/no-image-profile.png') no-repeat -164px 0;
+  //background: url('../images/no-image-profile.png') no-repeat -164px 0;
+  background: #e70053;
+  background: -webkit-linear-gradient(#e70053, #6400de);
+  background: -o-linear-gradient(#e70053, #6400de);
+  background: -moz-linear-gradient(#e70053, #6400de);
+  background: linear-gradient(#e70053, #6400de);
+  //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(232, 227, 227, 0.95)', endColorstr='rgba(246, 242, 242, 0.95)',GradientType=0 ); /* IE6-9 */
 }
 
 .profile-image2{
-  background: url('../images/no-image-profile.png') no-repeat -328px 0;
+  //background: url('../images/no-image-profile.png') no-repeat -328px 0;
+  background: #df9426;
+  background: -webkit-linear-gradient(#df9426, #e1950A);
+  background: -o-linear-gradient(#df9426, #e1950A);
+  background: -moz-linear-gradient(#df9426, #e1950A);
+  background: linear-gradient(#df9426, #e195A);
 }
 
 .profile-image3{
-  background: url('../images/no-image-profile.png') no-repeat -492px 0;
+  //background: url('../images/no-image-profile.png') no-repeat -492px 0;
+  background: #18212d;
+  background: -webkit-linear-gradient(#18212d, #8400f8);
+  background: -o-linear-gradient(#18212d, #8400f8);
+  background: -moz-linear-gradient(#18212d, #8400f8);
+  background: linear-gradient(#18212d, #8400f8);
 }
 
 .profile-image4{
-  background: url('../images/no-image-profile.png') no-repeat -656px 0;
+  //background: url('../images/no-image-profile.png') no-repeat -656px 0;
+  background: #13d1b1;
+  background: -webkit-linear-gradient(#13d1b1, #6400de);
+  background: -o-linear-gradient(#13d1b1, #6400de);
+  background: -moz-linear-gradient(#13d1b1, #6400de);
+  background: linear-gradient(#13d1b1, #6400de);
 }
 
 .profile-image0{
-  background: url('../images/no-image-profile.png') no-repeat 0 0;
+  //background: url('../images/no-image-profile.png') no-repeat 0 0;
+  background: #0ebc97;
+  background: -webkit-linear-gradient(#0ebc97, #e70053);
+  background: -o-linear-gradient(#0ebc97, #e70053);
+  background: -moz-linear-gradient(#0ebc97, #e70053);
+  background: linear-gradient(#0ebc97, #e70053);
 }
 
 #signin{
@@ -1485,7 +1510,7 @@ label{
       float: left;
       width:40px;
       height:40px;
-      line-height: 34px;
+      line-height: 38px;
       vertical-align: middle;
       font-size:14px !important;
       font-weight:600;
@@ -1826,19 +1851,13 @@ figure{
         display: inline-block;
         padding-left:10px;
         a{
-          color:#E5E5E5;
+          color:#ffffff;
           font-size:12px;
 
           &:hover{
             span{
               text-decoration: underline;
             }
-          }
-        }
-
-        &:last-child{
-          a{
-            color:#ffffff;
           }
         }
       }
@@ -2601,7 +2620,8 @@ footer{
   width: 14px;
   height: 14px;
   background: url('../images/leaderboard_small.svg') no-repeat center center;
-  margin: 0 6px;
+  margin: 1px 6px 0;
+  vertical-align: top;
 }
 
 .badge-place{
@@ -2630,8 +2650,7 @@ footer{
   li{
     display: inline-block;
     text-align: center;
-
-
+    margin: 0 10px 0 0;
 
     span,a{
       display: block;
@@ -2952,7 +2971,7 @@ footer{
             p{
               width:50px;
               height:50px;
-              line-height: 46px;
+              line-height: 48px;
             }
 
             span.name{

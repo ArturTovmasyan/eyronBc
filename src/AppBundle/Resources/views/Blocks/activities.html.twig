@@ -141,16 +141,16 @@
                                            data-ls-category="1"
                                            data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
                                            data-ng-show="castInt(singleGoal.stats.listedBy)">
-                                                            <span>
-                                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                                                [[ singleGoal.stats.listedBy ]]
-                                                            </span>
+                                            <span>
+                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                [[ singleGoal.stats.listedBy ]]
+                                            </span>
                                             <i class="icon-user-small"></i>
                                         </a>
-                                                        <span class="text-white" data-ng-hide="castInt(singleGoal.stats.listedBy)">
-                                                            {{ 'home_listed_by'|trans({},'messages') }}
-                                                            [[ ::singleGoal.stats.listedBy ]]
-                                                        </span>
+                                        <span data-ng-hide="castInt(singleGoal.stats.listedBy)">
+                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            [[ ::singleGoal.stats.listedBy ]]
+                                        </span>
                                         <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.listedBy)"></i>
                                     </li>
                                     <li>
@@ -159,16 +159,16 @@
                                            data-ls-goal-id="[[ singleGoal.id ]]"
                                            data-ls-count="[[ ::singleGoal.stats.doneBy ]]"
                                            data-ng-show="castInt(singleGoal.stats.doneBy)">
-                                                            <span>
-                                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                                [[ singleGoal.stats.doneBy ]]
-                                                            </span>
+                                            <span>
+                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                [[ singleGoal.stats.doneBy ]]
+                                            </span>
                                             <i class="icon-user-small"></i>
                                         </a>
-                                                        <span class="text-white" data-ng-hide="castInt(singleGoal.stats.doneBy)">
-                                                            {{ 'home_complete'|trans({},'messages') }}
-                                                            [[ ::singleGoal.stats.doneBy ]]
-                                                        </span>
+                                        <span data-ng-hide="castInt(singleGoal.stats.doneBy)">
+                                            {{ 'home_complete'|trans({},'messages') }}
+                                            [[ ::singleGoal.stats.doneBy ]]
+                                        </span>
                                         <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.doneBy)"></i>
                                     </li>
                                 </ul>

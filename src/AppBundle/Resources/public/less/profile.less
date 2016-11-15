@@ -138,24 +138,51 @@
     }
   }
 
-  .follow,.mobile-follow{
+  .close-friends{
+    cursor: pointer;
+    height: 32px;
+    line-height: 32px;
+    background-color: #f4f4f4;
+    .rounded-corners(6px);
+    color: #666666;
+    padding: 6px 17px;
+
     i{
-      width: 43px;
-      height: 43px;
-      background-size: 100%;
-      cursor: pointer;
       display: inline-block;
-    }
+      width: 16px;
+      height: 14px;
+      margin-right: 5px;
 
-    .icon-follow{
-      background: url('../images/follow.svg') no-repeat center center;
-      &:hover{
-        background: url('../images/unfollow.svg') no-repeat center center;
+      vertical-align: middle;
+      &.follow-icon{
+        background: url('../images/follow.svg') no-repeat center center;
+        background-size: 100%;
       }
+
+      &.closefriend-icon{
+        background: url('../images/closefriend.svg') no-repeat center center;
+        background-size: 100%;
+      }
+
     }
 
-    .icon-unfollow{
-      background: url('../images/unfollow.svg') no-repeat center center;
+    span{
+      display: inline-block;
+      text-transform: uppercase;
+    }
+
+    &:hover{
+      background-color: #ffffff;
+      i{
+        &.follow-icon{
+          background: url('../images/follow-hover.svg') no-repeat center center;
+          background-size: 100%;
+        }
+        &.closefriend-icon{
+          background: url('../images/follow-hover.svg') no-repeat center center;
+          background-size: 100%;
+        }
+      }
     }
   }
 
@@ -163,7 +190,6 @@
     position: absolute;
     right:20px;
     overflow: initial;
-    //display: inline-block;
   }
   .question-icon-new{
     display: inline-block;
@@ -197,30 +223,34 @@
     padding:10px 0;
 
     div{
-      width:140px;
-      height:140px;
+      width:100px;
+      height:100px;
       margin:0 auto;
       overflow:hidden;
     }
 
     span.profile-image{
       display: block;
-      width:140px;
-      height:140px;
+      width:100px;
+      height:100px;
       font-size:52px;
       font-weight:600;
-      line-height:130px;
+      line-height: 80px;
       color:#ffffff;
     }
 
     img{
-      height:140px;
+      height:100px;
       width: 100%;
     }
 
     figcaption{
       margin-top:11px;
       background-color: transparent;
+
+      ul{
+        padding-top: 10px;
+      }
 
       h3{
         color: #ffffff;
@@ -277,11 +307,11 @@
         position: absolute;
         top: 0;
         background: rgba(0, 0, 0, 0.3);
-        width: 140px;
-        height: 140px;
+        width: 100px;
+        height: 100px;
         .rounded-corners;
         margin: 0;
-        padding: 40px 15px;
+        padding: 22px 5px;
 
         label{
           color: #ffffff !important;
@@ -335,7 +365,6 @@
   }
 
   h1{
-    font-size:25px;
     margin:7px 0 5px;
     font-weight: lighter;
 
@@ -343,6 +372,11 @@
       display: inline-block;
       line-height: normal;
       padding: 2px 10px;
+      font-size:25px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      overflow: hidden;
     }
   }
 
@@ -775,6 +809,10 @@
       figcaption{
         margin-top:11px;
 
+        ul{
+          padding-top: 0;
+        }
+
         li{
           padding:0 8px;
 
@@ -785,6 +823,17 @@
             }
           }
         }
+      }
+    }
+
+    .close-friends{
+      height: 40px;
+      line-height: 40px;
+      padding: 10px 17px;
+
+      i{
+        width: 18px;
+        height: 16px;
       }
     }
 
@@ -1004,6 +1053,8 @@
       margin: 0 5px 0 0;
     }
   }
+
+
 }
 
 @media (min-width: @screen-md) {
@@ -1117,8 +1168,8 @@
     }
 
     h1 span.title-smaller,figcaption span.title-smaller{
-      font-size:38px;
-      line-height: 57px;
+      font-size:34px;
+      line-height: 51px;
       span{
         padding: 7px 20px 14px;
       }
