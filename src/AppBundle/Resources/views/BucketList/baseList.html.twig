@@ -122,17 +122,6 @@
 
                             {% if profileUser.id == app.user.id %}
                                 <a href="{{ path("edit_user_profile") }}" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
-                            {#{% else %}#}
-                                {#<div class="follow mobile-follow text-right show-xs hidden-sm hidden-md hidden-lg"#}
-                                     {#data-ls-follow-manage#}
-                                     {#data-ng-cloak#}
-                                     {#data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"#}
-                                     {#data-ls-user-id="{{ profileUser.id }}"#}
-                                     {#data-ls-is-follow="isFollow">#}
-
-                                    {#<i class="icon-follow" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>#}
-                                    {#<i class="icon-unfollow" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>#}
-                                {#</div>#}
                             {% endif %}
 
                             {% block profileImage %}
@@ -147,7 +136,7 @@
 
                             <figcaption>
 
-                                <h3>
+                                <h3 data-ng-cloak>
                                     <span class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}" data-ng-if="isMobile">
                                         {% if profileUser.showName %}
                                             {{ profileUser.showName }}
@@ -270,7 +259,7 @@
                                         </div>
                                         <div class="col-xs-2">
                                             <a class="text-gray"
-                                               data-ng-click="completeProfileMyBucketList=!completeProfileMyBucketList">
+                                               data-ng-click="completeProfileMyBucketList=!completeProfileMyBucketList" data-ng-cloak>
                                                 <i class="question-icon-new ng-hide" data-ng-hide="completeProfileMyBucketList || isMobile"></i>
                                                 <i class="icon-question-icon ng-hide" data-ng-hide="completeProfileMyBucketList || !isMobile"><span class="path1"></span><span class="path2"></span></i>
                                                 <i class="icon-icon-up ng-hide" data-ng-show="completeProfileMyBucketList"><span class="path1"></span><span class="path2"></span></i>
