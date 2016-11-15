@@ -14,7 +14,7 @@
 <div class="inner-container {% if not aphorisms %} no-quote {% if not author or author.isAdmin %} no-author{% endif %} {% endif %}">
     {% set cover = goal.getCoverPhotoDownloadLink %}
     {% set goalInner = true %}
-    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}
     <figure class="goal-image">
         <span class="overlay"></span>
         <img src="
@@ -426,7 +426,7 @@
                                                        href="javascript:void(0)"
                                                        data-ls-goal-id="{{ goal.id }}"
                                                        data-ls-count="{{ goal.stats.listedBy }}"
-                                                       data-ls-category="1"></a>
+                                                       data-ls-category="listed"></a>
                                                 {% endif %}
                                             </li>
                                         </ul>
@@ -619,14 +619,7 @@
                                             </div>
 
                                             <div class=" col-xs-3 text-right" data-ng-cloak>
-                                                <span class="text-purple ng-hide" data-ng-show="count[{{ story.id }}] < 1">0</span>
-                                                <a data-ls-goal-users
-                                                   class="text-purple ng-hide"
-                                                   data-ng-show="count[{{ story.id }}] > 0"
-                                                   href="javascript:void(0)"
-                                                   data-ls-item-id="{{ story.id }}"
-                                                   data-ls-count="[[ count[{{ story.id }}] ]]"
-                                                   data-ls-category="3">[[ count[{{ story.id }}] ]]</a>
+                                                <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
                                                 {% set class = '' %}
                                                 <i data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% else %}  {% set class = 'user-story' %} {% endif %} class="like-icon {{ class }}"></i>
                                             </div>
@@ -804,7 +797,7 @@
                                                    href="javascript:void(0)"
                                                    data-ls-goal-id="[[ ::goal.id ]]"
                                                    data-ls-count="[[ ::goal.stats.listedBy ]]"
-                                                   data-ls-category="1"
+                                                   data-ls-category="listed"
                                                    data-ng-show="castInt(goal.stats.listedBy)">
                                                             <span>
                                                                 {{ 'home_listed_by'|trans({},'messages') | capitalize }}
