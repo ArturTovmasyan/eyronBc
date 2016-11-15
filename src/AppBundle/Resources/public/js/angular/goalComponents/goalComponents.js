@@ -146,6 +146,7 @@ angular.module('goalComponents', ['Interpolation',
       $scope.index = 0;
       $scope.currentUserId = UserContext.id;
       $scope.isMobile = (window.innerWidth < 768);
+      $scope.isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
       var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
 
       if(!leaderboardCache){
@@ -170,11 +171,9 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.getFullName = function (user) {
-        if($scope.isMobile){
-          return (user.first_name.length > 16)?(user.first_name.substr(0,13) + '...'):(user.first_name.length + user.last_name.length > 16)?(user.first_name + ' ' + user.last_name.substr(0,13 - user.first_name.length) + '...'): user.first_name + ' ' + user.last_name;
-        } else {
-          return user.first_name + ' ' + user.last_name;
-        }
+        var name = user.first_name + user.last_name,
+            count = $scope.isTouchdevice?50:(($scope.isMobile || (window.innerWidth > 991 && window.innerWidth < 1170))?16:24);
+          return (name.length > count)?(name.substr(0,count -3) + '...'):name;
       };
 
       var leaderboards = leaderboardCache.get('leaderboards');
