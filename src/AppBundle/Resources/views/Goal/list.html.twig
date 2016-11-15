@@ -124,13 +124,12 @@
                                 <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
                             </h3>
                             {% if app.user %}
-                                <div class="ng-hide"
+                                <span class="ng-hide hide-nearby"
                                      data-ng-show="activeCategory == 'nearby'"
                                      data-ng-click="notInterest(goal.id)"
                                      data-ng-mouseleave="$parent.isHover = false"
                                      data-ng-mousemove="hoverIn($event, '{{ "hide_nearby"|trans }}')">
-                                    not Interest
-                                </div>
+                                </span>
                             {% endif %}
                             <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]"
                                data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"

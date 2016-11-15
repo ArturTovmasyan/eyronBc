@@ -781,14 +781,10 @@ angular.module('goal', ['Interpolation',
             $scope.isHover = true;
             $scope.hoveredText = text;
             var left = $(ev.target).offset().left;
-            var top  = $(ev.target).offset().top - 50;
+            var top  = $(ev.target).offset().top - 40;
 
-            if(left > window.innerWidth/2){
-                left = left - 100;
-                $('.list-tooltip .arrow-up').css({left: 110});
-            } else {
-                $('.list-tooltip .arrow-up').css({left: 14});
-            }
+            left = left - 60;
+            $('.list-tooltip .arrow-up').css({left: 60});
             $('.list-tooltip').css({top: top,left: left});
         };
 
