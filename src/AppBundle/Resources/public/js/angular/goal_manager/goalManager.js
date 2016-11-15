@@ -30,9 +30,9 @@ angular.module('goalManage', ['Interpolation',
   .value('userData', {
     data: {},
     report: {},
-    goalId: 0,
+    itemId: 0,
     usersCount: 0,
-    isListed: false
+    type: 1
   })
   .value('refreshingDate', {
     userId: '',

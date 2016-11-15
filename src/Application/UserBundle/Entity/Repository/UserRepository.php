@@ -21,6 +21,37 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class UserRepository extends EntityRepository
 {
+
+
+    /**
+     * @param $successStoryId
+     * @param null $first
+     * @param null $count
+     * @return array
+     */
+    public function votingUsers($successStoryId, $first = null, $count = null)
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('u')
+            ->from('ApplicationUserBundle:User', 'u', 'u.id')
+            ->join('AppBundle:SuccessStory', 'ss', 'WITH', 'ss.id =:item')
+            ->join('ss.voters', 'v')
+            ->where('v.id = u')
+            ->setParameter('item', $successStoryId);
+
+        if (is_numeric($first) && is_numeric($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
     /**
      * This function is used to get users who follow me
      *

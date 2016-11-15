@@ -790,7 +790,7 @@ class GoalController extends FOSRestController
 
     /**
      * @Rest\Get("/goals/{first}/friends/{count}", defaults={"type"="all"}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_friends", options={"method_prefix"=false})
-     * @Rest\Get("/user-list/{first}/{count}/{goalId}/{slug}", defaults={"goalId"=null, "slug"=null}, requirements={"first"="\d+", "count"="\d+", "goalId"="\d+", "slug"="1|2"}, name="get_goal_user_list")
+     * @Rest\Get("/user-list/{first}/{count}/{goalId}/{slug}", defaults={"goalId"=null, "slug"=null}, requirements={"first"="\d+", "count"="\d+", "goalId"="\d+", "slug"="1|2|3"}, name="get_goal_user_list")
      *
      * @ApiDoc(
      *  resource=true,
@@ -820,8 +820,14 @@ class GoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         if (!is_null($goalId)){
-            $users = $em->getRepository('AppBundle:Goal')
-                ->findGoalUsers($goalId, $slug == 1 ? UserGoal::ACTIVE : UserGoal::COMPLETED, $first, $count, $search);
+            if($slug == 3){
+                $users = $em->getRepository('ApplicationUserBundle:User')
+                    ->votingUsers($goalId, $first, $count);
+            }else{
+                $users = $em->getRepository('AppBundle:Goal')
+                    ->findGoalUsers($goalId, $slug == 1 ? UserGoal::ACTIVE : UserGoal::COMPLETED, $first, $count, $search);
+            }
+            
         }
         else {
             $type = $request->get('type', 'all');

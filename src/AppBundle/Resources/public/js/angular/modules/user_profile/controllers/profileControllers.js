@@ -212,10 +212,9 @@ angular.module('profile')
   .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData', '$location',
     function ($scope, $timeout, lsInfiniteGoals, userData, $location) {
       var path = $location.$$path;
-      $scope.isListed = userData.isListed;
-      $scope.goalId = userData.goalId;
+      $scope.slug = userData.type;
+      $scope.goalId = userData.itemId;
       $scope.usersCount = userData.usersCount;
-      $scope.slug = $scope.isListed?1: 2;
       $scope.friendName = '';
       $scope.category = 'all';
 
