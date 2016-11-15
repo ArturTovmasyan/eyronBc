@@ -138,28 +138,6 @@
     }
   }
 
-  //.follow,.mobile-follow{
-  //  i{
-  //    width: 43px;
-  //    height: 43px;
-  //    background-size: 100%;
-  //    cursor: pointer;
-  //    display: inline-block;
-  //  }
-  //
-  //  .icon-follow{
-  //    background: url('../images/follow.svg') no-repeat center center;
-  //    &:hover{
-  //      background: url('../images/unfollow.svg') no-repeat center center;
-  //    }
-  //  }
-  //
-  //  .icon-unfollow{
-  //    background: url('../images/unfollow.svg') no-repeat center center;
-  //  }
-  //}
-
-
   .close-friends{
     cursor: pointer;
     height: 32px;
@@ -329,11 +307,11 @@
         position: absolute;
         top: 0;
         background: rgba(0, 0, 0, 0.3);
-        width: 140px;
-        height: 140px;
+        width: 100px;
+        height: 100px;
         .rounded-corners;
         margin: 0;
-        padding: 40px 15px;
+        padding: 22px 5px;
 
         label{
           color: #ffffff !important;
@@ -387,7 +365,6 @@
   }
 
   h1{
-    font-size:25px;
     margin:7px 0 5px;
     font-weight: lighter;
 
@@ -395,6 +372,11 @@
       display: inline-block;
       line-height: normal;
       padding: 2px 10px;
+      font-size:25px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      overflow: hidden;
     }
   }
 
@@ -1186,8 +1168,8 @@
     }
 
     h1 span.title-smaller,figcaption span.title-smaller{
-      font-size:38px;
-      line-height: 57px;
+      font-size:34px;
+      line-height: 51px;
       span{
         padding: 7px 20px 14px;
       }
