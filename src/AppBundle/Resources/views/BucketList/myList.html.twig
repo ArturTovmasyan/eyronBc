@@ -155,7 +155,7 @@
                                 data-ng-show="$parent.userGoalIds[$index] != 'removed'"
                                 data-ng-repeat="userGoal in ProfileItems.userGoals"
                                 data-ng-init="goal = userGoal.goal; status = userGoal.status;$parent.userGoalIds[$index] = userGoal.id">
-                                <div class="col-sm-2 no-right" data-ng-cloak data-ng-class="{'no-left' : isMobile}">
+                                <div class="col-sm-2 {%if isTablet() or not isMobile()  %}no-right{% endif %}" data-ng-cloak data-ng-class="{'no-left' : isMobile}">
                                     <div class="date-left"
                                          data-ng-init="
                                             change[[ goal.id]] = 0;
@@ -218,9 +218,9 @@
 
                                     </div>
                                 </div>
-                                <div class="col-sm-10 bg-white no-left">
+                                <div class="col-sm-10 {%if isTablet() or not isMobile()  %}bg-white no-left{% endif %}">
                                     <div class="row">
-                                        <div class="col-sm-6 no-right">
+                                        <div class="col-sm-6 {%if isTablet() or not isMobile()  %}no-right{% endif %}">
                                             <figure  data-ng-init="innerPath = (goal.publish || (goal.author && goal.author.id == '{{ user.id }}'))? '{{ env_prefix  }}/goal/' + goal.slug: '#'">
 
                                                 <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ env_prefix  }}/goal/[[ ::goal.slug ]]"></div>
@@ -276,7 +276,7 @@
                                             </figure>
                                         </div>
                                         <div class="col-sm-6">
-                                            <article class="information">
+                                            <article class="information {%if isMobile() or not isTablet()  %}bg-white{% endif %}">
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <h3>
