@@ -76,8 +76,12 @@ angular.module('main',['mgcrea.ngStrap.modal',
 
         if(storyCount){
             for(var i = 0;i<storyCount;i++){
-                $( '.swipebox-'+i ).swipebox();
-                $( '.swipebox-video-'+i ).swipebox();
+                $( '.swipebox-'+i ).swipebox({
+                    useSVG : false
+                });
+                $( '.swipebox-video-'+i ).swipebox({
+                    useSVG : false
+                });
             }
         }
 
