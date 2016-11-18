@@ -3,6 +3,7 @@
 namespace Application\UserBundle\Controller\Rest;
 
 use Application\UserBundle\Entity\Badge;
+use Application\UserBundle\Services\BadgeService;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -37,9 +38,24 @@ class BadgeController extends Controller
         // get listener
         $this->get('bl.doctrine.listener')->disableUserStatsLoading();
 
-        $badgeService = $this->get('bl.badge.service');
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
 
-        $badges = $badgeService->findTopUsers();
+        $lastUpdateString = $em->getRepository("ApplicationUserBundle:Badge")->getMinUpdated();
+        $lastUpdate = new \DateTime($lastUpdateString);
+
+        $badgeService = $this->get('bl.badge.service'); // get badge service
+
+        $badges = apc_fetch(BadgeService::TOP_BADGES_USERS);
+        if(!$badges){
+            $badges = $badgeService->findTopUsers();
+            return $badges;
+        }
+
+        $cacheMaxUpdate = array_key_exists('maxUpdate', $badges) ? $badges['maxUpdate'] : null;
+        if($lastUpdate > $cacheMaxUpdate){
+            $badges = $badgeService->findTopUsers();
+        }
 
        return $badges;
     }
