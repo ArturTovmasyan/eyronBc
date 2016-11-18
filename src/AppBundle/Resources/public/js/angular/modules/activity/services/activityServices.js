@@ -252,7 +252,8 @@ angular.module('activity')
         link: function(scope, el){
           scope.$parent.newActivity = false;
           scope.$parent.topUsers = [];
-          var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
+          var path = envPrefix + "api/v1.0/badges",
+              leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
 
           scope.$parent.castInt = function(value){
             return parseInt(value);
@@ -262,14 +263,15 @@ angular.module('activity')
             leaderboardCache = CacheFactory('bucketlist_by_leaderboard');
           }
 
-          var leaderboards = leaderboardCache.get('leaderboards');
+          scope.$parent.haveTop = false;
 
-          if(leaderboards){
-            scope.$parent.haveTop = (leaderboards.users && leaderboards.users.length > 0);
-            scope.$parent.topUsers = leaderboards.users;
-          } else {
-            scope.$parent.haveTop = false;
-          }
+          $http.get(path)
+              .success(function(data){
+                if(data.badges){
+                  scope.$parent.haveTop = (data.users && data.users.length > 0);
+                  scope.$parent.topUsers = data.users;
+                  leaderboardCache.put('leaderboards', data);
+                }});
 
 
           scope.$parent.inArray = function (id) {
