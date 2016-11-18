@@ -123,6 +123,13 @@
             <argument>AppBundle:Admin/Blog</argument>
         </service>
 
+        <!-- UserGoal -->
+        <service id="sonata.admin.app.user_goal" class="AppBundle\Admin\UserGoalAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.user_goal"/>
+            <argument/>
+            <argument>AppBundle\Entity\UserGoal</argument>
+            <argument/>
+        </service>
 
         <service id="app.admin.email" class="AppBundle\Admin\EmailAdmin">
             <tag name="sonata.admin" manager_type="orm" group="group_name_email" label="admin.label.name.sent_email"/>

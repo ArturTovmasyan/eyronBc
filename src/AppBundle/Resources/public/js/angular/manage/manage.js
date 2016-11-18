@@ -30,7 +30,7 @@ angular.module('manage', ['Interpolation',
             id = UserContext.id,
             locale = UserContext.locale,
             changedLanguage = false,
-            cacheVersion = 14;
+            cacheVersion = 15;
 
         var templateCache = CacheFactory.get('bucketlist_templates_v' + cacheVersion);
 
@@ -396,6 +396,7 @@ angular.module('manage', ['Interpolation',
             restrict: 'EA',
             scope: {
                 lsGoalId: '@',
+                lsItemId: '@',
                 lsCount: '@',
                 lsCategory: '@'
             },
@@ -409,8 +410,8 @@ angular.module('manage', ['Interpolation',
                     $(".modal-loading").show();
 
                     if(UserContext.id){
-                        userData.isListed = scope.lsCategory?true: false;
-                        userData.goalId = scope.lsGoalId;
+                        userData.type = scope.lsCategory?scope.lsCategory: 2;
+                        userData.itemId = scope.lsGoalId?scope.lsGoalId:scope.lsItemId;
                         userData.usersCount = scope.lsCount;
                         scope.runCallback();
                     } else {

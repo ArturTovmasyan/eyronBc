@@ -212,10 +212,9 @@ angular.module('profile')
   .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData', '$location',
     function ($scope, $timeout, lsInfiniteGoals, userData, $location) {
       var path = $location.$$path;
-      $scope.isListed = userData.isListed;
-      $scope.goalId = userData.goalId;
+      $scope.slug = userData.type;
+      $scope.goalId = userData.itemId;
       $scope.usersCount = userData.usersCount;
-      $scope.slug = $scope.isListed?1: 2;
       $scope.friendName = '';
       $scope.category = 'all';
 
@@ -283,33 +282,4 @@ angular.module('profile')
         return parseInt(value);
       };
     }
-  ])
-  .controller('reportController',['$scope', 'userData', 'UserGoalDataManager', '$timeout',
-  function ($scope, userData, UserGoalDataManager, $timeout) {
-    $scope.reportDate = {};
-    $scope.reportDate.contentId = userData.report.comment;
-    $scope.reportDate.contentType = userData.report.type;
-    $scope.isReported = false;
-    UserGoalDataManager.getReport({type: userData.report.type, commentId: userData.report.comment}, function (data) {
-      if(data.content_id){
-        $scope.reportOption = data.report_type?data.report_type:null;
-        $scope.reportText = data.message?data.message:'';
-      }
-    });
-
-    $scope.report = function(){
-      if(!($scope.reportOption || $scope.reportText))return;
-
-      $scope.reportDate.reportType = $scope.reportOption?$scope.reportOption:null;
-      $scope.reportDate.message = $scope.reportText?$scope.reportText:null;
-
-      UserGoalDataManager.report({}, $scope.reportDate, function () {
-        $scope.isReported = true;
-        $timeout(function(){
-          $('#report-modal .close-icon').click();
-        },1500);
-      })
-    }
-
-  }
   ]);

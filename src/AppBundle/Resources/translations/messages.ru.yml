@@ -320,6 +320,7 @@ draft:
 
 done_by: Достигнуто
 home_complete: Достигнуто
+home_voters: Понравилось
 home_listed_by: Добавлено
 listed_by: Добавлено
 block_listed: Добавлено
@@ -515,3 +516,6 @@ leaderboard:
   leaders: Лидеры
   score: Очки
   level: Уровень
+
+goalfriend: Единомышленник
+closefriend: Близкий Единомышленник

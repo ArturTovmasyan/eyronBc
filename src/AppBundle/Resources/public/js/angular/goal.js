@@ -534,7 +534,9 @@ angular.module('goal', ['Interpolation',
             }
 
             angular.forEach($scope.successStoryImageKeys, function (d) {
-                $( '.swipebox-key-'+d ).swipebox();
+                $( '.swipebox-key-'+d ).swipebox({
+                    useSVG : false
+                });
             });
             
             var afilateHeight = $('.affiliate-right iframe').height();
@@ -710,7 +712,9 @@ angular.module('goal', ['Interpolation',
             });
         }
 
-        $( '.swipebox-main' ).swipebox();
+        $( '.swipebox-main' ).swipebox({
+            useSVG : false
+        });
     }])
     .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location', 'CacheFactory',
         function($scope, lsInfiniteItems, $timeout, envPrefix, $location, CacheFactory){
@@ -934,9 +938,9 @@ angular.module('goal', ['Interpolation',
         $scope.search = $scope.getParameterByName('search',window.location.href);
 
         $scope.doSearch = function(ev){
-            if(ev.which === 13 && screen.width < 768) {
-                angular.element('.icon-remove-email').click();
-            }
+            // if(ev.which === 13 && screen.width < 768) {
+            //     angular.element('.icon-remove-email').click();
+            // }
             if(ev.which != 8 && ev.which != 46 && !$scope.isSearching){
                 $scope.isSearching = true;
             } else if($scope.isSearching && (ev.which == 8 || ev.which != 46)){

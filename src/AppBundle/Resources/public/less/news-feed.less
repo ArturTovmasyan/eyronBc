@@ -3,6 +3,9 @@
 
 #news-feed,#goal-friends,#goal-users-modal{
 
+  padding:10px 0;
+  margin-top:5px;
+
   .goalfrineds-menu{
     padding:5px 0 0;
     margin-bottom:0;
@@ -73,10 +76,6 @@
     cursor: pointer;
   }
 
-  padding:10px 0;
-  margin-top:5px;
-
-
   .image{
     margin:0 10px 0 0;
     float:left;
@@ -105,6 +104,10 @@
     font-size: 25px;
     vertical-align: middle;
     cursor:pointer;
+
+    &.leaderboard-small{
+      vertical-align: top;
+    }
   }
 
   p{
@@ -159,10 +162,12 @@
 
     a{
       font-size:14px;
+      padding-bottom: 2px;
+      display: inline-block;
     }
 
     span{
-      color:#999999;
+      display: block;
     }
   }
 
@@ -308,6 +313,10 @@
       h4{
         padding-top:0;
         margin-top:5px;
+
+        span{
+          display: inline-block;
+        }
       }
 
       a{
@@ -332,7 +341,7 @@
     text-align: right;
     position: absolute;
     right: 3px;
-    top: 26px;
+    top: 36px;
     width: 100px;
     height: 25px;
     font-size: 14px;
@@ -411,14 +420,14 @@
 @media (min-width: @screen-sm) {
   #news-feed,#goal-friends{
 
+    padding:20px 0;
+    margin-top:10px;
+
     .users-list{
       padding:20px 10px 20px 20px;
       margin-bottom:15px;
       min-height: 101px;
     }
-
-    padding:20px 0;
-    margin-top:10px;
 
     .image{
       margin:0 15px 0 0;
@@ -519,8 +528,12 @@
 
       a{
         font-size:16px;
+        padding-bottom: 0;
       }
 
+      span{
+        display: inline-block;
+      }
     }
 
     .horizontal-menu{

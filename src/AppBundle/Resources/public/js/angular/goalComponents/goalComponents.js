@@ -138,14 +138,14 @@ angular.module('goalComponents', ['Interpolation',
       $scope.getPopularGoals(id);
     })
   }])
-  .controller('topInLeaderboardController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'UserContext',
-    function($scope, $http, CacheFactory, envPrefix, UserContext){
-      var path = envPrefix + "api/v1.0/badges";
+  .controller('topInLeaderboardController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'UserContext', '$timeout',
+    function($scope, $http, CacheFactory, envPrefix, UserContext, $timeout){
       $scope.users = {};
       $scope.allUsers = [];
       $scope.index = 0;
       $scope.currentUserId = UserContext.id;
       $scope.isMobile = (window.innerWidth < 768);
+      $scope.isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
       var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
 
       if(!leaderboardCache){
@@ -170,32 +170,21 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.getFullName = function (user) {
-        if($scope.isMobile){
-          return (user.first_name.length > 16)?(user.first_name.substr(0,13) + '...'):(user.first_name.length + user.last_name.length > 16)?(user.first_name + ' ' + user.last_name.substr(0,13 - user.first_name.length) + '...'): user.first_name + ' ' + user.last_name;
-        } else {
-          return user.first_name + ' ' + user.last_name;
-        }
+        var name = user.first_name + user.last_name,
+            count = $scope.isTouchdevice?50:(($scope.isMobile || (window.innerWidth > 991 && window.innerWidth < 1170))?16:24);
+          return (name.length > count)?(name.substr(0,count -3) + '...'):name;
       };
 
-      var leaderboards = leaderboardCache.get('leaderboards');
+      $timeout(function () {
+        var leaderboards = leaderboardCache.get('leaderboards');
 
-      if (!leaderboards || !leaderboards.length) {
-        $http.get(path)
-          .success(function(data){
-            if(data.badges){
-              $scope.allUsers = data.badges;
-              $scope.minimums = data.min;
-              $scope.normOfTop = $scope.minimums.innovator + $scope.minimums.motivator + $scope.minimums.traveller;
-              $scope.initUsers();
-              leaderboardCache.put('leaderboards', data);
-            }
-          });
-      }else {
-        $scope.allUsers = leaderboards.badges;
-        $scope.minimums = leaderboards.min;
-        $scope.normOfTop = $scope.minimums.innovator + $scope.minimums.motivator + $scope.minimums.traveller;
-        $scope.initUsers();
-      }
+        if(leaderboards && leaderboards.badges){
+          $scope.allUsers = leaderboards.badges;
+          $scope.minimums = leaderboards.min;
+          $scope.normOfTop = $scope.minimums.innovator + $scope.minimums.motivator + $scope.minimums.traveller;
+          $scope.initUsers();
+        }
+      }, 500);
     }])
   .controller('calendarController', ['$scope', '$http', 'CacheFactory', 'envPrefix', '$timeout',
     function($scope, $http, CacheFactory, envPrefix, $timeout){
@@ -464,7 +453,7 @@ angular.module('goalComponents', ['Interpolation',
       };
 
   }])
-  .controller('goalFriends', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
+  .controller('goalFriends', ['$scope', '$http', 'CacheFactory', 'envPrefix', '$timeout', function($scope, $http, CacheFactory, envPrefix, $timeout){
     var path = envPrefix + "api/v1.0/goal/random/friends";
 
     var profileCache = CacheFactory.get('bucketlist');
@@ -480,14 +469,16 @@ angular.module('goalComponents', ['Interpolation',
       leaderboardCache = CacheFactory('bucketlist_by_leaderboard');
     }
 
-    var leaderboards = leaderboardCache.get('leaderboards');
-    
-    if(leaderboards){
-      $scope.haveTop = (leaderboards.users && leaderboards.users.length > 0);
-      $scope.topUsers = leaderboards.users;
-    } else {
-      $scope.haveTop = false;
-    }
+    $timeout(function () {
+      var leaderboards = leaderboardCache.get('leaderboards');
+
+      if (leaderboards) {
+        $scope.haveTop = (leaderboards.users && leaderboards.users.length > 0);
+        $scope.topUsers = leaderboards.users;
+      } else {
+        $scope.haveTop = false;
+      }
+    }, 500);
 
     $scope.inArray = function (id) {
       return ($scope.topUsers.indexOf(id) != -1)

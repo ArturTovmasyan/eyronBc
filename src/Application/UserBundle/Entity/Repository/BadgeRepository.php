@@ -12,6 +12,68 @@ use Doctrine\ORM\EntityRepository;
 class BadgeRepository extends EntityRepository
 {
     /**
+     * @return mixed
+     */
+    public function getMinUpdated()
+    {
+        $stmt = $this->getEntityManager()
+            ->getConnection()
+            ->prepare('
+                        SELECT * FROM
+                        (
+                          SELECT MAX(badge.updated) as traveller FROM badge WHERE badge.type = :traveller ORDER BY badge.updated DESC  LIMIT 10
+                        ) as traveller,
+                        
+                       (
+                          SELECT MAX(badge.updated) as motivator FROM badge WHERE badge.type = :motivator ORDER BY badge.updated DESC LIMIT 10
+                        ) as motivator,
+                        
+                         (
+                          SELECT MAX(badge.updated) as innovator FROM badge WHERE badge.type = :innovator ORDER BY badge.updated DESC LIMIT 10
+                        ) as innovator
+
+                        ');
+        $stmt->bindValue('traveller', Badge::TYPE_TRAVELLER);
+        $stmt->bindValue('motivator', Badge::TYPE_MOTIVATOR);
+        $stmt->bindValue('innovator', Badge::TYPE_INNOVATOR);
+        $stmt->execute();
+        $query = $stmt->fetchAll();
+
+        $minUpdate = null;
+
+        if($query){
+            $query = reset($query);
+
+            $minUpdate =  $query['traveller'] > $minUpdate ? $query['traveller'] :  $minUpdate;
+            $minUpdate =  $query['motivator'] > $minUpdate ? $query['motivator'] :  $minUpdate;
+            $minUpdate =  $query['innovator'] > $minUpdate ? $query['innovator'] :  $minUpdate;
+        }
+
+        return  $minUpdate;
+    }
+
+    /**
+     * @param $type
+     * @param $count
+     * @return array
+     */
+    public function findTopUsersIdByType($type, $count)
+    {
+        $topBadges = $this->getEntityManager()
+            ->createQuery("SELECT b , u
+                           FROM ApplicationUserBundle:Badge b
+                           JOIN b.user u
+                           WHERE b.type = :types
+                           ORDER BY b.score DESC")
+            ->setParameter('types', $type)
+            ->setMaxResults($count)
+            ->getResult();
+
+
+        return $topBadges;
+    }
+
+    /**
      * This function is used to get TOP users by score rating
      * 
      * @param $type

@@ -109,7 +109,7 @@ class GoalAdmin extends AbstractAdmin
             ->add('status', null, ['label'=>'admin.label.name.goal_status'])
             ->add('archived', null, ['label'=>'admin.label.name.archived'])
             ->add('place', 'sonata_type_model_autocomplete', ['label'=>'admin.label.name.place', 'property'=>'name', 'multiple' => true, 'required' => false])
-            ->add('mergedGoalId', null, ['label'=>'admin.label.name.merged_id'])
+//            ->add('mergedGoalId', null, ['label'=>'admin.label.name.merged_id'])
             ->add('rawLocation', LocationType::class, ['label' => false])
             ->add('videoLink', BlMultipleVideoType::class, ['label' => false])
             ->add('language', ChoiceType::class, ['label'=>'admin.label.name.language', 'required' => true, 'choices' => ['en' => 'admin.label.name.en', 'ru' => 'admin.label.name.ru']])
@@ -139,7 +139,7 @@ class GoalAdmin extends AbstractAdmin
             ->add('tags.tag', null, ['label'=>'admin.label.name.tags'])
             ->add('videoLink', null, ['label'=>'admin.label.name.videoLink'])
             ->add('archived', null, ['label'=>'admin.label.name.archived'])
-            ->add('mergedGoalId', null, ['label'=>'admin.label.name.merged_id'])
+//            ->add('mergedGoalId', null, ['label'=>'admin.label.name.merged_id'])
             ->add('status', null, ['label'=>'admin.label.name.goal_public', 'editable' => true])
 
 
@@ -182,7 +182,7 @@ class GoalAdmin extends AbstractAdmin
             ->add('tags', null, ['label'=>'admin.label.name.tags'])
             ->add('place', null, ['label'=>'admin.label.name.place'])
             ->add('archived', null, ['label'=>'admin.label.name.archived'])
-            ->add('mergedGoalId', null, ['label'=>'admin.label.name.merged_id'])
+//            ->add('mergedGoalId', null, ['label'=>'admin.label.name.merged_id'])
             ->add('getListPhoto', null, ['template' => 'AppBundle:Admin:goal_image_list.html.twig', 'label'=>'admin.label.name.getListPhoto']
             )
             ->add('videoLink', null, ['template' => 'AppBundle:Admin:goal_video_list.html.twig', 'label'=>'admin.label.name.videoLink']
