@@ -871,30 +871,52 @@ class GoalRepository extends EntityRepository
         $filter->isEnabled('visibility_filter') ? $filter->disable('visibility_filter') : null;
 
         $query = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('g, i')
-            ->from('AppBundle:Goal', 'g')
+            ->createQueryBuilder();
+
+        $query
+            ->addSelect('g, i');
+
+        if(!$publish){
+            $query
+                ->select('ug')
+                ->from('AppBundle:UserGoal', 'ug')
+                ->join('ug.goal', 'g')
+                ->addOrderBy('ug.updated', 'DESC')
+                ->andWhere('ug.user = :owner')
+            ;
+
+        }else{
+            $query
+                ->from('AppBundle:Goal', 'g')
+                ->andWhere('g.publish = :publish')
+                ->setParameter('publish', PublishAware::PUBLISH)
+            ;
+        }
+
+        $query
             ->leftJoin('g.images', 'i')
-            ->where('g.author = :owner')
-            ->setParameter('owner', $owner)
+            ->andWhere('g.author = :owner')
             ->setFirstResult($first)
             ->setMaxResults($count)
             ->orderBy('g.created', 'DESC')
-
+            ->setParameter('owner', $owner)
+;
         ;
 
-        if($publish){
-            $query
-                ->andWhere('g.publish = :publish')
-                ->setParameter('publish', PublishAware::PUBLISH);
-        }
+
+
 
         if($getLastUpdated){
+
+            if(!$publish){
+                $query->select('ug.updated');
+            }else{
+                $query->select('g.updated');
+            }
             $result = $query
-                ->select('g.updated')
                 ->getQuery()
                 ->getResult();
-            ;
+
 
             $lastUpdated = null;
 
