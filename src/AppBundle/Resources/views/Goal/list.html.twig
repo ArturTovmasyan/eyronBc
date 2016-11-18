@@ -123,6 +123,10 @@
                             <h3>
                                 <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
                             </h3>
+                            <a style="position: absolute;background-color: red;z-index: 2;height: initial;color: black;" data-ng-if="activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0"
+                               data-ng-href="https://www.google.com/maps/dir/[[ goal.location.latitude]],[[ goal.location.longitude]]/[[ userLocation.latitude ]],[[ userLocation.longitude ]]/">
+                                [[ goal.distance | number]]
+                            </a>
 
                             <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]"
                                data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"

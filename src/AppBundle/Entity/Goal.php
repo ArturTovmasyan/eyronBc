@@ -238,6 +238,11 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     private $cachedImage;
 
     /**
+     * @Groups({"tiny_goal"})
+     */
+    public $distance = 0;
+
+    /**
      * @ORM\Column(type="boolean", nullable=false)
      * @var bool
      */
