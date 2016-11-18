@@ -872,17 +872,14 @@ class GoalRepository extends EntityRepository
 
         $query = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('ug, g, i')
-            ->from('AppBundle:UserGoal', 'ug')
-            ->join('ug.goal', 'g')
+            ->select('g, i')
+            ->from('AppBundle:Goal', 'g')
             ->leftJoin('g.images', 'i')
             ->where('g.author = :owner')
-            ->andWhere('ug.user = :owner')
             ->setParameter('owner', $owner)
             ->setFirstResult($first)
             ->setMaxResults($count)
             ->orderBy('g.created', 'DESC')
-            ->addOrderBy('ug.updated', 'DESC')
 
         ;
 
@@ -894,7 +891,7 @@ class GoalRepository extends EntityRepository
 
         if($getLastUpdated){
             $result = $query
-                ->select('ug.updated')
+                ->select('g.updated')
                 ->getQuery()
                 ->getResult();
             ;

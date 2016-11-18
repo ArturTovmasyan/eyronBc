@@ -210,10 +210,7 @@ class GoalController extends FOSRestController
             return  ['goals' => [] ];
         }
 
-        $lastDeleted = $user->getUserGoalRemoveDate();
-        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
-
-        $response->setLastModified($lastModified);
+        $response->setLastModified($lastUpdated);
 
         // check is modified
         if ($response->isNotModified($request)) {
@@ -229,38 +226,12 @@ class GoalController extends FOSRestController
         //This part is used to calculate goal stats
         $goalIds   = [];
         $authorIds = [];
-        foreach($ownedGoals as $userGoal){
-            $goalIds[$userGoal->getGoal()->getId()] = 1;
-            if ($userGoal->getGoal()->getAuthor()) {
-                $authorIds[] = $userGoal->getGoal()->getAuthor()->getId();
+
+        foreach ($ownedGoals as $goal){
+            $goalIds[$goal->getId()] = 1;
+            if ($goal->getAuthor()) {
+                $authorIds[] = $goal->getAuthor()->getId();
             }
-        }
-
-        $goalStats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
-        $authorstats = $em->getRepository("ApplicationUserBundle:User")->findUsersStats($authorIds);
-
-        foreach($ownedGoals as $userGoal){
-            $userGoal->getGoal()->setStats([
-                'listedBy' => $goalStats[$userGoal->getGoal()->getId()]['listedBy'],
-                'doneBy'   => $goalStats[$userGoal->getGoal()->getId()]['doneBy'],
-            ]);
-
-            if ($userGoal->getGoal()->getAuthor()) {
-                $stats = $authorstats[$userGoal->getGoal()->getAuthor()->getId()];
-                $userGoal->getGoal()->getAuthor()->setStats([
-                    "listedBy" => $stats['listedBy'] + $stats['doneBy'],
-                    "active"   => $stats['listedBy'],
-                    "doneBy"   => $stats['doneBy']
-                ]);
-            }
-        }
-
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
-
-        // cached images
-        foreach($ownedGoals as $userGoal) {
-
-            $goal = $userGoal->getGoal();
 
             if ($goal->getListPhotoDownloadLink()) {
                 try {
@@ -270,6 +241,42 @@ class GoalController extends FOSRestController
                 }
             }
         }
+
+
+        $goalStats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+        $authorstats = $em->getRepository("ApplicationUserBundle:User")->findUsersStats($authorIds);
+
+        foreach($ownedGoals as $goal){
+            $goal->setStats([
+                'listedBy' => $goalStats[$goal->getId()]['listedBy'],
+                'doneBy'   => $goalStats[$goal->getId()]['doneBy'],
+            ]);
+
+            if ($goal->getAuthor()) {
+                $stats = $authorstats[$goal->getAuthor()->getId()];
+                $goal->getAuthor()->setStats([
+                    "listedBy" => $stats['listedBy'] + $stats['doneBy'],
+                    "active"   => $stats['listedBy'],
+                    "doneBy"   => $stats['doneBy']
+                ]);
+            }
+        }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
+
+//        // cached images
+//        foreach($ownedGoals as $userGoal) {
+//
+//            $goal = $userGoal->getGoal();
+////
+//            if ($goal->getListPhotoDownloadLink()) {
+//                try {
+//                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $this->getUser()->getId() == $userId ? 'goal_bucketlist' : 'goal_list_horizontal'));
+//                } catch (\Exception $e) {
+//                    $goal->setCachedImage("");
+//                }
+//            }
+//        }
 
 
         $serializer = $this->get('serializer');
