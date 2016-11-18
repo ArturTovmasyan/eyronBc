@@ -4,7 +4,7 @@
 {% else %}
     {% set userId = 0 %}
 {% endif %}
-<ul data-ng-controller="goalFooter" class="row no-gutter{% if inner is defined %} goal-links{% endif %}"
+<ul data-ng-controller="goalFooter" class="row no-gutter"
     {% if goal is defined and goalInner is not defined %} data-ng-init="completed=true;goal.is_my_goal={{ goal.isMyGoal|default(0) }};goal.id={{ goal.id }}" {% endif %} data-ng-cloak>
 
     <li class="col-xs-6" data-ng-class="{transparent: (goal.is_my_goal && goal.is_my_goal !== 0) || !completed}">
