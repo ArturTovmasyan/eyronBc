@@ -159,7 +159,6 @@ class UserGoal implements ActivityableInterface
     /**
      * @var
      * @ORM\Column(name="confirmed", type="boolean")
-     * @Assert\NotBlank()
      */
     protected $confirmed = false;
 
@@ -169,6 +168,14 @@ class UserGoal implements ActivityableInterface
     public function __construct()
     {
         $this->status = self::ACTIVE;
+    }
+
+    /**
+     * @return int|string
+     */
+    public function __toString()
+    {
+        return (string)($this->id) ? (string)$this->id : '';
     }
 
     /**
@@ -691,4 +698,26 @@ class UserGoal implements ActivityableInterface
         return null;
     }
 
+    /**
+     * This function is used to get status string name
+     *
+     * @return null|string
+     */
+    public function getStringStatus()
+    {
+        $stringName = null;
+
+        switch($this->status) {
+            case 1:
+                $stringName = "Active";
+                break;
+            case 2:
+                $stringName = "Completed";
+                break;
+            default:
+                echo "";
+        }
+
+        return $stringName;
+    }
 }

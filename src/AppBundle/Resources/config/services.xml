@@ -153,6 +153,8 @@
         <!-- goal service -->
         <service id="app.goal" class="AppBundle\Services\GoalService">
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="serializer" />
         </service>
 
     </services>

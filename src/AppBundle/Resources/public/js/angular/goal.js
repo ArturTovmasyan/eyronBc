@@ -67,7 +67,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.noItem = false;
             this.category = "";
-            this.nearByPath = envPrefix + "api/v1.0/goals/nearby/{latitude}/{longitude}/{first}/{count}";
+            this.nearByPath = envPrefix + "api/v1.0/goals/nearby/{latitude}/{longitude}/{first}/{count}/{isCompleted}";
             this.isReset = false;
             this.request = 0;
             this.start = 0;
@@ -104,7 +104,7 @@ angular.module('goal', ['Interpolation',
                 return;
             }
 
-            var url = this.nearByPath.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude).replace('{first}', this.start).replace('{count}', this.count);
+            var url = this.nearByPath.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude).replace('{first}', this.start).replace('{count}', this.count).replace('{isCompleted}', position.isCompleted);
 
             $http.get(url).success(function(data) {
                 if(!data.length){
@@ -119,7 +119,7 @@ angular.module('goal', ['Interpolation',
         };
 
         lsInfiniteItems.prototype.getNearByReserve = function(position) {
-            var url = this.nearByPath.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude).replace('{first}', this.start).replace('{count}', this.count);;
+            var url = this.nearByPath.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude).replace('{first}', this.start).replace('{count}', this.count).replace('{isCompleted}', position.isCompleted);
             this.items = this.items.concat(this.reserve);
 
             $http.get(url).success(function(data) {
@@ -534,7 +534,9 @@ angular.module('goal', ['Interpolation',
             }
 
             angular.forEach($scope.successStoryImageKeys, function (d) {
-                $( '.swipebox-key-'+d ).swipebox();
+                $( '.swipebox-key-'+d ).swipebox({
+                    useSVG : false
+                });
             });
             
             var afilateHeight = $('.affiliate-right iframe').height();
@@ -710,7 +712,9 @@ angular.module('goal', ['Interpolation',
             });
         }
 
-        $( '.swipebox-main' ).swipebox();
+        $( '.swipebox-main' ).swipebox({
+            useSVG : false
+        });
     }])
     .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location', 'CacheFactory',
         function($scope, lsInfiniteItems, $timeout, envPrefix, $location, CacheFactory){
@@ -732,10 +736,12 @@ angular.module('goal', ['Interpolation',
         } else {
             $scope.notAllowed = false;
             $scope.userLocation = $scope.position.coords;
+            $scope.userLocation.isCompleted = $scope.isCompletedGoals;
         }
 
         $scope.browseError = '';
         $scope.browserAllowed = false;
+        $scope.isCompletedGoals = false;
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
         $scope.locations = [];
@@ -788,8 +794,9 @@ angular.module('goal', ['Interpolation',
                 });
                 
                 $scope.userLocation = position.coords;
+                $scope.userLocation.isCompleted = $scope.isCompletedGoals;
                 $scope.Ideas.reset();
-                $scope.Ideas.nearBy($scope.userLocation );
+                $scope.Ideas.nearBy($scope.userLocation);
 
                 $timeout(function(){
                     $scope.$emit('allowLocation', $scope.position);
@@ -805,10 +812,21 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.$on('location_place_changed', function (ev, data) {
+            $scope.locations = [];
+            locationsIds = [];
+            data.isCompleted = $scope.isCompletedGoals;
             $scope.userLocation = data;
             $scope.Ideas.reset();
             $scope.Ideas.nearBy(data);
         });
+
+        $scope.completedChange =  function () {
+            $scope.locations = [];
+            locationsIds = [];
+            $scope.userLocation.isCompleted = $scope.isCompletedGoals;
+            $scope.Ideas.reset();
+            $scope.Ideas.nearBy($scope.userLocation);
+        };
 
         $scope.goTo = function (path) {
             $scope.noIdeas = false;
@@ -828,6 +846,7 @@ angular.module('goal', ['Interpolation',
                     $scope.allowBrowserLocation();
                 }
                 if($scope.position && $scope.position.coords){
+                    $scope.position.coords.isCompleted = $scope.isCompletedGoals;
                     $scope.Ideas.reset();
                     $scope.Ideas.nearBy($scope.position.coords);
                     $scope.userLocation = $scope.position.coords;
@@ -839,7 +858,8 @@ angular.module('goal', ['Interpolation',
                     $timeout(function(){
                         $scope.$emit('allowLocation', $scope.userLocation);
                     },10);
-                    
+
+                    $scope.userLocation.isCompleted = $scope.isCompletedGoals;
                     $scope.Ideas.reset();
                     $scope.Ideas.nearBy($scope.userLocation);
 
@@ -918,9 +938,9 @@ angular.module('goal', ['Interpolation',
         $scope.search = $scope.getParameterByName('search',window.location.href);
 
         $scope.doSearch = function(ev){
-            if(ev.which === 13 && screen.width < 768) {
-                angular.element('.icon-remove-email').click();
-            }
+            // if(ev.which === 13 && screen.width < 768) {
+            //     angular.element('.icon-remove-email').click();
+            // }
             if(ev.which != 8 && ev.which != 46 && !$scope.isSearching){
                 $scope.isSearching = true;
             } else if($scope.isSearching && (ev.which == 8 || ev.which != 46)){

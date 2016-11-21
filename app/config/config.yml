@@ -43,11 +43,14 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v571
+        assets_version: v595
+
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
+        name: SFSESSIDCSMT
+        cookie_domain: "%cookie_domain%"
         # handler_id set to null will use default session handler from php.ini
 #        cookie_lifetime: 86400
 #        gc_maxlifetime: 1800
@@ -81,9 +84,11 @@ twig:
         project_name: %project_name%
         google_api_key: %google_api_key%
         ga_id: %ga_id%
+        facebook_api_id: %facebook_client_id%
         booking_aid: %booking_aid%
         env_prefix: ~
         remote_console: %remote_console%
+        iframe_host: %iframe_host%
 
     paths:
         '%kernel.root_dir%/../web': ~

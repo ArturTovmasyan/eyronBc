@@ -75,6 +75,24 @@
              class="map-autocomplete">
         </div>
 
+        <div>
+            <label>
+                <div id="hide-completed" class="task-checkbox purple-checkbox">
+                    <label class="relative">
+                    <span class="my-md-container" data-ng-class="{'my-md-checked': isCompletedGoals}">
+                        <span class="my-md-icon"></span>
+                        <input type="checkbox" aria-label="steps"
+                               name="completed"
+                               data-ng-model="isCompletedGoals"
+                               data-ng-change="completedChange()"
+                               style="display: none" />
+                    </span>
+                    </label>
+                </div>
+                Show Completed
+            </label>
+        </div>
+
     </div>
 
     <div class="container ideas-list"
@@ -120,7 +138,7 @@
                                            href="javascript:void(0)"
                                            data-ls-goal-id="[[ ::goal.id ]]"
                                            data-ls-count="[[ ::goal.stats.listedBy ]]"
-                                           data-ls-category="listed"
+                                           data-ls-category="1"
                                            data-ng-show="castInt(goal.stats.listedBy)">
                                             <span>
                                                 {{ 'home_listed_by'|trans({},'messages') | capitalize }}
@@ -183,7 +201,7 @@
             <div class="navigation text-center">
                 <a href="javascript:void(0)"
                    data-ng-cloak
-                   data-ng-show="!Ideas.busy && Ideas.request >= 2"
+                   data-ng-show="!Ideas.busy && Ideas.request >= 2 && activeCategory != 'nearby'"
                    data-ng-click='Ideas.getReserve("{{ env_prefix }}/api/v1.0/goals/{first}/{count}", search, "{{ category }}")'
                    class="show-more ng-hide">
                     <span></span>

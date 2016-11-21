@@ -12,6 +12,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
@@ -23,6 +24,7 @@ use JMS\Serializer\Annotation\SerializedName;
  *     fields={"title"},
  *     message="This blog title is already use."
  * )
+ * @Assert\Callback(methods={"validate"})
  */
 class Blog implements ImageableInterface, PublishAware
 {
@@ -441,5 +443,18 @@ class Blog implements ImageableInterface, PublishAware
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        //check if blog is published and date is not select
+        if ($this->publish && (!$this->publishedDate)) {
+            $context->buildViolation('Publish date must not be blank')
+                    ->atPath('publishedDate')
+                    ->addViolation();
+        }
     }
 }

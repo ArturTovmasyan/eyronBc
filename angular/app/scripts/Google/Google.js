@@ -85,6 +85,31 @@ angular.module('Google', [])
                         scope.mapMarkers[userGoal.goal.id].setIcon(icon);
                     });
 
+                    $rootScope.$on('admin-goal-change-place', function (ev, place) {
+                        scope.markers = [place.location];
+                        if(!place.location){
+                            return;
+                        }
+
+                        if(scope.isBounded) {
+                            scope.bounds = new google.maps.LatLngBounds(null);
+                        }
+
+                        angular.forEach(scope.mapMarkers, function(v, k){
+                            v.setMap(null);
+                        });
+
+                        if(scope.markers[0].latitude && scope.markers[0].longitude) {
+                            scope.markers[0].id = scope.markers[0].id ? scope.markers[0].id : 1;
+                            scope.mapMarkers[scope.markers[0].id] = addMarker(scope.markers[0], scope.passiveMarkerIcon, scope.map);
+
+                            if(scope.isBounded) {
+                                scope.bounds.extend(scope.mapMarkers[scope.markers[0].id].getPosition());
+                                scope.map.fitBounds(scope.bounds);
+                            }
+                        }
+                    });
+
                     scope.$on('doneGoal', function(ev, data){
                         if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
                             var icon = {
@@ -123,17 +148,19 @@ angular.module('Google', [])
                                         scope.mapMarkers[v.id].setIcon(icon);
                                     }
 
-                                    var infowindow = new google.maps.InfoWindow({
-                                        content: v.title
-                                    });
+                                    if(v.title){
+                                        var infowindow = new google.maps.InfoWindow({
+                                            content: v.title
+                                        });
 
-                                    m.addListener('mouseover', function() {
-                                        infowindow.open(scope.map, m);
-                                    });
+                                        m.addListener('mouseover', function() {
+                                            infowindow.open(scope.map, m);
+                                        });
 
-                                    m.addListener('mouseout', function() {
-                                        infowindow.close();
-                                    });
+                                        m.addListener('mouseout', function() {
+                                            infowindow.close();
+                                        });
+                                    }
 
                                     m.addListener('click', function () {
                                         if(scope.itemPageUrl && v.slug){
@@ -479,6 +506,8 @@ angular.module('Google', [])
                         };
 
                         place.address = result.formatted_address;
+
+                        scope.$emit('admin-goal-change-place', place);
 
                         angular.element(scope.hiddenStorage).val(JSON.stringify(place));
                         angular.element(scope.hiddenStorage).attr('value',JSON.stringify(place));

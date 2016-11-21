@@ -13,9 +13,9 @@
         "headline": "{{ blog.title }}",
         "image": {
           "@type": "ImageObject",
-          "url": "{{ blog.imagePath|blImageFilter('goal_list_small') }}",
-          "height": 400,
-          "width": 700
+          "url": "{{ blog.imagePath|blImageFilter('slide_max_size') }}",
+          "height": 900,
+          "width": 1280
         },
         "datePublished": "{{ blog.publishedDate|date('c') }}",
         "dateModified": "{{ blog.updated|date('c') }}",
@@ -81,7 +81,7 @@
 
                             {% set goal = data.goals %}
 
-                            <div class="goals-information">
+                            <div class="amp-goals-information">
                                 <figure>
                                     <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
                                         <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
@@ -112,6 +112,41 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
+
+                {% set pathComment = iframe_host ~ path('blog_comment', {'id' : blog.id, 'slug': blog.slug }) %}
+
+                <amp-iframe width="500"
+                            height="281"
+                            layout="responsive"
+                            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                            resizable
+                            frameborder="0"
+                            src="{{ pathComment }}">
+                    <div overflow tabindex=0 role=button aria-label="Read more">Read more!</div>
+                </amp-iframe>
+            </div>
+
+            <br />
+            <div id="socials-holder-blog">
+                <amp-social-share type="twitter"
+                                  width="60"
+                                  height="44"> </amp-social-share>
+                <amp-social-share type="gplus"
+                                  width="60"
+                                  height="44"></amp-social-share>
+                <amp-social-share type="email"
+                                  width="60"
+                                  height="44"></amp-social-share>
+                <amp-social-share type="pinterest"
+                                  width="60"
+                                  height="44"></amp-social-share>
+                {#<amp-social-share type="linkedin"#}
+                                  {#width="60"#}
+                                  {#height="44"></amp-social-share>#}
+                <amp-social-share type="facebook"
+                                  width="60"
+                                  height="44"
+                                  data-param-app_id="{{ facebook_api_id }}"></amp-social-share>
             </div>
         </div>
 
@@ -119,7 +154,11 @@
             {{ include('AppBundle:Blog:relatedPosts.html.twig',  {'posts': posts} ) }}
         </div>
 
+
     </div>
+
+
+
 {% endblock %}
 
 {%- block title -%}
@@ -128,4 +167,8 @@
 
 {%- block meta_description -%}
     {{- blog.metaDescription|markdown|sliceString -}}
+{%- endblock -%}
+
+{%- block og_image -%}
+    {{ blog.imagePath|blImageFilter('slide_max_size') }}
 {%- endblock -%}

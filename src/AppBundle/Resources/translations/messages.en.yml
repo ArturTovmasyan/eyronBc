@@ -138,6 +138,7 @@ goal_friend_menu:
       recently_matched: Recently Matched
       most_matching: Most Matching
       most_activity: Most Active
+      follow: Following
 
 activities:
       title: Bucket List 127-Activity
@@ -263,7 +264,7 @@ menu:
   map: Map
   common: In Common
   owned: Created
-  bucketlist_stories: Bucketlist Stories
+  bucketlist_stories: Bucket List Stories
 
 right_menu:
   my_ideas: My Ideas
@@ -315,6 +316,8 @@ my_bucket_list:
   edit: edit
   missed_deadline: Missed deadline
   year_old: y.o.
+  follow: Follow
+  un_follow: Unfollow
   completed_description: See the list of goals you have to completed. Get inspired of them and continue working hard to achieve your goals and make your dreams come true.
   active_description: See the list of your active goals. Be aware of the deadline and completion date of your goals and do your best to meet the scheduled date.
 
@@ -350,6 +353,7 @@ private_ideas:
 
 done_by: Completed by
 home_complete: Completed by
+home_voters: Liked by
 mobile_modal: |
               Bucket List 127 is available everywhere!
               Download the app, discover great features and explore over thousand exciting ideas for your goals.
@@ -418,6 +422,8 @@ notification:
   done_goal: You done '%goal%' goal
   title: Bucketlist 127-Notifications
   description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
+  following_story: follower wrote success story
+  following_comment: follower wrote comment
 
 # sonata admin lable
 admin:
@@ -534,6 +540,26 @@ admin:
       seen: Seen
       sent: Sent
       select_goal: Select goal
+      user_goal: User Goal
+      status: Status
+      date_status: Date Status
+      do_date_status: Do Date Status
+      is_visible: Is Visible
+      urgent: Urgent
+      important: Important
+      note: Note
+      do_date: Do Date
+      completion_date: Completion Date
+      listed_date: Listed Date/Created
+      goal_title: Goal Title
+      user_name: User Name
+      confirmed: Confirmed
+      android: Android
+      ios: Ios
+      all: All
+      only_year: Only Year
+      only_year_month: Only Year Month
+
 
 # sonata admin breadcrumb and filter
 User List: User List
@@ -632,4 +658,17 @@ leaderboard:
   traveler: Traveler
   innovator: Innovator
   writer: Mentor
+  position: Your Position
+  position_text: Want to rise on the leaderboard? Devote more time to your Bucket List.
+  rewards: Rewards
+  travelerText: <strong class="text-dark-gray">Traveler</strong> is a person who has seen the world more than users does
+  innovatorText: <strong class="text-dark-gray">Innovator</strong> is a person who has suggested a lot of goal ideas that we have accepted and shared
+  motivatorText: <strong class="text-dark-gray">Mentor</strong> is a person who has inspired a lot of people, with his motivational success stories
+  top: Top 10
+  rank: Rank
+  leaders: Leaders
+  score: Score
+  level: Level
 
+goalfriend: Goalfriend
+closefriend: Closefriend

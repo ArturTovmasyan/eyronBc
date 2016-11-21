@@ -52,25 +52,37 @@ class GoalRepository extends EntityRepository
      * @param $longitude
      * @param $first
      * @param $count
+     * @param $userId
+     * @param $isCompleted
      * @return array
      */
-    public function findNearbyGoals($latitude, $longitude, $first, $count)
+    public function findNearbyGoals($latitude, $longitude, $first, $count, $isCompleted, $userId)
     {
         $result = [];
         //3959 search in miles
         //6371 search in km
-        $ids =  $this->getEntityManager()
-            ->createQuery("SELECT g.id,
-                           (6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
-                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist
-                           FROM AppBundle:Goal g
-                           WHERE g.lat is not null and g.lng is not null
-                           ORDER BY dist
-                         ")
+        $query =  $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('g.id', '(6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
+                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist')
+            ->from('AppBundle:Goal', 'g')
+            ->where('g.lat is not null and g.lng is not null')
+            ->orderBy('dist')
             ->setParameter('lat', $latitude)
-            ->setParameter('lng', $longitude)
+            ->setParameter('lng', $longitude);
+
+        if(($isCompleted == 'false' || !$isCompleted ) && !is_null($userId)){
+            $query
+                ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
+                ->andWhere('ug.id IS NULL or ug.status = :status')
+                ->setParameter('status', UserGoal::ACTIVE)
+                ->setParameter('user', $userId);
+        }
+        
+        $ids = $query
             ->setFirstResult($first)
             ->setMaxResults($count)
+            ->getQuery()
             ->getArrayResult()
         ;
 
@@ -517,9 +529,16 @@ class GoalRepository extends EntityRepository
                     ->createQueryBuilder()
                     ->select('DISTINCT u')
                     ->from('ApplicationUserBundle:User', 'u', 'u.id')
-                    ->join('u.userGoal', 'ug')
-                    ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
                     ->where("u.id != :userId AND u.isAdmin = false");
+
+        ;
+
+
+        if($type != "follow"){
+            $query
+                ->join('u.userGoal', 'ug')
+                ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId');
+        }
 
         if ($search){
             $query->andWhere("u.firstname LIKE :search
@@ -544,6 +563,13 @@ class GoalRepository extends EntityRepository
                     ->where('u.isAdmin = false')
                     ->orderBy('m_user.commonFactor', 'DESC')
                     ->addOrderBy('m_user.commonCount', 'DESC')
+                ;
+                break;
+            case 'follow':
+                $query
+                    ->join('ApplicationUserBundle:User', 'fu', 'WITH', 'fu = :userId')
+                    ->join('fu.followings', 'fus')
+                    ->andWhere('fus = u')
                 ;
                 break;
             case 'active':
@@ -845,33 +871,52 @@ class GoalRepository extends EntityRepository
         $filter->isEnabled('visibility_filter') ? $filter->disable('visibility_filter') : null;
 
         $query = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('ug, g, i')
-            ->from('AppBundle:UserGoal', 'ug')
-            ->join('ug.goal', 'g')
+            ->createQueryBuilder();
+
+        $query
+            ->addSelect('g, i');
+
+        if(!$publish){
+            $query
+                ->select('ug')
+                ->from('AppBundle:UserGoal', 'ug')
+                ->join('ug.goal', 'g')
+                ->addOrderBy('ug.updated', 'DESC')
+                ->andWhere('ug.user = :owner')
+            ;
+
+        }else{
+            $query
+                ->from('AppBundle:Goal', 'g')
+                ->andWhere('g.publish = :publish')
+                ->setParameter('publish', PublishAware::PUBLISH)
+            ;
+        }
+
+        $query
             ->leftJoin('g.images', 'i')
-            ->where('g.author = :owner')
-            ->andWhere('ug.user = :owner')
-            ->setParameter('owner', $owner)
+            ->andWhere('g.author = :owner')
             ->setFirstResult($first)
             ->setMaxResults($count)
             ->orderBy('g.created', 'DESC')
-            ->addOrderBy('ug.updated', 'DESC')
-
+            ->setParameter('owner', $owner)
+;
         ;
 
-        if($publish){
-            $query
-                ->andWhere('g.publish = :publish')
-                ->setParameter('publish', PublishAware::PUBLISH);
-        }
+
+
 
         if($getLastUpdated){
+
+            if(!$publish){
+                $query->select('ug.updated');
+            }else{
+                $query->select('g.updated');
+            }
             $result = $query
-                ->select('ug.updated')
                 ->getQuery()
                 ->getResult();
-            ;
+
 
             $lastUpdated = null;
 
@@ -922,13 +967,15 @@ class GoalRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('u')
             ->from('ApplicationUserBundle:User', 'u')
-            ->join('u.userGoal', 'ug', 'with', 'ug.goal = :goalId AND ug.important = true');
+            ->join('u.userGoal', 'ug', 'with', 'ug.goal = :goalId AND ug.important = true')
+            ->setParameter('goalId', $goalId)
+
+        ;
 
         if($authorId){
             $query
                 ->andWhere('u.id != :authorId')
                 ->setParameter('authorId', $authorId)
-                ->setParameter('goalId', $goalId)
             ;
         }
 

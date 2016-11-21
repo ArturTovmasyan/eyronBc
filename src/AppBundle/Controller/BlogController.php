@@ -75,10 +75,25 @@ class BlogController extends Controller
     }
 
     /**
+     * @Route("/blog/comment/{id}/{slug}", requirements={"id"="\d+"}, name="blog_comment")
+     * @return Response
+     * @Template()
+     * @param $id
+     * @param $slug
+     */
+    public function blogCommentAction($id, $slug)
+    {
+        return array(
+            'id'   => $id,
+            'slug' => $slug
+        );
+    }
+
+    /**
      * @param $slug
      * @param Request $request
      * @Template()
-     * @Route("/{slug}", name="blog_show")
+     * @Route("/blog/{slug}", name="blog_show")
      * @return Response
      */
     public function showAction(Request $request, $slug)

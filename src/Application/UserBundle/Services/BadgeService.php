@@ -22,6 +22,7 @@ use Symfony\Component\Process\Process;
 class BadgeService extends AbstractProcessService
 {
     const BADGE_MAX_SCORE = 'badge_max_score';
+    const TOP_BADGES_USERS = 'top_badges_users';
 
     /**
      * @var EntityManager
@@ -78,10 +79,13 @@ class BadgeService extends AbstractProcessService
         $minMotivatorScore = 0;
         $minTravellerScore = 0;
         $userIds = [];
+        $minUpdate = null;
 
+        // get repo
         $repo = $this->em->getRepository("ApplicationUserBundle:Badge");
 
-        $innovators = $repo->findTopUsersByType(Badge::TYPE_INNOVATOR, $count);
+        // get innovators
+        $innovators = $repo->findTopUsersIdByType(Badge::TYPE_INNOVATOR, $count);
 
         // check innovators
         if(is_array($innovators) && count($innovators) > 0){
@@ -89,18 +93,25 @@ class BadgeService extends AbstractProcessService
             $maxScore = $maxScoreBadge->getScore();
 
             // map for values and normalize scores
-            array_map(function($badge) use ($maxScore, &$userIds){
+            array_map(function($badge) use ($maxScore, &$userIds, &$minUpdate){
                 $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
                 $normalizedScore = ceil($normalizedScore);
                 $badge->normalizedScore = $normalizedScore;
                 $userIds[] = $badge->getUser()->getId();
+
+                $update = $badge->getUpdated();
+                $minUpdate = $update > $minUpdate ? $update :  $minUpdate;
+
+
+
             }, $innovators);
 
             $minInnovator = end($innovators);
             $minInnovatorScore = $minInnovator->normalizedScore;
         }
 
-        $motivators = $repo->findTopUsersByType(Badge::TYPE_MOTIVATOR, $count);
+        // get motivators
+        $motivators = $repo->findTopUsersIdByType(Badge::TYPE_MOTIVATOR, $count);
 
         // check motivator
         if(is_array($motivators) && count($motivators) > 0){
@@ -108,18 +119,23 @@ class BadgeService extends AbstractProcessService
             $maxScore = $maxScoreBadge->getScore();
 
             // map for values and normalize scores
-            array_map(function($badge) use ($maxScore, &$userIds){
+            array_map(function($badge) use ($maxScore, &$userIds, &$minUpdate){
                 $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
                 $normalizedScore = ceil($normalizedScore);
                 $badge->normalizedScore = $normalizedScore;
                 $userIds[] = $badge->getUser()->getId();
+
+                $update = $badge->getUpdated();
+                $minUpdate = $update > $minUpdate ? $update :  $minUpdate;
+
             }, $motivators);
 
             $minMotivator = end($motivators);
             $minMotivatorScore = $minMotivator->normalizedScore;
         }
 
-        $travellers = $repo->findTopUsersByType(Badge::TYPE_TRAVELLER, $count);
+        // get travellers
+        $travellers = $repo->findTopUsersIdByType(Badge::TYPE_TRAVELLER, $count);
 
         // check motivator
         if(is_array($travellers) && count($travellers) > 0){
@@ -128,19 +144,25 @@ class BadgeService extends AbstractProcessService
 
 
             // map for values and normalize scores
-            array_map(function($badge) use ($maxScore, &$userIds){
+            array_map(function($badge) use ($maxScore, &$userIds, &$minUpdate){
                 $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
                 $normalizedScore = ceil($normalizedScore);
                 $badge->normalizedScore = $normalizedScore;
                 $userIds[] = $badge->getUser()->getId();
+
+                $update = $badge->getUpdated();
+                $minUpdate =  $update > $minUpdate ? $update :  $minUpdate;
+
             }, $travellers);
 
             $minTraveller = end($travellers);
             $minTravellerScore = $minTraveller->normalizedScore;
         }
 
+        // unique ids
         $userIds = array_unique($userIds);
 
+        // generate result
         $result = array(
             'min' => array(
                 'innovator' => $minInnovatorScore,
@@ -152,8 +174,11 @@ class BadgeService extends AbstractProcessService
                 'motivator' => $motivators,
                 'traveller' => $travellers,
             ),
-            'users' => $userIds
+            'users' => $userIds,
+            'maxUpdate' => $minUpdate
         );
+
+        apc_store(self::TOP_BADGES_USERS, $result);
 
         return $result;
     }

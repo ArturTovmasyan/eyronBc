@@ -207,6 +207,7 @@ class UserNotifyService extends AbstractProcessService
                 'sender' => $sender,
                 'viewLink' => $viewLink,
                 'language' => $language,
+                'userEmail' => $router->generate('edit_user_notify', array(), true)
             );
 
             $id = $this->createEmailRecorder($receiver, $subject, $contentParameters);

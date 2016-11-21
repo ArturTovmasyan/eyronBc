@@ -30,6 +30,15 @@
                 <source>breadcrumb.link_user_create</source>
                 <target>Create</target>
             </trans-unit>
+            <trans-unit id="Dashboard">
+                <source>Dashboard</source>
+                <target>Dashboard</target>
+            </trans-unit>
+
+            <trans-unit id="breadcrumb.link_dashboard">
+                <source>breadcrumb.link_dashboard</source>
+                <target>Dashboard</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.link_user_edit">
                 <source>breadcrumb.link_user_edit</source>
                 <target>Edit</target>

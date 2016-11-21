@@ -129,6 +129,7 @@ goal_friend_menu:
       recently_matched: Последние соответствия
       most_matching: Максимальные соответствия
       most_activity: Самые активные
+      follow: Подписчики
 activities:
       title: Действия
       description: Описание действий
@@ -250,6 +251,7 @@ menu:
   map: Карта
   common: Общие
   owned: Созданные
+  bucketlist_stories: Bucket List Статьи
 
 right_menu:
   my_ideas: Мои Идеи
@@ -298,6 +300,8 @@ my_bucket_list:
   edit: Редактировать
   missed_deadline: Срок достижения цели нарушен
   year_old: -летний
+  follow: Подписаться
+  un_follow: Отписаться
 
   calendar:
       completed: Достигнутый цель
@@ -316,6 +320,7 @@ draft:
 
 done_by: Достигнуто
 home_complete: Достигнуто
+home_voters: Понравилось
 home_listed_by: Добавлено
 listed_by: Добавлено
 block_listed: Добавлено
@@ -500,3 +505,17 @@ leaderboard:
   traveler: Путешественник
   innovator: Иноватор
   writer: Ментор
+  position: Твоя Позиция
+  position_text: Хотите стать лидером и заслужить признание? Просто ставьте цели, достигайте их и делитесь историями своих успехов.
+  rewards: Награды
+  travelerText: <strong class="text-dark-gray">Путешественник</strong> – это пользователь, который посетил больше мест чем другие
+  innovatorText: <strong class="text-dark-gray">Иноватор</strong> – это пользователь, который предложил больше идей и получил подтверждение чем другие
+  motivatorText: <strong class="text-dark-gray">Ментор</strong> – это пользователь, который написал больше историй успехов чем другие
+  top: Топ 10
+  rank: Рейтинг
+  leaders: Лидеры
+  score: Очки
+  level: Уровень
+
+goalfriend: Единомышленник
+closefriend: Близкий Единомышленник

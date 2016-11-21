@@ -76,8 +76,10 @@
     background-color: #f4f4f4;
     padding: 8px 15px 0;
     box-shadow: none;
+    resize: none;
     &:focus{
       outline: 0;
+      box-shadow: none;
     }
   }
 }
@@ -177,6 +179,7 @@
     font-weight: 600;
     color:#666666;
     white-space: normal;
+    text-align: justify;
 
     &:last-child{
       font-weight: normal;
@@ -230,7 +233,7 @@
 
   p{
     padding:0;
-    font-size:14px;
+    font-size:13px;
     color:#666666;
     margin:0;
     white-space: normal;
@@ -299,6 +302,10 @@
     span{
       font-size:12px;
     }
+
+    p{
+      font-size: 14px;
+    }
   }
 
   .view-more-comments{
@@ -329,4 +336,12 @@
       }
     }
   }
+}
+
+.comment-icon{
+  vertical-align: middle;
+  display: inline-block;
+  width: 30px;
+  height: 24px;
+  background: url('../images/comment-icon.svg') no-repeat center center;
 }
