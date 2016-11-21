@@ -110,6 +110,11 @@ app_badge_rest:
     resource: Application\UserBundle\Controller\Rest\BadgeController
     prefix:   /
 
+app_statistic_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\StatisticPageController
+    prefix:   /
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
