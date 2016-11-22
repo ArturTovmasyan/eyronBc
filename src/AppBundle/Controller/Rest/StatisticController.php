@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * @Rest\Prefix("/api/v1.0")
  */
-class StatisticPageController extends FOSRestController
+class StatisticController extends FOSRestController
 {
     const MONTH = 1;
     const WEEK = 2;
@@ -18,7 +18,7 @@ class StatisticPageController extends FOSRestController
     const TYPE_EMAIL = 4;
 
     /**
-     * @Rest\Get("/statistic/{type}/{start}/{end}/{groupBy}", requirements={"type"="\d+"}, name="get_statistic", options={"method_prefix"=false})
+     * @Rest\Get("/statistic/{type}/{groupBy}/{start}/{end}", requirements={"type"="\d+", "groupBy"="\d+"}, name="get_statistic", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Statistic",
@@ -36,7 +36,7 @@ class StatisticPageController extends FOSRestController
      * @Security("has_role('ROLE_ADMIN')")
      * @return array
      */
-    public function getStatisticAction($type, $start, $end, $groupBy)
+    public function getStatisticAction($type, $groupBy, $start, $end)
     {
         $statisticData = null;
 
@@ -59,7 +59,7 @@ class StatisticPageController extends FOSRestController
         if ($type == self::TYPE_EMAIL) {
 
             //statistic data for email
-            $statisticData = $em->getRepository('AppBundle:Email')->findStatisticData($start, $end, $groupBy);
+            $statisticData = $em->getRepository('AppBundle:Email')->findStatisticData($groupBy, $start, $end);
         }
 
         return $statisticData;

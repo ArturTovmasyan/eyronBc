@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity\Repository;
 
-use AppBundle\Controller\Rest\StatisticPageController;
+use AppBundle\Controller\Rest\StatisticController;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -19,26 +19,16 @@ class EmailRepository extends EntityRepository
      * @param $groupBy
      * @return array
      */
-    public function findStatisticData($start, $end, $groupBy)
+    public function findStatisticData($groupBy = StatisticController::DAY, $start, $end)
     {
         //get emails statistic count
         $emails =  $this->getEntityManager()
             ->createQueryBuilder()
             ->select('count(em.id) as cnt, em.sent as created, SUM(CASE WHEN em.seen IS NOT NULL THEN 1 ELSE 0 END) as seen')
-            ->from('AppBundle:Email', 'em')
-            ->groupBy('em.sent')
-            ->orderBy('em.sent');
-
-//        //check if groupBy is month
-//        if ($groupBy == StatisticPageController::MONTH) {
-//            $emails
-//                ->andWhere('em.sent = month(em.sent)')
-//                ->setParameter('month', $start);
-//        }
+            ->from('AppBundle:Email', 'em');
 
         //if start date is exists
         if ($start) {
-
             $emails
                 ->andWhere(':start <= date(em.sent)')
                 ->setParameter('start', $start);
@@ -46,10 +36,34 @@ class EmailRepository extends EntityRepository
 
         //if end date is exists
         if ($end) {
-
             $emails
                 ->andWhere(':end >= date(em.sent)')
                 ->setParameter('end', $end);
+        }
+
+        // switch for group by
+        switch($groupBy) {
+
+            case StatisticController::DAY:
+                $emails
+                    ->addSelect('day(em.sent) as hidden day')
+                    ->groupBy('day')
+                    ->orderBy('day');
+                break;
+            case StatisticController::WEEK:
+                $emails
+                    ->addSelect('dayofweek(em.sent) as hidden wk')
+                    ->groupBy('wk')
+                    ->orderBy('wk');
+                break;
+            case StatisticController::MONTH:
+                $emails
+                    ->addSelect('month(em.sent) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
+                break;
+            default:
+                break;
         }
 
         //get counts for emails

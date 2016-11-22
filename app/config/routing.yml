@@ -112,7 +112,7 @@ app_badge_rest:
 
 app_statistic_rest:
     type:     rest
-    resource: AppBundle\Controller\Rest\StatisticPageController
+    resource: AppBundle\Controller\Rest\StatisticController
     prefix:   /
 
 _liip_imagine:
