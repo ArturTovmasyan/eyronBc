@@ -102,7 +102,7 @@
     {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}
 
     <div class="content-header">
-        <figure>
+        <figure  {% if profileUser.id == app.user.id %} class="my-profile"{% endif %}>
             <span class="overlay"></span>
             <img src="
             {% if profileUser.getPhotoLink %}
