@@ -68,8 +68,12 @@ class UserProvider extends  BaseProvider
             $user = $this->createTwitterUser($response->getResponse());
         }
         elseif($resourceOwner instanceof FacebookResourceOwner){
+            
+            //get access token
+            $accessToken = $response->getAccessToken();
+            
             // get facebook user
-            $user = $this->createFacebookUserUser($response->getResponse());
+            $user = $this->createFacebookUserUser($response->getResponse(), $accessToken);
         }
         else {
             // return exception if user not found,
@@ -158,12 +162,13 @@ class UserProvider extends  BaseProvider
 
 
     /**
-     * This function is used to create facebook user
-     *
      * @param $response
+     * @param null $accessToken
      * @return User|\FOS\UserBundle\Model\UserInterface
+     * @throws \Exception
+     * @throws \Throwable
      */
-    private function createFacebookUserUser($response)
+    private function createFacebookUserUser($response, $accessToken = null)
     {
         // check is user in our bd
         $user = $this->userManager->findUserBy(array('facebookUid' => $response['id']));
@@ -197,9 +202,10 @@ class UserProvider extends  BaseProvider
 
             $this->container->get('request_stack')->getCurrentRequest()->getSession()
                 ->getFlashBag()
-                ->set('userRegistration','User registration by '.$socialName.' from Web')
-            ;
+                ->set('userRegistration','User registration by '.$socialName.' from Web');
 
+            //send post on FB user wall
+            $this->container->get('app.facebook')->postOnFacebookWall($accessToken);
         }
 
         return $user;
