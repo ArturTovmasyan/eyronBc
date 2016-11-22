@@ -35,7 +35,7 @@ class PostOnSocialWallService
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
             curl_exec($ch);
             curl_close($ch);
-            
+
         }catch (\Exception $e){
             //
         }
