@@ -7,6 +7,8 @@ class PostOnSocialWallService
     const POST_ON_FACEBOOK_WALL_API = 'https://graph.facebook.com/v2.8/me/feed';
 
     /**
+     * This function is used to send post on user facebook wall
+     *
      * @param $accessToken
      * @return null
      * @throws \Exception
@@ -24,25 +26,18 @@ class PostOnSocialWallService
             'link' => 'https://www.bucketlist127.com',
         ];
 
-        //use curl for post on user facebook wall
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-
-        //get response
-        $response = curl_exec($ch);
-
-        //close curl
-        curl_close($ch);
-
-        //json decode data
-        $response = json_decode($response, true);
-
-        //check response
-        if (!array_key_exists('id', $response)) {
-            throw new \Exception('Connection error');
+        try{
+            //use curl for post on user facebook wall
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+            curl_exec($ch);
+            curl_close($ch);
+            
+        }catch (\Exception $e){
+            //
         }
     }
 }
