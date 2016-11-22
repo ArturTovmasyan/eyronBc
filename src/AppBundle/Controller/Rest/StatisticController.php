@@ -41,7 +41,7 @@ class StatisticController extends FOSRestController
     public function getStatisticAction($type, $groupBy, $start, $end)
     {
         //check if type is string
-        if (is_string($type)) {
+        if (is_string(strtolower($type))) {
 
             //switch for type name
             switch ($type) {
@@ -57,7 +57,7 @@ class StatisticController extends FOSRestController
         if(is_string($groupBy)) {
 
             //switch for group name
-            switch ($groupBy) {
+            switch (strtolower($groupBy)) {
                 case 'day':
                     $groupBy = self::DAY;
                     break;
