@@ -19,7 +19,7 @@ class StatisticController extends FOSRestController
     const TYPE_EMAIL = 4;
 
     /**
-     * @Rest\Get("/statistic/{type}/{groupBy}/{start}/{end}", name="get_statistic", options={"method_prefix"=false})
+     * @Rest\Get("/statistic/{type}/{groupBy}/{start}/{end}", defaults={"start": null, "end": null}, name="get_statistic", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Statistic",
