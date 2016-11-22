@@ -2,7 +2,7 @@
 
 namespace AppBundle\Services;
 
-class FacebookService
+class PostOnSocialWallService
 {
     const POST_ON_FACEBOOK_WALL_API = 'https://graph.facebook.com/v2.8/me/feed';
 
