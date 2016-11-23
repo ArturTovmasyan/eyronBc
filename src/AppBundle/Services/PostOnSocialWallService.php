@@ -2,9 +2,25 @@
 
 namespace AppBundle\Services;
 
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+
 class PostOnSocialWallService
 {
     const POST_ON_FACEBOOK_WALL_API = 'https://graph.facebook.com/v2.8/me/feed';
+
+    /**
+     * @var
+     */
+    private $translator;
+
+    /**
+     * PostOnSocialWallService constructor.
+     * @param Translator $translator
+     */
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
 
     /**
      * This function is used to send post on user facebook wall
@@ -37,7 +53,7 @@ class PostOnSocialWallService
             curl_close($ch);
 
         }catch (\Exception $e){
-            //
+        // if in future must be returned exception
         }
     }
 }
