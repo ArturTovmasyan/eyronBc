@@ -158,8 +158,24 @@ class GoalAdmin extends AbstractAdmin
                     return true;
                 },
                 'label'=>'admin.label.name.created'
-            ], 'date', ['widget' => 'single_text']
-            )
+            ], 'date', ['widget' => 'single_text'])
+            ->add('updated', 'doctrine_orm_callback', [
+                'show_filter' => true,
+                'callback' => function($queryBuilder, $alias, $field, $value) {
+                    if (!$value['value']) {
+                        return;
+                    }
+
+                    $queryBuilder
+                        ->andWhere("DATE(" . $alias . ".updated) = DATE(:value)")
+                        ->setParameter('value', $value['value'])
+                    ;
+
+                    return true;
+                },
+                'label'=>'admin.label.name.updated'
+            ], 'date', ['widget' => 'single_text'])
+
         ;
     }
 
@@ -187,7 +203,8 @@ class GoalAdmin extends AbstractAdmin
             )
             ->add('videoLink', null, ['template' => 'AppBundle:Admin:goal_video_list.html.twig', 'label'=>'admin.label.name.videoLink']
             )
-            ->add('created', null, ['label'=>'admin.label.name.created'])
+            ->add('created', 'date', ['label'=>'admin.label.name.created', 'pattern' => 'yyyy-MM-dd'])
+            ->add('updated', 'date', ['label'=>'admin.label.name.updated', 'pattern' => 'yyyy-MM-dd'])
             ->add('_action', 'actions', [
                 'actions' => [
                     'show' => ['template' => 'AppBundle:Admin:goal_list_action_show.html.twig'],
