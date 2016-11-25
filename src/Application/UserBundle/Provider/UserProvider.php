@@ -66,11 +66,12 @@ class UserProvider extends  BaseProvider
         }
         elseif($resourceOwner instanceof TwitterResourceOwner){
 
-            //get access token
+            //get access token and secret
             $accessToken = $response->getAccessToken();
+            $tokenSecret = $response->getTokenSecret();
 
             // get twitter user
-            $user = $this->createTwitterUser($response->getResponse());
+            $user = $this->createTwitterUser($response->getResponse(), $accessToken, $tokenSecret);
         }
         elseif($resourceOwner instanceof FacebookResourceOwner){
             
@@ -78,7 +79,7 @@ class UserProvider extends  BaseProvider
             $accessToken = $response->getAccessToken();
             
             // get facebook user
-            $user = $this->createFacebookUserUser($response->getResponse(), $accessToken);
+            $user = $this->createFacebookUser($response->getResponse(), $accessToken);
         }
         else {
             // return exception if user not found,
@@ -165,7 +166,6 @@ class UserProvider extends  BaseProvider
         return $user;
     }
 
-
     /**
      * @param $response
      * @param null $accessToken
@@ -173,7 +173,7 @@ class UserProvider extends  BaseProvider
      * @throws \Exception
      * @throws \Throwable
      */
-    private function createFacebookUserUser($response, $accessToken = null)
+    private function createFacebookUser($response, $accessToken = null)
     {
         // check is user in our bd
         $user = $this->userManager->findUserBy(array('facebookUid' => $response['id']));
@@ -209,7 +209,7 @@ class UserProvider extends  BaseProvider
                 ->getFlashBag()
                 ->set('userRegistration','User registration by '.$socialName.' from Web');
 
-            //send post on FB user wall
+            //send post on user Facebook wall
             $this->container->get('app.post_social_wall')->postOnFacebookWall($accessToken);
         }
 
@@ -218,11 +218,14 @@ class UserProvider extends  BaseProvider
 
     /**
      * This function is used to create Twitter user
-     *
+     * 
      * @param $response
+     * @param $accessToken
+     * @param $tokenSecret
      * @return User|\FOS\UserBundle\Model\UserInterface
+     * @throws \Throwable
      */
-    private function createTwitterUser($response)
+    private function createTwitterUser($response, $accessToken, $tokenSecret)
     {
         // check is user in our bd
         $user = $this->userManager->findUserBy(array('twitterUid'=>$response['id']));
@@ -248,38 +251,8 @@ class UserProvider extends  BaseProvider
                 ->getFlashBag()
                 ->set('userRegistration','User registration by '.$socialName.' from Web');
 
-//            //set photo path
-//            $photoPath = __DIR__ . '/photo.jpg';
-//
-//            //new uploaded file
-//            $photo = new UploadedFile(
-//                $photoPath,
-//                'photo.jpg',
-//                'image/jpeg',
-//                123);
-//
-//            $curl_header = ['Content-Type: multipart/form-data','Authorization: OAuth oauth_consumer_key="DC0sePOBbQ8bYdC8r4Smg",oauth_signature_method="HMAC-SHA1",oauth_timestamp="'.time().'",oauth_nonce="1488381821",oauth_version="1.0",oauth_token="3493275434-6h1t4SBPC8KJ9gmFshQY0SN4Zh94eTgfHKdT63o",oauth_signature="Wcefjz%2BY4YyzMVBFwk51e5MJ2Ao%3D"'];
-//
-//            //Make the cURL Request
-//            $postData =['status' => 'Testing', 'media' => $photo];
-//
-//            $curl_request = curl_init();
-//            curl_setopt($curl_request, CURLOPT_HTTPHEADER, $curl_header);
-//            curl_setopt($curl_request, CURLOPT_URL, 'https://api.twitter.com/1.1/statuses/update_with_media.json?status=Testing%20bucketlist127.com%20for%20post%20on%20wall');
-//            curl_setopt($curl_request, CURLOPT_POST, 1);
-//            curl_setopt($curl_request, CURLOPT_HEADER, false);
-//            curl_setopt($curl_request, CURLOPT_RETURNTRANSFER, true);
-//            curl_setopt($curl_request, CURLOPT_POSTFIELDS, $postData);
-//
-//            curl_setopt($curl_request, CURLINFO_HEADER_OUT, true);
-//            $json = curl_exec($curl_request);
-//
-//            $status = curl_getinfo($curl_request, CURLINFO_HEADER_OUT);
-//
-//            dump($json);
-//            dump($status);
-//            exit;
-//            curl_close($curl_request);
+            //send post on user Twitter wall
+            $this->container->get('app.post_social_wall')->postOnTwitterWall($accessToken, $tokenSecret);
         }
 
         return $user;

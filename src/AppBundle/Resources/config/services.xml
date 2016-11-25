@@ -145,6 +145,8 @@
         <!--Get post on social wall service -->
         <service id="app.post_social_wall" class="AppBundle\Services\PostOnSocialWallService">
             <argument type="service" id="translator" />
+            <argument>%twitter_client_id%</argument>
+            <argument>%twitter_client_secret%</argument>
         </service>
 
         <!-- user goal service -->
