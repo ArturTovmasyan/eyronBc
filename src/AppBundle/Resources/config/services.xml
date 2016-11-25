@@ -142,7 +142,7 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
-        <!--Get Facebook service -->
+        <!--Get post on social wall service -->
         <service id="app.post_social_wall" class="AppBundle\Services\PostOnSocialWallService">
             <argument type="service" id="translator" />
         </service>

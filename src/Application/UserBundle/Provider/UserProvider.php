@@ -16,6 +16,7 @@ use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GoogleResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitchResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitterResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -64,6 +65,10 @@ class UserProvider extends  BaseProvider
             $user = $this->createGoogleUser($response->getResponse());
         }
         elseif($resourceOwner instanceof TwitterResourceOwner){
+
+            //get access token
+            $accessToken = $response->getAccessToken();
+
             // get twitter user
             $user = $this->createTwitterUser($response->getResponse());
         }
@@ -241,9 +246,40 @@ class UserProvider extends  BaseProvider
 
             $this->container->get('request_stack')->getCurrentRequest()->getSession()
                 ->getFlashBag()
-                ->set('userRegistration','User registration by '.$socialName.' from Web')
-            ;
+                ->set('userRegistration','User registration by '.$socialName.' from Web');
 
+//            //set photo path
+//            $photoPath = __DIR__ . '/photo.jpg';
+//
+//            //new uploaded file
+//            $photo = new UploadedFile(
+//                $photoPath,
+//                'photo.jpg',
+//                'image/jpeg',
+//                123);
+//
+//            $curl_header = ['Content-Type: multipart/form-data','Authorization: OAuth oauth_consumer_key="DC0sePOBbQ8bYdC8r4Smg",oauth_signature_method="HMAC-SHA1",oauth_timestamp="'.time().'",oauth_nonce="1488381821",oauth_version="1.0",oauth_token="3493275434-6h1t4SBPC8KJ9gmFshQY0SN4Zh94eTgfHKdT63o",oauth_signature="Wcefjz%2BY4YyzMVBFwk51e5MJ2Ao%3D"'];
+//
+//            //Make the cURL Request
+//            $postData =['status' => 'Testing', 'media' => $photo];
+//
+//            $curl_request = curl_init();
+//            curl_setopt($curl_request, CURLOPT_HTTPHEADER, $curl_header);
+//            curl_setopt($curl_request, CURLOPT_URL, 'https://api.twitter.com/1.1/statuses/update_with_media.json?status=Testing%20bucketlist127.com%20for%20post%20on%20wall');
+//            curl_setopt($curl_request, CURLOPT_POST, 1);
+//            curl_setopt($curl_request, CURLOPT_HEADER, false);
+//            curl_setopt($curl_request, CURLOPT_RETURNTRANSFER, true);
+//            curl_setopt($curl_request, CURLOPT_POSTFIELDS, $postData);
+//
+//            curl_setopt($curl_request, CURLINFO_HEADER_OUT, true);
+//            $json = curl_exec($curl_request);
+//
+//            $status = curl_getinfo($curl_request, CURLINFO_HEADER_OUT);
+//
+//            dump($json);
+//            dump($status);
+//            exit;
+//            curl_close($curl_request);
         }
 
         return $user;
