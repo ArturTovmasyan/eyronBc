@@ -147,6 +147,7 @@
             <argument type="service" id="translator" />
             <argument>%twitter_client_id%</argument>
             <argument>%twitter_client_secret%</argument>
+            <argument>%project_name%</argument>
         </service>
 
         <!-- user goal service -->

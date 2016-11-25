@@ -27,16 +27,35 @@ class PostOnSocialWallService
     private $twitterConsumerSecret;
 
     /**
+     * @var string
+     */
+    private $projectHost;
+
+    /**
+     * @var string
+     */
+    private $imageLink;
+
+    /**
+     * @var string
+     */
+    private $message;
+
+    /**
      * PostOnSocialWallService constructor.
      * @param Translator $translator
      * @param $twitterConsumerKey
      * @param $twitterConsumerSecret
+     * @param $projectHost
      */
-    public function __construct(Translator $translator, $twitterConsumerKey, $twitterConsumerSecret)
+    public function __construct(Translator $translator, $twitterConsumerKey, $twitterConsumerSecret, $projectHost)
     {
         $this->translator = $translator;
         $this->twitterConsumerKey = $twitterConsumerKey;
         $this->twitterConsumerSecret = $twitterConsumerSecret;
+        $this->projectHost = $projectHost;
+        $this->imageLink = $this->projectHost.'/bundles/app/images/BL127.png';
+        $this->message =  $this->translator->trans('social_post_text', [], 'messages');//get message
     }
 
     /**
@@ -53,10 +72,9 @@ class PostOnSocialWallService
 
         //generate data for post on wall
         $postData = [
-            'message' => 'This is Bucket List 127 Test FOR POST ON WALL',
-            'description' => 'Description For TEST Post on wall',
-            'picture'   => 'https://www.bucketlist127.com/media/cache/slide_max_size/uploads/images/aa6b6e2e68ccd5af7de9daf87df57b75.jpg',
-            'link' => 'https://www.bucketlist127.com',
+            'message' => $this->message.' #BucketList127 #BucketList #LifeGoals',
+            'picture' => $this->imageLink,
+            'link' => $this->projectHost,
         ];
 
         try{
@@ -82,9 +100,6 @@ class PostOnSocialWallService
      */
     public function postOnTwitterWall($accessToken, $tokenSecret)
     {
-        //set photo path
-        $photoPath = __DIR__ . '/photo.jpg';
-
         //generate Twitter authorization settings
         $settings = ['oauth_access_token' => $accessToken,
                      'oauth_access_token_secret' => $tokenSecret,
@@ -96,7 +111,7 @@ class PostOnSocialWallService
         $twitter = new TwitterAPIExchange($settings);
 
         //generate data for upload twitter image
-        $postImageData = ['media' => base64_encode(file_get_contents($photoPath))];
+        $postImageData = ['media' => base64_encode(file_get_contents($this->imageLink))];
 
         //upload image for twitter
         $imageData = $twitter->buildOauth(self::UPLOAD_TWITTER_MEDIA_API, 'POST')
@@ -109,8 +124,12 @@ class PostOnSocialWallService
         //get image id
         $imageId = $imageData['media_id'];
 
+        //generate twitter status
+        $status = substr($this->message, 0 ,98);
+        $status = $status.' '.$this->projectHost.' #BucketList127';
+
         //generate data for post on twitter wall
-        $postData = ['status' => 'Test For Post on Twitter wall by www.bucketlist127.com', 'media_ids' => $imageId];
+        $postData = ['status' => $status, 'media_ids' => $imageId];
 
         try{
             //send post on twitter wall
