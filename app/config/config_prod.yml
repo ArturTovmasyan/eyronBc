@@ -17,6 +17,7 @@ assetic:
     bundles:        [ AppBundle ]
     debug:          %kernel.debug%
     use_controller: false
+    node: /usr/local/bin/node
     filters:
         cssrewrite: ~
         less:
