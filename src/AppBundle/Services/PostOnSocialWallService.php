@@ -42,19 +42,26 @@ class PostOnSocialWallService
     private $message;
 
     /**
+     * @var string
+     */
+    private $protocol;
+
+    /**
      * PostOnSocialWallService constructor.
      * @param Translator $translator
      * @param $twitterConsumerKey
      * @param $twitterConsumerSecret
      * @param $projectHost
+     * @param $protocol
      */
-    public function __construct(Translator $translator, $twitterConsumerKey, $twitterConsumerSecret, $projectHost)
+    public function __construct(Translator $translator, $twitterConsumerKey, $twitterConsumerSecret, $projectHost, $protocol)
     {
         $this->translator = $translator;
         $this->twitterConsumerKey = $twitterConsumerKey;
         $this->twitterConsumerSecret = $twitterConsumerSecret;
         $this->projectHost = $projectHost;
-        $this->imageLink = $this->projectHost.'/bundles/app/images/BL127.png';
+        $this->protocol = $protocol;
+        $this->imageLink = $protocol.'://'.$this->projectHost.'/bundles/app/images/BL127.png';
         $this->message =  $this->translator->trans('social_post_text', [], 'messages');//get message
     }
 
