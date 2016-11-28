@@ -69,7 +69,6 @@ class PostOnSocialWallService
      * This function is used to send post on user facebook wall
      *
      * @param $accessToken
-     * @return null
      * @throws \Exception
      */
     public function postOnFacebookWall($accessToken)
@@ -132,7 +131,7 @@ class PostOnSocialWallService
         $imageId = $imageData['media_id'];
 
         //generate twitter status
-        $status = substr($this->message, 0 ,98);
+        $status = substr($this->message, 0, 98);
         $status = $status.' '.$this->projectHost.' #BucketList127';
 
         //generate data for post on twitter wall
