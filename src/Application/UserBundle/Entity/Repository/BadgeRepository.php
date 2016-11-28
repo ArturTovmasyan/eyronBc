@@ -107,8 +107,8 @@ class BadgeRepository extends EntityRepository
                            FROM ApplicationUserBundle:Badge b
                            JOIN b.user u
                            WHERE b.type = :types 
-                           AND (b.score > (SELECT MAX(b1.score) FROM ApplicationUserBundle:Badge b1 WHERE b1.user = :user)                           
-                           OR (b.score = (SELECT MAX(b2.score) FROM ApplicationUserBundle:Badge b2 WHERE b2.user = :user) AND u.id < :user))")
+                           AND (b.score > (SELECT MAX(b1.score) FROM ApplicationUserBundle:Badge b1 WHERE b1.user = :user AND b1.type = :types)                           
+                           OR (b.score = (SELECT MAX(b2.score) FROM ApplicationUserBundle:Badge b2 WHERE b2.user = :user AND b2.type = :types) AND u.id < :user))")
             ->setParameter('types', $type)
             ->setParameter('user', $userId)
             ->setMaxResults($count)
