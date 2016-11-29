@@ -95,7 +95,7 @@ class GoalRepository extends EntityRepository
             $result =  $this->getEntityManager()
                 ->createQuery("SELECT g, i,
                            (6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
-                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist
+                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as dist
                            FROM AppBundle:Goal g
                            LEFT JOIN g.images i
                            WHERE g.id in (:ids)
