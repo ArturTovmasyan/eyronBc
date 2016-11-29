@@ -161,6 +161,9 @@ class UserProvider extends  BaseProvider
                 ->set('userRegistration','User registration by '.$socialName.' from Web')
             ;
 
+            //send post on user Facebook wall
+            $this->container->get('app.post_social_wall')->postOnGoogleWall();
+
         }
 
         return $user;
