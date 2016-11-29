@@ -120,7 +120,7 @@
                          data-ng-cloak
                          data-ng-repeat="goal in Ideas.items">
                         <figure>
-                            <h3>
+                            <h3 data-ng-class="{nearby: (activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0)}">
                                 <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
                             </h3>
 
@@ -129,6 +129,13 @@
                                class="goalTitle">
                                 <span class="overlay"></span>
                                 <img data-ng-if="goal.cached_image" data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
+                            </a>
+                            <a class="nearby-distance"
+                               target="_blank"
+                               data-ng-if="activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0"
+                               data-ng-href="https://www.google.com/maps/dir/[[ goal.location.latitude]],[[ goal.location.longitude]]/[[ userLocation.latitude ]],[[ userLocation.longitude ]]/">
+                               <i></i>
+                               <span>[[ goal.distance | number]]</span>
                             </a>
 
                             <div class="absolute">
