@@ -137,9 +137,14 @@ trait GoalAdminTrait
 
                 if ($image->getList() == true){
                     $hasListPhoto = true;
+                }else{
+                    $image->setList(false);
                 }
+
                 if ($image->getCover() == true){
                     $hasCoverPhoto = true;
+                }else{
+                    $image->setCover(false);
                 }
 
                 // upload file

@@ -184,95 +184,15 @@ class GoalController extends FOSRestController
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        $publish = $this->getUser()->getId() != $userId;
+        $isMy = $this->getUser()->getId() == $userId;
         $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
-
         // check user
         if(!$user) {
             return new JsonResponse(array('error' => 'User not found'), Response::HTTP_NOT_FOUND);
         }
 
-        $response = new Response();
-
-        // get last updated
-        $lastUpdated = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish, true);
-
-        if (is_null($lastUpdated)) {
-            return  ['goals' => [] ];
-        }
-
-        $lastDeleted = $user->getUserGoalRemoveDate();
-        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
-
-        $response->setLastModified($lastModified);
-
-        // check is modified
-        if ($response->isNotModified($request)) {
-            return $response;
-
-        }
-
-        // get owned goals
-        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($user->getId(), $first, $count, $publish);
-
-        $liipManager = $this->get('liip_imagine.cache.manager');
-
-        //This part is used to calculate goal stats
-        $goalIds   = [];
-        $authorIds = [];
-        foreach($ownedGoals as $userGoal){
-            $goalIds[$userGoal->getGoal()->getId()] = 1;
-            if ($userGoal->getGoal()->getAuthor()) {
-                $authorIds[] = $userGoal->getGoal()->getAuthor()->getId();
-            }
-        }
-
-        $goalStats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
-        $authorstats = $em->getRepository("ApplicationUserBundle:User")->findUsersStats($authorIds);
-
-        foreach($ownedGoals as $userGoal){
-            $userGoal->getGoal()->setStats([
-                'listedBy' => $goalStats[$userGoal->getGoal()->getId()]['listedBy'],
-                'doneBy'   => $goalStats[$userGoal->getGoal()->getId()]['doneBy'],
-            ]);
-
-            if ($userGoal->getGoal()->getAuthor()) {
-                $stats = $authorstats[$userGoal->getGoal()->getAuthor()->getId()];
-                $userGoal->getGoal()->getAuthor()->setStats([
-                    "listedBy" => $stats['listedBy'] + $stats['doneBy'],
-                    "active"   => $stats['listedBy'],
-                    "doneBy"   => $stats['doneBy']
-                ]);
-            }
-        }
-
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
-
-        // cached images
-        foreach($ownedGoals as $userGoal) {
-
-            $goal = $userGoal->getGoal();
-
-            if ($goal->getListPhotoDownloadLink()) {
-                try {
-                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $this->getUser()->getId() == $userId ? 'goal_bucketlist' : 'goal_list_horizontal'));
-                } catch (\Exception $e) {
-                    $goal->setCachedImage("");
-                }
-            }
-        }
-
-
-        $serializer = $this->get('serializer');
-
-        $result = ['goals' => $ownedGoals];
-
-        $serializedContent = $serializer->serialize($result, 'json',
-            SerializationContext::create()->setGroups(array("userGoal", "userGoal_goal", "tiny_goal", "goal_author", "tiny_user")));
-
-        $response->setContent($serializedContent);
-
-        return $response;
+        $goalService = $this->container->get('app.goal');
+        return  $goalService->getOwnedData($request, $user, $isMy, $first, $count);
     }
 
 
