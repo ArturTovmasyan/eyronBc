@@ -111,11 +111,26 @@ class GoalController extends FOSRestController
         //This part is used to calculate goal stats
         $goalIds   = [];
         $authorIds = [];
-        foreach($nearbyGoals as $goal){
+        foreach($nearbyGoals as $key => $goalArray){
+
+            $goal = $goalArray[0];
+            $dist = $goalArray['dist'];
+            $goal->distance = $dist;
+            $nearbyGoals[$key] = reset($nearbyGoals[$key]);
+
             $goalIds[$goal->getId()] = 1;
             if ($goal->getAuthor()) {
                 $authorIds[] = $goal->getAuthor()->getId();
             }
+
+            if ($goal->getListPhotoDownloadLink()) {
+                try {
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $filters[$key]));
+                } catch (\Exception $e) {
+                    $goal->setCachedImage("");
+                }
+            }
+            
         }
 
         $goalStats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
@@ -141,31 +156,7 @@ class GoalController extends FOSRestController
             $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
 
         }
-
-        // cached images
-        foreach($nearbyGoals as $key => $goal) {
-            if ($goal->getListPhotoDownloadLink()) {
-                try {
-                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $filters[$key]));
-                } catch (\Exception $e) {
-                    $goal->setCachedImage("");
-                }
-            }
-        }
-
-
-
-
-
-
-        $liipManager = $this->get('liip_imagine.cache.manager');
-
-        for($i = 0; $i < 10; $i++){
-            if (isset($goals[$i]) && $goals[$i]->getListPhotoDownloadLink()) {
-                $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), $filters[$i]));
-            }
-        }
-
+        
         return  $nearbyGoals;
     }
 

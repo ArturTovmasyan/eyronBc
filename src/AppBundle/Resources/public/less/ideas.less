@@ -14,7 +14,7 @@
     text-align: center;
     .rounded-corners(5px);
 
-    &>a{
+    &>a:not(.nearby-distance){
       height:230px;
     }
 
@@ -45,6 +45,11 @@
         &:hover{
           color:#ffffff;
         }
+      }
+
+      &.nearby{
+        width: 80%;
+        padding: 0 0 0 25px;
       }
     }
 

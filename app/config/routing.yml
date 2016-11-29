@@ -1,3 +1,48 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+
+comment_thread_api:
+    type:     rest
+    resource: Application\CommentBundle\Controller\Rest\CommentController
+    prefix:   /
+
+# custom rests
+app_user_goal_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\UserGoalController
+    prefix:   /
+
+app_goal_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\GoalController
+    prefix:   /
+
+app_new_feed_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\NewsFeedController
+    prefix:   /
+
+app_success_story_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\SuccessStoryController
+    prefix:   /
+
+app_main_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\MainRestController
+    prefix:   /
+
+app_badge_rest:
+    type:     rest
+    resource: Application\UserBundle\Controller\Rest\BadgeController
+    prefix:   /
+
+######################################################################
+# usual controllers
+######################################################################
+
 application_comment:
     resource: "@ApplicationCommentBundle/Controller/"
     type:     annotation
@@ -5,9 +50,20 @@ application_comment:
 application_user:
     resource: "@ApplicationUserBundle/Resources/config/routing.yml"
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+
+######################################################################
+# all imprtant links mut be put abocve this sections for performacen
+######################################################################
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+application_affiliate:
+    resource: "@ApplicationAffiliateBundle/Resources/config/routing.yml"
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc/
 
 # fos user routes
 fos_user_security:
@@ -28,7 +84,6 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
-
 
 # Sonata user routing
 sonata_user_admin_security:
@@ -69,58 +124,3 @@ twitter_login:
 PrestaSitemapBundle:
     resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
     prefix:   /
-
-NelmioApiDocBundle:
-    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /api/doc/
-
-comment_thread_api:
-    type:     rest
-    resource: Application\CommentBundle\Controller\Rest\CommentController
-    prefix:   /
-
-# custom rests
-app_user_goal_rest:
-    type:     rest
-    resource: AppBundle\Controller\Rest\UserGoalController
-    prefix:   /
-
-app_goal_rest:
-    type:     rest
-    resource: AppBundle\Controller\Rest\GoalController
-    prefix:   /
-
-app_new_feed_rest:
-    type:     rest
-    resource: AppBundle\Controller\Rest\NewsFeedController
-    prefix:   /
-
-app_success_story_rest:
-    type:     rest
-    resource: AppBundle\Controller\Rest\SuccessStoryController
-    prefix:   /
-
-app_main_rest:
-    type:     rest
-    resource: AppBundle\Controller\Rest\MainRestController
-    prefix:   /
-
-app_badge_rest:
-    type:     rest
-    resource: Application\UserBundle\Controller\Rest\BadgeController
-    prefix:   /
-
-app_statistic_rest:
-    type:     rest
-    resource: AppBundle\Controller\Rest\StatisticController
-    prefix:   /
-
-_liip_imagine:
-    resource: "@LiipImagineBundle/Resources/config/routing.xml"
-
-application_affiliate:
-    resource: "@ApplicationAffiliateBundle/Resources/config/routing.yml"
-
-app_blog:
-    resource: "@AppBundle/Controller/BlogController.php"
-    type: annotation

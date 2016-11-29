@@ -2621,7 +2621,7 @@ footer{
   width: 14px;
   height: 14px;
   background: url('../images/leaderboard_small.svg') no-repeat center center;
-  margin: 1px 6px 0;
+  margin: 1px 0 0 2px;
   vertical-align: top;
 }
 
@@ -2912,6 +2912,65 @@ footer{
   }
 
 }
+
+/* map styles*/
+
+#autocompleteMap{
+  width: 100%;
+  height: 320px;
+}
+
+#hide-completed{
+  display: inline-block;
+  margin-right: 25px;
+}
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 3px 11px 3px 13px;
+  text-overflow: ellipsis;
+  width: 185px;
+  margin-top: 12px;
+
+  &:focus {
+    border: 2px solid #4d90fe;
+  }
+}
+
+.pac-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0 11px;
+  margin-top: 12px;
+  label{
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+    color: #fff;
+    vertical-align: middle;
+  }
+}
+
+/* end map styles*/
+
 
 @media (min-width: @screen-sm) {
 
@@ -3234,6 +3293,10 @@ footer{
 
   .addthis_button_expanded{
     margin-top:3px !important;
+  }
+
+  #pac-input {
+    width: 265px;
   }
 
   footer{
@@ -4114,65 +4177,6 @@ div[dnd-list] {
   min-height: 40px;
 }
 
-/* map styles*/
-
-
-
-#autocompleteMap{
-  width: 100%;
-  height: 320px;
-}
-
-#hide-completed{
-  display: inline-block;
-  margin-right: 25px;
-}
-.controls {
-  margin-top: 10px;
-  border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  height: 32px;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-#pac-input {
-  background-color: #fff;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300;
-  margin-left: 12px;
-  padding: 3px 11px 3px 13px;
-  text-overflow: ellipsis;
-  width: 265px;
-  margin-top: 12px;
-
-  &:focus {
-    border: 2px solid #4d90fe;
-  }
-}
-
-.pac-container {
-  font-family: Roboto;
-}
-
-#type-selector {
-  color: #fff;
-  background-color: #4d90fe;
-  padding: 5px 11px 0 11px;
-  margin-top: 12px;
-  label{
-    font-family: Roboto;
-    font-size: 13px;
-    font-weight: 300;
-    color: #fff;
-    vertical-align: middle;
-  }
-}
-
-/* end map styles*/
 
 
 /*purple input styles*/

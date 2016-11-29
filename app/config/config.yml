@@ -43,7 +43,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v595
+        assets_version: v603
 
     default_locale:  en
     trusted_hosts:   ~
@@ -112,10 +112,6 @@ assetic:
             node: /usr/local/bin/node
             node_paths: [/usr/local/lib/node_modules]
             apply_to: "\.less$"
-#        yui_css:
-#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
-#        yui_js:
-#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
 # Doctrine Configuration
 doctrine:
@@ -229,7 +225,7 @@ hwi_oauth:
                 type:                facebook
                 client_id:           "%facebook_client_id%"
                 client_secret:       "%facebook_client_secret%"
-                scope:               "public_profile user_friends email"
+                scope:               "public_profile user_friends email publish_actions user_posts"
                 infos_url:           "https://graph.facebook.com/me?fields=id,email,first_name,last_name,gender,birthday,picture"
             google:
                 type:                google

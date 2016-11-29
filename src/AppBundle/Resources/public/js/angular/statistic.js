@@ -19,7 +19,7 @@ angular.module('statistic',["chart.js"])
     $scope.dateFrom = new Date(moment(new Date()).format('YYYY') + '-01-01');
 
     $scope.series = ['Read','Send'];
-    
+
     $scope.onClick = function (points, evt) {
       // console.log(points, evt);
     };
@@ -44,8 +44,8 @@ angular.module('statistic',["chart.js"])
     };
 
     $scope.filter = function () {
-      var timeTo = moment($scope.dateTo).format('YYYY-MM-DD'),
-          timeFrom = moment($scope.dateFrom).format('YYYY-MM-DD');
+      var timeTo = $scope.dateTo?moment($scope.dateTo).format('YYYY-MM-DD'):null,
+          timeFrom = $scope.dateFrom?moment($scope.dateFrom).format('YYYY-MM-DD'):null;
       if(timeTo && timeFrom && $scope.groupType){
         var url = path.replace('{type}', 'email').replace('{groupBy}', $scope.groupType).replace('{start}', timeFrom).replace('{end}', timeTo);
         $http.get(url).success(function(res) {
