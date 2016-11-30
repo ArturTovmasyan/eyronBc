@@ -28,6 +28,7 @@ class UserGoal implements ActivityableInterface
     // constants for status
     const ACTIVE = 1;
     const COMPLETED = 2;
+    const NONE = 0; // this constant is used to hide not interested goals
 
     //constants for date status
     const OLL = 1;

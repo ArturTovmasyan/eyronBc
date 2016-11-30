@@ -167,8 +167,8 @@ class GoalRepository extends EntityRepository
 
         $stats = $this->getEntityManager()
             ->createQuery("SELECT g.id as goalId,
-                              SUM(CASE WHEN ug.status = :status THEN 1 ELSE  0 END) AS listedBy,
-                              SUM(CASE WHEN ug.status != :status THEN 1 ELSE 0 END) AS doneBy
+                              SUM(CASE WHEN ug.status = :activeStatus THEN 1 ELSE  0 END) AS listedBy,
+                              SUM(CASE WHEN ug.status = :completeStatus THEN 1 ELSE 0 END) AS doneBy
                            FROM AppBundle:Goal g
                            LEFT JOIN g.userGoal ug
                            INDEX BY g.id
@@ -176,7 +176,8 @@ class GoalRepository extends EntityRepository
                            GROUP BY g.id
                           ")
             ->setParameter('goalIds', array_keys($goals))
-            ->setParameter('status', UserGoal::ACTIVE)
+            ->setParameter('activeStatus', UserGoal::ACTIVE)
+            ->setParameter('completeStatus', UserGoal::COMPLETED)
             ->getResult();
 
 
