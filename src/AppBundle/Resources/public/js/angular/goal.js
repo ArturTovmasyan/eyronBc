@@ -712,9 +712,10 @@ angular.module('goal', ['Interpolation',
 
         $( '.swipebox-main' ).swipebox();
     }])
-    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location', 'CacheFactory',
-        function($scope, lsInfiniteItems, $timeout, envPrefix, $location, CacheFactory){
+    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location', 'CacheFactory', '$http',
+        function($scope, lsInfiniteItems, $timeout, envPrefix, $location, CacheFactory, $http){
         var path = $location.$$path,
+            url = envPrefix + 'usergoals/{goal}/toggles/interesteds',
             positionCache = CacheFactory.get('bucketlist_by_position');
             $scope.notAllowed = true;
 
@@ -754,8 +755,12 @@ angular.module('goal', ['Interpolation',
             $("html, body").animate({ scrollTop: 0 }, "slow");
         };
             
-        $scope.notInterest = function (id) {
-            
+        $scope.notInterest = function (goal) {
+            var restPath = url.replace('{goal}', goal.id);
+
+            $http.post(restPath).success(function() {
+                goal.isInterested = false;
+            });
         };
 
         if(path.length){

@@ -125,8 +125,9 @@
                             </h3>
                             {% if app.user %}
                                 <span class="ng-hide hide-nearby"
-                                     data-ng-show="activeCategory == 'nearby'"
-                                     data-ng-click="notInterest(goal.id)"
+                                      data-ng-init="goal.isInterested = true"
+                                     data-ng-show="activeCategory == 'nearby' && goal.isInterested"
+                                     data-ng-click="notInterest(goal)"
                                      data-ng-mouseleave="$parent.isHover = false"
                                      data-ng-mousemove="hoverIn($event, '{{ "hide_nearby"|trans }}')">
                                 </span>
