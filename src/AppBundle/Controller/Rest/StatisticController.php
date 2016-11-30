@@ -6,10 +6,12 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Rest\Prefix("/api/v1.0")
+ * Class StatisticController
+ * @package AppBundle\Controller\Rest
  */
 class StatisticController extends FOSRestController
 {
@@ -19,7 +21,7 @@ class StatisticController extends FOSRestController
     const TYPE_EMAIL = 4;
 
     /**
-     * @Rest\Get("/statistic/{type}/{groupBy}/{start}/{end}", defaults={"start": null, "end": null}, name="get_statistic", options={"method_prefix"=false})
+     * @Rest\GET("/api/v1.0/statistic/{type}/{groupBy}/{start}/{end}", defaults={"start": null, "end": null}, name="get_statistic", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Statistic",
@@ -34,7 +36,7 @@ class StatisticController extends FOSRestController
      * @param $groupBy
      * @param $start
      * @param $end
-     * @Rest\View
+     * @Rest\View()
      * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
      * @return array
      */
@@ -89,6 +91,6 @@ class StatisticController extends FOSRestController
             $statisticData = $em->getRepository('AppBundle:Email')->findStatisticData($groupBy, $start, $end);
         }
 
-        return $statisticData;
+        return new JsonResponse($statisticData);
     }
 }

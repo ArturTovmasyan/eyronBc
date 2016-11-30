@@ -13,7 +13,7 @@ angular.module('statistic',["chart.js"])
     });
   }])
   .controller("LineCtrl", ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
-    var path = (window.location.pathname.indexOf('app_dev.php') === -1) ? "/" : "/app_dev.php/" + 'api/v1.0/statistic/{type}/{groupBy}/{start}/{end}';
+    var path = ((window.location.pathname.indexOf('app_dev.php') === -1) ? "/" : "/app_dev.php/" + 'api/v1.0/statistic/{type}/{groupBy}/{start}/{end}');
     $scope.groupType = 'month';
     $scope.dateTo = new Date();
     $scope.dateFrom = new Date(moment(new Date()).format('YYYY') + '-01-01');
