@@ -61,8 +61,13 @@ class UserProvider extends  BaseProvider
 
         // check owner resource
         if($resourceOwner instanceof GoogleResourceOwner){
+            //get access token and secret
+            $accessToken = $response->getAccessToken();
+
+            $id = $response->getResponse()['id'];
+
             // get google user
-            $user = $this->createGoogleUser($response->getResponse());
+            $user = $this->createGoogleUser($response->getResponse(), $accessToken, $id);
         }
         elseif($resourceOwner instanceof TwitterResourceOwner){
 
@@ -112,9 +117,11 @@ class UserProvider extends  BaseProvider
      * This function is used to create google user
      *
      * @param $response
+     * @param $accessToken
+     * @param $id
      * @return User|\FOS\UserBundle\Model\UserInterface
      */
-    private function createGoogleUser($response)
+    private function createGoogleUser($response, $accessToken, $id)
     {
         // check is user in our bd
         $user = $this->userManager->findUserBy(array('gplusUid'=>$response['id']));
@@ -162,8 +169,7 @@ class UserProvider extends  BaseProvider
             ;
 
             //send post on user Facebook wall
-            $this->container->get('app.post_social_wall')->postOnGoogleWall();
-
+            $this->container->get('app.post_social_wall')->postOnGoogleWall($accessToken, $id);
         }
 
         return $user;

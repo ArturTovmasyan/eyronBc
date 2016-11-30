@@ -148,39 +148,41 @@ class PostOnSocialWallService
     }
 
     /**
-     *
+     * @param $accessToken
+     * @param $id
      */
-    public function postOnGoogleWall()
+    public function postOnGoogleWall($accessToken, $id)
     {
+//        ?key=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&access_token='.$accessToken.'
         //generate facebook post on wall api
-        $url = ('https://www.googleapis.com/plusDomains/v1/people/117926755421578987478/activities');
-
-//        //generate data for post on wall
-//        $postData = [
-//            'message' => $this->message.' #BucketList127 #BucketList #LifeGoals',
-//            'picture' => $this->imageLink,
-//            'link' => $this->projectHost,
-//        ];
-
-        $headers = ['content-type' => 'application/json', 'Authorization' => 'OAuth$ya29.Ci-lA8hY0zeDkDU-MQ8_NukF0uQFYlL8a44P2uDCHTDhSF-H5wj7ZiAtRx90nrWzhA'];
+        $url = sprintf('https://www.googleapis.com/plusDomains/v1/people/%s/activities?key=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&access_token='.$accessToken.'', $id);
 
         $body = [
             "object" => [
-                "originalContent" => "We TEST TESTre putting new coversheets on all the TPS reports before they go out now."
+                "attachments" =>
+                    [
+                    "url" => "http://stage.bucketlist127.com/bundles/app/images/BL127.png",
+                    "objectType" => "article"
+                    ],
+                "originalContent" => "Happy TEST TEST Monday!",
             ],
             "access" => [
+                "items" => [
+                    ["type"=>"public"]
+                ],
                 "domainRestricted" => true
             ]
         ];
 
-            //use curl for post on user facebook wall
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch,CURLOPT_HTTPHEADER,$headers);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
-            curl_exec($ch);
-            curl_close($ch);
+
+        //use curl for post on user facebook wall
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, ["Content-Type: application/json"]);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+        $k = curl_exec($ch);
+        curl_close($ch);
     }
 }
