@@ -49,7 +49,7 @@ framework:
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        name: SFSESSIDCSMT
+        name: %session_name%
         cookie_domain: "%cookie_domain%"
         # handler_id set to null will use default session handler from php.ini
 #        cookie_lifetime: 86400
