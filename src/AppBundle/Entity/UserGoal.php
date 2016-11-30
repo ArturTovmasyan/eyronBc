@@ -99,6 +99,12 @@ class UserGoal implements ActivityableInterface
     protected $important = true;
 
     /**
+    * @var
+    * @ORM\Column(name="not_interested", type="boolean")
+    */
+    protected $notInterested = false;
+
+    /**
      * @var
      * @ORM\Column(name="note", type="string", length=1000, nullable=true)
      * @Groups({"userGoal"})
@@ -668,6 +674,22 @@ class UserGoal implements ActivityableInterface
     public function getConfirmed()
     {
         return $this->confirmed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotInterested()
+    {
+        return $this->notInterested;
+    }
+
+    /**
+     * @param mixed $notInterested
+     */
+    public function setNotInterested($notInterested)
+    {
+        $this->notInterested = $notInterested;
     }
 
 
