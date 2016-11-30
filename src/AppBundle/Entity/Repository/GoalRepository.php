@@ -66,17 +66,19 @@ class GoalRepository extends EntityRepository
             ->select('g.id', '(6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
                             - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist')
             ->from('AppBundle:Goal', 'g')
+            ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
             ->where('g.lat is not null and g.lng is not null')
+            ->andWhere('ug.id IS NULL or ug.notInterested != 1')
             ->orderBy('dist')
             ->setParameter('lat', $latitude)
-            ->setParameter('lng', $longitude);
+            ->setParameter('lng', $longitude)
+            ->setParameter('user', $userId);
+        ;
 
         if(($isCompleted == 'false' || !$isCompleted ) && !is_null($userId)){
             $query
-                ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
                 ->andWhere('ug.id IS NULL or ug.status = :status')
-                ->setParameter('status', UserGoal::ACTIVE)
-                ->setParameter('user', $userId);
+                ->setParameter('status', UserGoal::ACTIVE);
         }
         
         $ids = $query
