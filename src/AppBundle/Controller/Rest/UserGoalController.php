@@ -473,4 +473,53 @@ class UserGoalController extends FOSRestController
 
         return new JsonResponse($calendarData);
     }
+    /**
+     * This function is used to toggle not interested
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="UserGoal",
+     *  description="This function is used to toggle not interested",
+     *  statusCodes={
+     *         200="Returned when all ok",
+     *     }
+     * )
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param Goal $goal
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function postToggleInterestedAction(Goal $goal, Request $request)
+    {
+        $this->denyAccessUnlessGranted('add', $goal, $this->get('translator')->trans('goal.add_access_denied'));
+
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+
+         // get user goal
+         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
+
+         if (!$userGoal) {
+             $userGoal = new UserGoal();
+             $userGoal->setGoal($goal);
+             $userGoal->setUser($user);
+             $userGoal->setImportant(false);
+             $userGoal->setStatus(0);
+             $userGoal->setIsVisible(false);
+             $notInterested = true;
+         }
+         else{
+                $notInterested = !$userGoal->getNotInterested();
+            }
+
+         $userGoal->setNotInterested($notInterested);
+
+         $em->persist($userGoal);
+         $em->flush();
+
+         return new JsonResponse(null, Response::HTTP_OK);
+     }
 }

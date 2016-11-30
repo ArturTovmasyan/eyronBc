@@ -142,6 +142,7 @@ Done: Выполнить
 ideas_list_title: Ознакомьтесь с тысячами вдохновляющих идей для вашего Бакетлиста
 ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Включите</span> службу распознавания местоположения вашего браузера или введите свое местоположение
 nearby: Поблизости
+hide_nearby: Скрыть со списка «Поблизости»
 explore: Подтвердить
 
 # home
@@ -251,7 +252,7 @@ menu:
   map: Карта
   common: Общие
   owned: Созданные
-  bucketlist_stories: Bucket List Статьи
+  bucketlist_stories: Bucket List Blog
 
 right_menu:
   my_ideas: Мои Идеи

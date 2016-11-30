@@ -55,5 +55,6 @@ parameters:
 
     iframe_host: https://iframe.bucketlist127.com
     cookie_domain: .bucketlist127.com
+    session_name: AIzaSyBF1Id
 
 

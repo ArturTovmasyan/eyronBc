@@ -16,6 +16,7 @@ use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GoogleResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitchResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitterResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -64,12 +65,21 @@ class UserProvider extends  BaseProvider
             $user = $this->createGoogleUser($response->getResponse());
         }
         elseif($resourceOwner instanceof TwitterResourceOwner){
+
+            //get access token and secret
+            $accessToken = $response->getAccessToken();
+            $tokenSecret = $response->getTokenSecret();
+
             // get twitter user
-            $user = $this->createTwitterUser($response->getResponse());
+            $user = $this->createTwitterUser($response->getResponse(), $accessToken, $tokenSecret);
         }
         elseif($resourceOwner instanceof FacebookResourceOwner){
+            
+            //get access token
+            $accessToken = $response->getAccessToken();
+            
             // get facebook user
-            $user = $this->createFacebookUserUser($response->getResponse());
+            $user = $this->createFacebookUser($response->getResponse(), $accessToken);
         }
         else {
             // return exception if user not found,
@@ -156,14 +166,14 @@ class UserProvider extends  BaseProvider
         return $user;
     }
 
-
     /**
-     * This function is used to create facebook user
-     *
      * @param $response
+     * @param null $accessToken
      * @return User|\FOS\UserBundle\Model\UserInterface
+     * @throws \Exception
+     * @throws \Throwable
      */
-    private function createFacebookUserUser($response)
+    private function createFacebookUser($response, $accessToken = null)
     {
         // check is user in our bd
         $user = $this->userManager->findUserBy(array('facebookUid' => $response['id']));
@@ -197,9 +207,10 @@ class UserProvider extends  BaseProvider
 
             $this->container->get('request_stack')->getCurrentRequest()->getSession()
                 ->getFlashBag()
-                ->set('userRegistration','User registration by '.$socialName.' from Web')
-            ;
+                ->set('userRegistration','User registration by '.$socialName.' from Web');
 
+            //send post on user Facebook wall
+            $this->container->get('app.post_social_wall')->postOnFacebookWall($accessToken);
         }
 
         return $user;
@@ -207,11 +218,14 @@ class UserProvider extends  BaseProvider
 
     /**
      * This function is used to create Twitter user
-     *
+     * 
      * @param $response
+     * @param $accessToken
+     * @param $tokenSecret
      * @return User|\FOS\UserBundle\Model\UserInterface
+     * @throws \Throwable
      */
-    private function createTwitterUser($response)
+    private function createTwitterUser($response, $accessToken, $tokenSecret)
     {
         // check is user in our bd
         $user = $this->userManager->findUserBy(array('twitterUid'=>$response['id']));
@@ -235,9 +249,10 @@ class UserProvider extends  BaseProvider
 
             $this->container->get('request_stack')->getCurrentRequest()->getSession()
                 ->getFlashBag()
-                ->set('userRegistration','User registration by '.$socialName.' from Web')
-            ;
+                ->set('userRegistration','User registration by '.$socialName.' from Web');
 
+            //send post on user Twitter wall
+            $this->container->get('app.post_social_wall')->postOnTwitterWall($accessToken, $tokenSecret);
         }
 
         return $user;

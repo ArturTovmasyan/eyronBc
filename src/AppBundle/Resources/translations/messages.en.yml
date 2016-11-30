@@ -152,6 +152,7 @@ Done: complete
 ideas_list_title: Explore thousands of great ideas for your Bucket List
 ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Allow</span> your Browser Location Service or enter your location
 nearby: Nearby
+hide_nearby: Hide from Nearby
 explore: Confirm
 
 # home
@@ -264,7 +265,7 @@ menu:
   map: Map
   common: In Common
   owned: Created
-  bucketlist_stories: Bucket List Stories
+  bucketlist_stories: Bucket List Blog
 
 right_menu:
   my_ideas: My Ideas
@@ -362,7 +363,8 @@ listed_by: Listed
 block_listed: Listed
 block_completed: Completed
 Add an email : Add an email
-
+social_post_text: |
+                   I just started my Bucket List: so far the best tool to make sure I have memories, not just dream;) Join Bucket List 127, it's amazing!
 forget: Remove
 dream: No deadline, No goal! You are just dreaming
 

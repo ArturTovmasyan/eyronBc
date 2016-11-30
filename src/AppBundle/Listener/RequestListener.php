@@ -77,6 +77,7 @@ class RequestListener //implements EventSubscriberInterface
                 version_compare($mobileAppVersion, $this->mandatoryVersions[$mobileAppPlatform]) == -1){
                 $event->setResponse(new Response('You need to update your app', Response::HTTP_UPGRADE_REQUIRED));
 
+                $stopwatch->stop('bl_set_locale_listener');
                 return;
             }
         }
@@ -100,6 +101,7 @@ class RequestListener //implements EventSubscriberInterface
         //check if current url is not admin
         if (strpos($currentUrl, 'admin') == false) {
             if (!$request->hasPreviousSession()) {
+                $stopwatch->stop('bl_set_locale_listener');
                 return;
             }
 
