@@ -55,21 +55,21 @@ angular.module('statistic',["chart.js"])
           switch ($scope.groupType){
             case 'month':
               angular.forEach(res, function (d) {
-                $scope.labels.push(moment(d.created).format('MMMM'));
+                $scope.labels.push(moment(d.created.date).format('MMMM'));
                 $scope.data[0].push(d.read);
                 $scope.data[1].push(d.send);
               });
               break;
             case 'week':
               angular.forEach(res, function (d) {
-                $scope.labels.push(new Date(d.created).toLocaleString('en-us', {  weekday: 'long' }));
+                $scope.labels.push(new Date(d.created.date).toLocaleString('en-us', {  weekday: 'long' }));
                 $scope.data[0].push(d.read);
                 $scope.data[1].push(d.send);
               });
               break;
             case 'day':
               angular.forEach(res, function (d) {
-                $scope.labels.push(moment(d.created).format('YYYY-MM-DD'));
+                $scope.labels.push(moment(d.created.date).format('YYYY-MM-DD'));
                 $scope.data[0].push(d.read);
                 $scope.data[1].push(d.send);
               });

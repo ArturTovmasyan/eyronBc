@@ -38,7 +38,7 @@ class StatisticController extends FOSRestController
      * @param $end
      * @Rest\View()
      * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
-     * @return array
+     * @return array|response
      */
     public function getStatisticAction($type, $groupBy, $start, $end)
     {
