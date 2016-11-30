@@ -14,7 +14,7 @@
 <div class="inner-container {% if not aphorisms %} no-quote {% if not author or author.isAdmin %} no-author{% endif %} {% endif %}">
     {% set cover = goal.getCoverPhotoDownloadLink %}
     {% set goalInner = true %}
-    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}
     <figure class="goal-image">
         <span class="overlay"></span>
         <img src="
@@ -492,282 +492,285 @@
 
             {% endif %}
 
-            <div class="inner bg-white">
-                <div class="row">
+                <div class="row no-gutter bg-white">
                     <div class="col-md-8">
-                        <hr/>
-                        {% if goal.description and not goal.description == '' %}
-                            <div class="text-dark-grey goal-info">{{ goal.description|removeTag|markdown }}</div>
 
-                        {% endif %}
+                        <div class="inner">
+                            <hr/>
+                            {% if goal.description and not goal.description == '' %}
+                                <div class="text-dark-grey goal-info">{{ goal.description|removeTag|markdown }}</div>
 
-                        {% if goal.videoLink %}
-                            {% if goal.videoLink and goal.videoLink|length %}
+                            {% endif %}
 
-                                {% if goal.videoLink|length == 1 %}
-                                    {% set v = goal.videoLink[0] %}
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <embed-video
-                                                data-ng-init="mainSliderVideo='{{ v }}'"
-                                                data-ng-href="[[ ::mainSliderVideo ]]"
-                                                height="360px"
-                                                width="100%">
-                                            </embed-video>
-                                        </div>
-                                    </div>
-                                {% else %}
-                                    <div class="row">
-                                        <div id="main-slider-video" class="swiper-container" style="position: relative; top: 0; left: 0">
-                                            <!-- Slides Container -->
-                                            <div class="swiper-wrapper">
-                                                {% for k, video in goal.videoLink %}
-                                                    {% if video %}
-                                                        <div class="swiper-slide">
-                                                            <embed-video u="image"
-                                                               width="100%"
-                                                               height="300px"
-                                                               data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"
-                                                               data-ng-href="[[ ::mainSliderVideo[{{ k }}] ]]">
-                                                            </embed-video>
-                                                        </div>
-                                                    {% endif %}
-                                                {% endfor %}
+                            {% if goal.videoLink %}
+                                {% if goal.videoLink and goal.videoLink|length %}
+
+                                    {% if goal.videoLink|length == 1 %}
+                                        {% set v = goal.videoLink[0] %}
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <embed-video
+                                                    data-ng-init="mainSliderVideo='{{ v }}'"
+                                                    data-ng-href="[[ ::mainSliderVideo ]]"
+                                                    height="360px"
+                                                    width="100%">
+                                                </embed-video>
                                             </div>
-
-                                            <div class="swiper-pagination swiper-pagination-white"></div>
-                                            <!-- Add Arrows -->
-                                            <div class="swiper-button-next swiper-button-white"></div>
-                                            <div class="swiper-button-prev swiper-button-white"></div>
                                         </div>
-                                    </div>
+                                    {% else %}
+                                        <div class="row">
+                                            <div id="main-slider-video" class="swiper-container" style="position: relative; top: 0; left: 0">
+                                                <!-- Slides Container -->
+                                                <div class="swiper-wrapper">
+                                                    {% for k, video in goal.videoLink %}
+                                                        {% if video %}
+                                                            <div class="swiper-slide">
+                                                                <embed-video u="image"
+                                                                   width="100%"
+                                                                   height="300px"
+                                                                   data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"
+                                                                   data-ng-href="[[ ::mainSliderVideo[{{ k }}] ]]">
+                                                                </embed-video>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div class="swiper-pagination swiper-pagination-white"></div>
+                                                <!-- Add Arrows -->
+                                                <div class="swiper-button-next swiper-button-white"></div>
+                                                <div class="swiper-button-prev swiper-button-white"></div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
-                        {% endif %}
 
-                        {% if page == inner %}
+                            {% if page == inner %}
 
-                            {% set stories = goal.getSuccessStories %}
+                                {% set stories = goal.getSuccessStories %}
 
-                            {% if stories|length > 0 %}
-                                <div class="story-count">
-                                    <div class="row story-count">
-                                        <div class="col-xs-12">
-                                            <a name="success_story"></a>
-                                            <h4 class="text-dark-gray">
-                                                <i class="success-icon"></i>
-                                                {{ 'success_stories'|trans }}
-                                            </h4>
+                                {% if stories|length > 0 %}
+                                    <div class="story-count">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <a name="success_story"></a>
+                                                <h4 class="text-dark-gray">
+                                                    <i class="success-icon"></i>
+                                                    {{ 'success_stories'|trans }}
+                                                </h4>
+                                            </div>
                                         </div>
+                                        <hr />
                                     </div>
-                                    <hr />
-                                </div>
 
-                                {% for key, story in stories %}
-                                    {% set addedUser = story.user %}
-                                    {% set files = story.files %}
-                                    {% set videos = story.videoLink %}
+                                    {% for key, story in stories %}
+                                        {% set addedUser = story.user %}
+                                        {% set files = story.files %}
+                                        {% set videos = story.videoLink %}
 
-                                    <div class="comment-place story-fade-in ng-hide"
-                                         data-ng-show="successStoryShow[{{ key }}]"
-                                         data-ng-init="successStoryShow[{{ key }}]={{ key < storiesCount ? 'true':'false' }};
-                                         count[{{ story.id }}] = {{ story.getVotersCount() }};
-                                         vote[{{ story.id }}] = '{{ app.user is not null and story.getIsVote() }}'? true: false">
-                                        <div class="row no-gutter">
-                                            <div class="col-xs-9">
-                                                {#<div class="row no-gutter">#}
-                                                    {#<div class="col-xs-2 col-sm-3 col-md-2">#}
-                                                    <div class="clearfix">
-                                                        <a {% if app.user is not null %} href="{{ path('user_profile',  {'user': addedUser.uId})}}"{% else %}
-                                                            data-ng-click="openSignInPopover()" {% endif %}
-                                                             class="pull-left">
-                                                            {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
-                                                            {% set className = "user-no" ~ random(4) %}
+                                        <div class="comment-place story-fade-in ng-hide"
+                                             data-ng-show="successStoryShow[{{ key }}]"
+                                             data-ng-init="successStoryShow[{{ key }}]={{ key < storiesCount ? 'true':'false' }};
+                                             count[{{ story.id }}] = {{ story.getVotersCount() }};
+                                             vote[{{ story.id }}] = '{{ app.user is not null and story.getIsVote() }}'? true: false">
+                                            <div class="row no-gutter">
+                                                <div class="col-xs-9">
+                                                    {#<div class="row no-gutter">#}
+                                                        {#<div class="col-xs-2 col-sm-3 col-md-2">#}
+                                                        <div class="clearfix">
+                                                            <a {% if app.user is not null %} href="{{ path('user_profile',  {'user': addedUser.uId})}}"{% else %}
+                                                                data-ng-click="openSignInPopover()" {% endif %}
+                                                                 class="pull-left">
+                                                                {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
+                                                                {% set className = "user-no" ~ random(4) %}
 
-                                                            <figure class="user-image">
-                                                                {% if addedUser.getPhotoLink  %}
-                                                                <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
-                                                                {% else %}
-                                                                    <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
-                                                                {% endif %}
-                                                            </figure>
+                                                                <figure class="user-image">
+                                                                    {% if addedUser.getPhotoLink  %}
+                                                                    <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
+                                                                    {% else %}
+                                                                        <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
+                                                                    {% endif %}
+                                                                </figure>
 
-                                                        </a>
+                                                            </a>
 
-                                                        <div class="pull-left">
-                                                            <p>
-                                                                <a {% if app.user is not null %} href="{{ path('user_profile',  {'user': addedUser.uId})}}"{% else %}
-                                                                    data-ng-click="openSignInPopover()" {% endif %}
-                                                                 class="text-dark-gray">{{ addedUser.showName }}</a>
-                                                            </p>
-                                                        <span data-ng-cloak>
-                                                            [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
-                                                        </span>
-                                                            {% if app.user is not null and addedUser.id != app.user.id%}
-                                                                <span data-ls-report
-                                                                      data-ls-type="1"
-                                                                      data-ls-comment="{{ story.id }}"
-                                                                      class="report">{{ 'report.title'|trans({},'messages') }}
+                                                            <div class="pull-left">
+                                                                <p>
+                                                                    <a {% if app.user is not null %} href="{{ path('user_profile',  {'user': addedUser.uId})}}"{% else %}
+                                                                        data-ng-click="openSignInPopover()" {% endif %}
+                                                                     class="text-dark-gray">{{ addedUser.showName }}</a>
+                                                                </p>
+                                                            <span data-ng-cloak>
+                                                                [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
                                                             </span>
-                                                            {% endif %}
+                                                                {% if app.user is not null and addedUser.id != app.user.id%}
+                                                                    <span data-ls-report
+                                                                          data-ls-type="1"
+                                                                          data-ls-comment="{{ story.id }}"
+                                                                          class="report">{{ 'report.title'|trans({},'messages') }}
+                                                                </span>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+
+                                                        {#<div class="col-xs-10 col-sm-9 col-md-10">#}
+
+                                                    {#</div>#}
+                                                </div>
+
+                                                <div class=" col-xs-3 text-right" data-ng-cloak>
+                                                    <span class="text-purple ng-hide" data-ng-show="count[{{ story.id }}] < 1">0</span>
+                                                          <a data-ls-goal-users
+                                                             class="text-purple ng-hide"
+                                                             data-ng-show="count[{{ story.id }}] > 0"
+                                                             href="javascript:void(0)"
+                                                             data-ls-item-id="{{ story.id }}"
+                                                             data-ls-count="[[ count[{{ story.id }}] ]]"
+                                                             data-ls-category="3">
+                                                              [[ count[{{ story.id }}] ]]
+                                                          </a>
+                                                    {% set class = '' %}
+                                                    <i data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% else %}  {% set class = 'user-story' %} {% endif %} class="like-icon {{ class }}"></i>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="border-left">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <p>{{ story.story }} </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% if files and files|length %}
+
+                                                {% if files|length == 1 %}
+                                                    {% set file = files.first %}
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <figure>
+                                                                <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}" height="360"/>
+                                                            </figure>
                                                         </div>
                                                     </div>
+                                                {% else %}
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div id="story-slider-image{{ key }}" data-ng-init="successStoryImageKeys[{{ key }}] = {{ key }}" class="swiper-container story-slider image-slider">
+                                                                <!-- Slides Container -->
+                                                                <div class="swiper-wrapper">
+                                                                    {% for k,file in files %}
+                                                                        <div class="swiper-slide">
+                                                                            <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-key-{{ key }}">
+                                                                                <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}"/>
+                                                                            </a>
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                </div>
 
-                                                    {#<div class="col-xs-10 col-sm-9 col-md-10">#}
-
-                                                {#</div>#}
-                                            </div>
-
-                                            <div class=" col-xs-3 text-right" data-ng-cloak>
-                                                <span class="text-purple ng-hide" data-ng-show="count[{{ story.id }}] < 1">0</span>
-                                                <a data-ls-goal-users
-                                                   class="text-purple ng-hide"
-                                                   data-ng-show="count[{{ story.id }}] > 0"
-                                                   href="javascript:void(0)"
-                                                   data-ls-item-id="{{ story.id }}"
-                                                   data-ls-count="[[ count[{{ story.id }}] ]]"
-                                                   data-ls-category="3">[[ count[{{ story.id }}] ]]</a>
-                                                {% set class = '' %}
-                                                <i data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% else %}  {% set class = 'user-story' %} {% endif %} class="like-icon {{ class }}"></i>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="border-left">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <p>{{ story.story }} </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% if files and files|length %}
-
-                                            {% if files|length == 1 %}
-                                                {% set file = files.first %}
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <figure>
-                                                            <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}" height="360"/>
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                            {% else %}
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div id="story-slider-image{{ key }}" data-ng-init="successStoryImageKeys[{{ key }}] = {{ key }}" class="swiper-container story-slider image-slider">
-                                                            <!-- Slides Container -->
-                                                            <div class="swiper-wrapper">
-                                                                {% for k,file in files %}
-                                                                    <div class="swiper-slide">
-                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-key-{{ key }}">
-                                                                            <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}"/>
-                                                                        </a>
-                                                                    </div>
-                                                                {% endfor %}
+                                                                {% if files|length > 2 %}
+                                                                    <div class="swiper-pagination swiper-pagination-white"></div>
+                                                                    <!-- Add Arrows -->
+                                                                    <div class="swiper-button-next swiper-button-white"></div>
+                                                                    <div class="swiper-button-prev swiper-button-white"></div>
+                                                                {% endif %}
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
 
-                                                            {% if files|length > 2 %}
+                                            {% if videos and videos|length %}
+
+                                                {% if videos|length == 1 %}
+                                                    {% set v = videos[0] %}
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <figure>
+                                                                {#<iframe src="{{ v }}" width="700" height="360"></iframe>#}
+                                                                <embed-video
+                                                                    data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"
+                                                                    data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
+                                                                    height="360px"
+                                                                    width="100%">
+                                                                </embed-video >
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div id="story-slider-video{{ key }}" class="swiper-container story-slider video-slider">
+                                                                <!-- Slides Container -->
+                                                                <div class="swiper-wrapper">
+                                                                    {% for k,video in videos %}
+                                                                        {% if video %}
+                                                                            <div class="swiper-slide">
+                                                                                <embed-video
+                                                                                    u="image"
+                                                                                    data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
+                                                                                    width="100%"
+                                                                                    height="360px"
+                                                                                    data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
+                                                                                </embed-video>
+                                                                            </div>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </div>
+
                                                                 <div class="swiper-pagination swiper-pagination-white"></div>
                                                                 <!-- Add Arrows -->
                                                                 <div class="swiper-button-next swiper-button-white"></div>
                                                                 <div class="swiper-button-prev swiper-button-white"></div>
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            {% endif %}
-                                        {% endif %}
-
-                                        {% if videos and videos|length %}
-
-                                            {% if videos|length == 1 %}
-                                                {% set v = videos[0] %}
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <figure>
-                                                            {#<iframe src="{{ v }}" width="700" height="360"></iframe>#}
-                                                            <embed-video
-                                                                data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"
-                                                                data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
-                                                                height="360px"
-                                                                width="100%">
-                                                            </embed-video >
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                            {% else %}
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div id="story-slider-video{{ key }}" class="swiper-container story-slider video-slider">
-                                                            <!-- Slides Container -->
-                                                            <div class="swiper-wrapper">
-                                                                {% for k,video in videos %}
-                                                                    {% if video %}
-                                                                        <div class="swiper-slide">
-                                                                            <embed-video
-                                                                                u="image"
-                                                                                data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
-                                                                                width="100%"
-                                                                                height="360px"
-                                                                                data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
-                                                                            </embed-video>
-                                                                        </div>
-                                                                    {% endif %}
-                                                                {% endfor %}
                                                             </div>
-
-                                                            <div class="swiper-pagination swiper-pagination-white"></div>
-                                                            <!-- Add Arrows -->
-                                                            <div class="swiper-button-next swiper-button-white"></div>
-                                                            <div class="swiper-button-prev swiper-button-white"></div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                {% endif %}
                                             {% endif %}
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
+                                        </div>
+                                    {% endfor %}
 
-                                {% if stories|length > storiesCount %}
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <div class="text-right">
-                                                <a href="javascript:void(0)"
-                                                   data-ng-show="successStoryActiveIndex !== {{ stories|length }}"
-                                                   data-ng-click="showMoreSuccessStory({{ stories|length }})"
-                                                   data-ng-init="storyLength={{ stories|length - storiesCount}};storiesCount = {{ storiesCount }}"
-                                                   class="text-purple view-more-comments">
-                                                    Show More +<span data-ng-bind="storyLength"></span>
-                                                </a>
+                                    {% if stories|length > storiesCount %}
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="text-right">
+                                                    <a href="javascript:void(0)"
+                                                       data-ng-show="successStoryActiveIndex !== {{ stories|length }}"
+                                                       data-ng-click="showMoreSuccessStory({{ stories|length }})"
+                                                       data-ng-init="storyLength={{ stories|length - storiesCount}};storiesCount = {{ storiesCount }}"
+                                                       class="text-purple view-more-comments">
+                                                        Show More +<span data-ng-bind="storyLength"></span>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% endif %}
+
                                 {% endif %}
 
+                                    <div data-ls-comment-manage
+                                         data-ls-goal-id="{{ goal.id }}"
+                                         data-ls-slug="{{ goal.slug }}"
+                                         data-ls-inner="true"
+                                         data-ls-reply="{{ 'reply'|trans }}"
+                                         data-ls-replied="{{ 'replied'|trans }}"
+                                         data-ls-logged="{% if app.user %}true{% else %}false{% endif %}"
+                                         data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"
+                                         data-ls-title="{{ 'comments'|trans }}"
+                                         {% if app.user %}
+                                             data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
+                                            {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
+                                            {{ nameOnImage  |upper}}{% endif %}"
+                                         {% endif %}>
+                                    </div>
                             {% endif %}
+                        </div>
 
-                            <br />
-
-                                <div data-ls-comment-manage
-                                     data-ls-goal-id="{{ goal.id }}"
-                                     data-ls-slug="{{ goal.slug }}"
-                                     data-ls-inner="true"
-                                     data-ls-reply="{{ 'reply'|trans }}"
-                                     data-ls-replied="{{ 'replied'|trans }}"
-                                     data-ls-logged="{% if app.user %}true{% else %}false{% endif %}"
-                                     data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"
-                                     data-ls-title="{{ 'comments'|trans }}"
-                                     {% if app.user %}
-                                         data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
-                                        {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
-                                        {{ nameOnImage  |upper}}{% endif %}"
-                                     {% endif %}>
-                                </div>
-                        {% endif %}
                     </div>
                     <div class="col-md-4"></div>
                 </div>
-            </div>
+                <br class="hidden-xs" />
         </div>
 
         </div>

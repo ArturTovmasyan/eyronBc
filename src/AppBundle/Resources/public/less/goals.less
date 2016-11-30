@@ -736,6 +736,11 @@
       text-align: center;
     }
 
+    img{
+      width: 100%;
+      height: 180px;
+    }
+
     figcaption{
       position:absolute;
       bottom: 0;
@@ -756,6 +761,9 @@
     }
   }
 
+  .overlay{
+    height:180px;
+  }
   .active-idea{
 
     .img-circle{
@@ -1174,6 +1182,29 @@
   }
 }
 
+.nearby-distance{
+  //width: 28px;
+  //height: 28px;
+  //display: inline-block;
+  //background: url('../images/nearby-directions.svg') no-repeat center center;
+  position: absolute;
+  z-index: 10;
+  top: 17px;
+  right: 34px;
+
+  i{
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    background: url('../images/nearby-directions.svg') no-repeat center center;
+  }
+
+  span{
+    display: block;
+    color: #ffffff;
+  }
+}
+
 @media (min-width: @screen-sm) {
   .content-top{
 
@@ -1477,6 +1508,10 @@
   .goals-information{
 
     figure{
+
+      img{
+        width: auto;
+      }
       figcaption{
         padding: 10px 15px 5px;
 

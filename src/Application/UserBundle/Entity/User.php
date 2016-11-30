@@ -377,6 +377,12 @@ class User extends BaseUser
      */
     private $userNotifySettings;
 
+
+    public function __sleep()
+    {
+        return ['firstName', 'lastName', 'uId'];
+    }
+
     /**
      * @return mixed
      */

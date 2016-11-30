@@ -100,7 +100,7 @@ file that was distributed with this source code.
             {{ 'Admin'|trans({}, 'SonataAdminBundle') }}
 
             {% if _title is not empty %}
-                {{ _title|trans({}, 'SonataUserBundle') }}
+                {{ _title|raw }}
             {% else %}
                 {% if action is defined %}
                     -
@@ -257,6 +257,11 @@ file that was distributed with this source code.
 
                                         <ul class="treeview-menu">
                                             <li class="first">
+                                                <a href="{{ path('statistic') }}">
+                                                    <i class="fa fa-angle-double-right"></i>Email Statistic
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a href="{{ path('statistic_view') }}">
                                                     <i class="fa fa-angle-double-right"></i>Goal Statistic
                                                 </a>

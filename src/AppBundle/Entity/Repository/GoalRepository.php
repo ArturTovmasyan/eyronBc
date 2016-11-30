@@ -97,7 +97,7 @@ class GoalRepository extends EntityRepository
             $result =  $this->getEntityManager()
                 ->createQuery("SELECT g, i,
                            (6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
-                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist
+                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as dist
                            FROM AppBundle:Goal g
                            LEFT JOIN g.images i
                            WHERE g.id in (:ids)
@@ -874,33 +874,52 @@ class GoalRepository extends EntityRepository
         $filter->isEnabled('visibility_filter') ? $filter->disable('visibility_filter') : null;
 
         $query = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('ug, g, i')
-            ->from('AppBundle:UserGoal', 'ug')
-            ->join('ug.goal', 'g')
+            ->createQueryBuilder();
+
+        $query
+            ->addSelect('g, i');
+
+        if(!$publish){
+            $query
+                ->select('ug')
+                ->from('AppBundle:UserGoal', 'ug')
+                ->join('ug.goal', 'g')
+                ->addOrderBy('ug.updated', 'DESC')
+                ->andWhere('ug.user = :owner')
+            ;
+
+        }else{
+            $query
+                ->from('AppBundle:Goal', 'g')
+                ->andWhere('g.publish = :publish')
+                ->setParameter('publish', PublishAware::PUBLISH)
+            ;
+        }
+
+        $query
             ->leftJoin('g.images', 'i')
-            ->where('g.author = :owner')
-            ->andWhere('ug.user = :owner')
-            ->setParameter('owner', $owner)
+            ->andWhere('g.author = :owner')
             ->setFirstResult($first)
             ->setMaxResults($count)
             ->orderBy('g.created', 'DESC')
-            ->addOrderBy('ug.updated', 'DESC')
-
+            ->setParameter('owner', $owner)
+;
         ;
 
-        if($publish){
-            $query
-                ->andWhere('g.publish = :publish')
-                ->setParameter('publish', PublishAware::PUBLISH);
-        }
+
+
 
         if($getLastUpdated){
+
+            if(!$publish){
+                $query->select('ug.updated');
+            }else{
+                $query->select('g.updated');
+            }
             $result = $query
-                ->select('ug.updated')
                 ->getQuery()
                 ->getResult();
-            ;
+
 
             $lastUpdated = null;
 

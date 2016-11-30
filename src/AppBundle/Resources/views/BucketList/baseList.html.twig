@@ -99,10 +99,10 @@
     {% set firstName = profileUser.firstName %}
     {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
     {% set className = "profile-image profile-image" ~ random(4) %}
-    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}
 
     <div class="content-header">
-        <figure>
+        <figure  {% if profileUser.id == app.user.id %} class="my-profile"{% endif %}>
             <span class="overlay"></span>
             <img src="
             {% if profileUser.getPhotoLink %}
@@ -157,10 +157,11 @@
                                           data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"
                                           data-ls-user-id="{{ profileUser.id }}"
                                           data-ls-is-follow="isFollow">
-                                        <i class="follow-icon" data-ng-show="!isFollow"></i>
-                                        <i class="closefriend-icon" data-ng-show="isFollow"></i>
-                                        <span data-ng-show="!isFollow">{{ 'goalfriend' | trans | upper }}</span>
-                                        <span data-ng-show="isFollow">{{ 'closefrined' | trans | upper }}</span>
+
+                                        <i class="follow-icon" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>
+                                        <i class="closefriend-icon" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>
+                                        <span data-ng-show="!isFollow">{{ 'my_bucket_list.follow' | trans | upper }}</span>
+                                        <span data-ng-show="isFollow">{{ 'my_bucket_list.un_follow' | trans | upper }}</span>
                                     </span>
                                 {% endif %}
 
@@ -205,8 +206,8 @@
                                     data-ls-is-follow="isFollow">
                                 <i class="follow-icon" data-ng-show="!isFollow"></i>
                                 <i class="closefriend-icon" data-ng-show="isFollow"></i>
-                                <span data-ng-show="!isFollow">{{ 'goalfriend' | trans | upper }}</span>
-                                <span data-ng-show="isFollow">{{ 'closefriend' | trans | upper }}</span>
+                                <span data-ng-show="!isFollow">{{ 'my_bucket_list.follow' | trans | upper }}</span>
+                                <span data-ng-show="isFollow">{{ 'my_bucket_list.un_follow' | trans | upper }}</span>
                             </span>
                         {% endif %}
 

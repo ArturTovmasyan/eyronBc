@@ -8,8 +8,12 @@
   &>figure{
     position: absolute;
     width: 100%;
-    height:270px;
+    height: 261px;
     overflow:hidden;
+
+    &.my-profile{
+      height: 229px;
+    }
 
     img{
       width: 100%;
@@ -233,9 +237,9 @@
       display: block;
       width:100px;
       height:100px;
-      font-size:52px;
+      font-size: 45px;
       font-weight:600;
-      line-height: 80px;
+      line-height: 90px;
       color:#ffffff;
     }
 
@@ -255,7 +259,7 @@
       h3{
         color: #ffffff;
         font-size:18px;
-        margin:0 10px 8px;
+        margin:0 10px 3px;
         line-height: normal;
         span{
           white-space: nowrap;
@@ -381,8 +385,8 @@
   }
 
   h1 span.title-smaller,figcaption span.title-smaller{
-    font-size:20px;
-    line-height:30px;
+    font-size: 18px;
+    line-height: normal;
     span{
       padding: 5px 10px;
     }
@@ -595,14 +599,21 @@
     background-color: #ffffff;
   }
 
-  //tooltip {
-  //  &._top {
-  //    tip {
-  //      top: 0;
-  //    }
-  //  }
-  //}
-  //
+  .calendar-tooltip{
+    position: absolute;
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #b0b0b0;
+    min-width: 150px;
+    height: 34px;
+    line-height: normal;
+    padding: 5px 10px;
+    .rounded-corners(4px);
+    tip-arrow{
+      border-bottom-color: #b0b0b0;
+      border-top-color: #b0b0b0;
+    }
+  }
 
   .arrow-up{
     width: 0;
@@ -757,6 +768,10 @@
 
     &>figure{
       height:260px;
+
+      &.my-profile{
+        height: 260px;
+      }
     }
 
     .overlay{
@@ -773,7 +788,7 @@
     padding:20px 0 0 0;
 
     figure{
-      padding:20px 0;
+      padding:20px 0 10px;
 
       div{
         width:120px;
@@ -848,7 +863,6 @@
       }
     }
 
-
     ol{
       padding:30px 30px 20px;
       font-size:14px;
@@ -875,14 +889,16 @@
       span{
         font-size:30px;
         padding:3px 15px 5px;
+        white-space: normal;
+        max-height: 87px;
       }
     }
 
     h1 span.title-smaller,figcaption span.title-smaller{
-      font-size:23px;
-      line-height:35px;
+      font-size: 16px;
+      line-height: 35px;
       span{
-        padding:3px 15px 5px;
+        padding:3px 7px 5px;
       }
     }
 
@@ -1046,11 +1062,14 @@
   .content-header{
 
     &>figure{
-      height:269px;
+      height:266px;
+      &.my-profile{
+        height: 266px;
+      }
     }
 
     .overlay{
-      height:269px;
+      height:266px;
     }
   }
 
@@ -1144,16 +1163,15 @@
     }
 
     h1{
-      margin:25px 0 10px;
-
       span{
         font-size:45px;
         padding: 0 20px 2px;
+        white-space: nowrap;
       }
     }
 
     h1 span.title-smaller,figcaption span.title-smaller{
-      font-size:34px;
+      font-size: 26px;
       line-height: 51px;
       span{
         padding: 7px 20px 14px;

@@ -534,7 +534,9 @@ angular.module('goal', ['Interpolation',
             }
 
             angular.forEach($scope.successStoryImageKeys, function (d) {
-                $( '.swipebox-key-'+d ).swipebox();
+                $( '.swipebox-key-'+d ).swipebox({
+                    useSVG : false
+                });
             });
             
             var afilateHeight = $('.affiliate-right iframe').height();
@@ -710,7 +712,9 @@ angular.module('goal', ['Interpolation',
             });
         }
 
-        $( '.swipebox-main' ).swipebox();
+        $( '.swipebox-main' ).swipebox({
+            useSVG : false
+        });
     }])
     .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location', 'CacheFactory', '$http',
         function($scope, lsInfiniteItems, $timeout, envPrefix, $location, CacheFactory, $http){
