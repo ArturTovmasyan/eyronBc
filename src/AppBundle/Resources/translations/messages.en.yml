@@ -132,6 +132,7 @@ goal:
       urgency: Urgency
       urgent: urgent
       not_urgent: not urgent
+      get_direction: Get directions
 
 goal_friend_menu:
       all: All

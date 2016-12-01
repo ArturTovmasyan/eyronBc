@@ -145,7 +145,7 @@
                                data-ng-show="activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0"
                                data-ng-href="https://www.google.com/maps/dir/[[ goal.location.latitude]],[[ goal.location.longitude]]/[[ userLocation.latitude ]],[[ userLocation.longitude ]]/"
                                data-ng-mouseleave="$parent.isHover = false"
-                               data-ng-mousemove="hoverIn($event, 'Go on Google Map')">
+                               data-ng-mousemove="hoverIn($event, '{{ "goal.get_direction"|trans }}')">
                                <i></i>
                                <span class="text-center">[[ goal.distance | number]] km</span>
                             </a>

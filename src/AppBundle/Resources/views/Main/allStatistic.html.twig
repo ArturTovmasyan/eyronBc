@@ -41,16 +41,26 @@
                 </div>
 
             </form>
-            <div class="text-center" data-ng-if="percent"><h3>Percent: <span class="label label-info" data-ng-bind="percent + '%'"></span></h3></div>
+            <div class="text-center percent-padding" data-ng-if="percent"><h3>Percent: <span class="label label-info" data-ng-bind="(percent | number) + '%'"></span></h3></div>
         </div>
         <br>
 
         <canvas width="1000px" height="700px" id="line" class="chart chart-line" chart-data="data"
                 chart-labels="labels" chart-series="series" chart-options="options"
-                chart-dataset-override="datasetOverride" chart-click="onClick">
+                chart-click="onClick">
         </canvas>
     </div>
 
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets output='css/app_admin_statistic_edit.css'
+    'bundles/app/less/statistic.css'
+    %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% endstylesheets %}
 {% endblock %}
 
 {% block javascripts %}
