@@ -306,6 +306,38 @@ class SuccessStoryController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="SuccessStory",
+     *  description="This function is used to remove story",
+     *  statusCodes={
+     *         200="Returned when user was removed",
+     *         401="Returned when user not found",
+     *         404="Returned when success story not found",
+     *  },
+     * )
+     *
+     * @Security("has_role('ROLE_USER')")
+     * @Rest\Delete("/success-story/remove/{storyId}", requirements={"storyId"="\d+"}, name="remove_goal_story", options={"method_prefix"=false})
+     *
+     * @param $storyId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeStoryAction($storyId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $story = $em->getRepository('AppBundle:SuccessStory')->findOneBy(array('id' => $storyId, 'user' => $this->getUser()));
+
+        if(!$story){
+            return new Response('Story not found', Response::HTTP_NOT_FOUND);
+        }
+        
+        $em->remove($story);
+        $em->flush();
+        return new Response('', Response::HTTP_OK);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="SuccessStory",
      *  description="This function is used to get story voters",
      *  statusCodes={
      *         200="Returned when user was added",

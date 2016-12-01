@@ -487,6 +487,7 @@ angular.module('goal', ['Interpolation',
         $scope.successStoryImageKeys = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
+        var storyRemovePath = envPrefix + 'api/v1.0/success-story/remove/{storyId}';
 
         $scope.openSignInPopover = function(){
             AuthenticatorLoginService.openLoginPopup();
@@ -602,6 +603,14 @@ angular.module('goal', ['Interpolation',
                       $(".modal-loading").hide();
                   }
               });
+        };
+
+        $scope.removeStory = function (id) {
+            var url = storyRemovePath.replace('{storyId}', id);
+            $http.delete(url).success(function() {
+                $scope.showMyStory[id] = false;
+            })
+
         };
 
         var imageResize = function () {
