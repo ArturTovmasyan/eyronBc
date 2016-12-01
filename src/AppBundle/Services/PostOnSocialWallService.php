@@ -69,7 +69,6 @@ class PostOnSocialWallService
      * This function is used to send post on user facebook wall
      *
      * @param $accessToken
-     * @return null
      * @throws \Exception
      */
     public function postOnFacebookWall($accessToken)
