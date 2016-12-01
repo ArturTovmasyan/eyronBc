@@ -154,9 +154,11 @@ class PostOnSocialWallService
     public function postOnGoogleWall($accessToken, $id)
     {
 //        ?key=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&access_token='.$accessToken.'
+
         //generate facebook post on wall api
         $url = sprintf('https://www.googleapis.com/plusDomains/v1/people/%s/activities?key=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&access_token='.$accessToken.'', $id);
 
+        //create post data
         $body = [
             "object" => [
                 "attachments" =>
@@ -175,7 +177,7 @@ class PostOnSocialWallService
         ];
 
 
-        //use curl for post on user facebook wall
+        //use curl for post on user google + wall
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, ["Content-Type: application/json"]);

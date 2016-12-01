@@ -61,9 +61,9 @@ class UserProvider extends  BaseProvider
 
         // check owner resource
         if($resourceOwner instanceof GoogleResourceOwner){
+
             //get access token and secret
             $accessToken = $response->getAccessToken();
-
             $id = $response->getResponse()['id'];
 
             // get google user
@@ -168,7 +168,7 @@ class UserProvider extends  BaseProvider
                 ->set('userRegistration','User registration by '.$socialName.' from Web')
             ;
 
-            //send post on user Facebook wall
+            //send post on user Google plus wall
             $this->container->get('app.post_social_wall')->postOnGoogleWall($accessToken, $id);
         }
 
