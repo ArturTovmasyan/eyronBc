@@ -220,7 +220,7 @@ success_story:
       view_access_denied: You can't view this success story
       edit_access_denied: You can't edit this success story
       delete_access_denied: You can't remove this success story
-      delete_confirm: YOU ARE ABOUT TO REMOVE YOUR SUCCESS STORY.ARE YOU SURE?
+      delete_confirm: You are about to remove your success story. Are you sure?
 
 register_text:  Confirm your email address to access all of %XXX%'s features.
 
