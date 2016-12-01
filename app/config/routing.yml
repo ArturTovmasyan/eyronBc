@@ -9,15 +9,12 @@ application_comment:
     resource: "@ApplicationCommentBundle/Controller/"
     type:     annotation
 
-application_user:
-    resource: "@ApplicationUserBundle/Resources/config/routing.yml"
-
+# custom rests
 comment_thread_api:
     type:     rest
     resource: Application\CommentBundle\Controller\Rest\CommentController
     prefix:   /
 
-# custom rests
 app_user_goal_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\UserGoalController
@@ -53,12 +50,12 @@ app_statistic_rest:
     resource: AppBundle\Controller\Rest\StatisticController
     prefix:   /
 
-
-
-
 ######################################################################
 # all imprtant links mut be put abocve this sections for performacen
 ######################################################################
+
+application_user:
+    resource: "@ApplicationUserBundle/Resources/config/routing.yml"
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
