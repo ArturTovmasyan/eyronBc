@@ -29,6 +29,7 @@ class UserGoal implements ActivityableInterface
     // constants for status
     const ACTIVE = 1;
     const COMPLETED = 2;
+    const NONE = 0; // this constant is used to hide not interested goals
 
     //constants for date status
     const OLL = 1;
@@ -98,6 +99,12 @@ class UserGoal implements ActivityableInterface
      * @Groups({"userGoal"})
      */
     protected $important = true;
+
+    /**
+    * @var
+    * @ORM\Column(name="not_interested", type="boolean")
+    */
+    protected $notInterested = false;
 
     /**
      * @var
@@ -669,6 +676,22 @@ class UserGoal implements ActivityableInterface
     public function getConfirmed()
     {
         return $this->confirmed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotInterested()
+    {
+        return $this->notInterested;
+    }
+
+    /**
+     * @param mixed $notInterested
+     */
+    public function setNotInterested($notInterested)
+    {
+        $this->notInterested = $notInterested;
     }
 
 

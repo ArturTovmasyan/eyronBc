@@ -137,6 +137,10 @@ class UserGoalRepository extends EntityRepository
             $query
                 ->andWhere('ug.status =:status')
                 ->setParameter('status', $status);
+        }else{
+            $query // hide not interested goals
+                ->andWhere('ug.status !=:status')
+                ->setParameter('status', UserGoal::NONE);
         }
 
         if ($status && $status == UserGoal::COMPLETED){
@@ -256,10 +260,11 @@ class UserGoalRepository extends EntityRepository
             ->createQuery("SELECT g.id, ug.status
                            FROM AppBundle:Goal g
                            INDEX BY g.id
-                           JOIN g.userGoal ug
+                           JOIN g.userGoal ug WITH ug.status != :status
                            WHERE ug.user = :userId")
             ->useResultCache(true, 24 * 3600, 'user_goal_' . $userId)
             ->setParameter('userId', $userId)
+            ->setParameter('status', UserGoal::NONE)
             ->getResult();
     }
 
