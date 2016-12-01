@@ -644,15 +644,25 @@ overall:
 notify_settings:
   user_activity: Highlights
   comment_goal: Goals commented
+  comment_goal_desc: Comment on your added goals that are set important
   comment_idea: Ideas commented
+  comment_idea_desc: Comment on your own ideas published by admin
   success_story_goal: Success stories for Goals
+  success_story_goal_desc: Notification for your success stories written on your added goals that are set important
   success_story_idea: Success stories for Ideas
+  success_story_idea_desc: Notification for success stories written on your own ideas published by admin
   success_story_like: Success stories liked
+  success_story_like_desc: Likes for your written success stories
   publish_goal: Published Ideas
+  publish_goal_desc: Notification from admin to let you know your goal has been published
   reply_comment: Comments replied
+  reply_comment_desc: Notification for a reply to your comment
   deadline: Deadline expires
+  deadline_desc: Notification you get when your goal deadline expires
   new_goalfriend: New Goalfriends
+  new_goalfriend_desc: Notification you get when you make new goalfriends
   new_idea: New Ideas
+  new_idea_desc: Notification for new ideas suggested by Bucket List 127
 
 leaderboard:
   name: leaderboard
