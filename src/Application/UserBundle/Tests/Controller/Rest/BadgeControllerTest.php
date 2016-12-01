@@ -35,7 +35,7 @@ class BadgeControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(6, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on badge getAction rest!");
+            $this->assertLessThan(7, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on badge getAction rest!");
         }
 
         //get response content
@@ -112,7 +112,7 @@ class BadgeControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(4, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on badge getAction rest!");
+            $this->assertLessThan(5, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on badge getAction rest!");
         }
 
         //get response content
