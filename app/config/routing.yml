@@ -1,7 +1,16 @@
+######################################################################
+# usual controllers
+######################################################################
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
+application_comment:
+    resource: "@ApplicationCommentBundle/Controller/"
+    type:     annotation
+
+application_user:
+    resource: "@ApplicationUserBundle/Resources/config/routing.yml"
 
 comment_thread_api:
     type:     rest
@@ -39,16 +48,12 @@ app_badge_rest:
     resource: Application\UserBundle\Controller\Rest\BadgeController
     prefix:   /
 
-######################################################################
-# usual controllers
-######################################################################
+app_statistic_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\StatisticController
+    prefix:   /
 
-application_comment:
-    resource: "@ApplicationCommentBundle/Controller/"
-    type:     annotation
 
-application_user:
-    resource: "@ApplicationUserBundle/Resources/config/routing.yml"
 
 
 ######################################################################
