@@ -7,6 +7,7 @@ angular.module('Confirm',['Interpolation', 'trans'])
             scope: {
                 lsModalTitle: '@',
                 lsHref: '@',
+                lsText: '@',
                 lsConfirm: '&'
             },
             link: function(scope, el){
