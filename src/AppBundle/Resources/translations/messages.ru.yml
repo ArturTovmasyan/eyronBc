@@ -122,6 +122,7 @@ goal:
       urgency: Срочность
       urgent: Срочная
       not_urgent: Не срочная
+      get_direction: Получить направление
 
 
 goal_friend_menu:
