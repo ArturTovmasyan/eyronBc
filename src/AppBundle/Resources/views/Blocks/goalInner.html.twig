@@ -633,12 +633,13 @@
                                                           </a>
                                                     {% set class = '' %}
                                                     <i data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% else %}  {% set class = 'user-story' %} {% endif %} class="like-icon {{ class }}"></i>
-                                                    {% if app.user and story.user.id == app.user.id %}
-                                                        <div class="btn story-remove btn-purple" data-ng-click="removeStory({{ story.id }})">REMOVE</div>
-                                                    {% endif %}
                                                 </div>
 
                                             </div>
+
+                                            {% if app.user and story.user.id == app.user.id %}
+                                                <div class="story-remove" data-ls-text="{{ 'success_story.delete_confirm'|trans }}" data-ls-confirm="removeStory({{ story.id }})"><span class="report">{{ 'btn_delete'|trans }}</span></div>
+                                            {% endif %}
 
                                             <div class="border-left">
                                                 <div class="row">
