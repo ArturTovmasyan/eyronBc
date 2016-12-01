@@ -120,18 +120,20 @@
                          data-ng-cloak
                          data-ng-repeat="goal in Ideas.items">
                         <figure>
-                            <h3 data-ng-class="{nearby: (activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0)}">
-                                <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
-                            </h3>
                             {% if app.user %}
                                 <span class="ng-hide hide-nearby"
                                       data-ng-init="goal.isInterested = true"
-                                     data-ng-show="activeCategory == 'nearby' && goal.isInterested"
-                                     data-ng-click="notInterest(goal)"
-                                     data-ng-mouseleave="$parent.isHover = false"
-                                     data-ng-mousemove="hoverIn($event, '{{ "hide_nearby"|trans }}')">
+                                      data-ng-show="activeCategory == 'nearby' && goal.isInterested"
+                                      data-ng-click="notInterest(goal)"
+                                      data-ng-mouseleave="$parent.isHover = false"
+                                      data-ng-mousemove="hoverIn($event, '{{ "hide_nearby"|trans }}')">
                                 </span>
                             {% endif %}
+
+                            <h3 data-ng-class="{nearby: (activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0)}">
+                                <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
+                            </h3>
+
                             <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]"
                                data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
                                class="goalTitle">
@@ -140,10 +142,12 @@
                             </a>
                             <a class="nearby-distance"
                                target="_blank"
-                               data-ng-if="activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0"
-                               data-ng-href="https://www.google.com/maps/dir/[[ goal.location.latitude]],[[ goal.location.longitude]]/[[ userLocation.latitude ]],[[ userLocation.longitude ]]/">
+                               data-ng-show="activeCategory == 'nearby' && goal.location && userLocation && goal.distance > 0"
+                               data-ng-href="https://www.google.com/maps/dir/[[ goal.location.latitude]],[[ goal.location.longitude]]/[[ userLocation.latitude ]],[[ userLocation.longitude ]]/"
+                               data-ng-mouseleave="$parent.isHover = false"
+                               data-ng-mousemove="hoverIn($event, 'Go on Google Map')">
                                <i></i>
-                               <span>[[ goal.distance | number]] km</span>
+                               <span class="text-center">[[ goal.distance | number]] km</span>
                             </a>
 
                             <div class="absolute">

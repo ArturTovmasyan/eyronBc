@@ -4,7 +4,7 @@ angular.module('statistic',["chart.js"])
   .config(['ChartJsProvider', function (ChartJsProvider) {
     // Configure all charts
     ChartJsProvider.setOptions({
-      chartColors: ['#FF5252', '#FF8A80'],
+      chartColors: ['#FF5252', '#00CCCC'],
       responsive: false
     });
     // Configure all line charts
@@ -47,6 +47,8 @@ angular.module('statistic',["chart.js"])
     $scope.filter = function () {
       var timeTo = $scope.dateTo?moment($scope.dateTo).format('YYYY-MM-DD'):null,
           timeFrom = $scope.dateFrom?moment($scope.dateFrom).format('YYYY-MM-DD'):null;
+      $scope.readCount = 0;
+      $scope.sendCount = 0;
       if(timeTo && timeFrom && $scope.groupType){
         var url = path.replace('{type}', 'email').replace('{groupBy}', $scope.groupType).replace('{start}', timeFrom).replace('{end}', timeTo);
         $http.get(url).success(function(res) {
@@ -56,30 +58,36 @@ angular.module('statistic',["chart.js"])
           switch ($scope.groupType){
             case 'month':
               angular.forEach(res, function (d) {
-                $scope.labels.push(moment(d.created.date).format('MMMM'));
-                $scope.data[0].push(d.read);
-                $scope.data[1].push(d.send);
+                $scope.labels.push(moment(d.created).format('MMMM'));
+                calculate(d);
               });
               break;
             case 'week':
               angular.forEach(res, function (d) {
-                $scope.labels.push(new Date(d.created.date).toLocaleString('en-us', {  weekday: 'long' }));
-                $scope.data[0].push(d.read);
-                $scope.data[1].push(d.send);
+                $scope.labels.push(new Date(d.created).toLocaleString('en-us', {  weekday: 'long' }));
+                calculate(d);
               });
               break;
             case 'day':
               angular.forEach(res, function (d) {
-                $scope.labels.push(moment(d.created.date).format('YYYY-MM-DD'));
-                $scope.data[0].push(d.read);
-                $scope.data[1].push(d.send);
+                $scope.labels.push(moment(d.created).format('YYYY-MM-DD'));
+                calculate(d);
               });
               break;
           }
 
+          $scope.percent = $scope.sendCount?(100 * $scope.readCount/$scope.sendCount):0;
+
         })
       }
     };
+
+    function calculate(d) {
+      $scope.readCount += +d.read;
+      $scope.sendCount += +d.send;
+      $scope.data[0].push(d.read);
+      $scope.data[1].push(d.send);
+    }
 
     $scope.filter();
   }]);

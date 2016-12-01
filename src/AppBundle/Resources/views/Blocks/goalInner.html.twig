@@ -570,10 +570,11 @@
                                         {% set videos = story.videoLink %}
 
                                         <div class="comment-place story-fade-in ng-hide"
-                                             data-ng-show="successStoryShow[{{ key }}]"
+                                             data-ng-show="successStoryShow[{{ key }}]{% if app.user and story.user.id == app.user.id %} && showMyStory[{{ story.id }}]{% endif %}"
                                              data-ng-init="successStoryShow[{{ key }}]={{ key < storiesCount ? 'true':'false' }};
                                              count[{{ story.id }}] = {{ story.getVotersCount() }};
-                                             vote[{{ story.id }}] = '{{ app.user is not null and story.getIsVote() }}'? true: false">
+                                             vote[{{ story.id }}] = '{{ app.user is not null and story.getIsVote() }}'? true: false
+                                             {% if app.user and story.user.id == app.user.id %};showMyStory[{{ story.id }}] = true{% endif %}">
                                             <div class="row no-gutter">
                                                 <div class="col-xs-9">
                                                     {#<div class="row no-gutter">#}
@@ -632,6 +633,9 @@
                                                           </a>
                                                     {% set class = '' %}
                                                     <i data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% else %}  {% set class = 'user-story' %} {% endif %} class="like-icon {{ class }}"></i>
+                                                    {% if app.user and story.user.id == app.user.id %}
+                                                        <div class="btn story-remove btn-purple" data-ng-click="removeStory({{ story.id }})">REMOVE</div>
+                                                    {% endif %}
                                                 </div>
 
                                             </div>
