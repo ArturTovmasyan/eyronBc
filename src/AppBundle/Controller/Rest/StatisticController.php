@@ -6,12 +6,10 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class StatisticController
- * @package AppBundle\Controller\Rest
+ * @Rest\Prefix("/api/v1.0")
  */
 class StatisticController extends FOSRestController
 {
@@ -21,7 +19,7 @@ class StatisticController extends FOSRestController
     const TYPE_EMAIL = 4;
 
     /**
-     * @Rest\GET("/api/v1.0/statistic/{type}/{groupBy}/{start}/{end}", defaults={"start": null, "end": null}, name="get_statistic", options={"method_prefix"=false})
+     * @Rest\Get("/statistic/{type}/{groupBy}/{start}/{end}", name="get_statistic", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Statistic",
@@ -31,12 +29,12 @@ class StatisticController extends FOSRestController
      *         400="Bad request"
      *  }
      * )
-     * 
+     *
      * @param $type
      * @param $groupBy
      * @param $start
      * @param $end
-     * @Rest\View()
+     * @Rest\View
      * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
      * @return array|response
      */
@@ -54,7 +52,7 @@ class StatisticController extends FOSRestController
                     break;
             }
         }
-        
+
         //check if group is string
         if(is_string($groupBy)) {
 
@@ -91,6 +89,6 @@ class StatisticController extends FOSRestController
             $statisticData = $em->getRepository('AppBundle:Email')->findStatisticData($groupBy, $start, $end);
         }
 
-        return new JsonResponse($statisticData);
+        return $statisticData;
     }
 }

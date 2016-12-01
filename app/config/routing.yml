@@ -1,14 +1,20 @@
+######################################################################
+# usual controllers
+######################################################################
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
+application_comment:
+    resource: "@ApplicationCommentBundle/Controller/"
+    type:     annotation
 
+# custom rests
 comment_thread_api:
     type:     rest
     resource: Application\CommentBundle\Controller\Rest\CommentController
     prefix:   /
 
-# custom rests
 app_user_goal_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\UserGoalController
@@ -39,21 +45,17 @@ app_badge_rest:
     resource: Application\UserBundle\Controller\Rest\BadgeController
     prefix:   /
 
-######################################################################
-# usual controllers
-######################################################################
-
-application_comment:
-    resource: "@ApplicationCommentBundle/Controller/"
-    type:     annotation
-
-application_user:
-    resource: "@ApplicationUserBundle/Resources/config/routing.yml"
-
+app_statistic_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\StatisticController
+    prefix:   /
 
 ######################################################################
 # all imprtant links mut be put abocve this sections for performacen
 ######################################################################
+
+application_user:
+    resource: "@ApplicationUserBundle/Resources/config/routing.yml"
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
