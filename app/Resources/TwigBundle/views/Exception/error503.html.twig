@@ -13,10 +13,9 @@
             overflow: hidden;
         }
 
-        .text-center {
-            text-align: center;
-            margin: auto;
-            font-size: 50px;
+        .text {
+            font-size: 400%;
+            font-family: "Arial", sans-serif;
         }
 
         .top-text {
@@ -25,31 +24,48 @@
 
         .second-text {
             font-weight: bold;
-            padding-top: 10px;
             letter-spacing: 2px;
         }
 
         .small-text {
-            text-align: center; color: #2a3039;padding-top: 5px;font-size: 22px;
+           color: #2a3039;font-size: 22px;
         }
 
         .footer {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 60px;
+            height: 50px;
             text-align: center;
-            margin: 0 auto;
         }
 
-        .margin{
-            margin: 200px auto
+        .column {
+            width: 100%;
+            height: 100%;
+            float: left;
+            overflow: hidden;
         }
 
-        @media screen and (max-width:680px) {
-            .margin{
-                margin: 118px auto
-            }
+        .container {
+            text-align: center;
+            height: 50%;
+            padding: 5px;
+        }
+
+
+        .vertical-align-wrap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: table;
+        }
+
+        .vertical-align {
+            display: table-cell;
+        }
+
+        .vertical-align--middle {
+            vertical-align: middle;
         }
 
     </style>
@@ -57,22 +73,31 @@
 
 <body>
 
-<div class="body">
-
-    <div class="margin">
-        <p class="text-center top-text">Cool stuff is on its way</p>
-
-        <p class="text-center second-text">Check back soon</p>
-
-        <p class="small-text">The goal is to have memories, not just dreams!</p>
+<div class="column">
+    <div class="container">
+        <div class="vertical-align-wrap">
+            <div class="vertical-align vertical-align--middle">
+                <p class="text top-text">Cool stuff is on its way</p>
+                <p class="text second-text">Check back soon</p>
+                <p class="text small-text">The goal is to have memories, not just dreams!</p>
+            </div>
+        </div>
     </div>
+</div>
 
+
+<div>
     <footer class="footer">
-        <p style="font-size: 12px">&copy; {{ 'copyright'|trans | upper }}</p>
+        <small>&copy; {{ 'copyright'|trans | upper }}</small>
     </footer>
-
 </div>
 
 
 </body>
 </html>
+
+
+
+
+
+
