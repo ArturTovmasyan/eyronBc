@@ -122,6 +122,7 @@ goal:
       urgency: Срочность
       urgent: Срочная
       not_urgent: Не срочная
+      get_direction: Получить направление
 
 
 goal_friend_menu:
@@ -142,6 +143,7 @@ Done: Выполнить
 ideas_list_title: Ознакомьтесь с тысячами вдохновляющих идей для вашего Бакетлиста
 ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Включите</span> службу распознавания местоположения вашего браузера или введите свое местоположение
 nearby: Поблизости
+hide_nearby: Скрыть со списка «Поблизости»
 explore: Подтвердить
 
 # home
@@ -205,6 +207,7 @@ success_story:
       view_access_denied: Вы не имеете доступ просмотра этой истории успеха
       edit_access_denied: Вы не имеете доступ изменения этой истории успеха
       delete_access_denied: Вы не имеете доступ удаления этой истории успеха
+      delete_confirm: Вы собираетесь удалить свою историю успеха. Вы уверены?
 
 register_text:  Подтвердите адрес вашей электронной почты для доступа ко всем возможностям %XXX%.
 

@@ -8,7 +8,8 @@
         <!--<h4 class="modal-title" style="text-align: center"> [[ lsModalTitle ? lsModalTitle:'Confirm' ]]</h4>-->
     <!--</div>-->
         <div class="modal-body text-center">
-            <h5>[['confirm_msg' | translate]]</h5>
+            <h5 data-ng-if="!lsText">[['confirm_msg' | translate]]</h5>
+            <h5 data-ng-if="lsText">[[lsText]]</h5>
             <!--<a href="javascript:void(0)" data-ng-click="yes();$hide()" class="btn btn-danger">Delete</a>-->
             <!--<a href="javascript:void(0)" data-ng-click="$hide()" class="btn btn-success">Cancel</a>-->
         </div>

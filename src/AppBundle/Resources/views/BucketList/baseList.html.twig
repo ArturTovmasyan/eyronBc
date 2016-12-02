@@ -151,10 +151,13 @@
                                 {% if profileUser.id != app.user.id %}
                                     <span class="close-friends hidden-sm hidden-md hidden-lg"
                                           data-ls-follow-manage
+                                          data-ng-mouseleave="isHover = false"
+                                          data-ng-mousemove="hoverIn($event, (isFollow?'{{ "my_bucket_list.un_follow"|trans }}':'{{ "my_bucket_list.follow"|trans }}'))"
                                           data-ng-cloak
                                           data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"
                                           data-ls-user-id="{{ profileUser.id }}"
                                           data-ls-is-follow="isFollow">
+
                                         <i class="follow-icon" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>
                                         <i class="closefriend-icon" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>
                                         <span data-ng-show="!isFollow">{{ 'my_bucket_list.follow' | trans | upper }}</span>
@@ -196,9 +199,10 @@
                             <span class="close-friends hidden-xs"
                                     data-ls-follow-manage
                                     data-ng-cloak
+                                    data-ng-mouseleave="isHover = false"
+                                    data-ng-mousemove="hoverIn($event, (isFollow?'{{ "my_bucket_list.un_follow"|trans }}':'{{ "my_bucket_list.follow"|trans }}'))"
                                     data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"
                                     data-ls-user-id="{{ profileUser.id }}"
-                                    title="[[ !isFollow ? '{{ "my_bucket_list.follow"|trans }}' : '{{ "my_bucket_list.un_follow"|trans }}' ]]"
                                     data-ls-is-follow="isFollow">
                                 <i class="follow-icon" data-ng-show="!isFollow"></i>
                                 <i class="closefriend-icon" data-ng-show="isFollow"></i>
@@ -395,6 +399,13 @@
 
             </div>
         </div>
+    </div>
+
+    <div class="follow-tooltip ng-hide"
+         data-ng-cloak
+         data-ng-show="isHover">
+        <span class="arrow-up"></span>
+        [[ hoveredText]]
     </div>
 {% endblock %}
 

@@ -8,7 +8,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Email
  *
- * @ORM\Table(name="email")
+ * @ORM\Table(name="email", indexes={
+ *          @ORM\Index(name="IDX_EMAIL_SEARCH", columns={"sent"})
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\EmailRepository")
  */
 class Email

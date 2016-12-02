@@ -635,6 +635,18 @@ class MainController extends Controller
 
         return ['appVersionStatistic' => $versionStatisticData];
     }
+
+    /**
+     * This function is view all statistic
+     *
+     * @Route("/moderator/statistic", name="statistic")
+     * @Template()
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
+     */
+    public function allStatisticAction()
+    {
+        return [];
+    }
 }
 
 

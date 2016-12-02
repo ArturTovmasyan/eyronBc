@@ -49,9 +49,10 @@ jQuery(document).ready(function() {
 
     $( "ul.blog" ).sortable({
         items: "> div",
+        handle: 'div.drag',
         appendTo: document.body
     });
-    $( "ul.blog" ).disableSelection();
+    // $( "ul.blog" ).disableSelection();
 
     $addTagLink.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
@@ -87,7 +88,9 @@ function addTagForm($collectionHolder, $newLinkLi) {
 function addTagFormDeleteLink($newFormLi)
 {
     var $removeFormA = $('<a class="delete-link btn btn-danger" href="#">Delete</a>');
+    var $dragElement = $('<div class="drag btn btn-info"><i class="fa fa-arrows" aria-hidden="true"></i></div>');
     $newFormLi.append($removeFormA);
+    $newFormLi.prepend($dragElement);
 
     $removeFormA.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
