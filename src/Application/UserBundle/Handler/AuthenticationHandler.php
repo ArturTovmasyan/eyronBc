@@ -62,6 +62,17 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         $session = $request->getSession();
         $social = $user->getSocialsName();
 
+        if ($session->has('fb_post')) {
+
+//          $url = 'https://web.facebook.com/dialog/feed?+app_id=145634995501895+&display=popup&caption=An+example+caption+&image=stage.bucketlist127.com/bundles/app/images/BL127.png&link=http%3A%2F%2Fstage.bucketlist127.com%2Fdocs%2Fdialogs%2F+&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer&_rdr';
+            $url = $session->get('fb_post');
+
+            //remove session for FB post
+            $session->remove('fb_post');
+
+            return new RedirectResponse($url);
+        }
+
         if($social) {
             //send login user by social event in google analytics
             $request->getSession()
