@@ -593,6 +593,7 @@ class UserController extends FOSRestController
     {
         //disable listener for stats count
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $sendNoteService = $this->get('bl_put_notification_service');
 
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -665,56 +666,13 @@ class UserController extends FOSRestController
             $userGoals = $em->getRepository('AppBundle:UserGoal')
                 ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count);
         }
-        
 
-        $count = 0;
-        $overall = 0;
-        if ($userGoals)
-        {
-            foreach($userGoals as $userGoal){
-                if($userGoal->getStatus() != UserGoal::COMPLETED){
-                    //if goal have listed and do dates
-                    if($userGoal->getListedDate() && $userGoal->getDoDate()){
+        $progress = $sendNoteService->calculateProgress($userGoals);
+        if ($progress) {
+            $result = array('progress' => $progress);
+            $response->setContent(json_encode($result));
 
-                        $time1 = $userGoal->getListedDate();
-                        $time2 = $userGoal->getDoDate();
-                        $limit = date_diff($time2,$time1)->days;
-                        $time3 = new \DateTime('now');
-                        $currentLimit = date_diff($time3,$time1)->days;
-
-                        if($currentLimit > $limit){
-                            $timesAgo = $limit?$limit:1;
-                            $allTimes = $limit?$limit:1;
-                        }else{
-                            $timesAgo = $currentLimit?$currentLimit:1;
-                            $allTimes = $limit?$limit:1;
-                        }
-
-                        $goalPercent = $userGoal->getCompleted();
-                        $currentTimePercent = (100 * $timesAgo)/$allTimes;
-                        $currentOverall = ($userGoal->getSteps() && $goalPercent)?($goalPercent * 100/$currentTimePercent):(($currentLimit > $limit || !$limit)?0:(100 - ($currentLimit*100/$limit)));
-
-                        if($userGoal->getSteps() && !$goalPercent){
-                            $stepsCount = count($userGoal->getSteps());
-                            $oneComplatePercent = 100/(2 * $stepsCount);
-                            $currentOverall = ($currentOverall < $oneComplatePercent)?$currentOverall:$oneComplatePercent;
-
-                        }
-
-                        $overall += $currentOverall;
-                        $count++;
-                    }
-                }
-            }
-
-            if($count && $overall){
-
-                $result = array('progress' => floor($overall/$count));
-
-                $response->setContent(json_encode($result));
-
-                return $response;
-            }
+            return $response;
         }
 
         return array('progress' => 0);

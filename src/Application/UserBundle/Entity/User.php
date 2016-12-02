@@ -1381,72 +1381,7 @@ class User extends BaseUser
         $this->setActiveDayOfWeek($active['activeWeekDay']);
         return $this;
     }
-
-    /**
-     * Get timePercent
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTimePercent()
-    {
-        $userGoals = $this->getUserGoal();
-        $timePercent = 0;
-        $timesAgo = 0;
-        $allTimes = 0;
-        if ($userGoals)
-        {
-            foreach($userGoals as $userGoal){
-                if($userGoal->getStatus() != UserGoal::COMPLETED){
-                    //if goal have listed and do dates
-                    if($userGoal->getListedDate() && $userGoal->getDoDate()){
-                        $time1 = $userGoal->getListedDate();
-                        $time2 = $userGoal->getDoDate();
-                        $limit = date_diff($time2,$time1)->days;
-                        $time3 = new \DateTime('now');
-                        $currentLimit = date_diff($time3,$time1)->days;
-
-                        if($currentLimit > $limit){
-                            $timesAgo += $limit;
-                            $allTimes += $limit;
-                        }else{
-                            $timesAgo += $currentLimit;
-                            $allTimes += $limit;
-                        }
-                    }
-                }
-            }
-            if($allTimes){
-                $timePercent = (100/$allTimes)*$timesAgo;
-            }
-        }
-        return $timePercent;
-    }
-
-    /**
-     * Get getGoalCompletedPercent
-     *
-     * @return integer
-     */
-    public function getGoalCompletedPercent()
-    {
-        $userGoals = $this->getUserGoal();
-        $goalPercent = 0;
-        $count = 0;
-        if ($userGoals)
-        {
-            foreach($userGoals as $userGoal){
-                $percent = $userGoal->getCompleted();
-                $goalPercent += (($userGoal->getSteps() && $percent)?$percent:0);
-                $count++;
-            }
-            if($count){
-                $goalPercent = $goalPercent/$count;
-            }
-
-        }
-        return $goalPercent;
-    }
-
+    
     /**
      * @return array
      */

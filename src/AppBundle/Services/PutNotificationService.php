@@ -8,6 +8,7 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\UserGoal;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\Container;
 use RMS\PushNotificationsBundle\Message\iOSMessage;
@@ -177,13 +178,12 @@ class PutNotificationService
      */
     public function sendProgressMassage($currentUser)
     {
-        $timePercent = $currentUser->getTimePercent();
-        $goalCompletedPercent = $currentUser->getGoalCompletedPercent();
+        $progress = $this->calculateProgress($currentUser->getUserGoal());
 
-        if($timePercent > $goalCompletedPercent){
-            $massage = $this->container->get('translator')->trans('progress_bad', array('%goalPercent%' => (100 - $goalCompletedPercent).'%')); 
+        if($progress < 90){
+            $massage = $this->container->get('translator')->trans('progress_bad'); 
         }
-        elseif($timePercent == $goalCompletedPercent) {
+        elseif($progress < 110) {
             $massage = $this->container->get('translator')->trans('progress_good');
         }
         else{
@@ -191,5 +191,60 @@ class PutNotificationService
         }
 
         $this->sendPushNote($currentUser, $massage);
+    }
+
+    /**
+     * @param $userGoals
+     * @return null
+     */
+    public function calculateProgress($userGoals)
+    {
+        $count = 0;
+        $overall = 0;
+        
+        if($userGoals){
+            foreach($userGoals as $userGoal){
+                if($userGoal->getStatus() != UserGoal::COMPLETED){
+                    //if goal have listed and do dates
+                    if($userGoal->getListedDate() && $userGoal->getDoDate()){
+
+                        $time1 = $userGoal->getListedDate();
+                        $time2 = $userGoal->getDoDate();
+                        $limit = date_diff($time2,$time1)->days;
+                        $time3 = new \DateTime('now');
+                        $currentLimit = date_diff($time3,$time1)->days;
+
+                        if($currentLimit > $limit){
+                            $timesAgo = $limit?$limit:1;
+                            $allTimes = $limit?$limit:1;
+                        }else{
+                            $timesAgo = $currentLimit?$currentLimit:1;
+                            $allTimes = $limit?$limit:1;
+                        }
+
+                        $goalPercent = $userGoal->getCompleted();
+                        $currentTimePercent = (100 * $timesAgo)/$allTimes;
+                        $currentOverall = ($userGoal->getSteps() && $goalPercent)?($goalPercent * 100/$currentTimePercent):(($currentLimit > $limit || !$limit)?0:(100 - ($currentLimit*100/$limit)));
+
+                        if($userGoal->getSteps() && !$goalPercent){
+                            $stepsCount = count($userGoal->getSteps());
+                            $oneComplatePercent = 100/(2 * $stepsCount);
+                            $currentOverall = ($currentOverall < $oneComplatePercent)?$currentOverall:$oneComplatePercent;
+
+                        }
+
+                        $overall += $currentOverall;
+                        $count++;
+                    }
+                }
+            }
+
+            if($count && $overall){
+                return floor($overall/$count);
+            }
+        }
+        
+        return null;
+        
     }
 }
