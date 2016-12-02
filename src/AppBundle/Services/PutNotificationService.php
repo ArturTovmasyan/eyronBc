@@ -158,6 +158,8 @@ class PutNotificationService
         $massage = $this->container->get('translator')->trans('test_message');
 
         $this->sendPushNote($currentUser, $massage);
+
+        $this->sendProgressMassage($currentUser);
     }
 
     /**
