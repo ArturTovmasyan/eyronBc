@@ -5,16 +5,74 @@
     <title>Bucketlist 127</title>
     <style>
         html {
-            background: url('/bundles/app/images/comming-soon.png') no-repeat center center fixed;
+            background: url('/bundles/app/images/comming-soon.jpg') no-repeat center 0 fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
+            overflow: hidden;
         }
+
+        .text-center {
+            text-align: center;
+            margin: auto;
+            font-size: 50px;
+        }
+
+        .top-text {
+            color: #393838;
+        }
+
+        .second-text {
+            font-weight: bold;
+            padding-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        .small-text {
+            text-align: center; color: #2a3039;padding-top: 5px;font-size: 22px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .margin{
+            margin: 200px auto
+        }
+
+        @media screen and (max-width:680px) {
+            .margin{
+                margin: 118px auto
+            }
+        }
+
     </style>
 </head>
+
 <body>
+
+<div class="body">
+
+    <div class="margin">
+        <p class="text-center top-text">Cool stuff is on its way</p>
+
+        <p class="text-center second-text">Check back soon</p>
+
+        <p class="small-text">The goal is to have memories, not just dreams!</p>
+    </div>
+
+    <footer class="footer">
+        <p style="font-size: 12px">&copy; {{ 'copyright'|trans | upper }}</p>
+    </footer>
+
+</div>
+
 
 </body>
 </html>
-
