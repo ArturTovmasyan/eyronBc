@@ -1435,7 +1435,8 @@ class User extends BaseUser
         if ($userGoals)
         {
             foreach($userGoals as $userGoal){
-                $goalPercent += $userGoal->getCompleted();
+                $percent = $userGoal->getCompleted();
+                $goalPercent += (($userGoal->getSteps() && $percent)?$percent:0);
                 $count++;
             }
             if($count){
