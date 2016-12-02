@@ -131,7 +131,7 @@ class PostOnSocialWallService
         $imageId = $imageData['media_id'];
 
         //generate twitter status
-        $status = substr($this->message, 0 ,98);
+        $status = substr($this->message, 0, 98);
         $status = $status.' '.$this->projectHost.' #BucketList127';
 
         //generate data for post on twitter wall

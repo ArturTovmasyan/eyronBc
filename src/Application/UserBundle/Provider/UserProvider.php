@@ -158,9 +158,7 @@ class UserProvider extends  BaseProvider
 
             $this->container->get('request_stack')->getCurrentRequest()->getSession()
                 ->getFlashBag()
-                ->set('userRegistration','User registration by '.$socialName.' from Web')
-            ;
-
+                ->set('userRegistration','User registration by '.$socialName.' from Web');
         }
 
         return $user;
@@ -210,7 +208,7 @@ class UserProvider extends  BaseProvider
                 ->set('userRegistration','User registration by '.$socialName.' from Web');
 
             //send post on user Facebook wall
-            $this->container->get('app.post_social_wall')->postOnFacebookWall($accessToken);
+//            $this->container->get('app.post_social_wall')->postOnFacebookWall($accessToken);
         }
 
         return $user;
@@ -252,7 +250,7 @@ class UserProvider extends  BaseProvider
                 ->set('userRegistration','User registration by '.$socialName.' from Web');
 
             //send post on user Twitter wall
-            $this->container->get('app.post_social_wall')->postOnTwitterWall($accessToken, $tokenSecret);
+//            $this->container->get('app.post_social_wall')->postOnTwitterWall($accessToken, $tokenSecret);
         }
 
         return $user;
