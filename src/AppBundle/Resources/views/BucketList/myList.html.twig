@@ -290,7 +290,7 @@
                                                 <ul class="clearfix">
 
                                                     {# Missed deadline #}
-                                                    <li data-ng-if="isLate(userGoal.do_date)">
+                                                    <li data-ng-if="isLate(userGoal.do_date) && !success[ goal.id ]">
                                                         <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info text-purple"></i>
                                                     </li>
 
