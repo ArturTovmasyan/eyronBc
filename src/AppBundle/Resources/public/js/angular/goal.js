@@ -487,6 +487,7 @@ angular.module('goal', ['Interpolation',
         $scope.successStoryImageKeys = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
+        var storyRemovePath = envPrefix + 'api/v1.0/success-story/remove/{storyId}';
 
         $scope.openSignInPopover = function(){
             AuthenticatorLoginService.openLoginPopup();
@@ -604,6 +605,14 @@ angular.module('goal', ['Interpolation',
               });
         };
 
+        $scope.removeStory = function (id) {
+            var url = storyRemovePath.replace('{storyId}', id);
+            $http.delete(url).success(function() {
+                $scope.showMyStory[id] = false;
+            })
+
+        };
+
         var imageResize = function () {
             imageHeight = angular.element('#main-slider img').height();
             if( (window.innerWidth < 768 && imageHeight < 190) ||
@@ -716,9 +725,10 @@ angular.module('goal', ['Interpolation',
             useSVG : false
         });
     }])
-    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location', 'CacheFactory',
-        function($scope, lsInfiniteItems, $timeout, envPrefix, $location, CacheFactory){
+    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location', 'CacheFactory', '$http',
+        function($scope, lsInfiniteItems, $timeout, envPrefix, $location, CacheFactory, $http){
         var path = $location.$$path,
+            url = envPrefix + 'usergoals/{goal}/toggles/interesteds',
             positionCache = CacheFactory.get('bucketlist_by_position');
             $scope.notAllowed = true;
 
@@ -745,6 +755,8 @@ angular.module('goal', ['Interpolation',
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
         $scope.locations = [];
+        $scope.isHover = false;
+        $scope.hoveredText = '';
         $scope.ideasTitle = true;
         $scope.noIdeas = false;
         $scope.isSearching = false;
@@ -754,6 +766,14 @@ angular.module('goal', ['Interpolation',
         
         $scope.scrollTop = function () {
             $("html, body").animate({ scrollTop: 0 }, "slow");
+        };
+            
+        $scope.notInterest = function (goal) {
+            var restPath = url.replace('{goal}', goal.id);
+
+            $http.post(restPath).success(function() {
+                goal.isInterested = false;
+            });
         };
 
         if(path.length){
@@ -774,6 +794,17 @@ angular.module('goal', ['Interpolation',
                 }
             },100);
         }
+
+        $scope.hoverIn = function (ev, text) {
+            $scope.isHover = true;
+            $scope.hoveredText = text;
+            var left = $(ev.target).offset().left;
+            var top  = $(ev.target).offset().top - 40;
+
+            left = left - 60;
+            $('.list-tooltip .arrow-up').css({left: 60});
+            $('.list-tooltip').css({top: top,left: left});
+        };
 
         $scope.allowBrowserLocation = function () {
 

@@ -43,13 +43,13 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v598
+        assets_version: v614
 
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        name: SFSESSIDCSMT
+        name: %session_name%
         cookie_domain: "%cookie_domain%"
         # handler_id set to null will use default session handler from php.ini
 #        cookie_lifetime: 86400
@@ -112,10 +112,6 @@ assetic:
             node: /usr/local/bin/node
             node_paths: [/usr/local/lib/node_modules]
             apply_to: "\.less$"
-#        yui_css:
-#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
-#        yui_js:
-#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
 # Doctrine Configuration
 doctrine:
@@ -149,6 +145,9 @@ doctrine:
                 SIN: DoctrineExtensions\Query\Mysql\Sin
                 RADIANS: DoctrineExtensions\Query\Mysql\Radians
                 COS: DoctrineExtensions\Query\Mysql\Cos
+                week: Oro\ORM\Query\AST\Functions\SimpleFunction
+                day: Oro\ORM\Query\AST\Functions\SimpleFunction
+                month: Oro\ORM\Query\AST\Functions\SimpleFunction
             string_functions:
                 match_against: AppBundle\Extensions\Doctrine\MatchAgainst
 

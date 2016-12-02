@@ -132,6 +132,7 @@ goal:
       urgency: Urgency
       urgent: urgent
       not_urgent: not urgent
+      get_direction: Get directions
 
 goal_friend_menu:
       all: All
@@ -152,6 +153,7 @@ Done: complete
 ideas_list_title: Explore thousands of great ideas for your Bucket List
 ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Allow</span> your Browser Location Service or enter your location
 nearby: Nearby
+hide_nearby: Hide from Nearby
 explore: Confirm
 
 # home
@@ -218,6 +220,7 @@ success_story:
       view_access_denied: You can't view this success story
       edit_access_denied: You can't edit this success story
       delete_access_denied: You can't remove this success story
+      delete_confirm: You are about to remove your success story. Are you sure?
 
 register_text:  Confirm your email address to access all of %XXX%'s features.
 
@@ -264,7 +267,7 @@ menu:
   map: Map
   common: In Common
   owned: Created
-  bucketlist_stories: Bucket List Stories
+  bucketlist_stories: Bucket List Blog
 
 right_menu:
   my_ideas: My Ideas
@@ -362,7 +365,8 @@ listed_by: Listed
 block_listed: Listed
 block_completed: Completed
 Add an email : Add an email
-
+social_post_text: |
+                   I just started my Bucket List: so far the best tool to make sure I have memories, not just dream;) Join Bucket List 127, it's amazing!
 forget: Remove
 dream: No deadline, No goal! You are just dreaming
 
@@ -641,15 +645,25 @@ overall:
 notify_settings:
   user_activity: Highlights
   comment_goal: Goals commented
+  comment_goal_desc: Comment on your added goals that are set important
   comment_idea: Ideas commented
+  comment_idea_desc: Comment on your own ideas published by admin
   success_story_goal: Success stories for Goals
+  success_story_goal_desc: Notification for your success stories written on your added goals that are set important
   success_story_idea: Success stories for Ideas
+  success_story_idea_desc: Notification for success stories written on your own ideas published by admin
   success_story_like: Success stories liked
+  success_story_like_desc: Likes for your written success stories
   publish_goal: Published Ideas
+  publish_goal_desc: Notification from admin to let you know your goal has been published
   reply_comment: Comments replied
+  reply_comment_desc: Notification for a reply to your comment
   deadline: Deadline expires
+  deadline_desc: Notification you get when your goal deadline expires
   new_goalfriend: New Goalfriends
+  new_goalfriend_desc: Notification you get when you make new goalfriends
   new_idea: New Ideas
+  new_idea_desc: Notification for new ideas suggested by Bucket List 127
 
 leaderboard:
   name: leaderboard

@@ -140,6 +140,7 @@ trait GoalAdminTrait
                 }else{
                     $image->setList(false);
                 }
+
                 if ($image->getCover() == true){
                     $hasCoverPhoto = true;
                 }else{

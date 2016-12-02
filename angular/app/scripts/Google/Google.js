@@ -24,9 +24,36 @@ angular.module('Google', [])
                 activeGoalMarkerIcon1: '@',
                 activeGoalMarkerIcon2: '@',
                 itemPageUrl: '@',
+                hiddenStorage: '@',
                 activeMarkerIcon: '@'
             },
             compile: function compile(){
+
+                function geocodePlaceId(geocoder, scope, placeId) {
+                    geocoder.geocode({'placeId': placeId}, function (results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            if (results[0]) {
+                                var place = {};
+                                place.location = {
+                                    latitude: results[0].geometry.location.lat(),
+                                    longitude: results[0].geometry.location.lng()
+                                };
+
+                                place.address = results[0].formatted_address;
+                                $(scope.hiddenStorage).prev().val(place.address);
+
+                                scope.$emit('admin-goal-change-place', place);
+
+                                angular.element(scope.hiddenStorage).val(JSON.stringify(place));
+                                angular.element(scope.hiddenStorage).attr('value',JSON.stringify(place));
+                            } else {
+                                window.alert('No results found');
+                            }
+                        } else {
+                            window.alert('Geocoder failed due to: ' + status);
+                        }
+                    });
+                }
 
                 function addMarker(obj, icon, map){
                     if(!angular.isNumber(obj.latitude) || !angular.isNumber(obj.longitude)){
@@ -54,6 +81,7 @@ angular.module('Google', [])
                 return function(scope, el){
                     scope.map = Initialize(el[0], scope.zoom);
                     scope.mapMarkers = {};
+                    var geocoder = new google.maps.Geocoder;
 
                     scope.$watch('refresh', function(){
                         $timeout(function(){
@@ -211,6 +239,14 @@ angular.module('Google', [])
 
                             m.setIcon(active);
                         }
+                    };
+
+                    if(scope.hiddenStorage){
+                        scope.map.addListener('click', function(res) {
+                            if(res.placeId){
+                                geocodePlaceId(geocoder, scope, res.placeId);
+                            }
+                        });
                     }
                 };
             }

@@ -20,7 +20,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
  * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_user_goal", columns={"user_id", "goal_id"})},
- *                                indexes={@ORM\Index(name="IDX_profile_last_modified", columns={"user_id", "id", "goal_id", "updated"})})
+ *                                indexes={@ORM\Index(name="IDX_profile_last_modified", columns={"user_id", "id", "goal_id", "updated"}),
+ *                                         @ORM\Index(name="IDX_goal_visible_user", columns={"goal_id", "is_visible", "user_id"})})
  * @ORM\EntityListeners({"AppBundle\Listener\UserGoalListener"})
  */
 class UserGoal implements ActivityableInterface
@@ -28,6 +29,7 @@ class UserGoal implements ActivityableInterface
     // constants for status
     const ACTIVE = 1;
     const COMPLETED = 2;
+    const NONE = 0; // this constant is used to hide not interested goals
 
     //constants for date status
     const OLL = 1;
@@ -97,6 +99,12 @@ class UserGoal implements ActivityableInterface
      * @Groups({"userGoal"})
      */
     protected $important = true;
+
+    /**
+    * @var
+    * @ORM\Column(name="not_interested", type="boolean")
+    */
+    protected $notInterested = false;
 
     /**
      * @var
@@ -668,6 +676,22 @@ class UserGoal implements ActivityableInterface
     public function getConfirmed()
     {
         return $this->confirmed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotInterested()
+    {
+        return $this->notInterested;
+    }
+
+    /**
+     * @param mixed $notInterested
+     */
+    public function setNotInterested($notInterested)
+    {
+        $this->notInterested = $notInterested;
     }
 
 
