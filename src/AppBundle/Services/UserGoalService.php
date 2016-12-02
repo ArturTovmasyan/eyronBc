@@ -60,6 +60,7 @@ class UserGoalService extends AbstractProcessService
     {
         $addBadge = 0;
         $removeBadge = 0;
+        $persistUser = false;
 
         if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
             $content = $request->getContent();
@@ -142,10 +143,14 @@ class UserGoalService extends AbstractProcessService
 
         if (!is_null($request->get('urgent'))){
             $userGoal->setUrgent($request->get('urgent') ? true : false);
+            $user->setUserGoalRemoveDate(new \DateTime());  // change remove date to clear cache
+            $persistUser = true;
         }
 
         if (!is_null($request->get('important'))){
             $userGoal->setImportant($request->get('important') ? true : false);
+            $user->setUserGoalRemoveDate(new \DateTime()); // change remove date to clear cache
+            $persistUser = true;
         }
 
 //        $location = $request->get('location');
@@ -189,6 +194,9 @@ class UserGoalService extends AbstractProcessService
         }
 
         $this->em->persist($userGoal);
+        if($persistUser){
+            $this->em->persist($user);
+        }
         $this->em->flush();
 
         if ($suggestAsVisible){

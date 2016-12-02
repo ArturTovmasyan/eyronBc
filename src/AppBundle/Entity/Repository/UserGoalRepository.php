@@ -206,9 +206,14 @@ class UserGoalRepository extends EntityRepository
             if (count($dates) == 0){
                 return null;
             }
-
             $lastModifiedDate = reset($dates);
-            return $lastModifiedDate['updated'];
+            $lastModifiedDate = $lastModifiedDate['updated'];
+
+            array_map(function($data) use (&$lastModifiedDate){
+                $lastModifiedDate = $lastModifiedDate < $data['updated'] ?  $data['updated'] : $lastModifiedDate;
+            }, $dates);
+
+            return $lastModifiedDate;
 //            $etag = $dates[0]['id'];
 //            for($i = 1; $i < count($dates); $i++){
 //                if ($lastModifiedDate < $dates[$i]['updated']){
