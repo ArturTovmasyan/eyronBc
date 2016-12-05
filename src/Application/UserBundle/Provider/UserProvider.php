@@ -80,11 +80,8 @@ class UserProvider extends  BaseProvider
         }
         elseif($resourceOwner instanceof FacebookResourceOwner){
             
-            //get access token
-            $accessToken = $response->getAccessToken();
-            
             // get facebook user
-            $user = $this->createFacebookUser($response->getResponse(), $accessToken);
+            $user = $this->createFacebookUser($response->getResponse());
         }
         else {
             // return exception if user not found,
@@ -220,13 +217,8 @@ class UserProvider extends  BaseProvider
             $session->getFlashBag()
                 ->set('userRegistration','User registration by '.$socialName.' from Web');
 
-            $url = 'https://web.facebook.com/dialog/feed?+app_id=145634995501895+&display=popup&caption=An+example+caption+&image=stage.bucketlist127.com/bundles/app/images/BL127.png&link=http%3A%2F%2Fstage.bucketlist127.com%2Fdocs%2Fdialogs%2F+&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer&_rdr';
-
-            //set session for FB post
-            $session->set('fb_post', $url);
-
             //send post on user Facebook wall
-//            $this->container->get('app.post_social_wall')->postOnFacebookWall($accessToken);
+            $this->container->get('app.post_social_wall')->postOnFacebookWall();
         }
 
         return $user;
