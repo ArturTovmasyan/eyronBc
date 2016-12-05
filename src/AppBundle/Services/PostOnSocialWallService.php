@@ -9,7 +9,7 @@ use TwitterAPIExchange;
 
 class PostOnSocialWallService
 {
-    const POST_ON_FACEBOOK_WALL_API = 'https://web.facebook.com/dialog/feed';
+    const POST_ON_FACEBOOK_WALL_API = 'https://web.facebook.com/dialog/share';
     const POST_ON_TWITTER_WALL_API = 'https://api.twitter.com/1.1/statuses/update.json';
     const UPLOAD_TWITTER_MEDIA_API = 'https://upload.twitter.com/1.1/media/upload.json';
 
@@ -71,12 +71,13 @@ class PostOnSocialWallService
         //generate data for post on wall
         $urlParams = [
             'app_id' => $appId,
-            'display' => 'popup',
+            'display' => 'page',
             'title' => $projectName,
-            'description' => $this->message,
             'image' => $this->imageLink,
-            'link' => $this->projectHost,
+            'quote' => $this->message,
+            'href' => $this->projectHost,
             'redirect_uri' => $this->protocol.'://'.$this->projectHost
+            'hashtag' => '#BucketList127',
         ];
 
         //generate post on FB wall url
