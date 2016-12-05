@@ -166,7 +166,7 @@ class UserProvider extends  BaseProvider
             ;
 
             //send post on user Google plus wall
-            $this->container->get('app.post_social_wall')->postOnGoogleWall($accessToken, $id);
+//            $this->container->get('app.post_social_wall')->postOnGoogleWall($accessToken, $id);
         }
 
         return $user;

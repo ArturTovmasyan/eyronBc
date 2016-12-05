@@ -77,8 +77,8 @@ class PostOnSocialWallService
             'description' => $this->message,
             'image' => $this->imageLink,
             'link' => $this->projectHost,
-//            'redirect_uri' => $this->protocol.'://'.$this->projectHost
-            'redirect_uri' => 'http://bucketlist.loc/'
+            'redirect_uri' => $this->protocol.'://'.$this->projectHost
+//            'redirect_uri' => 'http://bucketlist.loc/'
         ];
 
         //generate post on FB wall url
