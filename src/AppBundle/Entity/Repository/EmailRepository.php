@@ -24,7 +24,7 @@ class EmailRepository extends EntityRepository
         //get emails statistic count
         $emails =  $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('count(em.id) as send, em.sent as created, SUM(CASE WHEN em.seen IS NOT NULL THEN 1 ELSE 0 END) as read')
+            ->select("count(em.id) as send, DATE(em.sent) as created, SUM(CASE WHEN em.seen IS NOT NULL THEN 1 ELSE 0 END) as read")
             ->from('AppBundle:Email', 'em');
 
         //if start date is exists
