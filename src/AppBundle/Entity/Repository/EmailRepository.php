@@ -46,15 +46,8 @@ class EmailRepository extends EntityRepository
 
             case StatisticController::DAY:
                 $emails
-                    ->addSelect('day(em.sent) as hidden day')
-                    ->groupBy('day')
-                    ->orderBy('day');
-                break;
-            case StatisticController::WEEK:
-                $emails
-                    ->addSelect('dayofweek(em.sent) as hidden wk')
-                    ->groupBy('wk')
-                    ->orderBy('wk');
+                    ->groupBy('created')
+                    ->orderBy('created');
                 break;
             case StatisticController::MONTH:
                 $emails
