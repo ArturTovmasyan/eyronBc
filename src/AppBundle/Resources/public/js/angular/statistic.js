@@ -47,15 +47,15 @@ angular.module('statistic',["chart.js"])
                 calculate(d);
               });
               break;
-            case 'week':
-              angular.forEach(res, function (d) {
-                $scope.labels.push(new Date(d.created).toLocaleString('en-us', {  weekday: 'long' }));
-                calculate(d);
-              });
-              break;
+            // case 'week':
+              // angular.forEach(res, function (d) {
+              //   $scope.labels.push(new Date(d.created).toLocaleString('en-us', {  weekday: 'long' }));
+              //   calculate(d);
+              // });
+              // break;
             case 'day':
               angular.forEach(res, function (d) {
-                $scope.labels.push(moment(d.created).format('YYYY-MM-DD'));
+                $scope.labels.push(d.created);
                 calculate(d);
               });
               break;
