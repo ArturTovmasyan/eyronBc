@@ -226,7 +226,7 @@ class UserGoalController extends FOSRestController
 
             $response->setLastModified($lastModified);
 //            $response->headers->set('ETag', $data['etag']);
-//            $response->headers->set('cache-control', 'private, must-revalidate');
+            $response->headers->set('cache-control', 'private, must-revalidate');
 
             if ($response->isNotModified($request)) {
                 return $response;
