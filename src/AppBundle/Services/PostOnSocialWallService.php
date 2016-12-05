@@ -69,7 +69,7 @@ class PostOnSocialWallService
         $projectName = $this->container->getParameter('email_sender');
 
         //generate data for post on wall
-        $postData = [
+        $urlParams = [
             'app_id' => $appId,
             'display' => 'popup',
             'title' => $projectName,
@@ -80,7 +80,7 @@ class PostOnSocialWallService
         ];
 
         //generate post on FB wall url
-        $url = sprintf('%s', self::POST_ON_FACEBOOK_WALL_API).'?+'.http_build_query($postData);
+        $url = sprintf('%s', self::POST_ON_FACEBOOK_WALL_API).'?'.http_build_query($urlParams);
 
         //set session for FB post
         $session->set('fb_post_url', $url);
@@ -141,6 +141,8 @@ class PostOnSocialWallService
     }
 
     /**
+     * This function is used to post on google wall
+     *
      * @param $accessToken
      * @param $id
      */
