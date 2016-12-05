@@ -43,7 +43,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v616
+        assets_version: v617
 
     default_locale:  en
     trusted_hosts:   ~

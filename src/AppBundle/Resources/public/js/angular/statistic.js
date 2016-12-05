@@ -55,7 +55,8 @@ angular.module('statistic',["chart.js"])
               // break;
             case 'day':
               angular.forEach(res, function (d) {
-                $scope.labels.push(d.created);
+                var created = (d.created.indexOf('T') != -1 )?d.created.slice(0,d.created.indexOf('T')):d.created;
+                $scope.labels.push(created);
                 calculate(d);
               });
               break;
