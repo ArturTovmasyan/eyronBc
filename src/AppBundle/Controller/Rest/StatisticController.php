@@ -14,9 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 class StatisticController extends FOSRestController
 {
     const MONTH = 1;
-    const WEEK = 2;
-    const DAY = 3;
-    const TYPE_EMAIL = 4;
+    const DAY = 2;
+    const TYPE_EMAIL = 3;
 
     /**
      * @Rest\Get("/statistic/{type}/{groupBy}/{start}/{end}", name="get_statistic", options={"method_prefix"=false})
@@ -60,9 +59,6 @@ class StatisticController extends FOSRestController
             switch (strtolower($groupBy)) {
                 case 'day':
                     $groupBy = self::DAY;
-                    break;
-                case 'week':
-                    $groupBy = self::WEEK;
                     break;
                 case 'month':
                     $groupBy = self::MONTH;
