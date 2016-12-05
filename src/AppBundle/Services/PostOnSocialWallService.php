@@ -46,9 +46,8 @@ class PostOnSocialWallService
     /**
      * PostOnSocialWallService constructor.
      * @param Container $container
-     * @param $accessToken string
      */
-    public function __construct(Container $container, $accessToken)
+    public function __construct(Container $container)
     {
         $this->container = $container;
         $this->projectHost = $this->container->getParameter('project_name');
@@ -78,7 +77,6 @@ class PostOnSocialWallService
             'image' => $this->imageLink,
             'link' => $this->projectHost,
             'redirect_uri' => $this->protocol.'://'.$this->projectHost
-//            'redirect_uri' => 'http://bucketlist.loc/'
         ];
 
         //generate post on FB wall url
@@ -156,10 +154,10 @@ class PostOnSocialWallService
             "object" => [
                 "attachments" =>
                     [
-                        "url" => "http://stage.bucketlist127.com/bundles/app/images/BL127.png",
+                        "url" => $this->imageLink,
                         "objectType" => "article"
                     ],
-                "originalContent" => "Happy TEST TEST Monday!",
+                "originalContent" => $this->message,
             ],
             "access" => [
                 "items" => [
