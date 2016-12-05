@@ -231,7 +231,7 @@ hwi_oauth:
                 type:                google
                 client_id:           "%google_client_id%"
                 client_secret:       "%google_client_secret%"
-                scope:               "email profile"
+                scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.stream.write https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.media.upload"
             twitter:
                 type:                twitter
                 client_id:           "%twitter_client_id%"

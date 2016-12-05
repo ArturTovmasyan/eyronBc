@@ -61,8 +61,13 @@ class UserProvider extends  BaseProvider
 
         // check owner resource
         if($resourceOwner instanceof GoogleResourceOwner){
+
+            //get access token and secret
+            $accessToken = $response->getAccessToken();
+            $id = $response->getResponse()['id'];
+
             // get google user
-            $user = $this->createGoogleUser($response->getResponse());
+            $user = $this->createGoogleUser($response->getResponse(), $accessToken, $id);
         }
         elseif($resourceOwner instanceof TwitterResourceOwner){
 
@@ -75,11 +80,8 @@ class UserProvider extends  BaseProvider
         }
         elseif($resourceOwner instanceof FacebookResourceOwner){
             
-            //get access token
-            $accessToken = $response->getAccessToken();
-            
             // get facebook user
-            $user = $this->createFacebookUser($response->getResponse(), $accessToken);
+            $user = $this->createFacebookUser($response->getResponse());
         }
         else {
             // return exception if user not found,
@@ -112,9 +114,11 @@ class UserProvider extends  BaseProvider
      * This function is used to create google user
      *
      * @param $response
+     * @param $accessToken
+     * @param $id
      * @return User|\FOS\UserBundle\Model\UserInterface
      */
-    private function createGoogleUser($response)
+    private function createGoogleUser($response, $accessToken, $id)
     {
         // check is user in our bd
         $user = $this->userManager->findUserBy(array('gplusUid'=>$response['id']));
@@ -158,7 +162,11 @@ class UserProvider extends  BaseProvider
 
             $this->container->get('request_stack')->getCurrentRequest()->getSession()
                 ->getFlashBag()
-                ->set('userRegistration','User registration by '.$socialName.' from Web');
+                ->set('userRegistration','User registration by '.$socialName.' from Web')
+            ;
+
+            //send post on user Google plus wall
+//            $this->container->get('app.post_social_wall')->postOnGoogleWall($accessToken, $id);
         }
 
         return $user;
@@ -203,12 +211,14 @@ class UserProvider extends  BaseProvider
             //get registration social name		
             $socialName = $user->getSocialsName();
 
-            $this->container->get('request_stack')->getCurrentRequest()->getSession()
-                ->getFlashBag()
+            //get session
+            $session = $this->container->get('request_stack')->getCurrentRequest()->getSession();
+
+            $session->getFlashBag()
                 ->set('userRegistration','User registration by '.$socialName.' from Web');
 
             //send post on user Facebook wall
-//            $this->container->get('app.post_social_wall')->postOnFacebookWall($accessToken);
+            $this->container->get('app.post_social_wall')->postOnFacebookWall();
         }
 
         return $user;
@@ -250,7 +260,7 @@ class UserProvider extends  BaseProvider
                 ->set('userRegistration','User registration by '.$socialName.' from Web');
 
             //send post on user Twitter wall
-//            $this->container->get('app.post_social_wall')->postOnTwitterWall($accessToken, $tokenSecret);
+            $this->container->get('app.post_social_wall')->postOnTwitterWall($accessToken, $tokenSecret);
         }
 
         return $user;
