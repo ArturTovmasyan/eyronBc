@@ -169,7 +169,7 @@ class GoalController extends Controller
 
                 if (!is_null($request->get("btn_publish"))) {
 
-                    $goal->setDescription(str_replace('#', '', $goal->getDescription()));
+//                    $goal->setDescription(str_replace('#', '', $goal->getDescription()));
 
                     $em->persist($goal);
                     $em->flush();
