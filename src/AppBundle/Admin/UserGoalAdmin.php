@@ -105,22 +105,18 @@ class UserGoalAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, ['label'=>'admin.label.name.id'])
+            ->add('user', null, ['label'=>'admin.label.name.user'])
             ->add('getStringStatus', null, ['label'=>'admin.label.name.status'])
             ->add('isVisible', null, ['label'=>'admin.label.name.is_visible'])
             ->add('confirmed', null, ['label'=>'admin.label.name.confirmed'])
             ->add('urgent', null, ['label'=>'admin.label.name.urgent'])
             ->add('important', null, ['label'=>'admin.label.name.important'])
             ->add('goal', null, ['label'=>'admin.label.name.goal', 'admin_code' => 'sonata.admin.app.goal'])
-            ->add('user', null, ['label'=>'admin.label.name.user'])
-            ->add('doDate', null, ['label'=>'admin.label.name.do_date'])
-            ->add('completionDate', null, ['label'=>'admin.label.name.completion_date'])
             ->add('listedDate', null, ['label'=>'admin.label.name.listed_date'])
             ->add('updated', null, ['label'=>'admin.label.name.updated'])
             ->add('_action', 'actions', [
                     'actions' => [
                         'show' => [],
-                        'edit' => [],
                         'delete' => [],
                     ]
                 ]
