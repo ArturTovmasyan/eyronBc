@@ -654,6 +654,8 @@ class UserController extends FOSRestController
 
         $response->setLastModified($lastModified);
 
+        $response->headers->set('cache-control', 'private, must-revalidate');
+
         // check is modified
         if ($response->isNotModified($request)) {
             return $response;

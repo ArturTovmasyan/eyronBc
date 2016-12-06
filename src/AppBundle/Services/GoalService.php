@@ -78,6 +78,7 @@ class GoalService extends AbstractProcessService
             return  ['goals' => [] ];
         }
         $response->setLastModified($lastUpdated);
+        $response->headers->set('cache-control', 'private, must-revalidate');
 
         // check is modified
         if ($response->isNotModified($request)) {

@@ -58,6 +58,8 @@ class MainController extends Controller
 
             $response->setLastModified($currentDate);
 
+            $response->headers->set('cache-control', 'private, must-revalidate');
+
             if ($response->isNotModified($request)){
                 return $response;
             }
