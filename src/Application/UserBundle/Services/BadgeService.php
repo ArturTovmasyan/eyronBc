@@ -189,8 +189,10 @@ class BadgeService extends AbstractProcessService
      * @param $type
      * @param $userId
      * @param $score
+     * @param bool $notify
+     * @throws \Exception
      */
-    public function addScore($type, $userId, $score)
+    public function addScore($type, $userId, $score, $notify = true)
     {
         // get user
         $user = $this->em->getRepository("ApplicationUserBundle:User")->find($userId);
@@ -203,21 +205,30 @@ class BadgeService extends AbstractProcessService
         $badge = $this->em->getRepository("ApplicationUserBundle:Badge")
             ->findBadgeByUserAndType($userId, $type);
 
-        if(!$badge){
+        $this->em->getConnection()->beginTransaction(); // suspend auto-commit
+        try {
 
-            $badge = new Badge();
-            $badge->setType($type);
-            $badge->setUser($user);
+            if(!$badge){
+
+                $badge = new Badge();
+                $badge->setType($type);
+                $badge->setUser($user);
+            }
+
+            $oldScore = $badge->getScore();
+
+            // generate new score
+            $newScore = $oldScore + $score;
+
+            $badge->setScore($newScore);
+            $this->em->persist($badge);
+            $this->em->flush();
+            $this->em->getConnection()->commit();
+        } catch (\Exception $e) {
+            $this->em->getConnection()->rollBack();
+            throw $e;
         }
 
-        $oldScore = $badge->getScore();
-
-        // generate new score
-        $newScore = $oldScore + $score;
-
-        $badge->setScore($newScore);
-        $this->em->persist($badge);
-        $this->em->flush();
 
         // get max score from cache
         $maxScore = $this->getMaxScore($newScore, $type);
@@ -237,7 +248,7 @@ class BadgeService extends AbstractProcessService
         }
 
         // check has changed
-        if($this->hasScoreChanged($newScore, $oldScore, $type)){
+        if($this->hasScoreChanged($newScore, $oldScore, $type) && $notify){
 
             $this->runAsProcess('bl.badge.service', 'sendNotify',
                 array($userId, 1, $type));
@@ -310,8 +321,10 @@ class BadgeService extends AbstractProcessService
      * @param $type
      * @param $userId
      * @param $score
+     * @param $notify
+     * @throws \Exception
      */
-    public function removeScore($type, $userId, $score)
+    public function removeScore($type, $userId, $score, $notify = true)
     {
         // get user
         $user = $this->em->getRepository("ApplicationUserBundle:User")->find($userId);
@@ -326,19 +339,28 @@ class BadgeService extends AbstractProcessService
 
         if($badge){
 
-            $oldScore = $badge->getScore();
-            // generate new score
-            $newScore = $oldScore - $score;
-            $newScore = $newScore < 0 ? 0 : $newScore;
+            $this->em->getConnection()->beginTransaction(); // suspend auto-commit
+            try {
+                $oldScore = $badge->getScore();
+                // generate new score
+                $newScore = $oldScore - $score;
+                $newScore = $newScore < 0 ? 0 : $newScore;
 
-            if($newScore == 0){
-                $this->em->remove($badge);
-            }else{
-                $badge->setScore($newScore);
-                $this->em->persist($badge);
+                if($newScore == 0){
+                    $this->em->remove($badge);
+                }else{
+                    $badge->setScore($newScore);
+                    $this->em->persist($badge);
+                }
+
+                $this->em->flush();
+                $this->em->getConnection()->commit();
+            } catch (\Exception $e) {
+                $this->em->getConnection()->rollBack();
+                throw $e;
             }
 
-            $this->em->flush();
+
 
             // get max score from cache
             $maxScore = $this->getMaxScore($newScore, $type);
@@ -358,7 +380,7 @@ class BadgeService extends AbstractProcessService
             }
 
             // check has changed
-            if($this->hasScoreChanged($newScore, $oldScore, $type)){
+            if($this->hasScoreChanged($newScore, $oldScore, $type) && $notify){
 
                 $this->runAsProcess('bl.badge.service', 'sendNotify',
                     array($userId, 0, $type));

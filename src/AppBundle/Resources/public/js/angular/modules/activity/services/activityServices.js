@@ -253,7 +253,8 @@ angular.module('activity')
           scope.$parent.newActivity = false;
           scope.$parent.topUsers = [];
           var path = envPrefix + "api/v1.0/badges",
-              leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
+              leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard'),
+              inProces = false;
 
           scope.$parent.castInt = function(value){
             return parseInt(value);
@@ -284,11 +285,13 @@ angular.module('activity')
           };
 
           scope.$parent.manageVote = function(id, isNotMyGoal){
-            if(!isNotMyGoal)return;
+            if(!isNotMyGoal || inProces)return;
+            inProces = true;
             var url = (!scope.$parent.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
             url = envPrefix + url;
             url = url.replace('{storyId}', id);
             $http.get(url).success(function() {
+              inProces = false;
               if(UserContext.id && localStorageService.isSupported)
               {
                 localStorageService.remove(storageDates.name + UserContext.id);
