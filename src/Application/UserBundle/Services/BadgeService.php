@@ -248,7 +248,7 @@ class BadgeService extends AbstractProcessService
         }
 
         // check has changed
-        if($this->hasScoreChanged($newScore, $oldScore, $type) && $notify){
+        if($notify && $this->hasScoreChanged($newScore, $oldScore, $type)){
 
             $this->runAsProcess('bl.badge.service', 'sendNotify',
                 array($userId, 1, $type));
@@ -380,7 +380,7 @@ class BadgeService extends AbstractProcessService
             }
 
             // check has changed
-            if($this->hasScoreChanged($newScore, $oldScore, $type) && $notify){
+            if($notify && $this->hasScoreChanged($newScore, $oldScore, $type)){
 
                 $this->runAsProcess('bl.badge.service', 'sendNotify',
                     array($userId, 0, $type));
