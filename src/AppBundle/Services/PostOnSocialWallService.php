@@ -9,9 +9,10 @@ use TwitterAPIExchange;
 
 class PostOnSocialWallService
 {
-    const POST_ON_FACEBOOK_WALL_API = 'https://web.facebook.com/dialog/share';
-    const POST_ON_TWITTER_WALL_API = 'https://api.twitter.com/1.1/statuses/update.json';
-    const UPLOAD_TWITTER_MEDIA_API = 'https://upload.twitter.com/1.1/media/upload.json';
+    const FACEBOOK_SHARE_LINK = 'https://web.facebook.com/dialog/share';
+    const TWITTER_SHARE_LINK = 'https://api.twitter.com/1.1/statuses/update.json';
+    const TWITTER_SHARE_MEDIA_LINK = 'https://upload.twitter.com/1.1/media/upload.json';
+    const GOOGLE_SHARE_LINK = 'https://plus.google.com/share';
 
     /**
      * @var Container $container
@@ -44,6 +45,11 @@ class PostOnSocialWallService
     private $message;
 
     /**
+     * @var Session $session
+     */
+    private $session;
+
+    /**
      * PostOnSocialWallService constructor.
      * @param Container $container
      */
@@ -55,16 +61,15 @@ class PostOnSocialWallService
         $this->protocol = $this->container->getParameter('protocol');
         $this->imageLink = $this->protocol.'://'.$this->projectHost.'/bundles/app/images/BL127.png';
         $this->message = $this->translator->trans('social_post_text', [], 'messages');
+        $this->session = $this->container->get('session');
     }
 
     /**
-     * This function is used to send post on user facebook wall
+     * This function is used to save facebook share link in session
      *
-     * @throws \Exception
      */
     public function postOnFacebookWall()
     {
-        $session = $this->container->get('session');
         $appId = $this->container->getParameter('facebook_client_id');
         $projectName = $this->container->getParameter('email_sender');
 
@@ -76,15 +81,16 @@ class PostOnSocialWallService
             'image' => $this->imageLink,
             'quote' => $this->message,
             'href' => $this->projectHost,
-            'redirect_uri' => $this->protocol.'://'.$this->projectHost,
+//            'redirect_uri' => $this->protocol.'://'.$this->projectHost,
+            'redirect_uri' => 'http://bucketlist.loc/app_dev.php/',
             'hashtag' => '#BucketList127'
         ];
 
         //generate post on FB wall url
-        $url = sprintf('%s', self::POST_ON_FACEBOOK_WALL_API).'?'.http_build_query($urlParams);
+        $url = sprintf('%s', self::FACEBOOK_SHARE_LINK).'?'.http_build_query($urlParams);
 
         //set session for FB post
-        $session->set('fb_post_url', $url);
+        $this->session->set('post_url', $url);
     }
 
     /**
@@ -114,7 +120,7 @@ class PostOnSocialWallService
         $postImageData = ['media' => base64_encode(file_get_contents($this->imageLink))];
 
         //upload image for twitter
-        $imageData = $twitter->buildOauth(self::UPLOAD_TWITTER_MEDIA_API, 'POST')
+        $imageData = $twitter->buildOauth(self::TWITTER_SHARE_MEDIA_LINK, 'POST')
             ->setPostfields($postImageData)
             ->performRequest();
 
@@ -133,7 +139,7 @@ class PostOnSocialWallService
 
         try{
             //send post on twitter wall
-            $twitter->buildOauth(self::POST_ON_TWITTER_WALL_API, 'POST')
+            $twitter->buildOauth(self::TWITTER_SHARE_LINK, 'POST')
                 ->setPostfields($postData)
                 ->performRequest();
 
@@ -142,42 +148,15 @@ class PostOnSocialWallService
     }
 
     /**
-     * This function is used to post on google wall
+     * This function is used to save google+ share link in session
      *
-     * @param $accessToken
-     * @param $id
      */
-    public function postOnGoogleWall($accessToken, $id)
+    public function postOnGoogleWall()
     {
-        //generate facebook post on wall api
-        $url = sprintf('https://www.googleapis.com/plusDomains/v1/people/%s/activities?key=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&access_token='.$accessToken.'', $id);
+        //generate google+ share link
+        $url = sprintf('%s',self::GOOGLE_SHARE_LINK).'?url='.$this->projectHost;
 
-        //create post data
-        $body = [
-            "object" => [
-                "attachments" =>
-                    [
-                        "url" => $this->imageLink,
-                        "objectType" => "article"
-                    ],
-                "originalContent" => $this->message,
-            ],
-            "access" => [
-                "items" => [
-                    ["type"=>"public"]
-                ],
-                "domainRestricted" => true
-            ]
-        ];
-
-        //use curl for post on user google + wall
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, ["Content-Type: application/json"]);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
-        $k = curl_exec($ch);
-        curl_close($ch);
+        //set session for FB post
+        $this->session->set('post_url', $url);
     }
 }
