@@ -81,8 +81,7 @@ class PostOnSocialWallService
             'image' => $this->imageLink,
             'quote' => $this->message,
             'href' => $this->projectHost,
-//            'redirect_uri' => $this->protocol.'://'.$this->projectHost,
-            'redirect_uri' => 'http://bucketlist.loc/app_dev.php/',
+            'redirect_uri' => $this->protocol.'://'.$this->projectHost,
             'hashtag' => '#BucketList127'
         ];
 
