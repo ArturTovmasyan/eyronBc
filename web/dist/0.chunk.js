@@ -1,15 +1,15 @@
 webpackJsonp([0,13],{
 
-/***/ 731:
+/***/ 734:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(378);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ideas_component__ = __webpack_require__(744);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ideas_category_ideas_category_component__ = __webpack_require__(743);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ideas_routing__ = __webpack_require__(752);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ideas_component__ = __webpack_require__(747);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ideas_category_ideas_category_component__ = __webpack_require__(746);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ideas_routing__ = __webpack_require__(755);
 /* harmony export (binding) */ __webpack_require__.d(exports, "IdeasModule", function() { return IdeasModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -51,13 +51,13 @@ var IdeasModule = (function () {
 
 /***/ },
 
-/***/ 743:
+/***/ 746:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_switchMap__ = __webpack_require__(780);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_switchMap__ = __webpack_require__(783);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_switchMap__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return IdeasCategoryComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -88,8 +88,8 @@ var IdeasCategoryComponent = (function () {
     IdeasCategoryComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-ideas-category',
-            template: __webpack_require__(773),
-            styles: [__webpack_require__(762)]
+            template: __webpack_require__(776),
+            styles: [__webpack_require__(765)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === 'function' && _b) || Object])
     ], IdeasCategoryComponent);
@@ -100,7 +100,7 @@ var IdeasCategoryComponent = (function () {
 
 /***/ },
 
-/***/ 744:
+/***/ 747:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -124,8 +124,8 @@ var IdeasComponent = (function () {
     IdeasComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-ideas',
-            template: __webpack_require__(774),
-            styles: [__webpack_require__(763)]
+            template: __webpack_require__(777),
+            styles: [__webpack_require__(766)]
         }), 
         __metadata('design:paramtypes', [])
     ], IdeasComponent);
@@ -135,13 +135,13 @@ var IdeasComponent = (function () {
 
 /***/ },
 
-/***/ 752:
+/***/ 755:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ideas_component__ = __webpack_require__(744);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ideas_category_ideas_category_component__ = __webpack_require__(743);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ideas_component__ = __webpack_require__(747);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ideas_category_ideas_category_component__ = __webpack_require__(746);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return IdeasRouting; });
 
 
@@ -155,47 +155,47 @@ var IdeasRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterMo
 
 /***/ },
 
-/***/ 762:
+/***/ 765:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 763:
+/***/ 766:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 773:
+/***/ 776:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  ideas-category works!\n</p>\n"
 
 /***/ },
 
-/***/ 774:
+/***/ 777:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  ideas works!\n</p>\n<nav>\n  <a routerLink=\"/ideas\" routerLinkActive=\"active\">notifications</a>\n  <a routerLink=\"/\" routerLinkActive=\"active\">nearby</a>\n</nav>\n<router-outlet></router-outlet>"
 
 /***/ },
 
-/***/ 780:
+/***/ 783:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var Observable_1 = __webpack_require__(8);
-var switchMap_1 = __webpack_require__(781);
+var switchMap_1 = __webpack_require__(784);
 Observable_1.Observable.prototype.switchMap = switchMap_1.switchMap;
 //# sourceMappingURL=switchMap.js.map
 
 /***/ },
 
-/***/ 781:
+/***/ 784:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -205,8 +205,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var OuterSubscriber_1 = __webpack_require__(144);
-var subscribeToResult_1 = __webpack_require__(145);
+var OuterSubscriber_1 = __webpack_require__(145);
+var subscribeToResult_1 = __webpack_require__(146);
 /**
  * Projects each source value to an Observable which is merged in the output
  * Observable, emitting values only from the most recently projected Observable.

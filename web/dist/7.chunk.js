@@ -1,13 +1,13 @@
 webpackJsonp([7,13],{
 
-/***/ 727:
+/***/ 730:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__activity_component__ = __webpack_require__(739);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__activity_routing__ = __webpack_require__(748);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__activity_component__ = __webpack_require__(742);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__activity_routing__ = __webpack_require__(751);
 /* harmony export (binding) */ __webpack_require__.d(exports, "ActivityModule", function() { return ActivityModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,7 +41,7 @@ var ActivityModule = (function () {
 
 /***/ },
 
-/***/ 739:
+/***/ 742:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65,8 +65,8 @@ var ActivityComponent = (function () {
     ActivityComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-activity',
-            template: __webpack_require__(769),
-            styles: [__webpack_require__(758)]
+            template: __webpack_require__(772),
+            styles: [__webpack_require__(761)]
         }), 
         __metadata('design:paramtypes', [])
     ], ActivityComponent);
@@ -76,12 +76,12 @@ var ActivityComponent = (function () {
 
 /***/ },
 
-/***/ 748:
+/***/ 751:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__activity_component__ = __webpack_require__(739);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__activity_component__ = __webpack_require__(742);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivityRouting; });
 
 
@@ -94,14 +94,14 @@ var ActivityRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* Route
 
 /***/ },
 
-/***/ 758:
+/***/ 761:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 769:
+/***/ 772:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  activity works!\n</p>\n"

@@ -1,16 +1,23 @@
 webpackJsonp([11,13],{
 
-/***/ 234:
+/***/ 135:
+/***/ function(module, exports) {
+
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal.js.map
+
+/***/ },
+
+/***/ 235:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(298);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__(702);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__(705);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(703);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(706);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProjectService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -104,12 +111,12 @@ var ProjectService = (function () {
 
 /***/ },
 
-/***/ 320:
+/***/ 321:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__translate__ = __webpack_require__(322);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__translate__ = __webpack_require__(323);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -144,8 +151,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__(690),
-            styles: [__webpack_require__(682)]
+            template: __webpack_require__(692),
+            styles: [__webpack_require__(683)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__translate__["a" /* TranslateService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__translate__["a" /* TranslateService */]) === 'function' && _a) || Object])
     ], AppComponent);
@@ -156,7 +163,7 @@ var AppComponent = (function () {
 
 /***/ },
 
-/***/ 321:
+/***/ 322:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -180,8 +187,8 @@ var DashboardComponent = (function () {
     DashboardComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-dashboard',
-            template: __webpack_require__(697),
-            styles: [__webpack_require__(689)]
+            template: __webpack_require__(700),
+            styles: [__webpack_require__(691)]
         }), 
         __metadata('design:paramtypes', [])
     ], DashboardComponent);
@@ -191,13 +198,13 @@ var DashboardComponent = (function () {
 
 /***/ },
 
-/***/ 322:
+/***/ 323:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__translate_service__ = __webpack_require__(323);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__translations__ = __webpack_require__(324);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__translate_pipe__ = __webpack_require__(492);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__translate_service__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__translations__ = __webpack_require__(325);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__translate_pipe__ = __webpack_require__(493);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__translate_service__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__translations__["b"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__translate_pipe__["a"]; });
@@ -208,12 +215,12 @@ var DashboardComponent = (function () {
 
 /***/ },
 
-/***/ 323:
+/***/ 324:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__translations__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__translations__ = __webpack_require__(325);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return TranslateService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -269,7 +276,7 @@ var TranslateService = (function () {
 
 /***/ },
 
-/***/ 324:
+/***/ 325:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -289,48 +296,48 @@ var TRANSLATION_PROVIDERS = [
 
 /***/ },
 
-/***/ 374:
+/***/ 375:
 /***/ function(module, exports, __webpack_require__) {
 
 var map = {
 	"./activity/activity.module": [
-		727,
+		730,
 		7
 	],
 	"./drafts/drafts.module": [
-		728,
+		731,
 		6
 	],
 	"./goal-create/goal-create.module": [
-		729,
+		732,
 		5
 	],
 	"./goalfriends/goalfriends.module": [
-		730,
+		733,
 		4
 	],
 	"./ideas/ideas.module": [
-		731,
+		734,
 		0
 	],
 	"./inner/inner.module": [
-		732,
+		735,
 		3
 	],
 	"./leaderboard/leaderboard.module": [
-		733,
+		736,
 		9
 	],
 	"./notification/notification.module": [
-		734,
+		737,
 		2
 	],
 	"./profile/profile.module": [
-		735,
+		738,
 		1
 	],
 	"./settings/settings.module": [
-		736,
+		739,
 		8
 	]
 };
@@ -345,21 +352,21 @@ webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
 module.exports = webpackAsyncContext;
-webpackAsyncContext.id = 374;
+webpackAsyncContext.id = 375;
 
 
 /***/ },
 
-/***/ 375:
+/***/ 376:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(494);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(495);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__polyfills_ts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(456);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(457);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(493);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(490);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(494);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(492);
 
 
 
@@ -373,12 +380,12 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 /***/ },
 
-/***/ 482:
+/***/ 483:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboard_dashboard_component__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboard_dashboard_component__ = __webpack_require__(322);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return appRouting; });
 
 
@@ -401,25 +408,26 @@ var appRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterModu
 
 /***/ },
 
-/***/ 483:
+/***/ 484:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(378);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(320);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_routing__ = __webpack_require__(482);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__project_service__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__translate__ = __webpack_require__(322);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__ = __webpack_require__(321);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_discover_goal_discover_goal_component__ = __webpack_require__(485);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_goal_goal_component__ = __webpack_require__(489);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_goal_footer_goal_footer_component__ = __webpack_require__(488);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_goal_add_goal_add_component__ = __webpack_require__(486);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_goal_complete_goal_complete_component__ = __webpack_require__(487);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_base_stories_base_stories_component__ = __webpack_require__(484);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_routing__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__project_service__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__translate__ = __webpack_require__(323);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__dashboard_dashboard_component__ = __webpack_require__(322);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_discover_goal_discover_goal_component__ = __webpack_require__(486);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_goal_goal_component__ = __webpack_require__(490);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_goal_footer_goal_footer_component__ = __webpack_require__(489);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_goal_add_goal_add_component__ = __webpack_require__(487);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_goal_complete_goal_complete_component__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_base_stories_base_stories_component__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_home_footer_home_footer_component__ = __webpack_require__(491);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -430,6 +438,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -459,7 +468,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_12__components_goal_add_goal_add_component__["a" /* GoalAddComponent */],
                 __WEBPACK_IMPORTED_MODULE_13__components_goal_complete_goal_complete_component__["a" /* GoalCompleteComponent */],
                 __WEBPACK_IMPORTED_MODULE_14__components_base_stories_base_stories_component__["a" /* BaseStoriesComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__translate__["b" /* TranslatePipe */]
+                __WEBPACK_IMPORTED_MODULE_7__translate__["b" /* TranslatePipe */],
+                __WEBPACK_IMPORTED_MODULE_15__components_home_footer_home_footer_component__["a" /* HomeFooterComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["b" /* BrowserModule */],
@@ -483,7 +493,7 @@ var AppModule = (function () {
 
 /***/ },
 
-/***/ 484:
+/***/ 485:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -507,8 +517,8 @@ var BaseStoriesComponent = (function () {
     BaseStoriesComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-base-stories',
-            template: __webpack_require__(691),
-            styles: [__webpack_require__(683)]
+            template: __webpack_require__(693),
+            styles: [__webpack_require__(684)]
         }), 
         __metadata('design:paramtypes', [])
     ], BaseStoriesComponent);
@@ -518,12 +528,12 @@ var BaseStoriesComponent = (function () {
 
 /***/ },
 
-/***/ 485:
+/***/ 486:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(234);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(235);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DiscoverGoalComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -552,8 +562,8 @@ var DiscoverGoalComponent = (function () {
     DiscoverGoalComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-discover-goal',
-            template: __webpack_require__(692),
-            styles: [__webpack_require__(684)],
+            template: __webpack_require__(694),
+            styles: [__webpack_require__(685)],
             providers: [__WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object])
@@ -565,11 +575,13 @@ var DiscoverGoalComponent = (function () {
 
 /***/ },
 
-/***/ 486:
+/***/ 487:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_goal__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalAddComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -581,30 +593,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var GoalAddComponent = (function () {
     function GoalAddComponent() {
     }
     GoalAddComponent.prototype.ngOnInit = function () {
     };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* Input */])(), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__interface_goal__["Goal"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__interface_goal__["Goal"]) === 'function' && _a) || Object)
+    ], GoalAddComponent.prototype, "goal", void 0);
     GoalAddComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-goal-add',
-            template: __webpack_require__(693),
-            styles: [__webpack_require__(685)]
+            template: __webpack_require__(695),
+            styles: [__webpack_require__(686)]
         }), 
         __metadata('design:paramtypes', [])
     ], GoalAddComponent);
     return GoalAddComponent;
+    var _a;
 }());
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-add.component.js.map
 
 /***/ },
 
-/***/ 487:
+/***/ 488:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_goal__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalCompleteComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -616,30 +636,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var GoalCompleteComponent = (function () {
     function GoalCompleteComponent() {
     }
     GoalCompleteComponent.prototype.ngOnInit = function () {
     };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* Input */])(), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__interface_goal__["Goal"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__interface_goal__["Goal"]) === 'function' && _a) || Object)
+    ], GoalCompleteComponent.prototype, "goal", void 0);
     GoalCompleteComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-goal-complete',
-            template: __webpack_require__(694),
-            styles: [__webpack_require__(686)]
+            template: __webpack_require__(696),
+            styles: [__webpack_require__(687)]
         }), 
         __metadata('design:paramtypes', [])
     ], GoalCompleteComponent);
     return GoalCompleteComponent;
+    var _a;
 }());
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-complete.component.js.map
 
 /***/ },
 
-/***/ 488:
+/***/ 489:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_goal__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalFooterComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -651,31 +679,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var GoalFooterComponent = (function () {
     function GoalFooterComponent() {
     }
     GoalFooterComponent.prototype.ngOnInit = function () {
     };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* Input */])(), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__interface_goal__["Goal"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__interface_goal__["Goal"]) === 'function' && _a) || Object)
+    ], GoalFooterComponent.prototype, "goal", void 0);
     GoalFooterComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-goal-footer',
-            template: __webpack_require__(695),
-            styles: [__webpack_require__(687)]
+            template: __webpack_require__(697),
+            styles: [__webpack_require__(688)]
         }), 
         __metadata('design:paramtypes', [])
     ], GoalFooterComponent);
     return GoalFooterComponent;
+    var _a;
 }());
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-footer.component.js.map
 
 /***/ },
 
-/***/ 489:
+/***/ 490:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal__ = __webpack_require__(491);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_goal__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -701,8 +735,8 @@ var GoalComponent = (function () {
     GoalComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-goal',
-            template: __webpack_require__(696),
-            styles: [__webpack_require__(688)]
+            template: __webpack_require__(698),
+            styles: [__webpack_require__(689)]
         }), 
         __metadata('design:paramtypes', [])
     ], GoalComponent);
@@ -713,12 +747,47 @@ var GoalComponent = (function () {
 
 /***/ },
 
-/***/ 490:
+/***/ 491:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(320);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return HomeFooterComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var HomeFooterComponent = (function () {
+    function HomeFooterComponent() {
+    }
+    HomeFooterComponent.prototype.ngOnInit = function () {
+    };
+    HomeFooterComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
+            selector: 'home-footer',
+            template: __webpack_require__(699),
+            styles: [__webpack_require__(690)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], HomeFooterComponent);
+    return HomeFooterComponent;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/home-footer.component.js.map
+
+/***/ },
+
+/***/ 492:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(484);
 /* unused harmony namespace reexport */
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__app_module__["a"]; });
 
@@ -727,19 +796,12 @@ var GoalComponent = (function () {
 
 /***/ },
 
-/***/ 491:
-/***/ function(module, exports) {
-
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal.js.map
-
-/***/ },
-
-/***/ 492:
+/***/ 493:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__translate_service__ = __webpack_require__(323);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__translate_service__ = __webpack_require__(324);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return TranslatePipe; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -776,7 +838,7 @@ var TranslatePipe = (function () {
 
 /***/ },
 
-/***/ 493:
+/***/ 494:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -792,41 +854,41 @@ var environment = {
 
 /***/ },
 
-/***/ 494:
+/***/ 495:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(508);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(509);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(501);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(502);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(497);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(498);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(503);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(504);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(502);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(503);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(500);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(501);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(499);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(500);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(507);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(508);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(496);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(497);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(495);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(496);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(505);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(506);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(498);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(499);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(506);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(507);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(504);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(505);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(509);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(510);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(724);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(727);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -845,13 +907,6 @@ var environment = {
 
 
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/polyfills.js.map
-
-/***/ },
-
-/***/ 682:
-/***/ function(module, exports) {
-
-module.exports = ""
 
 /***/ },
 
@@ -907,66 +962,87 @@ module.exports = ""
 /***/ 690:
 /***/ function(module, exports) {
 
-module.exports = "<div id=\"mainframe\">\n    <div id=\"wrap\">\n        <header>\n            <nav class=\"navbar navbar-default navbar-fixed-top\">\n                <div id=\"line\"></div>\n                <div class=\"container\" id=\"main-nav\">\n                    <div class=\"navbar-header navbar-mobile\">\n                        <!--{% if is_mobile() and not is_tablet() %}-->\n                        <!--{% if user %}-->\n                        <!--<ul class=\"nav navbar-nav  hidden-sm hidden-md hidden-lg\">-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiActivity.html.twig',  {'route': app.request.get('_route')} ) }}&ndash;&gt;-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons ideas-icon\"></i>-->\n                        <!--<span class=\"hidden-xs hidden-sm\">ideas</span>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li *ngIf=\"!joinToggle11\">-->\n                        <!--<a routerLink=\"/profile\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons mybucketlist-icon\"></i>-->\n                        <!--<span class=\"hidden-xs hidden-sm\">my_bucketlist</span>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li id=\"notification\">-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Blocks:notification.html.twig') }}&ndash;&gt;-->\n                        <!--</li>-->\n                        <!--<li>-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiUser.html.twig') }}&ndash;&gt;-->\n                        <!--</li>-->\n                        <!--</ul>-->\n\n                        <!--<ul class=\"hidden-sm hidden-md hidden-lg user-mobile-menu clearfix\" *ngIf=\"!joinToggle11\">-->\n                        <!--<li class=\"clearfix\">-->\n                        <!--<a class=\"navbar-brand\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                        <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n                        <!--<a href=\"javascript:void(0)\" (click)=\"joinToggle11 = !joinToggle11\" class=\"text-right\"><i class=\"icon-remove-email\"></i> </a>-->\n                        <!--</li>-->\n\n                        <!--&lt;!&ndash;{% if app.user and app.user.activity %}&ndash;&gt;-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/activity\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons activity-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'activity'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->\n\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/leaderboard\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icon-suggest-icon\"></i>-->\n                        <!--&lt;!&ndash;<span class=\"text\">{{ 'leaderboard.name'|trans | capitalize }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/friends\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"menu-goalfrinds\"></i>-->\n                        <!--&lt;!&ndash;<span class=\"text\">{{ 'goalfriends'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons ideas-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'ideas'| trans | capitalize }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons mybucketlist-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'my_bucketlist'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/goal-add\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons add-goal\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'create_goal'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/settings\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons settings-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'settings'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a>-->\n                        <!--<i class=\"icons logout\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'logout'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--</ul>-->\n                        <!--&lt;!&ndash;{% else %}&ndash;&gt;-->\n                        <!--<div class=\"clearfix hidden-sm hidden-md hidden-lg\">-->\n                        <!--<a class=\"navbar-brand hidden-sm hidden-md hidden-lg\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                        <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n\n                        <!--<ul class=\"pull-right\">-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\" class=\"hidden-sm hidden-md hidden-lg \">-->\n                        <!--<i class=\"icon-ideas-icon\"></i>-->\n                        <!--<i class=\"ideas-icon\"></i>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li>-->\n                        <!--<a href=\"javascript:void(0)\"-->\n                        <!--style=\"display: none\"-->\n                        <!--class=\"sign-in-popover pull-right\">-->\n                        <!--<i class=\"icon-join-icon\"></i>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--</ul>-->\n\n                        <!--</div>-->\n                        <!--{% endif %}-->\n                        <!--{% endif %}-->\n\n                        <a class=\"navbar-brand hidden-xs\" routerLink=\"/dashboard\" routerLinkActive=\"active\">\n                            <img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>\n                        </a>\n                    </div>\n\n                    <!--{% if not is_mobile() or is_tablet() %}-->\n                    <div id=\"navbar\" class=\"navbar-collapse collapse\">\n                        <ul class=\"nav navbar-nav\">\n\n                            <li>\n                                <a routerLink=\"/activity\" routerLinkActive=\"active\">\n                                    <i class=\"icons ideas-icon\"></i>\n                                    <span class=\"hidden-sm\">Activity</span>\n                                </a>\n                            </li>\n\n                            <li>\n                                <a routerLink=\"/ideas\" routerLinkActive=\"active\">\n                                    <i class=\"icons ideas-icon\"></i>\n                                    <span class=\"hidden-sm\">Ideas</span>\n                                </a>\n                            </li>\n\n                            <li>\n                                <a routerLink=\"/profile\" routerLinkActive=\"active\">\n                                    <i class=\"icons mybucketlist-icon\"></i>\n                                    <span class=\"hidden-sm\">MY List</span>\n                                </a>\n                            </li>\n                        </ul>\n\n                        <ul class=\"nav navbar-nav navbar-right\">\n                            <li id=\"notification\">\n                                <div>\n                                    <a routerLink=\"/notifications\" class=\"relative notify\">\n                                        <i class=\"bell\"></i>\n                                        <sup *ngIf=\"newNotCount != 0\">{{ newNotCount }}</sup>\n                                    </a>\n                                </div>\n                            </li>\n                        </ul>\n                    </div>\n                    <!--{% endif %}-->\n                </div>\n            </nav>\n        </header>\n        <router-outlet></router-outlet>\n    </div>\n    <footer>\n        <div class=\"container\">\n\n            <ul class=\"apps clearfix\">\n                <li>\n                    <a href=\"https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819\" class=\"app-store\" target=\"_blank\">\n                        <img src=\"assets/images/appstore.png\" alt=\"Appstore\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n                <li>\n                    <a href=\"https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist\" class=\"google-play\" target=\"_blank\">\n                        <img src=\"assets/images/googleplay.png\" alt=\"Googleplay\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n            </ul>\n\n            <ul class=\"social\">\n                <li>\n                    <a href=\"https://www.facebook.com/bucketlist127com/\" target=\"_blank\" class=\"facebook-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.instagram.com/bucketlist127/\" target=\"_blank\" class=\"instagram-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.twitter.com/bucketlist127\" target=\"_blank\" class=\"twitter-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.pinterest.com/bucketlist127/\" target=\"_blank\" class=\"pinterest-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://plus.google.com/+Bucketlist127com\" target=\"_blank\" class=\"gplus-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g\" target=\"_blank\" class=\"youtube-icon\"></a>\n                </li>\n\n            </ul>\n\n        </div>\n\n        <div class=\"footer-bottom\">\n            <div class=\"container\">\n                <div class=\"row\">\n                    <div class=\"col-xs-5\">\n                        <small>&copy; copyright</small>\n                    </div>\n                    <div class=\"col-xs-7\">\n                    </div>\n                </div>\n            </div>\n        </div>\n\n    </footer>\n</div>\n<!--<nav>-->\n<!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">Ideas</a>-->\n<!--<a routerLink=\"/dashboard\" routerLinkActive=\"active\">Home</a>-->\n<!--<a routerLink=\"/activity\" routerLinkActive=\"active\">Activity</a>-->\n<!--<a routerLink=\"/profile\" routerLinkActive=\"active\">MY List</a>-->\n<!--<a routerLink=\"/goal/create\" routerLinkActive=\"active\">Goal Create</a>-->\n<!--<a routerLink=\"/notifications\" routerLinkActive=\"active\">notifications</a>-->\n<!--<a routerLink=\"/leaderboard\" routerLinkActive=\"active\">leaderboard</a>-->\n<!--<a routerLink=\"/goal-friends\" routerLinkActive=\"active\">goal-friends</a>-->\n<!--<a routerLink=\"/goal/my-ideas\" routerLinkActive=\"active\">Drafts</a>-->\n<!--<a routerLink=\"/edit/:type\" routerLinkActive=\"active\">settings</a>-->\n<!--<a routerLink=\"/goal/:slug\" routerLinkActive=\"active\">Goal Inner</a>-->\n<!--</nav>-->\n\n"
+module.exports = ""
 
 /***/ },
 
 /***/ 691:
 /***/ function(module, exports) {
 
-module.exports = "<div id=\"story-slider-homepage\">\n\n  <div class=\"container\">\n\n    <h2 class=\"text-center text-dark\">{{ 'homepage_success_story'| translate }}</h2>\n\n    <div class=\"row\">\n\n      <div class=\"col-sm-12\">\n        <div class=\"swiper-container\" id=\"story-slider-homepage-container\">\n          <!-- Slides Container -->\n          <!--data-story-count=\"{{ stories| length }}\"-->\n          <div class=\"swiper-wrapper\">\n            <!--*ngFor=\"let story of stories;let addedUser = story.user,i = index,files = story.files,videos = story.videoLink;\"-->\n            <div *ngFor=\"let story of stories; let i = index; trackBy: trackByFn\" class=\"swiper-slide comment-place story-fade-in\">\n                 <!--data-ng-init=\"count[{{ story.id }}] = {{ story.getVotersCount() }}\">-->\n\n              <div class=\"row no-gutter\">\n                <div class=\"col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2\">\n                  <div class=\"bg-white\" >\n\n                    <div class=\"row padding\">\n\n                      <div class=\"col-xs-9\">\n\n                        <div class=\"clearfix\">\n\n                          <div class=\"pull-left\">\n                            <a href=\"#\" (click)=\"openSignInPopover()\">\n\n                              <figure class=\"user-image\">\n                                <!--blImageFilter('user_icon')-->\n                                <img *ngIf=\"story.user.getPhotoLink\" src=\"story.user.getPhotoLink\"\n                                     class=\"img-circle img-responsive\"\n                                     alt=\"{{ story.user.firstName }}\">\n                                <span *ngIf=\"!story.user.getPhotoLink\" class=\"no-image text-white user-no{{ random(4) }}\">{{ story.user.firstName|slice:0:1 + story.user.lastName|slice:0:1 }}</span>\n                              </figure>\n                            </a>\n                          </div>\n\n                          <div class=\"pull-left success-story-user\">\n                            <p class=\"user-name\">\n                              <a href=\"#\" (click)=\"openSignInPopover()\" class=\"text-dark-gray\">{{ story.user.showName }}</a>\n                            </p>\n                            <span>\n                                {{ dateToLocal(story.updated | date:'m/d/Y H:i O') }}\n                            </span>\n                          </div>\n                        </div>\n\n                      </div>\n\n                      <div class=\"col-xs-3 text-right\">\n                        <span class=\"text-purple\">{{ story.votersCount }}</span>\n                        <a (click)=\"openSignInPopover(story.id)\">\n                          <i class=\"like-icon\"></i>\n                        </a>\n                      </div>\n\n                    </div>\n\n                    <div class=\"border-left\">\n                      <div class=\"row\">\n                        <div class=\"col-xs-12\">\n                          <!--data-ng-scrollbars data-ng-scrollbars-config=\"scroller_config\" data-ng-scrollbars-update=\"updateScrollbar\"-->\n                          <div  class=\"success-scroll\">\n                            <p>{{ story.story }}</p>\n\n                            <!--file.downloadLink|blImageFilter('slide_max_size')-->\n                            <a *ngFor=\"let file of story.files; let k = index; trackBy: trackByFn\" href=\"{{ file.downloadLinkMaxSize }}\"\n                               class=\"swipebox-{{ i }}\" [class.ng-hide]=\"k > 0\">\n                              <i class=\"photo-icon\"></i>\n                              <!--('story_homepage_small')-->\n                              <img src=\"{{ file.getDownloadLink }}\"\n                                   alt=\"{{ file.fileName }}\" height=\"83\" width=\"106\"/>\n                            </a>\n\n                            <!--{#<span  data-ng-init=\"storySliderVideo[{{ key }}]='{{ v }}'\"></span>#}-->\n                            <a *ngFor=\"let video of story.videos; let key = index; trackBy: trackByFn\" class=\"swipebox-video-{{ key }}\" href=\"{{ video }}\">\n                              <i class=\"video-icon\" [class.ng-hide]=\"key > 0\"></i>\n                              <!--<embed-video-->\n                                      <!--href=\"{{ video ]]\"-->\n                                      <!--height=\"83\" width=\"106\">-->\n                              <!--</embed-video >-->\n                            </a>\n                          </div>\n\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"idea-item\">\n                      <figure class=\"rounded-corners\">\n                        <i class=\"icon-lock-white\"></i>\n\n                        <a routerLink=\"/goal/{{ story.goal.slug }}\"\n                           class=\"goalTitle\">\n                          <span class=\"overlay\"></span>\n                          <h3>{{ story.goal.title }}</h3>\n                          <!--|blImageFilter('goal_list_horizontal')-->\n                          <img *ngIf=\"story.goal.listPhotoDownloadLink\" src=\"{{ story.goal.listPhotoDownloadLink }}\"\n                               alt=\"{{ story.goal.title }}\"/>\n                          <div class=\"absolute\">\n                            <ul>\n                              <li>\n                                <a (click)=\"openSignInPopover()\">\n                                  <span>\n                                      {{ 'home_listed_by'| translate }}\n                                      {{ story.goal.stats.listedBy }}\n                                  </span>\n                                  <i class=\"icon-user-small\"></i>\n                                </a>\n                              </li>\n                              <li>\n                                <a (click)=\"openSignInPopover()\">\n                                  <span>\n                                      {{ 'home_complete'|translate }}\n                                      {{ story.goal.stats.doneBy }}\n                                  </span>\n                                  <i class=\"icon-user-small\"></i>\n                                </a>\n                              </li>\n                            </ul>\n                          </div>\n\n                        </a>\n                      </figure>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n          </div>\n\n          <div class=\"swiper-pagination\"></div>\n\n        </div>\n        <!-- Add Arrows -->\n        <div class=\"swiper-button-next swiper-button-next-home-story\"></div>\n        <div class=\"swiper-button-prev swiper-button-prev-home-story\"></div>\n      </div>\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-sm-12 text-center\">\n        <a href=\"#\" (click)=\"openSignInPopover()\" class=\"btn btn-purple\">{{ 'join_now'| translate | uppercase}}</a>\n      </div>\n    </div>\n\n  </div>\n\n</div>"
+module.exports = ""
 
 /***/ },
 
 /***/ 692:
 /***/ function(module, exports) {
 
-module.exports = "<div id=\"scroll-button\"></div>\n<div id=\"homepage-ideas\" class=\"ideas-list\">\n  <div class=\"container\">\n    <h2 class=\"text-center text-dark\">{{ 'homepage_list_title' |translate }}</h2>\n    <div class=\"row\">\n      <div class=\"col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0\">\n        <div class=\"row idea-item\">\n\n          <div class=\"col-md-4\">\n            <div class=\"row\" *ngFor=\"let goal of (goals | slice:0:2)\">\n              <div class=\"col-sm-12\">\n                <!--goal_list_small-->\n                <app-goal [goal]=\"goal\"></app-goal>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4\">\n            <!--goal_list_vertical-->\n            <app-goal *ngFor=\"let goal of (goals | slice:2:1)\" [goal]=\"goal\"></app-goal>\n          </div>\n\n          <div class=\"col-md-4\">\n            <div class=\"row\" *ngFor=\"let goal of (goals | slice:3:2)\">\n              <div class=\"col-sm-12\">\n                <!--goal_list_small-->\n                <app-goal [goal]=\"goal\"></app-goal>\n              </div>\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"row idea-item\">\n          <!--{% for goal in goals|slice(5, 2)  %}-->\n\n          <div *ngFor=\"let goal of (goals | slice:5:2);let f = first\" class=\"col-md-{{ f ?  8 : 4 }}\">\n              <app-goal [goal]=\"goal\"></app-goal>\n            <!--goal_list_horizontal:goal_list_small-->\n          </div>\n\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-sm-12 text-center\">\n            <a routerLink=\"/ideas\" class=\"btn btn-purple\">{{ 'btn_discover_more' | translate }}</a>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div id=\"mainframe\">\n    <div id=\"wrap\">\n        <header>\n            <nav class=\"navbar navbar-default navbar-fixed-top\">\n                <div id=\"line\"></div>\n                <div class=\"container\" id=\"main-nav\">\n                    <div class=\"navbar-header navbar-mobile\">\n                        <!--{% if is_mobile() and not is_tablet() %}-->\n                        <!--{% if user %}-->\n                        <!--<ul class=\"nav navbar-nav  hidden-sm hidden-md hidden-lg\">-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiActivity.html.twig',  {'route': app.request.get('_route')} ) }}&ndash;&gt;-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons ideas-icon\"></i>-->\n                        <!--<span class=\"hidden-xs hidden-sm\">ideas</span>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li *ngIf=\"!joinToggle11\">-->\n                        <!--<a routerLink=\"/profile\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons mybucketlist-icon\"></i>-->\n                        <!--<span class=\"hidden-xs hidden-sm\">my_bucketlist</span>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li id=\"notification\">-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Blocks:notification.html.twig') }}&ndash;&gt;-->\n                        <!--</li>-->\n                        <!--<li>-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiUser.html.twig') }}&ndash;&gt;-->\n                        <!--</li>-->\n                        <!--</ul>-->\n\n                        <!--<ul class=\"hidden-sm hidden-md hidden-lg user-mobile-menu clearfix\" *ngIf=\"!joinToggle11\">-->\n                        <!--<li class=\"clearfix\">-->\n                        <!--<a class=\"navbar-brand\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                        <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n                        <!--<a href=\"javascript:void(0)\" (click)=\"joinToggle11 = !joinToggle11\" class=\"text-right\"><i class=\"icon-remove-email\"></i> </a>-->\n                        <!--</li>-->\n\n                        <!--&lt;!&ndash;{% if app.user and app.user.activity %}&ndash;&gt;-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/activity\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons activity-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'activity'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->\n\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/leaderboard\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icon-suggest-icon\"></i>-->\n                        <!--&lt;!&ndash;<span class=\"text\">{{ 'leaderboard.name'|trans | capitalize }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/friends\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"menu-goalfrinds\"></i>-->\n                        <!--&lt;!&ndash;<span class=\"text\">{{ 'goalfriends'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons ideas-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'ideas'| trans | capitalize }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons mybucketlist-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'my_bucketlist'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/goal-add\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons add-goal\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'create_goal'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/settings\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons settings-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'settings'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a>-->\n                        <!--<i class=\"icons logout\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'logout'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--</ul>-->\n                        <!--&lt;!&ndash;{% else %}&ndash;&gt;-->\n                        <!--<div class=\"clearfix hidden-sm hidden-md hidden-lg\">-->\n                        <!--<a class=\"navbar-brand hidden-sm hidden-md hidden-lg\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                        <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n\n                        <!--<ul class=\"pull-right\">-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\" class=\"hidden-sm hidden-md hidden-lg \">-->\n                        <!--<i class=\"icon-ideas-icon\"></i>-->\n                        <!--<i class=\"ideas-icon\"></i>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li>-->\n                        <!--<a href=\"javascript:void(0)\"-->\n                        <!--style=\"display: none\"-->\n                        <!--class=\"sign-in-popover pull-right\">-->\n                        <!--<i class=\"icon-join-icon\"></i>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--</ul>-->\n\n                        <!--</div>-->\n                        <!--{% endif %}-->\n                        <!--{% endif %}-->\n\n                        <a class=\"navbar-brand hidden-xs\" routerLink=\"/dashboard\" routerLinkActive=\"active\">\n                            <img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>\n                        </a>\n                    </div>\n\n                    <!--{% if not is_mobile() or is_tablet() %}-->\n                    <div id=\"navbar\" class=\"navbar-collapse collapse\">\n                        <ul class=\"nav navbar-nav\">\n\n                            <li>\n                                <a routerLink=\"/activity\" routerLinkActive=\"active\">\n                                    <i class=\"icons ideas-icon\"></i>\n                                    <span class=\"hidden-sm\">Activity</span>\n                                </a>\n                            </li>\n\n                            <li>\n                                <a routerLink=\"/ideas\" routerLinkActive=\"active\">\n                                    <i class=\"icons ideas-icon\"></i>\n                                    <span class=\"hidden-sm\">Ideas</span>\n                                </a>\n                            </li>\n\n                            <li>\n                                <a routerLink=\"/profile\" routerLinkActive=\"active\">\n                                    <i class=\"icons mybucketlist-icon\"></i>\n                                    <span class=\"hidden-sm\">MY List</span>\n                                </a>\n                            </li>\n                        </ul>\n\n                        <ul class=\"nav navbar-nav navbar-right\">\n                            <li id=\"notification\">\n                                <div>\n                                    <a routerLink=\"/notifications\" class=\"relative notify\">\n                                        <i class=\"bell\"></i>\n                                        <sup *ngIf=\"newNotCount != 0\">{{ newNotCount }}</sup>\n                                    </a>\n                                </div>\n                            </li>\n                        </ul>\n                    </div>\n                    <!--{% endif %}-->\n                </div>\n            </nav>\n        </header>\n        <router-outlet></router-outlet>\n    </div>\n    <footer>\n        <div class=\"container\">\n\n            <ul class=\"apps clearfix\">\n                <li>\n                    <a href=\"https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819\" class=\"app-store\" target=\"_blank\">\n                        <img src=\"assets/images/appstore.png\" alt=\"Appstore\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n                <li>\n                    <a href=\"https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist\" class=\"google-play\" target=\"_blank\">\n                        <img src=\"assets/images/googleplay.png\" alt=\"Googleplay\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n            </ul>\n\n            <ul class=\"social\">\n                <li>\n                    <a href=\"https://www.facebook.com/bucketlist127com/\" target=\"_blank\" class=\"facebook-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.instagram.com/bucketlist127/\" target=\"_blank\" class=\"instagram-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.twitter.com/bucketlist127\" target=\"_blank\" class=\"twitter-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.pinterest.com/bucketlist127/\" target=\"_blank\" class=\"pinterest-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://plus.google.com/+Bucketlist127com\" target=\"_blank\" class=\"gplus-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g\" target=\"_blank\" class=\"youtube-icon\"></a>\n                </li>\n\n            </ul>\n\n        </div>\n\n        <div class=\"footer-bottom\">\n            <home-footer></home-footer>\n        </div>\n\n    </footer>\n</div>\n<!--<nav>-->\n<!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">Ideas</a>-->\n<!--<a routerLink=\"/dashboard\" routerLinkActive=\"active\">Home</a>-->\n<!--<a routerLink=\"/activity\" routerLinkActive=\"active\">Activity</a>-->\n<!--<a routerLink=\"/profile\" routerLinkActive=\"active\">MY List</a>-->\n<!--<a routerLink=\"/goal/create\" routerLinkActive=\"active\">Goal Create</a>-->\n<!--<a routerLink=\"/notifications\" routerLinkActive=\"active\">notifications</a>-->\n<!--<a routerLink=\"/leaderboard\" routerLinkActive=\"active\">leaderboard</a>-->\n<!--<a routerLink=\"/goal-friends\" routerLinkActive=\"active\">goal-friends</a>-->\n<!--<a routerLink=\"/goal/my-ideas\" routerLinkActive=\"active\">Drafts</a>-->\n<!--<a routerLink=\"/edit/:type\" routerLinkActive=\"active\">settings</a>-->\n<!--<a routerLink=\"/goal/:slug\" routerLinkActive=\"active\">Goal Inner</a>-->\n<!--</nav>-->\n\n"
 
 /***/ },
 
 /***/ 693:
 /***/ function(module, exports) {
 
-module.exports = "<a href=\"javascript:void(0)\"\n   *ngIf=\"!goal.is_my_goal && completed\"\n   (click)=\"addGoal(goal.id)\">\n  <!--data-ls-goal-id=\"[[ ::goal.id ]]\"-->\n  <i class=\"icon-plus-icon\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n  <span class=\"text\">'add'|trans | capitalize </span>\n</a>\n\n<span *ngIf=\"(goal.is_my_goal && goal.is_my_goal !== 0) || !completed\">\n        <i class=\"icon-green-plus\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>\n        <span class=\"text\">'added'|trans | capitalize</span>\n</span>\n"
+module.exports = "<div id=\"story-slider-homepage\">\n\n  <div class=\"container\">\n\n    <h2 class=\"text-center text-dark\">{{ 'homepage_success_story'| translate }}</h2>\n\n    <div class=\"row\">\n\n      <div class=\"col-sm-12\">\n        <div class=\"swiper-container\" id=\"story-slider-homepage-container\">\n          <!-- Slides Container -->\n          <!--data-story-count=\"{{ stories| length }}\"-->\n          <div class=\"swiper-wrapper\">\n            <!--*ngFor=\"let story of stories;let addedUser = story.user,i = index,files = story.files,videos = story.videoLink;\"-->\n            <div *ngFor=\"let story of stories; let i = index; trackBy: trackByFn\" class=\"swiper-slide comment-place story-fade-in\">\n                 <!--data-ng-init=\"count[{{ story.id }}] = {{ story.getVotersCount() }}\">-->\n\n              <div class=\"row no-gutter\">\n                <div class=\"col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2\">\n                  <div class=\"bg-white\" >\n\n                    <div class=\"row padding\">\n\n                      <div class=\"col-xs-9\">\n\n                        <div class=\"clearfix\">\n\n                          <div class=\"pull-left\">\n                            <a href=\"#\" (click)=\"openSignInPopover()\">\n\n                              <figure class=\"user-image\">\n                                <!--blImageFilter('user_icon')-->\n                                <img *ngIf=\"story.user.getPhotoLink\" src=\"story.user.getPhotoLink\"\n                                     class=\"img-circle img-responsive\"\n                                     alt=\"{{ story.user.firstName }}\">\n                                <span *ngIf=\"!story.user.getPhotoLink\" class=\"no-image text-white user-no{{ random(4) }}\">{{ story.user.firstName|slice:0:1 + story.user.lastName|slice:0:1 }}</span>\n                              </figure>\n                            </a>\n                          </div>\n\n                          <div class=\"pull-left success-story-user\">\n                            <p class=\"user-name\">\n                              <a href=\"#\" (click)=\"openSignInPopover()\" class=\"text-dark-gray\">{{ story.user.showName }}</a>\n                            </p>\n                            <span>\n                                {{ dateToLocal(story.updated | date:'m/d/Y H:i O') }}\n                            </span>\n                          </div>\n                        </div>\n\n                      </div>\n\n                      <div class=\"col-xs-3 text-right\">\n                        <span class=\"text-purple\">{{ story.votersCount }}</span>\n                        <a (click)=\"openSignInPopover(story.id)\">\n                          <i class=\"like-icon\"></i>\n                        </a>\n                      </div>\n\n                    </div>\n\n                    <div class=\"border-left\">\n                      <div class=\"row\">\n                        <div class=\"col-xs-12\">\n                          <!--data-ng-scrollbars data-ng-scrollbars-config=\"scroller_config\" data-ng-scrollbars-update=\"updateScrollbar\"-->\n                          <div  class=\"success-scroll\">\n                            <p>{{ story.story }}</p>\n\n                            <!--file.downloadLink|blImageFilter('slide_max_size')-->\n                            <a *ngFor=\"let file of story.files; let k = index; trackBy: trackByFn\" href=\"{{ file.downloadLinkMaxSize }}\"\n                               class=\"swipebox-{{ i }}\" [class.ng-hide]=\"k > 0\">\n                              <i class=\"photo-icon\"></i>\n                              <!--('story_homepage_small')-->\n                              <img src=\"{{ file.getDownloadLink }}\"\n                                   alt=\"{{ file.fileName }}\" height=\"83\" width=\"106\"/>\n                            </a>\n\n                            <!--{#<span  data-ng-init=\"storySliderVideo[{{ key }}]='{{ v }}'\"></span>#}-->\n                            <a *ngFor=\"let video of story.videos; let key = index; trackBy: trackByFn\" class=\"swipebox-video-{{ key }}\" href=\"{{ video }}\">\n                              <i class=\"video-icon\" [class.ng-hide]=\"key > 0\"></i>\n                              <!--<embed-video-->\n                                      <!--href=\"{{ video ]]\"-->\n                                      <!--height=\"83\" width=\"106\">-->\n                              <!--</embed-video >-->\n                            </a>\n                          </div>\n\n                        </div>\n                      </div>\n                    </div>\n\n                    <div class=\"idea-item\">\n                      <figure class=\"rounded-corners\">\n                        <i class=\"icon-lock-white\"></i>\n\n                        <a routerLink=\"/goal/{{ story.goal.slug }}\"\n                           class=\"goalTitle\">\n                          <span class=\"overlay\"></span>\n                          <h3>{{ story.goal.title }}</h3>\n                          <!--|blImageFilter('goal_list_horizontal')-->\n                          <img *ngIf=\"story.goal.listPhotoDownloadLink\" src=\"{{ story.goal.listPhotoDownloadLink }}\"\n                               alt=\"{{ story.goal.title }}\"/>\n                          <div class=\"absolute\">\n                            <ul>\n                              <li>\n                                <a (click)=\"openSignInPopover()\">\n                                  <span>\n                                      {{ 'home_listed_by'| translate }}\n                                      {{ story.goal.stats.listedBy }}\n                                  </span>\n                                  <i class=\"icon-user-small\"></i>\n                                </a>\n                              </li>\n                              <li>\n                                <a (click)=\"openSignInPopover()\">\n                                  <span>\n                                      {{ 'home_complete'|translate }}\n                                      {{ story.goal.stats.doneBy }}\n                                  </span>\n                                  <i class=\"icon-user-small\"></i>\n                                </a>\n                              </li>\n                            </ul>\n                          </div>\n\n                        </a>\n                      </figure>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n          </div>\n\n          <div class=\"swiper-pagination\"></div>\n\n        </div>\n        <!-- Add Arrows -->\n        <div class=\"swiper-button-next swiper-button-next-home-story\"></div>\n        <div class=\"swiper-button-prev swiper-button-prev-home-story\"></div>\n      </div>\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-sm-12 text-center\">\n        <a href=\"#\" (click)=\"openSignInPopover()\" class=\"btn btn-purple\">{{ 'join_now'| translate | uppercase}}</a>\n      </div>\n    </div>\n\n  </div>\n\n</div>"
 
 /***/ },
 
 /***/ 694:
 /***/ function(module, exports) {
 
-module.exports = "<span *ngIf=\"goal.is_my_goal !== 2 && completed\">\n            <a href=\"javascript:void(0)\"\n               (click)=\"completeGoal(goal.id)\">\n              <!--data-ls-goal-id=\"[[ ::goal.id ]]\"-->\n                 <i class=\"icon-ok-icon\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n                 <span class=\"text\">'done'|trans | capitalize</span>\n             </a>\n        </span>\n\n<span *ngIf=\"(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed\" id=\"success{{ goal.id }}\">\n     <i class=\"icon-green-ok\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n    <span class=\"text\">'completed'|trans | capitalize</span>\n</span>"
+module.exports = "<div id=\"scroll-button\"></div>\n<div id=\"homepage-ideas\" class=\"ideas-list\">\n  <div class=\"container\">\n    <h2 class=\"text-center text-dark\">{{ 'homepage_list_title' |translate }}</h2>\n    <div class=\"row\">\n      <div class=\"col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0\">\n        <div class=\"row idea-item\">\n\n          <div class=\"col-md-4\">\n            <div class=\"row\" *ngFor=\"let goal of (goals | slice:0:2)\">\n              <div class=\"col-sm-12\">\n                <!--goal_list_small-->\n                <app-goal [goal]=\"goal\"></app-goal>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4\">\n            <!--goal_list_vertical-->\n            <app-goal *ngFor=\"let goal of (goals | slice:2:1)\" [goal]=\"goal\"></app-goal>\n          </div>\n\n          <div class=\"col-md-4\">\n            <div class=\"row\" *ngFor=\"let goal of (goals | slice:3:2)\">\n              <div class=\"col-sm-12\">\n                <!--goal_list_small-->\n                <app-goal [goal]=\"goal\"></app-goal>\n              </div>\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"row idea-item\">\n          <!--{% for goal in goals|slice(5, 2)  %}-->\n\n          <div *ngFor=\"let goal of (goals | slice:5:2);let f = first\" class=\"col-md-{{ f ?  8 : 4 }}\">\n              <app-goal [goal]=\"goal\"></app-goal>\n            <!--goal_list_horizontal:goal_list_small-->\n          </div>\n\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-sm-12 text-center\">\n            <a routerLink=\"/ideas\" class=\"btn btn-purple\">{{ 'btn_discover_more' | translate }}</a>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
 
 /***/ 695:
 /***/ function(module, exports) {
 
-module.exports = "<!--{% if app.user.id is defined %}-->\n<!--{% set userId = app.user.id %}-->\n<!--{% else %}-->\n<!--{% set userId = 0 %}-->\n<!--{% endif %}-->\n<ul class=\"row no-gutter\">\n    <!--{% if goal is defined and goalInner is not defined %} -->\n    <!--data-ng-init=\"completed=true;goal.is_my_goal={{ goal.isMyGoal|default(0) }};goal.id={{ goal.id }}\" -->\n    <!--{% endif %}>-->\n\n  <li class=\"col-xs-6\" [class.transparent]=\"(goal.is_my_goal && goal.is_my_goal !== 0) || !completed\">\n      <app-goal-add></app-goal-add>\n  </li>\n\n  <li class=\"col-xs-6\" [class.transparent]=\"(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed\">\n      <app-goal-complete></app-goal-complete>\n      <!--data-ng-init=\"success[ goal.id ] = false\">-->\n\n  </li>\n</ul>\n"
+module.exports = "<a href=\"javascript:void(0)\"\n   *ngIf=\"!goal.is_my_goal\"\n   (click)=\"addGoal(goal.id)\">\n  <!--data-ls-goal-id=\"[[ ::goal.id ]]\"-->\n  <i class=\"icon-plus-icon\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n  <span class=\"text\">'add'|trans | capitalize </span>\n</a>\n\n<span *ngIf=\"goal.is_my_goal && goal.is_my_goal !== 0\">\n        <i class=\"icon-green-plus\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>\n        <span class=\"text\">'added'|trans | capitalize</span>\n</span>\n"
 
 /***/ },
 
 /***/ 696:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-sm-12\">\n    <figure>\n\n      <h3>\n        <a routerLink=\"/goal/{{ goal.slug }}\">{{ goal.title }}</a>\n      </h3>\n\n      <a routerLink=\"/goal/{{ goal.slug }}\" >\n        <span class=\"overlay\"></span>\n        <img src=\"{{ goal.imagePath  }}\" *ngIf=\"goal.imagePath\" alt=\"{{ goal.title }}\"/>\n      </a>\n\n      <div class=\"absolute\">\n        <ul>\n          <li>\n            <a (click)=\"goalListedBy()\">\n            <span>\n            home_listed_by\n            {{ goal.stats.listedBy }}\n            </span>\n            <i class=\"icon-user-small\"></i>\n            </a>\n          </li>\n          <li>\n            <a  (click)=\"goalDoneBy()\">\n            <span>\n            home_complete\n            {{ goal.stats.doneBy }}\n            </span>\n            <i class=\"icon-user-small\"></i>\n            </a>\n          </li>\n        </ul>\n      </div>\n\n      <!--<figcaption>-->\n        <!--<app-goal-footer></app-goal-footer>-->\n        <!--&lt;!&ndash;{%  include \"AppBundle:Blocks:goalFooter.html.twig\" with {'goal' : goal }  %}&ndash;&gt;-->\n      <!--</figcaption>-->\n\n    </figure>\n  </div>\n</div>"
+module.exports = "<span *ngIf=\"!goal.is_my_goal || goal.is_my_goal !== 2\">\n            <a href=\"javascript:void(0)\"\n               (click)=\"completeGoal(goal.id)\">\n              <!--data-ls-goal-id=\"[[ ::goal.id ]]\"-->\n                 <i class=\"icon-ok-icon\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n                 <span class=\"text\">'done'|trans | capitalize</span>\n             </a>\n        </span>\n\n<span *ngIf=\"goal.is_my_goal && goal.is_my_goal === 2 \" id=\"success{{ goal.id }}\">\n     <i class=\"icon-green-ok\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n    <span class=\"text\">'completed'|trans | capitalize</span>\n</span>"
 
 /***/ },
 
 /***/ 697:
 /***/ function(module, exports) {
 
+module.exports = "<!--{% if app.user.id is defined %}-->\n<!--{% set userId = app.user.id %}-->\n<!--{% else %}-->\n<!--{% set userId = 0 %}-->\n<!--{% endif %}-->\n<ul class=\"row no-gutter\">\n    <!--{% if goal is defined and goalInner is not defined %} -->\n    <!--data-ng-init=\"completed=true;goal.is_my_goal={{ goal.isMyGoal|default(0) }};goal.id={{ goal.id }}\" -->\n    <!--{% endif %}>-->\n\n  <li class=\"col-xs-6\" [class.transparent]=\"(goal.is_my_goal && goal.is_my_goal !== 0) || !completed\">\n      <app-goal-add [goal]=\"goal\"></app-goal-add>\n  </li>\n\n  <li class=\"col-xs-6\" [class.transparent]=\"(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed\">\n      <app-goal-complete [goal]=\"goal\"></app-goal-complete>\n      <!--data-ng-init=\"success[ goal.id ] = false\">-->\n\n  </li>\n</ul>\n"
+
+/***/ },
+
+/***/ 698:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"row\">\n  <div class=\"col-sm-12\">\n    <figure>\n\n      <h3>\n        <a routerLink=\"/goal/{{ goal.slug }}\">{{ goal.title }}</a>\n      </h3>\n\n      <a routerLink=\"/goal/{{ goal.slug }}\" >\n        <span class=\"overlay\"></span>\n        <img src=\"{{ goal.imagePath  }}\" *ngIf=\"goal.imagePath\" alt=\"{{ goal.title }}\"/>\n      </a>\n\n      <div class=\"absolute\">\n        <ul>\n          <li>\n            <a (click)=\"goalListedBy()\">\n            <span>\n            home_listed_by\n            {{ goal.stats.listedBy }}\n            </span>\n            <i class=\"icon-user-small\"></i>\n            </a>\n          </li>\n          <li>\n            <a  (click)=\"goalDoneBy()\">\n            <span>\n            home_complete\n            {{ goal.stats.doneBy }}\n            </span>\n            <i class=\"icon-user-small\"></i>\n            </a>\n          </li>\n        </ul>\n      </div>\n\n      <figcaption>\n        <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n      </figcaption>\n\n    </figure>\n  </div>\n</div>"
+
+/***/ },
+
+/***/ 699:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-xs-5\">\n      <small>&copy; copyright</small>\n    </div>\n    <div class=\"col-xs-7\">\n    </div>\n  </div>\n</div>"
+
+/***/ },
+
+/***/ 700:
+/***/ function(module, exports) {
+
 module.exports = "<div id=\"homepage\">\n\n    <div class=\"homepage text-center\">\n        <div class=\"container\">\n            <h1 [innerHTML]=\"'homepage_title' | translate\"></h1>\n\n            <div class=\"row\">\n                <div class=\"col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2\">\n                    <h4 class=\"text-white\">\n                        {{ 'homepage_description' | translate}}\n                    </h4>\n                </div>\n            </div>\n            <div></div>\n\n            <ul class=\"apps clearfix\">\n                <li>\n                    <a href=\"https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819\" class=\"app-store\" target=\"_blank\">\n                        <img src=\"assets/images/appstore.png\" alt=\"Appstore\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n                <li>\n                    <a href=\"https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist\" class=\"google-play\" target=\"_blank\">\n                        <img src=\"assets/images/googleplay.png\" alt=\"Googleplay\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n            </ul>\n\n        </div>\n    </div>\n\n    <div class=\"absolute text-center hidden-xs hidden-sm hidden-md hidden-lg\">\n        <a href=\"javascript:void(0)\" data-target-selector=\"#scroll-button\" data-ls-scroll-to >\n            <i class=\"icon-scroll-down\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n        </a>\n    </div>\n\n</div>\n\n<app-discover-goal></app-discover-goal>\n<app-base-stories></app-base-stories>"
 
 /***/ },
 
-/***/ 725:
+/***/ 728:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(375);
+module.exports = __webpack_require__(376);
 
 
 /***/ }
 
-},[725]);
+},[728]);
 //# sourceMappingURL=main.bundle.map

@@ -1,12 +1,12 @@
 webpackJsonp([9,13],{
 
-/***/ 733:
+/***/ 736:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__leaderboard_component__ = __webpack_require__(754);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__leaderboard_component__ = __webpack_require__(757);
 /* harmony export (binding) */ __webpack_require__.d(exports, "LeaderboardModule", function() { return LeaderboardModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -38,7 +38,7 @@ var LeaderboardModule = (function () {
 
 /***/ },
 
-/***/ 754:
+/***/ 757:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62,8 +62,8 @@ var LeaderboardComponent = (function () {
     LeaderboardComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-leaderboard',
-            template: __webpack_require__(776),
-            styles: [__webpack_require__(765)]
+            template: __webpack_require__(779),
+            styles: [__webpack_require__(768)]
         }), 
         __metadata('design:paramtypes', [])
     ], LeaderboardComponent);
@@ -73,14 +73,14 @@ var LeaderboardComponent = (function () {
 
 /***/ },
 
-/***/ 765:
+/***/ 768:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 776:
+/***/ 779:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  leaderboard works!\n</p>\n"
