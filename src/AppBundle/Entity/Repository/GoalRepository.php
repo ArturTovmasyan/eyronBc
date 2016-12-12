@@ -44,7 +44,7 @@ class GoalRepository extends EntityRepository
                 ->setParameter('text', '%' . $text . '%')
                 ->setMaxResults($count);
         ;
-        
+
         return $query->getQuery()->getResult();
     }
 
@@ -81,7 +81,7 @@ class GoalRepository extends EntityRepository
                 ->andWhere('ug.id IS NULL or ug.status = :status')
                 ->setParameter('status', UserGoal::ACTIVE);
         }
-        
+
         $ids = $query
             ->setFirstResult($first)
             ->setMaxResults($count)
@@ -224,16 +224,16 @@ class GoalRepository extends EntityRepository
     public function findPopular($count, $user = null)
     {
         $ids = $this->getEntityManager()
-                ->createQueryBuilder()
-                ->select('DISTINCT g.id', '(SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.goal = g) as HIDDEN cnt')
-                ->from('AppBundle:Goal', 'g')
-                ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
-                ->where('g.publish = true AND ug.id IS NULL')
-                ->orderBy('cnt', 'desc')
-                ->setParameter('user', is_object($user) ? $user->getId() : -1)
-                ->setMaxResults(self::TopIdeasCount)
-                ->getQuery()
-                ->getScalarResult();
+            ->createQueryBuilder()
+            ->select('DISTINCT g.id', '(SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.goal = g) as HIDDEN cnt')
+            ->from('AppBundle:Goal', 'g')
+            ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
+            ->where('g.publish = true AND ug.id IS NULL')
+            ->orderBy('cnt', 'desc')
+            ->setParameter('user', is_object($user) ? $user->getId() : -1)
+            ->setMaxResults(self::TopIdeasCount)
+            ->getQuery()
+            ->getScalarResult();
 
 
         $ids = array_map(function($v){ return $v['id']; }, $ids);
@@ -298,16 +298,16 @@ class GoalRepository extends EntityRepository
     public function findMyDrafts($user, $first = null, $count = null)
     {
         $query = $this->getEntityManager()
-                ->createQueryBuilder()
-                ->select('g, i')
-                ->from('AppBundle:Goal', 'g')
-                ->leftJoin('g.images', 'i')
-                ->leftJoin('g.author', 'a')
-                ->where('a.id = :user')
-                ->andWhere('g.readinessStatus = :readinessStatus')
-                ->orderBy('g.id', 'desc')
-                ->setParameter('user', $user)
-                ->setParameter('readinessStatus', Goal::DRAFT)
+            ->createQueryBuilder()
+            ->select('g, i')
+            ->from('AppBundle:Goal', 'g')
+            ->leftJoin('g.images', 'i')
+            ->leftJoin('g.author', 'a')
+            ->where('a.id = :user')
+            ->andWhere('g.readinessStatus = :readinessStatus')
+            ->orderBy('g.id', 'desc')
+            ->setParameter('user', $user)
+            ->setParameter('readinessStatus', Goal::DRAFT)
         ;
 
         if (!is_null($first) && !is_null($count)){
@@ -446,7 +446,7 @@ class GoalRepository extends EntityRepository
                 ->getResult();
 
             if($isRandom){
-              $ids = $this->shuffle_goal($ids);
+                $ids = $this->shuffle_goal($ids);
             }
 
             $allIds = $ids;
@@ -476,17 +476,17 @@ class GoalRepository extends EntityRepository
     public function findRandomGoalFriends($userId, $count, &$allCount, $getAllCount = false)
     {
         $goalFriendIds = $this->getEntityManager()
-                ->createQueryBuilder()
-                ->select('DISTINCT u.id')
-                ->from('ApplicationUserBundle:User', 'u', 'u.id')
-                ->join('u.userGoal', 'ug')
-                ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
-                ->where("u.id != :userId")
-                ->andWhere('u.roles = :roles')
-                ->setParameter('userId', $userId)
-                ->setParameter('roles', 'a:0:{}')
-                ->getQuery()
-                ->getResult();
+            ->createQueryBuilder()
+            ->select('DISTINCT u.id')
+            ->from('ApplicationUserBundle:User', 'u', 'u.id')
+            ->join('u.userGoal', 'ug')
+            ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
+            ->where("u.id != :userId")
+            ->andWhere('u.roles = :roles')
+            ->setParameter('userId', $userId)
+            ->setParameter('roles', 'a:0:{}')
+            ->getQuery()
+            ->getResult();
 
 
         $allCount = count($goalFriendIds);
@@ -529,11 +529,11 @@ class GoalRepository extends EntityRepository
 
         //TODO roles in query must be changed
         $query = $this
-                    ->getEntityManager()
-                    ->createQueryBuilder()
-                    ->select('DISTINCT u')
-                    ->from('ApplicationUserBundle:User', 'u', 'u.id')
-                    ->where("u.id != :userId AND u.isAdmin = false");
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('DISTINCT u')
+            ->from('ApplicationUserBundle:User', 'u', 'u.id')
+            ->where("u.id != :userId AND u.isAdmin = false");
 
         ;
 
@@ -904,7 +904,7 @@ class GoalRepository extends EntityRepository
             ->setMaxResults($count)
             ->orderBy('g.created', 'DESC')
             ->setParameter('owner', $owner)
-;
+        ;
         ;
 
 
@@ -1104,7 +1104,7 @@ class GoalRepository extends EntityRepository
         //get goals statistic data
         $goals = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select("COUNT(g.publishedDate) as counts, DATE(g.publishedDate) as created")
+            ->select("COUNT(g.id) as counts, DATE(g.publishedDate) as created")
             ->from('AppBundle:Goal', 'g')
             ->where('g.publish = :publish')
             ->andWhere('g.publishedDate is NOT NULL')
@@ -1135,6 +1135,61 @@ class GoalRepository extends EntityRepository
             case StatisticController::MONTH:
                 $goals
                     ->addSelect('month(g.publishedDate) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
+                break;
+            default:
+                break;
+        }
+
+        //get counts for emails
+        $goals = $goals->getQuery()->getResult();
+
+        return $goals;
+    }
+
+    /**
+     * This function is used to get created goal statistic data
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function getCreatedGoalStatisticData($groupBy, $start, $end)
+    {
+        //get goals statistic data
+        $goals = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("COUNT(g.id) as counts, DATE(g.created) as created")
+            ->from('AppBundle:Goal', 'g')
+            ->where('g.created is NOT NULL');
+
+        //if start date is exists
+        if ($start) {
+            $goals
+                ->andWhere(':start <= date(g.created)')
+                ->setParameter('start', $start);
+        }
+
+        //if end date is exists
+        if ($end) {
+            $goals
+                ->andWhere(':end >= date(g.created)')
+                ->setParameter('end', $end);
+        }
+
+        // switch for group by
+        switch ($groupBy) {
+
+            case StatisticController::DAY:
+                $goals
+                    ->groupBy('created')
+                    ->orderBy('created');
+                break;
+            case StatisticController::MONTH:
+                $goals
+                    ->addSelect('month(g.created) as hidden mn')
                     ->groupBy('mn')
                     ->orderBy('mn');
                 break;

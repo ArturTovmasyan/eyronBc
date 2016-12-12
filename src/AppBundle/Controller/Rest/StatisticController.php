@@ -19,6 +19,7 @@ class StatisticController extends FOSRestController
     const TYPE_REG_USER_BY_DEVICE = 4;
     const TYPE_REG_USER_BY_SOCIAL = 5;
     const TYPE_PUBLISHED_GOAL = 6;
+    const TYPE_CREATED_GOAL = 7;
 
     /**
      * @Rest\Get("/statistic/{type}/{groupBy}/{start}/{end}", name="get_statistic", options={"method_prefix"=false})
@@ -40,7 +41,7 @@ class StatisticController extends FOSRestController
      * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
      * @return array|response
      */
-    public function getStatisticAction($type, $groupBy, $start, $end)
+    public function getStatisticDataAction($type, $groupBy, $start, $end)
     {
         //check if type is string
         if (is_string(strtolower($type))) {
@@ -105,6 +106,13 @@ class StatisticController extends FOSRestController
             //statistic data for published goal
             $statisticData = $em->getRepository('AppBundle:Goal')->getPublishedGoalStatisticData($groupBy, $start, $end);
         }
+        //check if type is published goal
+        elseif($type == self::TYPE_CREATED_GOAL) {
+
+            //statistic data for published goal
+            $statisticData = $em->getRepository('AppBundle:Goal')->getCreatedGoalStatisticData($groupBy, $start, $end);
+        }
+
 
         return $statisticData;
     }
