@@ -1,0 +1,13 @@
+<span *ngIf="!goal.is_my_goal || goal.is_my_goal !== 2">
+            <a href="javascript:void(0)"
+               (click)="completeGoal(goal.id)">
+              <!--data-ls-goal-id="[[ ::goal.id ]]"-->
+                 <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                 <span class="text">'done'|trans | capitalize</span>
+             </a>
+        </span>
+
+<span *ngIf="goal.is_my_goal && goal.is_my_goal === 2 " id="success{{ goal.id }}">
+     <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+    <span class="text">'completed'|trans | capitalize</span>
+</span>

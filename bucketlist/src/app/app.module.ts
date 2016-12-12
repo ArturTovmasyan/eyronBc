@@ -1,34 +1,47 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { GoalfriendBoxComponent } from './goalfriend-box/goalfriend-box.component';
-import { MyBucketlistBoxComponent } from './my-bucketlist-box/my-bucketlist-box.component';
-import { FeaturedIdeasBoxComponent } from './featured-ideas-box/featured-ideas-box.component';
-import { TopIdeasBoxComponent } from './top-ideas-box/top-ideas-box.component';
-import { LeaderboardBoxComponent } from './leaderboard-box/leaderboard-box.component';
-import { OwerallProgressBoxComponent } from './owerall-progress-box/owerall-progress-box.component';
-import { SuggestedIdeasBoxComponent } from './suggested-ideas-box/suggested-ideas-box.component';
+import { appRouting } from './app-routing';
+import { ProjectService } from './project.service';
+import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService }   from './translate';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DiscoverGoalComponent } from './components/discover-goal/discover-goal.component';
+import { GoalComponent } from './components/goal/goal.component';
+import { GoalFooterComponent } from './components/goal-footer/goal-footer.component';
+import { GoalAddComponent } from './components/goal-add/goal-add.component';
+import { GoalCompleteComponent } from './components/goal-complete/goal-complete.component';
+import { BaseStoriesComponent } from './components/base-stories/base-stories.component';
+import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GoalfriendBoxComponent,
-    MyBucketlistBoxComponent,
-    FeaturedIdeasBoxComponent,
-    TopIdeasBoxComponent,
-    LeaderboardBoxComponent,
-    OwerallProgressBoxComponent,
-    SuggestedIdeasBoxComponent
+    DashboardComponent,
+    DiscoverGoalComponent,
+    GoalComponent,
+    GoalFooterComponent,
+    GoalAddComponent,
+    GoalCompleteComponent,
+    BaseStoriesComponent,
+    TranslatePipe,
+    HomeFooterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    JsonpModule,
+    appRouting
   ],
-  providers: [],
+  providers: [
+    ProjectService,
+    TRANSLATION_PROVIDERS,
+    TranslateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

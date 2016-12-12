@@ -1,19 +1,237 @@
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="/ideas">
-                    <span class="hidden-sm">IDEAS</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<div id="mainframe">
+    <div id="wrap">
+        <header>
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div id="line"></div>
+                <div class="container" id="main-nav">
+                    <div class="navbar-header navbar-mobile">
+                        <!--{% if is_mobile() and not is_tablet() %}-->
+                        <!--{% if user %}-->
+                        <!--<ul class="nav navbar-nav  hidden-sm hidden-md hidden-lg">-->
+                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiActivity.html.twig',  {'route': app.request.get('_route')} ) }}&ndash;&gt;-->
+                        <!--<li>-->
+                        <!--<a routerLink="/ideas" routerLinkActive="active">-->
+                        <!--<i class="icons ideas-icon"></i>-->
+                        <!--<span class="hidden-xs hidden-sm">ideas</span>-->
+                        <!--</a>-->
+                        <!--</li>-->
+                        <!--<li *ngIf="!joinToggle11">-->
+                        <!--<a routerLink="/profile" routerLinkActive="active">-->
+                        <!--<i class="icons mybucketlist-icon"></i>-->
+                        <!--<span class="hidden-xs hidden-sm">my_bucketlist</span>-->
+                        <!--</a>-->
+                        <!--</li>-->
+                        <!--<li id="notification">-->
+                        <!--&lt;!&ndash;{{ include('AppBundle:Blocks:notification.html.twig') }}&ndash;&gt;-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiUser.html.twig') }}&ndash;&gt;-->
+                        <!--</li>-->
+                        <!--</ul>-->
 
-<h1>
-    {{title}}
-</h1>
+                        <!--<ul class="hidden-sm hidden-md hidden-lg user-mobile-menu clearfix" *ngIf="!joinToggle11">-->
+                        <!--<li class="clearfix">-->
+                        <!--<a class="navbar-brand" routerLink="/dashboard" routerLinkActive="active">-->
+                        <!--<img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>-->
+                        <!--</a>-->
+                        <!--<a href="javascript:void(0)" (click)="joinToggle11 = !joinToggle11" class="text-right"><i class="icon-remove-email"></i> </a>-->
+                        <!--</li>-->
 
-<app-goalfriend-box>loading... goal-friends</app-goalfriend-box>
+                        <!--&lt;!&ndash;{% if app.user and app.user.activity %}&ndash;&gt;-->
+                        <!--<li>-->
+                        <!--<a routerLink="/activity" routerLinkActive="active">-->
+                        <!--<i class="icons activity-icon"></i>-->
+                        <!--&lt;!&ndash;<span>{{ 'activity'|trans }}</span>&ndash;&gt;-->
+                        <!--</a>-->
+                        <!--</li>-->
+                        <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->
 
-<footer>footer</footer>
+
+                        <!--<li>-->
+                        <!--<a routerLink="/leaderboard" routerLinkActive="active">-->
+                        <!--<i class="icon-suggest-icon"></i>-->
+                        <!--&lt;!&ndash;<span class="text">{{ 'leaderboard.name'|trans | capitalize }}</span>&ndash;&gt;-->
+                        <!--</a>-->
+                        <!--</li>-->
+
+                        <!--<li>-->
+                        <!--<a routerLink="/friends" routerLinkActive="active">-->
+                        <!--<i class="menu-goalfrinds"></i>-->
+                        <!--&lt;!&ndash;<span class="text">{{ 'goalfriends'|trans }}</span>&ndash;&gt;-->
+                        <!--</a>-->
+                        <!--</li>-->
+
+                        <!--<li>-->
+                        <!--<a routerLink="/ideas" routerLinkActive="active">-->
+                        <!--<i class="icons ideas-icon"></i>-->
+                        <!--&lt;!&ndash;<span>{{ 'ideas'| trans | capitalize }}</span>&ndash;&gt;-->
+                        <!--</a>-->
+                        <!--</li>-->
+
+                        <!--<li>-->
+                        <!--<a routerLink="/ideas" routerLinkActive="active">-->
+                        <!--<i class="icons mybucketlist-icon"></i>-->
+                        <!--&lt;!&ndash;<span>{{ 'my_bucketlist'|trans }}</span>&ndash;&gt;-->
+                        <!--</a>-->
+                        <!--</li>-->
+
+                        <!--<li>-->
+                        <!--<a routerLink="/goal-add" routerLinkActive="active">-->
+                        <!--<i class="icons add-goal"></i>-->
+                        <!--&lt;!&ndash;<span>{{ 'create_goal'|trans }}</span>&ndash;&gt;-->
+                        <!--</a>-->
+                        <!--</li>-->
+
+                        <!--<li>-->
+                        <!--<a routerLink="/settings" routerLinkActive="active">-->
+                        <!--<i class="icons settings-icon"></i>-->
+                        <!--&lt;!&ndash;<span>{{ 'settings'|trans }}</span>&ndash;&gt;-->
+                        <!--</a>-->
+                        <!--</li>-->
+
+                        <!--<li>-->
+                        <!--<a>-->
+                        <!--<i class="icons logout"></i>-->
+                        <!--&lt;!&ndash;<span>{{ 'logout'|trans }}</span>&ndash;&gt;-->
+                        <!--</a>-->
+                        <!--</li>-->
+                        <!--</ul>-->
+                        <!--&lt;!&ndash;{% else %}&ndash;&gt;-->
+                        <!--<div class="clearfix hidden-sm hidden-md hidden-lg">-->
+                        <!--<a class="navbar-brand hidden-sm hidden-md hidden-lg" routerLink="/dashboard" routerLinkActive="active">-->
+                        <!--<img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>-->
+                        <!--</a>-->
+
+                        <!--<ul class="pull-right">-->
+                        <!--<li>-->
+                        <!--<a routerLink="/ideas" routerLinkActive="active" class="hidden-sm hidden-md hidden-lg ">-->
+                        <!--<i class="icon-ideas-icon"></i>-->
+                        <!--<i class="ideas-icon"></i>-->
+                        <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<a href="javascript:void(0)"-->
+                        <!--style="display: none"-->
+                        <!--class="sign-in-popover pull-right">-->
+                        <!--<i class="icon-join-icon"></i>-->
+                        <!--</a>-->
+                        <!--</li>-->
+                        <!--</ul>-->
+
+                        <!--</div>-->
+                        <!--{% endif %}-->
+                        <!--{% endif %}-->
+
+                        <a class="navbar-brand hidden-xs" routerLink="/dashboard" routerLinkActive="active">
+                            <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
+                        </a>
+                    </div>
+
+                    <!--{% if not is_mobile() or is_tablet() %}-->
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+
+                            <li>
+                                <a routerLink="/activity" routerLinkActive="active">
+                                    <i class="icons ideas-icon"></i>
+                                    <span class="hidden-sm">Activity</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a routerLink="/ideas" routerLinkActive="active">
+                                    <i class="icons ideas-icon"></i>
+                                    <span class="hidden-sm">Ideas</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a routerLink="/profile" routerLinkActive="active">
+                                    <i class="icons mybucketlist-icon"></i>
+                                    <span class="hidden-sm">MY List</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="notification">
+                                <div>
+                                    <a routerLink="/notifications" class="relative notify">
+                                        <i class="bell"></i>
+                                        <sup *ngIf="newNotCount != 0">{{ newNotCount }}</sup>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--{% endif %}-->
+                </div>
+            </nav>
+        </header>
+        <router-outlet></router-outlet>
+    </div>
+    <footer>
+        <div class="container">
+
+            <ul class="apps clearfix">
+                <li>
+                    <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
+                        <img src="assets/images/appstore.png" alt="Appstore" class="img-responsive"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
+                        <img src="assets/images/googleplay.png" alt="Googleplay" class="img-responsive"/>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="social">
+                <li>
+                    <a href="https://www.facebook.com/bucketlist127com/" target="_blank" class="facebook-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.instagram.com/bucketlist127/" target="_blank" class="instagram-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.twitter.com/bucketlist127" target="_blank" class="twitter-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.pinterest.com/bucketlist127/" target="_blank" class="pinterest-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://plus.google.com/+Bucketlist127com" target="_blank" class="gplus-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank" class="youtube-icon"></a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="footer-bottom">
+            <home-footer></home-footer>
+        </div>
+
+    </footer>
+</div>
+<!--<nav>-->
+<!--<a routerLink="/ideas" routerLinkActive="active">Ideas</a>-->
+<!--<a routerLink="/dashboard" routerLinkActive="active">Home</a>-->
+<!--<a routerLink="/activity" routerLinkActive="active">Activity</a>-->
+<!--<a routerLink="/profile" routerLinkActive="active">MY List</a>-->
+<!--<a routerLink="/goal/create" routerLinkActive="active">Goal Create</a>-->
+<!--<a routerLink="/notifications" routerLinkActive="active">notifications</a>-->
+<!--<a routerLink="/leaderboard" routerLinkActive="active">leaderboard</a>-->
+<!--<a routerLink="/goal-friends" routerLinkActive="active">goal-friends</a>-->
+<!--<a routerLink="/goal/my-ideas" routerLinkActive="active">Drafts</a>-->
+<!--<a routerLink="/edit/:type" routerLinkActive="active">settings</a>-->
+<!--<a routerLink="/goal/:slug" routerLinkActive="active">Goal Inner</a>-->
+<!--</nav>-->
+

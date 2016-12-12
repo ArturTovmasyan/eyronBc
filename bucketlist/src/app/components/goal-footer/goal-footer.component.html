@@ -1,0 +1,20 @@
+<!--{% if app.user.id is defined %}-->
+<!--{% set userId = app.user.id %}-->
+<!--{% else %}-->
+<!--{% set userId = 0 %}-->
+<!--{% endif %}-->
+<ul class="row no-gutter">
+    <!--{% if goal is defined and goalInner is not defined %} -->
+    <!--data-ng-init="completed=true;goal.is_my_goal={{ goal.isMyGoal|default(0) }};goal.id={{ goal.id }}" -->
+    <!--{% endif %}>-->
+
+  <li class="col-xs-6" [class.transparent]="(goal.is_my_goal && goal.is_my_goal !== 0) || !completed">
+      <app-goal-add [goal]="goal"></app-goal-add>
+  </li>
+
+  <li class="col-xs-6" [class.transparent]="(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed">
+      <app-goal-complete [goal]="goal"></app-goal-complete>
+      <!--data-ng-init="success[ goal.id ] = false">-->
+
+  </li>
+</ul>
