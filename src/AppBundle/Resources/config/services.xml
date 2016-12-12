@@ -67,7 +67,9 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="translator" />
             <argument type="service" id="debug.stopwatch" />
+            <argument>%angular2host%</argument>
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse"/>
         </service>
 
 
