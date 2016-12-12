@@ -1203,4 +1203,116 @@ class GoalRepository extends EntityRepository
         return $goals;
     }
 
+    /**
+     * This function is used to get added goal statistic data
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function getAddedGoalStatisticData($groupBy, $start, $end)
+    {
+        //get added goals statistic data
+        $goals = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("COUNT(g.id) as counts, DATE(ug.listedDate) as created")
+            ->from('AppBundle:Goal', 'g')
+            ->leftJoin('g.userGoal', 'ug')
+            ->where('ug.listedDate is NOT NULL');
+
+        //if start date is exists
+        if ($start) {
+            $goals
+                ->andWhere(':start <= date(ug.listedDate)')
+                ->setParameter('start', $start);
+        }
+
+        //if end date is exists
+        if ($end) {
+            $goals
+                ->andWhere(':end >= date(ug.listedDate)')
+                ->setParameter('end', $end);
+        }
+
+        // switch for group by
+        switch ($groupBy) {
+
+            case StatisticController::DAY:
+                $goals
+                    ->groupBy('created')
+                    ->orderBy('created');
+                break;
+            case StatisticController::MONTH:
+                $goals
+                    ->addSelect('month(ug.listedDate) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
+                break;
+            default:
+                break;
+        }
+
+        //get counts for emails
+        $goals = $goals->getQuery()->getResult();
+
+        return $goals;
+    }
+
+    /**
+     * This function is used to get completed goal statistic data
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function getCompletedGoalStatisticData($groupBy, $start, $end)
+    {
+        //get completed goals statistic data
+        $goals = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("COUNT(g.id) as counts, DATE(ug.completionDate) as created")
+            ->from('AppBundle:Goal', 'g')
+            ->leftJoin('g.userGoal', 'ug')
+            ->where('ug.completionDate is NOT NULL');
+
+        //if start date is exists
+        if ($start) {
+            $goals
+                ->andWhere(':start <= date(ug.completionDate)')
+                ->setParameter('start', $start);
+        }
+
+        //if end date is exists
+        if ($end) {
+            $goals
+                ->andWhere(':end >= date(ug.completionDate)')
+                ->setParameter('end', $end);
+        }
+
+        // switch for group by
+        switch ($groupBy) {
+
+            case StatisticController::DAY:
+                $goals
+                    ->groupBy('created')
+                    ->orderBy('created');
+                break;
+            case StatisticController::MONTH:
+                $goals
+                    ->addSelect('month(ug.completionDate) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
+                break;
+            default:
+                break;
+        }
+
+        //get counts for emails
+        $goals = $goals->getQuery()->getResult();
+
+        return $goals;
+    }
+
 }

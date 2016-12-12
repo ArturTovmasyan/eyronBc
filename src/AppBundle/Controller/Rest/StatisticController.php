@@ -20,6 +20,8 @@ class StatisticController extends FOSRestController
     const TYPE_REG_USER_BY_SOCIAL = 5;
     const TYPE_PUBLISHED_GOAL = 6;
     const TYPE_CREATED_GOAL = 7;
+    const TYPE_ADDED_GOAL = 8;
+    const TYPE_COMPLETED_GOAL = 9;
 
     /**
      * @Rest\Get("/statistic/{type}/{groupBy}/{start}/{end}", name="get_statistic", options={"method_prefix"=false})
@@ -106,13 +108,24 @@ class StatisticController extends FOSRestController
             //statistic data for published goal
             $statisticData = $em->getRepository('AppBundle:Goal')->getPublishedGoalStatisticData($groupBy, $start, $end);
         }
-        //check if type is published goal
+        //check if type is created goal
         elseif($type == self::TYPE_CREATED_GOAL) {
 
-            //statistic data for published goal
+            //statistic data for created goal
             $statisticData = $em->getRepository('AppBundle:Goal')->getCreatedGoalStatisticData($groupBy, $start, $end);
         }
+        //check if type is added goal
+        elseif($type == self::TYPE_ADDED_GOAL) {
 
+            //statistic data for added goal
+            $statisticData = $em->getRepository('AppBundle:Goal')->getAddedGoalStatisticData($groupBy, $start, $end);
+        }
+        //check if type is completed goal
+        elseif($type == self::TYPE_COMPLETED_GOAL) {
+
+            //statistic data for completed goal
+            $statisticData = $em->getRepository('AppBundle:Goal')->getCompletedGoalStatisticData($groupBy, $start, $end);
+        }
 
         return $statisticData;
     }
