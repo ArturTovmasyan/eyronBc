@@ -335,50 +335,6 @@ class MainController extends Controller
         $createCategories = array_unique($createCategories);
 
 
-//        if($results) {
-//            $count = 0;
-//
-//            foreach($results as $n => $result)
-//            {
-//                $time1 = new \DateTime($result['dates']);
-//                $createResult[$count]['dates'] = $result['dates'];
-//                $createResult[$count]['counts'] = $result['counts'];
-//                $count++;
-//                $createCount +=$result['counts'];
-//
-//                if(isset($results[$n + 1])){
-//                    $time2 = new \DateTime($results[$n+1]['dates']);
-//
-//                    for($i =$count;$i < 30 ; $i++)
-//                    {
-//                        if(date_diff($time1,$time2)->d > 1){
-//                            $createResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
-//                            $createResult[$count]['counts'] = 0;
-//                            $count++;
-//                        }
-//                    }
-//                }else{
-//                    $time2 = new \DateTime('now');
-//
-//                    for($i =$count;$i < 30 ; $i++)
-//                    {
-//                        if(date_diff($time1,$time2)->d > 0){
-//                            $createResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
-//                            $createResult[$count]['counts'] = 0;
-//                            $count++;
-//                        }
-//                    }
-//                }
-//            };
-//        }
-//        else {
-//            $create = new \DateTime('now');
-//            $create = date_format($create,'Y-m-d');
-//            $createResult[0]['dates'] = $create;
-//            $createResult[0]['counts'] = 0;
-//        }
-
-
         //set updated goals in 30 days
         $updateLimit = new \DateTime('now');
         $updateLimit->modify('-30 days');
@@ -633,7 +589,7 @@ class MainController extends Controller
     public function versionStatisticAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $versionStatisticData = $em->getRepository('ApplicationUserBundle:User')->getAppVersionsStatistic();
+        $versionStatisticData = $em->getRepository('ApplicationUserBundle:User')->getAppVersionsStatisticData($groupBy = null, $start =null, $end=null);
 
         return ['appVersionStatistic' => $versionStatisticData];
     }

@@ -19,7 +19,7 @@ class EmailRepository extends EntityRepository
      * @param $groupBy
      * @return array
      */
-    public function findStatisticData($groupBy = StatisticController::DAY, $start, $end)
+    public function getEmailStatisticData($groupBy = StatisticController::DAY, $start, $end)
     {
         //get emails statistic count
         $emails =  $this->getEntityManager()

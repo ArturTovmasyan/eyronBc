@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Controller\Rest\StatisticController;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Model\PublishAware;
@@ -1088,4 +1089,63 @@ class GoalRepository extends EntityRepository
             ->setParameter('ids', $goalIds)
             ->getResult();
     }
+
+
+    /**
+     * This function is used to get published goal statistic data
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function getPublishedGoalStatisticData($groupBy, $start, $end)
+    {
+        //get goals statistic data
+        $goals = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("COUNT(g.publishedDate) as counts, DATE(g.publishedDate) as created")
+            ->from('AppBundle:Goal', 'g')
+            ->where('g.publish = :publish')
+            ->andWhere('g.publishedDate is NOT NULL')
+            ->setParameter('publish', Goal::PUBLISH);
+
+        //if start date is exists
+        if ($start) {
+            $goals
+                ->andWhere(':start <= date(g.publishedDate)')
+                ->setParameter('start', $start);
+        }
+
+        //if end date is exists
+        if ($end) {
+            $goals
+                ->andWhere(':end >= date(g.publishedDate)')
+                ->setParameter('end', $end);
+        }
+
+        // switch for group by
+        switch ($groupBy) {
+
+            case StatisticController::DAY:
+                $goals
+                    ->groupBy('created')
+                    ->orderBy('created');
+                break;
+            case StatisticController::MONTH:
+                $goals
+                    ->addSelect('month(g.publishedDate) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
+                break;
+            default:
+                break;
+        }
+
+        //get counts for emails
+        $goals = $goals->getQuery()->getResult();
+
+        return $goals;
+    }
+
 }

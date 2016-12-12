@@ -9,6 +9,7 @@
 
 namespace Application\UserBundle\Entity\Repository;
 
+use AppBundle\Controller\Rest\StatisticController;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
 use Doctrine\ORM\EntityRepository;
@@ -392,28 +393,143 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @return mixed
+     * This function is used to get registration users by device
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @return array
      */
-    public function getAppVersionsStatistic()
+    public function getAppVersionsStatisticData($groupBy, $start, $end)
     {
-        $iosUsers = $this->getEntityManager()
-            ->createQuery("SELECT u.iosVersion version, COUNT(u.id) cnt
-                           FROM ApplicationUserBundle:User u
-                           WHERE u.iosVersion IS NOT NULL
-                           GROUP BY u.iosVersion")
-            ->getResult();
+        //get ios statistic count
+        $iosUsers =  $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("u.iosVersion as version, COUNT(u.id) as cnt, DATE(u.createdAt) as created")
+            ->from('ApplicationUserBundle:User', 'u')
+            ->where('u.iosVersion IS NOT NULL')
+            ->groupBy('u.iosVersion');
 
+        //get android statistic count
         $androidUsers = $this->getEntityManager()
-            ->createQuery("SELECT u.androidVersion version, COUNT(u.id) cnt
-                           FROM ApplicationUserBundle:User u
-                           WHERE u.androidVersion IS NOT NULL
-                           GROUP BY u.androidVersion")
-            ->getResult();
+            ->createQueryBuilder()
+            ->select("u.androidVersion as version, COUNT(u.id) as cnt, DATE(u.createdAt) as created")
+            ->from('ApplicationUserBundle:User', 'u')
+            ->where('u.androidVersion IS NOT NULL')
+            ->groupBy('u.androidVersion');
 
+
+        //if start date is exists
+        if ($start) {
+            $iosUsers
+                ->andWhere(':start <= date(u.createdAt)')
+                ->setParameter('start', $start);
+
+            $androidUsers
+                ->andWhere(':start <= date(u.createdAt)')
+                ->setParameter('start', $start);
+        }
+
+        //if end date is exists
+        if ($end) {
+            $iosUsers
+                ->andWhere(':end >= date(u.createdAt)')
+                ->setParameter('end', $end);
+
+            $androidUsers
+                ->andWhere(':end >= date(u.createdAt)')
+                ->setParameter('end', $end);
+        }
+
+        // switch for group by
+        switch($groupBy) {
+
+            case StatisticController::DAY:
+                $iosUsers
+                    ->groupBy('created')
+                    ->orderBy('created');
+
+                $androidUsers
+                    ->groupBy('created')
+                    ->orderBy('created');
+                break;
+            case StatisticController::MONTH:
+                $iosUsers
+                    ->addSelect('month(u.createdAt) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
+
+                $androidUsers
+                    ->addSelect('month(u.createdAt) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
+                break;
+            default:
+                break;
+        }
+
+        $androidUsers = $androidUsers->getQuery()->getResult();
+        $iosUsers = $iosUsers->getQuery()->getResult();
 
         return [
             'android' => $androidUsers,
             'ios'     => $iosUsers
         ];
+    }
+
+    /**
+     * This function is used to get all users by social
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function getRegUserBySocialStatisticData($groupBy, $start, $end)
+    {
+        //get ios statistic count
+       $allSocial =  $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("SUM(CASE WHEN u.facebookUid IS NOT NULL THEN 1 ELSE 0 END) as facebook,
+                      SUM(CASE WHEN u.twitterUid IS NOT NULL THEN 1 ELSE 0 END) as twitter,
+                      SUM(CASE WHEN u.gplusUid IS NOT NULL THEN 1 ELSE 0 END) as google,
+                      DATE(u.createdAt) as created")
+           ->from('ApplicationUserBundle:User', 'u');
+
+        //if start date is exists
+        if ($start) {
+            $allSocial
+                ->andWhere(':start <= date(u.createdAt)')
+                ->setParameter('start', $start);
+        }
+
+        //if end date is exists
+        if ($end) {
+            $allSocial
+                ->andWhere(':end >= date(u.createdAt)')
+                ->setParameter('end', $end);
+        }
+
+        // switch for group by
+        switch($groupBy) {
+
+            case StatisticController::DAY:
+                $allSocial
+                    ->groupBy('created')
+                    ->orderBy('created');
+                break;
+            case StatisticController::MONTH:
+                $allSocial
+                    ->addSelect('month(u.createdAt) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
+                break;
+            default:
+                break;
+        }
+
+        //get counts for emails
+       return $allSocial = $allSocial->getQuery()->getResult();
+
     }
 }

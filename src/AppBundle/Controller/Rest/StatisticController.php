@@ -16,6 +16,9 @@ class StatisticController extends FOSRestController
     const MONTH = 1;
     const DAY = 2;
     const TYPE_EMAIL = 3;
+    const TYPE_REG_USER_BY_DEVICE = 4;
+    const TYPE_REG_USER_BY_SOCIAL = 5;
+    const TYPE_PUBLISHED_GOAL = 6;
 
     /**
      * @Rest\Get("/statistic/{type}/{groupBy}/{start}/{end}", name="get_statistic", options={"method_prefix"=false})
@@ -82,7 +85,25 @@ class StatisticController extends FOSRestController
         if ($type == self::TYPE_EMAIL) {
 
             //statistic data for email
-            $statisticData = $em->getRepository('AppBundle:Email')->findStatisticData($groupBy, $start, $end);
+            $statisticData = $em->getRepository('AppBundle:Email')->getEmailStatisticData($groupBy, $start, $end);
+        }
+        //check if type is registration user by device
+        elseif($type == self::TYPE_REG_USER_BY_DEVICE) {
+
+            //statistic data for registration user by device
+            $statisticData = $em->getRepository('ApplicationUserBundle:User')->getAppVersionsStatisticData($groupBy, $start, $end);
+        }
+        //check if type is registration user by social network
+        elseif($type == self::TYPE_REG_USER_BY_SOCIAL) {
+
+            //statistic data for registration user by social
+            $statisticData = $em->getRepository('ApplicationUserBundle:User')->getRegUserBySocialStatisticData($groupBy, $start, $end);
+        }
+        //check if type is published goal
+        elseif($type == self::TYPE_PUBLISHED_GOAL) {
+
+            //statistic data for published goal
+            $statisticData = $em->getRepository('AppBundle:Goal')->getPublishedGoalStatisticData($groupBy, $start, $end);
         }
 
         return $statisticData;
