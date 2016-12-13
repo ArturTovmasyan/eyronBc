@@ -72,6 +72,30 @@ trait StatisticDataFilterTrait
             case 'email':
                 $type = StatisticController::TYPE_EMAIL;
                 break;
+            case 'device':
+                $type = StatisticController::TYPE_REG_USER_BY_DEVICE;
+                break;
+            case 'social':
+                $type = StatisticController::TYPE_REG_USER_BY_SOCIAL;
+                break;
+            case 'published-goal':
+                $type = StatisticController::TYPE_PUBLISHED_GOAL;
+                break;
+            case 'created-goal':
+                $type = StatisticController::TYPE_CREATED_GOAL;
+                break;
+            case 'added-goal':
+                $type = StatisticController::TYPE_ADDED_GOAL;
+                break;
+            case 'completed-goal':
+                $type = StatisticController::TYPE_COMPLETED_GOAL;
+                break;
+            case 'story-create':
+                $type = StatisticController::TYPE_STORY_CREATED;
+                break;
+            case 'story-like':
+                $type = StatisticController::TYPE_STORY_LIKED;
+                break;
             default:
                 break;
         }
