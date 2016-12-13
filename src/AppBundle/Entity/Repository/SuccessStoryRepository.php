@@ -137,25 +137,19 @@ class SuccessStoryRepository extends EntityRepository
     public function getStoryByTypeForStatisticData($groupBy, $start, $end, $type)
     {
         //set default selected date value
-        $date = null;
-
-        switch ($type) {
-            case StatisticController::TYPE_STORY_CREATED:
-                $date = 'ss.created';
-                break;
-                //TODO story liked date is not exist currently
-            case StatisticController::TYPE_STORY_LIKED:
-                $date = 'ss.created';
-                break;
-            default:
-                break;
-        }
+        $date = 'ss.created';
 
         //get created or liked success story statistic data
         $story = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select("COUNT(ss.id) as counts, DATE(".$date.") as created")
+            ->select("COUNT(DISTINCT ss.id) as counts, DATE(".$date.") as created")
             ->from('AppBundle:SuccessStory', 'ss');
+
+        if ($type == StatisticController::TYPE_STORY_LIKED) {
+            $story
+                ->addSelect('count(vt.id) AS liked')
+                ->leftJoin('ss.voters', 'vt');
+        }
 
         //get filtered statistic data
         $data = $this->filterStatisticData($story, $date, $groupBy, $start, $end);
