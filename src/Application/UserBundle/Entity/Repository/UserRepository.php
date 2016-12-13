@@ -548,6 +548,7 @@ class UserRepository extends EntityRepository
             ->select("SUM(CASE WHEN u.facebookUid IS NOT NULL THEN 1 ELSE 0 END) as facebook,
                       SUM(CASE WHEN u.twitterUid IS NOT NULL THEN 1 ELSE 0 END) as twitter,
                       SUM(CASE WHEN u.gplusUid IS NOT NULL THEN 1 ELSE 0 END) as google,
+                      SUM(CASE WHEN u.gplusUid IS NULL AND u.facebookUid IS NULL AND u.twitterUid IS NULL THEN 1 ELSE 0 END) as native,
                       DATE(".$date.") as created")
            ->from('ApplicationUserBundle:User', 'u');
 
