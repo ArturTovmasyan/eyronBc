@@ -12,6 +12,7 @@ namespace Application\UserBundle\Entity\Repository;
 use AppBundle\Controller\Rest\StatisticController;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Traits\StatisticDataFilterTrait;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -23,6 +24,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class UserRepository extends EntityRepository
 {
 
+    use StatisticDataFilterTrait;
 
     /**
      * @param $successStoryId
@@ -393,140 +395,38 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * This function is used to get registration users by device
+     * This function is used to get user by device statistic data
      *
      * @param $groupBy
      * @param $start
      * @param $end
      * @return array
      */
-    public function getAppVersionsStatisticData($groupBy, $start, $end)
+    public function getUserByDeviceStatisticData($groupBy, $start, $end)
     {
-        //get ios statistic count
-        $iosUsers =  $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select("u.iosVersion as version, COUNT(u.id) as cnt, DATE(u.createdAt) as created")
-            ->from('ApplicationUserBundle:User', 'u')
-            ->where('u.iosVersion IS NOT NULL')
-            ->groupBy('u.iosVersion');
-
-        //get android statistic count
-        $androidUsers = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select("u.androidVersion as version, COUNT(u.id) as cnt, DATE(u.createdAt) as created")
-            ->from('ApplicationUserBundle:User', 'u')
-            ->where('u.androidVersion IS NOT NULL')
-            ->groupBy('u.androidVersion');
-
-        //get web user statistic count
-        $web = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select("COUNT(u.id) as cnt, DATE(u.createdAt) as created")
-            ->from('ApplicationUserBundle:User', 'u')
-            ->where('u.androidVersion is NULL')
-            ->andWhere('u.iosVersion is NULL');
+        //set selected date name
+        $date = 'u.createdAt';
 
         //get total user statistic count
         $total = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select("COUNT(u.id) as cnt, DATE(u.createdAt) as created")
+            ->select("COUNT(u.id) AS counts, COUNT(u.iosVersion ) AS ios, COUNT(u.androidVersion) AS android, DATE(".$date.") as created")
             ->from('ApplicationUserBundle:User', 'u');
 
-        //if start date is exists
-        if ($start) {
-            $iosUsers
-                ->andWhere(':start <= date(u.createdAt)')
-                ->setParameter('start', $start);
+        //get filtered statistic data
+        $total = $this->filterStatisticData($total, $date, $groupBy, $start, $end);
 
-            $androidUsers
-                ->andWhere(':start <= date(u.createdAt)')
-                ->setParameter('start', $start);
+        //generate created by user goal count
+        $total = array_map(function(&$item){
 
-            $web
-                ->andWhere(':start <= date(u.createdAt)')
-                ->setParameter('start', $start);
+        //calculate web user count
+        $item['web'] = $item['counts'] - ($item['ios'] + $item['android']);
 
-            $total
-                ->andWhere(':start <= date(u.createdAt)')
-                ->setParameter('start', $start);
-        }
+        return $item;
 
-        //if end date is exists
-        if ($end) {
-            $iosUsers
-                ->andWhere(':end >= date(u.createdAt)')
-                ->setParameter('end', $end);
+        }, $total);
 
-            $androidUsers
-                ->andWhere(':end >= date(u.createdAt)')
-                ->setParameter('end', $end);
-
-            $web
-                ->andWhere(':end >= date(u.createdAt)')
-                ->setParameter('end', $end);
-
-            $total
-                ->andWhere(':end >= date(u.createdAt)')
-                ->setParameter('end', $end);
-        }
-
-        // switch for group by
-        switch($groupBy) {
-
-            case StatisticController::DAY:
-                $iosUsers
-                    ->groupBy('created')
-                    ->orderBy('created');
-
-                $androidUsers
-                    ->groupBy('created')
-                    ->orderBy('created');
-
-                $web
-                    ->groupBy('created')
-                    ->orderBy('created');
-
-                $total
-                    ->groupBy('created')
-                    ->orderBy('created');
-                break;
-            case StatisticController::MONTH:
-                $iosUsers
-                    ->addSelect('month(u.createdAt) as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
-
-                $androidUsers
-                    ->addSelect('month(u.createdAt) as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
-
-                $web
-                    ->addSelect('month(u.createdAt) as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
-
-                $total
-                    ->addSelect('month(u.createdAt) as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
-                break;
-            default:
-                break;
-        }
-
-        //get user data by social
-        $androidUsers = $androidUsers->getQuery()->getResult();
-        $iosUsers = $iosUsers->getQuery()->getResult();
-        $web = $web->getQuery()->getResult();
-        $total = $total->getQuery()->getResult();
-
-        return [
-            'android' => $androidUsers,
-            'ios'     => $iosUsers,
-            'web' => $web,
-            'total' => $total,
-        ];
+        return $total;
     }
 
     /**
@@ -587,5 +487,30 @@ class UserRepository extends EntityRepository
         //get counts for emails
        return $data = $allSocial->getQuery()->getResult();
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAppVersionsStatistic()
+    {
+        $iosUsers = $this->getEntityManager()
+            ->createQuery("SELECT u.iosVersion version, COUNT(u.id) cnt
+                           FROM ApplicationUserBundle:User u
+                           WHERE u.iosVersion IS NOT NULL
+                           GROUP BY u.iosVersion")
+            ->getResult();
+
+        $androidUsers = $this->getEntityManager()
+            ->createQuery("SELECT u.androidVersion version, COUNT(u.id) cnt
+                           FROM ApplicationUserBundle:User u
+                           WHERE u.androidVersion IS NOT NULL
+                           GROUP BY u.androidVersion")
+            ->getResult();
+
+        return [
+            'android' => $androidUsers,
+            'ios'     => $iosUsers
+        ];
     }
 }

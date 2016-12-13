@@ -94,17 +94,12 @@ class StatisticController extends FOSRestController
             //check if type is registration user by device
             case self::TYPE_REG_USER_BY_DEVICE:
                 //statistic data for registration user by device
-                $statisticData = $em->getRepository('ApplicationUserBundle:User')->getAppVersionsStatisticData($groupBy, $start, $end);
+                $statisticData = $em->getRepository('ApplicationUserBundle:User')->getUserByDeviceStatisticData($groupBy, $start, $end);
                 break;
             //check if type is registration user by social network
             case self::TYPE_REG_USER_BY_SOCIAL:
                 //statistic data for registration user by social
                 $statisticData = $em->getRepository('ApplicationUserBundle:User')->getRegUserBySocialStatisticData($groupBy, $start, $end);
-                break;
-            //check if type is story create
-            case ($type == self::TYPE_STORY_CREATED || $type == self::TYPE_STORY_LIKED):
-                //statistic data for liked or created story
-                $statisticData = $em->getRepository('AppBundle:SuccessStory')->getStoryByTypeForStatisticData($groupBy, $start, $end, $type);
                 break;
                 //check if type is created goal
             case self::TYPE_CREATED_GOAL:
@@ -115,6 +110,11 @@ class StatisticController extends FOSRestController
             case ($type == self::TYPE_ADDED_GOAL || $type == self::TYPE_COMPLETED_GOAL || $type == self::TYPE_PUBLISHED_GOAL):
                 //statistic data for created, added or completed goal
                 $statisticData = $em->getRepository('AppBundle:Goal')->getGoalByTypeForStatisticData($groupBy, $start, $end, $type);
+                break;
+            //check if type is story create
+            case ($type == self::TYPE_STORY_CREATED || $type == self::TYPE_STORY_LIKED):
+                //statistic data for liked or created story
+                $statisticData = $em->getRepository('AppBundle:SuccessStory')->getStoryByTypeForStatisticData($groupBy, $start, $end, $type);
                 break;
             default:
                 break;
