@@ -151,14 +151,14 @@ class SuccessStoryRepository extends EntityRepository
                 break;
         }
 
-        //get completed, added or created goals statistic data
-        $goals = $this->getEntityManager()
+        //get created or liked success story statistic data
+        $story = $this->getEntityManager()
             ->createQueryBuilder()
             ->select("COUNT(ss.id) as counts, DATE(".$date.") as created")
             ->from('AppBundle:SuccessStory', 'ss');
 
         //get filtered statistic data
-        $data = $this->filterStatisticData($goals, $date, $groupBy, $start, $end);
+        $data = $this->filterStatisticData($story, $date, $groupBy, $start, $end);
 
         return $data;
     }
