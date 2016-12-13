@@ -1111,9 +1111,6 @@ class GoalRepository extends EntityRepository
             case StatisticController::TYPE_PUBLISHED_GOAL:
                 $date = 'g.publishedDate';
                 break;
-            case StatisticController::TYPE_CREATED_GOAL:
-                $date = 'g.created';
-                break;
             case StatisticController::TYPE_ADDED_GOAL:
                 $date = 'ug.listedDate';
                 break;
@@ -1143,5 +1140,40 @@ class GoalRepository extends EntityRepository
         $data = $this->filterStatisticData($goals, $date, $groupBy, $start, $end);
 
         return $data;
+    }
+
+    /**
+     * This function is used to get created goal by admin or not admin statistic data
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @return mixed
+     */
+    public function getCreatedGoalStatisticData($groupBy, $start, $end)
+    {
+        //set selected date
+        $date = 'g.created';
+
+        //get completed, added or created goals statistic data
+        $goals = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("COUNT(g.id) as counts, DATE(".$date.") as created,
+             SUM(CASE WHEN at.id IS NULL OR at.isAdmin = (:isAdmin) THEN 1 ELSE 0 END) as byAdmin
+             ")
+            ->from('AppBundle:Goal', 'g')
+            ->leftJoin('g.author', 'at')
+            ->setParameter('isAdmin', true);
+
+        //get filtered statistic data
+        $data = $this->filterStatisticData($goals, $date, $groupBy, $start, $end);
+
+        //generate created by user goal count
+        $data = array_map(function(&$item){
+            $item['byUser'] = $item['counts'] -  $item['byAdmin'];
+            return $item;
+        }, $data);
+
+            return $data;
     }
 }
