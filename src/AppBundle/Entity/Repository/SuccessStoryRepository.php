@@ -136,6 +136,9 @@ class SuccessStoryRepository extends EntityRepository
      */
     public function getStoryByTypeForStatisticData($groupBy, $start, $end, $type)
     {
+        //set default selected date value
+        $date = null;
+
         switch ($type) {
             case StatisticController::TYPE_STORY_CREATED:
                 $date = 'ss.created';

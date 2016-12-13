@@ -1159,8 +1159,7 @@ class GoalRepository extends EntityRepository
         $goals = $this->getEntityManager()
             ->createQueryBuilder()
             ->select("COUNT(g.id) as counts, DATE(".$date.") as created,
-             SUM(CASE WHEN at.id IS NULL OR at.isAdmin = (:isAdmin) THEN 1 ELSE 0 END) as byAdmin
-             ")
+             SUM(CASE WHEN at.id IS NULL OR at.isAdmin = (:isAdmin) THEN 1 ELSE 0 END) as byAdmin")
             ->from('AppBundle:Goal', 'g')
             ->leftJoin('g.author', 'at')
             ->setParameter('isAdmin', true);
@@ -1170,7 +1169,7 @@ class GoalRepository extends EntityRepository
 
         //generate created by user goal count
         $data = array_map(function(&$item){
-            $item['byUser'] = $item['counts'] -  $item['byAdmin'];
+            $item['byUser'] = $item['counts'] - $item['byAdmin'];
             return $item;
         }, $data);
 
