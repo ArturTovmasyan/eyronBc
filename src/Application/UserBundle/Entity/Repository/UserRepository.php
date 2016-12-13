@@ -418,6 +418,19 @@ class UserRepository extends EntityRepository
             ->where('u.androidVersion IS NOT NULL')
             ->groupBy('u.androidVersion');
 
+        //get web user statistic count
+        $web = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("COUNT(u.id) as cnt, DATE(u.createdAt) as created")
+            ->from('ApplicationUserBundle:User', 'u')
+            ->where('u.androidVersion is NULL')
+            ->andWhere('u.iosVersion is NULL');
+
+        //get total user statistic count
+        $total = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("COUNT(u.id) as cnt, DATE(u.createdAt) as created")
+            ->from('ApplicationUserBundle:User', 'u');
 
         //if start date is exists
         if ($start) {
@@ -426,6 +439,14 @@ class UserRepository extends EntityRepository
                 ->setParameter('start', $start);
 
             $androidUsers
+                ->andWhere(':start <= date(u.createdAt)')
+                ->setParameter('start', $start);
+
+            $web
+                ->andWhere(':start <= date(u.createdAt)')
+                ->setParameter('start', $start);
+
+            $total
                 ->andWhere(':start <= date(u.createdAt)')
                 ->setParameter('start', $start);
         }
@@ -437,6 +458,14 @@ class UserRepository extends EntityRepository
                 ->setParameter('end', $end);
 
             $androidUsers
+                ->andWhere(':end >= date(u.createdAt)')
+                ->setParameter('end', $end);
+
+            $web
+                ->andWhere(':end >= date(u.createdAt)')
+                ->setParameter('end', $end);
+
+            $total
                 ->andWhere(':end >= date(u.createdAt)')
                 ->setParameter('end', $end);
         }
@@ -452,6 +481,14 @@ class UserRepository extends EntityRepository
                 $androidUsers
                     ->groupBy('created')
                     ->orderBy('created');
+
+                $web
+                    ->groupBy('created')
+                    ->orderBy('created');
+
+                $total
+                    ->groupBy('created')
+                    ->orderBy('created');
                 break;
             case StatisticController::MONTH:
                 $iosUsers
@@ -463,17 +500,32 @@ class UserRepository extends EntityRepository
                     ->addSelect('month(u.createdAt) as hidden mn')
                     ->groupBy('mn')
                     ->orderBy('mn');
+
+                $web
+                    ->addSelect('month(u.createdAt) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
+
+                $total
+                    ->addSelect('month(u.createdAt) as hidden mn')
+                    ->groupBy('mn')
+                    ->orderBy('mn');
                 break;
             default:
                 break;
         }
 
+        //get user data by social
         $androidUsers = $androidUsers->getQuery()->getResult();
         $iosUsers = $iosUsers->getQuery()->getResult();
+        $web = $web->getQuery()->getResult();
+        $total = $total->getQuery()->getResult();
 
         return [
             'android' => $androidUsers,
-            'ios'     => $iosUsers
+            'ios'     => $iosUsers,
+            'web' => $web,
+            'total' => $total,
         ];
     }
 
@@ -487,6 +539,7 @@ class UserRepository extends EntityRepository
      */
     public function getRegUserBySocialStatisticData($groupBy, $start, $end)
     {
+        //set selected date
         $date = 'u.createdAt';
 
         //get ios statistic count
