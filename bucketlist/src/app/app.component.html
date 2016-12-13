@@ -151,7 +151,7 @@
                                     <span class="hidden-sm">MY List</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul>my-login
 
                         <ul class="nav navbar-nav navbar-right">
                             <li id="notification">
@@ -162,12 +162,21 @@
                                     </a>
                                 </div>
                             </li>
+                            <li>
+                                <a (click)="joinShow = !joinShow">
+                                    <i class="icons mybucketlist-icon"></i>
+                                    <span class="hidden-sm">Join</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <!--{% endif %}-->
                 </div>
             </nav>
         </header>
+        <div *ngIf="joinShow">
+            <my-login (changeJoin)="hideJoin($event)"></my-login>
+        </div>
         <router-outlet></router-outlet>
     </div>
     <footer>
