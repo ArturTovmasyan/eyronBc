@@ -103,7 +103,7 @@ class StatisticController extends FOSRestController
                 break;
                 //check if type is created goal
             case self::TYPE_CREATED_GOAL:
-                //statistic data for registration user by social
+                //statistic data for created goal
                 $statisticData = $em->getRepository('AppBundle:Goal')->getCreatedGoalStatisticData($groupBy, $start, $end);
                 break;
             //check if type is goal added, completed or published
