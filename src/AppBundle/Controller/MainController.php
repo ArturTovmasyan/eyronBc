@@ -273,21 +273,6 @@ class MainController extends Controller
         return 0;
     }
 
-//    /**
-//     * This function is view statistic
-//     *
-//     * @Route("/moderator/version-statistic", name="version_statistic")
-//     * @Template()
-//     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
-//     */
-//    public function versionStatisticAction()
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//        $versionStatisticData = $em->getRepository('ApplicationUserBundle:User')->getAppVersionsStatistic();
-//
-//        return ['appVersionStatistic' => $versionStatisticData];
-//    }
-
     /**
      * This function is view all statistic
      *
