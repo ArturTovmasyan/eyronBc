@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Controller\Rest\StatisticController;
+use AppBundle\Traits\StatisticDataFilterTrait;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,6 +14,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class SuccessStoryRepository extends EntityRepository
 {
+    use StatisticDataFilterTrait;
+
     /**
      * @param $userId
      * @param $goalId
@@ -119,5 +123,40 @@ class SuccessStoryRepository extends EntityRepository
                            LEFT JOIN ss.files si
                            WHERE ss.isInspire = true")
             ->getResult();
+    }
+
+    /**
+     * This function is used to get created, liked story statistic data
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @param $type
+     * @return array
+     */
+    public function getStoryByTypeForStatisticData($groupBy, $start, $end, $type)
+    {
+        switch ($type) {
+            case StatisticController::TYPE_STORY_CREATED:
+                $date = 'ss.created';
+                break;
+                //TODO story liked date is not exist currently
+            case StatisticController::TYPE_STORY_LIKED:
+                $date = 'ss.created';
+                break;
+            default:
+                break;
+        }
+
+        //get completed, added or created goals statistic data
+        $goals = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("COUNT(ss.id) as counts, DATE(".$date.") as created")
+            ->from('AppBundle:SuccessStory', 'ss');
+
+        //get filtered statistic data
+        $data = $this->filterStatisticData($goals, $date, $groupBy, $start, $end);
+
+        return $data;
     }
 }

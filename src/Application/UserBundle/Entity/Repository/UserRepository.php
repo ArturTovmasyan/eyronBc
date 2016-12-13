@@ -487,26 +487,28 @@ class UserRepository extends EntityRepository
      */
     public function getRegUserBySocialStatisticData($groupBy, $start, $end)
     {
+        $date = 'u.createdAt';
+
         //get ios statistic count
        $allSocial =  $this->getEntityManager()
             ->createQueryBuilder()
             ->select("SUM(CASE WHEN u.facebookUid IS NOT NULL THEN 1 ELSE 0 END) as facebook,
                       SUM(CASE WHEN u.twitterUid IS NOT NULL THEN 1 ELSE 0 END) as twitter,
                       SUM(CASE WHEN u.gplusUid IS NOT NULL THEN 1 ELSE 0 END) as google,
-                      DATE(u.createdAt) as created")
+                      DATE(".$date.") as created")
            ->from('ApplicationUserBundle:User', 'u');
 
         //if start date is exists
         if ($start) {
             $allSocial
-                ->andWhere(':start <= date(u.createdAt)')
+                ->andWhere(':start <= date('.$date.')')
                 ->setParameter('start', $start);
         }
 
         //if end date is exists
         if ($end) {
             $allSocial
-                ->andWhere(':end >= date(u.createdAt)')
+                ->andWhere(':end >= date('.$date.')')
                 ->setParameter('end', $end);
         }
 
@@ -520,7 +522,7 @@ class UserRepository extends EntityRepository
                 break;
             case StatisticController::MONTH:
                 $allSocial
-                    ->addSelect('month(u.createdAt) as hidden mn')
+                    ->addSelect('month('.$date.') as hidden mn')
                     ->groupBy('mn')
                     ->orderBy('mn');
                 break;
@@ -529,7 +531,7 @@ class UserRepository extends EntityRepository
         }
 
         //get counts for emails
-       return $allSocial = $allSocial->getQuery()->getResult();
+       return $data = $allSocial->getQuery()->getResult();
 
     }
 }

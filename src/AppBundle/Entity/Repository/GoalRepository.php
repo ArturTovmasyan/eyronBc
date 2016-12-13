@@ -12,6 +12,7 @@ use AppBundle\Controller\Rest\StatisticController;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Model\PublishAware;
+use AppBundle\Traits\StatisticDataFilterTrait;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -24,6 +25,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class GoalRepository extends EntityRepository
 {
+    use StatisticDataFilterTrait;
+
     const TopIdeasCount = 100;
 
     /**
@@ -1090,229 +1093,55 @@ class GoalRepository extends EntityRepository
             ->getResult();
     }
 
-
     /**
-     * This function is used to get published goal statistic data
+     * This function is used to get completed, created or added goal statistic data
      *
      * @param $groupBy
      * @param $start
      * @param $end
+     * @param $type
      * @return array
      */
-    public function getPublishedGoalStatisticData($groupBy, $start, $end)
+    public function getGoalByTypeForStatisticData($groupBy, $start, $end, $type)
     {
-        //get goals statistic data
-        $goals = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select("COUNT(g.id) as counts, DATE(g.publishedDate) as created")
-            ->from('AppBundle:Goal', 'g')
-            ->where('g.publish = :publish')
-            ->andWhere('g.publishedDate is NOT NULL')
-            ->setParameter('publish', Goal::PUBLISH);
+        //set default selected date value
+        $date = null;
 
-        //if start date is exists
-        if ($start) {
-            $goals
-                ->andWhere(':start <= date(g.publishedDate)')
-                ->setParameter('start', $start);
-        }
-
-        //if end date is exists
-        if ($end) {
-            $goals
-                ->andWhere(':end >= date(g.publishedDate)')
-                ->setParameter('end', $end);
-        }
-
-        // switch for group by
-        switch ($groupBy) {
-
-            case StatisticController::DAY:
-                $goals
-                    ->groupBy('created')
-                    ->orderBy('created');
+        switch ($type) {
+            case StatisticController::TYPE_PUBLISHED_GOAL:
+                $date = 'g.publishedDate';
                 break;
-            case StatisticController::MONTH:
-                $goals
-                    ->addSelect('month(g.publishedDate) as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
+            case StatisticController::TYPE_CREATED_GOAL:
+                $date = 'g.created';
+                break;
+            case StatisticController::TYPE_ADDED_GOAL:
+                $date = 'ug.listedDate';
+                break;
+            case StatisticController::TYPE_COMPLETED_GOAL:
+                $date = 'ug.completionDate';
                 break;
             default:
                 break;
         }
 
-        //get counts for emails
-        $goals = $goals->getQuery()->getResult();
-
-        return $goals;
-    }
-
-    /**
-     * This function is used to get created goal statistic data
-     *
-     * @param $groupBy
-     * @param $start
-     * @param $end
-     * @return array
-     */
-    public function getCreatedGoalStatisticData($groupBy, $start, $end)
-    {
-        //get goals statistic data
+        //get completed, added or created goals statistic data
         $goals = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select("COUNT(g.id) as counts, DATE(g.created) as created")
-            ->from('AppBundle:Goal', 'g')
-            ->where('g.created is NOT NULL');
-
-        //if start date is exists
-        if ($start) {
-            $goals
-                ->andWhere(':start <= date(g.created)')
-                ->setParameter('start', $start);
-        }
-
-        //if end date is exists
-        if ($end) {
-            $goals
-                ->andWhere(':end >= date(g.created)')
-                ->setParameter('end', $end);
-        }
-
-        // switch for group by
-        switch ($groupBy) {
-
-            case StatisticController::DAY:
-                $goals
-                    ->groupBy('created')
-                    ->orderBy('created');
-                break;
-            case StatisticController::MONTH:
-                $goals
-                    ->addSelect('month(g.created) as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
-                break;
-            default:
-                break;
-        }
-
-        //get counts for emails
-        $goals = $goals->getQuery()->getResult();
-
-        return $goals;
-    }
-
-    /**
-     * This function is used to get added goal statistic data
-     *
-     * @param $groupBy
-     * @param $start
-     * @param $end
-     * @return array
-     */
-    public function getAddedGoalStatisticData($groupBy, $start, $end)
-    {
-        //get added goals statistic data
-        $goals = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select("COUNT(g.id) as counts, DATE(ug.listedDate) as created")
+            ->select("COUNT(g.id) as counts, DATE(".$date.") as created")
             ->from('AppBundle:Goal', 'g')
             ->leftJoin('g.userGoal', 'ug')
-            ->where('ug.listedDate is NOT NULL');
+            ->where(''.$date.' is NOT NULL');
 
-        //if start date is exists
-        if ($start) {
+        //check if type is published goal
+        if($type == StatisticController::TYPE_PUBLISHED_GOAL) {
             $goals
-                ->andWhere(':start <= date(ug.listedDate)')
-                ->setParameter('start', $start);
+                ->andWhere('g.publish = :publish')
+                ->setParameter('publish', Goal::PUBLISH);
         }
 
-        //if end date is exists
-        if ($end) {
-            $goals
-                ->andWhere(':end >= date(ug.listedDate)')
-                ->setParameter('end', $end);
-        }
+        //get filtered statistic data
+        $data = $this->filterStatisticData($goals, $date, $groupBy, $start, $end);
 
-        // switch for group by
-        switch ($groupBy) {
-
-            case StatisticController::DAY:
-                $goals
-                    ->groupBy('created')
-                    ->orderBy('created');
-                break;
-            case StatisticController::MONTH:
-                $goals
-                    ->addSelect('month(ug.listedDate) as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
-                break;
-            default:
-                break;
-        }
-
-        //get counts for emails
-        $goals = $goals->getQuery()->getResult();
-
-        return $goals;
+        return $data;
     }
-
-    /**
-     * This function is used to get completed goal statistic data
-     *
-     * @param $groupBy
-     * @param $start
-     * @param $end
-     * @return array
-     */
-    public function getCompletedGoalStatisticData($groupBy, $start, $end)
-    {
-        //get completed goals statistic data
-        $goals = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select("COUNT(g.id) as counts, DATE(ug.completionDate) as created")
-            ->from('AppBundle:Goal', 'g')
-            ->leftJoin('g.userGoal', 'ug')
-            ->where('ug.completionDate is NOT NULL');
-
-        //if start date is exists
-        if ($start) {
-            $goals
-                ->andWhere(':start <= date(ug.completionDate)')
-                ->setParameter('start', $start);
-        }
-
-        //if end date is exists
-        if ($end) {
-            $goals
-                ->andWhere(':end >= date(ug.completionDate)')
-                ->setParameter('end', $end);
-        }
-
-        // switch for group by
-        switch ($groupBy) {
-
-            case StatisticController::DAY:
-                $goals
-                    ->groupBy('created')
-                    ->orderBy('created');
-                break;
-            case StatisticController::MONTH:
-                $goals
-                    ->addSelect('month(ug.completionDate) as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
-                break;
-            default:
-                break;
-        }
-
-        //get counts for emails
-        $goals = $goals->getQuery()->getResult();
-
-        return $goals;
-    }
-
 }
