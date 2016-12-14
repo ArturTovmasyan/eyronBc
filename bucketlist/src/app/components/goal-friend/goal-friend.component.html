@@ -1,0 +1,20 @@
+<a routerLink="/goal-friends/{{ user.uid }}" routerLinkActive="active">
+
+  <figure class="image img-circle">
+    <img *ngIf="true" [src]="" alt="" class="img-circle img-responsive"/>
+    <p *ngIf="true" class="no-image">image_path</p>
+  </figure>
+
+  <div class="pull-left text-gray">
+    <h4 class="text-dark-gray">
+      <!--<span class="ng-hide text-dark-gray" [hidden]="nameLength < 31 " >Artur Tovmasyan</span>-->
+      <span class="ng-hide text-dark-gray" title="TEST TEST">
+                                  TEST TEST 5 COUNT...
+                                </span>
+      <!--<i class="leaderboard-small" *ngIf="haveTop && inArray(user.id)"></i>-->
+    </h4>
+
+    <!--<span class="text-gray">{{ 'listed_by'|translate }} <span data-ng-bind="stats.listedBy"></span></span> |-->
+    <!--<span class="text-gray">{{ 'completed'|translate }} <span data-ng-bind="stats.doneBy"></span></span>-->
+  </div>
+</a>

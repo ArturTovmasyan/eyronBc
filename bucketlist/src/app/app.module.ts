@@ -20,6 +20,8 @@ import { GoalAddComponent } from './components/goal-add/goal-add.component';
 import { GoalCompleteComponent } from './components/goal-complete/goal-complete.component';
 import { BaseStoriesComponent } from './components/base-stories/base-stories.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+import { GoalFriendsComponent } from './block/goal-friends/goal-friends.component';
+import { GoalFriendComponent } from './components/goal-friend/goal-friend.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { HomeFooterComponent } from './components/home-footer/home-footer.compon
     GoalCompleteComponent,
     BaseStoriesComponent,
     HomeFooterComponent,
-    LoginComponent
+    LoginComponent,
+    GoalFriendsComponent,
+    GoalFriendComponent
   ],
   imports: [
     BrowserModule,
