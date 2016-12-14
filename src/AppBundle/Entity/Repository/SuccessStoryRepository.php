@@ -154,7 +154,7 @@ class SuccessStoryRepository extends EntityRepository
         }
         elseif ($type == StatisticController::TYPE_STORY_CREATED) {
             $story
-                ->addSelect('count(DISTINCT ss.id) AS counts')
+                ->addSelect('count(DISTINCT ss.id) AS total')
                 ->leftJoin('ss.voters', 'vt');
         }
 
