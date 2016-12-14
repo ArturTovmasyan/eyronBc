@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from './translate';
+import {TranslateService} from 'ng2-translate';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,7 @@ import { TranslateService } from './translate';
 export class AppComponent implements OnInit  {
   public translatedText: string;
   public supportedLanguages: any[];
+  public joinShow:boolean = false;
 
   constructor(private _translate: TranslateService) { }
 
@@ -24,6 +25,9 @@ export class AppComponent implements OnInit  {
 
   }
 
+  hideJoin(ev){
+    this.joinShow = false;
+  }
   isCurrentLang(lang: string) {
     return lang === this._translate.currentLang;
   }

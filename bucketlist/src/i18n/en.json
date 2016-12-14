@@ -1,8 +1,4 @@
-// lang-en.ts
-
-export const LANG_EN_NAME = 'en';
-
-export const LANG_EN_TRANS = {
+{
     "toogle_navigation": "Toggle navigation",
     "activity": "Activity",
     "ideas": "IDEAS",
@@ -32,13 +28,13 @@ export const LANG_EN_TRANS = {
     "featured_ideas": "Featured Ideas",
     "featured": "Featured",
     "setting": {
-    "invalid_user_name": "Name cannot be symbols or numbers. Please, enter a valid name!"
-},
+        "invalid_user_name": "Name cannot be symbols or numbers. Please, enter a valid name!"
+    },
     "message_on_top_of_the_page": "Congrats! You have successfully completed the goal!",
     "share_title": "Share your achievement",
     "facebook_post_text": "I have completed another goal on Bucket List 127. This is how dreams turn into memories! It’s time to take on some more.",
     "goal": {
-    "user_description": "User goal description",
+        "user_description": "User goal description",
         "user_title": "User goal",
         "friend_inner_title": "Bucket List 127- Goalfriend inner page",
         "friend_inner_description": "Description:If you are interested in your goalfriends' interests and want to see their activities and goals, visit their page and get aware of the action he/she takes up.",
@@ -109,10 +105,10 @@ export const LANG_EN_TRANS = {
         "add_access_denied": "You can't add this goal",
         "done_access_denied": "You can't complete this goal",
         "was_created": {
-        "public": "Your goal has been successfully created",
-            "private": "Your private goal has been successfully created"
-    },
-    "existing": "Existing similar goals",
+            "public": "Your goal has been successfully created",
+                "private": "Your private goal has been successfully created"
+        },
+        "existing": "Existing similar goals",
         "importance": "Importance",
         "important": "important",
         "not_important": "not important",
@@ -120,18 +116,18 @@ export const LANG_EN_TRANS = {
         "urgent": "urgent",
         "not_urgent": "not urgent",
         "get_direction": "Get directions"
-},
+    },
     "goal_friend_menu": {
-    "all": "All",
+        "all": "All",
         "recently_matched": "Recently Matched",
         "most_matching": "Most Matching",
         "most_activity": "Most Active",
         "follow": "Following"
-},
+    },
     "activities": {
-    "title": "Bucket List 127-Activity",
+        "title": "Bucket List 127-Activity",
         "description": "It is the list of goals that your goalfriends have listed, done or completed. Be aware of your goalfriends' activity, it may end up on yours."
-},
+    },
     "Title": "Title",
     "Description": "Description",
     "Type in a youtube or vimeo link in the field": "Type in a youtube or vimeo link in the field",
@@ -152,12 +148,12 @@ export const LANG_EN_TRANS = {
     "progress_good": "Good job! You are in sync with your projected goals.",
     "progress_excellent": "Excellent! You are outperforming! You can do more. Discover thousands of great ideas for your Bucket List.",
     "notify": {
-    "now": "Just now",
+        "now": "Just now",
         "minute": "minutes ago",
         "hour": "hour ago",
         "hours": "hours ago",
         "yesterday": "yesterday at"
-},
+    },
     "btn_delete": "Remove",
     "btn_publish": "PUBLISH",
     "btn_back_and_edit": "EDIT",
@@ -168,7 +164,7 @@ export const LANG_EN_TRANS = {
     "btn_edit": "EDIT",
     "btn_remove": "Remove",
     "user_goal": {
-    "public": "Public",
+        "public": "Public",
         "private": "Private",
         "privacy": "Privacy",
         "quality": "Quality",
@@ -178,9 +174,9 @@ export const LANG_EN_TRANS = {
         "not_urgent": "Not Urgent",
         "active": "Active",
         "completed": "Completed"
-},
+    },
     "success_story": {
-    "error_year": "You cannot complete your goal at a future date",
+        "error_year": "You cannot complete your goal at a future date",
         "error_day_in_month1": "This month possesses",
         "error_day_in_month2": "days. Please enter a valid date",
         "error_uncomplete_year": "You should select at least the year.",
@@ -198,33 +194,33 @@ export const LANG_EN_TRANS = {
         "edit_access_denied": "You can't edit this success story",
         "delete_access_denied": "You can't remove this success story",
         "delete_confirm": "You are about to remove your success story. Are you sure?"
-},
+    },
     "register_text": "Confirm your email address to access all of %XXX%'s features.",
     "filters": {
     "import_urgent": "Important, <br />\n<span>urgent<span/>\n",
         "not_import_urgent": "Not important, <br />\n<span>urgent<span/>\n",
         "import_not_urgent": "Important, <br />\n <span> not urgent<span/>\n",
         "not_import_not_urgent": "Not important, <br />\n<span>not urgent<span/>\n"
-},
+    },
     "account": {
-    "complete_text": "Confirm your account",
+        "complete_text": "Confirm your account",
         "complete": "Complete"
-},
+    },
     "file": {
-    "width_extension": "The minimum image size is 400x400 px",
+        "width_extension": "The minimum image size is 400x400 px",
         "heigh_extension": "The minimum image size is 400x400 px",
         "extension_error": "Wrong format of file",
         "size_error": "Wrong size of file"
-},
+    },
     "filter": {
-    "dream": "Dreams",
+        "dream": "Dreams",
         "import_urgent": "Important, urgent",
         "not_import_urgent": "Not important, urgent",
         "import_not_urgent": "Important, not urgent",
         "not_import_not_urgent": "Not important, not urgent"
-},
+    },
     "menu": {
-    "bucket": "My Bucketlist",
+        "bucket": "My Bucketlist",
         "active": "Active",
         "activity": "Activity",
         "completed": "Completed",
@@ -232,41 +228,41 @@ export const LANG_EN_TRANS = {
         "common": "In Common",
         "owned": "Created",
         "bucketlist_stories": "Bucket List Blog"
-},
+    },
     "right_menu": {
-    "my_ideas": "My Ideas",
+        "my_ideas": "My Ideas",
         "private": "My Private Ideas",
         "create": "Create a Goal",
         "draft": "Drafts",
         "ideas": "Top Ideas",
         "suggested": "Suggested Ideas",
         "show": "All Goals"
-},
+    },
     "active": {
-    "not_have": "You have no goals, please, start"
-},
+        "not_have": "You have no goals, please, start"
+    },
     "manage": "MANAGE",
     "home_ideas": {
-    "title": "Bucket List 127 - The goal is to have memories, not only dreams!",
+        "title": "Bucket List 127 - The goal is to have memories, not only dreams!",
         "description": "Have your list of goals for life and see how much more you would achieve over what you could possibly imagine."
-},
+    },
     "page": {
-    "title": "Page",
+        "title": "Page",
         "description": "Page description",
         "contacr_us": {
-        "form": {
-            "full_name": "Full Name",
+            "form": {
+                "full_name": "Full Name",
                 "email": "Email",
                 "subject": "Subject",
                 "message": "Message",
                 "send": "Send"
-        },
-        "message_title": "Thank you, your message has been sent.",
+            },
+            "message_title": "Thank you, your message has been sent.",
             "message_content": "We will get in touch with you as soon as possible."
-    }
-},
+        }
+    },
     "my_bucket_list": {
-    "title": "Bucket List 127-My Bucketlist",
+        "title": "Bucket List 127-My Bucketlist",
         "active_goals": "My Bucket List 127-Active Goals",
         "completed_goals": "My Bucket List 127-Competed Goals",
         "description": "Look at the things you did and the things you are about to do. See the list of your own goals, manage and share your own 'bucketlist'.",
@@ -299,25 +295,25 @@ export const LANG_EN_TRANS = {
         "noinou_title": "- not important, not urgent",
         "noinou_description": "Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are neither important, nor urgent.",
         "calendar": {
-        "completed": "Completed goal",
+            "completed": "Completed goal",
             "theCompleted": "Completed goals",
             "deadline": "Overdue goal",
             "deadlines": "Overdue goals",
             "active": "Active goal",
             "actives": "Active goals"
-    }
-},
+        }
+    },
     "draft": {
-    "edit": "Edit",
+        "edit": "Edit",
         "update": "Update Draft",
         "create": "Save as a Draft",
         "title": "Bucket List 127-Drafts",
         "description": "If you hesitate to start a goal and still think over to create it or not, don't delay. Draft list gives you an opportunity to see the goals you have worked on but not yet published."
-},
+    },
     "private_ideas": {
-    "title": "Bucket List 127-Private Ideas",
+        "title": "Bucket List 127-Private Ideas",
         "description": "If you want to have a look at your private ideas, here you can see your own ideas list that will remind you of your activities."
-},
+    },
     "done_by": "Completed by",
     "home_complete": "Completed by",
     "home_voters": "Liked by",
@@ -346,8 +342,8 @@ export const LANG_EN_TRANS = {
     "profile_empty": "No such Goals",
     "activity_empty": "No Activity",
     "deadline": {
-    "complete_text": "Set a deadline"
-},
+        "complete_text": "Set a deadline"
+    },
     "image_complete_text": "Upload an image",
     "goalfriends": "Goalfriends",
     "Add a note": "Add a note",
@@ -365,7 +361,7 @@ export const LANG_EN_TRANS = {
     "Page Create": "Page Create",
     "Dashboard": "Dashboard",
     "notification": {
-    "no_notification": "No notifications",
+        "no_notification": "No notifications",
         "success_story": "wrote success story on your goal",
         "important_goal_success_story": "wrote success story on your important goal",
         "success_story_vote": "voted for your success story",
@@ -376,11 +372,11 @@ export const LANG_EN_TRANS = {
         "description": "Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.",
         "following_story": "follower wrote success story",
         "following_comment": "follower wrote comment"
-},
+    },
     "admin": {
-    "label": {
-        "name": {
-            "user": "User",
+        "label": {
+            "name": {
+                "user": "User",
                 "tag": "Tag",
                 "category": "Category",
                 "aphorism": "Aphorism",
@@ -506,9 +502,9 @@ export const LANG_EN_TRANS = {
                 "all": "All",
                 "only_year": "Only Year",
                 "only_year_month": "Only Year Month"
+            }
         }
-    }
-},
+    },
     "User List": "User List",
     "Tag List": "Tag List",
     "Category List": "Category List",
@@ -537,22 +533,22 @@ export const LANG_EN_TRANS = {
     "<": "<",
     "<=": "<=",
     "report": {
-    "title": "Report",
+        "title": "Report",
         "spam": "It's annoying or spam",
         "opinion": "I think it shouldn't be on BucketList127",
         "other": "Other",
         "thanks": "Thank you",
         "message": "We have received your report"
-},
+    },
     "achievment": "Achievement",
     "overall": {
-    "progress": "Overall Progress",
+        "progress": "Overall Progress",
         "good": "Good job! You are in sync with your projected goals.",
         "excellent": "Excellent! You are outperforming!",
         "falling": "Get a move on! You are falling behind your goals."
-},
+    },
     "notify_settings": {
-    "user_activity": "Highlights",
+        "user_activity": "Highlights",
         "comment_goal": "Goals commented",
         "comment_goal_desc": "Comment on your added goals that are set important",
         "comment_idea": "Ideas commented",
@@ -573,9 +569,9 @@ export const LANG_EN_TRANS = {
         "new_goalfriend_desc": "Notification you get when you make new goalfriends",
         "new_idea": "New Ideas",
         "new_idea_desc": "Notification for new ideas suggested by Bucket List 127"
-},
+    },
     "leaderboard": {
-    "name": "leaderboard",
+        "name": "leaderboard",
         "title": "Bucketlist 127-Leaderboard",
         "description": "The Bucket List 127 Leaderboard is used to display the rank among people based on their activity.",
         "traveler": "Traveler",
@@ -592,7 +588,7 @@ export const LANG_EN_TRANS = {
         "leaders": "Leaders",
         "score": "Score",
         "level": "Level"
-},
+    },
     "goalfriend": "Goalfriend",
     "closefriend": "Closefriend"
-};
+}

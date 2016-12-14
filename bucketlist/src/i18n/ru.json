@@ -1,8 +1,4 @@
-// lang-en.ts
-
-export const LANG_RU_NAME = 'ru';
-
-export const LANG_RU_TRANS = {
+{
     "toogle_navigation": "Навигация с функцией переключения",
     "activity": "Лента",
     "ideas": "Идеи",
@@ -430,7 +426,4 @@ export const LANG_RU_TRANS = {
         "leaders": "Лидеры",
         "score": "Очки",
         "level": "Уровень"
-},
-    "goalfriend": "Единомышленник",
-    "closefriend": "Близкий Единомышленник"
-};
+}

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Jsonp, URLSearchParams } from '@angular/http';
+import {Http, Response, URLSearchParams, Headers } from '@angular/http';
 
 import {Goal} from "./interface/goal";
 import {User} from "./interface/user";
@@ -15,15 +15,30 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ProjectService {
-    private baseUrl = 'http://bucketlist.loc/api/v1.0/';
+    private baseOrigin = 'http://bucketlist.loc/';
+    private baseUrl = this.baseOrigin + 'api/v1.0/';
     private goalUrl = '';  // URL to web API
     private usersUrl = 'users';  // URL to web API
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/0/7?search=&category=';  // URL to web API
 
-    constructor(private http:Http, private jsonp: Jsonp) {
+    constructor(private http:Http) {
     }
 
+    /**
+     * 
+     * @param loginData
+     * @returns {any}
+     */
+    auth(loginData: Object):Observable<any> {
+
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this.http.post(this.baseOrigin + 'api/auth', JSON.stringify(loginData),
+            headers
+        ).map((res:Response) => res.json());
+    }
     /**
      *
      * @param slug
