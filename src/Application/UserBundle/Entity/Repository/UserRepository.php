@@ -410,7 +410,7 @@ class UserRepository extends EntityRepository
         //get total user statistic count
         $total = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select("COUNT(u.id) AS counts, COUNT(u.iosVersion ) AS ios, COUNT(u.androidVersion) AS android, DATE(".$date.") as created")
+            ->select("COUNT(u.id) AS total, COUNT(u.iosVersion ) AS ios, COUNT(u.androidVersion) AS android, DATE(".$date.") as created")
             ->from('ApplicationUserBundle:User', 'u');
 
         //get filtered statistic data
@@ -420,7 +420,7 @@ class UserRepository extends EntityRepository
         $total = array_map(function(&$item){
 
         //calculate web user count
-        $item['web'] = $item['counts'] - ($item['ios'] + $item['android']);
+        $item['web'] = $item['total'] - ($item['ios'] + $item['android']);
 
         return $item;
 
@@ -452,40 +452,11 @@ class UserRepository extends EntityRepository
                       DATE(".$date.") as created")
            ->from('ApplicationUserBundle:User', 'u');
 
-        //if start date is exists
-        if ($start) {
-            $allSocial
-                ->andWhere(':start <= date('.$date.')')
-                ->setParameter('start', $start);
-        }
-
-        //if end date is exists
-        if ($end) {
-            $allSocial
-                ->andWhere(':end >= date('.$date.')')
-                ->setParameter('end', $end);
-        }
-
-        // switch for group by
-        switch($groupBy) {
-
-            case StatisticController::DAY:
-                $allSocial
-                    ->groupBy('created')
-                    ->orderBy('created');
-                break;
-            case StatisticController::MONTH:
-                $allSocial
-                    ->addSelect('month('.$date.') as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
-                break;
-            default:
-                break;
-        }
+        //get filtered statistic data
+        $data = $this->filterStatisticData($allSocial, $date, $groupBy, $start, $end);
 
         //get counts for emails
-       return $data = $allSocial->getQuery()->getResult();
+       return $data;
 
     }
 }
