@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Controller\Rest\StatisticController;
+use AppBundle\Traits\StatisticDataFilterTrait;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,6 +14,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class SuccessStoryRepository extends EntityRepository
 {
+    use StatisticDataFilterTrait;
+
     /**
      * @param $userId
      * @param $goalId
@@ -119,5 +123,43 @@ class SuccessStoryRepository extends EntityRepository
                            LEFT JOIN ss.files si
                            WHERE ss.isInspire = true")
             ->getResult();
+    }
+
+    /**
+     * This function is used to get created, liked story statistic data
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @param $type
+     * @return array
+     */
+    public function getStoryByTypeForStatisticData($groupBy, $start, $end, $type)
+    {
+        //set default selected date value
+        $date = 'ss.created';
+
+        //get created or liked success story statistic data
+        $story = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("DATE(".$date.") as created")
+            ->from('AppBundle:SuccessStory', 'ss');
+
+        //check if type is story like
+        if ($type == StatisticController::TYPE_STORY_LIKED) {
+            $story
+                ->addSelect('count(vt.id) AS liked')
+                ->leftJoin('ss.voters', 'vt');
+        }
+        elseif ($type == StatisticController::TYPE_STORY_CREATED) {
+            $story
+                ->addSelect('count(DISTINCT ss.id) AS counts')
+                ->leftJoin('ss.voters', 'vt');
+        }
+
+        //get filtered statistic data
+        $data = $this->filterStatisticData($story, $date, $groupBy, $start, $end);
+
+        return $data;
     }
 }

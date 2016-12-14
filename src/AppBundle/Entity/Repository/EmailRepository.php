@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Repository;
 
 use AppBundle\Controller\Rest\StatisticController;
+use AppBundle\Traits\StatisticDataFilterTrait;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -13,55 +14,30 @@ use Doctrine\ORM\EntityRepository;
  */
 class EmailRepository extends EntityRepository
 {
+    use StatisticDataFilterTrait;
+
     /**
+     * This function is used to get email data for statistic
+     *
      * @param $start
      * @param $end
      * @param $groupBy
      * @return array
      */
-    public function findStatisticData($groupBy = StatisticController::DAY, $start, $end)
+    public function getEmailStatisticData($groupBy = StatisticController::DAY, $start, $end)
     {
+        //set selected date
+        $date = 'em.sent';
+
         //get emails statistic count
         $emails =  $this->getEntityManager()
             ->createQueryBuilder()
-            ->select("count(em.id) as send, DATE(em.sent) as created, SUM(CASE WHEN em.seen IS NOT NULL THEN 1 ELSE 0 END) as read")
+            ->select("count(em.id) as send, DATE(".$date.") as created, SUM(CASE WHEN em.seen IS NOT NULL THEN 1 ELSE 0 END) as read")
             ->from('AppBundle:Email', 'em');
 
-        //if start date is exists
-        if ($start) {
-            $emails
-                ->andWhere(':start <= date(em.sent)')
-                ->setParameter('start', $start);
-        }
+        //get filtered statistic data
+        $data = $this->filterStatisticData($emails, $date, $groupBy, $start, $end);
 
-        //if end date is exists
-        if ($end) {
-            $emails
-                ->andWhere(':end >= date(em.sent)')
-                ->setParameter('end', $end);
-        }
-
-        // switch for group by
-        switch($groupBy) {
-
-            case StatisticController::DAY:
-                $emails
-                    ->groupBy('created')
-                    ->orderBy('created');
-                break;
-            case StatisticController::MONTH:
-                $emails
-                    ->addSelect('month(em.sent) as hidden mn')
-                    ->groupBy('mn')
-                    ->orderBy('mn');
-                break;
-            default:
-                break;
-        }
-
-        //get counts for emails
-        $emails = $emails->getQuery()->getResult();
-
-        return $emails;
+        return $data;
     }
 }
