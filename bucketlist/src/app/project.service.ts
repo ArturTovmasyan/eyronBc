@@ -23,6 +23,7 @@ export class ProjectService {
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/0/7?search=&category=';  // URL to web API
     private goalFriends = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
+    private topIdeas = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     constructor(private http:Http) {
     }
 
@@ -81,6 +82,16 @@ export class ProjectService {
     getGaolFriends():Observable<User[]> {
         return this.http.get(this.goalFriends)
             .map((r:Response) => r.json() as User[])
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getTopIdeas():Observable<Goal[]> {
+        return this.http.get(this.topIdeas)
+            .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     }
 

@@ -1,0 +1,48 @@
+<div class="modal-top">
+
+  <!--{% set image = goal.getListPhoto  %}-->
+  <!--{% set author = goal.author %}-->
+  <!--{% set show = true %}-->
+
+  <figure>
+    <img [src]="testscs.jpg" alt="Title" class="img-responsive" />
+    <!--<img [src]="{{goal.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt="{{ goal.title }}" class="img-responsive" />-->
+  </figure>
+
+  <span class="overlay"></span>
+
+  <div>
+
+    <h2>
+      <!--<span>{{ goal.title }}</span>-->
+      <span>MY GOALS</span>
+    </h2>
+
+    <!--{% if user and author and user.id == author.id %}-->
+    <!--{% set show = false %}-->
+    <!--{% endif %}-->
+
+    <!--{% if author and not author.isAdmin and show %}-->
+    <!--<p>{{ goal.author.showName }}</p>-->
+    <p>Artur</p>
+    <!--{% endif %}-->
+
+    <ul>
+      <li>
+        <a href="#">
+          {{ 'block_listed'|translate }}
+          <span>{{ goal.stats.listedBy }}</span>
+          <i class="icon-user-small"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          {{ 'block_completed'|translate }}
+          <span>{{ goal.stats.doneBy }}</span>
+          <i class="icon-user-small"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</div>

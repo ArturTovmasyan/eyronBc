@@ -22,6 +22,7 @@ import { BaseStoriesComponent } from './components/base-stories/base-stories.com
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { GoalFriendsComponent } from './block/goal-friends/goal-friends.component';
 import { GoalFriendComponent } from './components/goal-friend/goal-friend.component';
+// import { TopIdeasComponent } from './block/top-ideas/top-ideas.component';
 
 @NgModule({
   declarations: [
