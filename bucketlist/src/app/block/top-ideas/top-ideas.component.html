@@ -1,3 +1,18 @@
+<div class="row">
+  <div class="col-xs-10">
+    <a routerLink="/ideas/most-popular" routerLinkActive="active" class="heading text-gray">
+      <i class="icon-top-idea"></i>
+      <span class="text">{{ 'top-ideas'|translate }} 15</span>
+    </a>
+  </div>
+
+  <div class="col-xs-2 text-right">
+    <a href="javascript:void(0)" (click)="refreshGoalFriends" class="load" id="topIdeasLoad"></a>
+  </div>
+</div>
+
+<hr/>
+
 <div class="modal-top">
 
   <!--{% set image = goal.getListPhoto  %}-->
