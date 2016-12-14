@@ -1,13 +1,13 @@
 webpackJsonp([4,13],{
 
-/***/ 730:
+/***/ 733:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__goalfriends_component__ = __webpack_require__(742);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__goal_friends_routing__ = __webpack_require__(751);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__goalfriends_component__ = __webpack_require__(745);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__goal_friends_routing__ = __webpack_require__(754);
 /* harmony export (binding) */ __webpack_require__.d(exports, "GoalfriendsModule", function() { return GoalfriendsModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,7 +41,7 @@ var GoalfriendsModule = (function () {
 
 /***/ },
 
-/***/ 742:
+/***/ 745:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65,8 +65,8 @@ var GoalfriendsComponent = (function () {
     GoalfriendsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-goalfriends',
-            template: __webpack_require__(772),
-            styles: [__webpack_require__(761)]
+            template: __webpack_require__(775),
+            styles: [__webpack_require__(764)]
         }), 
         __metadata('design:paramtypes', [])
     ], GoalfriendsComponent);
@@ -76,12 +76,12 @@ var GoalfriendsComponent = (function () {
 
 /***/ },
 
-/***/ 751:
+/***/ 754:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__goalfriends_component__ = __webpack_require__(742);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__goalfriends_component__ = __webpack_require__(745);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalfriendsRouting; });
 
 
@@ -94,14 +94,14 @@ var GoalfriendsRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* Ro
 
 /***/ },
 
-/***/ 761:
+/***/ 764:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 772:
+/***/ 775:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  goalfriends works!\n</p>\n"

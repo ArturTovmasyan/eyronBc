@@ -1,0 +1,26 @@
+<div >
+  <div class="bg-white padding round margin-top">
+
+  <div class="row">
+      <div class="col-xs-10">
+
+        <a routerLink="/goal-friends" routerLinkActive="active" class="heading text-gray">
+          <i class="goalfrined-icon"></i>
+          <span class="text">{{ 'goalfriends'|translate }} 5</span>
+        </a>
+      </div>
+
+      <div class="col-xs-2 text-right">
+        <a href="javascript:void(0)" (click)="refreshGoalFriends" class="load" id="goalFriendLoad"></a>
+      </div>
+    </div>
+
+    <hr/>
+
+    <ul class="list">
+      <li class="clearfix friends-animate" *ngFor="let user of users">
+        <goal-friend [user]="user"></goal-friend>
+      </li>
+    </ul>
+  </div>
+</div>

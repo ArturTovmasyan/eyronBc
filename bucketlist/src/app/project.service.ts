@@ -15,13 +15,15 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ProjectService {
+
     private baseOrigin = 'http://bucketlist.loc/';
     private baseUrl = this.baseOrigin + 'api/v1.0/';
     private goalUrl = '';  // URL to web API
     private usersUrl = 'users';  // URL to web API
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/0/7?search=&category=';  // URL to web API
-
+    private goalFriends = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
+    private topIdeas = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     constructor(private http:Http) {
     }
 
@@ -39,6 +41,7 @@ export class ProjectService {
             headers
         ).map((res:Response) => res.json());
     }
+
     /**
      *
      * @param slug
@@ -71,7 +74,27 @@ export class ProjectService {
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);
     }
-    
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getGaolFriends():Observable<User[]> {
+        return this.http.get(this.goalFriends)
+            .map((r:Response) => r.json() as User[])
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getTopIdeas():Observable<Goal[]> {
+        return this.http.get(this.topIdeas)
+            .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
+
     /**
      *
      * @returns {Observable<R>}

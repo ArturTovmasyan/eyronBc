@@ -6,17 +6,17 @@ import { IdeasComponent }    from './ideas.component';
 import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
 
 import { IdeasRouting } from './ideas-routing';
-// import { HeroService } from './hero.service';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IdeasRouting
+    IdeasRouting,
   ],
   declarations: [
     IdeasComponent,
-    IdeasCategoryComponent
+    IdeasCategoryComponent,
   ],
   providers: [
     // HeroService

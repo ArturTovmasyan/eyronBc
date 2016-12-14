@@ -1,13 +1,13 @@
 webpackJsonp([6,13],{
 
-/***/ 728:
+/***/ 731:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drafts_component__ = __webpack_require__(740);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__draft_routing__ = __webpack_require__(749);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drafts_component__ = __webpack_require__(743);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__draft_routing__ = __webpack_require__(752);
 /* harmony export (binding) */ __webpack_require__.d(exports, "DraftsModule", function() { return DraftsModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,7 +41,7 @@ var DraftsModule = (function () {
 
 /***/ },
 
-/***/ 740:
+/***/ 743:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65,8 +65,8 @@ var DraftsComponent = (function () {
     DraftsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-drafts',
-            template: __webpack_require__(770),
-            styles: [__webpack_require__(759)]
+            template: __webpack_require__(773),
+            styles: [__webpack_require__(762)]
         }), 
         __metadata('design:paramtypes', [])
     ], DraftsComponent);
@@ -76,12 +76,12 @@ var DraftsComponent = (function () {
 
 /***/ },
 
-/***/ 749:
+/***/ 752:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drafts_component__ = __webpack_require__(740);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drafts_component__ = __webpack_require__(743);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DraftRouting; });
 
 
@@ -94,14 +94,14 @@ var DraftRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterMo
 
 /***/ },
 
-/***/ 759:
+/***/ 762:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 770:
+/***/ 773:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  drafts works!\n</p>\n"

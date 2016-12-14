@@ -1,13 +1,13 @@
 webpackJsonp([2,13],{
 
-/***/ 734:
+/***/ 737:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__notification_component__ = __webpack_require__(746);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__notification_routing__ = __webpack_require__(755);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__notification_component__ = __webpack_require__(749);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__notification_routing__ = __webpack_require__(758);
 /* harmony export (binding) */ __webpack_require__.d(exports, "NotificationModule", function() { return NotificationModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,7 +41,7 @@ var NotificationModule = (function () {
 
 /***/ },
 
-/***/ 746:
+/***/ 749:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65,8 +65,8 @@ var NotificationComponent = (function () {
     NotificationComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-notification',
-            template: __webpack_require__(777),
-            styles: [__webpack_require__(766)]
+            template: __webpack_require__(780),
+            styles: [__webpack_require__(769)]
         }), 
         __metadata('design:paramtypes', [])
     ], NotificationComponent);
@@ -76,12 +76,12 @@ var NotificationComponent = (function () {
 
 /***/ },
 
-/***/ 755:
+/***/ 758:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__notification_component__ = __webpack_require__(746);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__notification_component__ = __webpack_require__(749);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NotificationRouting; });
 
 
@@ -94,14 +94,14 @@ var NotificationRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* R
 
 /***/ },
 
-/***/ 766:
+/***/ 769:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 777:
+/***/ 780:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  notification works!\n</p>\n"

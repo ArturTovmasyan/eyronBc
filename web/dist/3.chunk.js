@@ -1,13 +1,13 @@
 webpackJsonp([3,13],{
 
-/***/ 732:
+/***/ 735:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__inner_component__ = __webpack_require__(745);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inner_routing__ = __webpack_require__(753);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__inner_component__ = __webpack_require__(748);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inner_routing__ = __webpack_require__(756);
 /* harmony export (binding) */ __webpack_require__.d(exports, "InnerModule", function() { return InnerModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,13 +41,13 @@ var InnerModule = (function () {
 
 /***/ },
 
-/***/ 745:
+/***/ 748:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(377);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(378);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InnerComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -87,8 +87,8 @@ var InnerComponent = (function () {
     InnerComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-inner',
-            template: __webpack_require__(775),
-            styles: [__webpack_require__(764)],
+            template: __webpack_require__(778),
+            styles: [__webpack_require__(767)],
             providers: [__WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */]) === 'function' && _b) || Object])
@@ -100,12 +100,12 @@ var InnerComponent = (function () {
 
 /***/ },
 
-/***/ 753:
+/***/ 756:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inner_component__ = __webpack_require__(745);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inner_component__ = __webpack_require__(748);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InnerRouting; });
 
 
@@ -118,14 +118,14 @@ var InnerRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterMo
 
 /***/ },
 
-/***/ 764:
+/***/ 767:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 775:
+/***/ 778:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  inner works!\n</p>\n"

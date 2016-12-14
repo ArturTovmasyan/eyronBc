@@ -1,12 +1,12 @@
 webpackJsonp([8,13],{
 
-/***/ 736:
+/***/ 739:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings_component__ = __webpack_require__(757);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings_component__ = __webpack_require__(760);
 /* harmony export (binding) */ __webpack_require__.d(exports, "SettingsModule", function() { return SettingsModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -38,7 +38,7 @@ var SettingsModule = (function () {
 
 /***/ },
 
-/***/ 757:
+/***/ 760:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62,8 +62,8 @@ var SettingsComponent = (function () {
     SettingsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-settings',
-            template: __webpack_require__(779),
-            styles: [__webpack_require__(768)]
+            template: __webpack_require__(782),
+            styles: [__webpack_require__(771)]
         }), 
         __metadata('design:paramtypes', [])
     ], SettingsComponent);
@@ -73,14 +73,14 @@ var SettingsComponent = (function () {
 
 /***/ },
 
-/***/ 768:
+/***/ 771:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 779:
+/***/ 782:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  settings works!\n</p>\n"
