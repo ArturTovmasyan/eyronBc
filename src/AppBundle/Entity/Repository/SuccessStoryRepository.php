@@ -143,11 +143,18 @@ class SuccessStoryRepository extends EntityRepository
         $story = $this->getEntityManager()
             ->createQueryBuilder()
             ->select("COUNT(DISTINCT ss.id) as total, DATE(".$date.") as created")
+            ->select("DATE(".$date.") as created")
             ->from('AppBundle:SuccessStory', 'ss');
 
+        //check if type is story like
         if ($type == StatisticController::TYPE_STORY_LIKED) {
             $story
                 ->addSelect('count(vt.id) AS liked')
+                ->leftJoin('ss.voters', 'vt');
+        }
+        elseif ($type == StatisticController::TYPE_STORY_CREATED) {
+            $story
+                ->addSelect('count(DISTINCT ss.id) AS counts')
                 ->leftJoin('ss.voters', 'vt');
         }
 
