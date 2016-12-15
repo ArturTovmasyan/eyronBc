@@ -23,14 +23,14 @@
                                 <div class="radio">
                                     <label>
                                         <input type="radio" name="type" data-ng-model="type.name" data-ng-change="filter()" value="device">
-                                        New User(Devices)
+                                        Devices
                                     </label>
                                 </div>
 
                                 <div class="radio">
                                     <label>
                                         <input type="radio" name="type" data-ng-model="type.name" data-ng-change="filter()" value="social">
-                                        New Users
+                                        Social Networks
                                     </label>
                                 </div>
 
@@ -95,7 +95,7 @@
 
                         <div class="col-sm-3">
                             <label for="type">Frequency</label>
-                            <select name="groupBy" class="form-control" data-ng-model="groupType">
+                            <select name="groupBy" class="form-control" data-ng-model="groupType" data-ng-change="filter()">
                                 <option value="month">Monthly</option>
                                 {#<option value="week">Weekly</option>#}
                                 <option value="day">Day</option>
