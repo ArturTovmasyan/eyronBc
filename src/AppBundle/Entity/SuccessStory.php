@@ -62,19 +62,8 @@ class SuccessStory implements ActivityableInterface
      **/
     protected $user;
 
-//    /**
-//     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id", fetch="EXTRA_LAZY")
-//     * @ORM\JoinTable(name="success_story_voters",
-//     *      joinColumns={@ORM\JoinColumn(name="success_story_id", referencedColumnName="id")},
-//     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-//     * )
-//     * @Groups({"successStory_voters"})
-//     **/
-//    protected $voters;
-
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SuccessStoryVoters", mappedBy="successStory", indexBy="id", fetch="EXTRA_LAZY", cascade={"persist", "remove"})
-     * @Groups({"successStory_voters"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SuccessStoryVoters", mappedBy="successStory", cascade={"persist", "remove"})
      */
     protected $successStoryVoters;
 
@@ -334,10 +323,10 @@ class SuccessStory implements ActivityableInterface
     /**
      * Set user
      *
-     * @param \Application\UserBundle\Entity\User $user
+     * @param User $user
      * @return SuccessStory
      */
-    public function setUser(\Application\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -397,11 +386,11 @@ class SuccessStory implements ActivityableInterface
     /**
      * Add successStoryVoter
      *
-     * @param \AppBundle\Entity\SuccessStoryVoters $successStoryVoter
+     * @param SuccessStoryVoters $successStoryVoter
      *
      * @return SuccessStory
      */
-    public function addSuccessStoryVoter(\AppBundle\Entity\SuccessStoryVoters $successStoryVoter)
+    public function addSuccessStoryVoter(SuccessStoryVoters $successStoryVoter)
     {
 
         if (!isset($this->successStoryVoters[$successStoryVoter->getId()])) {
@@ -415,7 +404,7 @@ class SuccessStory implements ActivityableInterface
      * @param SuccessStoryVoters $successStoryVoter
      * @return $this
      */
-    public function removeSuccessStoryVoter(\AppBundle\Entity\SuccessStoryVoters $successStoryVoter)
+    public function removeSuccessStoryVoter(SuccessStoryVoters $successStoryVoter)
     {
         if (isset($this->successStoryVoters[$successStoryVoter->getId()])) {
             $this->successStoryVoters->removeElement($successStoryVoter);

@@ -85,11 +85,11 @@ class SuccessStoryVoters
     /**
      * Set successStory
      *
-     * @param \AppBundle\Entity\SuccessStory $successStory
+     * @param SuccessStory $successStory
      *
      * @return SuccessStoryVoters
      */
-    public function setSuccessStory(\AppBundle\Entity\SuccessStory $successStory = null)
+    public function setSuccessStory(SuccessStory $successStory = null)
     {
         $this->successStory = $successStory;
 
@@ -99,7 +99,7 @@ class SuccessStoryVoters
     /**
      * Get successStory
      *
-     * @return \AppBundle\Entity\SuccessStory
+     * @return SuccessStory
      */
     public function getSuccessStory()
     {
