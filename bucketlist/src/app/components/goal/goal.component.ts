@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { GoalFooterComponent } from '../goal-footer/goal-footer.component';
 import { Goal } from '../../interface/goal';
 
 @Component({

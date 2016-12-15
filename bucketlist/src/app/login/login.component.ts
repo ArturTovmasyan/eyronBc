@@ -33,7 +33,7 @@ export class LoginComponent {
 
     login(loginForm) {
         this.loginForm.username = loginForm.username;
-        this.loginForm.password = loginForm.password;console.log(this.loginForm, loginForm)
+        this.loginForm.password = loginForm.password;console.log(this.loginForm, loginForm);
 
         this.ProjectService.auth(this.loginForm)
             .subscribe(

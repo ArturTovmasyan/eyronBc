@@ -14,22 +14,15 @@ import { ProjectService } from './project.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { DiscoverGoalComponent } from './components/discover-goal/discover-goal.component';
-import { GoalComponent } from './components/goal/goal.component';
-import { GoalFooterComponent } from './components/goal-footer/goal-footer.component';
-import { GoalAddComponent } from './components/goal-add/goal-add.component';
-import { GoalCompleteComponent } from './components/goal-complete/goal-complete.component';
 import { BaseStoriesComponent } from './components/base-stories/base-stories.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+import { ComponentModule } from './components/components.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     DiscoverGoalComponent,
-    GoalComponent,
-    GoalFooterComponent,
-    GoalAddComponent,
-    GoalCompleteComponent,
     BaseStoriesComponent,
     HomeFooterComponent,
     LoginComponent
@@ -40,7 +33,8 @@ import { HomeFooterComponent } from './components/home-footer/home-footer.compon
     HttpModule,
     JsonpModule,
     appRouting,
-    TranslateModule.forRoot()
+    TranslateModule.forRoot(),
+    ComponentModule
   ],
   providers: [
     ProjectService,
