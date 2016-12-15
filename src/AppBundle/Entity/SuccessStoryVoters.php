@@ -10,11 +10,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * SuccessStoryVoters
  *
- * @ORM\Table(name="success_story_voters", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_voters", columns={"success_story_id", "user_id"})},)
+ * @ORM\Table(name="success_story_voters", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_voters", columns={"success_story_id", "user_id"})})
  * @ORM\Entity()
  * @UniqueEntity(
  *     fields={"successStory", "user"},
- *     message="TThis user already liked this success story."
+ *     message="This user already liked this success story."
  * )
  */
 class SuccessStoryVoters
