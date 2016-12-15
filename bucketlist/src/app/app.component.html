@@ -4,7 +4,7 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div id="line"></div>
                 <div class="container" id="main-nav">
-                    <div class="navbar-header navbar-mobile">
+                    <!--<div class="navbar-header navbar-mobile">-->
                         <!--{% if is_mobile() and not is_tablet() %}-->
                         <!--{% if user %}-->
                         <!--<ul class="nav navbar-nav  hidden-sm hidden-md hidden-lg">-->
@@ -122,33 +122,38 @@
                         <!--{% endif %}-->
                         <!--{% endif %}-->
 
+                        <!--<a class="navbar-brand hidden-xs" routerLink="/dashboard" routerLinkActive="active">-->
+                            <!--<img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>-->
+                        <!--</a>-->
+                    <!--</div>-->
+
+                    <!--{% if not is_mobile() or is_tablet() %}-->
+                    <div id="navbar">
+
                         <a class="navbar-brand hidden-xs" routerLink="/dashboard" routerLinkActive="active">
                             <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
                         </a>
-                    </div>
 
-                    <!--{% if not is_mobile() or is_tablet() %}-->
-                    <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
 
                             <li>
                                 <a routerLink="/activity" routerLinkActive="active">
-                                    <i class="icons ideas-icon"></i>
-                                    <span class="hidden-sm">Activity</span>
+                                    <i class="icons activity-icon"></i>
+                                    <span class="hidden-xs hidden-sm">{{ 'activity'|translate | uppercase }}</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a routerLink="/ideas" routerLinkActive="active">
                                     <i class="icons ideas-icon"></i>
-                                    <span class="hidden-sm">Ideas</span>
+                                    <span class="hidden-xs hidden-sm">{{ 'ideas'|translate | uppercase }}</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a routerLink="/profile" routerLinkActive="active">
                                     <i class="icons mybucketlist-icon"></i>
-                                    <span class="hidden-sm">MY List</span>
+                                    <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|translate | uppercase}}</span>
                                 </a>
                             </li>
                         </ul>
@@ -158,14 +163,57 @@
                                 <div>
                                     <a routerLink="/notifications" class="relative notify">
                                         <i class="bell"></i>
-                                        <sup *ngIf="newNotCount != 0">{{ newNotCount }}</sup>
+                                        <sup *ngIf="newNotCount">{{ newNotCount }}</sup>
                                     </a>
                                 </div>
                             </li>
-                            <li>
-                                <a (click)="joinShow = !joinShow">
-                                    <i class="icons mybucketlist-icon"></i>
-                                    <span class="hidden-sm">Join</span>
+                            <li *ngIf="appUser">
+                                <!--{% if app.user %}-->
+                                <!--{% set user = app.user %}-->
+                                <!--{% set lastName = user.lastName %}-->
+                                <!--{% set firstName = user.firstName %}-->
+                                <!--{% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}-->
+                                <!--{% set className = "user-no" ~ random(4) %}-->
+
+                                <!--<a-->
+                                   <!--class="user user-popover clearfix hidden-xs"-->
+                                   <!--data-placement="bottom-left"-->
+                                   <!--(click)="joinToggle1 = !joinToggle1"-->
+                                   <!--data-html="true"-->
+                                   <!--data-auto-close="true"-->
+                                   <!--[ngClass]="{'join-class': joinToggle1}"-->
+                                   <!--data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'-->
+                                   <!--data-animation="am-fade-and-scale"-->
+                                   <!--data-bs-popover>-->
+                                    <!--<figure class="img-circle" *ngIf="user.getPhotoLink">-->
+                                        <!--&lt;!&ndash;'user_icon'&ndash;&gt;-->
+                                        <!--<img src="{{ user.getPhotoLink }}" alt="{{ user.filename }}" class="img-responsive">-->
+                                    <!--</figure>-->
+                                    <!--<p *ngIf="!user.getPhotoLink" class="no-image user-no2">{{ (firstName|slice(0,1) + lastName|slice(0,1) ) | uppercase }}</p>-->
+
+                                    <!--<span class="name hidden-xs">{{ user.firstName|slice(0, 8) }} {{ user.firstName.length > 8 ? '...' : '' }}-->
+                                        <!--<br class="hidden-xs"/>-->
+                                    <!--</span>-->
+
+                                    <!--&lt;!&ndash;{% if not isMobile() %}&ndash;&gt;-->
+                                    <!--<i class="menu-hamburger" *ngIf="!joinToggle1"></i>-->
+                                    <!--<i class="menu-remove" *ngIf="joinToggle1"></i>-->
+                                    <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->
+                                <!--</a>-->
+                                <!--when mobile menu-->
+                                <a (click)="joinToggle11 = !joinToggle11;" class=" mobile-user hidden-sm hidden-md hidden-lg" *ngIf="!joinToggle11">
+                                    <figure class="img-circle" *ngIf="user.getPhotoLink">
+                                        <!--'user_icon'-->
+                                        <img src="{{ user.getPhotoLink }}" alt="{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}" class="img-responsive img-circle" height="40">
+                                    </figure>
+                                    <p class="no-image user-no1" *ngIf="!user.getPhotoLink">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>
+                                </a>
+                            </li>
+                            <li *ngIf="!appUser">
+                                <a (click)="joinShow = !joinShow"
+                                   class="sign-in-popover">
+                                    <i class="icon-join-icon"></i>
+                                    {{ 'join'|translate }}
                                 </a>
                             </li>
                         </ul>
