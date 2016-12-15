@@ -45,7 +45,7 @@ class SuccessStoryRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT ss, v, u, g
                            FROM AppBundle:SuccessStory ss
-                           LEFT JOIN ss.voters v
+                           LEFT JOIN ss.successStoryVoters v
                            LEFT JOIN ss.user u
                            LEFT JOIN ss.goal g
                            WHERE ss.id = :storyId")
@@ -66,7 +66,8 @@ class SuccessStoryRepository extends EntityRepository
                            FROM ApplicationUserBundle:User u
                            INDEX BY u.id
                            JOIN AppBundle:SuccessStory ss WITH ss.id = :storyId
-                           JOIN ss.voters v WITH v.id = u.id")
+                           JOIN ss.successStoryVoters sv 
+                           JOIN sv.user us WITH us.id = u.id")
             ->setParameter('storyId', $storyId)
             ->setFirstResult($first)
             ->setMaxResults($count)
@@ -118,7 +119,7 @@ class SuccessStoryRepository extends EntityRepository
                            FROM AppBundle:SuccessStory ss
                            JOIN ss.user u
                            JOIN ss.goal g
-                           LEFT JOIN ss.voters v
+                           LEFT JOIN ss.successStoryVoters v
                            LEFT JOIN g.images gi
                            LEFT JOIN ss.files si
                            WHERE ss.isInspire = true")
@@ -137,12 +138,22 @@ class SuccessStoryRepository extends EntityRepository
     public function getStoryByTypeForStatisticData($groupBy, $start, $end, $type)
     {
         //set default selected date value
-        $date = 'ss.created';
+        $date = null;
+
+        switch ($type) {
+            case StatisticController::TYPE_STORY_CREATED:
+                $date = 'ss.created';
+                break;
+            case StatisticController::TYPE_STORY_LIKED:
+                $date = 'vt.created';
+                break;
+            default:
+                break;
+        }
 
         //get created or liked success story statistic data
         $story = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select("COUNT(DISTINCT ss.id) as total, DATE(".$date.") as created")
             ->select("DATE(".$date.") as created")
             ->from('AppBundle:SuccessStory', 'ss');
 
@@ -150,12 +161,12 @@ class SuccessStoryRepository extends EntityRepository
         if ($type == StatisticController::TYPE_STORY_LIKED) {
             $story
                 ->addSelect('count(vt.id) AS liked')
-                ->leftJoin('ss.voters', 'vt');
+                ->leftJoin('ss.successStoryVoters', 'vt');
         }
         elseif ($type == StatisticController::TYPE_STORY_CREATED) {
             $story
                 ->addSelect('count(DISTINCT ss.id) AS total')
-                ->leftJoin('ss.voters', 'vt');
+                ->leftJoin('ss.successStoryVoters', 'vt');
         }
 
         //get filtered statistic data

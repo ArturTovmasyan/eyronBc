@@ -237,7 +237,7 @@ class SuccessStoryController extends FOSRestController
      * @Rest\Get("/success-story/remove-images/{id}", requirements={"id"="\d+"}, name="get_goal_remove_story_image", options={"method_prefix"=false})
      *
      * @param StoryImage $storyImage
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      */
     public function getRemoveStoryImageAction(StoryImage $storyImage, Request $request)
     {

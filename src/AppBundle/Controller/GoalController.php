@@ -296,8 +296,8 @@ class GoalController extends Controller
         $successStories = $goal->getSuccessStories()->toArray();
         usort($successStories, function($a, $b) {
 
-            $aCount = $a->getVoters()->count();
-            $bCount = $b->getVoters()->count();
+            $aCount = $a->getSuccessStoryVoters()->count();
+            $bCount = $b->getSuccessStoryVoters()->count();
 
             $currentDate = new \DateTime();
             $aInterval = date_diff($a->getUpdated(), $currentDate)->format('%R%a');

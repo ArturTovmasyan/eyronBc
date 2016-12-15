@@ -608,7 +608,7 @@ class GoalRepository extends EntityRepository
                            LEFT JOIN g.successStories gs
                            LEFT JOIN gs.user gsu
                            LEFT JOIN gs.files f
-                           LEFT JOIN gs.voters v
+                           LEFT JOIN gs.successStoryVoters v
                            WHERE g.id = :id")
             ->setParameter('id', $id)
             ->getOneOrNullResult();
