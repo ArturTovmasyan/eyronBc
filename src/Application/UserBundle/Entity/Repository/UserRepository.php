@@ -39,8 +39,8 @@ class UserRepository extends EntityRepository
             ->select('u')
             ->from('ApplicationUserBundle:User', 'u', 'u.id')
             ->join('AppBundle:SuccessStory', 'ss', 'WITH', 'ss.id =:item')
-            ->join('ss.voters', 'v')
-            ->where('v.id = u')
+            ->join('ss.successStoryVoters', 'v')
+            ->where('v.user = u')
             ->setParameter('item', $successStoryId);
 
         if (is_numeric($first) && is_numeric($count)){
