@@ -1,10 +1,11 @@
+
 'use strict';
 
-angular.module('statistic',["chart.js"])
+angular.module('statistic',["chart.js", "Interpolation"])
   .config(['ChartJsProvider', function (ChartJsProvider) {
     // Configure all charts
     ChartJsProvider.setOptions({
-      chartColors: ['#FF5252', '#00CCCC'],
+      chartColors: ['#FF5252', '#00CCFF', '#00FF00', '#FFFF19'],
       responsive: false
     });
     // Configure all line charts
@@ -16,8 +17,14 @@ angular.module('statistic',["chart.js"])
     var envPrefix = (window.location.pathname.indexOf('app_dev.php') === -1) ? "/" : "/app_dev.php/",
       path = envPrefix + 'api/v1.0/statistic/{type}/{groupBy}/{start}/{end}';
     $scope.groupType = 'month';
+    $scope.type = {name:'email'};
     $scope.dateTo = new Date();
-    $scope.dateFrom = new Date(moment(new Date()).format('YYYY') + '-01-01');
+    $scope.noResult = false;
+
+     var startdate = moment().subtract(1, "years");
+
+    // $scope.dateFrom = new Date(moment(new Date()).format('YYYY') + '-01-01');
+    $scope.dateFrom = new Date(startdate.format('YYYY-MM') + '-01');
 
     $scope.series = ['Read','Send'];
 
@@ -26,19 +33,26 @@ angular.module('statistic',["chart.js"])
     };
     
     $scope.options = {
-      legend: { display: true }
+      legend: { display: true },
+      elements : { line : { tension : 0 } }
     };
 
     $scope.filter = function () {
+      $scope.noResult = false;
       var timeTo = $scope.dateTo?moment($scope.dateTo).format('YYYY-MM-DD'):null,
           timeFrom = $scope.dateFrom?moment($scope.dateFrom).format('YYYY-MM-DD'):null;
       $scope.readCount = 0;
       $scope.sendCount = 0;
       if(timeTo && timeFrom && $scope.groupType){
-        var url = path.replace('{type}', 'email').replace('{groupBy}', $scope.groupType).replace('{start}', timeFrom).replace('{end}', timeTo);
+        var url = path.replace('{type}', $scope.type.name).replace('{groupBy}', $scope.groupType).replace('{start}', timeFrom).replace('{end}', timeTo);
         $http.get(url).success(function(res) {
+          if(!res.length){
+            $scope.noResult = true;
+          }
+
           $scope.labels = [];
-          $scope.data = [[],[]];
+          $scope.data = [];
+          $scope.series = [];
 
           switch ($scope.groupType){
             case 'month':
@@ -69,10 +83,23 @@ angular.module('statistic',["chart.js"])
     };
 
     function calculate(d) {
-      $scope.readCount += +d.read;
-      $scope.sendCount += +d.send;
-      $scope.data[0].push(d.read);
-      $scope.data[1].push(d.send);
+      angular.forEach(d, function (v, k) {
+        if(k != 'created'){
+          if(k == 'read'){
+            $scope.readCount += +v;
+          } else if(k == 'send'){
+            $scope.sendCount += +v;
+          }
+
+          if($scope.series.indexOf(k) === -1){
+            $scope.series.push(k);
+            $scope.data.push([]);
+            $scope.data[$scope.data.length - 1].push(v);
+          } else {
+            $scope.data[$scope.series.indexOf(k)].push(v)
+          }
+        }
+      });
     }
 
     $scope.filter();

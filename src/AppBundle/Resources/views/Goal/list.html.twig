@@ -147,7 +147,8 @@
                                data-ng-mouseleave="$parent.isHover = false"
                                data-ng-mousemove="hoverIn($event, '{{ "goal.get_direction"|trans }}')">
                                <i></i>
-                               <span class="text-center">[[ goal.distance | number]] km</span>
+                               <span class="text-center" data-ng-if="goal.distance > 10">[[ goal.distance | number: 0]] km</span>
+                               <span class="text-center" data-ng-if="goal.distance <= 10">[[ goal.distance | number:1]] km</span>
                             </a>
 
                             <div class="absolute">

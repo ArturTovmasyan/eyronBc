@@ -62,12 +62,8 @@ class UserProvider extends  BaseProvider
         // check owner resource
         if($resourceOwner instanceof GoogleResourceOwner){
 
-            //get access token and secret
-            $accessToken = $response->getAccessToken();
-            $id = $response->getResponse()['id'];
-
             // get google user
-            $user = $this->createGoogleUser($response->getResponse(), $accessToken, $id);
+            $user = $this->createGoogleUser($response->getResponse());
         }
         elseif($resourceOwner instanceof TwitterResourceOwner){
 
@@ -166,7 +162,7 @@ class UserProvider extends  BaseProvider
             ;
 
             //send post on user Google plus wall
-//            $this->container->get('app.post_social_wall')->postOnGoogleWall($accessToken, $id);
+//            $this->container->get('app.post_social_wall')->postOnGoogleWall();
         }
 
         return $user;
