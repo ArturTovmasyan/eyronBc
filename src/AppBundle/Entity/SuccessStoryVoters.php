@@ -30,11 +30,13 @@ class SuccessStoryVoters
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SuccessStory", inversedBy="successStoryVoters")
+     * @ORM\JoinColumn(name="success_story_id", referencedColumnName="id", nullable=false)
      */
     private $successStory;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="successStoryVoters")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
