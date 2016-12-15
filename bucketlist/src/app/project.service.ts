@@ -4,6 +4,7 @@ import {Http, Response, URLSearchParams, Headers } from '@angular/http';
 import {Goal} from "./interface/goal";
 import {User} from "./interface/user";
 import {UserGoal} from "./interface/userGoal";
+import {Activity} from "./interface/activity";
 
 import {Observable}     from 'rxjs/Observable';
 
@@ -22,6 +23,7 @@ export class ProjectService {
     private usersUrl = 'users';  // URL to web API
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/0/7?search=&category=';  // URL to web API
+    private activityUrl = this.baseOrigin + 'api/v2.0/activities/0/9';  // URL to web API
     private goalFriends = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeas = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     constructor(private http:Http) {
@@ -37,7 +39,7 @@ export class ProjectService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        return this.http.post(this.baseOrigin + 'api/auth', JSON.stringify(loginData),
+        return this.http.post(this.baseOrigin + 'login_check', JSON.stringify(loginData),
             headers
         ).map((res:Response) => res.json());
     }
@@ -50,6 +52,16 @@ export class ProjectService {
     getGoal(slug:string):Observable<Goal> {
         return this.http.get(this.goalUrl + '/' + slug)
             .map((r:Response) => r.json() as Goal)
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getActivities():Observable<Activity[]> {
+        return this.http.get(this.activityUrl)
+            .map((r:Response) => r.json() as Activity[])
             .catch(this.handleError);
     }
     
