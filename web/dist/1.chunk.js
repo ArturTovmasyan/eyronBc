@@ -1,13 +1,13 @@
 webpackJsonp([1,13],{
 
-/***/ 735:
+/***/ 738:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_component__ = __webpack_require__(747);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile_routing__ = __webpack_require__(756);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_component__ = __webpack_require__(750);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile_routing__ = __webpack_require__(759);
 /* harmony export (binding) */ __webpack_require__.d(exports, "ProfileModule", function() { return ProfileModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,7 +41,7 @@ var ProfileModule = (function () {
 
 /***/ },
 
-/***/ 747:
+/***/ 750:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65,8 +65,8 @@ var ProfileComponent = (function () {
     ProfileComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Component */])({
             selector: 'app-profile',
-            template: __webpack_require__(778),
-            styles: [__webpack_require__(767)]
+            template: __webpack_require__(781),
+            styles: [__webpack_require__(770)]
         }), 
         __metadata('design:paramtypes', [])
     ], ProfileComponent);
@@ -76,12 +76,12 @@ var ProfileComponent = (function () {
 
 /***/ },
 
-/***/ 756:
+/***/ 759:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profile_component__ = __webpack_require__(747);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profile_component__ = __webpack_require__(750);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileRouting; });
 
 
@@ -94,14 +94,14 @@ var ProfileRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* Router
 
 /***/ },
 
-/***/ 767:
+/***/ 770:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 778:
+/***/ 781:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  profile works!\n</p>\n"
