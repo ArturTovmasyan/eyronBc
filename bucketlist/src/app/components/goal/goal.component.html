@@ -8,28 +8,16 @@
 
       <a routerLink="/goal/{{ goal.slug }}" >
         <span class="overlay"></span>
-        <img src="{{ goal.imagePath  }}" *ngIf="goal.imagePath" alt="{{ goal.title }}"/>
+        <img src="{{ goal.cached_image }}" *ngIf="goal.cached_image" alt="{{ goal.title }}"/>
       </a>
 
       <div class="absolute">
         <ul>
           <li>
-            <a (click)="goalListedBy()">
-            <span>
-            home_listed_by
-            {{ goal.stats.listedBy }}
-            </span>
-            <i class="icon-user-small"></i>
-            </a>
+            <goal-users [goal]="goal" type="1"></goal-users>
           </li>
           <li>
-            <a  (click)="goalDoneBy()">
-            <span>
-            home_complete
-            {{ goal.stats.doneBy }}
-            </span>
-            <i class="icon-user-small"></i>
-            </a>
+            <goal-users [goal]="goal" type="2"></goal-users>
           </li>
         </ul>
       </div>

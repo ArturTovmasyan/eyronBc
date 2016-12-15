@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { GoalAddComponent } from '../goal-add/goal-add.component';
-import { GoalCompleteComponent } from '../goal-complete/goal-complete.component';
 import { Goal } from '../../interface/goal';
 
 @Component({

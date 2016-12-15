@@ -126,3 +126,6 @@ twitter_login:
 PrestaSitemapBundle:
     resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
     prefix:   /
+# lexik autorization
+api_login_check:
+    path: /jwt/login_check
