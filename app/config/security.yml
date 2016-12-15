@@ -41,11 +41,39 @@ security:
             - ROLE_REPORT_MODERATOR_DELETE
 
     firewalls:
+        jwt:
+              pattern:  ^/jwt/login
+              stateless: true
+              anonymous: true
+              form_login:
+                  check_path:               /jwt/login_check
+                  success_handler:          lexik_jwt_authentication.handler.authentication_success
+                  failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                  require_previous_session: false
+#        api:
+#              pattern:   ^/api/v(.*)
+#              provider:  fos_userbundle
+#              stateless: true
+#              lexik_jwt:
+#                authorization_header:
+#                    enabled: true
+#                    prefix:  Bearer
+#                query_parameter:
+#                    enabled: true
+#                    name:    bearer
+#              guard:
+#                  authenticators:
+#                      - lexik_jwt_authentication.jwt_token_authenticator
+
         main:
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
             simple_preauth:
                 authenticator: bl_user_api_authenticator
             provider: bl_user_api_provider
             entry_point: authentication_entry_point
+            stateless: true
             pattern: ^/
             form_login:
                 provider: fos_userbundle
@@ -82,3 +110,5 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin(.*), role: [ROLE_MODERATOR, ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_GOD] }
+#        - { path: ^/api/v3.0/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/api0,       roles: IS_AUTHENTICATED_FULLY }
