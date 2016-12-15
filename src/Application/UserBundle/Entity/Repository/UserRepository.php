@@ -41,6 +41,7 @@ class UserRepository extends EntityRepository
             ->join('AppBundle:SuccessStory', 'ss', 'WITH', 'ss.id =:item')
             ->join('ss.successStoryVoters', 'v')
             ->where('v.user = u')
+            ->orderBy('v.created', 'DESC')
             ->setParameter('item', $successStoryId);
 
         if (is_numeric($first) && is_numeric($count)){
