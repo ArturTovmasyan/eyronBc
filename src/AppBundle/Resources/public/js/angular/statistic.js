@@ -1,3 +1,4 @@
+
 'use strict';
 
 angular.module('statistic',["chart.js", "Interpolation"])
@@ -19,7 +20,11 @@ angular.module('statistic',["chart.js", "Interpolation"])
     $scope.type = {name:'email'};
     $scope.dateTo = new Date();
     $scope.noResult = false;
-    $scope.dateFrom = new Date(moment(new Date()).format('YYYY') + '-01-01');
+
+     var startdate = moment().subtract(1, "years");
+
+    // $scope.dateFrom = new Date(moment(new Date()).format('YYYY') + '-01-01');
+    $scope.dateFrom = new Date(startdate.format('YYYY-MM') + '-01');
 
     $scope.series = ['Read','Send'];
 
