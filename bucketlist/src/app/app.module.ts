@@ -17,6 +17,9 @@ import { LoginComponent } from './login/login.component';
 import { DiscoverGoalComponent } from './components/discover-goal/discover-goal.component';
 import { BaseStoriesComponent } from './components/base-stories/base-stories.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+import { LeaderboardsComponent } from './block/leaderboards/leaderboards.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { TopIdeasComponent } from './block/top-ideas/top-ideas.component';
 import { ComponentModule } from './components/components.module';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
@@ -31,7 +34,10 @@ import { ResettingRequestComponent } from './components/resetting-request/resett
     LoginComponent,
     CapitalizePipe,
     RegisterComponent,
-    ResettingRequestComponent
+    ResettingRequestComponent,
+    LeaderboardsComponent,
+    LeaderboardComponent,
+    TopIdeasComponent
   ],
   imports: [
     BrowserModule,

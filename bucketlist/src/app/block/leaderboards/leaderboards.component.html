@@ -1,0 +1,35 @@
+<!--{% if user is defined %}-->
+<div>
+        <!--data-ng-controller="topInLeaderboardController"-->
+     <!--id="leaderboard-list"-->
+     <!--class="ng-hide"-->
+     <!--data-ng-show="normOfTop" > 0-->
+
+  <div class="bg-white padding round margin-top">
+       <!--data-ng-cloak-->
+       <!--data-ng-init = "userId = {{ user.id }}-->
+
+
+    <div class="row">
+      <div class="col-xs-10">
+        <a routerLink="/leaderboard" routerLinkActive="active" class="heading text-gray">
+          <!--<i class="leaderboard-icon"></i>-->
+          <i class="icon-suggest-icon"></i>
+          <span class="text">{{ 'leaderboard.name'|translate }}</span>
+        </a>
+      </div>
+
+      <div class="col-xs-2 text-right">
+        <a href="javascript:void(0)" (click)="refreshLeaderboard" class="load" id="goalFriendLoad"></a>
+      </div>
+    </div>
+
+    <hr/>
+
+    <ul class="bg-white round badge-place goals-animate"
+        *ngFor="let user of users">
+      <leaderboard [user]="user"></leaderboard>
+    </ul>
+  </div>
+</div>
+<!--{% endif %}-->
