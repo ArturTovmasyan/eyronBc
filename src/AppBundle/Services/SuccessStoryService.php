@@ -9,6 +9,7 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\SuccessStory;
+use AppBundle\Entity\SuccessStoryVoters;
 use Application\UserBundle\Entity\Badge;
 use Application\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\Container;
@@ -52,7 +53,12 @@ class SuccessStoryService extends AbstractProcessService
             throw new HttpException(Response::HTTP_NOT_FOUND);
         }
 
-        $successStory->addVoter($user);
+        //add voters
+        $voters = new SuccessStoryVoters();
+        $voters->setUser($user);
+        $voters->setSuccessStory($successStory);
+
+        $em->persist($voters);
         $em->flush();
 
         //Send notification to goal author
@@ -85,11 +91,22 @@ class SuccessStoryService extends AbstractProcessService
     {
         $em = $this->container->get('doctrine')->getManager();
         $successStory = $em->getRepository('AppBundle:SuccessStory')->findStoryWithVotes($storyId);
+
         if (is_null($successStory)){
             throw new HttpException(Response::HTTP_NOT_FOUND);
         }
 
-        $successStory->removeVoter($user);
+        //get voters
+        $voters = $successStory->getSuccessStoryVoters();
+
+        foreach ($voters as $voter)
+        {
+            if($voter->getUser() == $user && $voter->getSuccessStory() == $successStory) {
+                $em->remove($voter);
+            }
+        }
+//        $successStory->removeVoter($user);
+
         $em->flush();
 
         // get success story author

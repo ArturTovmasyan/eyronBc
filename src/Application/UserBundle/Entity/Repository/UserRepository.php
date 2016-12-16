@@ -9,8 +9,10 @@
 
 namespace Application\UserBundle\Entity\Repository;
 
+use AppBundle\Controller\Rest\StatisticController;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Traits\StatisticDataFilterTrait;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -22,6 +24,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class UserRepository extends EntityRepository
 {
 
+    use StatisticDataFilterTrait;
 
     /**
      * @param $successStoryId
@@ -36,8 +39,9 @@ class UserRepository extends EntityRepository
             ->select('u')
             ->from('ApplicationUserBundle:User', 'u', 'u.id')
             ->join('AppBundle:SuccessStory', 'ss', 'WITH', 'ss.id =:item')
-            ->join('ss.voters', 'v')
-            ->where('v.id = u')
+            ->join('ss.successStoryVoters', 'v')
+            ->where('v.user = u')
+            ->orderBy('v.created', 'DESC')
             ->setParameter('item', $successStoryId);
 
         if (is_numeric($first) && is_numeric($count)){
@@ -392,28 +396,68 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @return mixed
+     * This function is used to get user by device statistic data
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @return array
      */
-    public function getAppVersionsStatistic()
+    public function getUserByDeviceStatisticData($groupBy, $start, $end)
     {
-        $iosUsers = $this->getEntityManager()
-            ->createQuery("SELECT u.iosVersion version, COUNT(u.id) cnt
-                           FROM ApplicationUserBundle:User u
-                           WHERE u.iosVersion IS NOT NULL
-                           GROUP BY u.iosVersion")
-            ->getResult();
+        //set selected date name
+        $date = 'u.createdAt';
 
-        $androidUsers = $this->getEntityManager()
-            ->createQuery("SELECT u.androidVersion version, COUNT(u.id) cnt
-                           FROM ApplicationUserBundle:User u
-                           WHERE u.androidVersion IS NOT NULL
-                           GROUP BY u.androidVersion")
-            ->getResult();
+        //get total user statistic count
+        $total = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("COUNT(u.id) AS total, COUNT(u.iosVersion ) AS ios, COUNT(u.androidVersion) AS android, DATE(".$date.") as created")
+            ->from('ApplicationUserBundle:User', 'u');
 
+        //get filtered statistic data
+        $total = $this->filterStatisticData($total, $date, $groupBy, $start, $end);
 
-        return [
-            'android' => $androidUsers,
-            'ios'     => $iosUsers
-        ];
+        //generate created by user goal count
+        $total = array_map(function(&$item){
+
+        //calculate web user count
+        $item['web'] = $item['total'] - ($item['ios'] + $item['android']);
+
+        return $item;
+
+        }, $total);
+
+        return $total;
+    }
+
+    /**
+     * This function is used to get all users by social
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @return array
+     */
+    public function getRegUserBySocialStatisticData($groupBy, $start, $end)
+    {
+        //set selected date
+        $date = 'u.createdAt';
+
+        //get ios statistic count
+       $allSocial =  $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("SUM(CASE WHEN u.facebookUid IS NOT NULL THEN 1 ELSE 0 END) as facebook,
+                      SUM(CASE WHEN u.twitterUid IS NOT NULL THEN 1 ELSE 0 END) as twitter,
+                      SUM(CASE WHEN u.gplusUid IS NOT NULL THEN 1 ELSE 0 END) as google,
+                      SUM(CASE WHEN u.gplusUid IS NULL AND u.facebookUid IS NULL AND u.twitterUid IS NULL THEN 1 ELSE 0 END) as native,
+                      DATE(".$date.") as created")
+           ->from('ApplicationUserBundle:User', 'u');
+
+        //get filtered statistic data
+        $data = $this->filterStatisticData($allSocial, $date, $groupBy, $start, $end);
+
+        //get counts for emails
+       return $data;
+
     }
 }

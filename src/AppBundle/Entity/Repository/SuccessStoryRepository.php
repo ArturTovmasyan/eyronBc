@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Controller\Rest\StatisticController;
+use AppBundle\Traits\StatisticDataFilterTrait;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,6 +14,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class SuccessStoryRepository extends EntityRepository
 {
+    use StatisticDataFilterTrait;
+
     /**
      * @param $userId
      * @param $goalId
@@ -41,7 +45,7 @@ class SuccessStoryRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT ss, v, u, g
                            FROM AppBundle:SuccessStory ss
-                           LEFT JOIN ss.voters v
+                           LEFT JOIN ss.successStoryVoters v
                            LEFT JOIN ss.user u
                            LEFT JOIN ss.goal g
                            WHERE ss.id = :storyId")
@@ -62,7 +66,8 @@ class SuccessStoryRepository extends EntityRepository
                            FROM ApplicationUserBundle:User u
                            INDEX BY u.id
                            JOIN AppBundle:SuccessStory ss WITH ss.id = :storyId
-                           JOIN ss.voters v WITH v.id = u.id")
+                           JOIN ss.successStoryVoters sv 
+                           JOIN sv.user us WITH us.id = u.id")
             ->setParameter('storyId', $storyId)
             ->setFirstResult($first)
             ->setMaxResults($count)
@@ -114,10 +119,59 @@ class SuccessStoryRepository extends EntityRepository
                            FROM AppBundle:SuccessStory ss
                            JOIN ss.user u
                            JOIN ss.goal g
-                           LEFT JOIN ss.voters v
+                           LEFT JOIN ss.successStoryVoters v
                            LEFT JOIN g.images gi
                            LEFT JOIN ss.files si
                            WHERE ss.isInspire = true")
             ->getResult();
+    }
+
+    /**
+     * This function is used to get created, liked story statistic data
+     *
+     * @param $groupBy
+     * @param $start
+     * @param $end
+     * @param $type
+     * @return array
+     */
+    public function getStoryByTypeForStatisticData($groupBy, $start, $end, $type)
+    {
+        //set default selected date value
+        $date = null;
+
+        switch ($type) {
+            case StatisticController::TYPE_STORY_CREATED:
+                $date = 'ss.created';
+                break;
+            case StatisticController::TYPE_STORY_LIKED:
+                $date = 'vt.created';
+                break;
+            default:
+                break;
+        }
+
+        //get created or liked success story statistic data
+        $story = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select("DATE(".$date.") as created")
+            ->from('AppBundle:SuccessStory', 'ss');
+
+        //check if type is story like
+        if ($type == StatisticController::TYPE_STORY_LIKED) {
+            $story
+                ->addSelect('count(vt.id) AS liked')
+                ->leftJoin('ss.successStoryVoters', 'vt');
+        }
+        elseif ($type == StatisticController::TYPE_STORY_CREATED) {
+            $story
+                ->addSelect('count(DISTINCT ss.id) AS total')
+                ->leftJoin('ss.successStoryVoters', 'vt');
+        }
+
+        //get filtered statistic data
+        $data = $this->filterStatisticData($story, $date, $groupBy, $start, $end);
+
+        return $data;
     }
 }

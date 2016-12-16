@@ -677,7 +677,7 @@ class GoalRestControllerTest extends BaseClass
 
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertEquals(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on testGetGoalStory rest!");
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on testGetGoalStory rest!");
         }
 
         //get response content
