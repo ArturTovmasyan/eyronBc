@@ -26,7 +26,7 @@ export class ProjectService {
     private goalUrl = '';  // URL to web API
     private usersUrl = 'users';  // URL to web API
     private userGoalsUrl = 'usergoals';  // URL to web API
-    private discoverGoalsUrl = this.baseUrl + 'goals/0/7?search=&category=';  // URL to web API
+    private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to web API
     private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to web API
     private goalFriends = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeas = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends

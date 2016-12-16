@@ -1,0 +1,17 @@
+<li class="text-gray">
+  <i class="badge-{{ (k == 'motivator')?2:(k == 'innovator')?3:1 }}"></i>
+</li>
+
+<li>
+  <figure class="img-circle">
+    <!--{% set className = "user-no" ~ random(4) %}-->
+    <img *ngIf="user.user.image_path.length" [src]="user.user.image_path" alt="user image"/>
+    <!--<p *ngIf="!user.user.image_path.length" class="no-image text-white {{ className }}">{{ user.user.first_name  | limitTo: 1 | uppercase }} {{ user.user.last_name | limitTo: 1 | uppercase }}</p>-->
+  </figure>
+</li>
+
+<li>
+  <a routerLink="/profile/{{ user.uid }}" routerLinkActive="active"  class="text-dark-gray">{{ getFullName(user.user) }} </a>
+</li>
+
+<li class="text-gray">{{ user.score }}</li>

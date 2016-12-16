@@ -63,14 +63,9 @@ class SuccessStory implements ActivityableInterface
     protected $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id", fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(name="success_story_voters",
-     *      joinColumns={@ORM\JoinColumn(name="success_story_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     * )
-     * @Groups({"successStory_voters"})
-     **/
-    protected $voters;
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SuccessStoryVoters", mappedBy="successStory", cascade={"persist", "remove"})
+     */
+    protected $successStoryVoters;
 
     /**
      * @var
@@ -124,16 +119,31 @@ class SuccessStory implements ActivityableInterface
      */
     public function getVotersCount()
     {
-        return $this->voters->count();
+        return $this->successStoryVoters->count();
     }
 
     /**
+     * This function is used to set isVote value
+     *
      * @param $user
      * @return $this
      */
     public function setIsVote($user)
     {
-        $this->isVote = $this->voters->contains($user);
+        //set default is vote
+        $isVote = false;
+
+        //get voters
+        $voters = $this->successStoryVoters;
+
+         foreach ($voters as $voter)
+         {
+             if($voter->getUser() == $user) {
+                 $isVote = true;
+             }
+         }
+
+        $this->isVote = $isVote;
 
         return $this;
     }
@@ -249,7 +259,6 @@ class SuccessStory implements ActivityableInterface
     public function __construct()
     {
         $this->files  = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->voters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -314,10 +323,10 @@ class SuccessStory implements ActivityableInterface
     /**
      * Set user
      *
-     * @param \Application\UserBundle\Entity\User $user
+     * @param User $user
      * @return SuccessStory
      */
-    public function setUser(\Application\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -366,52 +375,52 @@ class SuccessStory implements ActivityableInterface
     }
 
     /**
-     * Add voter
-     *
-     * @param \Application\UserBundle\Entity\User $voter
-     *
-     * @return SuccessStory
-     */
-    public function addVoter(\Application\UserBundle\Entity\User $voter)
-    {
-        if (!isset($this->voters[$voter->getId()])) {
-            $this->voters[$voter->getId()] = $voter;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove voter
-     *
-     * @param \Application\UserBundle\Entity\User $voter
-     * @return $this
-     */
-    public function removeVoter(\Application\UserBundle\Entity\User $voter)
-    {
-        if (isset($this->voters[$voter->getId()])) {
-            $this->voters->removeElement($voter);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get voters
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getVoters()
-    {
-        return $this->voters;
-    }
-
-    /**
      * @param $user
      * @return bool
      */
     public function isVote(User $user)
     {
-        return $this->voters->contains($user);
+        return $this->successStoryVoters->contains($user);
+    }
+
+    /**
+     * Add successStoryVoter
+     *
+     * @param SuccessStoryVoters $successStoryVoter
+     *
+     * @return SuccessStory
+     */
+    public function addSuccessStoryVoter(SuccessStoryVoters $successStoryVoter)
+    {
+
+        if (!isset($this->successStoryVoters[$successStoryVoter->getId()])) {
+            $this->successStoryVoters[$successStoryVoter->getId()] = $successStoryVoter;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SuccessStoryVoters $successStoryVoter
+     * @return $this
+     */
+    public function removeSuccessStoryVoter(SuccessStoryVoters $successStoryVoter)
+    {
+        if (isset($this->successStoryVoters[$successStoryVoter->getId()])) {
+            $this->successStoryVoters->removeElement($successStoryVoter);
+        }
+
+        return $this;
+
+    }
+
+    /**
+     * Get successStoryVoters
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSuccessStoryVoters()
+    {
+        return $this->successStoryVoters;
     }
 }
