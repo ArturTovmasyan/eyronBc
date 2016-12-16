@@ -16,21 +16,17 @@ import { LoginComponent } from './login/login.component';
 import { DiscoverGoalComponent } from './components/discover-goal/discover-goal.component';
 import { BaseStoriesComponent } from './components/base-stories/base-stories.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
-<<<<<<< HEAD
-
 
 import { GoalFriendsComponent } from './block/goal-friends/goal-friends.component';
 import { GoalFriendComponent } from './components/goal-friend/goal-friend.component';
 import { LeaderboardsComponent } from './block/leaderboards/leaderboards.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { TopIdeasComponent } from './block/top-ideas/top-ideas.component';
-=======
 import { ComponentModule } from './components/components.module';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 // import { GoalFriendsComponent } from './block/goal-friends/goal-friends.component';
 // import { GoalFriendComponent } from './components/goal-friend/goal-friend.component';
 // import { TopIdeasComponent } from './block/top-ideas/top-ideas.component';
->>>>>>> 7d1d6a9c56d6d9c0c5f76c06d1d9bc300a5b9d56
 
 @NgModule({
   declarations: [
@@ -40,17 +36,13 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     BaseStoriesComponent,
     HomeFooterComponent,
     LoginComponent,
-<<<<<<< HEAD
-    GoalFriendsComponent,
-    GoalFriendComponent,
+
+//  GoalFriendsComponent,
+//  GoalFriendComponent,
     LeaderboardsComponent,
     LeaderboardComponent,
-    TopIdeasComponent
-=======
+    TopIdeasComponent,
     CapitalizePipe
-    // GoalFriendsComponent,
-    // GoalFriendComponent
->>>>>>> 7d1d6a9c56d6d9c0c5f76c06d1d9bc300a5b9d56
   ],
   imports: [
     BrowserModule,
