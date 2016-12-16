@@ -128,13 +128,13 @@
                     <!--</div>-->
 
                     <!--{% if not is_mobile() or is_tablet() %}-->
-                    <div id="navbar">
+                    <div id="navbar" class="clearfix">
 
                         <a class="navbar-brand hidden-xs" routerLink="/dashboard" routerLinkActive="active">
                             <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
                         </a>
 
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav pull-left">
 
                             <li>
                                 <a routerLink="/activity" routerLinkActive="active">
@@ -212,8 +212,9 @@
                             <li *ngIf="!appUser">
                                 <a (click)="joinShow = !joinShow"
                                    class="sign-in-popover">
-                                    <i class="icon-join-icon"></i>
-                                    {{ 'join'|translate }}
+                                    <!--<i class="icon-join-icon"></i>-->
+                                    <i class="icons join-icon"></i>
+                                    <span class="hidden-xs">{{ 'join'|translate }}</span>
                                 </a>
                             </li>
                         </ul>
