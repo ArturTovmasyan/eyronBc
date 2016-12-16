@@ -16,13 +16,13 @@ export class AuthProvider {
     ) {
 
         return new AuthHttp(new AuthConfig({
-            headerName: 'token',
-            headerPrefix: '',
+            headerName: 'Authorization',
+            headerPrefix: 'Bearer',
             tokenName: 'id_token',
             tokenGetter: (() => localStorage.getItem('id_token')),
             globalHeaders: [{'Content-Type':'application/json'}],
-            noJwtError: true,
-            noTokenScheme: true
+            noJwtError: false,
+            noTokenScheme: false
         }), http);
 
     }

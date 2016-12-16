@@ -13,7 +13,7 @@ import { ProjectService } from '../project.service';
 })
 export class MyActivityComponent implements OnInit {
   @Input() single: boolean;
-  activities:Activity[];
+  Activities:Activity[];
   errorMessage:string;
   
   constructor(private _projectService: ProjectService) {}
@@ -25,7 +25,16 @@ export class MyActivityComponent implements OnInit {
   getActivities(){
     this._projectService.getActivities()
         .subscribe(
-            activities => this.activities = activities,
+            activities => {
+              this.Activities = activities;
+              for(let activity of this.Activities) {
+                if (activity.goals.length > 2) {
+                  activity.reserveGoals = [activity.goals[0], activity.goals[1]];
+                } else {
+                  activity.reserveGoals = activity.goals
+                }
+              };
+              console.log(this.Activities)},
             error => this.errorMessage = <any>error);
   }
 }

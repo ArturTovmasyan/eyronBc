@@ -72,6 +72,7 @@ class AppKernel extends Kernel
             new Application\AffiliateBundle\ApplicationAffiliateBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'behat'))) {

@@ -4,5 +4,6 @@ import {User} from "./user";
 export interface Activity {
     id: number,
     user: User,
-    goals: Goal[]
+    goals: Goal[],
+    reserveGoals?: Goal[]
 }

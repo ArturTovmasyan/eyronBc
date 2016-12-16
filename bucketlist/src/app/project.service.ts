@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import { AuthHttp }       from 'angular2-jwt';
 import {Http, Response, URLSearchParams, Headers } from '@angular/http';
 
 import {Goal} from "./interface/goal";
@@ -17,16 +18,19 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ProjectService {
 
-    private baseOrigin = 'http://bucketlist.loc/';
-    private baseUrl = this.baseOrigin + 'api/v1.0/';
+    private baseOrigin = 'http://bucketlist.loc';
+    // private baseOrigin = 'http://stage.bucketlist127.com';
+    private envprefix = '/app_dev.php/';
+    // private envprefix = '/';
+    private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private goalUrl = '';  // URL to web API
     private usersUrl = 'users';  // URL to web API
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/0/7?search=&category=';  // URL to web API
-    private activityUrl = this.baseOrigin + 'api/v2.0/activities/0/9';  // URL to web API
+    private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to web API
     private goalFriends = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeas = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
-    constructor(private http:Http) {
+    constructor(private http:Http, public authHttp: AuthHttp) {
     }
 
     /**
@@ -39,7 +43,7 @@ export class ProjectService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        return this.http.post(this.baseOrigin + 'login_check', JSON.stringify(loginData),
+        return this.http.post(this.baseOrigin + this.envprefix + 'jwt/login_check', JSON.stringify(loginData),
             headers
         ).map((res:Response) => res.json());
     }
@@ -60,7 +64,7 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     getActivities():Observable<Activity[]> {
-        return this.http.get(this.activityUrl)
+        return this.authHttp.get(this.activityUrl)
             .map((r:Response) => r.json() as Activity[])
             .catch(this.handleError);
     }
