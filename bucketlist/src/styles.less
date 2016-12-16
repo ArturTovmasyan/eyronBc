@@ -349,12 +349,14 @@ header{
       margin-bottom:0;
 
       li{
-        border-bottom: 1px solid #4421AB;
+        display:inline-block;
+        vertical-align: top;
+        //border-bottom: 1px solid #4421AB;
         a{
           color: #E5E5E5;
           font-weight: 700;
           font-size: 16px;
-          padding:25px 19px;
+          padding:25px 18px;
 
           i{
             display:inline-block;
@@ -389,10 +391,12 @@ header{
       box-shadow:none;
     }
 
-    .navbar-right,.navbar-mobile{
-      text-align: center;
+    .navbar-right{
+      text-align: right;
       li{
         border-bottom: 0;
+        text-align: center;
+
         a{
           padding-top:25px;
           padding-bottom:25px;
@@ -574,165 +578,165 @@ header{
     }
   }
 
-  .navbar-mobile{
-
-    .navbar-nav{
-      li{
-        a{
-          i{
-            &.mybucketlist-icon{
-              margin-right: 0;
-            }
-          }
-        }
-      }
-    }
-
-    ul{
-      padding-left: 15px;
-      margin-bottom:0;
-
-      li{
-        float: left;
-        a{
-          padding: 13px 19px 18px !important;
-          line-height: 46px;
-          .no-image{
-            width: 40px;
-            height: 40px;
-            line-height: 34px;
-            margin-bottom: 0;
-          }
-
-          &.mobile-user{
-            padding: 20px 0 17px 19px!important;
-            right: 15px;
-          }
-        }
-
-        &:last-child{
-          float:right;
-          right:12px;
-        }
-      }
-
-      &.user-mobile-menu{
-        background-color: #021523;
-        padding-left:0;
-        li{
-          border-left:0;
-          float: none;
-          display: block;
-          text-align: left;
-          a{
-            display: block;
-            padding: 1px 5px 1px 35px !important;
-            font-size:16px;
-            font-weight:600;
-            color:#ffffff;
-
-            span{
-              margin-left:10px;
-              vertical-align: middle;
-            }
-
-            i{
-              display: inline-block;
-              width:25px;
-              height:30px;
-              font-size:30px;
-              vertical-align: middle;
-
-              &.mybucketlist-icon{
-                margin: 0 0 0 1px;
-                background-size: 100%;
-              }
-
-              &.ideas-icon,&.activity-icon{
-                width:25px !important;
-              }
-
-              &.icon-suggest-icon{
-                margin: 0 5px 0 -4px;
-              }
-
-              &.icon-goalfrined-icon{
-                margin: 0 3px 0 -4px;
-
-                span{
-                  vertical-align: top;
-                }
-              }
-
-              span{
-                padding-left:0;
-                margin-left:0;
-              }
-            }
-
-            .icon-plus-icon{
-              font-size:30px;
-            }
-
-
-            &:hover,&:focus{
-              text-decoration: underline;
-              background-color: transparent;
-            }
-
-            &:focus{
-              text-decoration: none;
-              background-color: transparent;
-            }
-          }
-
-          &:first-child{
-            height: 75px;
-
-            background: #061b28;
-            .navbar-brand{
-              padding: 15px 25px !important;
-            }
-            .icon-remove-email{
-              font-size: 40px;
-              background: #021523;
-              line-height: 75px;
-              height: 75px;
-              width: 75px;
-              text-align: center;
-            }
-          }
-        }
-      }
-      &.pull-right{
-        li{
-          a{
-            padding: 13px 15px 18px !important;
-          }
-        }
-      }
-    }
-
-    .icon-ideas-icon,.icon-join-icon{
-      display: inline-block;
-      vertical-align: middle;
-      font-size: 30px;
-      color: #ffffff;
-    }
-
-    a{
-      display: inline-block;
-
-      &.sign-in-popover{
-        margin-right: 15px;
-      }
-
-      &.active-mobile{
-        background-color: #000000;
-      }
-    }
-
-  }
+  //.navbar-mobile{
+  //
+  //  .navbar-nav{
+  //    li{
+  //      a{
+  //        i{
+  //          &.mybucketlist-icon{
+  //            margin-right: 0;
+  //          }
+  //        }
+  //      }
+  //    }
+  //  }
+  //
+  //  ul{
+  //    padding-left: 15px;
+  //    margin-bottom:0;
+  //
+  //    li{
+  //      float: left;
+  //      a{
+  //        padding: 13px 19px 18px !important;
+  //        line-height: 46px;
+  //        .no-image{
+  //          width: 40px;
+  //          height: 40px;
+  //          line-height: 34px;
+  //          margin-bottom: 0;
+  //        }
+  //
+  //        &.mobile-user{
+  //          padding: 20px 0 17px 19px!important;
+  //          right: 15px;
+  //        }
+  //      }
+  //
+  //      &:last-child{
+  //        float:right;
+  //        right:12px;
+  //      }
+  //    }
+  //
+  //    &.user-mobile-menu{
+  //      background-color: #021523;
+  //      padding-left:0;
+  //      li{
+  //        border-left:0;
+  //        float: none;
+  //        display: block;
+  //        text-align: left;
+  //        a{
+  //          display: block;
+  //          padding: 1px 5px 1px 35px !important;
+  //          font-size:16px;
+  //          font-weight:600;
+  //          color:#ffffff;
+  //
+  //          span{
+  //            margin-left:10px;
+  //            vertical-align: middle;
+  //          }
+  //
+  //          i{
+  //            display: inline-block;
+  //            width:25px;
+  //            height:30px;
+  //            font-size:30px;
+  //            vertical-align: middle;
+  //
+  //            &.mybucketlist-icon{
+  //              margin: 0 0 0 1px;
+  //              background-size: 100%;
+  //            }
+  //
+  //            &.ideas-icon,&.activity-icon{
+  //              width:25px !important;
+  //            }
+  //
+  //            &.icon-suggest-icon{
+  //              margin: 0 5px 0 -4px;
+  //            }
+  //
+  //            &.icon-goalfrined-icon{
+  //              margin: 0 3px 0 -4px;
+  //
+  //              span{
+  //                vertical-align: top;
+  //              }
+  //            }
+  //
+  //            span{
+  //              padding-left:0;
+  //              margin-left:0;
+  //            }
+  //          }
+  //
+  //          .icon-plus-icon{
+  //            font-size:30px;
+  //          }
+  //
+  //
+  //          &:hover,&:focus{
+  //            text-decoration: underline;
+  //            background-color: transparent;
+  //          }
+  //
+  //          &:focus{
+  //            text-decoration: none;
+  //            background-color: transparent;
+  //          }
+  //        }
+  //
+  //        &:first-child{
+  //          height: 75px;
+  //
+  //          background: #061b28;
+  //          .navbar-brand{
+  //            padding: 15px 25px !important;
+  //          }
+  //          .icon-remove-email{
+  //            font-size: 40px;
+  //            background: #021523;
+  //            line-height: 75px;
+  //            height: 75px;
+  //            width: 75px;
+  //            text-align: center;
+  //          }
+  //        }
+  //      }
+  //    }
+  //    &.pull-right{
+  //      li{
+  //        a{
+  //          padding: 13px 15px 18px !important;
+  //        }
+  //      }
+  //    }
+  //  }
+  //
+  //  .icon-ideas-icon,.icon-join-icon{
+  //    display: inline-block;
+  //    vertical-align: middle;
+  //    font-size: 30px;
+  //    color: #ffffff;
+  //  }
+  //
+  //  a{
+  //    display: inline-block;
+  //
+  //    &.sign-in-popover{
+  //      margin-right: 15px;
+  //    }
+  //
+  //    &.active-mobile{
+  //      background-color: #000000;
+  //    }
+  //  }
+  //
+  //}
 
   .mybucketlist-icon{
     background: url('assets/images/my-bucketlist.svg') no-repeat center center;
@@ -967,8 +971,14 @@ header{
 
 .icons{
   display: inline-block;
-  width: 25px !important;
+  width: 25px;
   height: 30px;
+}
+
+.join-icon{
+  width: 30px;
+  background: url('assets/images/join-icon.svg') no-repeat center center;
+  //background-size: 100%;
 }
 
 .ideas-icon{
@@ -2978,6 +2988,133 @@ footer{
 /* end map styles*/
 
 
+/*goal item*/
+.idea-item{
+  figure{
+    background: transparent;
+    overflow: hidden;
+    position: relative;
+    margin-bottom:15px;
+    text-align: center;
+    .rounded-corners(5px);
+
+    &>a:not(.nearby-distance){
+      height:230px;
+    }
+
+    &>a.height{
+      height:540px;
+
+      .overlay{
+        height:540px;
+      }
+    }
+
+    h3{
+      position: absolute;
+      width: 100%;
+      color:#ffffff;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 0 25px;
+      text-align: left;
+      line-height: normal;
+      z-index: 1;
+      margin-top:13px;
+
+      a{
+        color:#ffffff;
+        cursor: pointer;
+
+        &:hover{
+          color:#ffffff;
+        }
+      }
+
+      &.nearby{
+        width: 80%;
+        padding: 0 0 0 25px;
+      }
+    }
+
+    i{
+      color:#ffffff;
+    }
+
+    figcaption{
+      background-color: #ffffff;
+      ul{
+        li{
+          height:35px;
+          line-height:31px;
+          a{
+            &:hover,&:focus{
+              text-decoration: none;
+            }
+          }
+
+          i{
+            font-size:25px;
+            vertical-align: middle;
+          }
+
+          i.icon-green-ok,.icon-green-plus{
+            font-size: 36px;
+            vertical-align: middle;
+          }
+
+          &:hover{
+            a{
+              .text{
+                color:#ffffff;
+
+              }
+            }
+          }
+          .text{
+            font-size:12px;
+          }
+        }
+        .transparent{
+          .text{
+            color: #a4a4a4;
+          }
+          &:hover{
+            background-color: transparent;
+            a,.text {
+              color: #a4a4a4;
+            }
+          }
+        }
+      }
+    }
+
+    .absolute{
+      bottom:25px;
+      ul{
+        li{
+          a,span{
+            font-size:12px;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ideas-list,#story-slider-homepage{
+  padding-bottom:20px;
+
+  h2{
+    font-size: 22px;
+    line-height: normal;
+    font-weight: 300;
+    margin:30px 0;
+  }
+}
+/*end goal item*/
+
 @media (min-width: @screen-sm) {
 
   header{
@@ -3558,6 +3695,65 @@ footer{
       }
     }
   }
+
+  /*goal item*/
+  .idea-item{
+    figure{
+      text-align: left;
+      margin-bottom:32px;
+      h3{
+        font-size:24px;
+        padding: 0 25px;
+        line-height: 30px;
+        margin-top:15px;
+      }
+
+      figcaption{
+        ul{
+          li{
+            height:50px;
+            line-height:45px;
+
+            i.icon-green-ok,.icon-green-plus{
+              font-size: 49px;
+            }
+
+            i{
+              font-size:30px;
+            }
+
+            .text{
+              font-size:14px;
+            }
+          }
+        }
+      }
+
+      .absolute{
+        bottom:40px;
+        ul{
+          li{
+            padding-left:20px;
+            a,span{
+              color:#ffffff;
+              font-size:14px;
+            }
+
+          }
+        }
+      }
+    }
+  }
+
+  .ideas-list,#story-slider-homepage{
+    padding-bottom:0;
+
+    h2{
+      font-size: 27px;
+      margin:20px 0 10px 0;
+    }
+  }
+  /*end goal item*/
 }
 
 .no-right{
@@ -3915,6 +4111,42 @@ footer{
       padding: 0 35px;
     }
   }
+
+  /*goal item*/
+  .idea-item{
+    figure{
+      figcaption{
+        ul{
+          li{
+            &:hover{
+              background-color: #7724F6;
+              color:#ffffff;
+            }
+
+            &:focus,&:active{
+              background-color: #6108EA;
+              a{
+                color:#ffffff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .ideas-list,#story-slider-homepage{
+
+    h2{
+      padding: 50px 0;
+      font-size: 32px;
+    }
+
+    .no-bottom{
+      padding-bottom:0;
+    }
+  }
+  /*end goal item*/
 }
 
 .modal-open {
