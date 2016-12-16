@@ -300,6 +300,77 @@ class GoalController extends FOSRestController
     }
 
     /**
+     * @Rest\Get("/goals/popular", name="app_rest_goal_getpopulargoal ", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get popular goal",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  }
+     * )
+     *
+     * @param Request $request
+     * @return mixed
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     */
+    public function getPopularGoalAction(Request $request)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $user = $this->getUser();
+
+        //check if not user log in
+        if (!is_object($user)) {
+
+            $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+
+            //get popular goals
+            $goals = $em->getRepository("AppBundle:Goal")->findPopular(7);
+
+            $count = count($goals);
+
+            //set stats count in goal
+            $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+
+            //generate filters
+            $filters = [
+                0 => 'goal_list_small',
+                1 => 'goal_list_small',
+                2 => 'goal_list_vertical',
+                3 => 'goal_list_small',
+                4 => 'goal_list_small',
+                5 => 'goal_list_horizontal',
+                6 => 'goal_list_small',
+            ];
+
+            //get liipManager service
+            $liipManager = $this->get('liip_imagine.cache.manager');
+
+            //check if goals count is 7
+            if ($count == 7){
+
+                //set calculate value
+                $i = 0;
+
+                foreach ($goals as $goal) {
+
+                    if (isset($goal) && $goal->getListPhotoDownloadLink()) {
+                        $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $filters[$i]));
+                        $i++;
+                    }
+                }
+            }
+
+            return $goals;
+        }
+
+        return new Response('', Response::HTTP_OK);
+    }
+
+    /**
      * @Rest\Get("/top-ideas/{count}", requirements={"count"="\d+"}, name="app_rest_top_ideas", options={"method_prefix"=false})
      * @Rest\Get("/goals/{count}/suggest", requirements={"count"="\d+"})
      * @ApiDoc(
