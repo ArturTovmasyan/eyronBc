@@ -300,13 +300,13 @@ class GoalController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/goals/popular", name="app_rest_goal_getpopulargoal ", options={"method_prefix"=false})
+     * @Rest\Get("/goals/discover", name="app_rest_goal_getdiscovergoal ", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
-     *  description="This function is used to get popular goal",
+     *  description="This function is used to get discover goal",
      *  statusCodes={
-     *         200="Returned when goals was returned",
+     *         200="Ok",
      *  }
      * )
      *
@@ -314,7 +314,7 @@ class GoalController extends FOSRestController
      * @return mixed
      * @Rest\View(serializerGroups={"tiny_goal"})
      */
-    public function getPopularGoalAction(Request $request)
+    public function getDiscoverGoalAction(Request $request)
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
