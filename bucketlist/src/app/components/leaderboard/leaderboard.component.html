@@ -5,8 +5,8 @@
 <li>
   <figure class="img-circle">
     <!--{% set className = "user-no" ~ random(4) %}-->
-    <img *ngIf="user.image_path.length" src="{{ user.cached_image }}" alt="user image"/>
-    <p *ngIf="!user.image_path.length" class="no-image text-white user-no1">{{ user.first_name  | slice:0:1 | uppercase }} {{ user.last_name | slice:0:1 | uppercase }}</p>
+    <img *ngIf="user.cached_image" src="{{ user.cached_image }}" alt="user image" class="img-circle"/>
+    <p *ngIf="!user.cached_image" class="no-image text-white user-no1">{{ user.first_name  | slice:0:1 | uppercase }} {{ user.last_name | slice:0:1 | uppercase }}</p>
   </figure>
 </li>
 
