@@ -4,8 +4,6 @@ import {TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
 
 import {GoalUsersComponent} from './goal-users/goal-users.component';
-import {GoalAddComponent} from './goal-add/goal-add.component';
-import {GoalCompleteComponent} from './goal-complete/goal-complete.component';
 import {GoalFooterComponent} from './goal-footer/goal-footer.component';
 import {GoalComponent} from './goal/goal.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
@@ -20,16 +18,12 @@ import {GoalFriendComponent} from './goal-friend/goal-friend.component';
   ],
   declarations: [
     GoalUsersComponent,
-    GoalAddComponent,
-    GoalCompleteComponent,
     GoalComponent,
     GoalFooterComponent,
     LeaderboardComponent,
     GoalFriendComponent
   ],
   exports: [ GoalUsersComponent,
-    GoalAddComponent,
-    GoalCompleteComponent,
     GoalComponent,
     GoalFooterComponent,
     LeaderboardComponent,

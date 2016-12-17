@@ -56,6 +56,7 @@ export class LoginComponent {
 
     logout(){
         localStorage.removeItem('apiKey');
+        this.router.navigate(['/']);
         this.user = null;
     }
 
