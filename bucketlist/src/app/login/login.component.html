@@ -14,14 +14,14 @@
             {{ error }}
         </div>
 
-        <a [href]="resetting/check-email" class="text-dark-gray">Forgot password?</a>
+        <a routerLink="/resetting/request" (click)="joinHide()" class="text-dark-gray">Forgot password?</a>
 
         <div class="form-group">
             <button name="submit" class="btn btn-purple" [disabled]="!loginForm.form.valid">SIGN IN</button>
         </div>
     </form>
 
-    <a routerLink="register" class="sign-up">
+    <a routerLink="/register" (click)="joinHide()" class="sign-up">
         <span class="icon-user"></span>SIGN UP
     </a>
 

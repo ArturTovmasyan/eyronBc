@@ -2,10 +2,14 @@ import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { AuthGuard }      from './common/auth.guard';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'resetting/request', component: ResettingRequestComponent },
   { path: 'activity', loadChildren: './activity/activity.module#ActivityModule', canActivate: [AuthGuard]},
   { path: 'profile', loadChildren: './profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
   { path: 'goal/my-ideas', loadChildren: './drafts/drafts.module#DraftsModule', canActivate: [AuthGuard]},
