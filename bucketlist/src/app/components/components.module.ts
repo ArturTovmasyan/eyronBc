@@ -8,6 +8,8 @@ import {GoalAddComponent} from './goal-add/goal-add.component';
 import {GoalCompleteComponent} from './goal-complete/goal-complete.component';
 import {GoalFooterComponent} from './goal-footer/goal-footer.component';
 import {GoalComponent} from './goal/goal.component';
+import {LeaderboardComponent} from './leaderboard/leaderboard.component';
+import {GoalFriendComponent} from './goal-friend/goal-friend.component';
 
 
 @NgModule({
@@ -21,13 +23,17 @@ import {GoalComponent} from './goal/goal.component';
     GoalAddComponent,
     GoalCompleteComponent,
     GoalComponent,
-    GoalFooterComponent
+    GoalFooterComponent,
+    LeaderboardComponent,
+    GoalFriendComponent
   ],
   exports: [ GoalUsersComponent,
     GoalAddComponent,
     GoalCompleteComponent,
     GoalComponent,
-    GoalFooterComponent
+    GoalFooterComponent,
+    LeaderboardComponent,
+    GoalFriendComponent
   ]
 })
 export class ComponentModule { }

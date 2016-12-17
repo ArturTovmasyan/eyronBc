@@ -26,10 +26,12 @@ export class ProjectService {
     private goalUrl = '';  // URL to web API
     private usersUrl = 'users';  // URL to web API
     private userGoalsUrl = 'usergoals';  // URL to web API
-    private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to web API
-    private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to web API
-    private goalFriends = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
-    private topIdeas = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
+    private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
+    private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to activity
+    private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
+    private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
+    private featuredIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get featured iteas
+    private badgesUrl = this.baseUrl + 'badges'; 
     constructor(private http:Http, public authHttp: AuthHttp) {
     }
 
@@ -69,35 +71,35 @@ export class ProjectService {
             .catch(this.handleError);
     }
     
-    /**
-     *
-     * @param goalId
-     * @returns {Observable<R>}
-     */
-    getUserGoal(goalId:number):Observable<UserGoal> {
-        return this.http.get(this.userGoalsUrl + '/' + goalId)
-            .map((r:Response) => r.json() as UserGoal)
-            .catch(this.handleError);
-    }
+    // /**
+    //  *
+    //  * @param goalId
+    //  * @returns {Observable<R>}
+    //  */
+    // getUserGoal(goalId:number):Observable<UserGoal> {
+    //     return this.http.get(this.userGoalsUrl + '/' + goalId)
+    //         .map((r:Response) => r.json() as UserGoal)
+    //         .catch(this.handleError);
+    // }
     
-    /**
-     *
-     * @param userId
-     * @returns {Observable<R>}
-     */
-    getUser(userId:number):Observable<User> {
-        return this.http.get(this.usersUrl + '/' + userId)
-            .map((r:Response) => r.json() as User)
-            .catch(this.handleError);
-    }
+    // /**
+    //  *
+    //  * @param userId
+    //  * @returns {Observable<R>}
+    //  */
+    // getUser(userId:number):Observable<User> {
+    //     return this.http.get(this.usersUrl + '/' + userId)
+    //         .map((r:Response) => r.json() as User)
+    //         .catch(this.handleError);
+    // }
 
     /**
      *
      * @returns {Observable<T>}
      */
-    getGaolFriends():Observable<User[]> {
-        return this.http.get(this.goalFriends)
-            .map((r:Response) => r.json() as User[])
+    getGaolFriends():Observable<any> {
+        return this.authHttp.get(this.goalFriendsUrl)
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
@@ -106,8 +108,28 @@ export class ProjectService {
      * @returns {Observable<T>}
      */
     getTopIdeas():Observable<Goal[]> {
-        return this.http.get(this.topIdeas)
+        return this.authHttp.get(this.topIdeasUrl)
             .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
+    
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getFeaturedIdeas():Observable<Goal[]> {
+        return this.authHttp.get(this.featuredIdeasUrl)
+            .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
+    
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getBadges():Observable<any> {
+        return this.authHttp.get(this.badgesUrl)
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
@@ -116,10 +138,10 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     getDiscoverGoals():Observable<Goal[]> {
-        let params = new URLSearchParams();
-        params.set('action', 'opensearch');
-        params.set('format', 'json');
-        params.set('callback', 'JSONP_CALLBACK');
+        // let params = new URLSearchParams();
+        // params.set('action', 'opensearch');
+        // params.set('format', 'json');
+        // params.set('callback', 'JSONP_CALLBACK');
 
         return this.http.get(this.discoverGoalsUrl)
             .map((r:Response) => r.json() as Goal[])

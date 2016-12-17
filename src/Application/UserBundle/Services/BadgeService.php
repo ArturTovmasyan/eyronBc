@@ -48,6 +48,11 @@ class BadgeService extends AbstractProcessService
      * @var
      */
     private $router;
+    
+    /**
+     * @var
+     */
+    private $liipManager;
 
     /**
      * BadgeService constructor.
@@ -60,13 +65,14 @@ class BadgeService extends AbstractProcessService
     public function __construct(EntityManager $em, UserNotifyService $notifyService,
                                 PutNotificationService $pushNote,
                                 NotificationService $notification,
-                                $router)
+                                $router, $liipManager)
     {
         $this->em = $em;
         $this->notifyService = $notifyService;
         $this->pushNote= $pushNote;
         $this->notification= $notification;
         $this->router= $router;
+        $this->liipManager = $liipManager;
     }
 
     /**
@@ -99,6 +105,11 @@ class BadgeService extends AbstractProcessService
                 $badge->normalizedScore = $normalizedScore;
                 $userIds[] = $badge->getUser()->getId();
 
+                $user = $badge->getUser();
+                if($user->getImagePath()){
+                    $user->setCachedImage($this->liipManager->getBrowserPath($user->getImagePath(), 'user_icon'));
+                }
+
                 $update = $badge->getUpdated();
                 $minUpdate = $update > $minUpdate ? $update :  $minUpdate;
 
@@ -125,6 +136,11 @@ class BadgeService extends AbstractProcessService
                 $badge->normalizedScore = $normalizedScore;
                 $userIds[] = $badge->getUser()->getId();
 
+                $user = $badge->getUser();
+                if($user->getImagePath()){
+                    $user->setCachedImage($this->liipManager->getBrowserPath($user->getImagePath(), 'user_icon'));
+                }
+
                 $update = $badge->getUpdated();
                 $minUpdate = $update > $minUpdate ? $update :  $minUpdate;
 
@@ -149,6 +165,11 @@ class BadgeService extends AbstractProcessService
                 $normalizedScore = ceil($normalizedScore);
                 $badge->normalizedScore = $normalizedScore;
                 $userIds[] = $badge->getUser()->getId();
+
+                $user = $badge->getUser();
+                if($user->getImagePath()){
+                    $user->setCachedImage($this->liipManager->getBrowserPath($user->getImagePath(), 'user_icon'));
+                }
 
                 $update = $badge->getUpdated();
                 $minUpdate =  $update > $minUpdate ? $update :  $minUpdate;

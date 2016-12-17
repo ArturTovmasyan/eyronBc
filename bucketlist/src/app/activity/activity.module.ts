@@ -7,6 +7,7 @@ import { MyActivityComponent } from './my-activity.component';
 import { ActivityGoalComponent } from '../components/activity-goal/activity-goal.component';
 import { ActivityGoalFooterComponent } from '../components/activity-goal-footer/activity-goal-footer.component';
 import { ComponentModule } from '../components/components.module';
+import { ActivityBlockModule } from '../block/activityBlock.module';
 
 import { ActivityRouting } from './activity-routing';
 
@@ -15,7 +16,8 @@ import { ActivityRouting } from './activity-routing';
     CommonModule,
     ActivityRouting,
     TranslateModule,
-    ComponentModule
+    ComponentModule,
+    ActivityBlockModule
   ],
   declarations: [
     ActivityComponent,

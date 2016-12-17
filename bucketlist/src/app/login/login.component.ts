@@ -42,7 +42,7 @@ export class LoginComponent {
                     if(res.token) {
                         localStorage.setItem('id_token', res.token);
                         this.joinHide();
-                        // this.router.navigate(['/backoffice/categories']);
+                        this.router.navigate(['/activity']);
                     }
                 },
                 error => console.error(error)

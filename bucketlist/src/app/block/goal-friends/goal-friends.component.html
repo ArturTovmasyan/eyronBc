@@ -1,17 +1,17 @@
-<div >
+<div *ngIf="users">
   <div class="bg-white padding round margin-top">
 
   <div class="row">
       <div class="col-xs-10">
 
-        <a routerLink="/goal-friends" routerLinkActive="active" class="heading text-gray">
+        <a routerLink="/goal-friends" class="heading text-gray">
           <i class="goalfrined-icon"></i>
-          <span class="text">{{ 'goalfriends'|translate }} 5</span>
+          <span class="text">{{ 'goalfriends'|translate }} {{ length}}</span>
         </a>
       </div>
 
       <div class="col-xs-2 text-right">
-        <a href="javascript:void(0)" (click)="refreshGoalFriends" class="load" id="goalFriendLoad"></a>
+        <a (click)="refreshGoalFriends()" class="load" id="goalFriendLoad"></a>
       </div>
     </div>
 

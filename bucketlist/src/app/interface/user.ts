@@ -1,4 +1,6 @@
 export interface User {
     id: number,
-    uId: string
+    uId: string,
+    first_name?: string,
+    last_name?: string
 }

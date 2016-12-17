@@ -1,20 +1,19 @@
-<a routerLink="/goal-friends/{{ user.uid }}" routerLinkActive="active">
+<a routerLink="/profile/{{ user.uid }}">
 
   <figure class="image img-circle">
-    <img *ngIf="true" [src]="" alt="" class="img-circle img-responsive"/>
-    <p *ngIf="true" class="no-image">image_path</p>
+    <img *ngIf="user.cached_image.length != 2" src="{{ user.cached_image }}" alt="" class="img-circle img-responsive"/>
+    <p *ngIf="user.cached_image.length == 2" class="no-image user-no4">{{ user.cached_image | uppercase }}</p>
   </figure>
 
   <div class="pull-left text-gray">
     <h4 class="text-dark-gray">
-      <!--<span class="ng-hide text-dark-gray" [hidden]="nameLength < 31 " >Artur Tovmasyan</span>-->
-      <span class="ng-hide text-dark-gray" title="TEST TEST">
-                                  TEST TEST 5 COUNT...
-                                </span>
+      <span class="ng-hide text-dark-gray" title="{{ name }}">
+          {{ name.length < 31 ? name: (name|slice:0:26  + '...')}}
+      </span>
       <!--<i class="leaderboard-small" *ngIf="haveTop && inArray(user.id)"></i>-->
     </h4>
 
-    <!--<span class="text-gray">{{ 'listed_by'|translate }} <span data-ng-bind="stats.listedBy"></span></span> |-->
-    <!--<span class="text-gray">{{ 'completed'|translate }} <span data-ng-bind="stats.doneBy"></span></span>-->
+    <span class="text-gray">{{ 'listed_by'|translate }} <span>{{ user.stats.listedBy }}</span></span> |
+    <span class="text-gray">{{ 'completed'|translate }} <span>{{ user.stats.doneBy}}</span></span>
   </div>
 </a>

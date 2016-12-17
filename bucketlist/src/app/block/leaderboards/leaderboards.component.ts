@@ -6,25 +6,56 @@ import { LeaderboardComponent } from '../../components/leaderboard/leaderboard.c
 import {User} from '../../interface/user';
 
 @Component({
-  selector: 'leaderboards',
+  selector: 'leaderboards-block',
   templateUrl: './leaderboards.component.html',
   styleUrls: ['./leaderboards.component.less']
 })
-export class LeaderboardsComponent implements OnInit {
+export class LeaderboardsBlockComponent implements OnInit {
 
-  users:User[];
+  users;
+  badges;
+  maxUpdate;
+  min;
+  index:number = 0;
+  topUsers;
+  normOfTop:number;
   errorMessage:string;
 
   constructor(private _projectService: ProjectService) {}
 
-  ngOnInit() {
-    this.goalFriends()
-  }
+    ngOnInit() {
+    this.users = [];
+    this.getBadges()
+    }
 
-  goalFriends() {
-    this._projectService.getGaolFriends()
+    getBadges () {
+    this._projectService.getBadges()
         .subscribe(
-            users => this.users = users,
-            error => this.errorMessage = <any>error);
-  }
+            data => {
+              this.badges = data.badges;
+              this.maxUpdate = data.maxUpdate;
+              this.min = data.min;
+              this.topUsers = data.users;
+              this.normOfTop = +this.min.innovator + +this.min.motivator + +this.min.traveller;
+              this.initUsers()
+            },
+              error => this.errorMessage = <any>error
+            );
+    }
+
+    initUsers() {
+        let i = 0;
+        for(let index in this.badges){
+            this.users[i++] = (this.index < this.badges[index].length)?this.badges[index][this.index]:this.badges[index][(this.index % this.badges[index].length)];
+        }
+        console.log(this);
+    };
+
+    refreshLeaderboards(){
+        if(this.normOfTop > 0) {
+            this.index = (this.index == 9) ? 0 : this.index + 1;
+            this.initUsers();
+        }
+    }
+  
 }
