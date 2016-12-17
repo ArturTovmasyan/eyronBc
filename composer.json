@@ -53,7 +53,6 @@
         "liuggio/excelbundle": "^2.0",
         "beberlei/DoctrineExtensions": "1.0",
         "j7mbo/twitter-api-php": "1.0.*",
-        "lexik/jwt-authentication-bundle": "2.0.*",
         "nelmio/cors-bundle": "^1.4"
     },
     "require-dev": {

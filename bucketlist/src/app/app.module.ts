@@ -2,12 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
-import { AuthHttp }       from 'angular2-jwt';
 import {TranslateModule} from 'ng2-translate';
 
 import { AppComponent } from './app.component';
 import { AuthGuard }      from './common/auth.guard';
-import { AuthProvider }   from './common/auth.provider';
 import { appRouting } from './app-routing';
 import { ProjectService } from './project.service';
 
@@ -44,8 +42,7 @@ import { ResettingRequestComponent } from './components/resetting-request/resett
   ],
   providers: [
     ProjectService,
-    AuthGuard,
-    {provide: AuthHttp, useClass : AuthProvider}
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
