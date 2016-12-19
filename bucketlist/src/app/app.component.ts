@@ -10,13 +10,19 @@ import {User} from './interface/user';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
   providers: [
+    ProjectService,
     Broadcaster
   ]
 })
+
 export class AppComponent implements OnInit  {
+
   public translatedText: string;
   public supportedLanguages: any[];
   public joinShow:boolean = false;
+  public menus: any[];
+  public privacyMenu: any;
+  errorMessage:string;
   public appUser:User;
 
   constructor(private _translate: TranslateService,private broadcaster: Broadcaster, private _projectService: ProjectService) { }
@@ -25,9 +31,11 @@ export class AppComponent implements OnInit  {
     // standing data
     this.supportedLanguages = [
       { display: 'English', value: 'en' },
-      { display: 'Russian', value: 'ru' },
-
+      { display: 'Russian', value: 'ru' }
     ];
+
+    this.getBottomMenu();
+    this.selectLang('en');
 
     if(localStorage.getItem('apiKey')){
         this._projectService.getUser()
@@ -35,8 +43,6 @@ export class AppComponent implements OnInit  {
             user => this.appUser = user,
             error => localStorage.removeItem('apiKey'));
     }
-
-    this.selectLang('en');
 
     this.broadcaster.on<User>('login')
         .subscribe(user => {
@@ -60,6 +66,7 @@ export class AppComponent implements OnInit  {
   hideJoin(ev){
     this.joinShow = false;
   }
+
   isCurrentLang(lang: string) {
     return lang === this._translate.currentLang;
   }
@@ -67,5 +74,20 @@ export class AppComponent implements OnInit  {
   selectLang(lang: string) {
     // set default;
     this._translate.use(lang);
+  }
+
+  getBottomMenu() {
+    this._projectService.getBottomMenu()
+        .subscribe(
+            menus => {
+              this.menus = menus;
+
+              for(let index in this.menus){
+                if (this.menus[index].isTerm) {
+                  this.privacyMenu = this.menus[index];
+                }
+              }
+            },
+            error => this.errorMessage = <any>error);
   }
 }
