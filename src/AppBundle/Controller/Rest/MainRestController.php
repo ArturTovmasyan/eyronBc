@@ -55,4 +55,41 @@ class MainRestController extends FOSRestController
 
         return [];
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Main",
+     *  description="This function is used to get bottom menu list",
+     *  statusCodes={
+     *         200="OK",
+     *  })
+     *
+     * @Rest\View
+     */
+    public function getBottomMenuAction()
+    {
+        $menu = [];
+
+        // get doctrine manager
+        $em = $this->container->get('doctrine')->getManager();
+
+        //get all page
+        $pages = $em->getRepository('AppBundle:Page')->findAllByOrdered();
+
+        //get router service
+        $router = $this->get('router');
+
+        // check pages
+        if ($pages) {
+
+            // loop for pages
+            foreach ($pages as $page)
+            {
+                $menu[$page->getSlug()] = $router->generate('page', ['slug' => $page->getSlug()], true);
+            }
+        }
+
+        return $menu;
+    }
 }
