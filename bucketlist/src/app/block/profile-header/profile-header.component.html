@@ -1,0 +1,313 @@
+<div class="content-header">
+<figure   class="my-profile">
+  <!--{% if profileUser.id == app.user.id %}-->
+  <!--{% endif %}-->
+  <span class="overlay"></span>
+  <img src=" "   alt="Profile Cover Photo" class="img-responsive" />
+
+  <!--{% if profileUser.getPhotoLink %}-->
+                <!--{{ profileUser.getPhotoLink|blImageFilter('user_cover') }}-->
+            <!--{% else %}-->
+                <!--{{ asset(imgPath) }}-->
+            <!--{% endif %}"-->
+</figure>
+
+<div class="profile">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-4">
+        <figure>
+
+          <!--{% if profileUser.id == app.user.id %}-->
+          <a routerLink="/edit/profile" routerLinkActive="active">settings </a>
+          <!--}}" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon">-->
+          <!--{% endif %}-->
+
+          <!--{% block profileImage %}-->
+          <div>
+            <!--{% if profileUser.getPhotoLink %}-->
+            <img src="" alt="Profile image" class="img-responsive img-circle"/>
+            <!--{{ profileUser.getPhotoLink|blImageFilter('user_image') }}-->
+            <!--{% else %}-->
+            <span class="no-image {{ className }}">{{ nameOnImage }}</span>
+            <!--{% endif %}-->
+          </div>
+          <!--{% endblock %}-->
+
+          <figcaption>
+
+            <h3>
+              <!--data-ng-cloak-->
+                                    <!--<span  *ngIf="isMobile">-->
+                                      <!--&lt;!&ndash;class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}"&ndash;&gt;-->
+                                        <!--&lt;!&ndash;{% if profileUser.showName %}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{{ profileUser.showName }}&ndash;&gt;-->
+                                        <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->
+
+                                        <!--&lt;!&ndash;{#{% if  profileUser.getAge  %}#}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{#{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}#}&ndash;&gt;-->
+                                        <!--&lt;!&ndash;{#{% endif %}#}&ndash;&gt;-->
+                                    <!--</span>-->
+            </h3>
+
+            <!--{% if profileUser.id != app.user.id %}-->
+                                    <!--<span class="close-friends hidden-sm hidden-md hidden-lg"-->
+                                          <!--data-ls-follow-manage-->
+                                          <!--data-ng-mouseleave="isHover = false"-->
+                                          <!--data-ng-mousemove="hoverIn($event, (isFollow?'{{ "my_bucket_list.un_follow"|trans }}':'{{ "my_bucket_list.follow"|trans }}'))"-->
+            <!--data-ng-cloak-->
+            <!--data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"-->
+            <!--data-ls-user-id="{{ profileUser.id }}"-->
+            <!--data-ls-is-follow="isFollow">-->
+
+            <!--<i class="follow-icon" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>-->
+            <!--<i class="closefriend-icon" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>-->
+            <!--<span data-ng-show="!isFollow">{{ 'my_bucket_list.follow' | trans | upper }}</span>-->
+            <!--<span data-ng-show="isFollow">{{ 'my_bucket_list.un_follow' | trans | upper }}</span>-->
+            <!--</span>-->
+            <!--{% endif %}-->
+
+            <ul>
+              <li>
+                <span>{{ 'block_listed'|translate | capitalize }}</span>
+                <!--<span>{{ stats.listedBy }}</span>-->
+              </li>
+
+              <li>
+                <span>{{ 'user_goal.active'|translate | capitalize }}</span>
+                <!--<span>{{ stats.active }}</span>-->
+              </li>
+
+              <li>
+                <span>{{ 'block_completed'|translate |capitalize }}</span>
+                <!--<span>{{ stats.doneBy }}</span>-->
+              </li>
+            </ul>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="col-sm-4 hidden-xs relative">
+
+        <!--{% if profileUser.showName %}-->
+        <h1>
+          <!--<span class="bg-blue {% if profileUser.showName|length > 11 %}title-smaller{% endif %}"></span>-->
+          <!--{{ profileUser.showName }}-->
+        </h1>
+        <!--{% endif %}-->
+
+        <!--{#{% if  profileUser.getAge  %}#}-->
+        <!--{#<p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|translate }}</p>#}-->
+        <!--{#{% endif %}#}-->
+        <!--{% if profileUser.id != app.user.id %}-->
+                            <!--<span class="close-friends hidden-xs"-->
+                                  <!--data-ls-follow-manage-->
+                                  <!--data-ng-cloak-->
+                                  <!--data-ng-mouseleave="isHover = false"-->
+                                  <!--data-ng-mousemove="hoverIn($event, (isFollow?'{{ "my_bucket_list.un_follow"|trans }}':'{{ "my_bucket_list.follow"|trans }}'))"-->
+        <!--data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"-->
+        <!--data-ls-user-id="{{ profileUser.id }}"-->
+        <!--data-ls-is-follow="isFollow">-->
+        <!--<i class="follow-icon" data-ng-show="!isFollow"></i>-->
+        <!--<i class="closefriend-icon" data-ng-show="isFollow"></i>-->
+        <!--<span data-ng-show="!isFollow">{{ 'my_bucket_list.follow' | translate | upper }}</span>-->
+        <!--<span data-ng-show="isFollow">{{ 'my_bucket_list.un_follow' | translate | upper }}</span>-->
+        <!--</span>-->
+        <!--{% endif %}-->
+
+        <!--{% set badges = profileUser.getBadges %}-->
+
+        <ul class="badge-place">
+
+          <!--{% set badgeTitles = {-->
+          <!--1 : 'leaderboard.traveler'|translate,-->
+          <!--2 : 'leaderboard.writer'|translate,-->
+          <!--3 : 'leaderboard.innovator'|translate-->
+          <!--} %}-->
+
+          <!--{% for badge in badges %}-->
+
+          <!--{% set score = badgeNormalizer(badge.type, badge.Score) %}-->
+
+          <!--{% if score  > 0 %}-->
+          <li>
+            <!--<i title="{{ badgeTitles[badge.type] }}" class="badge-{{ badge.type }}"></i>-->
+             <a routerLink="/leaderboard" routerLinkActive="active">leaderboard</a>
+            <!--{{ score|round(0, 'ceil')}}-->
+          </li>
+          <!--{% endif %}-->
+
+          <!--{% endfor %}-->
+        </ul>
+      </div>
+
+      <!--{% if profileUser.id == app.user.id %}-->
+      <div class="col-sm-4">
+        <!--data-ng-class="{'bg-white': isMobile}-->
+        <div class="text-right hidden-xs">
+          <a routerLink="/edit/profile" routerLinkActive="active">settings</a>
+          <!--{#<i class="icon-settings"><span class="path1"></span><span class="path2"></span></i>#}-->
+          <!--</a>-->
+        </div>
+
+        <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
+        <div class="profile-information" >
+          <!--data-ng-show="{{ user.getCompletedPercent()|round(1, 'floor') }} != 100"-->
+          <em>{{ 'complete_message'|translate }}</em>
+
+          <div class="row no-gutter">
+            <div class="col-xs-10">
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped"
+                     role="progressbar"
+                     aria-valuenow="45"
+                     aria-valuemin="0"
+                     aria-valuemax="100"
+                >
+                     <!--style="width:{{ user.getCompletedPercent|round(1, 'floor') }}%"-->
+
+                  <!--{{ user.getCompletedPercent|round(1, 'floor') }}%-->
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <a class="text-gray">
+                 <!--(click)="completeProfileMyBucketList=!completeProfileMyBucketList" -->
+
+                <!--<i class="question-icon-new ng-hide" data-ng-hide="completeProfileMyBucketList || isMobile"></i>-->
+                <!--<i class="icon-question-icon ng-hide" data-ng-hide="completeProfileMyBucketList || !isMobile"><span class="path1"></span><span class="path2"></span></i>-->
+                <!--<i class="icon-icon-up ng-hide" data-ng-show="completeProfileMyBucketList"><span class="path1"></span><span class="path2"></span></i>-->
+              </a>
+            </div>
+          </div>
+
+        </div>
+        <!--{% endif %}-->
+      </div>
+      <!--{#{% else %}#}-->
+      <!--{#<div class="col-sm-4 hidden-xs">#}-->
+      <!--{#<div class="follow text-right"#}-->
+             <!--{#data-ls-follow-manage#}-->
+             <!--{#data-ng-cloak#}-->
+             <!--{#data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"#}-->
+             <!--{#data-ls-user-id="{{ profileUser.id }}"#}-->
+             <!--{#data-ls-is-follow="isFollow">#}-->
+        <!--{#<i class="icon-follow" data-ng-show="!isFollow" title="{{ "my_bucket_list.follow"|trans }}"></i>#}-->
+        <!--{#<i class="icon-unfollow" data-ng-show="isFollow" title="{{ "my_bucket_list.un_follow"|trans }}"></i>#}-->
+        <!--{#</div>#}-->
+      <!--{#</div>#}-->
+      <!--{% endif %}-->
+    </div>
+    <!--{% if app.session.flashBag.has('success') %}-->
+    <div class="alert alert-success alert-dismissible ">
+      <!--{% for msg in app.session.flashBag.get('success') %}-->
+      <!--{{ msg }}-->
+      <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+        <!--<span aria-hidden="true">&times;</span>-->
+      <!--</button>-->
+      <!--{% endfor %}-->
+    </div>
+    <!--{% endif %}-->
+
+
+    <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
+    <div class="row slide ng-hide" >
+      <!--data-ng-cloak data-ng-show="completeProfileMyBucketList" style="display: none"-->
+      <div class="col-sm-6">
+        <ol style="position: relative;">
+          <li>
+                                    <span class="profile-title">
+                                        {{ 'security.login.sign_up'|translate }}
+                                        <i class="icon-ok-only"></i>
+                                    </span>
+            <span class="text-gray">{{ 'my_list.signed_up'|translate }}</span>
+          </li>
+          <li>
+                                    <span class="profile-title">{{ 'account.complete_text'|translate }}
+                                        <!--{% if user.registrationToken is null %}-->
+                                            <i class="icon-ok-only"></i>
+                                        <!--{% else %}-->
+                                            <i class="icon-question-only"></i>
+                                        <!--{% endif %}-->
+                                    </span>
+            <span class="text-gray">{{ 'my_list.verification'|translate }}</span>
+            <span class="text-gray">{{ 'my_list.confirm'|translate }}</span>
+          </li>
+          <li>
+            <!--{% if user.socialPhotoLink or  user.fileName %}-->
+                                        <span class="profile-title">{{ 'image_complete_text'|translate }}
+                                            <i class="icon-ok-only"></i>
+                                        </span>
+            <!--{% else %}-->
+            <!--{#<a href="javascript:void(0)"#}-->
+                 <!--{#data-ls-jquery-modal#}-->
+                 <!--{#data-ls-template-url="{{ path('settings') }}"#}-->
+                 <!--{#data-ls-identity="goalSettingsInCompleteModal">#}-->
+            <!--{#<strong>{{ 'image_complete_text'|trans }}</strong>#}-->
+            <!--{#<i class="icon-question-only"></i>#}-->
+            <!--{#</a>#}-->
+            <a routerLink="/edit/profile" routerLinkActive="active">settings</a>
+              <strong>{{ 'image_complete_text'|translate }}</strong>
+              <i class="icon-question-only"></i>
+
+            <!--{% endif %}-->
+            <span class="text-gray">{{ 'my_list.add_image'|translate }}</span>
+          </li>
+          <li>
+            <a routerLink="/goal/create" routerLinkActive="active">Goal Create</a>
+              <strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>
+              <!--{% if user.getUserGoalCount|length > 0 %}-->
+              <i class="icon-ok-only"></i>
+              <!--{% else %}-->
+              <i class="icon-question-only"></i>
+              <!--{% endif %}-->
+
+            <span class="text-gray">{{ 'my_list.want_control'|translate }}</span>
+            <span class="text-gray">{{ 'my_list.follow_link'|translate }}</span>
+          </li>
+        </ol>
+
+      </div>
+
+      <div class="col-sm-6">
+        <ol style="position: relative" start="5">
+          <li>
+                                    <span class="profile-title">{{ 'deadline.complete_text'|translate }}
+                                        <!--{% if user.checkDeadLines() %}-->
+                                            <i class="icon-ok-only"></i>
+                                        <!--{% else %}-->
+                                            <i class="icon-question-only"></i>
+                                        <!--{% endif %}-->
+                                    </span>
+            <span class="text-gray">{{ 'my_list.dream_text'|translate }}</span>
+          </li>
+          <li>
+                                    <span class="profile-title">{{ 'goal.complete_text'|translate }}
+                                        <!--{% if user.checkCompletedGoals() %}-->
+                                            <i class="icon-ok-only"></i>
+                                        <!--{% else %}-->
+                                            <i class="icon-question-only"></i>
+                                        <!--{% endif %}-->
+                                    </span>
+            <span class="text-gray">{{ 'my_list.have_goal'|translate }}</span>
+          </li>
+
+          <li>
+                                    <span class="profile-title">{{ 'success_story.complete_text'|translate | capitalize}}
+                                        <!--{% if user.checkSuccessStory() %}-->
+                                            <i class="icon-ok-only"></i>
+                                        <!--{% else %}-->
+                                            <i class="icon-question-only"></i>
+                                        <!--{% endif %}-->
+                                    </span>
+            <span class="text-gray">{{ 'my_list.complete_goal'|translate }}</span>
+          </li>
+        </ol>
+
+      </div>
+    </div>
+    <!--{% endif %}-->
+
+  </div>
+</div>
+</div>

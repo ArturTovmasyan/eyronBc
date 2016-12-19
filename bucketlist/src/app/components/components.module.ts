@@ -8,6 +8,7 @@ import {GoalFooterComponent} from './goal-footer/goal-footer.component';
 import {GoalComponent} from './goal/goal.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {GoalFriendComponent} from './goal-friend/goal-friend.component';
+import { CapitalizePipe } from '../pipes/capitalize.pipe';
 
 
 @NgModule({
@@ -21,13 +22,15 @@ import {GoalFriendComponent} from './goal-friend/goal-friend.component';
     GoalComponent,
     GoalFooterComponent,
     LeaderboardComponent,
-    GoalFriendComponent
+    GoalFriendComponent,
+    CapitalizePipe
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
     GoalFooterComponent,
     LeaderboardComponent,
-    GoalFriendComponent
+    GoalFriendComponent,
+    CapitalizePipe
   ]
 })
 export class ComponentModule { }
