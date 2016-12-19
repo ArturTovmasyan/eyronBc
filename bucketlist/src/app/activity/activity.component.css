@@ -1,0 +1,739 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+#news-feed,
+#goal-friends,
+#goal-users-modal {
+  padding: 10px 0;
+  margin-top: 5px;
+}
+#news-feed .goalfrineds-menu,
+#goal-friends .goalfrineds-menu,
+#goal-users-modal .goalfrineds-menu {
+  padding: 5px 0 0;
+  margin-bottom: 0;
+}
+#news-feed .goalfrineds-menu li,
+#goal-friends .goalfrineds-menu li,
+#goal-users-modal .goalfrineds-menu li {
+  display: inline-block;
+}
+#news-feed .goalfrineds-menu li a,
+#goal-friends .goalfrineds-menu li a,
+#goal-users-modal .goalfrineds-menu li a {
+  padding: 5px 10px;
+  color: #333333;
+  font-size: 15px;
+}
+#news-feed .goalfrineds-menu li a:hover,
+#goal-friends .goalfrineds-menu li a:hover,
+#goal-users-modal .goalfrineds-menu li a:hover {
+  color: #7724F6;
+}
+#news-feed .common-goals,
+#goal-friends .common-goals,
+#goal-users-modal .common-goals {
+  display: block;
+}
+#news-feed form .icon-search-icon,
+#goal-friends form .icon-search-icon,
+#goal-users-modal form .icon-search-icon {
+  position: absolute;
+  font-size: 24px;
+  color: #cccccc;
+}
+#news-feed form input,
+#goal-friends form input,
+#goal-users-modal form input {
+  border: 0;
+  font-size: 14px;
+  box-shadow: none;
+  border-radius: 0;
+  border-bottom: 1px solid #cccccc;
+  padding: 0 5px 9px 35px;
+  color: #333333;
+}
+#news-feed form input:hover,
+#goal-friends form input:hover,
+#goal-users-modal form input:hover,
+#news-feed form input:active,
+#goal-friends form input:active,
+#goal-users-modal form input:active {
+  border-bottom: 1px solid #7724F6;
+}
+#news-feed .users-list,
+#goal-friends .users-list,
+#goal-users-modal .users-list {
+  background-color: #ffffff;
+  padding: 15px 10px 15px 15px;
+  margin-bottom: 10px;
+}
+#news-feed .users-list h4,
+#goal-friends .users-list h4,
+#goal-users-modal .users-list h4 {
+  padding: 3px 0 1px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#news-feed .users-list span,
+#goal-friends .users-list span,
+#goal-users-modal .users-list span {
+  font-size: 13px;
+}
+#news-feed .icon-lock-white,
+#goal-friends .icon-lock-white,
+#goal-users-modal .icon-lock-white {
+  right: 15px;
+  top: 15px;
+  color: #B3B3B3;
+  z-index: 10;
+  cursor: pointer;
+}
+#news-feed .image,
+#goal-friends .image,
+#goal-users-modal .image {
+  margin: 0 10px 0 0;
+  float: left;
+}
+#news-feed .image a,
+#goal-friends .image a,
+#goal-users-modal .image a {
+  height: auto;
+}
+#news-feed .image img,
+#goal-friends .image img,
+#goal-users-modal .image img {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  border: 2px solid #cecece;
+}
+#news-feed .image .no-image,
+#goal-friends .image .no-image,
+#goal-users-modal .image .no-image {
+  height: 40px;
+  width: 40px;
+  line-height: 35px;
+  color: #ffffff;
+}
+#news-feed i,
+#goal-friends i,
+#goal-users-modal i {
+  font-size: 25px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+#news-feed i.leaderboard-small,
+#goal-friends i.leaderboard-small,
+#goal-users-modal i.leaderboard-small {
+  vertical-align: top;
+}
+#news-feed p,
+#goal-friends p,
+#goal-users-modal p {
+  font-size: 12px;
+  color: #999999;
+}
+#news-feed .image-goalfrinds,
+#goal-friends .image-goalfrinds,
+#goal-users-modal .image-goalfrinds {
+  width: 45px;
+  height: 45px;
+  margin: 0 auto;
+}
+#news-feed .image-goalfrinds img,
+#goal-friends .image-goalfrinds img,
+#goal-users-modal .image-goalfrinds img {
+  width: 45px;
+  height: 45px;
+  border: 2px solid #cecece;
+}
+#news-feed .image-goalfrinds .no-image,
+#goal-friends .image-goalfrinds .no-image,
+#goal-users-modal .image-goalfrinds .no-image {
+  width: 45px;
+  height: 45px;
+  margin: 0 auto;
+  line-height: 40px;
+  color: #ffffff;
+}
+#news-feed em,
+#goal-friends em,
+#goal-users-modal em {
+  padding: 0 0 5px 15px;
+  display: block;
+  font-size: 14px;
+}
+#news-feed hr,
+#goal-friends hr,
+#goal-users-modal hr {
+  margin-top: 5px;
+}
+#news-feed h3,
+#goal-friends h3,
+#goal-users-modal h3 {
+  font-size: 18px;
+}
+#news-feed h3 a,
+#goal-friends h3 a,
+#goal-users-modal h3 a {
+  font-size: 18px;
+}
+#news-feed h4,
+#goal-friends h4,
+#goal-users-modal h4 {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 0 2px 0;
+  margin: 0;
+}
+#news-feed h4 a,
+#goal-friends h4 a,
+#goal-users-modal h4 a {
+  font-size: 14px;
+  padding-bottom: 2px;
+  display: inline-block;
+}
+#news-feed h4 span,
+#goal-friends h4 span,
+#goal-users-modal h4 span {
+  display: block;
+}
+#news-feed .goalTitle,
+#goal-friends .goalTitle,
+#goal-users-modal .goalTitle {
+  height: 230px;
+  width: 100%;
+}
+#news-feed .goalTitle h3,
+#goal-friends .goalTitle h3,
+#goal-users-modal .goalTitle h3 {
+  position: absolute;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0 25px;
+  line-height: normal;
+}
+#news-feed .goalTitle i.lock-icon,
+#goal-friends .goalTitle i.lock-icon,
+#goal-users-modal .goalTitle i.lock-icon {
+  position: absolute;
+  right: 35px;
+  color: #ffffff;
+  top: 20px;
+}
+#news-feed figure,
+#goal-friends figure,
+#goal-users-modal figure {
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+#news-feed figure > a,
+#goal-friends figure > a,
+#goal-users-modal figure > a {
+  display: block;
+}
+#news-feed figure figcaption,
+#goal-friends figure figcaption,
+#goal-users-modal figure figcaption {
+  margin-bottom: 0;
+}
+#news-feed figure figcaption ul li i.icon-green-plus,
+#goal-friends figure figcaption ul li i.icon-green-plus,
+#goal-users-modal figure figcaption ul li i.icon-green-plus,
+#news-feed figure figcaption ul li i.icon-green-ok,
+#goal-friends figure figcaption ul li i.icon-green-ok,
+#goal-users-modal figure figcaption ul li i.icon-green-ok {
+  font-size: 30px;
+}
+#news-feed figure figcaption ul li i,
+#goal-friends figure figcaption ul li i,
+#goal-users-modal figure figcaption ul li i {
+  font-size: 20px;
+}
+#news-feed figure figcaption ul.news-footer li .comment-icon,
+#goal-friends figure figcaption ul.news-footer li .comment-icon,
+#goal-users-modal figure figcaption ul.news-footer li .comment-icon {
+  margin-left: -17px;
+  width: 25px;
+  height: 20px;
+  margin-right: 1px;
+}
+#news-feed .idea-item figure,
+#goal-friends .idea-item figure,
+#goal-users-modal .idea-item figure {
+  margin-bottom: 0;
+}
+#news-feed .swiper-slide figure,
+#goal-friends .swiper-slide figure,
+#goal-users-modal .swiper-slide figure {
+  border-radius: 4px;
+  -moz-border-radius-topleft: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomleft: 4px;
+  -moz-border-radius-bottomright: 4px;
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+#news-feed .right-block,
+#goal-friends .right-block,
+#goal-users-modal .right-block {
+  margin-bottom: 10px;
+}
+#news-feed .padding,
+#goal-friends .padding,
+#goal-users-modal .padding {
+  padding: 10px 10px 1px;
+}
+#news-feed .padding-no,
+#goal-friends .padding-no,
+#goal-users-modal .padding-no {
+  padding-bottom: 0;
+}
+#news-feed ol,
+#goal-friends ol,
+#goal-users-modal ol {
+  padding: 10px 35px;
+  background-color: #e6e6e6;
+}
+#news-feed ol li,
+#goal-friends ol li,
+#goal-users-modal ol li {
+  color: #7d7d7d;
+  clear: both;
+}
+#news-feed ol li i,
+#goal-friends ol li i,
+#goal-users-modal ol li i {
+  cursor: default;
+}
+#news-feed ol li a,
+#goal-friends ol li a,
+#goal-users-modal ol li a,
+#news-feed ol li span,
+#goal-friends ol li span,
+#goal-users-modal ol li span {
+  color: #666666;
+  font-size: 14px;
+}
+#news-feed ol li a i,
+#goal-friends ol li a i,
+#goal-users-modal ol li a i,
+#news-feed ol li span i,
+#goal-friends ol li span i,
+#goal-users-modal ol li span i {
+  margin-left: 25px;
+}
+#news-feed ol li a i.question-icon,
+#goal-friends ol li a i.question-icon,
+#goal-users-modal ol li a i.question-icon,
+#news-feed ol li span i.question-icon,
+#goal-friends ol li span i.question-icon,
+#goal-users-modal ol li span i.question-icon {
+  float: right;
+}
+#news-feed ol li a i,
+#goal-friends ol li a i,
+#goal-users-modal ol li a i {
+  cursor: pointer;
+}
+#news-feed ol li a:hover,
+#goal-friends ol li a:hover,
+#goal-users-modal ol li a:hover {
+  color: #666666;
+}
+#news-feed ol li a:hover i,
+#goal-friends ol li a:hover i,
+#goal-users-modal ol li a:hover i {
+  color: #7724f6;
+}
+#news-feed .list,
+#goal-friends .list,
+#goal-users-modal .list {
+  padding-left: 0;
+}
+#news-feed .list li,
+#goal-friends .list li,
+#goal-users-modal .list li {
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 7px;
+  padding-bottom: 7px;
+}
+#news-feed .list li:last-child,
+#goal-friends .list li:last-child,
+#goal-users-modal .list li:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+#news-feed .list li figure,
+#goal-friends .list li figure,
+#goal-users-modal .list li figure {
+  margin: 0 10px 0;
+}
+#news-feed .list li .image,
+#goal-friends .list li .image,
+#goal-users-modal .list li .image {
+  float: left;
+}
+#news-feed .list li h4,
+#goal-friends .list li h4,
+#goal-users-modal .list li h4 {
+  padding-top: 0;
+  margin-top: 5px;
+}
+#news-feed .list li h4 span,
+#goal-friends .list li h4 span,
+#goal-users-modal .list li h4 span {
+  display: inline-block;
+}
+#news-feed .list li a,
+#goal-friends .list li a,
+#goal-users-modal .list li a {
+  font-size: 13px;
+}
+.user-activities {
+  padding: 0 !important;
+  margin-top: 0 !important;
+}
+.goals-animate .swiper-button-next,
+.goals-animate .swiper-button-prev {
+  top: 42%;
+}
+.goals-animate .swiper-pagination {
+  text-align: right;
+  position: absolute;
+  right: 3px;
+  top: 36px;
+  width: 100px;
+  height: 25px;
+  font-size: 14px;
+  left: auto;
+}
+.goals-animate .swiper-pagination .swiper-pagination-bullet {
+  margin: 0 5px;
+}
+.goals-animate p {
+  padding-bottom: 0;
+}
+.goals-animate .idea-item figure.rounded-corners {
+  border-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #f2f2f2;
+  position: absolute;
+  top: -8px;
+  left: 14px;
+}
+.horizontal-menu {
+  padding: 0 5px 0 0;
+}
+.horizontal-menu li {
+  display: inline-block;
+  border-right: 1px solid #cccccc;
+  padding: 0 15px 0 10px;
+}
+.horizontal-menu li strong {
+  display: block;
+  color: #666666;
+  font-size: 13px;
+}
+.horizontal-menu li span {
+  display: block;
+  color: #7d7d7d;
+}
+.horizontal-menu li span:last-child {
+  font-size: 18px;
+}
+.horizontal-menu li:last-child {
+  border: 0;
+}
+.horizontal-menu li:hover {
+  background-color: transparent;
+}
+@media (min-width: 768px) {
+  #news-feed,
+  #goal-friends {
+    padding: 20px 0;
+    margin-top: 10px;
+  }
+  #news-feed .users-list,
+  #goal-friends .users-list {
+    padding: 20px 10px 20px 20px;
+    margin-bottom: 15px;
+    min-height: 101px;
+  }
+  #news-feed .image,
+  #goal-friends .image {
+    margin: 0 15px 0 0;
+    float: left;
+  }
+  #news-feed .image a,
+  #goal-friends .image a {
+    height: auto;
+  }
+  #news-feed .image img,
+  #goal-friends .image img {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border: 2px solid #cecece;
+  }
+  #news-feed .image .no-image,
+  #goal-friends .image .no-image {
+    height: 50px;
+    width: 50px;
+    line-height: 45px;
+  }
+  #news-feed i,
+  #goal-friends i {
+    font-size: 30px;
+  }
+  #news-feed p,
+  #goal-friends p {
+    font-size: 13px;
+  }
+  #news-feed .image-goalfrinds,
+  #goal-friends .image-goalfrinds {
+    width: 60px;
+    height: 60px;
+  }
+  #news-feed .image-goalfrinds img,
+  #goal-friends .image-goalfrinds img {
+    width: 60px;
+    height: 60px;
+  }
+  #news-feed .image-goalfrinds .no-image,
+  #goal-friends .image-goalfrinds .no-image {
+    height: 60px;
+    width: 60px;
+    line-height: 50px;
+    font-size: 16px;
+  }
+  #news-feed figure > a,
+  #goal-friends figure > a {
+    display: block;
+  }
+  #news-feed figure figcaption ul li i.icon-green-plus,
+  #goal-friends figure figcaption ul li i.icon-green-plus,
+  #news-feed figure figcaption ul li i.icon-green-ok,
+  #goal-friends figure figcaption ul li i.icon-green-ok {
+    font-size: 49px;
+  }
+  #news-feed figure figcaption ul li i,
+  #goal-friends figure figcaption ul li i {
+    font-size: 30px;
+  }
+  #news-feed figure figcaption ul.news-footer li .comment-icon,
+  #goal-friends figure figcaption ul.news-footer li .comment-icon {
+    width: 30px;
+    height: 24px;
+  }
+  #news-feed em,
+  #goal-friends em {
+    padding: 0 0 5px 15px;
+    font-size: 16px;
+  }
+  #news-feed hr,
+  #goal-friends hr {
+    margin-top: 10px;
+  }
+  #news-feed h3,
+  #goal-friends h3 {
+    font-size: 22px;
+  }
+  #news-feed h3 a,
+  #goal-friends h3 a {
+    font-size: 22px;
+  }
+  #news-feed h4,
+  #goal-friends h4 {
+    font-size: 16px;
+    padding: 9px 0 2px 0;
+  }
+  #news-feed h4 a,
+  #goal-friends h4 a {
+    font-size: 16px;
+    padding: 0 10px 0 0;
+  }
+  #news-feed h4 span,
+  #goal-friends h4 span {
+    display: inline-block;
+  }
+  #news-feed .horizontal-menu,
+  #goal-friends .horizontal-menu {
+    padding: 0 10px 0 0;
+  }
+  #news-feed .horizontal-menu li strong,
+  #goal-friends .horizontal-menu li strong {
+    font-size: 14px;
+  }
+  #news-feed .horizontal-menu li span:last-child,
+  #goal-friends .horizontal-menu li span:last-child {
+    font-size: 22px;
+  }
+  #news-feed .en li,
+  #goal-friends .en li {
+    padding: 0 14px 0 10px;
+  }
+  #news-feed .ru li,
+  #goal-friends .ru li {
+    padding: 0 9px;
+  }
+  #news-feed .goalTitle h3,
+  #goal-friends .goalTitle h3 {
+    font-size: 24px;
+    padding: 0 25px;
+    line-height: 30px;
+    margin-top: 15px;
+  }
+  #news-feed .goalTitle i.lock-icon,
+  #goal-friends .goalTitle i.lock-icon {
+    right: 35px;
+    top: 20px;
+  }
+  #news-feed ol,
+  #goal-friends ol {
+    padding: 20px 15px 20px 50px;
+  }
+  #news-feed ol li a,
+  #goal-friends ol li a,
+  #news-feed ol li bdi,
+  #goal-friends ol li bdi {
+    font-size: 16px;
+  }
+  #news-feed ol li a i,
+  #goal-friends ol li a i,
+  #news-feed ol li bdi i,
+  #goal-friends ol li bdi i {
+    margin-left: 25px;
+  }
+  #news-feed .right-block,
+  #goal-friends .right-block {
+    padding: 15px 40px;
+    margin-bottom: 10px;
+  }
+  #news-feed .padding,
+  #goal-friends .padding {
+    padding: 20px 20px 10px;
+  }
+  #news-feed .padding-no,
+  #goal-friends .padding-no {
+    padding-bottom: 0;
+  }
+  #news-feed .list li,
+  #goal-friends .list li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+  #news-feed .list li figure,
+  #goal-friends .list li figure {
+    margin: 0 20px 0 0;
+  }
+  #news-feed .list li h4,
+  #goal-friends .list li h4 {
+    margin-top: 5px;
+  }
+  #news-feed .list li a,
+  #goal-friends .list li a {
+    font-size: 13px;
+  }
+  .goals-animate .swiper-pagination {
+    top: 6px;
+    font-size: 16px;
+  }
+  .goals-animate p {
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 992px) {
+  #news-feed,
+  #goal-friends,
+  #goal-users-modal {
+    padding: 30px 0;
+  }
+  #news-feed .users-list,
+  #goal-friends .users-list,
+  #goal-users-modal .users-list {
+    padding: 20px 25px;
+    margin-bottom: 25px;
+  }
+  #news-feed .image-goalfrinds,
+  #goal-friends .image-goalfrinds,
+  #goal-users-modal .image-goalfrinds {
+    margin-top: 0;
+    width: 60px;
+    height: 60px;
+  }
+  #news-feed .image-goalfrinds img,
+  #goal-friends .image-goalfrinds img,
+  #goal-users-modal .image-goalfrinds img {
+    width: 60px;
+    height: 60px;
+  }
+  #news-feed .image-goalfrinds .no-image,
+  #goal-friends .image-goalfrinds .no-image,
+  #goal-users-modal .image-goalfrinds .no-image {
+    height: 60px;
+    width: 60px;
+    line-height: 50px;
+  }
+  #news-feed .right-block,
+  #goal-friends .right-block,
+  #goal-users-modal .right-block {
+    padding: 20px 15px;
+  }
+  #news-feed .padding,
+  #goal-friends .padding,
+  #goal-users-modal .padding {
+    padding: 20px 20px 10px;
+  }
+  #news-feed .padding-no,
+  #goal-friends .padding-no,
+  #goal-users-modal .padding-no {
+    padding-bottom: 0;
+  }
+  .goals-animate p {
+    padding-bottom: 8px;
+  }
+}
+@media (min-width: 1200px) {
+  #news-feed .en li,
+  #goal-friends .en li {
+    padding: 0 20px 0 10px;
+  }
+  #news-feed .ru li,
+  #goal-friends .ru li {
+    padding: 0 9px;
+  }
+}

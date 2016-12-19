@@ -205,6 +205,14 @@ class UserController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $username = $request->get('username');
         $password = $request->get('password');
+
+        if(!$username && !$password){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+            $username = $request->get('username');
+            $password = $request->get('password');
+        }
+
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('username' => $username));
 
         if($user){

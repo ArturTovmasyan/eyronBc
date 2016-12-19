@@ -118,6 +118,11 @@ class User extends BaseUser
     protected $badges;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SuccessStoryVoters", mappedBy="user", cascade={"persist", "remove"})
+     */
+    protected $successStoryVoters;
+
+    /**
      * @Assert\NotBlank(groups={"personal"}, message="not_blank")
      * @Groups({"user"})
      * @Assert\NotBlank()
@@ -292,7 +297,7 @@ class User extends BaseUser
     protected $factorCommandDate;
 
     /**
-     * @Groups({"tiny_user"})
+     * @Groups({"tiny_user", "badge"})
      */
     private $cachedImage;
 
@@ -2120,6 +2125,7 @@ class User extends BaseUser
             $this->lastname,
             $this->fileName,
             $this->mobileImagePath,
+            $this->cachedImage,
             $this->uId
         ));
     }
@@ -2150,8 +2156,43 @@ class User extends BaseUser
             $this->lastname,
             $this->fileName,
             $this->mobileImagePath,
+            $this->cachedImage,
             $this->uId
             ) = $data;
     }
 
+
+    /**
+     * Add successStoryVoter
+     *
+     * @param \AppBundle\Entity\SuccessStoryVoters $successStoryVoter
+     *
+     * @return User
+     */
+    public function addSuccessStoryVoter(\AppBundle\Entity\SuccessStoryVoters $successStoryVoter)
+    {
+        $this->successStoryVoters[] = $successStoryVoter;
+
+        return $this;
+    }
+
+    /**
+     * Remove successStoryVoter
+     *
+     * @param \AppBundle\Entity\SuccessStoryVoters $successStoryVoter
+     */
+    public function removeSuccessStoryVoter(\AppBundle\Entity\SuccessStoryVoters $successStoryVoter)
+    {
+        $this->successStoryVoters->removeElement($successStoryVoter);
+    }
+
+    /**
+     * Get successStoryVoters
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSuccessStoryVoters()
+    {
+        return $this->successStoryVoters;
+    }
 }

@@ -10,6 +10,7 @@ namespace AppBundle\Controller\Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Rest\Prefix("/api/v1.0")
@@ -54,5 +55,46 @@ class MainRestController extends FOSRestController
         }
 
         return [];
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Main",
+     *  description="This function is used to get bottom menu list",
+     *  statusCodes={
+     *         200="OK",
+     *  })
+     *
+     * @Rest\View
+     */
+    public function getBottomMenuAction()
+    {
+        $menu = [];
+
+        // get doctrine manager
+        $em = $this->container->get('doctrine')->getManager();
+
+        $tr = $this->get('translator');
+
+        //get all page
+        $pages = $em->getRepository('AppBundle:Page')->findAllByOrdered();
+
+        //get router service
+        $router = $this->get('router');
+
+        // check pages
+        if ($pages) {
+
+            // loop for pages
+            foreach ($pages as $page)
+            {
+                $menu[] = ['name' => $page->getName(), 'url' => $router->generate('page', ['slug' => $page->getSlug()], true),
+                'isTerm' => $page->getIsTerm()];
+            }
+            $menu[] = ['name' => $tr->trans('menu.bucketlist_stories'), 'url' => $router->generate('blog_list', [], true), 'isTerm' => false];
+        }
+
+        return new JsonResponse($menu);
     }
 }

@@ -1,0 +1,31 @@
+<div class="row idea-item">
+  <div class="col-sm-12">
+    <figure>
+
+      <h3>
+        <a routerLink="/goal/{{ goal.slug }}">{{ goal.title }}</a>
+      </h3>
+
+      <a routerLink="/goal/{{ goal.slug }}" >
+        <span class="overlay"></span>
+        <img src="{{ goal.cached_image }}" *ngIf="goal.cached_image" alt="{{ goal.title }}"/>
+      </a>
+
+      <div class="absolute">
+        <ul>
+          <li>
+            <goal-users [goal]="goal" type="1"></goal-users>
+          </li>
+          <li>
+            <goal-users [goal]="goal" type="2"></goal-users>
+          </li>
+        </ul>
+      </div>
+
+      <figcaption>
+        <app-goal-footer [goal]="goal"></app-goal-footer>
+      </figcaption>
+
+    </figure>
+  </div>
+</div>

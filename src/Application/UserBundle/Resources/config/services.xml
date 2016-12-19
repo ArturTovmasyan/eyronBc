@@ -75,6 +75,7 @@
             <argument type="service" id="bl_put_notification_service" />
             <argument type="service" id="bl_notification" />
             <argument type="service" id="router" />
+            <argument type="service" id="liip_imagine.cache.manager" />
         </service>
 
     </services>

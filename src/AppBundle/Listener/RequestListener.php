@@ -12,6 +12,7 @@ use AppBundle\Controller\Rest\MainRestController;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,6 +31,7 @@ class RequestListener //implements EventSubscriberInterface
     private $em;
     private $translator;
     private $stopwatch;
+    private $angular2Host;
 
     /**
      * RequestListener constructor.
@@ -40,15 +42,17 @@ class RequestListener //implements EventSubscriberInterface
      * @param EntityManager $entityManager
      * @param $translator
      * @param Stopwatch $stopwatch
+     * @param $angular2Host
      */
     public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion,
-                                TokenStorage $tokenStorage, EntityManager $entityManager, $translator, Stopwatch $stopwatch)
+                                TokenStorage $tokenStorage, EntityManager $entityManager, $translator, Stopwatch $stopwatch, $angular2Host)
     {
         $this->defaultLocale = $defaultLocale;
         $this->tokenStorage  = $tokenStorage;
         $this->em            = $entityManager;
         $this->translator    = $translator;
         $this->stopwatch     = $stopwatch;
+        $this->angular2Host  = $angular2Host;
 
         $this->mandatoryVersions = [
             MainRestController::IOS_REQUEST_PARAM     => $iosMandatoryVersion,
@@ -116,5 +120,16 @@ class RequestListener //implements EventSubscriberInterface
             }
         }
         $stopwatch->stop('bl_set_locale_listener');
+    }
+
+    public function onKernelResponse(FilterResponseEvent $event)
+    {
+//        $contentType =$event->getResponse()->headers->get('content-type');
+//        if($contentType == 'application/json'){
+            $responseHeaders = $event->getResponse()->headers;
+            $responseHeaders->set('Access-Control-Allow-Headers', 'origin, content-type, accept,Authorization, X-Requested-With, apikey');
+            $responseHeaders->set('Access-Control-Allow-Origin', $this->angular2Host);
+            $responseHeaders->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
+//        }
     }
 }

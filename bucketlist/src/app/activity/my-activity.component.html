@@ -1,0 +1,200 @@
+<div id="activities">
+     <!--{% if single  and activity is defined and userId is defined%}-->
+     <!--data-ls-count="10"-->
+     <!--data-ls-user="{{ userId }}"-->
+     <!--{% endif %}>-->
+
+    <!--{% if not single%}-->
+    <!--data-ng-init="activityPage = true"-->
+    <div class="new-activity" *ngIf="newActivity && !single">
+        <a (click)="addNew()">{{ 'new_activity'|translate }}</a>
+    </div>
+    <h3 class="text-dark-gray " *ngIf="showNoActivities && !single" id="non-activity" >{{ 'active.not_have'|translate }}
+        <a routerLink="/ideas" class="text-purple">adding</a>
+    </h3>
+    <!--{% else %}-->
+        <!--<span class="empty-text  text-center" *ngIf="Activities.noItem && !Activities.items.length && single" id="non-activity" >-->
+            <!--{{ 'activity_empty'|translate }}-->
+        <!--</span>-->
+    <!--{% endif %}-->
+
+    <!--data-ng-init="activity.activeIndex = 1"-->
+    <div class="goals-animate"
+         *ngFor="let activity of Activities">
+        <!--Activities -> Activities.items-->
+
+        <div *ngIf="activity.comment || activity.success_story">
+            <activity-goal [activity]="activity"></activity-goal>
+        </div>
+
+        <div [ngClass]="{'line': activity.comment || activity.success_story}"></div>
+
+        <div class="bg-white" [ngClass]="{'rounded-corners-bottom': activity.comment || activity.success_story, 'round': !activity.comment && !activity.success_story}">
+            <div class="padding" [ngClass]="{'padding-no': !activity.comment && !activity.success_story}">
+                <div class="clearfix relative">
+
+                    <figure class="image img-circle" style="float:left; margin: 0 20px 0 0;">
+
+                        <!--{% set className = "user-no" ~ random(4) %}-->
+
+                        <img *ngIf="activity.user.cached_image" src="{{ activity.user.cached_image }}" alt="{{ activity.user.filename }}" class="img-circle img-responsive">
+                        <p *ngIf="!activity.user.cached_image" class="no-image user-no3">
+                            {{ activity.user.first_name |slice:0:1 |uppercase }} {{ activity.user.last_name |slice:0:1 |uppercase }}
+                        </p>
+                    </figure>
+
+                    <div class="pull-left text-gray">
+                        <h4>
+
+                            <a routerLink="profile/{{ activity.user.u_id }}" class="text-dark-gray">
+                                {{ activity.user.first_name }} {{ activity.user.last_name }}
+                                <i class="leaderboard-small" *ngIf="haveTop && inArray(activity.user.id)"></i>
+                            </a>
+
+                            <span class="text-gray" *ngIf="activity.action == 0 ">
+                                <span *ngIf="activity.goals.length < 2">{{ 'goal.create'|translate }}</span>
+                                <span *ngIf="activity.goals.length > 1">{{ 'goal.create_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>
+                            </span>
+
+                             <span class="text-gray" *ngIf="activity.action == 1">
+                                <span *ngIf="activity.goals.length < 2">{{ 'goal.add'|translate }}</span>
+                                <span *ngIf="activity.goals.length > 1">{{ 'goal.add_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>
+                             </span>
+
+                             <span class="text-gray" *ngIf="activity.action == 2">
+                                <span *ngIf="activity.goals.length < 2">{{ 'goal.complete'|translate }}</span>
+                                <span *ngIf="activity.goals.length > 1">{{ 'goal.complete_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>
+                             </span>
+
+                             <span class="text-gray" *ngIf="activity.action == 3">
+                                {{ 'goal.success_story'|translate }}
+                             </span>
+
+                             <span class="text-gray" *ngIf="activity.action == 4">
+                                {{ 'goal.comment'|translate }}
+                             </span>
+
+                        </h4>
+
+                        <p>{{ activity.datetime | date:'dd MMMM,  yyyy' }} at {{ activity.datetime | date:'HH:mm' }}</p>
+
+                    </div>
+                    <div class="pull-right" *ngIf="activity.goals.length > 1">
+                        <div class="swiper-pagination text-dark-grey">{{ activity.activeIndex }} / {{ activity.goals.length }}</div>
+                    </div>
+                    <div class="text-right pull-right"
+                          *ngIf="activity.success_story">
+                        <!--data-ng-init="$parent.count[ activity.success_story.id ] = activity.success_story.voters_count;-->
+                        <!--$parent.vote[activity.success_story.id] = isVoting(activity.success_story.is_vote, activity.success_story)"-->
+                        <!--<span class="text-purple " *ngIf="count[ activity.success_story.id ] < 1">0</span>-->
+                        <!--<a data-ls-goal-users-->
+                           <!--class="text-purple "-->
+                           <!--*ngIf="$parent.count[ activity.success_story.id ] > 0"-->
+                           <!--href="javascript:void(0)"-->
+                           <!--data-ls-item-id="{{ activity.success_story.id }}"-->
+                           <!--data-ls-count="{{ $parent.count[ activity.success_story.id ] }}"-->
+                           <!--data-ls-category="3">{{ $parent.count[ activity.success_story.id ] }}</a>-->
+                        <goal-users [goal]="goal" type="3"></goal-users>
+                    </div>
+                </div>
+
+                <div class="comment-place " *ngIf="activity.comment">
+                    <span class="arrow-up"></span>
+                    {{ activity.comment.comment_body }}
+                </div>
+
+                <div class="comment-place " *ngIf="activity.success_story">
+                    <span class="arrow-up"></span>
+                    {{ activity.success_story.story }}
+                </div>
+
+            </div>
+
+            <!--data-index="{{ $index }}"-->
+            <div *ngIf="!activity.comment && !activity.success_story" class="activity-slider swiper-container">
+                <div class="idea-item swiper-wrapper goals-animate">
+                    <div class="swiper-slide"
+
+                         *ngFor="let goal of activity.reserveGoals">
+
+                        <figure class="rounded-corners-bottom">
+
+                            <h3>
+                                <a [href]="goal.publish ? 'goal/' + goal.slug : '#' ">{{ goal.title }}</a>
+                            </h3>
+
+                            <a [href]="goal.publish? 'goal/' + goal.slug : '#'"
+                               class="goalTitle">
+                                <span class="overlay"></span>
+                                <img src="{{ goal.cached_image }}"
+                                    alt="{{ goal.title }}"
+                                    *ngIf="goal.cached_image"/>
+                            </a>
+
+                            <div class="absolute" *ngIf="goal.stats.listedBy">
+                                <ul>
+                                    <li>
+                                        <goal-users [goal]="goal" type="1"></goal-users>
+                                        <!--<span [hide]="castInt(goal.stats.listedBy)">-->
+                                            <!--{{ 'home_listed_by'|translate }}-->
+                                            <!--{{ goal.stats.listedBy }}-->
+                                        <!--</span>-->
+                                        <!--<i class="icon-user-small" data-="castInt(goal.stats.listedBy)"></i>-->
+                                    </li>
+                                    <li>
+                                        <goal-users [goal]="goal" type="2"></goal-users>
+                                        <!--<span [hide]="castInt(goal.stats.doneBy)">-->
+                                            <!--{{ 'home_complete'|translate }}-->
+                                            <!--{{ goal.stats.doneBy }}-->
+                                        <!--</span>-->
+                                        <!--<i class="icon-user-small" [hide]="castInt(goal.stats.doneBy)"></i>-->
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <figcaption>
+                                <activity-goal-footer [goal]="goal" [activity]="activity"></activity-goal-footer>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div *ngIf="activity.goals.length > 1">
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next swiper-button-white"></div>
+                    <div class="swiper-button-prev swiper-button-white"></div>
+                </div>
+            </div>
+
+            <div [ngClass]="{'line': activity.createComment && activity.showComment}"></div>
+
+            <!--<div data-ls-comment-manage-->
+                 <!--class="padding slide "-->
+                 <!--*ngIf="activity.createComment"-->
+                 <!--*ngIf="activity.showComment"-->
+                 <!--data-ls-goal-id="{{ activity.reserveGoals[activity.activeIndex - 1].id }}"-->
+                 <!--data-ls-slug="{{ activity.reserveGoals[activity.activeIndex - 1].slug }}"-->
+                 <!--data-ls-reply="{{ 'reply'|translate }}"-->
+                 <!--data-ls-replied="{{ 'replied'|translate }}"-->
+                 <!--data-ls-logged="true"-->
+                 <!--data-ls-report-title="{{ 'report.title'|translate }}"-->
+                 <!--data-ls-title="{{ 'comments'|translate }}"-->
+                 <!--data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}-->
+                <!--{% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}-->
+                <!--{{ nameOnImage  |uppercase}}{% endif %}">-->
+            <!--</div>-->
+        </div>
+        <br/>
+    </div>
+    <div class="navigation text-center" *ngIf="!single">
+        <a *ngIf="!ActivitiesBusy && ActivitiesRequest >= 1"
+           (click)='ActivitiesGetReserve()'
+           class="show-more ">
+            <!--ActivitiesName -> Activities.name-->
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+    </div>
+
+</div>

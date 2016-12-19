@@ -1,0 +1,33 @@
+<div class="bg-white round padding">
+
+  <a routerLink="/profile" routerLinkActive="active" class="heading text-gray">
+    <i class="mybuucketlist"></i>
+    {{ 'my_bucketlist'|translate}}
+  </a>
+
+  <hr/>
+
+  <ul class="horizontal-menu" >
+    <li>
+      <a routerLink="/profile/active-goals" routerLinkActive="active">
+        <strong>{{ 'user_goal.active'|translate}}</strong>
+        <span *ngIf="true">1</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/profile" routerLinkActive="active">
+        <strong>{{ 'block_listed'|translate}}</strong>
+        <span *ngIf="true">2</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/profile/completed-goals" routerLinkActive="active">
+        <strong>{{ 'block_completed'|translate}}</strong>
+        <span *ngIf="true">3</span>
+      </a>
+    </li>
+  </ul>
+</div>
+

@@ -120,7 +120,7 @@ class BadgeCommand extends ContainerAwareCommand
                         $score += 2;
                     }
                 }
-                $badgeService->addScore(Badge::TYPE_INNOVATOR, $author->getId(), $score);
+                $badgeService->addScore(Badge::TYPE_INNOVATOR, $author->getId(), $score, false);
 
             }
 
@@ -171,7 +171,7 @@ class BadgeCommand extends ContainerAwareCommand
             // check is admin
             if($publish && $author && $voters > 0){
 
-                $badgeService->addScore(Badge::TYPE_MOTIVATOR, $author->getId(), $voters);
+                $badgeService->addScore(Badge::TYPE_MOTIVATOR, $author->getId(), $voters, false);
             }
 
             $progress->advance();

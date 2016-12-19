@@ -1,34 +1,47 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
+import {TranslateModule} from 'ng2-translate';
 
 import { AppComponent } from './app.component';
-import { GoalfriendBoxComponent } from './goalfriend-box/goalfriend-box.component';
-import { MyBucketlistBoxComponent } from './my-bucketlist-box/my-bucketlist-box.component';
-import { FeaturedIdeasBoxComponent } from './featured-ideas-box/featured-ideas-box.component';
-import { TopIdeasBoxComponent } from './top-ideas-box/top-ideas-box.component';
-import { LeaderboardBoxComponent } from './leaderboard-box/leaderboard-box.component';
-import { OwerallProgressBoxComponent } from './owerall-progress-box/owerall-progress-box.component';
-import { SuggestedIdeasBoxComponent } from './suggested-ideas-box/suggested-ideas-box.component';
+import { AuthGuard }      from './common/auth.guard';
+import { appRouting } from './app-routing';
+import { ProjectService } from './project.service';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './login/login.component';
+import { DiscoverGoalComponent } from './components/discover-goal/discover-goal.component';
+import { BaseStoriesComponent } from './components/base-stories/base-stories.component';
+import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+import { ComponentModule } from './components/components.module';
+import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GoalfriendBoxComponent,
-    MyBucketlistBoxComponent,
-    FeaturedIdeasBoxComponent,
-    TopIdeasBoxComponent,
-    LeaderboardBoxComponent,
-    OwerallProgressBoxComponent,
-    SuggestedIdeasBoxComponent
+    DashboardComponent,
+    DiscoverGoalComponent,
+    BaseStoriesComponent,
+    HomeFooterComponent,
+    LoginComponent,
+    RegisterComponent,
+    ResettingRequestComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    JsonpModule,
+    appRouting,
+    TranslateModule.forRoot(),
+    ComponentModule
   ],
-  providers: [],
+  providers: [
+    ProjectService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
