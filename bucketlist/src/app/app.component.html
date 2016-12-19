@@ -271,14 +271,22 @@
 
             </ul>
 
+            <!--Bottom menu-->
+            <ul>
+                <li class="first" *ngFor="let menu of menus; let i = index, let f = first" [hidden]="menu.isTerm" [class.first]="f" >
+                    <a href="{{ menu.url }}">{{ menu.name }}</a>
+                </li>
+            </ul>
+
         </div>
 
         <div class="footer-bottom">
-            <home-footer></home-footer>
+            <home-footer [privacyMenu]="privacyMenu"></home-footer>
         </div>
 
     </footer>
 </div>
+
 <!--<nav>-->
 <!--<a routerLink="/ideas" routerLinkActive="active">Ideas</a>-->
 <!--<a routerLink="/dashboard" routerLinkActive="active">Home</a>-->

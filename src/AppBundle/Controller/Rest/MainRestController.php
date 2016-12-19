@@ -10,6 +10,7 @@ namespace AppBundle\Controller\Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Rest\Prefix("/api/v1.0")
@@ -86,10 +87,11 @@ class MainRestController extends FOSRestController
             // loop for pages
             foreach ($pages as $page)
             {
-                $menu[$page->getSlug()] = $router->generate('page', ['slug' => $page->getSlug()], true);
+                $menu[] = ['name' => $page->getName(), 'url' => $router->generate('page', ['slug' => $page->getSlug()], true),
+                'isTerm' => $page->getIsTerm()];
             }
         }
 
-        return $menu;
+        return new JsonResponse($menu);
     }
 }

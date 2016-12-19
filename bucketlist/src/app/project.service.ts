@@ -34,6 +34,7 @@ export class ProjectService {
     private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
     private featuredIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get featured iteas
     private badgesUrl = this.baseUrl + 'badges'; 
+    private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     constructor(private http:Http, private router:Router) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
     }
@@ -142,6 +143,17 @@ export class ProjectService {
 
         return this.http.get(this.discoverGoalsUrl)
             .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getBottomMenu():Observable<any> {
+
+        return this.http.get(this.bottomMenuUrl)
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
