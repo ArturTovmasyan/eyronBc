@@ -16,7 +16,6 @@ import { DiscoverGoalComponent } from './components/discover-goal/discover-goal.
 import { BaseStoriesComponent } from './components/base-stories/base-stories.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { ComponentModule } from './components/components.module';
-import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { ResettingRequestComponent } from './components/resetting-request/resett
     BaseStoriesComponent,
     HomeFooterComponent,
     LoginComponent,
-    CapitalizePipe,
     RegisterComponent,
     ResettingRequestComponent
   ],
