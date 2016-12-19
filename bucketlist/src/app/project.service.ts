@@ -26,7 +26,7 @@ export class ProjectService {
     // private envprefix = '/';
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private goalUrl = '';  // URL to web API
-    private usersUrl = 'users';  // URL to web API
+    private userUrl  = this.baseUrl + 'user';  // URL to web API
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to activity
@@ -78,17 +78,15 @@ export class ProjectService {
     //         .map((r:Response) => r.json() as UserGoal)
     //         .catch(this.handleError);
     // }
-    
-    // /**
-    //  *
-    //  * @param userId
-    //  * @returns {Observable<R>}
-    //  */
-    // getUser(userId:number):Observable<User> {
-    //     return this.http.get(this.usersUrl + '/' + userId)
-    //         .map((r:Response) => r.json() as User)
-    //         .catch(this.handleError);
-    // }
+
+    /**
+     * 
+     */
+    getUser():Observable<User> {
+        return this.http.get(this.userUrl, {headers: this.headers})
+            .map((r:Response) => r.json() as User)
+            .catch(this.handleError);
+    }
 
     /**
      *

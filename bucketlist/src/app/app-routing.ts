@@ -7,7 +7,6 @@ import { ResettingRequestComponent } from './components/resetting-request/resett
 import { AuthGuard }      from './common/auth.guard';
 
 const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'resetting/request', component: ResettingRequestComponent },
   { path: 'activity', loadChildren: './activity/activity.module#ActivityModule', canActivate: [AuthGuard]},

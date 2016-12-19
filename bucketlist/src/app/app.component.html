@@ -130,13 +130,13 @@
                     <!--{% if not is_mobile() or is_tablet() %}-->
                     <div id="navbar" class="clearfix">
 
-                        <a class="navbar-brand hidden-xs" routerLink="/dashboard" routerLinkActive="active">
+                        <a class="navbar-brand hidden-xs" routerLink="/" routerLinkActive="active">
                             <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
                         </a>
 
                         <ul class="nav navbar-nav pull-left">
 
-                            <li>
+                            <li *ngIf="appUser">
                                 <a routerLink="/activity" routerLinkActive="active">
                                     <i class="icons activity-icon"></i>
                                     <span class="hidden-xs hidden-sm">{{ 'activity'|translate | uppercase }}</span>
@@ -150,7 +150,7 @@
                                 </a>
                             </li>
 
-                            <li>
+                            <li *ngIf="appUser">
                                 <a routerLink="/profile" routerLinkActive="active">
                                     <i class="icons mybucketlist-icon"></i>
                                     <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|translate | uppercase}}</span>
@@ -159,7 +159,7 @@
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li id="notification">
+                            <li id="notification" *ngIf="appUser">
                                 <div>
                                     <a routerLink="/notifications" class="relative notify">
                                         <i class="bell"></i>
@@ -170,8 +170,8 @@
                             <li *ngIf="appUser">
                                 <!--{% if app.user %}-->
                                 <!--{% set user = app.user %}-->
-                                <!--{% set lastName = user.lastName %}-->
-                                <!--{% set firstName = user.firstName %}-->
+                                <!--{% set lastName = appUser.lastName %}-->
+                                <!--{% set firstName = appUser.firstName %}-->
                                 <!--{% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}-->
                                 <!--{% set className = "user-no" ~ random(4) %}-->
 
@@ -185,13 +185,13 @@
                                    <!--data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'-->
                                    <!--data-animation="am-fade-and-scale"-->
                                    <!--data-bs-popover>-->
-                                    <!--<figure class="img-circle" *ngIf="user.getPhotoLink">-->
+                                    <!--<figure class="img-circle" *ngIf="appUser.image_path">-->
                                         <!--&lt;!&ndash;'user_icon'&ndash;&gt;-->
-                                        <!--<img src="{{ user.getPhotoLink }}" alt="{{ user.filename }}" class="img-responsive">-->
+                                        <!--<img src="{{ appUser.image_path }}" alt="{{ appUser.filename }}" class="img-responsive">-->
                                     <!--</figure>-->
-                                    <!--<p *ngIf="!user.getPhotoLink" class="no-image user-no2">{{ (firstName|slice(0,1) + lastName|slice(0,1) ) | uppercase }}</p>-->
+                                    <!--<p *ngIf="!appUser.image_path" class="no-image user-no2">{{ (firstName|slice(0,1) + lastName|slice(0,1) ) | uppercase }}</p>-->
 
-                                    <!--<span class="name hidden-xs">{{ user.firstName|slice(0, 8) }} {{ user.firstName.length > 8 ? '...' : '' }}-->
+                                    <!--<span class="name hidden-xs">{{ appUser.firstName|slice(0, 8) }} {{ appUser.firstName.length > 8 ? '...' : '' }}-->
                                         <!--<br class="hidden-xs"/>-->
                                     <!--</span>-->
 
@@ -202,17 +202,16 @@
                                 <!--</a>-->
                                 <!--when mobile menu-->
                                 <a (click)="joinToggle11 = !joinToggle11;" class=" mobile-user hidden-sm hidden-md hidden-lg" *ngIf="!joinToggle11">
-                                    <figure class="img-circle" *ngIf="user.getPhotoLink">
+                                    <figure class="img-circle" *ngIf="appUser.image_path">
                                         <!--'user_icon'-->
-                                        <img src="{{ user.getPhotoLink }}" alt="{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}" class="img-responsive img-circle" height="40">
+                                        <img src="{{ appUser.image_path }}" alt="{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}" class="img-responsive img-circle" height="40">
                                     </figure>
-                                    <p class="no-image user-no1" *ngIf="!user.getPhotoLink">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>
+                                    <p class="no-image user-no1" *ngIf="!appUser.image_path">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>
                                 </a>
                             </li>
                             <li *ngIf="!appUser">
                                 <a (click)="joinShow = !joinShow"
                                    class="sign-in-popover">
-                                    <!--<i class="icon-join-icon"></i>-->
                                     <i class="icons join-icon"></i>
                                     <span class="hidden-xs">{{ 'join'|translate }}</span>
                                 </a>
@@ -281,7 +280,7 @@
 </div>
 <!--<nav>-->
 <!--<a routerLink="/ideas" routerLinkActive="active">Ideas</a>-->
-<!--<a routerLink="/dashboard" routerLinkActive="active">Home</a>-->
+<!--<a routerLink="/" routerLinkActive="active">Home</a>-->
 <!--<a routerLink="/activity" routerLinkActive="active">Activity</a>-->
 <!--<a routerLink="/profile" routerLinkActive="active">MY List</a>-->
 <!--<a routerLink="/goal/create" routerLinkActive="active">Goal Create</a>-->
