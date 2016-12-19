@@ -72,6 +72,7 @@ class PageAdmin extends AbstractAdmin
             ]
             )
             ->add('position', null, ['label'=>'admin.label.name.position'])
+            ->add('isTerm', null, ['label'=>'admin.label.name.is_term'])
         ;
     }
 

@@ -76,7 +76,7 @@ class Page
     protected $locale;
 
     /**
-     * @ORM\Column(name="is_term", type="boolean", nullable=true)
+     * @ORM\Column(name="is_term", type="boolean", nullable=false)
      */
     protected $isTerm = false;
 

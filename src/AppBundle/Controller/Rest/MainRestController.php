@@ -75,6 +75,8 @@ class MainRestController extends FOSRestController
         // get doctrine manager
         $em = $this->container->get('doctrine')->getManager();
 
+        $tr = $this->get('translator');
+
         //get all page
         $pages = $em->getRepository('AppBundle:Page')->findAllByOrdered();
 
@@ -90,6 +92,7 @@ class MainRestController extends FOSRestController
                 $menu[] = ['name' => $page->getName(), 'url' => $router->generate('page', ['slug' => $page->getSlug()], true),
                 'isTerm' => $page->getIsTerm()];
             }
+            $menu[] = ['name' => $tr->trans('menu.bucketlist_stories'), 'url' => $router->generate('blog_list', [], true), 'isTerm' => false];
         }
 
         return new JsonResponse($menu);

@@ -272,7 +272,7 @@
 
             <!--Bottom menu-->
             <ul>
-                <li class="first" *ngFor="let menu of menus; let i = index, let f = first" [hidden]="menu.isTerm" [class.first]="f" >
+                <li class="first" *ngFor="let menu of menus; let i = index, let f = first, let l = last" [hidden]="menu.isTerm" [class.first]="f" [class.last]="l" >
                     <a href="{{ menu.url }}">{{ menu.name }}</a>
                 </li>
             </ul>

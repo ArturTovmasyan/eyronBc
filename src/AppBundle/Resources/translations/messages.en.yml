@@ -563,6 +563,7 @@ admin:
       all: All
       only_year: Only Year
       only_year_month: Only Year Month
+      is_term: Is Term
 
 
 # sonata admin breadcrumb and filter
