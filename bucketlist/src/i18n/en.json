@@ -115,8 +115,18 @@
         "urgency": "Urgency",
         "urgent": "urgent",
         "not_urgent": "not urgent",
+        "create": "created a goal",
+        "goals": "goals",
+        "comment": "added a comment",
+        "success_story": "wrote a success story",
+        "complete_goals": "completed",
+        "complete": "completed a goal",
+        "add_goals": "added",
+        "add": "added a goal",
+        "create_goals": "created",
         "get_direction": "Get directions"
     },
+    "new_activity": "New Activity",
     "goal_friend_menu": {
         "all": "All",
         "recently_matched": "Recently Matched",

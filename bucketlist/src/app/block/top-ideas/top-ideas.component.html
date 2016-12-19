@@ -1,63 +1,18 @@
-<div class="row">
+<div class="row" *ngIf="goals">
   <div class="col-xs-10">
-    <a routerLink="/ideas/most-popular" routerLinkActive="active" class="heading text-gray">
-      <i class="icon-top-idea"></i>
-      <span class="text">{{ 'top-ideas'|translate }} 15</span>
+    <a routerLink="/ideas/most-popular" class="heading text-gray">
+      <i [ngClass]="{'icon-top-idea': type == categories[0],'featured-icon': type == categories[2],'ideas-icon': type == categories[1]}"></i>
+      <span class="text">{{ (type == categories[0])?('right_menu.ideas'|translate ): (type == categories[2])? ('featured_ideas'|translate):('right_menu.suggested'|translate) }}</span>
     </a>
   </div>
 
   <div class="col-xs-2 text-right">
-    <a href="javascript:void(0)" (click)="refreshGoalFriends" class="load" id="topIdeasLoad"></a>
+    <a  (click)="refreshIdeas()" class="load" id="topIdeasLoad"></a>
   </div>
 </div>
 
 <hr/>
 
 <div class="modal-top">
-
-  <!--{% set image = goal.getListPhoto  %}-->
-  <!--{% set author = goal.author %}-->
-  <!--{% set show = true %}-->
-
-  <figure>
-    <img [src]="testscs.jpg" alt="Title" class="img-responsive" />
-    <!--<img [src]="{{goal.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt="{{ goal.title }}" class="img-responsive" />-->
-  </figure>
-
-  <span class="overlay"></span>
-
-  <div>
-
-    <h2>
-      <!--<span>{{ goal.title }}</span>-->
-      <span>MY GOALS</span>
-    </h2>
-
-    <!--{% if user and author and user.id == author.id %}-->
-    <!--{% set show = false %}-->
-    <!--{% endif %}-->
-
-    <!--{% if author and not author.isAdmin and show %}-->
-    <!--<p>{{ goal.author.showName }}</p>-->
-    <p>Artur</p>
-    <!--{% endif %}-->
-
-    <ul>
-      <li>
-        <a href="#">
-          {{ 'block_listed'|translate }}
-          <span>{{ goal.stats.listedBy }}</span>
-          <i class="icon-user-small"></i>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          {{ 'block_completed'|translate }}
-          <span>{{ goal.stats.doneBy }}</span>
-          <i class="icon-user-small"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-
+  <app-goal *ngFor="let goal of goals" [goal]="goal"></app-goal>
 </div>

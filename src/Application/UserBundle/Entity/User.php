@@ -297,7 +297,7 @@ class User extends BaseUser
     protected $factorCommandDate;
 
     /**
-     * @Groups({"tiny_user"})
+     * @Groups({"tiny_user", "badge"})
      */
     private $cachedImage;
 
@@ -2125,6 +2125,7 @@ class User extends BaseUser
             $this->lastname,
             $this->fileName,
             $this->mobileImagePath,
+            $this->cachedImage,
             $this->uId
         ));
     }
@@ -2155,6 +2156,7 @@ class User extends BaseUser
             $this->lastname,
             $this->fileName,
             $this->mobileImagePath,
+            $this->cachedImage,
             $this->uId
             ) = $data;
     }

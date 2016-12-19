@@ -1,31 +1,64 @@
 import { Component, OnInit } from '@angular/core';
+import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+
 
 import { ProjectService } from '../../project.service';
-import { GoalFriendComponent } from '../../components/goal-friend/goal-friend.component';
 
 import {User} from '../../interface/user';
 
 @Component({
-  selector: 'goal-friends',
+  selector: 'goal-friends-block',
   templateUrl: './goal-friends.component.html',
   styleUrls: ['./goal-friends.component.less'],
-  providers: [ProjectService]
+  providers: [
+    ProjectService,
+    CacheService
+  ]
 })
-export class GoalFriendsComponent implements OnInit {
+export class GoalFriendsBlockComponent implements OnInit {
 
   users:User[];
+  length:Number;
+  reserve: any;
   errorMessage:string;
 
-  constructor(private _projectService: ProjectService) {}
+  constructor(private _projectService: ProjectService, private _cacheService: CacheService) {}
 
   ngOnInit() {
-    this.goalFriends()
+    let data = this._cacheService.get('goalFriendBox');
+    if(data){
+      this.users = data[1];
+      this.length = data.length;
+    } else {
+      this.goalFriends()
+    }
   }
 
   goalFriends() {
     this._projectService.getGaolFriends()
         .subscribe(
-            users => this.users = users,
+            data => {
+              this.users = data[1];
+              this.length = data.length;
+              this._cacheService.set('goalFriendBox', data, {maxAge: 2 * 24 * 60 * 60});
+            },
             error => this.errorMessage = <any>error);
+    this.goalReserve();
+  }
+
+  goalReserve() {
+    this._projectService.getGaolFriends()
+        .subscribe(
+            data => {
+              this.reserve = data;
+              this._cacheService.set('goalFriendBox', this.reserve, {maxAge: 2 * 24 * 60 * 60});
+            },
+            error => this.errorMessage = <any>error);
+  }
+
+  refreshGoalFriends(){
+    this.users = this.reserve[1];
+    this.length = this.reserve.length;
+    this.goalReserve()
   }
 }

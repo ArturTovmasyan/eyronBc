@@ -27,10 +27,6 @@ parameters:
     cover:
         with: 1280
         height: 720
-    jwt_private_key_path: %kernel.root_dir%/jwt/private.pem   # ssh private key path
-    jwt_public_key_path:  %kernel.root_dir%/jwt/public.pem    # ssh public key path
-    jwt_key_pass_phrase:  bucketlist                                         # ssh key pass phrase
-    jwt_token_ttl:        3600
 
 framework:
     esi:            { enabled: true }
@@ -482,12 +478,6 @@ lexik_maintenance:
     driver:
         class: '\Lexik\Bundle\MaintenanceBundle\Drivers\FileDriver'
         options: {file_path: %kernel.root_dir%/lock}
-
-lexik_jwt_authentication:
-    private_key_path: %jwt_private_key_path%
-    public_key_path:  %jwt_public_key_path%
-    pass_phrase:      %jwt_key_pass_phrase%
-    token_ttl:        %jwt_token_ttl%
 
 nelmio_cors:
     defaults:

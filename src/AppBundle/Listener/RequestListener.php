@@ -127,7 +127,7 @@ class RequestListener //implements EventSubscriberInterface
 //        $contentType =$event->getResponse()->headers->get('content-type');
 //        if($contentType == 'application/json'){
             $responseHeaders = $event->getResponse()->headers;
-            $responseHeaders->set('Access-Control-Allow-Headers', 'origin, content-type, accept,Authorization, X-Requested-With');
+            $responseHeaders->set('Access-Control-Allow-Headers', 'origin, content-type, accept,Authorization, X-Requested-With, apikey');
             $responseHeaders->set('Access-Control-Allow-Origin', $this->angular2Host);
             $responseHeaders->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
 //        }

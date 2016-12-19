@@ -71,7 +71,6 @@ class AppKernel extends Kernel
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
             new Application\AffiliateBundle\ApplicationAffiliateBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
-            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
         );
 

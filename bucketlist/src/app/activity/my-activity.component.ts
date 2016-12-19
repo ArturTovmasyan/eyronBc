@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Activity } from '../interface/activity';
 
 import { ProjectService } from '../project.service';
@@ -9,17 +9,25 @@ import { ProjectService } from '../project.service';
   selector: 'my-activity',
   templateUrl: './my-activity.component.html',
   styleUrls: ['./my-activity.component.css'],
-  providers: [ProjectService]
+  providers: [
+    ProjectService,
+    CacheService
+  ]
 })
 export class MyActivityComponent implements OnInit {
   @Input() single: boolean;
   Activities:Activity[];
   errorMessage:string;
   
-  constructor(private _projectService: ProjectService) {}
+  constructor(private _projectService: ProjectService, private _cacheService: CacheService) {}
 
   ngOnInit() {
-    this.getActivities()
+    let data = this._cacheService.get('activities');
+    if(data){
+      this.Activities = data;
+    } else {
+      this.getActivities()
+    }
   }
 
   getActivities(){
@@ -34,7 +42,8 @@ export class MyActivityComponent implements OnInit {
                   activity.reserveGoals = activity.goals
                 }
               };
-              console.log(this.Activities)},
+              this._cacheService.set('activities', this.Activities);
+            },
             error => this.errorMessage = <any>error);
   }
 }

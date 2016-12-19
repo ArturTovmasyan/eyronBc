@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import { AuthHttp }       from 'angular2-jwt';
 import {Http, Response, URLSearchParams, Headers } from '@angular/http';
+import { Router } from '@angular/router';
+
 
 import {Goal} from "./interface/goal";
 import {User} from "./interface/user";
@@ -19,18 +20,22 @@ import 'rxjs/add/operator/map';
 export class ProjectService {
 
     private baseOrigin = 'http://bucketlist.loc';
+    private headers = new Headers();
     // private baseOrigin = 'http://stage.bucketlist127.com';
     private envprefix = '/app_dev.php/';
     // private envprefix = '/';
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private goalUrl = '';  // URL to web API
-    private usersUrl = 'users';  // URL to web API
+    private userUrl  = this.baseUrl + 'user';  // URL to web API
     private userGoalsUrl = 'usergoals';  // URL to web API
-    private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to web API
-    private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to web API
-    private goalFriends = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
-    private topIdeas = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
-    constructor(private http:Http, public authHttp: AuthHttp) {
+    private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
+    private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to activity
+    private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
+    private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
+    private featuredIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get featured iteas
+    private badgesUrl = this.baseUrl + 'badges'; 
+    constructor(private http:Http, private router:Router) {
+        this.headers.append('apikey', localStorage.getItem('apiKey'));
     }
 
     /**
@@ -39,13 +44,7 @@ export class ProjectService {
      * @returns {any}
      */
     auth(loginData: Object):Observable<any> {
-
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-
-        return this.http.post(this.baseOrigin + this.envprefix + 'jwt/login_check', JSON.stringify(loginData),
-            headers
-        ).map((res:Response) => res.json());
+        return this.http.post(this.baseUrl + 'users/logins', JSON.stringify(loginData)).map((res:Response) => res.json());
     }
 
     /**
@@ -64,29 +63,27 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     getActivities():Observable<Activity[]> {
-        return this.authHttp.get(this.activityUrl)
+        return this.http.get(this.activityUrl, {headers: this.headers})
             .map((r:Response) => r.json() as Activity[])
             .catch(this.handleError);
     }
     
+    // /**
+    //  *
+    //  * @param goalId
+    //  * @returns {Observable<R>}
+    //  */
+    // getUserGoal(goalId:number):Observable<UserGoal> {
+    //     return this.http.get(this.userGoalsUrl + '/' + goalId)
+    //         .map((r:Response) => r.json() as UserGoal)
+    //         .catch(this.handleError);
+    // }
+
     /**
-     *
-     * @param goalId
-     * @returns {Observable<R>}
+     * 
      */
-    getUserGoal(goalId:number):Observable<UserGoal> {
-        return this.http.get(this.userGoalsUrl + '/' + goalId)
-            .map((r:Response) => r.json() as UserGoal)
-            .catch(this.handleError);
-    }
-    
-    /**
-     *
-     * @param userId
-     * @returns {Observable<R>}
-     */
-    getUser(userId:number):Observable<User> {
-        return this.http.get(this.usersUrl + '/' + userId)
+    getUser():Observable<User> {
+        return this.http.get(this.userUrl, {headers: this.headers})
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);
     }
@@ -95,9 +92,9 @@ export class ProjectService {
      *
      * @returns {Observable<T>}
      */
-    getGaolFriends():Observable<User[]> {
-        return this.http.get(this.goalFriends)
-            .map((r:Response) => r.json() as User[])
+    getGaolFriends():Observable<any> {
+        return this.http.get(this.goalFriendsUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
@@ -106,8 +103,28 @@ export class ProjectService {
      * @returns {Observable<T>}
      */
     getTopIdeas():Observable<Goal[]> {
-        return this.http.get(this.topIdeas)
+        return this.http.get(this.topIdeasUrl, {headers: this.headers})
             .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
+    
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getFeaturedIdeas():Observable<Goal[]> {
+        return this.http.get(this.featuredIdeasUrl, {headers: this.headers})
+            .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
+    
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getBadges():Observable<any> {
+        return this.http.get(this.badgesUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
@@ -116,10 +133,10 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     getDiscoverGoals():Observable<Goal[]> {
-        let params = new URLSearchParams();
-        params.set('action', 'opensearch');
-        params.set('format', 'json');
-        params.set('callback', 'JSONP_CALLBACK');
+        // let params = new URLSearchParams();
+        // params.set('action', 'opensearch');
+        // params.set('format', 'json');
+        // params.set('callback', 'JSONP_CALLBACK');
 
         return this.http.get(this.discoverGoalsUrl)
             .map((r:Response) => r.json() as Goal[])
@@ -137,6 +154,10 @@ export class ProjectService {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
+        if(error.status && error.status == 401){
+            localStorage.removeItem('apiKey');
+            this.router.navigate(['/']);
+        }
         return Observable.throw(errMsg);
     }
 }
