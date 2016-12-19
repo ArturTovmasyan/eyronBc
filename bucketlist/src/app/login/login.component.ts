@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ProjectService } from '../project.service';
+import { Broadcaster } from '../tools/broadcaster';
 import { User } from '../interface/user';
 
 
@@ -16,10 +17,12 @@ export class LoginComponent {
     @Output('changeJoin') joinHideEmitter: EventEmitter<any> = new EventEmitter();
     loginForm;
     user:User;
+    error:string;
 
     constructor(
         private ProjectService: ProjectService,
-        private router: Router
+        private router: Router,
+        private broadcaster: Broadcaster
     ) {
 
         this.loginForm = {
@@ -43,12 +46,12 @@ export class LoginComponent {
                 res => {console.log(res);
                     if(res.apiKey) {
                         localStorage.setItem('apiKey', res.apiKey);
-                        this.user = res.userInfo;
+                        this.broadcaster.broadcast('login', res.userInfo);
                         this.joinHide();
                         this.router.navigate(['/activity']);
                     }
                 },
-                error => console.error(error)
+                error => {this.error = "Bad credentials";console.error(error)}
             );
 
         event.preventDefault();
@@ -57,7 +60,7 @@ export class LoginComponent {
     logout(){
         localStorage.removeItem('apiKey');
         this.router.navigate(['/']);
-        this.user = null;
+        this.broadcaster.broadcast('logout', 'some message');
     }
 
 }

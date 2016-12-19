@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+
 
 import { ProjectService } from '../../project.service';
 
@@ -8,7 +10,10 @@ import {User} from '../../interface/user';
   selector: 'goal-friends-block',
   templateUrl: './goal-friends.component.html',
   styleUrls: ['./goal-friends.component.less'],
-  providers: [ProjectService]
+  providers: [
+    ProjectService,
+    CacheService
+  ]
 })
 export class GoalFriendsBlockComponent implements OnInit {
 
@@ -17,10 +22,16 @@ export class GoalFriendsBlockComponent implements OnInit {
   reserve: any;
   errorMessage:string;
 
-  constructor(private _projectService: ProjectService) {}
+  constructor(private _projectService: ProjectService, private _cacheService: CacheService) {}
 
   ngOnInit() {
-    this.goalFriends()
+    let data = this._cacheService.get('goalFriendBox');
+    if(data){
+      this.users = data[1];
+      this.length = data.length;
+    } else {
+      this.goalFriends()
+    }
   }
 
   goalFriends() {
@@ -28,7 +39,8 @@ export class GoalFriendsBlockComponent implements OnInit {
         .subscribe(
             data => {
               this.users = data[1];
-              this.length = data.length
+              this.length = data.length;
+              this._cacheService.set('goalFriendBox', data, {maxAge: 2 * 24 * 60 * 60});
             },
             error => this.errorMessage = <any>error);
     this.goalReserve();
@@ -38,7 +50,8 @@ export class GoalFriendsBlockComponent implements OnInit {
     this._projectService.getGaolFriends()
         .subscribe(
             data => {
-              this.reserve = data
+              this.reserve = data;
+              this._cacheService.set('goalFriendBox', this.reserve, {maxAge: 2 * 24 * 60 * 60});
             },
             error => this.errorMessage = <any>error);
   }
