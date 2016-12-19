@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TranslateService} from 'ng2-translate';
 import {Broadcaster} from './tools/broadcaster';
 import {ProjectService} from './project.service';
+import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import {User} from './interface/user';
 
@@ -11,7 +12,8 @@ import {User} from './interface/user';
   styleUrls: ['./app.component.less'],
   providers: [
     ProjectService,
-    Broadcaster
+    Broadcaster,
+    CacheService
   ]
 })
 
@@ -25,7 +27,12 @@ export class AppComponent implements OnInit  {
   errorMessage:string;
   public appUser:User;
 
-  constructor(private _translate: TranslateService,private broadcaster: Broadcaster, private _projectService: ProjectService) { }
+  constructor(
+      private _translate: TranslateService,
+      private broadcaster: Broadcaster,
+      private _projectService: ProjectService,
+      private _cacheService: CacheService
+  ) { }
 
   ngOnInit() {
     // standing data
@@ -34,7 +41,13 @@ export class AppComponent implements OnInit  {
       { display: 'Russian', value: 'ru' }
     ];
 
-    this.getBottomMenu();
+    let data = this._cacheService.get('footerMenu');
+    if(data){
+        this.menus = data[0];
+        this.privacyMenu = data[1];
+    }else {
+        this.getBottomMenu();
+    }
     this.selectLang('en');
 
     if(localStorage.getItem('apiKey')){
@@ -56,7 +69,6 @@ export class AppComponent implements OnInit  {
 
     this.broadcaster.on<string>('openLogin')
         .subscribe(message => {
-          console.log(333);
           this.appUser = null;
           this.joinShow = true;
         });
@@ -87,6 +99,7 @@ export class AppComponent implements OnInit  {
                   this.privacyMenu = this.menus[index];
                 }
               }
+              this._cacheService.set('footerMenu', [menus, this.privacyMenu], {maxAge: 3 * 24 * 60 * 60});
             },
             error => this.errorMessage = <any>error);
   }

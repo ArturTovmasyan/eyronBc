@@ -39,11 +39,11 @@ export class LoginComponent {
 
     login(loginForm) {
         this.loginForm.username = loginForm.username;
-        this.loginForm.password = loginForm.password;console.log(this.loginForm, loginForm);
+        this.loginForm.password = loginForm.password;
 
         this.ProjectService.auth(this.loginForm)
             .subscribe(
-                res => {console.log(res);
+                res => {
                     if(res.apiKey) {
                         localStorage.setItem('apiKey', res.apiKey);
                         this.broadcaster.broadcast('login', res.userInfo);

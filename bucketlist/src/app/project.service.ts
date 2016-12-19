@@ -20,10 +20,13 @@ import 'rxjs/add/operator/map';
 export class ProjectService {
 
     private baseOrigin = 'http://bucketlist.loc';
-    private headers = new Headers();
     // private baseOrigin = 'http://stage.bucketlist127.com';
+
+    private headers = new Headers();
+
     private envprefix = '/app_dev.php/';
     // private envprefix = '/';
+
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private goalUrl = '';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
@@ -32,7 +35,7 @@ export class ProjectService {
     private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to activity
     private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
-    private featuredIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get featured iteas
+    private featuredIdeasUrl = this.baseUrl + 'goal/featured'; //URL to get featured iteas
     private badgesUrl = this.baseUrl + 'badges'; 
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     constructor(private http:Http, private router:Router) {

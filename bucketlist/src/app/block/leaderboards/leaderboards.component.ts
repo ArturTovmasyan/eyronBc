@@ -48,7 +48,6 @@ export class LeaderboardsBlockComponent implements OnInit {
         for(let index in this.badges){
             this.users[i++] = (this.index < this.badges[index].length)?this.badges[index][this.index]:this.badges[index][(this.index % this.badges[index].length)];
         }
-        console.log(this);
     };
 
     refreshLeaderboards(){
