@@ -220,6 +220,7 @@ select.form-control:focus {
   font-family: 'Open Sans', sans-serif;
 }
 a {
+  cursor: pointer;
   font-family: 'Open Sans', sans-serif;
 }
 a:hover {
@@ -352,13 +353,14 @@ header .navbar-default .navbar-nav figure img {
   height: 40px;
 }
 header .navbar-default .navbar-nav li {
-  border-bottom: 1px solid #4421AB;
+  display: inline-block;
+  vertical-align: top;
 }
 header .navbar-default .navbar-nav li a {
   color: #E5E5E5;
   font-weight: 700;
   font-size: 16px;
-  padding: 25px 19px;
+  padding: 25px 18px;
 }
 header .navbar-default .navbar-nav li a i {
   display: inline-block;
@@ -385,27 +387,23 @@ header .navbar-default .navbar-form {
   border: 0;
   box-shadow: none;
 }
-header .navbar-default .navbar-right,
-header .navbar-default .navbar-mobile {
+header .navbar-default .navbar-right {
+  text-align: right;
+}
+header .navbar-default .navbar-right li {
+  border-bottom: 0;
   text-align: center;
 }
-header .navbar-default .navbar-right li,
-header .navbar-default .navbar-mobile li {
-  border-bottom: 0;
-}
-header .navbar-default .navbar-right li a,
-header .navbar-default .navbar-mobile li a {
+header .navbar-default .navbar-right li a {
   padding-top: 25px;
   padding-bottom: 25px;
 }
-header .navbar-default .navbar-right li:last-child .user,
-header .navbar-default .navbar-mobile li:last-child .user {
+header .navbar-default .navbar-right li:last-child .user {
   display: block;
   padding: 19px 5px 19px 15px;
   position: relative;
 }
-header .navbar-default .navbar-right li:last-child .user figure,
-header .navbar-default .navbar-mobile li:last-child .user figure {
+header .navbar-default .navbar-right li:last-child .user figure {
   background-color: transparent;
   width: 40px;
   height: 40px;
@@ -413,12 +411,10 @@ header .navbar-default .navbar-mobile li:last-child .user figure {
   float: left;
   margin: 0 10px 0 0;
 }
-header .navbar-default .navbar-right li:last-child .user figure img,
-header .navbar-default .navbar-mobile li:last-child .user figure img {
+header .navbar-default .navbar-right li:last-child .user figure img {
   height: 40px;
 }
-header .navbar-default .navbar-right li:last-child .user p,
-header .navbar-default .navbar-mobile li:last-child .user p {
+header .navbar-default .navbar-right li:last-child .user p {
   float: left;
   width: 40px;
   height: 40px;
@@ -428,289 +424,131 @@ header .navbar-default .navbar-mobile li:last-child .user p {
   font-size: 14px;
   font-weight: 600;
 }
-header .navbar-default .navbar-right li:last-child .user span.name,
-header .navbar-default .navbar-mobile li:last-child .user span.name {
+header .navbar-default .navbar-right li:last-child .user span.name {
   float: left;
   padding: 9px 0 4px 8px;
   display: inline-block;
   text-align: left;
   font-size: 18px;
 }
-header .navbar-default .navbar-right li:last-child .user i,
-header .navbar-default .navbar-mobile li:last-child .user i {
+header .navbar-default .navbar-right li:last-child .user i {
   display: inline-block;
   width: 25px;
   height: 25px;
   position: absolute;
   top: 27px;
 }
-header .navbar-default .navbar-right li:last-child .user i.menu-hamburger,
-header .navbar-default .navbar-mobile li:last-child .user i.menu-hamburger {
+header .navbar-default .navbar-right li:last-child .user i.menu-hamburger {
   background: url('assets/images/grey-burger.svg') no-repeat center center;
 }
-header .navbar-default .navbar-right li:last-child .user i.menu-hamburger:hover,
-header .navbar-default .navbar-mobile li:last-child .user i.menu-hamburger:hover {
+header .navbar-default .navbar-right li:last-child .user i.menu-hamburger:hover {
   background: url('assets/images/white-burger.svg') no-repeat center center;
 }
-header .navbar-default .navbar-right li:last-child .user i.menu-remove,
-header .navbar-default .navbar-mobile li:last-child .user i.menu-remove {
+header .navbar-default .navbar-right li:last-child .user i.menu-remove {
   background: url('assets/images/grey-remove.svg') no-repeat center center;
 }
-header .navbar-default .navbar-right li:last-child .user i.menu-remove:hover,
-header .navbar-default .navbar-mobile li:last-child .user i.menu-remove:hover {
+header .navbar-default .navbar-right li:last-child .user i.menu-remove:hover {
   background: url('assets/images/white-remove.svg') no-repeat center center;
 }
 header .navbar-default .navbar-right li:last-child .user .icon-arrow-down,
-header .navbar-default .navbar-mobile li:last-child .user .icon-arrow-down,
-header .navbar-default .navbar-right li:last-child .user .icon-icon-up,
-header .navbar-default .navbar-mobile li:last-child .user .icon-icon-up {
+header .navbar-default .navbar-right li:last-child .user .icon-icon-up {
   margin-top: 9px;
   position: absolute;
   right: 5px;
 }
 header .navbar-default .navbar-right li:last-child .user .icon-arrow-down span,
-header .navbar-default .navbar-mobile li:last-child .user .icon-arrow-down span,
-header .navbar-default .navbar-right li:last-child .user .icon-icon-up span,
-header .navbar-default .navbar-mobile li:last-child .user .icon-icon-up span {
+header .navbar-default .navbar-right li:last-child .user .icon-icon-up span {
   padding-left: 0;
 }
-header .navbar-default .navbar-right li:last-child .user + div.popover,
-header .navbar-default .navbar-mobile li:last-child .user + div.popover {
+header .navbar-default .navbar-right li:last-child .user + div.popover {
   position: relative;
 }
-header .navbar-default .navbar-right li:last-child .user-menu,
-header .navbar-default .navbar-mobile li:last-child .user-menu {
+header .navbar-default .navbar-right li:last-child .user-menu {
   background-color: #021523;
   padding-left: 0;
 }
-header .navbar-default .navbar-right li:last-child .user-menu li,
-header .navbar-default .navbar-mobile li:last-child .user-menu li {
+header .navbar-default .navbar-right li:last-child .user-menu li {
   border-left: 0;
   text-align: left;
 }
-header .navbar-default .navbar-right li:last-child .user-menu li a,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a {
+header .navbar-default .navbar-right li:last-child .user-menu li a {
   display: block;
   padding: 10px 20px;
   font-size: 14px;
   font-weight: 500;
   color: #ffffff;
 }
-header .navbar-default .navbar-right li:last-child .user-menu li a span,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a span {
+header .navbar-default .navbar-right li:last-child .user-menu li a span {
   margin-left: 10px;
 }
-header .navbar-default .navbar-right li:last-child .user-menu li a i,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a i {
+header .navbar-default .navbar-right li:last-child .user-menu li a i {
   display: inline-block;
   width: 30px;
   height: 30px;
   font-size: 30px;
 }
-header .navbar-default .navbar-right li:last-child .user-menu li a i.mybucketlist-icon,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a i.mybucketlist-icon {
+header .navbar-default .navbar-right li:last-child .user-menu li a i.mybucketlist-icon {
   margin-right: 0;
   background-size: 100%;
 }
 header .navbar-default .navbar-right li:last-child .user-menu li a i.ideas-icon,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a i.ideas-icon,
-header .navbar-default .navbar-right li:last-child .user-menu li a i.activity-icon,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a i.activity-icon {
+header .navbar-default .navbar-right li:last-child .user-menu li a i.activity-icon {
   width: 25px !important;
 }
-header .navbar-default .navbar-right li:last-child .user-menu li a i.icon-suggest-icon,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a i.icon-suggest-icon {
+header .navbar-default .navbar-right li:last-child .user-menu li a i.icon-suggest-icon {
   width: 27px;
   height: 27px;
   color: #e5e5e5;
   margin: 0 0 0 -3px;
 }
-header .navbar-default .navbar-right li:last-child .user-menu li a i.icon-goalfrined-icon,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a i.icon-goalfrined-icon {
+header .navbar-default .navbar-right li:last-child .user-menu li a i.icon-goalfrined-icon {
   margin: 0 -2px 0 -3px;
 }
-header .navbar-default .navbar-right li:last-child .user-menu li a i span,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a i span {
+header .navbar-default .navbar-right li:last-child .user-menu li a i span {
   padding-left: 0;
   margin-left: 0;
 }
-header .navbar-default .navbar-right li:last-child .user-menu li a .icon-plus-icon,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a .icon-plus-icon {
+header .navbar-default .navbar-right li:last-child .user-menu li a .icon-plus-icon {
   font-size: 30px;
 }
 header .navbar-default .navbar-right li:last-child .user-menu li a:hover,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a:hover,
-header .navbar-default .navbar-right li:last-child .user-menu li a:focus,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a:focus {
+header .navbar-default .navbar-right li:last-child .user-menu li a:focus {
   text-decoration: none;
   background-color: transparent;
 }
 header .navbar-default .navbar-right li:last-child .user-menu li a:hover span,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a:hover span,
-header .navbar-default .navbar-right li:last-child .user-menu li a:focus span,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a:focus span {
+header .navbar-default .navbar-right li:last-child .user-menu li a:focus span {
   text-decoration: underline;
 }
 header .navbar-default .navbar-right li:last-child .user-menu li a:hover i span,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a:hover i span,
-header .navbar-default .navbar-right li:last-child .user-menu li a:focus i span,
-header .navbar-default .navbar-mobile li:last-child .user-menu li a:focus i span {
+header .navbar-default .navbar-right li:last-child .user-menu li a:focus i span {
   text-decoration: none;
 }
-header .navbar-default .navbar-right li:last-child .join-class,
-header .navbar-default .navbar-mobile li:last-child .join-class {
+header .navbar-default .navbar-right li:last-child .join-class {
   min-width: 320px;
   background-color: #021523;
   color: #e3e3e3;
 }
-header .navbar-default .navbar-right li:last-child .join-class:hover,
-header .navbar-default .navbar-mobile li:last-child .join-class:hover {
+header .navbar-default .navbar-right li:last-child .join-class:hover {
   background-color: #021523;
 }
-header .navbar-default .navbar-right li:last-child .popover,
-header .navbar-default .navbar-mobile li:last-child .popover {
+header .navbar-default .navbar-right li:last-child .popover {
   padding: 0;
   border-radius: 0;
   border: 0;
   outline: 0;
   max-width: 100%;
 }
-header .navbar-default .navbar-right li:last-child .sign-in-popover + div.popover,
-header .navbar-default .navbar-mobile li:last-child .sign-in-popover + div.popover {
+header .navbar-default .navbar-right li:last-child .sign-in-popover + div.popover {
   top: 0 !important;
   left: 0 !important;
   position: relative;
 }
-header .navbar-default .navbar-right li:last-child .popover-content,
-header .navbar-default .navbar-mobile li:last-child .popover-content {
+header .navbar-default .navbar-right li:last-child .popover-content {
   padding: 0;
 }
-header .navbar-default .navbar-right li:last-child .popover-content a,
-header .navbar-default .navbar-mobile li:last-child .popover-content a {
+header .navbar-default .navbar-right li:last-child .popover-content a {
   font-size: 14px;
-}
-header .navbar-mobile .navbar-nav li a i.mybucketlist-icon {
-  margin-right: 0;
-}
-header .navbar-mobile ul {
-  padding-left: 15px;
-  margin-bottom: 0;
-}
-header .navbar-mobile ul li {
-  float: left;
-}
-header .navbar-mobile ul li a {
-  padding: 13px 19px 18px !important;
-  line-height: 46px;
-}
-header .navbar-mobile ul li a .no-image {
-  width: 40px;
-  height: 40px;
-  line-height: 34px;
-  margin-bottom: 0;
-}
-header .navbar-mobile ul li a.mobile-user {
-  padding: 20px 0 17px 19px!important;
-  right: 15px;
-}
-header .navbar-mobile ul li:last-child {
-  float: right;
-  right: 12px;
-}
-header .navbar-mobile ul.user-mobile-menu {
-  background-color: #021523;
-  padding-left: 0;
-}
-header .navbar-mobile ul.user-mobile-menu li {
-  border-left: 0;
-  float: none;
-  display: block;
-  text-align: left;
-}
-header .navbar-mobile ul.user-mobile-menu li a {
-  display: block;
-  padding: 1px 5px 1px 35px !important;
-  font-size: 16px;
-  font-weight: 600;
-  color: #ffffff;
-}
-header .navbar-mobile ul.user-mobile-menu li a span {
-  margin-left: 10px;
-  vertical-align: middle;
-}
-header .navbar-mobile ul.user-mobile-menu li a i {
-  display: inline-block;
-  width: 25px;
-  height: 30px;
-  font-size: 30px;
-  vertical-align: middle;
-}
-header .navbar-mobile ul.user-mobile-menu li a i.mybucketlist-icon {
-  margin: 0 0 0 1px;
-  background-size: 100%;
-}
-header .navbar-mobile ul.user-mobile-menu li a i.ideas-icon,
-header .navbar-mobile ul.user-mobile-menu li a i.activity-icon {
-  width: 25px !important;
-}
-header .navbar-mobile ul.user-mobile-menu li a i.icon-suggest-icon {
-  margin: 0 5px 0 -4px;
-}
-header .navbar-mobile ul.user-mobile-menu li a i.icon-goalfrined-icon {
-  margin: 0 3px 0 -4px;
-}
-header .navbar-mobile ul.user-mobile-menu li a i.icon-goalfrined-icon span {
-  vertical-align: top;
-}
-header .navbar-mobile ul.user-mobile-menu li a i span {
-  padding-left: 0;
-  margin-left: 0;
-}
-header .navbar-mobile ul.user-mobile-menu li a .icon-plus-icon {
-  font-size: 30px;
-}
-header .navbar-mobile ul.user-mobile-menu li a:hover,
-header .navbar-mobile ul.user-mobile-menu li a:focus {
-  text-decoration: underline;
-  background-color: transparent;
-}
-header .navbar-mobile ul.user-mobile-menu li a:focus {
-  text-decoration: none;
-  background-color: transparent;
-}
-header .navbar-mobile ul.user-mobile-menu li:first-child {
-  height: 75px;
-  background: #061b28;
-}
-header .navbar-mobile ul.user-mobile-menu li:first-child .navbar-brand {
-  padding: 15px 25px !important;
-}
-header .navbar-mobile ul.user-mobile-menu li:first-child .icon-remove-email {
-  font-size: 40px;
-  background: #021523;
-  line-height: 75px;
-  height: 75px;
-  width: 75px;
-  text-align: center;
-}
-header .navbar-mobile ul.pull-right li a {
-  padding: 13px 15px 18px !important;
-}
-header .navbar-mobile .icon-ideas-icon,
-header .navbar-mobile .icon-join-icon {
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 30px;
-  color: #ffffff;
-}
-header .navbar-mobile a {
-  display: inline-block;
-}
-header .navbar-mobile a.sign-in-popover {
-  margin-right: 15px;
-}
-header .navbar-mobile a.active-mobile {
-  background-color: #000000;
 }
 header .mybucketlist-icon {
   background: url('assets/images/my-bucketlist.svg') no-repeat center center;
@@ -915,8 +753,12 @@ header .open a.relative:focus {
 }
 .icons {
   display: inline-block;
-  width: 25px !important;
+  width: 25px;
   height: 30px;
+}
+.join-icon {
+  width: 30px;
+  background: url('assets/images/join-icon.svg') no-repeat center center;
 }
 .ideas-icon {
   width: 30px !important;
@@ -2711,6 +2553,116 @@ footer .footer-bottom ul li a:hover {
   vertical-align: middle;
 }
 /* end map styles*/
+/*goal item*/
+.idea-item app-goal.height figure > a {
+  height: 540px;
+}
+.idea-item app-goal.height figure > a .overlay {
+  height: 540px;
+}
+.idea-item figure {
+  background: transparent;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 15px;
+  text-align: center;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.idea-item figure > a:not(.nearby-distance) {
+  height: 230px;
+}
+.idea-item figure > a.height {
+  height: 540px;
+}
+.idea-item figure > a.height .overlay {
+  height: 540px;
+}
+.idea-item figure h3 {
+  position: absolute;
+  width: 100%;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0 25px;
+  text-align: left;
+  line-height: normal;
+  z-index: 1;
+  margin-top: 13px;
+}
+.idea-item figure h3 a {
+  color: #ffffff;
+  cursor: pointer;
+}
+.idea-item figure h3 a:hover {
+  color: #ffffff;
+}
+.idea-item figure h3.nearby {
+  width: 80%;
+  padding: 0 0 0 25px;
+}
+.idea-item figure i {
+  color: #ffffff;
+}
+.idea-item figure figcaption {
+  background-color: #ffffff;
+}
+.idea-item figure figcaption ul li {
+  height: 35px;
+  line-height: 31px;
+}
+.idea-item figure figcaption ul li a:hover,
+.idea-item figure figcaption ul li a:focus {
+  text-decoration: none;
+}
+.idea-item figure figcaption ul li i {
+  font-size: 25px;
+  vertical-align: middle;
+}
+.idea-item figure figcaption ul li i.icon-green-ok,
+.idea-item figure figcaption ul li .icon-green-plus {
+  font-size: 36px;
+  vertical-align: middle;
+}
+.idea-item figure figcaption ul li:hover a .text {
+  color: #ffffff;
+}
+.idea-item figure figcaption ul li .text {
+  font-size: 12px;
+}
+.idea-item figure figcaption ul .transparent .text {
+  color: #a4a4a4;
+}
+.idea-item figure figcaption ul .transparent:hover {
+  background-color: transparent;
+}
+.idea-item figure figcaption ul .transparent:hover a,
+.idea-item figure figcaption ul .transparent:hover .text {
+  color: #a4a4a4;
+}
+.idea-item figure .absolute {
+  bottom: 25px;
+}
+.idea-item figure .absolute ul li a,
+.idea-item figure .absolute ul li span {
+  font-size: 12px;
+  color: #ffffff;
+}
+.ideas-list,
+#story-slider-homepage {
+  padding-bottom: 20px;
+}
+.ideas-list h2,
+#story-slider-homepage h2 {
+  font-size: 22px;
+  line-height: normal;
+  font-weight: 300;
+  margin: 30px 0;
+}
+/*end goal item*/
 @media (min-width: 768px) {
   header .navbar {
     min-height: 82px;
@@ -3139,6 +3091,52 @@ footer .footer-bottom ul li a:hover {
   .nearby-title span:active {
     color: #4f3576 !important;
   }
+  /*goal item*/
+  .idea-item figure {
+    text-align: left;
+    margin-bottom: 32px;
+  }
+  .idea-item figure h3 {
+    font-size: 24px;
+    padding: 0 25px;
+    line-height: 30px;
+    margin-top: 15px;
+  }
+  .idea-item figure figcaption ul li {
+    height: 50px;
+    line-height: 45px;
+  }
+  .idea-item figure figcaption ul li i.icon-green-ok,
+  .idea-item figure figcaption ul li .icon-green-plus {
+    font-size: 49px;
+  }
+  .idea-item figure figcaption ul li i {
+    font-size: 30px;
+  }
+  .idea-item figure figcaption ul li .text {
+    font-size: 14px;
+  }
+  .idea-item figure .absolute {
+    bottom: 40px;
+  }
+  .idea-item figure .absolute ul li {
+    padding-left: 20px;
+  }
+  .idea-item figure .absolute ul li a,
+  .idea-item figure .absolute ul li span {
+    color: #ffffff;
+    font-size: 14px;
+  }
+  .ideas-list,
+  #story-slider-homepage {
+    padding-bottom: 0;
+  }
+  .ideas-list h2,
+  #story-slider-homepage h2 {
+    font-size: 27px;
+    margin: 20px 0 10px 0;
+  }
+  /*end goal item*/
 }
 .no-right {
   padding-right: 0;
@@ -3394,6 +3392,29 @@ footer .footer-bottom ul li a:hover {
   #story-slider-homepage .success-scroll {
     padding: 0 35px;
   }
+  /*goal item*/
+  .idea-item figure figcaption ul li:hover {
+    background-color: #7724F6;
+    color: #ffffff;
+  }
+  .idea-item figure figcaption ul li:focus,
+  .idea-item figure figcaption ul li:active {
+    background-color: #6108EA;
+  }
+  .idea-item figure figcaption ul li:focus a,
+  .idea-item figure figcaption ul li:active a {
+    color: #ffffff;
+  }
+  .ideas-list h2,
+  #story-slider-homepage h2 {
+    padding: 50px 0;
+    font-size: 32px;
+  }
+  .ideas-list .no-bottom,
+  #story-slider-homepage .no-bottom {
+    padding-bottom: 0;
+  }
+  /*end goal item*/
 }
 .modal-open {
   padding-right: 0 !important;

@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from 'ng2-translate';
+import {Broadcaster} from './tools/broadcaster';
+import {ProjectService} from './project.service';
 
-import { ProjectService } from '../app/project.service';
+import {User} from './interface/user';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
-  providers: [ProjectService]
+  providers: [
+    ProjectService,
+    Broadcaster
+  ]
 })
 
 export class AppComponent implements OnInit  {
@@ -18,8 +23,9 @@ export class AppComponent implements OnInit  {
   public menus: any[];
   public privacyMenu: any;
   errorMessage:string;
+  public appUser:User;
 
-  constructor(private _translate: TranslateService, private _projectService: ProjectService) { }
+  constructor(private _translate: TranslateService,private broadcaster: Broadcaster, private _projectService: ProjectService) { }
 
   ngOnInit() {
     // standing data
@@ -30,6 +36,31 @@ export class AppComponent implements OnInit  {
 
     this.getBottomMenu();
     this.selectLang('en');
+
+    if(localStorage.getItem('apiKey')){
+        this._projectService.getUser()
+            .subscribe(
+            user => this.appUser = user,
+            error => localStorage.removeItem('apiKey'));
+    }
+
+    this.broadcaster.on<User>('login')
+        .subscribe(user => {
+          this.appUser = user;         
+        });
+
+    this.broadcaster.on<string>('logout')
+        .subscribe(message => {
+          this.appUser = null;         
+        });
+
+    this.broadcaster.on<string>('openLogin')
+        .subscribe(message => {
+          console.log(333);
+          this.appUser = null;
+          this.joinShow = true;
+        });
+
   }
 
   hideJoin(ev){

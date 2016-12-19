@@ -1,6 +1,6 @@
 <a routerLink="/profile/{{ user.uid }}">
 
-  <figure class="image img-circle">
+  <figure class="image img-circle" style="float:left;margin:0 20px 0 0">
     <img *ngIf="user.cached_image.length != 2" src="{{ user.cached_image }}" alt="" class="img-circle img-responsive"/>
     <p *ngIf="user.cached_image.length == 2" class="no-image user-no4">{{ user.cached_image | uppercase }}</p>
   </figure>

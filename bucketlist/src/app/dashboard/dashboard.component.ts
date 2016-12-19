@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-
-import { DiscoverGoalComponent } from '../components/discover-goal/discover-goal.component';
-import { BaseStoriesComponent } from '../components/base-stories/base-stories.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,9 +8,12 @@ import { BaseStoriesComponent } from '../components/base-stories/base-stories.co
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem('apiKey')){
+      this.router.navigate(['/activity']);
+    }
   }
 
 }
