@@ -21,9 +21,11 @@ export class LeaderboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.user = this.badge.user;
-    this.score = this.badge.score;
-    this.points = this.badge.points;
+    if(this.badge){
+      this.user = this.badge.user;
+      this.score = this.badge.score;
+      this.points = this.badge.points;
+    }
   }
 
   getFullName(user){

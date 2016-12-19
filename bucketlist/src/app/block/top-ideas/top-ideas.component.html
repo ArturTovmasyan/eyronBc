@@ -1,5 +1,5 @@
-<div class="right-block padding padding-no round margin-top" data-ng-controller="popularGoalsController">
-    <div class="row" *ngIf="goals">
+<div class="right-block padding padding-no round margin-top" *ngIf="goals && goals.length">
+    <div class="row">
       <div class="col-xs-10">
         <a routerLink="/ideas/most-popular" class="heading text-gray">
           <i [ngClass]="{'icon-top-idea': type == categories[0],'featured-icon': type == categories[2],'ideas-icon': type == categories[1]}"></i>
