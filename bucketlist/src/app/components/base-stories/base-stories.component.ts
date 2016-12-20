@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { ProjectService } from '../../project.service';
+import {Broadcaster} from '../../tools/broadcaster';
 import {Story} from '../../interface/story';
 
 
@@ -18,11 +19,15 @@ export class BaseStoriesComponent implements OnInit {
   stories:Story[] = null;
   errorMessage:string;
   
-  constructor(private _projectService: ProjectService, private _cacheService: CacheService) { }
+  constructor(
+      private _projectService: ProjectService, 
+      private _cacheService: CacheService,
+      private broadcaster: Broadcaster
+  ) { }
 
   ngOnInit() {
     let data = this._cacheService.get('baseStories');
-    if (data) {
+    if (data) {console.log(data);
       this.stories = data;
     } else {
       this.getBaseStories()
@@ -38,6 +43,10 @@ export class BaseStoriesComponent implements OnInit {
             },
             error => this.errorMessage = <any>error
         );
+  }
+
+  openSignInPopover(){
+    this.broadcaster.broadcast('openLogin', 'message');
   }
 
 }

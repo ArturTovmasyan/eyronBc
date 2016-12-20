@@ -398,6 +398,8 @@ class SuccessStoryController extends FOSRestController
     {
         //Create new Json Response
         $response = new JsonResponse();
+        //get liipManager service
+        $liipManager = $this->get('liip_imagine.cache.manager');
 
         //get entoty manager
         $em = $this->getDoctrine()->getManager();
@@ -414,6 +416,15 @@ class SuccessStoryController extends FOSRestController
         $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
         
         foreach($stories as &$story){
+
+            if ($story->getGoal() && $story->getGoal()->getListPhotoDownloadLink()) {
+                $story->getGoal()->setCachedImage($liipManager->getBrowserPath($story->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+            }
+
+            if($story->getUser() && $story->getUser()->getPhotoLink()){
+                $story->getUser()->setCachedImage($liipManager->getBrowserPath($story->getUser()->getPhotoLink(), 'user_icon'));
+            }
+
             $story->getGoal()->setStats([
                 'listedBy' => $stats[$story->getGoal()->getId()]['listedBy'],
                 'doneBy'   => $stats[$story->getGoal()->getId()]['doneBy'],
