@@ -35,7 +35,6 @@ export class ProjectService {
     private featuredIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get featured iteas
     private badgesUrl = this.baseUrl + 'badges'; 
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
-    private leaderBoard = this.baseUrl;
     constructor(private http:Http, private router:Router) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
     }
@@ -104,6 +103,16 @@ export class ProjectService {
      *
      * @returns {Observable<T>}
      */
+    getUserList(first:number, count:number, search:string, type:string):Observable<any> {
+        return this.http.get(this.baseUrl +'user-list/'+first+'/'+count+'?search='+search+'&type='+ type, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
     getTopIdeas():Observable<Goal[]> {
         return this.http.get(this.topIdeasUrl, {headers: this.headers})
             .map((r:Response) => r.json() as Goal[])
@@ -135,7 +144,7 @@ export class ProjectService {
      * @returns {Observable<T>}
      */
     getleaderBoard(type:number, count:number):Observable<any> {
-        return this.http.get(this.leaderBoard + 'badges/' + type + '/topusers/' + count, {headers: this.headers})
+        return this.http.get(this.baseUrl + 'badges/' + type + '/topusers/' + count, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }

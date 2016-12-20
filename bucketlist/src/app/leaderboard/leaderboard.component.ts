@@ -34,7 +34,6 @@ export class LeaderboardComponent implements OnInit {
         .subscribe(
             data => {
               this.data = data;
-              console.log(this.data);
             },
             error => this.errorMessage = <any>error);
   }
