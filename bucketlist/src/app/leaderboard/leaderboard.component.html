@@ -1,3 +1,193 @@
-<p>
-  leaderboard works!
-</p>
+<div id="news-feed">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-8">
+        <div id="leaderboard-place">
+          <figure class="round">
+
+            <!--<img data-ng-src="[[ (isMobile?'{{ asset('bundles/app/images/leaderboard-phone.svg') }}':'{{ asset('bundles/app/images/leaderboard-image.jpg') }}') ]]" alt="Bucket List 127" class="img-responsive"/>-->
+            <img src="http://stage.bucketlist127.com/bundles/app/images/leaderboard-image.jpg?v622" alt="Bucket List 127" class="img-responsive"/>
+
+            <figcaption>
+              <ul class="badge-place">
+                <li class="ng-hide">
+                  <a href="#{{ 'leaderboard.traveler'| translate }}">
+                     <!--(click)="goTo(LeaderboardConstant['TYPE_TRAVELLER'])"-->
+                    <i class="badge-1"></i>
+                    <span class="text-dark-gray">{{ 'leaderboard.traveler'| translate }}</span>
+                          <!--[ngClass]="{'text-orange': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}"-->
+                  </a>
+                </li>
+                <li>
+                  <a href="#{{ 'leaderboard.innovator'| translate }}">
+                     <!--(click)="goTo(LeaderboardConstant['TYPE_INNOVATOR'])"-->
+                    <i class="badge-3"></i>
+                    <span class="text-dark-gray">{{ 'leaderboard.innovator'| translate }}</span>
+                          <!--[ngClass]="{'text-orange': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}"-->
+                  </a>
+                </li>
+                <li>
+                  <a href="#{{ 'leaderboard.writer'| translate }}">
+                     <!--(click)="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])"-->
+                    <i class="badge-2"></i>
+                    <span class="text-dark-gray">{{ 'leaderboard.writer'| translate }}</span>
+                          <!--[ngClass]="{'text-orange': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}"-->
+                  </a>
+                </li>
+              </ul>
+            </figcaption>
+          </figure>
+
+          <h3 class="text-dark-gray">{{ 'leaderboard.top'| translate }}</h3>
+
+          <div class="leaderboard-space">
+            <div class="row no-gutter">
+              <div class="col-xs-7 col-sm-9">
+
+                <ul class="leaderboard-titles left-corner clearfix">
+                  <li class="rank">{{ 'leaderboard.rank'| translate }}</li>
+                  <li>{{ 'leaderboard.leaders'| translate }}</li>
+                </ul>
+
+              </div>
+              <div class="col-xs-5 col-sm-3">
+
+                <ul class="leaderboard-titles right-corner clearfix">
+                  <li>{{ 'leaderboard.score'| translate }}</li>
+                  <li class="level">{{ 'leaderboard.level'|translate }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="leaderboard-space">
+            <div class="row no-gutter">
+              <div class="col-xs-7 col-sm-9">
+                <!--<ul [ngClass]="{'no-border-top-left': !i}" *ngFor="user in data; let i = index" class="bg-white left-corner goals-animate">-->
+                  <!--<li class="text-orange">{{i + 1}}</li>-->
+                  <!--<li>-->
+                    <!--<figure class="img-circle">-->
+                      <!--&lt;!&ndash;{% set className = "user-no" ~ random(4) %}&ndash;&gt;-->
+
+                      <!--&lt;!&ndash;<img *ngIf="user.user.image_path.length" [src]="{{ user.user.image_path }}" alt="user image"/>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<p *ngIf="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>&ndash;&gt;-->
+                    <!--</figure>-->
+                  <!--</li>-->
+
+                  <!--<li>-->
+                    <!--&lt;!&ndash;<a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>&ndash;&gt;-->
+                  <!--</li>-->
+
+                <!--</ul>-->
+              </div>
+              <div class="col-xs-5 col-sm-3">
+
+                <!--<ul class="bg-white leaderboard-right goals-animate" [ngClass]="{'no-border-top-right': !$index}" *ngFor="user in data  | limitTo: 10">-->
+                    <!--&lt;!&ndash;data-ng-cloak&ndash;&gt;-->
+                  <!--<li class="text-orange">[[ user.points]]</li>-->
+                  <!--<li class="text-orange level">[[ user.score]]</li>-->
+                <!--</ul>-->
+              </div>
+            </div>
+          </div>
+
+          <!--{% if app.user %}-->
+          <!--<h3 class="text-dark-gray ng-hide" [hidden]="users.length > 10">{{ 'leaderboard.position'|translate }}</h3>-->
+
+          <!--<div class="round goals-animate" [hidden]="users.length" [ngClass]="{'margin-top': $index == 0,-->
+          <!--'bg-white': user.user.id == {{ app.user.id }}}" *ngIf="user in users |limitTo: 5: 10">-->
+               <!--data-ng-cloak-->
+            <div class="leaderboard-space">
+              <div class="row no-gutter">
+                <div class="col-xs-7 col-sm-9">
+                  <!--<ul class="bg-grey-darker left-corner" [ngClass]="{'bg-white': user.user.id == {{ app.user.id }} }">-->
+                    <!--<li class="text-orange">[[ user.position]]</li>-->
+
+                    <!--<li>-->
+                      <!--<figure class="img-circle">-->
+                        <!--&lt;!&ndash;{% set className = "user-no" ~ random(4) %}&ndash;&gt;-->
+                        <!--&lt;!&ndash;<img *ngIf="user.user.image_path.length" data-ng-src="[[ user.user.image_path]]" alt="user image"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p *ngIf="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>&ndash;&gt;-->
+                      <!--</figure>-->
+                    <!--</li>-->
+
+                    <!--<li>-->
+                      <!--&lt;!&ndash;<a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>&ndash;&gt;-->
+                    <!--</li>-->
+
+                  <!--</ul>-->
+                </div>
+                <!--<div class="col-xs-5 col-sm-3">-->
+                  <!--<ul class="bg-grey-darker leaderboard-right" [ngClass]="{'bg-white': user.user.id == {{ app.user.id }} }">-->
+
+                    <!--<li class="text-orange">[[ user.points]]</li>-->
+
+                    <!--<li class="text-orange level">[[ user.score]]</li>-->
+                  <!--</ul>-->
+                <!--</div>-->
+              </div>
+              <!--<div [hidden]="user.user.id == {{ app.user.id }}">-->
+                <!--<p class="text-gray leaderboard-text">{{ 'leaderboard.position_text'|translate }}</p>-->
+              <!--</div>-->
+            </div>
+
+          <!--</div>-->
+
+          <!--{% endif %}-->
+        </div>
+      </div>
+
+      <div class="col-md-4">
+
+        <div class="right-block padding padding-no round">
+          <div class="right-menu">
+            <div class="bg-white round">
+
+              <ul class="row">
+                <li class="col-xs-10">
+                   <span>
+                     <i class="icon-top-idea"></i>
+                     <span class="text-gray" [innerHTML]>{{ 'leaderboard.rewards'|translate }}</span>
+                    </span>
+                </li>
+              </ul>
+
+              <hr/>
+
+              <div class="badge-place" id="rewards">
+
+                <div class="row no-gutter">
+                  <div class="col-xs-1">
+                    <i class="badge-1"></i>
+                  </div>
+                  <div class="col-xs-11">
+                    <p class="text-justify" [innerHTML]="'leaderboard.travelerText'|translate"></p>
+                  </div>
+                </div>
+
+                <div class="row no-gutter">
+                  <div class="col-xs-1">
+                    <i class="badge-3"></i>
+                  </div>
+                  <div class="col-xs-11">
+                    <p class="text-justify" [innerHTML]="'leaderboard.innovatorText'|translate"></p>
+                  </div>
+                </div>
+
+                <div class="row no-gutter">
+                  <div class="col-xs-1">
+                    <i class="badge-2"></i>
+                  </div>
+                  <div class="col-xs-11">
+                    <p class="text-justify" [innerHTML]="'leaderboard.motivatorText'|translate"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -112,6 +112,16 @@ export class ProjectService {
      *
      * @returns {Observable<T>}
      */
+    getUserList(first:number, count:number, search:string, type:string):Observable<any> {
+        return this.http.get(this.baseUrl +'user-list/'+first+'/'+count+'?search='+search+'&type='+ type, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
     getTopIdeas():Observable<Goal[]> {
         return this.http.get(this.topIdeasUrl, {headers: this.headers})
             .map((r:Response) => r.json() as Goal[])
@@ -134,6 +144,16 @@ export class ProjectService {
      */
     getBadges():Observable<any> {
         return this.http.get(this.badgesUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getleaderBoard(type:number, count:number):Observable<any> {
+        return this.http.get(this.baseUrl + 'badges/' + type + '/topusers/' + count, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
