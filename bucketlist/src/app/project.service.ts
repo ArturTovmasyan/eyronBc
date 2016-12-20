@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import {Goal} from "./interface/goal";
 import {Story} from "./interface/story";
 import {User} from "./interface/user";
+import {Category} from "./interface/category";
 import {UserGoal} from "./interface/userGoal";
 import {Activity} from "./interface/activity";
 
@@ -31,15 +32,18 @@ export class ProjectService {
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private goalUrl = '';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
+
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private baseStoryUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
+    private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
     private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to activity
     private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
     private featuredIdeasUrl = this.baseUrl + 'goal/featured'; //URL to get featured iteas
     private badgesUrl = this.baseUrl + 'badges'; 
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
+    private categoriesUrl = this.baseUrl + 'goal/categories';
     constructor(private http:Http, private router:Router) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
     }
@@ -147,7 +151,16 @@ export class ProjectService {
         return this.http.get(this.discoverGoalsUrl)
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
-    } 
+    }
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getIdeaGoals(start:number, count:number, search:string = '',category:string = ''):Observable<Goal[]> {
+        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&cateegory=' + category)
+            .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
     
     /**
      *
@@ -157,6 +170,17 @@ export class ProjectService {
 
         return this.http.get(this.baseStoryUrl)
             .map((r:Response) => r.json() as Story[])
+            .catch(this.handleError);
+    }
+    
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getCategories():Observable<Category[]> {
+
+        return this.http.get(this.categoriesUrl)
+            .map((r:Response) => r.json() as Category[])
             .catch(this.handleError);
     }
 

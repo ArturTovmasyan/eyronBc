@@ -2,9 +2,9 @@ import { NgModule }       from '@angular/core';
 import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 import {TranslateModule} from 'ng2-translate';
+import { ComponentModule } from '../components/components.module';
 
 import { IdeasComponent }    from './ideas.component';
-import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
 
 import { IdeasRouting } from './ideas-routing';
 
@@ -14,11 +14,11 @@ import { IdeasRouting } from './ideas-routing';
     CommonModule,
     FormsModule,
     IdeasRouting,
-    TranslateModule
+    TranslateModule,
+    ComponentModule
   ],
   declarations: [
-    IdeasComponent,
-    IdeasCategoryComponent
+    IdeasComponent
   ],
   providers: [
     // HeroService

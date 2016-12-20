@@ -1,8 +1,218 @@
-<p>
-  ideas works!
-</p>
-<nav>
-  <a routerLink="/ideas" routerLinkActive="active">notifications</a>
-  <a routerLink="/" routerLinkActive="active">nearby</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="content-top ideas-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="search">
+          <!--data-ng-init="placeholderText = '{{ 'search'|translate | capitalize}}'"-->
+          <form class="navbar-form" role="search">
+          <span class="icon-search-icon" [ngClass]="{'text-purple': isSearching}"></span>
+          <input type="text"
+                 name="search"
+                 autocomplete="off"
+                 placeholder="{{ 'search'|translate | capitalize}}"
+                 class="form-control">
+                 <!--{% if app.request.get('_route') == 'goals_list' %}-->
+          <!--data-ng-model="search"-->
+          <!--data-ng-keydown="doSearch($event)"-->
+          <!--{% else %}-->
+          <!--data-ng-enter-submit=".search form"-->
+          <!--{% endif %}-->
+
+          <i class="close-icon hidden-sm hidden-md hidden-lg"
+             [ngClass]="{'hidden-xs': !isSearching}"
+             (click)="search = '';isSearching = false">
+          </i>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="container">
+    <div class="row no-gutter">
+      <!--data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})"-->
+      <div class="col-xs-12">
+        <!--data-ng-init="activeCategory = '{{ category?category:'nearby' }}'"-->
+        <!--{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories, 'selected': category } %}-->
+        <div class="filters-slider swiper-container">
+          <ul class="filter swiper-wrapper" [hidden]="!filterVisibility">
+            <!--data-ng-init="categoriesLength = {{ categories|length }}"-->
+
+            <!--{% set mostPopular = false %}-->
+            <!--{% set featured = false %}-->
+            <!--{% set nearby = false %}-->
+
+            <!--{% if categories|length > 0 %}-->
+            <!--{% for i in 0..(categories|length -1) %}-->
+            <!--{% if categories[i].getSlug() == 'most-popular' %}-->
+            <!--{% set mostPopular = true %}-->
+            <!--{% endif %}-->
+            <!--{% if categories[i].getSlug() == 'featured' %}-->
+            <!--{% set featured = true %}-->
+            <!--{% endif %}-->
+            <!--{% if categories[i].getSlug() == 'nearby' %}-->
+            <!--{% set nearby = true %}-->
+            <!--{% endif %}-->
+            <!--{% endfor %}-->
+            <!--{% endif %}-->
+
+            <li class="swiper-slide"
+                [ngClass]="{'active-category': category == 'nearby'}">
+              <a routerLink="/ideas/nearby" routerLinkActive="active"
+                 (click)="goTo('nearby')">
+                <img src="assets/images/nearby.svg" class="svg"/>
+                <span>{{ 'nearby'|translate }}</span>
+              </a>
+            </li>
+
+            <li class="swiper-slide" [ngClass]="{'active-category': category == 'discover'}">
+              <a routerLink="/ideas/discover"
+                 (click)="goTo('')">
+                <img src="assets/images/discover.svg" class="svg"/>
+                <span>{{ 'discover'|translate }}</span>
+              </a>
+            </li>
+
+            <!--{% if featured %}-->
+            <li class="swiper-slide" [ngClass]="{'active-category': category == 'featured'}">
+              <a routerLink="/ideas/featured"
+                 (click)="goTo('featured')">
+                <img src="assets/images/featured.svg" class="svg"/>
+                <span>{{ 'featured'|translate }}</span>
+              </a>
+            </li>
+            <!--{% endif %}-->
+
+            <!--{% if mostPopular %}-->
+            <li class="swiper-slide" [ngClass]="{'active-category': category == 'most-popular'}">
+              <a routerLink="/ideas/most-popular"
+                 (click)="goTo('most-popular')">
+                <img src="assets/images/most-popular.svg"  class="svg"/>
+                <span>{{ 'most_popular'|translate }}</span>
+              </a>
+            </li>
+            <!--{% endif %}-->
+
+            <!--{% for category in categories %}-->
+            <!--{% if category.slug != 'most-popular' and category.slug != 'featured' and category.slug != 'nearby' %}-->
+            <li *ngFor="let cat of categories" class="swiper-slide" [hidden]="cat.slug == 'most-popular' || cat.slug == 'featured'" [ngClass]="{'active-category': category == cat.slug}">
+              <a routerLink="/ideas/{{ cat.slug }}"
+                 (click)="goTo(cat.slug)">
+                <!--<img src="{{ cat.downloadLink }}" class="svg"/>-->
+                <span>{{ cat.title }}</span>
+              </a>
+            </li>
+            <!--{% endif %}-->
+            <!--{% endfor %}-->
+          </ul>
+
+          <div class="hidden-lg">
+            <div class="bg-left">
+              <i class="swiper-button-prev"></i>
+            </div>
+            <div  class="bg-right">
+              <i class="swiper-button-next"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container"  *ngIf="category == 'nearby'">
+  <h3 class="text-center nearby-title text-dark " *ngIf="notAllowed">
+    <!--{{ 'ideas_near_by_allow'|translate |raw }}-->
+  </h3>
+  <!--{#<p  data-ng-show="browseError.length > 0" class="error-message text-center">[[ browseError]]</p>#}-->
+  <!--<div data-autocomplete-map-->
+       <!--data-markers="locations"-->
+       <!--data-item-page-url="{{ env_prefix  }}/goal/"-->
+       <!--data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
+       <!--data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"-->
+       <!--data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"-->
+       <!--data-active-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
+       <!--class="map-autocomplete">-->
+  <!--</div>-->
+
+  <div>
+    <label>
+      <div id="hide-completed" class="task-checkbox purple-checkbox">
+        <label class="relative">
+            <span class="my-md-container" [ngClass]="{'my-md-checked': isCompletedGoals}">
+                <span class="my-md-icon"></span>
+                <input type="checkbox" aria-label="steps"
+                       name="completed"
+                       [(ngModel)]="isCompletedGoals"
+                       (change)="completedChange()"
+                       style="display: none" />
+            </span>
+        </label>
+      </div>
+      Show Completed
+    </label>
+  </div>
+
+</div>
+
+<div class="container ideas-list">
+     <!--data-infinite-scroll='Ideas.nextPage("{{ env_prefix }}/api/v1.0/goals/{first}/{count}", search, activeCategory)'-->
+     <!--data-infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2 || activeCategory == "nearby"'-->
+     <!--data-infinite-scroll-distance='2'>-->
+
+  <!--{% set href = path('add_goal')~'?title=[[search]]'  %}-->
+  <h2 [hidden]="!noIdeas" class=" text-center creating-goal">
+    <!--<span class="empty-text text-center">{{ 'goal.not_found'|trans({'%search%' : '[[search]]', '%href%': href, '%isSearch%' : '!!search'})|raw }}</span>-->
+  </h2>
+
+  <!--{% if not search %}-->
+  <h2 [hidden]="!(ideas && ideas.length && !noIdeas && ideasTitle)" class="text-center text-dark">
+    {{ 'ideas_list_title'|translate }}
+  </h2>
+  <!--{% endif %}-->
+
+  <div class="row">
+
+    <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+      <div class="row idea-item">
+        <!--{% if search %} ideas-result {% endif %}-->
+        <div class="col-md-[[ ((index + 1) % 7) < 5 ? 4 : 8 ]] goals-animate"
+             *ngFor="let goal of ideas">
+          <app-goal [goal]="goal"></app-goal>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-tooltip"
+       [hidden]="!isHover">
+    <span class="arrow-up"></span>
+    {{ hoveredText }}
+  </div>
+
+  <!--{#display nearBy#}-->
+  <div class="navigation text-center">
+    <a *ngIf="!busy && reserve && reserve.length > 0 && activeCategory == 'nearby'"
+       (click)='getNearByReserve(userLocation)'
+       class="show-more ">
+      <span></span>
+      <span></span>
+      <span></span>
+    </a>
+  </div>
+
+  <!--{#display navigation#}-->
+  <div class="navigation text-center">
+    <a *ngIf="reserve && reserve.length > 0 && activeCategory != 'nearby'"
+       (click)='getReserve()'
+       class="show-more ">
+      <span></span>
+      <span></span>
+      <span></span>
+    </a>
+  </div>
+
+</div>
