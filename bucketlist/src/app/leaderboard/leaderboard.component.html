@@ -12,22 +12,28 @@
             <figcaption>
               <ul class="badge-place">
                 <li class="ng-hide">
-                  <!--<a href="#{{ 'leaderboard.traveler'| translate }}" (click)="goTo(LeaderboardConstant['TYPE_TRAVELLER'])">-->
-                    <!--<i class="badge-1"></i>-->
-                    <!--<span class="text-dark-gray" data-ng-class="{'text-orange': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}">{{ 'leaderboard.traveler'| translate }}</span>-->
-                  <!--</a>-->
+                  <a href="#{{ 'leaderboard.traveler'| translate }}">
+                     <!--(click)="goTo(LeaderboardConstant['TYPE_TRAVELLER'])"-->
+                    <i class="badge-1"></i>
+                    <span class="text-dark-gray">{{ 'leaderboard.traveler'| translate }}</span>
+                          <!--[ngClass]="{'text-orange': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}"-->
+                  </a>
                 </li>
                 <li>
-                  <!--<a href="#{{ 'leaderboard.innovator'| translate }}" (click)="goTo(LeaderboardConstant['TYPE_INNOVATOR'])">-->
-                    <!--<i class="badge-3"></i>-->
-                    <!--<span class="text-dark-gray" [ngClass]="{'text-orange': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}">{{ 'leaderboard.innovator'| translate }}</span>-->
-                  <!--</a>-->
+                  <a href="#{{ 'leaderboard.innovator'| translate }}">
+                     <!--(click)="goTo(LeaderboardConstant['TYPE_INNOVATOR'])"-->
+                    <i class="badge-3"></i>
+                    <span class="text-dark-gray">{{ 'leaderboard.innovator'| translate }}</span>
+                          <!--[ngClass]="{'text-orange': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}"-->
+                  </a>
                 </li>
                 <li>
-                  <!--<a href="#{{ 'leaderboard.writer'| translate }}" (click)="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])">-->
-                    <!--<i class="badge-2"></i>-->
-                    <!--<span class="text-dark-gray" [ngClass]="{'text-orange': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}">{{ 'leaderboard.writer'| translate }}</span>-->
-                  <!--</a>-->
+                  <a href="#{{ 'leaderboard.writer'| translate }}">
+                     <!--(click)="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])"-->
+                    <i class="badge-2"></i>
+                    <span class="text-dark-gray">{{ 'leaderboard.writer'| translate }}</span>
+                          <!--[ngClass]="{'text-orange': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}"-->
+                  </a>
                 </li>
               </ul>
             </figcaption>
