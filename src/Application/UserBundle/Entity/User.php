@@ -137,7 +137,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings", "badge"})
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
      * @SerializedName("first_name")
      */
     protected $firstname;
@@ -186,7 +186,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings", "badge"})
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
      * @SerializedName("last_name")
      */
     protected $lastname;
@@ -765,6 +765,7 @@ class User extends BaseUser
 
     /**
      * @return string
+     * @Groups({"inspireStory"})
      * @VirtualProperty()
      */
     public function getPhotoLink()
@@ -783,7 +784,7 @@ class User extends BaseUser
 
     /**
      * @return string
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "inspireStory"})
      * @VirtualProperty()
      */
     public function showName()
@@ -1458,7 +1459,7 @@ class User extends BaseUser
      * @return mixed
      *
      * @VirtualProperty
-     * @Groups({"user", "tiny_user", "settings"})
+     * @Groups({"user", "tiny_user", "settings", "inspireStory"})
      */
     public function getCachedImage()
     {

@@ -13,6 +13,7 @@ use AppBundle\Entity\SuccessStory;
 use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -376,5 +377,48 @@ class SuccessStoryController extends FOSRestController
         }
 
         return array_values($voters);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="SuccessStory",
+     *  description="This function is used to get inspire story",
+     *  statusCodes={
+     *         200="Returned when user was added"}
+     * )
+     *
+     * @Rest\Get("/success-story/inspire", name="get_goal_inspire_story", options={"method_prefix"=false})
+     *
+     * @Rest\View(serializerGroups={"inspireStory"})
+     *
+     * @return JsonResponse
+     */
+    public function getInspireStoryAction()
+    {
+        $response    = new JsonResponse();
+
+        $em = $this->getDoctrine()->getManager();
+        $stories = $em->getRepository("AppBundle:SuccessStory")->findInspireStories();
+
+        $goalIds = [];
+        foreach($stories as $story){
+            $goalIds[$story->getGoal()->getId()] = 1;
+        }
+
+        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+        foreach($stories as &$story){
+            $story->getGoal()->setStats([
+                'listedBy' => $stats[$story->getGoal()->getId()]['listedBy'],
+                'doneBy'   => $stats[$story->getGoal()->getId()]['doneBy'],
+            ]);
+        }
+
+        //serialization content by group
+        $serializer = $this->get('serializer');
+        $contentJson = $serializer->serialize($stories, 'json', SerializationContext::create()->setGroups('inspireStory'));
+        $response->setContent($contentJson);
+
+       return $response;
     }
 }
