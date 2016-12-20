@@ -6,7 +6,7 @@ import { ProjectService } from '../project.service'
 @Component({
   selector: 'app-goalfriends',
   templateUrl: './goalfriends.component.html',
-  styleUrls: ['./goalfriends.component.css']
+  styleUrls: ['./goalfriends.component.less']
 })
 export class GoalfriendsComponent implements OnInit {
 

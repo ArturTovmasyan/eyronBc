@@ -5,7 +5,7 @@ import {ProjectService} from '../project.service';
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.css'],
+  styleUrls: ['./leaderboard.component.less'],
   providers: [
     ProjectService
   ]
