@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 
 import {Goal} from "./interface/goal";
+import {Story} from "./interface/story";
 import {User} from "./interface/user";
 import {UserGoal} from "./interface/userGoal";
 import {Activity} from "./interface/activity";
@@ -32,6 +33,7 @@ export class ProjectService {
     private userUrl  = this.baseUrl + 'user';  // URL to web API
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
+    private baseStoryUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to activity
     private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
@@ -144,6 +146,17 @@ export class ProjectService {
 
         return this.http.get(this.discoverGoalsUrl)
             .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    } 
+    
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getBaseStories():Observable<Story[]> {
+
+        return this.http.get(this.baseStoryUrl)
+            .map((r:Response) => r.json() as Story[])
             .catch(this.handleError);
     }
 
