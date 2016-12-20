@@ -8,8 +8,10 @@
           <span class="icon-search-icon" [ngClass]="{'text-purple': isSearching}"></span>
           <input type="text"
                  name="search"
+                 [(ngModel)]="search"
                  autocomplete="off"
                  placeholder="{{ 'search'|translate | capitalize}}"
+                 (keyup.enter)="doSearch($event)"
                  class="form-control">
                  <!--{% if app.request.get('_route') == 'goals_list' %}-->
           <!--data-ng-model="search"-->
@@ -36,8 +38,8 @@
       <div class="col-xs-12">
         <!--data-ng-init="activeCategory = '{{ category?category:'nearby' }}'"-->
         <!--{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories, 'selected': category } %}-->
-        <div class="filters-slider swiper-container">
-          <ul class="filter swiper-wrapper" [hidden]="!filterVisibility">
+        <div class="filters-slider">
+          <ul class="filter" [hidden]="!filterVisibility">
             <!--data-ng-init="categoriesLength = {{ categories|length }}"-->
 
             <!--{% set mostPopular = false %}-->
@@ -58,27 +60,24 @@
             <!--{% endfor %}-->
             <!--{% endif %}-->
 
-            <li class="swiper-slide"
+            <li
                 [ngClass]="{'active-category': category == 'nearby'}">
-              <a routerLink="/ideas/nearby" routerLinkActive="active"
-                 (click)="goTo('nearby')">
+              <a routerLink="/ideas/nearby" routerLinkActive="active">
                 <img src="assets/images/nearby.svg" class="svg"/>
                 <span>{{ 'nearby'|translate }}</span>
               </a>
             </li>
 
-            <li class="swiper-slide" [ngClass]="{'active-category': category == 'discover'}">
-              <a routerLink="/ideas/discover"
-                 (click)="goTo('')">
+            <li [ngClass]="{'active-category': category == 'discover'}">
+              <a routerLink="/ideas/discover">
                 <img src="assets/images/discover.svg" class="svg"/>
                 <span>{{ 'discover'|translate }}</span>
               </a>
             </li>
 
             <!--{% if featured %}-->
-            <li class="swiper-slide" [ngClass]="{'active-category': category == 'featured'}">
-              <a routerLink="/ideas/featured"
-                 (click)="goTo('featured')">
+            <li [ngClass]="{'active-category': category == 'featured'}">
+              <a routerLink="/ideas/featured">
                 <img src="assets/images/featured.svg" class="svg"/>
                 <span>{{ 'featured'|translate }}</span>
               </a>
@@ -86,9 +85,8 @@
             <!--{% endif %}-->
 
             <!--{% if mostPopular %}-->
-            <li class="swiper-slide" [ngClass]="{'active-category': category == 'most-popular'}">
-              <a routerLink="/ideas/most-popular"
-                 (click)="goTo('most-popular')">
+            <li [ngClass]="{'active-category': category == 'most-popular'}">
+              <a routerLink="/ideas/most-popular">
                 <img src="assets/images/most-popular.svg"  class="svg"/>
                 <span>{{ 'most_popular'|translate }}</span>
               </a>
@@ -97,9 +95,8 @@
 
             <!--{% for category in categories %}-->
             <!--{% if category.slug != 'most-popular' and category.slug != 'featured' and category.slug != 'nearby' %}-->
-            <li *ngFor="let cat of categories" class="swiper-slide" [hidden]="cat.slug == 'most-popular' || cat.slug == 'featured'" [ngClass]="{'active-category': category == cat.slug}">
-              <a routerLink="/ideas/{{ cat.slug }}"
-                 (click)="goTo(cat.slug)">
+            <li *ngFor="let cat of categories" [hidden]="cat.slug === 'most-popular' || cat.slug === 'featured'" [ngClass]="{'active-category': category == cat.slug}">
+              <a routerLink="/ideas/{{ cat.slug }}">
                 <!--<img src="{{ cat.downloadLink }}" class="svg"/>-->
                 <span>{{ cat.title }}</span>
               </a>
@@ -179,8 +176,8 @@
     <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
       <div class="row idea-item">
         <!--{% if search %} ideas-result {% endif %}-->
-        <div class="col-md-[[ ((index + 1) % 7) < 5 ? 4 : 8 ]] goals-animate"
-             *ngFor="let goal of ideas">
+        <div class="col-md-{{ ((+i + 1) % 7) < 5 ? 4 : 8 }} goals-animate"
+             *ngFor="let goal of ideas; let i = index">
           <app-goal [goal]="goal"></app-goal>
         </div>
       </div>
