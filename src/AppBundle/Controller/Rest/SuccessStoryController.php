@@ -396,9 +396,13 @@ class SuccessStoryController extends FOSRestController
      */
     public function getInspireStoryAction()
     {
-        $response    = new JsonResponse();
+        //Create new Json Response
+        $response = new JsonResponse();
 
+        //get entoty manager
         $em = $this->getDoctrine()->getManager();
+
+        //get inspire story
         $stories = $em->getRepository("AppBundle:SuccessStory")->findInspireStories();
 
         $goalIds = [];
@@ -406,7 +410,9 @@ class SuccessStoryController extends FOSRestController
             $goalIds[$story->getGoal()->getId()] = 1;
         }
 
+        //get goal stats count
         $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+        
         foreach($stories as &$story){
             $story->getGoal()->setStats([
                 'listedBy' => $stats[$story->getGoal()->getId()]['listedBy'],
