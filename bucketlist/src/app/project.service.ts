@@ -44,6 +44,7 @@ export class ProjectService {
     private badgesUrl = this.baseUrl + 'badges'; 
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
+    private notificationUrl = this.baseUrl + 'notifications/0/10';
     constructor(private http:Http, private router:Router) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
     }
@@ -134,6 +135,16 @@ export class ProjectService {
      */
     getBadges():Observable<any> {
         return this.http.get(this.badgesUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getNotifications():Observable<any> {
+        return this.http.get(this.notificationUrl, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
