@@ -95,9 +95,9 @@
 
             <!--{% for category in categories %}-->
             <!--{% if category.slug != 'most-popular' and category.slug != 'featured' and category.slug != 'nearby' %}-->
-            <li *ngFor="let cat of categories" [hidden]="cat.slug === 'most-popular' || cat.slug === 'featured'" [ngClass]="{'active-category': category == cat.slug}">
+            <li *ngFor="let cat of categories" [style.display]="(cat.slug == 'most-popular' || cat.slug == 'featured' || cat.slug == 'nearby')?'none':'inline-block'" [ngClass]="{'active-category': category == cat.slug}">
               <a routerLink="/ideas/{{ cat.slug }}">
-                <!--<img src="{{ cat.downloadLink }}" class="svg"/>-->
+                <img src="{{ serverPath + cat.image_download_link }}" class="svg"/>
                 <span>{{ cat.title }}</span>
               </a>
             </li>
@@ -121,9 +121,7 @@
 </div>
 
 <div class="container"  *ngIf="category == 'nearby'">
-  <h3 class="text-center nearby-title text-dark " *ngIf="notAllowed">
-    <!--{{ 'ideas_near_by_allow'|translate |raw }}-->
-  </h3>
+  <map-autocomplate></map-autocomplate>
   <!--{#<p  data-ng-show="browseError.length > 0" class="error-message text-center">[[ browseError]]</p>#}-->
   <!--<div data-autocomplete-map-->
        <!--data-markers="locations"-->

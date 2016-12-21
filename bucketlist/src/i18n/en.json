@@ -143,7 +143,7 @@
     "Type in a youtube or vimeo link in the field": "Type in a youtube or vimeo link in the field",
     "Done": "complete",
     "ideas_list_title": "Explore thousands of great ideas for your Bucket List",
-    "ideas_near_by_allow": "<span class=\"text-purple\" data-ng-click=\"allowBrowserLocation()\">Allow</span> your Browser Location Service or enter your location",
+    "ideas_near_by_allow": "<span class=\"text-purple\" (click)=\"setCurrentPosition()\">Allow</span> your Browser Location Service or enter your location",
     "nearby": "Nearby",
     "hide_nearby": "Hide from Nearby",
     "explore": "Confirm",

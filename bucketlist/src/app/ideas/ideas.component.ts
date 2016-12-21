@@ -1,6 +1,6 @@
 import { Component, OnInit , ViewEncapsulation } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-
+import { Broadcaster } from '../tools/broadcaster';
 
 import {Goal} from '../interface/goal';
 import {Category} from '../interface/category';
@@ -20,6 +20,7 @@ export class IdeasComponent implements OnInit {
   public errorMessage: string;
   public filterVisibility: boolean = false;
   public eventId: number = 0;
+  public serverPath:string = '';
 
   public start: number = 0;
   public count: number = 7;
@@ -32,6 +33,7 @@ export class IdeasComponent implements OnInit {
       private route: ActivatedRoute,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
+      private broadcaster: Broadcaster,
       private router:Router
   ) {
       router.events.subscribe((val) => {
@@ -47,6 +49,7 @@ export class IdeasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.serverPath = this._projectService.getPath();
     let data = this._cacheService.get('categories');
     if(data){
       this.categories = data;
@@ -54,13 +57,13 @@ export class IdeasComponent implements OnInit {
       this.getCategories();
     }
 
-    // this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'discover';
     this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
-
-    // this.getGoals();
-
     this.filterVisibility = true;
-    
+      
+    this.broadcaster.on<string>('location_changed')
+          .subscribe(marker => {
+              
+    });   
   }
 
   getCategories(){
@@ -104,6 +107,9 @@ export class IdeasComponent implements OnInit {
   }
 
   doSearch(){
+      if(this.category == 'nearby'){
+          this.category = 'discover'
+      }
       this.router.navigate(['/ideas/'+this.category + '/' + this.search]);
   }
 
