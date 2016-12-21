@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
+import { Component, OnInit , ViewEncapsulation } from '@angular/core';
+import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+
 
 import {Goal} from '../interface/goal';
 import {Category} from '../interface/category';
@@ -11,11 +12,14 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 @Component({
   selector: 'app-ideas',
   templateUrl: './ideas.component.html',
-  styleUrls: ['./ideas.component.css']
+  styleUrls: ['./ideas.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class IdeasComponent implements OnInit {
   public category: string;
   public errorMessage: string;
+  public filterVisibility: boolean = false;
+  public eventId: number = 0;
 
   public start: number = 0;
   public count: number = 7;
@@ -27,22 +31,35 @@ export class IdeasComponent implements OnInit {
   constructor(
       private route: ActivatedRoute,
       private _projectService: ProjectService,
-      private _cacheService: CacheService
-  ) {}
+      private _cacheService: CacheService,
+      private router:Router
+  ) {
+      router.events.subscribe((val) => {
+          if(this.eventId != val.id && val instanceof NavigationEnd){
+              this.eventId = val.id;
+              this.start = 0;
+              this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'discover';
+              this.ideas = null;
+              this.reserve = null;
+              this.getGoals();
+          }
+      })
+  }
 
   ngOnInit() {
     let data = this._cacheService.get('categories');
     if(data){
-      this.categories = data;console.log(this.categories);
+      this.categories = data;
     }else {
       this.getCategories();
     }
 
-    this.category = this.route.snapshot.params['category'];
-    if(!this.category){
-      this.category = 'discover';
-    }
-    this.getGoals();
+    // this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'discover';
+    this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
+
+    // this.getGoals();
+
+    this.filterVisibility = true;
     
   }
 
@@ -86,9 +103,17 @@ export class IdeasComponent implements OnInit {
             error => this.errorMessage = <any>error);
   }
 
+  doSearch(){
+      this.router.navigate(['/ideas/'+this.category + '/' + this.search]);
+  }
+
   getReserve(){
       this.ideas = this.ideas.concat(this.reserve);
     this.setReserve();
+  }
+
+  completedChange(){
+        
   }
 
 }

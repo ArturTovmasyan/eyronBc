@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, URLSearchParams, Headers } from '@angular/http';
 import { Router } from '@angular/router';
+import { Broadcaster } from './tools/broadcaster';
 
 
 import {Goal} from "./interface/goal";
@@ -35,7 +36,7 @@ export class ProjectService {
 
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
-    private baseStoryUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
+    private baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
     private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
     private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to activity
     private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
@@ -45,7 +46,8 @@ export class ProjectService {
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
     private notificationUrl = this.baseUrl + 'notifications/0/10';
-    constructor(private http:Http, private router:Router) {
+
+    constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
     }
 
@@ -113,6 +115,16 @@ export class ProjectService {
      *
      * @returns {Observable<T>}
      */
+    getUserList(first:number, count:number, search:string, type:string):Observable<any> {
+        return this.http.get(this.baseUrl +'user-list/'+first+'/'+count+'?search='+search+'&type='+ type, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
     getTopIdeas():Observable<Goal[]> {
         return this.http.get(this.topIdeasUrl, {headers: this.headers})
             .map((r:Response) => r.json() as Goal[])
@@ -145,6 +157,16 @@ export class ProjectService {
      */
     getNotifications():Observable<any> {
         return this.http.get(this.notificationUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getleaderBoard(type:number, count:number):Observable<any> {
+        return this.http.get(this.baseUrl + 'badges/' + type + '/topusers/' + count, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
@@ -219,6 +241,7 @@ export class ProjectService {
         console.error(errMsg); // log to console instead
         if(error.status && error.status == 401){
             localStorage.removeItem('apiKey');
+            this.broadcaster.broadcast('logout', 'some message');
             this.router.navigate(['/']);
         }
         return Observable.throw(errMsg);
