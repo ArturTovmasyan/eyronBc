@@ -1,5 +1,5 @@
 <!--{% if user is defined and user.profileCompletedPercent != 100 %}-->
-<div class="complete-profile">
+<div class="complete-profile" *ngIf="percent != 100">
 
     <div class="bg-white round padding" >
         <!--*ngIf="{{ user.getCompletedPercent()|round(1, 'floor') }} != 100"-->
@@ -34,7 +34,7 @@
 
     </div>
 
-    <ol class="slide "  *ngIf="completeProfileProperties">
+    <ol class="slide" *ngIf="completeProfileProperties">
       <li>
             <span>
                 {{ 'security.login.sign_up'|translate }}

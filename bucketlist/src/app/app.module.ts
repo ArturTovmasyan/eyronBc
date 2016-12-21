@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import {TranslateModule} from 'ng2-translate';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { AppComponent } from './app.component';
 import { AuthGuard }      from './common/auth.guard';
@@ -32,6 +33,7 @@ import { ResettingRequestComponent } from './components/resetting-request/resett
   imports: [
     BrowserModule,
     FormsModule,
+    InfiniteScrollModule,
     HttpModule,
     JsonpModule,
     appRouting,

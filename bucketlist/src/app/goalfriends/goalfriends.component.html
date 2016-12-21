@@ -8,10 +8,11 @@
 <div id="goal-friends">
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-           <!--data-ng-init="goalId = {{ (goalId is defined and goalId)?goalId: 0 }}"-->
-           <!--data-infinite-scroll='Friends.nextFriends(friendName, slug, goalId, category)'-->
-           <!--data-infinite-scroll-disabled='Friends.noItem || Friends.busy'>-->
+      <div class="col-md-8"
+           infinite-scroll
+           [infiniteScrollDistance]="1"
+           [infiniteScrollThrottle]="500"
+           (scrolled)="onScroll()">
 
         <!--{% if friend %}-->
 
@@ -30,8 +31,7 @@
                        (keyup.enter)="doSearch($event)"
                        placeholder="{{ 'search_placeholder'|translate }}">
 
-                       <!--{#value="{{ app.request.get('search') }}"#}>-->
-                <span class="close-icon" [hidden] = "search && search.length" (click)="search = ''; resetFriends()"></span>
+                <span class="close-icon" [hidden] = "!search || !search.length" (click)="resetFriends()"></span>
 
               </div>
             </div>
@@ -39,34 +39,28 @@
 
           <ul class="goalfrineds-menu">
             <li>
-              <a routerLink="/goal-friends/all" routerLinkActive="text-purple">{{ 'goal_friend_menu.all'|translate }}</a>
-                 <!--[ngClass]="{'text-purple': category == 'all'}"  (click)="getCategory('all')"-->
+              <a routerLink="/goal-friends/all" [class.text-purple]="type=='all'" routerLinkActive="text-purple">{{ 'goal_friend_menu.all'|translate }}</a>
             </li>
 
             <li>
               <a routerLink="/goal-friends/recently" routerLinkActive="text-purple">{{ 'goal_friend_menu.recently_matched'|translate }}</a>
-                      <!--[ngClass]="{'text-purple': category == 'recently'}" href="#recently" (click)="getCategory('recently')"-->
             </li>
 
             <li>
               <a routerLink="/goal-friends/match" routerLinkActive="text-purple">{{ 'goal_friend_menu.most_matching'|translate }}</a>
-                      <!--[ngClass]="{'text-purple': category == 'match'}" href="#match" (click)="getCategory('match')"-->
             </li>
 
             <li>
               <a routerLink="/goal-friends/active" routerLinkActive="text-purple">{{ 'goal_friend_menu.most_activity'|translate }}</a>
-                 <!--[ngClass]="{'text-purple': category == 'active'}" (click)="getCategory('active')"-->
             </li>
 
             <li>
               <a routerLink="/goal-friends/follow" routerLinkActive="text-purple">{{ 'goal_friend_menu.follow'|translate }}</a>
-                 <!--[ngClass]="{'text-purple': category == 'follow'}" (click)="getCategory('follow')"-->
             </li>
           </ul>
         </div>
 
         <div *ngIf="noItem">
-             <!--[hidden]="Friends.noItem"-->
           <br />
           <p class="text-center text-gray">{{ 'no_friends' | translate }}</p>
         </div>

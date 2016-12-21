@@ -15,6 +15,7 @@ export class GoalfriendsComponent implements OnInit {
   public users:User[];
   public reserve:User[];
   public eventId: number = 0;
+  public busy: boolean = false;
 
   public start: number = 0;
   public count: number = 20;
@@ -36,6 +37,7 @@ export class GoalfriendsComponent implements OnInit {
         this.reserve = null;
         this.noItem = false;
         this.getUserList();
+        this.busy = false;
       }
     })
   }
@@ -71,11 +73,28 @@ export class GoalfriendsComponent implements OnInit {
                 }
               }
               this.start += this.count;
+              this.busy = false;
             },
             error => this.errorMessage = <any>error);
   }
 
   doSearch(){
-    this.router.navigate(['/goal-friends/'+this.type + '/' + this.search]);
+    this.router.navigate(['/goal-friends/' + this.type + '/' + this.search]);
+  }
+
+  resetFriends(){
+    this.search = '';
+    this.router.navigate(['/goal-friends/' + this.type]);
+  }
+
+  getReserve(){
+    this.users = this.users.concat(this.reserve);
+    this.setReserve();
+  }
+
+  onScroll(){
+    if(this.busy || !this.reserve || !this.reserve.length)return;
+    this.busy = true;
+    this.getReserve();
   }
 }

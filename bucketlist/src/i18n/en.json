@@ -600,5 +600,18 @@
         "level": "Level"
     },
     "goalfriend": "Goalfriend",
-    "closefriend": "Closefriend"
+    "closefriend": "Closefriend",
+    "security": {
+        "login": {
+            "title": "Login to Your Account",
+            "username": "Username",
+            "password": "Password",
+            "remember_me": "Remember me",
+            "forgot_password": "Forgot password?",
+            "email": "Email",
+            "sign_up": "Sign Up",
+            "submit": "Sign In",
+            "connect": "CONNECT WITH"
+        }
+    }
 }

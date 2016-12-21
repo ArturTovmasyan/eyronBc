@@ -22,6 +22,7 @@ export class LeaderboardComponent implements OnInit {
   public count:number = 10;
   public eventId:number = 0;
   public errorMessage:string;
+  public serverPath:string = '';
   public isMobile = (window.innerWidth < 768);
   public isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
 
@@ -37,13 +38,14 @@ export class LeaderboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.serverPath = this._projectService.getPath();
   }
 
   getleaderBoard() {
     this._projectService.getleaderBoard(this.type, this.count)
         .subscribe(
             data => {
-              this.data = data;console.log(data);
+              this.data = data;
             },
             error => this.errorMessage = <any>error);
   }

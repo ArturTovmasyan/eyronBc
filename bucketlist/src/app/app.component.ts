@@ -24,6 +24,7 @@ export class AppComponent implements OnInit  {
   public joinShow:boolean = false;
   public menus: any[];
   public privacyMenu: any;
+  public serverPath:string = '';
   errorMessage:string;
   public appUser:User;
 
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit  {
   ) { }
 
   ngOnInit() {
+    this.serverPath = this._projectService.getPath();
     // standing data
     this.supportedLanguages = [
       { display: 'English', value: 'en' },

@@ -6,8 +6,7 @@
         <div id="leaderboard-place">
           <figure class="round">
 
-            <!--<img data-ng-src="[[ (isMobile?'{{ asset('bundles/app/images/leaderboard-phone.svg') }}':'{{ asset('bundles/app/images/leaderboard-image.jpg') }}') ]]" alt="Bucket List 127" class="img-responsive"/>-->
-            <img src="assets/images/leaderboard-image.jpg" alt="Bucket List 127" class="img-responsive"/>
+            <img src="{{ isMobile?'assets/images/leaderboard-phone.svg':'assets/images/leaderboard-image.jpg'}}" alt="Bucket List 127" class="img-responsive"/>
 
             <figcaption>
               <ul class="badge-place">
@@ -63,8 +62,7 @@
                   <li>
                     <figure class="img-circle">
                       <!--{% set className = "user-no" ~ random(4) %}-->
-
-                      <img *ngIf="user.user.image_path" src="{{ user.user.image_path }}" alt="user image"/>
+                      <img *ngIf="user.user.image_path" src="{{ serverPath + user.user.image_path }}" alt="user image"/>
                       <p *ngIf="!user.user.image_path" class="no-image text-white user-no3">{{ user.user.first_name  | slice:0: 1 | uppercase }} {{ user.user.last_name | slice:0: 1 | uppercase }}</p>
                     </figure>
                   </li>
@@ -100,7 +98,7 @@
                     <li>
                       <figure class="img-circle">
                         <!--{% set className = "user-no" ~ random(4) %}-->
-                        <img *ngIf="user.user.image_path.length" src="{{ user.user.image_path}}" alt="user image"/>
+                        <img *ngIf="user.user.image_path.length" src="{{ serverPath + user.user.image_path}}" alt="user image"/>
                         <p *ngIf="!user.user.image_path.length" class="no-image text-white user-no1">{{ user.user.first_name  | slice:0: 1 | uppercase }} {{ user.user.last_name | slice:0: 1 | uppercase ]]</p>
                       </figure>
                     </li>
