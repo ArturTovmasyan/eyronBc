@@ -7,32 +7,26 @@
           <figure class="round">
 
             <!--<img data-ng-src="[[ (isMobile?'{{ asset('bundles/app/images/leaderboard-phone.svg') }}':'{{ asset('bundles/app/images/leaderboard-image.jpg') }}') ]]" alt="Bucket List 127" class="img-responsive"/>-->
-            <img src="http://stage.bucketlist127.com/bundles/app/images/leaderboard-image.jpg?v622" alt="Bucket List 127" class="img-responsive"/>
+            <img src="assets/images/leaderboard-image.jpg" alt="Bucket List 127" class="img-responsive"/>
 
             <figcaption>
               <ul class="badge-place">
-                <li class="ng-hide">
-                  <a href="#{{ 'leaderboard.traveler'| translate }}">
-                     <!--(click)="goTo(LeaderboardConstant['TYPE_TRAVELLER'])"-->
-                    <i class="badge-1"></i>
-                    <span class="text-dark-gray">{{ 'leaderboard.traveler'| translate }}</span>
-                          <!--[ngClass]="{'text-orange': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}"-->
-                  </a>
-                </li>
+                <!--<li>-->
+                  <!--<a routerLink="/leaderboard/traveler">-->
+                    <!--<i class="badge-1"></i>-->
+                    <!--<span class="text-dark-gray" [ngClass]="{'text-orange': category == 'traveler'}">{{ 'leaderboard.traveler'| translate }}</span>-->
+                  <!--</a>-->
+                <!--</li>-->
                 <li>
-                  <a href="#{{ 'leaderboard.innovator'| translate }}">
-                     <!--(click)="goTo(LeaderboardConstant['TYPE_INNOVATOR'])"-->
+                  <a routerLink="/leaderboard/innovator">
                     <i class="badge-3"></i>
-                    <span class="text-dark-gray">{{ 'leaderboard.innovator'| translate }}</span>
-                          <!--[ngClass]="{'text-orange': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}"-->
+                    <span class="text-dark-gray" [ngClass]="{'text-orange': category == 'innovator'}">{{ 'leaderboard.innovator'| translate }}</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#{{ 'leaderboard.writer'| translate }}">
-                     <!--(click)="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])"-->
+                  <a routerLink="/leaderboard/mentor">
                     <i class="badge-2"></i>
-                    <span class="text-dark-gray">{{ 'leaderboard.writer'| translate }}</span>
-                          <!--[ngClass]="{'text-orange': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}"-->
+                    <span class="text-dark-gray" [ngClass]="{'text-orange': category == 'mentor'}">{{ 'leaderboard.writer'| translate }}</span>
                   </a>
                 </li>
               </ul>
@@ -64,75 +58,74 @@
           <div class="leaderboard-space">
             <div class="row no-gutter">
               <div class="col-xs-7 col-sm-9">
-                <!--<ul [ngClass]="{'no-border-top-left': !i}" *ngFor="user in data; let i = index" class="bg-white left-corner goals-animate">-->
-                  <!--<li class="text-orange">{{i + 1}}</li>-->
-                  <!--<li>-->
-                    <!--<figure class="img-circle">-->
-                      <!--&lt;!&ndash;{% set className = "user-no" ~ random(4) %}&ndash;&gt;-->
+                <ul [ngClass]="{'no-border-top-left': !i}" *ngFor="let user of data; let i = index" class="bg-white left-corner goals-animate">
+                  <li class="text-orange">{{i + 1}}</li>
+                  <li>
+                    <figure class="img-circle">
+                      <!--{% set className = "user-no" ~ random(4) %}-->
 
-                      <!--&lt;!&ndash;<img *ngIf="user.user.image_path.length" [src]="{{ user.user.image_path }}" alt="user image"/>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<p *ngIf="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>&ndash;&gt;-->
-                    <!--</figure>-->
-                  <!--</li>-->
+                      <img *ngIf="user.user.image_path.length" src="{{ user.user.image_path }}" alt="user image"/>
+                      <p *ngIf="!user.user.image_path.length" class="no-image text-white user-no3">{{ user.user.first_name  | slice:0: 1 | uppercase }} {{ user.user.last_name | slice:0: 1 | uppercase }}</p>
+                    </figure>
+                  </li>
 
-                  <!--<li>-->
-                    <!--&lt;!&ndash;<a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>&ndash;&gt;-->
-                  <!--</li>-->
+                  <li>
+                    <a routerLink="/profile/{{ user.user.u_id }}" class="text-dark-gray">{{ getFullName(user.user)}}</a>
+                  </li>
 
-                <!--</ul>-->
+                </ul>
               </div>
               <div class="col-xs-5 col-sm-3">
 
-                <!--<ul class="bg-white leaderboard-right goals-animate" [ngClass]="{'no-border-top-right': !$index}" *ngFor="user in data  | limitTo: 10">-->
-                    <!--&lt;!&ndash;data-ng-cloak&ndash;&gt;-->
-                  <!--<li class="text-orange">[[ user.points]]</li>-->
-                  <!--<li class="text-orange level">[[ user.score]]</li>-->
-                <!--</ul>-->
+                <ul class="bg-white leaderboard-right goals-animate" [ngClass]="{'no-border-top-right': !i}" *ngFor="let user of data  | slice:0:10; let i = index">
+                    <!--data-ng-cloak-->
+                  <li class="text-orange">{{ user.points}}</li>
+                  <li class="text-orange level">{{ user.score}}</li>
+                </ul>
               </div>
             </div>
           </div>
 
           <!--{% if app.user %}-->
-          <!--<h3 class="text-dark-gray ng-hide" [hidden]="users.length > 10">{{ 'leaderboard.position'|translate }}</h3>-->
+          <h3 class="text-dark-gray" *ngIf="appUser" [hidden]="users.length > 10">{{ 'leaderboard.position'|translate }}</h3>
 
-          <!--<div class="round goals-animate" [hidden]="users.length" [ngClass]="{'margin-top': $index == 0,-->
-          <!--'bg-white': user.user.id == {{ app.user.id }}}" *ngIf="user in users |limitTo: 5: 10">-->
-               <!--data-ng-cloak-->
+          <div class="round goals-animate" [hidden]="users.length" [ngClass]="{'margin-top': i == 0,'bg-white': user.user.id == appUser.id}" *ngFor="let user of users |slice: 10: 15; let i = index">
+
             <div class="leaderboard-space">
               <div class="row no-gutter">
                 <div class="col-xs-7 col-sm-9">
-                  <!--<ul class="bg-grey-darker left-corner" [ngClass]="{'bg-white': user.user.id == {{ app.user.id }} }">-->
-                    <!--<li class="text-orange">[[ user.position]]</li>-->
+                  <ul class="bg-grey-darker left-corner" [ngClass]="{'bg-white': user.user.id == appUser.id }">
+                    <li class="text-orange">{{ user.position }}</li>
 
-                    <!--<li>-->
-                      <!--<figure class="img-circle">-->
-                        <!--&lt;!&ndash;{% set className = "user-no" ~ random(4) %}&ndash;&gt;-->
-                        <!--&lt;!&ndash;<img *ngIf="user.user.image_path.length" data-ng-src="[[ user.user.image_path]]" alt="user image"/>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<p *ngIf="!user.user.image_path.length" class="no-image text-white {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>&ndash;&gt;-->
-                      <!--</figure>-->
-                    <!--</li>-->
+                    <li>
+                      <figure class="img-circle">
+                        <!--{% set className = "user-no" ~ random(4) %}-->
+                        <img *ngIf="user.user.image_path.length" src="{{ user.user.image_path}}" alt="user image"/>
+                        <p *ngIf="!user.user.image_path.length" class="no-image text-white user-no1">{{ user.user.first_name  | slice:0: 1 | uppercase }} {{ user.user.last_name | slice:0: 1 | uppercase ]]</p>
+                      </figure>
+                    </li>
 
-                    <!--<li>-->
-                      <!--&lt;!&ndash;<a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray testul">[[ getFullName(user.user)]]</a>&ndash;&gt;-->
-                    <!--</li>-->
+                    <li>
+                      <a routerLink="/profile/{{ user.user.u_id }}" class="text-dark-gray">{{ getFullName(user.user)}}</a>
+                    </li>
 
-                  <!--</ul>-->
+                  </ul>
                 </div>
-                <!--<div class="col-xs-5 col-sm-3">-->
-                  <!--<ul class="bg-grey-darker leaderboard-right" [ngClass]="{'bg-white': user.user.id == {{ app.user.id }} }">-->
+                <div class="col-xs-5 col-sm-3">
+                  <ul class="bg-grey-darker leaderboard-right" [ngClass]="{'bg-white': user.user.id == appUser.id }">
 
-                    <!--<li class="text-orange">[[ user.points]]</li>-->
+                    <li class="text-orange">{{ user.points }}</li>
 
-                    <!--<li class="text-orange level">[[ user.score]]</li>-->
-                  <!--</ul>-->
-                <!--</div>-->
+                    <li class="text-orange level">{{ user.score}}</li>
+                  </ul>
+                </div>
               </div>
-              <!--<div [hidden]="user.user.id == {{ app.user.id }}">-->
-                <!--<p class="text-gray leaderboard-text">{{ 'leaderboard.position_text'|translate }}</p>-->
-              <!--</div>-->
+              <div [hidden]="user.user.id == appUser.id">
+                <p class="text-gray leaderboard-text">{{ 'leaderboard.position_text'|translate }}</p>
+              </div>
             </div>
 
-          <!--</div>-->
+          </div>
 
           <!--{% endif %}-->
         </div>
