@@ -44,6 +44,7 @@ export class ProjectService {
     private badgesUrl = this.baseUrl + 'badges'; 
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
+    private getCompateProfileUrl = this.baseUrl + 'goal/categories';
     constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
     }
@@ -103,6 +104,15 @@ export class ProjectService {
     getUser():Observable<User> {
         return this.http.get(this.userUrl, {headers: this.headers})
             .map((r:Response) => r.json() as User)
+            .catch(this.handleError);
+    }
+    
+    /**
+     * 
+     */
+    getCompateProfileInfo():Observable<any> {
+        return this.http.get(this.getCompateProfileUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
