@@ -7,7 +7,7 @@ import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@an
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.css'],
+  styleUrls: ['./leaderboard.component.less'],
   providers: [
     ProjectService
   ]

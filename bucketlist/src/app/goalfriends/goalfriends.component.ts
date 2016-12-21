@@ -8,7 +8,7 @@ import { User } from '../interface/user'
 @Component({
   selector: 'app-goalfriends',
   templateUrl: './goalfriends.component.html',
-  styleUrls: ['./goalfriends.component.css']
+  styleUrls: ['./goalfriends.component.less']
 })
 export class GoalfriendsComponent implements OnInit {
 

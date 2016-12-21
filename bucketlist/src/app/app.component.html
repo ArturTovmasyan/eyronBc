@@ -130,7 +130,7 @@
                     <!--{% if not is_mobile() or is_tablet() %}-->
                     <div id="navbar" class="clearfix">
 
-                        <a class="navbar-brand hidden-xs" routerLink="/" routerLinkActive="active">
+                        <a class="navbar-brand" [class.hidden-xs]="appUser" routerLink="/" routerLinkActive="active">
                             <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
                         </a>
 
