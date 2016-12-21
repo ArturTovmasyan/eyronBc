@@ -52,6 +52,45 @@
   .padding-no{
     padding-bottom:0
   }
+
+  .users-list{
+    background-color: #ffffff;
+    padding:15px 10px 15px 15px;
+    margin-bottom:10px;
+
+    h4{
+      padding: 3px 0 1px 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0;
+    }
+
+    span{
+      font-size:13px;
+    }
+  }
+
+  .image-goalfrinds{
+    width:45px;
+    height:45px;
+    margin:0 auto;
+
+    img{
+      width:45px;
+      height:45px;
+      border:2px solid #cecece;
+    }
+
+    .no-image{
+      width:45px;
+      height:45px;
+      margin:0 auto;
+      line-height: 40px;
+      color:#ffffff;
+    }
+
+  }
 }
 
 @media (min-width: @screen-sm) {
@@ -62,11 +101,58 @@
     .padding {
       padding: 20px 20px 10px;
     }
+
+    .users-list{
+      padding:20px 10px 20px 20px;
+      margin-bottom:15px;
+      min-height: 101px;
+    }
+
+    .image-goalfrinds{
+
+      width: 60px;
+      height: 60px;
+
+      img{
+        width: 60px;
+        height: 60px;
+      }
+
+      .no-image{
+        height: 60px;
+        width:60px;
+        line-height: 50px;
+        font-size:16px;
+      }
+    }
   }
 }
 
 @media (min-width: @screen-md) {
   #goal-friends{
     padding:30px 0;
+
+    .users-list{
+      padding:20px 25px;
+      margin-bottom:25px;
+    }
+
+    .image-goalfrinds{
+      margin-top: 0;
+      width: 60px;
+      height: 60px;
+
+      img{
+        width: 60px;
+        height: 60px;
+      }
+
+      .no-image{
+        height: 60px;
+        width:60px;
+        line-height: 50px;
+      }
+    }
+
   }
 }
