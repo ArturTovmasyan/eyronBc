@@ -9,6 +9,7 @@ import {GoalFriendsBlockComponent} from './goal-friends/goal-friends.component';
 import {LeaderboardsBlockComponent} from './leaderboards/leaderboards.component';
 import {MyListBlockComponent} from './my-list/my-list.component';
 import {TopIdeasBlockComponent} from './top-ideas/top-ideas.component';
+import {CompleteProfileBlockComponent} from './complete-profile/complete-profile.component';
 
 
 
@@ -23,12 +24,14 @@ import {TopIdeasBlockComponent} from './top-ideas/top-ideas.component';
     GoalFriendsBlockComponent,
     LeaderboardsBlockComponent,
     MyListBlockComponent,
-    TopIdeasBlockComponent
+    TopIdeasBlockComponent,
+    CompleteProfileBlockComponent
   ],
   exports: [ GoalFriendsBlockComponent,
     LeaderboardsBlockComponent,
     MyListBlockComponent,
-    TopIdeasBlockComponent
+    TopIdeasBlockComponent,
+    CompleteProfileBlockComponent
   ]
 })
 export class ActivityBlockModule { }

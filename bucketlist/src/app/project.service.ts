@@ -58,6 +58,14 @@ export class ProjectService {
     }
 
     /**
+     * 
+     * @returns {Observable<R>}
+     */
+    getPath(){
+        return this.baseOrigin;
+    }
+
+    /**
      *
      * @param slug
      * @returns {Observable<R>}
@@ -112,9 +120,9 @@ export class ProjectService {
      *
      * @returns {Observable<T>}
      */
-    getUserList(first:number, count:number, search:string, type:string):Observable<any> {
+    getUserList(first:number, count:number, search:string, type:string):Observable<User[]> {
         return this.http.get(this.baseUrl +'user-list/'+first+'/'+count+'?search='+search+'&type='+ type, {headers: this.headers})
-            .map((r:Response) => r.json())
+            .map((r:Response) => r.json() as User[])
             .catch(this.handleError);
     }
 
