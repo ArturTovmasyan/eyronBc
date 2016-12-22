@@ -1,20 +1,22 @@
-<div class="right-block padding padding-no round margin-top" *ngIf="goals && goals.length">
-    <div class="row">
-      <div class="col-xs-10">
-        <a routerLink="/ideas/most-popular" class="heading text-gray">
-          <i [ngClass]="{'icon-top-idea': type == categories[0],'featured-icon': type == categories[2],'ideas-icon': type == categories[1]}"></i>
-          <span class="text">{{ (type == categories[0])?('right_menu.ideas'|translate ): (type == categories[2])? ('featured_ideas'|translate):('right_menu.suggested'|translate) }}</span>
-        </a>
-      </div>
+<div class="top-ideas">
+    <div class="bg-white padding padding-no round margin-top" *ngIf="goals && goals.length">
+        <div class="row">
+          <div class="col-xs-10">
+            <a routerLink="/ideas/most-popular" class="heading text-gray">
+              <i [ngClass]="{'icon-top-idea': type == categories[0],'featured-icon': type == categories[2],'ideas-icon': type == categories[1]}"></i>
+              <span class="text">{{ (type == categories[0])?('right_menu.ideas'|translate ): (type == categories[2])? ('featured_ideas'|translate):('right_menu.suggested'|translate) }}</span>
+            </a>
+          </div>
 
-      <div class="col-xs-2 text-right">
-        <a  (click)="refreshIdeas()" class="load" id="topIdeasLoad"></a>
-      </div>
-    </div>
+          <div class="col-xs-2 text-right">
+            <a  (click)="refreshIdeas()" class="load" id="topIdeasLoad"></a>
+          </div>
+        </div>
 
-    <hr/>
+        <hr class="hr-margin"/>
 
-    <div class="modal-top">
-      <app-goal *ngFor="let goal of goals" [goal]="goal"></app-goal>
+        <div class="modal-top">
+          <app-goal *ngFor="let goal of goals" [goal]="goal"></app-goal>
+        </div>
     </div>
 </div>

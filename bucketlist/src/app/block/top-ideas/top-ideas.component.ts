@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , ViewEncapsulation } from '@angular/core';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { ProjectService } from '../../project.service';
@@ -12,7 +12,8 @@ import {Goal} from '../../interface/goal';
   providers: [
     ProjectService,
     CacheService
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class TopIdeasBlockComponent implements OnInit {

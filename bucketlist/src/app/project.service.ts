@@ -49,6 +49,8 @@ export class ProjectService {
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
     private PageUrl = this.baseUrl + 'page';
 
+    private nearByUrl = this.baseUrl + 'goals/nearby/';
+    private resetNearByUrl = this.baseOrigin + this.envprefix + 'usergoals/';
     constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
     }
@@ -211,6 +213,27 @@ export class ProjectService {
     getIdeaGoals(start:number, count:number, search:string = '',category:string = ''):Observable<Goal[]> {
         return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&cateegory=' + category)
             .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    } 
+    
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getNearByGoals(latitude:number, longitude:number, start:number, count:number, isCompleted:boolean):Observable<Goal[]> {
+        return this.http.get(this.nearByUrl + latitude + '/' + longitude + '/' + start + '/' + count + '/' + isCompleted, {headers: this.headers})
+            .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param goalId
+     * @returns {Observable<R>}
+     */
+    resetNearByGoal(goalId:number):Observable<any> {
+        return this.http.post(this.resetNearByUrl + goalId + '/toggles/interesteds', '', {headers: this.headers})
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
     

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import {TranslateModule} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import {MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 
 import { AppComponent } from './app.component';
 import { AuthGuard }      from './common/auth.guard';
@@ -30,7 +31,8 @@ import { PageComponent } from './page/page.component';
     LoginComponent,
     RegisterComponent,
     ResettingRequestComponent,
-    PageComponent
+    PageComponent,
+    MarkdownToHtmlPipe
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-
+import {MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 
 import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 @Component({
-  selector: 'page',
-  templateUrl: './page.component.html',
-  styleUrls: ['./page.component.less']
+    selector: 'page',
+    templateUrl: './page.component.html',
+    styleUrls: ['./page.component.less']
 })
 export class PageComponent implements OnInit {
   
@@ -16,7 +16,7 @@ export class PageComponent implements OnInit {
   public name: string;
   public title: string;
   public isSend: boolean = false;
-  public description: any;
+  public description: any ;
   public data: any;
 
   constructor(

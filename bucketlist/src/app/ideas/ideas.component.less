@@ -1,6 +1,10 @@
 @import "../../assets/less/variables.less";
 @import "../../assets/less/function.less";
 
+[hidden] {
+  display: none;
+}
+
 .filters-slider{
 
   .bg-left,.bg-right{
@@ -155,5 +159,26 @@ ul.filter{
       }
 
     }
+  }
+}
+
+.list-tooltip{
+  position: absolute;
+  z-index: 1000;
+  text-align: center;
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #b0b0b0;
+  min-width: 150px;
+  height: 34px;
+  line-height: normal;
+  padding: 5px 10px;
+  .rounded-corners(4px);
+  .arrow-up{
+    top: -7px;
+    left: 60px;
+    position: absolute;
+    border-bottom-color: #ffffff;
+    border-top-color: #ffffff;
   }
 }
