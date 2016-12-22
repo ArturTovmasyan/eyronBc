@@ -5,5 +5,7 @@ export interface Activity {
     id: number,
     user: User,
     goals: Goal[],
-    reserveGoals?: Goal[]
+    reserveGoals?: Goal[],
+    datetime?: any,
+    forTop?: boolean
 }

@@ -37,7 +37,7 @@ export class ProjectService {
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
     private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
-    private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/0/9';  // URL to activity
+    private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/';  // URL to activity
     private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
     private featuredIdeasUrl = this.baseUrl + 'goal/featured'; //URL to get featured iteas
@@ -80,11 +80,13 @@ export class ProjectService {
     }
 
     /**
-     *
+     * 
+     * @param start
+     * @param count
      * @returns {Observable<R>}
      */
-    getActivities():Observable<Activity[]> {
-        return this.http.get(this.activityUrl, {headers: this.headers})
+    getActivities(start:number, count:number, time?:any):Observable<Activity[]> {
+        return this.http.get(this.activityUrl + start + '/' + count + (time?('?time=' + time):''), {headers: this.headers})
             .map((r:Response) => r.json() as Activity[])
             .catch(this.handleError);
     }
