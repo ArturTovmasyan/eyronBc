@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="search">
-          <!--data-ng-init="placeholderText = '{{ 'search'|translate | capitalize}}'"-->
           <form class="navbar-form" role="search">
           <span class="icon-search-icon" [ngClass]="{'text-purple': isSearching}"></span>
           <input type="text"
@@ -13,12 +12,6 @@
                  placeholder="{{ 'search'|translate | capitalize}}"
                  (keyup.enter)="doSearch($event)"
                  class="form-control">
-                 <!--{% if app.request.get('_route') == 'goals_list' %}-->
-          <!--data-ng-model="search"-->
-          <!--data-ng-keydown="doSearch($event)"-->
-          <!--{% else %}-->
-          <!--data-ng-enter-submit=".search form"-->
-          <!--{% endif %}-->
 
           <i class="close-icon hidden-sm hidden-md hidden-lg"
              [ngClass]="{'hidden-xs': !isSearching}"
@@ -34,31 +27,9 @@
 
   <div class="container">
     <div class="row no-gutter">
-      <!--data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})"-->
       <div class="col-xs-12">
-        <!--data-ng-init="activeCategory = '{{ category?category:'nearby' }}'"-->
-        <!--{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories, 'selected': category } %}-->
         <div class="filters-slider">
           <ul class="filter" [hidden]="!filterVisibility">
-            <!--data-ng-init="categoriesLength = {{ categories|length }}"-->
-
-            <!--{% set mostPopular = false %}-->
-            <!--{% set featured = false %}-->
-            <!--{% set nearby = false %}-->
-
-            <!--{% if categories|length > 0 %}-->
-            <!--{% for i in 0..(categories|length -1) %}-->
-            <!--{% if categories[i].getSlug() == 'most-popular' %}-->
-            <!--{% set mostPopular = true %}-->
-            <!--{% endif %}-->
-            <!--{% if categories[i].getSlug() == 'featured' %}-->
-            <!--{% set featured = true %}-->
-            <!--{% endif %}-->
-            <!--{% if categories[i].getSlug() == 'nearby' %}-->
-            <!--{% set nearby = true %}-->
-            <!--{% endif %}-->
-            <!--{% endfor %}-->
-            <!--{% endif %}-->
 
             <li
                 [ngClass]="{'active-category': category == 'nearby'}">
@@ -121,17 +92,7 @@
 </div>
 
 <div class="container"  *ngIf="category == 'nearby'">
-  <map-autocomplate></map-autocomplate>
-  <!--{#<p  data-ng-show="browseError.length > 0" class="error-message text-center">[[ browseError]]</p>#}-->
-  <!--<div data-autocomplete-map-->
-       <!--data-markers="locations"-->
-       <!--data-item-page-url="{{ env_prefix  }}/goal/"-->
-       <!--data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
-       <!--data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"-->
-       <!--data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"-->
-       <!--data-active-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
-       <!--class="map-autocomplete">-->
-  <!--</div>-->
+  <map-autocomplate [locations]="locations"></map-autocomplate>
 
   <div>
     <label>
@@ -154,9 +115,6 @@
 </div>
 
 <div class="container ideas-list">
-     <!--data-infinite-scroll='Ideas.nextPage("{{ env_prefix }}/api/v1.0/goals/{first}/{count}", search, activeCategory)'-->
-     <!--data-infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2 || activeCategory == "nearby"'-->
-     <!--data-infinite-scroll-distance='2'>-->
 
   <!--{% set href = path('add_goal')~'?title=[[search]]'  %}-->
   <h2 [hidden]="!noIdeas" class=" text-center creating-goal">
@@ -176,32 +134,20 @@
         <!--{% if search %} ideas-result {% endif %}-->
         <div class="col-md-{{ ((+i + 1) % 7) < 5 ? 4 : 8 }} goals-animate"
              *ngFor="let goal of ideas; let i = index">
-          <app-goal [goal]="goal"></app-goal>
+          <app-goal [goal]="goal" [type]="(category == 'nearby')?'nearby':''" (onHover)="hideJoin($event)" [userLocation]="userLocation"></app-goal>
         </div>
       </div>
     </div>
   </div>
 
   <div class="list-tooltip"
-       [hidden]="!isHover">
+       [hidden]="!isHover" #tooltip>
     <span class="arrow-up"></span>
-    {{ hoveredText }}
+    {{ hoveredText |translate}}
   </div>
 
-  <!--{#display nearBy#}-->
   <div class="navigation text-center">
-    <a *ngIf="!busy && reserve && reserve.length > 0 && activeCategory == 'nearby'"
-       (click)='getNearByReserve(userLocation)'
-       class="show-more ">
-      <span></span>
-      <span></span>
-      <span></span>
-    </a>
-  </div>
-
-  <!--{#display navigation#}-->
-  <div class="navigation text-center">
-    <a *ngIf="reserve && reserve.length > 0 && activeCategory != 'nearby'"
+    <a *ngIf="reserve && reserve.length > 0"
        (click)='getReserve()'
        class="show-more ">
       <span></span>

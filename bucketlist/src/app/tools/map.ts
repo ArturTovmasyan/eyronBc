@@ -1,8 +1,10 @@
-import { Component, OnInit , NgZone, ViewChild, ViewEncapsulation, ElementRef} from '@angular/core';
+import { Component, OnInit , NgZone, ViewChild, ViewEncapsulation, ElementRef, Input} from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FormControl } from "@angular/forms";
 import { MapsAPILoader } from 'angular2-google-maps/core';
 import { Marker } from '../interface/marker';
+import { Location } from '../interface/location';
 import { Broadcaster } from '../tools/broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
@@ -17,6 +19,7 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
     encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
+    @Input() locations: Location[];
     public latitude: number;
     public longitude: number;
     public activeGoalMarkerIcon1: string = "assets/images/Active-icon.png";
@@ -25,8 +28,9 @@ export class MapComponent implements OnInit {
     public activeMarkerIcon: string = "assets/images/map-marker-purple.png";
     public searchControl: FormControl;
     public zoom: number;
-    public notAllowed: boolean = false;
+    public notAllowed: boolean = true;
     public autocomplete: any;
+    public bounds: any;
     public markers: Marker[];
 
     @ViewChild("search")
@@ -36,6 +40,7 @@ export class MapComponent implements OnInit {
         private _cacheService: CacheService,
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
+        private router:Router,
         private broadcaster: Broadcaster
     ) {}
 
@@ -56,6 +61,7 @@ export class MapComponent implements OnInit {
             this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
                 types: []
             });
+            this.bounds = new google.maps.LatLngBounds(null);
             this.autocomplete.addListener("place_changed", () => {
                 this.ngZone.run(() => {
                     //get the place result
@@ -77,6 +83,14 @@ export class MapComponent implements OnInit {
                 });
             });
         });
+
+        this.broadcaster.on<Location[]>('getLocation')
+            .subscribe(locations => {
+                this.bounds = new google.maps.LatLngBounds(null);
+                for (let location of locations){
+                    this.bounds.extend(location);
+                }
+            });
 
         this.broadcaster.on<string>('addGoal')
             .subscribe(data => {
@@ -100,17 +114,16 @@ export class MapComponent implements OnInit {
                 //     };
                 //     scope.mapMarkers[userGoal.goal.id].setIcon(icon);
             });
-
-        this.broadcaster.on<string>('lsJqueryModalClosedSaveGoal')
-            .subscribe(userGoal => {
-                // if(!userGoal || !userGoal.status || !scope.mapMarkers[userGoal.goal.id] || !scope.mapMarkers[userGoal.goal.id].map)
-                //         return;
-                //
-                //     var icon = {
-                //         url: scope['activeGoalMarkerIcon'+userGoal.status],
-                //         scaledSize:new google.maps.Size(35, 50)
-                //     };
-                //     scope.mapMarkers[userGoal.goal.id].setIcon(icon);
+        
+        this.broadcaster.on<string>('doneGoal')
+            .subscribe(data => {console.log(data);
+                    // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+                    //     var icon = {
+                    //         url: scope.activeGoalMarkerIcon2,
+                    //         scaledSize:new google.maps.Size(35, 50)
+                    //     };
+                    //     scope.mapMarkers[data].setIcon(icon);
+                    // }
             });
 
     }
@@ -129,9 +142,19 @@ export class MapComponent implements OnInit {
             title: "Your Position"
         };
 
+        this.bounds.extend({
+            'latitude':this.latitude,
+            'longitude': this.longitude
+        });
+
         this.broadcaster.broadcast('location_changed', marker);
         this.markers = [marker];
+        this.notAllowed = false;
         this.zoom = 10;
+    }
+
+    clickMarker(marker){
+        this.router.navigate(['/goal/'+marker.slug]);
     }
 
     private setCurrentPosition() {
@@ -145,7 +168,6 @@ export class MapComponent implements OnInit {
                     this.setPosition(position);
                     this._cacheService.set('location', position, {maxAge: 3 * 24 * 60 * 60});
                 });
-                this.notAllowed = true;
             }
         }
     }
