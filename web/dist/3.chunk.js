@@ -1,14 +1,16 @@
 webpackJsonp([3,13],{
 
-/***/ 778:
+/***/ 799:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__notification_component__ = __webpack_require__(789);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__notification_routing__ = __webpack_require__(806);
-/* harmony export (binding) */ __webpack_require__.d(exports, "NotificationModule", function() { return NotificationModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_translate__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile_component__ = __webpack_require__(836);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__profile_routing__ = __webpack_require__(855);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(407);
+/* harmony export (binding) */ __webpack_require__.d(exports, "ProfileModule", function() { return ProfileModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -22,31 +24,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var NotificationModule = (function () {
-    function NotificationModule() {
+
+
+var ProfileModule = (function () {
+    function ProfileModule() {
     }
-    NotificationModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* NgModule */])({
+    ProfileModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
-                __WEBPACK_IMPORTED_MODULE_3__notification_routing__["a" /* NotificationRouting */]
+                __WEBPACK_IMPORTED_MODULE_4__profile_routing__["a" /* ProfileRouting */],
+                __WEBPACK_IMPORTED_MODULE_5__components_components_module__["a" /* ComponentModule */],
+                __WEBPACK_IMPORTED_MODULE_2_ng2_translate__["a" /* TranslateModule */]
             ],
-            declarations: [__WEBPACK_IMPORTED_MODULE_2__notification_component__["a" /* NotificationComponent */]]
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_3__profile_component__["a" /* ProfileComponent */]
+            ]
         }), 
         __metadata('design:paramtypes', [])
-    ], NotificationModule);
-    return NotificationModule;
+    ], ProfileModule);
+    return ProfileModule;
 }());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/notification.module.js.map
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile.module.js.map
 
 /***/ },
 
-/***/ 789:
+/***/ 836:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NotificationComponent; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -57,54 +65,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var NotificationComponent = (function () {
-    function NotificationComponent() {
+var ProfileComponent = (function () {
+    function ProfileComponent() {
     }
-    NotificationComponent.prototype.ngOnInit = function () {
+    ProfileComponent.prototype.ngOnInit = function () {
     };
-    NotificationComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Component */])({
-            selector: 'app-notification',
-            template: __webpack_require__(842),
-            styles: [__webpack_require__(824)]
+    ProfileComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-profile',
+            template: __webpack_require__(887),
+            styles: [__webpack_require__(874)]
         }), 
         __metadata('design:paramtypes', [])
-    ], NotificationComponent);
-    return NotificationComponent;
+    ], ProfileComponent);
+    return ProfileComponent;
 }());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/notification.component.js.map
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile.component.js.map
 
 /***/ },
 
-/***/ 806:
+/***/ 855:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__notification_component__ = __webpack_require__(789);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NotificationRouting; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profile_component__ = __webpack_require__(836);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileRouting; });
 
 
 // import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
-var NotificationRoutes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__notification_component__["a" /* NotificationComponent */] }
+var ProfileRoutes = [
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__profile_component__["a" /* ProfileComponent */] }
 ];
-var NotificationRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forChild(NotificationRoutes);
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/notification-routing.js.map
+var ProfileRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forChild(ProfileRoutes);
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile-routing.js.map
 
 /***/ },
 
-/***/ 824:
+/***/ 874:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 842:
+/***/ 887:
 /***/ function(module, exports) {
 
-module.exports = "<p>\n  notification works!\n</p>\n"
+module.exports = "<p>\n  profile works!\n</p>\n"
 
 /***/ }
 

@@ -14,11 +14,11 @@
       </div>
     </div>
 
-    <hr/>
+    <hr class="hr-margin"/>
 
-    <ul class="bg-white round badge-place goals-animate"
-        *ngFor="let badge of users;let i = index">
-      <leaderboard [badge]="badge" [index]="i"></leaderboard>
-    </ul>
+    <leaderboard
+        *ngFor="let badge of users;let i = index" [badge]="badge" [index]="i">
+      <!--<leaderboard ></leaderboard>-->
+    </leaderboard>
   </div>
 </div>

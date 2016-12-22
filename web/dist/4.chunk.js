@@ -1,14 +1,14 @@
 webpackJsonp([4,13],{
 
-/***/ 776:
+/***/ 798:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__inner_component__ = __webpack_require__(787);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inner_routing__ = __webpack_require__(804);
-/* harmony export (binding) */ __webpack_require__.d(exports, "InnerModule", function() { return InnerModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__notification_component__ = __webpack_require__(835);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__notification_routing__ = __webpack_require__(854);
+/* harmony export (binding) */ __webpack_require__.d(exports, "NotificationModule", function() { return NotificationModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -22,33 +22,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var InnerModule = (function () {
-    function InnerModule() {
+var NotificationModule = (function () {
+    function NotificationModule() {
     }
-    InnerModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* NgModule */])({
+    NotificationModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
-                __WEBPACK_IMPORTED_MODULE_3__inner_routing__["a" /* InnerRouting */]
+                __WEBPACK_IMPORTED_MODULE_3__notification_routing__["a" /* NotificationRouting */]
             ],
-            declarations: [__WEBPACK_IMPORTED_MODULE_2__inner_component__["a" /* InnerComponent */]]
+            declarations: [__WEBPACK_IMPORTED_MODULE_2__notification_component__["a" /* NotificationComponent */]]
         }), 
         __metadata('design:paramtypes', [])
-    ], InnerModule);
-    return InnerModule;
+    ], NotificationModule);
+    return NotificationModule;
 }());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/inner.module.js.map
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/notification.module.js.map
 
 /***/ },
 
-/***/ 787:
+/***/ 835:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(67);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InnerComponent; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NotificationComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59,76 +57,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-
-
-var InnerComponent = (function () {
-    function InnerComponent(_projectService, route) {
-        this._projectService = _projectService;
-        this.route = route;
-        this.goal = null;
+var NotificationComponent = (function () {
+    function NotificationComponent() {
     }
-    InnerComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.route.params.forEach(function (params) {
-            var goalSlug = params['slug'];
-            // load data
-            _this.getProject(goalSlug);
-        });
+    NotificationComponent.prototype.ngOnInit = function () {
     };
-    /**
-     *
-     * @param slug
-     */
-    InnerComponent.prototype.getProject = function (slug) {
-        var _this = this;
-        this._projectService.getGoal(slug)
-            .subscribe(function (goal) { return _this.goal = goal; }, function (error) { return _this.errorMessage = error; });
-    };
-    InnerComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Component */])({
-            selector: 'app-inner',
-            template: __webpack_require__(840),
-            styles: [__webpack_require__(822)],
-            providers: [__WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]]
+    NotificationComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-notification',
+            template: __webpack_require__(886),
+            styles: [__webpack_require__(873)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */]) === 'function' && _b) || Object])
-    ], InnerComponent);
-    return InnerComponent;
-    var _a, _b;
+        __metadata('design:paramtypes', [])
+    ], NotificationComponent);
+    return NotificationComponent;
 }());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/inner.component.js.map
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/notification.component.js.map
 
 /***/ },
 
-/***/ 804:
+/***/ 854:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inner_component__ = __webpack_require__(787);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InnerRouting; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__notification_component__ = __webpack_require__(835);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NotificationRouting; });
 
 
 // import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
-var InnerRoutes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__inner_component__["a" /* InnerComponent */] }
+var NotificationRoutes = [
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__notification_component__["a" /* NotificationComponent */] }
 ];
-var InnerRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forChild(InnerRoutes);
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/inner-routing.js.map
+var NotificationRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forChild(NotificationRoutes);
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/notification-routing.js.map
 
 /***/ },
 
-/***/ 822:
+/***/ 873:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 840:
+/***/ 886:
 /***/ function(module, exports) {
 
-module.exports = "<p>\n  inner works!\n</p>\n"
+module.exports = "<p>\n  notification works!\n</p>\n"
 
 /***/ }
 

@@ -1,14 +1,14 @@
 webpackJsonp([6,13],{
 
-/***/ 773:
+/***/ 796:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__goal_create_component__ = __webpack_require__(783);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__goal_create_routing__ = __webpack_require__(801);
-/* harmony export (binding) */ __webpack_require__.d(exports, "GoalCreateModule", function() { return GoalCreateModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__inner_component__ = __webpack_require__(832);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inner_routing__ = __webpack_require__(852);
+/* harmony export (binding) */ __webpack_require__.d(exports, "InnerModule", function() { return InnerModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -22,31 +22,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var GoalCreateModule = (function () {
-    function GoalCreateModule() {
+var InnerModule = (function () {
+    function InnerModule() {
     }
-    GoalCreateModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* NgModule */])({
+    InnerModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
-                __WEBPACK_IMPORTED_MODULE_3__goal_create_routing__["a" /* GoalCreateRouting */]
+                __WEBPACK_IMPORTED_MODULE_3__inner_routing__["a" /* InnerRouting */]
             ],
-            declarations: [__WEBPACK_IMPORTED_MODULE_2__goal_create_component__["a" /* GoalCreateComponent */]]
+            declarations: [__WEBPACK_IMPORTED_MODULE_2__inner_component__["a" /* InnerComponent */]]
         }), 
         __metadata('design:paramtypes', [])
-    ], GoalCreateModule);
-    return GoalCreateModule;
+    ], InnerModule);
+    return InnerModule;
 }());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-create.module.js.map
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/inner.module.js.map
 
 /***/ },
 
-/***/ 783:
+/***/ 832:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalCreateComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(67);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InnerComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -57,54 +59,76 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var GoalCreateComponent = (function () {
-    function GoalCreateComponent() {
+
+
+var InnerComponent = (function () {
+    function InnerComponent(_projectService, route) {
+        this._projectService = _projectService;
+        this.route = route;
+        this.goal = null;
     }
-    GoalCreateComponent.prototype.ngOnInit = function () {
+    InnerComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.forEach(function (params) {
+            var goalSlug = params['slug'];
+            // load data
+            _this.getProject(goalSlug);
+        });
     };
-    GoalCreateComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["N" /* Component */])({
-            selector: 'app-goal-create',
-            template: __webpack_require__(836),
-            styles: [__webpack_require__(818)]
+    /**
+     *
+     * @param slug
+     */
+    InnerComponent.prototype.getProject = function (slug) {
+        var _this = this;
+        this._projectService.getGoal(slug)
+            .subscribe(function (goal) { return _this.goal = goal; }, function (error) { return _this.errorMessage = error; });
+    };
+    InnerComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-inner',
+            template: __webpack_require__(884),
+            styles: [__webpack_require__(872)],
+            providers: [__WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]]
         }), 
-        __metadata('design:paramtypes', [])
-    ], GoalCreateComponent);
-    return GoalCreateComponent;
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["d" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["d" /* ActivatedRoute */]) === 'function' && _b) || Object])
+    ], InnerComponent);
+    return InnerComponent;
+    var _a, _b;
 }());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-create.component.js.map
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/inner.component.js.map
 
 /***/ },
 
-/***/ 801:
+/***/ 852:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__goal_create_component__ = __webpack_require__(783);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalCreateRouting; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inner_component__ = __webpack_require__(832);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InnerRouting; });
 
 
 // import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
-var GoalCreateRoutes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__goal_create_component__["a" /* GoalCreateComponent */] }
+var InnerRoutes = [
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__inner_component__["a" /* InnerComponent */] }
 ];
-var GoalCreateRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forChild(GoalCreateRoutes);
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-create-routing.js.map
+var InnerRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forChild(InnerRoutes);
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/inner-routing.js.map
 
 /***/ },
 
-/***/ 818:
+/***/ 872:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 836:
+/***/ 884:
 /***/ function(module, exports) {
 
-module.exports = "<p>\n  goal-create works!\n</p>\n"
+module.exports = "<p>\n  inner works!\n</p>\n"
 
 /***/ }
 

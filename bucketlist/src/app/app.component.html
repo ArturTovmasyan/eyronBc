@@ -130,7 +130,7 @@
                     <!--{% if not is_mobile() or is_tablet() %}-->
                     <div id="navbar" class="clearfix">
 
-                        <a class="navbar-brand hidden-xs" routerLink="/" routerLinkActive="active">
+                        <a class="navbar-brand" [class.hidden-xs]="appUser" routerLink="/" routerLinkActive="active">
                             <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
                         </a>
 
@@ -204,7 +204,7 @@
                                 <a (click)="joinToggle11 = !joinToggle11;" class=" mobile-user hidden-sm hidden-md hidden-lg" *ngIf="!joinToggle11">
                                     <figure class="img-circle" *ngIf="appUser.image_path">
                                         <!--'user_icon'-->
-                                        <img src="{{ appUser.image_path }}" alt="{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}" class="img-responsive img-circle" height="40">
+                                        <img src="{{ serverPath + appUser.image_path }}" alt="{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}" class="img-responsive img-circle" height="40">
                                     </figure>
                                     <p class="no-image user-no1" *ngIf="!appUser.image_path">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>
                                 </a>

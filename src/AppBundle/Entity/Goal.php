@@ -84,7 +84,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
      * @ORM\Column(name="title", type="string", length=64, nullable=false)
-     * @Groups({"goal", "tiny_goal", "goal_draft"})
+     * @Groups({"goal", "tiny_goal", "goal_draft", "inspireStory"})
      */
     protected $title;
 
@@ -196,7 +196,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     protected $publishedDate;
 
     /**
-     * @Groups({"goal", "tiny_goal"})
+     * @Groups({"goal", "tiny_goal", "inspireStory"})
      */
     protected $stats = null;
 
@@ -233,7 +233,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     private $publishedBy;
 
     /**
-     * @Groups({"tiny_goal", "goal"})
+     * @Groups({"tiny_goal", "goal", "inspireStory"})
      */
     private $cachedImage;
 
@@ -256,7 +256,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
 
     /**
      * @SerializedName("image_path")
-     * @Groups({"tiny_goal", "goal", "image_link"})
+     * @Groups({"tiny_goal", "goal", "image_link", "inspireStory"})
      */
     private $mobileImagePath;
 
@@ -579,6 +579,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     }
 
     /**
+     * @Groups({"inspireStory"})
      * @return null
      */
     public function getListPhotoDownloadLink()
