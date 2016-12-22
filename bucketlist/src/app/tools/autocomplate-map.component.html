@@ -20,7 +20,8 @@
         </div>
     </div>
 
-    <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" [fitBounds]="bounds">
+    <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" [fitBounds]="bounds"
+                     [mapTypeControl]="true">
         <sebm-google-map-marker *ngFor="let marker of markers"
             [latitude]="marker.latitude" [longitude]="marker.longitude"
             [iconUrl]="marker.iconUrl">
