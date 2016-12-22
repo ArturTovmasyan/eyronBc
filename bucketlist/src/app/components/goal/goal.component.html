@@ -2,13 +2,35 @@
   <div class="col-sm-12">
     <figure>
 
-      <h3>
+      <span class="hide-nearby"
+            *ngIf="type == 'nearby' && !hideDisableNearBy && isLoggedIn"
+            (click)="notInterest()"
+            (mouseleave)="hoverEmitter.emit(null)"
+            (mousemove)="hoverEmitter.emit({
+            ev:$event,
+            val:'hide_nearby'})">
+      </span>
+
+      <h3 [ngClass]="{'nearby': (type== 'nearby' && goal.location && goal.distance > 0)}">
         <a routerLink="/goal/{{ goal.slug }}">{{ goal.title }}</a>
       </h3>
 
       <a routerLink="/goal/{{ goal.slug }}" >
         <span class="overlay"></span>
         <img src="{{ goal.cached_image }}" *ngIf="goal.cached_image" alt="{{ goal.title }}"/>
+      </a>
+
+      <a class="nearby-distance"
+         target="_blank"
+         *ngIf="type == 'nearby' && goal.location && userLocation && goal.distance > 0"
+         href="https://www.google.com/maps/dir/{{ goal.location.latitude}},{{ goal.location.longitude}}/{{ userLocation.latitude }},{{ userLocation.longitude }}/"
+         (mouseleave)="hoverEmitter.emit(null)"
+         (mousemove)="hoverEmitter.emit({
+            ev:$event,
+            val:'goal.get_direction'})">
+      <i></i>
+      <!--<span class="text-center" *ngIf="goal.distance > 10">{{ goal.distance | number: 0 }} km</span>-->
+      <span class="text-center">{{ goal.distance | number:'1.0-3' }} km</span>
       </a>
 
       <div class="absolute">

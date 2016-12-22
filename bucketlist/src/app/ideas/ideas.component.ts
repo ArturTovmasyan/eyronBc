@@ -1,8 +1,10 @@
-import { Component, OnInit , ViewEncapsulation } from '@angular/core';
+import { Component, OnInit , ViewEncapsulation, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Broadcaster } from '../tools/broadcaster';
 
 import {Goal} from '../interface/goal';
+import {Marker} from '../interface/marker';
+import {Location} from '../interface/location';
 import {Category} from '../interface/category';
 import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -16,15 +18,26 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
   encapsulation: ViewEncapsulation.None
 })
 export class IdeasComponent implements OnInit {
+    @ViewChild("tooltip")
+    public tooltipElementRef: ElementRef;
+
   public category: string;
   public errorMessage: string;
   public filterVisibility: boolean = false;
   public eventId: number = 0;
+  public isHover: boolean = false;
+  public hoveredText: string = '';
   public serverPath:string = '';
 
   public start: number = 0;
   public count: number = 7;
+  public latitude: number;
+  public longitude: number;
+  public userLocation: any;
+  public isCompletedGoals: boolean = false;
   public search: string = '';
+  public locations:Location[] = [];
+  public locationsIds = [];
 
   public categories: Category[];
   public ideas: Goal[];
@@ -34,13 +47,16 @@ export class IdeasComponent implements OnInit {
       private _projectService: ProjectService,
       private _cacheService: CacheService,
       private broadcaster: Broadcaster,
-      private router:Router
+      private router:Router,
+      public renderer: Renderer
   ) {
       router.events.subscribe((val) => {
           if(this.eventId != val.id && val instanceof NavigationEnd){
               this.eventId = val.id;
               this.start = 0;
-              this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'discover';
+              this.locationsIds = [];
+              this.locations = [];
+              this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'nearby';
               this.ideas = null;
               this.reserve = null;
               this.getGoals();
@@ -60,10 +76,21 @@ export class IdeasComponent implements OnInit {
     this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
     this.filterVisibility = true;
       
-    this.broadcaster.on<string>('location_changed')
+    this.broadcaster.on<Marker>('location_changed')
           .subscribe(marker => {
-              
-    });   
+              this.latitude = marker.latitude;
+              this.longitude = marker.longitude;
+              this.userLocation = {
+                  latitude: this.latitude,
+                  longitude: this.longitude
+              };
+              this.locationsIds = [];
+              this.locations = [];
+              this.start = 0;
+              this.ideas = null;
+              this.reserve = null;
+              this.getNearByGoals();
+    });
   }
 
   getCategories(){
@@ -78,6 +105,8 @@ export class IdeasComponent implements OnInit {
   }
 
   getGoals(){
+    if(this.category == 'nearby')return;
+
     this._projectService.getIdeaGoals(this.start, this.count, this.search, this.category)
         .subscribe(
             goals => {
@@ -89,21 +118,25 @@ export class IdeasComponent implements OnInit {
   }
 
   setReserve(){
-    this._projectService.getIdeaGoals(this.start, this.count, this.search, this.category)
-        .subscribe(
-            goals => {
-              this.reserve = goals;
-
-                for(let item of this.reserve){
-                    let img;
-                    if(item.cached_image){
-                        img = new Image();
-                        img.src = item.cached_image;
-                    }
-                }
-              this.start += this.count;
-            },
-            error => this.errorMessage = <any>error);
+      if(this.category == 'nearby'){
+          this._projectService.getNearByGoals(this.latitude, this.longitude, this.start, this.count, this.isCompletedGoals)
+              .subscribe(
+                  goals => {
+                      this.reserve = goals;
+                      this.optimizeReserveImages();
+                      this.start += this.count;
+                  },
+                  error => this.errorMessage = <any>error);
+      } else {
+          this._projectService.getIdeaGoals(this.start, this.count, this.search, this.category)
+              .subscribe(
+                  goals => {
+                      this.reserve = goals;
+                      this.optimizeReserveImages();
+                      this.start += this.count;
+                  },
+                  error => this.errorMessage = <any>error);
+      }
   }
 
   doSearch(){
@@ -114,12 +147,84 @@ export class IdeasComponent implements OnInit {
   }
 
   getReserve(){
-      this.ideas = this.ideas.concat(this.reserve);
+    this.ideas = this.ideas.concat(this.reserve);
+      if(this.category == 'nearby'){
+          this.calculateLocations(this.reserve);
+      }
     this.setReserve();
   }
 
-  completedChange(){
-        
+  getNearByGoals(){
+      this._projectService.getNearByGoals(this.latitude, this.longitude, this.start, this.count, this.isCompletedGoals)
+          .subscribe(
+              goals => {
+                  this.ideas = goals;
+                  this.start += this.count;
+                  this.calculateLocations(this.ideas);
+                  this.setReserve();
+              },
+              error => this.errorMessage = <any>error);
   }
 
+  completedChange(){
+      if(this.latitude && this.longitude){
+          this.start = 0;
+          this.getNearByGoals();
+      }
+  }
+    
+   calculateLocations(items){
+       for(let item of items){
+           let location:Location = {
+               id: 0,
+               latitude: 0,
+               lat: 0,
+               longitude: 0,
+               lng: 0,
+               slug: '',
+               title: '',
+               status: 0,
+               isHover: false,
+           };
+           if(item.location && this.locationsIds.indexOf(item.id) == -1){
+               location.id = item.id;
+               this.locationsIds.push(location.id);
+               location.latitude = item.location.latitude;
+               location.lat = item.location.latitude;
+               location.longitude = item.location.longitude;
+               location.lng = item.location.longitude;
+               location.title = item.title;
+               location.slug = item.slug;
+               location.status = item.is_my_goal;
+               this.locations.push(location);
+           }
+       }
+       this.broadcaster.broadcast('getLocation', this.locations);
+  }
+
+   optimizeReserveImages(){
+       for(let item of this.reserve){
+           let img;
+           if(item.cached_image){
+               img = new Image();
+               img.src = item.cached_image;
+           }
+       }
+   }
+
+    hideJoin(event){
+        if(event && event.val){
+            this.hoveredText = event.val;
+            this.isHover = true;
+            let left = +event.ev.pageX - 60;
+            let top  = event.ev.pageY - 60;
+            this.renderer.setElementStyle(this.tooltipElementRef.nativeElement, 'left', left + 'px');
+            this.renderer.setElementStyle(this.tooltipElementRef.nativeElement, 'top', top + 'px');
+
+        } else {
+            this.hoveredText = '';
+            this.isHover = false
+        }
+
+    }
 }

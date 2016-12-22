@@ -16,11 +16,19 @@
         <input type="radio" name="type" id="changetype-geocode" (click)="setType(['geocode'])">
         <label for="changetype-geocode">Geocodes</label>
     </div>
-    <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+    <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" [fitBounds]="bounds">
         <sebm-google-map-marker *ngFor="let marker of markers"
             [latitude]="marker.latitude" [longitude]="marker.longitude"
             [iconUrl]="marker.iconUrl">
             <sebm-google-map-info-window [disableAutoPan]="true">
+                {{ marker.title}}
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+        <sebm-google-map-marker *ngFor="let marker of locations"
+            [latitude]="marker.latitude" [longitude]="marker.longitude"
+            (mouseOut)="marker.isHover = false" (markerClick)="clickMarker(marker)" (mouseOver)="marker.isHover = true"
+            [iconUrl]="(marker.status == 1)?activeGoalMarkerIcon1:(marker.status == 2)?activeGoalMarkerIcon1:passiveMarkerIcon">
+            <sebm-google-map-info-window [disableAutoPan]="true" [isOpen]="marker.isHover">
                 {{ marker.title}}
             </sebm-google-map-info-window>
         </sebm-google-map-marker>
