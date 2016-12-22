@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import {TranslateModule} from 'ng2-translate';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { AppComponent } from './app.component';
 import { AuthGuard }      from './common/auth.guard';
@@ -17,6 +18,7 @@ import { BaseStoriesComponent } from './components/base-stories/base-stories.com
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { ComponentModule } from './components/components.module';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
+import { PageComponent } from './page/page.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +29,13 @@ import { ResettingRequestComponent } from './components/resetting-request/resett
     HomeFooterComponent,
     LoginComponent,
     RegisterComponent,
-    ResettingRequestComponent
+    ResettingRequestComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    InfiniteScrollModule,
     HttpModule,
     JsonpModule,
     appRouting,

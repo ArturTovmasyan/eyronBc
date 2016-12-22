@@ -46,6 +46,8 @@ export class ProjectService {
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
     private notificationUrl = this.baseUrl + 'notifications/0/10';
+    private getCompateProfileUrl = this.baseUrl + 'goal/categories';
+    private PageUrl = this.baseUrl + 'page';
 
     constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
@@ -58,6 +60,14 @@ export class ProjectService {
      */
     auth(loginData: Object):Observable<any> {
         return this.http.post(this.baseUrl + 'users/logins', JSON.stringify(loginData)).map((res:Response) => res.json());
+    }
+
+    /**
+     * 
+     * @returns {Observable<R>}
+     */
+    getPath(){
+        return this.baseOrigin;
     }
 
     /**
@@ -100,6 +110,15 @@ export class ProjectService {
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);
     }
+    
+    /**
+     * 
+     */
+    getCompateProfileInfo():Observable<any> {
+        return this.http.get(this.getCompateProfileUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
 
     /**
      *
@@ -115,9 +134,9 @@ export class ProjectService {
      *
      * @returns {Observable<T>}
      */
-    getUserList(first:number, count:number, search:string, type:string):Observable<any> {
+    getUserList(first:number, count:number, search:string, type:string):Observable<User[]> {
         return this.http.get(this.baseUrl +'user-list/'+first+'/'+count+'?search='+search+'&type='+ type, {headers: this.headers})
-            .map((r:Response) => r.json())
+            .map((r:Response) => r.json() as User[])
             .catch(this.handleError);
     }
 
@@ -224,6 +243,16 @@ export class ProjectService {
     getBottomMenu():Observable<any> {
 
         return this.http.get(this.bottomMenuUrl)
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getPage():Observable<any> {
+
+        return this.http.get(this.PageUrl)
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }

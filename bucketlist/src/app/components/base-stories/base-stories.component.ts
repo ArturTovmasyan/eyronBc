@@ -18,7 +18,7 @@ import {Story} from '../../interface/story';
 export class BaseStoriesComponent implements OnInit {
   stories:Story[] = null;
   errorMessage:string;
-  
+
   constructor(
       private _projectService: ProjectService, 
       private _cacheService: CacheService,

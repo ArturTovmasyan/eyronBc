@@ -8,11 +8,11 @@
 <div id="goal-friends">
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-           <!--data-ng-init="goalId = {{ (goalId is defined and goalId)?goalId: 0 }}"-->
-           <!--data-ng-cloak-->
-           <!--data-infinite-scroll='Friends.nextFriends(friendName, slug, goalId, category)'-->
-           <!--data-infinite-scroll-disabled='Friends.noItem || Friends.busy'>-->
+      <div class="col-md-8"
+           infinite-scroll
+           [infiniteScrollDistance]="1"
+           [infiniteScrollThrottle]="500"
+           (scrolled)="onScroll()">
 
         <!--{% if friend %}-->
 
@@ -23,48 +23,44 @@
 
               <div class="col-sm-12">
                 <span class="icon-search-icon"></span>
-                <input type="text" name="search" class="form-control"
+                <input type="text"
+                       name="search"
+                       class="form-control"
                        id="searchInput"
+                       [(ngModel)]="search"
+                       (keyup.enter)="doSearch($event)"
                        placeholder="{{ 'search_placeholder'|translate }}">
-                       <!--data-ng-model="friendName"-->
-                       <!--data-ng-keypress="doSearch($event)"-->
-                       <!--{#value="{{ app.request.get('search') }}"#}>-->
-                <span class="close-icon ng-hide"></span>
-                      <!--[hidden] = "friendName.length" (click)="friendName = ''; resetFriends()"-->
+
+                <span class="close-icon" [hidden] = "!search || !search.length" (click)="resetFriends()"></span>
+
               </div>
             </div>
           </form>
 
           <ul class="goalfrineds-menu">
             <li>
-              <a href="#all">{{ 'goal_friend_menu.all'|translate }}</a>
-                 <!--[ngClass]="{'text-purple': category == 'all'}"  (click)="getCategory('all')"-->
+              <a routerLink="/goal-friends/all" [class.text-purple]="type=='all'" routerLinkActive="text-purple">{{ 'goal_friend_menu.all'|translate }}</a>
             </li>
 
             <li>
-              <a>{{ 'goal_friend_menu.recently_matched'|translate }}</a>
-                      <!--[ngClass]="{'text-purple': category == 'recently'}" href="#recently" (click)="getCategory('recently')"-->
+              <a routerLink="/goal-friends/recently" routerLinkActive="text-purple">{{ 'goal_friend_menu.recently_matched'|translate }}</a>
             </li>
 
             <li>
-              <a>{{ 'goal_friend_menu.most_matching'|translate }}</a>
-                      <!--[ngClass]="{'text-purple': category == 'match'}" href="#match" (click)="getCategory('match')"-->
+              <a routerLink="/goal-friends/match" routerLinkActive="text-purple">{{ 'goal_friend_menu.most_matching'|translate }}</a>
             </li>
 
             <li>
-              <a href="#active">{{ 'goal_friend_menu.most_activity'|translate }}</a>
-                 <!--[ngClass]="{'text-purple': category == 'active'}" (click)="getCategory('active')"-->
+              <a routerLink="/goal-friends/active" routerLinkActive="text-purple">{{ 'goal_friend_menu.most_activity'|translate }}</a>
             </li>
 
             <li>
-              <a href="#follow">{{ 'goal_friend_menu.follow'|translate }}</a>
-                 <!--[ngClass]="{'text-purple': category == 'follow'}" (click)="getCategory('follow')"-->
+              <a routerLink="/goal-friends/follow" routerLinkActive="text-purple">{{ 'goal_friend_menu.follow'|translate }}</a>
             </li>
           </ul>
         </div>
 
-        <div class="ng-hide">
-             <!--[hidden]="Friends.noItem"-->
+        <div *ngIf="noItem">
           <br />
           <p class="text-center text-gray">{{ 'no_friends' | translate }}</p>
         </div>
@@ -78,61 +74,56 @@
         <!--{% endif %}-->
 
         <div class="row">
-          <!--<div data-ng-cloak-->
-               <!--class="col-sm-6 goals-animate"-->
-               <!--*ngFor="user in Friends.users">-->
-            <!--&lt;!&ndash;data-ng-class-even="row"&ndash;&gt;-->
-               <!--&lt;!&ndash;{% if friend %} data-ng-class="{'margin-top': $index < 2 }" {% endif %}>&ndash;&gt;-->
+          <div
+               class="col-sm-6 goals-animate"
+               *ngFor="let user of users;let e = even, let i = index" [ngClass]="{'row': e, 'margin-top': i < 2}" >
 
-            <!--<div class="users-list round clearfix">-->
-              <!--&lt;!&ndash;<a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" style="display:block;" class="text-gray">&ndash;&gt;-->
-                <!--<div class="row no-gutter">-->
-                  <!--<div class="col-xs-3">-->
-                    <!--<figure class="image-goalfrinds img-circle ">-->
-                      <!--&lt;!&ndash;<img *ngIf="user.image_path" [src]="[[ ::user.image_path ]]" alt="[[ ::user.first_name ]]" class="img-circle img-responsive" />&ndash;&gt;-->
-                      <!--&lt;!&ndash;{% set className = "user-no" ~ random(4) %}&ndash;&gt;-->
-                      <!--&lt;!&ndash;<p *ngIf="!user.image_path" class="no-image {{ className }}">[[ (user.first_name | limitTo:1 | uppercase) + (user.last_name | limitTo:1 | uppercase) ]]</p>&ndash;&gt;-->
-                    <!--</figure>-->
-                  <!--</div>-->
+            <div class="users-list round clearfix">
+              <a routerLink="/profile/{{ user.u_id }}" style="display:block;" class="text-gray">
+                <div class="row no-gutter">
+                  <div class="col-xs-3">
+                    <figure class="image-goalfrinds img-circle ">
+                      <img *ngIf="user.image_path" src="{{ serverPath + user.image_path }}" alt="{{ user.first_name }}" class="img-circle img-responsive" />
+                      <!--{% set className = "user-no" ~ random(4) %}-->
+                      <p *ngIf="!user.image_path" class="no-image user-no2">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
+                    </figure>
+                  </div>
 
-                  <!--<div class="col-xs-9">-->
-                    <!--<div class="text-gray">-->
-                      <!--<h4 class="text-dark-gray">-->
-                        <!--&lt;!&ndash;[[ ::user.first_name ]] [[ ::user.last_name ]]&ndash;&gt;-->
-                      <!--</h4>-->
-                      <!--<span class="text-gray">{{ 'listed_by'|translate }}-->
-                        <!--&lt;!&ndash;[[ ::user.stats.listedBy ]]&ndash;&gt;-->
-                      <!--</span> |-->
-                      <!--<span class="text-gray">{{ 'completed'|translate }}-->
-                        <!--&lt;!&ndash;[[ ::user.stats.doneBy ]]&ndash;&gt;-->
-                      <!--</span><br />-->
-                      <!--&lt;!&ndash;<a href="javascript:void(0)"&ndash;&gt;-->
-                         <!--&lt;!&ndash;class="text-gray">{{ 'menu.common'|translate }} >&ndash;&gt;-->
-                        <!--&lt;!&ndash;data-ls-common-manage&ndash;&gt;-->
-                         <!--&lt;!&ndash;[hidden]="user.common_goals_count != 0"&ndash;&gt;-->
-                         <!--&lt;!&ndash;data-ls-user="[[ ::user.id ]]"&ndash;&gt;-->
-                         <!--&lt;!&ndash;data-ng-cloak &ndash;&gt;-->
-                      <!--&lt;!&ndash;[[ ::user.common_goals_count ]]&ndash;&gt;-->
-                      <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--&lt;!&ndash;</a>&ndash;&gt;-->
-            <!--</div>-->
-          <!--</div>-->
+                  <div class="col-xs-9">
+                    <div class="text-gray">
+                      <h4 class="text-dark-gray">
+                        {{ user.first_name }} {{ user.last_name }}
+                      </h4>
+                      <span class="text-gray">{{ 'listed_by'|translate }}
+                        {{ user.stats.listedBy }}
+                      </span> |
+                      <span class="text-gray">{{ 'completed'|translate }}
+                        {{ user.stats.doneBy }}
+                      </span><br />
+                      <a class="text-gray"
+                         [hidden]="user.common_goals_count == 0" (click)="openCommons()">
+                        {{ 'menu.common'|translate }}
+
+                         <!--data-ls-user="[[ ::user.id ]]"-->
+                      {{ user.common_goals_count }}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
 
         </div>
         <br />
       </div>
 
-      <!--{% if app.user %}-->
-      <!--<div class="col-md-4">-->
-        <!--<complete-profile-block></complete-profile-block>-->
-        <!--<my-list-block></my-list-block>-->
-        <!--&lt;!&ndash;{%  include "AppBundle:Blocks:featureGoals.html.twig" %}&ndash;&gt;-->
-        <!--<top-ideas-block></top-ideas-block>-->
-      <!--</div>-->
-      <!--{% endif %}-->
+      <div class="col-md-4">
+        <complete-profile-block></complete-profile-block>
+        <my-list-block></my-list-block>
+        <top-ideas-block [type]="'featured'"></top-ideas-block>
+        <top-ideas-block [type]="'top'"></top-ideas-block>
+      </div>
     </div>
   </div>
 </div>
