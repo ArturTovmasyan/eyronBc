@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , ViewEncapsulation } from '@angular/core';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Activity } from '../interface/activity';
 
@@ -8,11 +8,12 @@ import { ProjectService } from '../project.service';
 @Component({
   selector: 'my-activity',
   templateUrl: './my-activity.component.html',
-  styleUrls: ['./my-activity.component.css'],
+  styleUrls: ['./my-activity.component.less'],
   providers: [
     ProjectService,
     CacheService
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class MyActivityComponent implements OnInit {
     @Input() single: boolean;

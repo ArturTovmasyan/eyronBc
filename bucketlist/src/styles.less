@@ -2810,7 +2810,7 @@ footer{
 
 #hide-completed{
   display: inline-block;
-  margin-right: 25px;
+  margin: 10px 25px 5px 0;
 }
 .controls {
   margin-top: 10px;
@@ -2821,6 +2821,13 @@ footer{
   height: 32px;
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.map-autocomplete{
+  div.clearfix{
+    position: absolute;
+    z-index: 1;
+  }
 }
 
 #pac-input {
@@ -2870,6 +2877,15 @@ footer{
     line-height: normal;
     font-weight: 300;
     margin:30px 0;
+
+    .empty-text{
+      font-weight: 400;
+      margin-bottom: 5px;
+
+      .btn-purple{
+        margin-left: 30px;
+      }
+    }
   }
 }
 /*end goal item*/
