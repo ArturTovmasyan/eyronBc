@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../project.service'
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Broadcaster } from '../tools/broadcaster';
 
 import { User } from '../interface/user'
 
@@ -26,7 +27,7 @@ export class GoalfriendsComponent implements OnInit {
   public serverPath:string = '';
   public errorMessage:string;
 
-  constructor(private route: ActivatedRoute, private _projectService: ProjectService, private router:Router) {
+  constructor(private route: ActivatedRoute, private _projectService: ProjectService, private router:Router, private broadcaster: Broadcaster) {
     router.events.subscribe((val) => {
       if(this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
@@ -96,5 +97,9 @@ export class GoalfriendsComponent implements OnInit {
     if(this.busy || !this.reserve || !this.reserve.length)return;
     this.busy = true;
     this.getReserve();
+  }
+
+  openCommons(id){
+    this.broadcaster.broadcast('commonModal', id);
   }
 }

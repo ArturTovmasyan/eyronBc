@@ -79,9 +79,9 @@
                *ngFor="let user of users;let e = even, let i = index" [ngClass]="{'margin-top': i < 2}" >
 
             <div class="users-list round clearfix">
-              <a routerLink="/profile/{{ user.u_id }}" style="display:block;" class="text-gray">
+              <a style="display:block;" class="text-gray">
                 <div class="row no-gutter">
-                  <div class="col-xs-3">
+                  <div class="col-xs-3" routerLink="/profile/{{ user.u_id }}">
                     <figure class="image-goalfrinds img-circle ">
                       <img *ngIf="user.image_path" src="{{ serverPath + user.image_path }}" alt="{{ user.first_name }}" class="img-circle img-responsive" />
                       <!--{% set className = "user-no" ~ random(4) %}-->
@@ -91,7 +91,7 @@
 
                   <div class="col-xs-9">
                     <div class="text-gray">
-                      <h4 class="text-dark-gray">
+                      <h4 class="text-dark-gray" routerLink="/profile/{{ user.u_id }}">
                         {{ user.first_name }} {{ user.last_name }}
                       </h4>
                       <span class="text-gray">{{ 'listed_by'|translate }}
@@ -101,7 +101,7 @@
                         {{ user.stats.doneBy }}
                       </span><br />
                       <a class="text-gray"
-                         [hidden]="user.common_goals_count == 0" (click)="openCommons()">
+                         [hidden]="user.common_goals_count == 0" (click)="openCommons(user.id)">
                         {{ 'menu.common'|translate }}
 
                          <!--data-ls-user="[[ ::user.id ]]"-->

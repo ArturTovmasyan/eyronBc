@@ -230,6 +230,22 @@
             <report-modal (changeModal)="hideModal('report')" [data]="{contentType:1,contentId: 352}"></report-modal>
         </div>
 
+        <div *ngIf="commonModal">
+            <common-modal (changeModal)="hideModal('common')" [id]="commonId"></common-modal>
+        </div>
+
+        <div *ngIf="usersModal">
+            <users-modal (changeModal)="hideModal('users')" [data]="{}"></users-modal>
+        </div>
+
+        <div *ngIf="addModal">
+            <add-modal (changeModal)="hideModal('add')" [data]="{}"></add-modal>
+        </div>
+
+        <div *ngIf="doneModal">
+            <done-modal (changeModal)="hideModal('done')" [data]="{}"></done-modal>
+        </div>
+
         <router-outlet></router-outlet>
     </div>
     <footer>

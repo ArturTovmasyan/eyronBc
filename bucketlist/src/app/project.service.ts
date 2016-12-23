@@ -35,6 +35,8 @@ export class ProjectService {
 
     //modals
     private reportUrl = this.baseUrl + 'report';
+    private commonUrl1 = this.baseUrl + 'goals/';
+    private commonUrl2 = '/common';
 
     private userGoalsUrl = 'usergoals';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
@@ -111,23 +113,6 @@ export class ProjectService {
     getUser():Observable<User> {
         return this.http.get(this.userUrl, {headers: this.headers})
             .map((r:Response) => r.json() as User)
-            .catch(this.handleError);
-    }
-
-    /**
-     *
-     */
-    getReport(data:any):Observable<any> {
-        return this.http.get(this.reportUrl + '?commentId=' + data.contentId + '&type=' + data.contentType, {headers: this.headers})
-            .map((r:Response) => r.json())
-            .catch(this.handleError);
-    }
-    /**
-     *
-     */
-    report(data:any):Observable<any> {
-        return this.http.put(this.reportUrl, data, {headers: this.headers})
-            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
     
@@ -278,6 +263,35 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
+    //modal requests
+    /**
+     *
+     */
+    getReport(data:any):Observable<any> {
+        return this.http.get(this.reportUrl + '?commentId=' + data.contentId + '&type=' + data.contentType, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    /**
+     *
+     */
+    report(data:any):Observable<any> {
+        return this.http.put(this.reportUrl, data, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     */
+    getCommons(id:number, start?:number, count?:number):Observable<any> {
+        let end = count?('/' + start + '/' + count):'';
+        return this.http.get(this.commonUrl1 + id + this.commonUrl2 + end, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    
     /**
      *
      * @param error
