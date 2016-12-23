@@ -45,12 +45,12 @@ import { DoneComponent } from './modals/done/done.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ComponentModule,
     InfiniteScrollModule,
     HttpModule,
     JsonpModule,
     appRouting,
-    TranslateModule.forRoot(),
-    ComponentModule
+    TranslateModule.forRoot()
   ],
   providers: [
     ProjectService,

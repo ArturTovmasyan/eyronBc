@@ -11,10 +11,10 @@ import { GoalfriendsRouting } from './goal-friends-routing';
 
 @NgModule({
   imports: [
+    ComponentModule,
     CommonModule,
     FormsModule,
     GoalfriendsRouting,
-    ComponentModule,
     TranslateModule,
     InfiniteScrollModule,
     ActivityBlockModule

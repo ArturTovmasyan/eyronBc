@@ -198,17 +198,6 @@
     }
 }
 
-/* goals animation */
-/*.goals-animate.ng-enter,*/
-/*.goals-animate.ng-leave{*/
-    /*-webkit-transition: 200ms ease-out all;*/
-    /*-moz-transition: 200ms ease-out all;*/
-    /*-ms-transition: 200ms ease-out all;*/
-    /*-o-transition: 200ms ease-out all;*/
-    /*transition: 200ms ease-out all;*/
-    /*position: relative;*/
-    /*display: block;*/
-/*}*/
 .goals-animate.ng-enter-stagger,
 .friends-animate.ng-enter-stagger{
     transition-delay: 0.1s;
@@ -228,4 +217,8 @@
 
 #login-page{
     animation: login 300ms ease-out;
+}
+
+.my-modal{
+    animation: login 400ms ease-out;
 }
