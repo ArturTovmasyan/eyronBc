@@ -141,7 +141,16 @@
         <!--{% if search %} ideas-result {% endif %}-->
         <div class="col-md-{{ ((+i + 1) % 7) < 5 ? 4 : 8 }} goals-animate"
              *ngFor="let goal of ideas; let i = index">
-          <app-goal [goal]="goal" [type]="(category == 'nearby')?'nearby':''" (onHover)="hideJoin($event)" [userLocation]="userLocation"></app-goal>
+          <div class="row idea-item">
+            <div class="col-sm-12">
+              <figure>
+                <app-goal [goal]="goal" [type]="(category == 'nearby')?'nearby':''" (onHover)="hideJoin($event)" [userLocation]="userLocation"></app-goal>
+                <figcaption>
+                  <app-goal-footer [goal]="goal"></app-goal-footer>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
         </div>
       </div>
     </div>

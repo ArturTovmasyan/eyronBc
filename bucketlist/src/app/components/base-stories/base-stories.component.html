@@ -92,38 +92,7 @@
                     <div class="idea-item" *ngIf="story.goal">
                       <figure class="rounded-corners">
                         <i class="icon-lock-white"></i>
-
-                        <a routerLink="/goal/{{ story.goal.slug }}"
-                           class="goalTitle">
-                          <span class="overlay"></span>
-                          <h3>{{ story.goal.title }}</h3>
-                          <!--|blImageFilter('goal_list_horizontal')-->
-                          <img *ngIf="story.goal.cached_image" src="{{ story.goal.cached_image }}"
-                               alt="{{ story.goal.title }}"/>
-                          <div class="absolute">
-                            <ul>
-                              <li>
-                                <a (click)="openSignInPopover()">
-                                  <span>
-                                      {{ 'home_listed_by'| translate }}
-                                      {{ story.goal.stats.listedBy }}
-                                  </span>
-                                  <i class="icon-user-small"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a (click)="openSignInPopover()">
-                                  <span>
-                                      {{ 'home_complete'|translate }}
-                                      {{ story.goal.stats.doneBy }}
-                                  </span>
-                                  <i class="icon-user-small"></i>
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-
-                        </a>
+                          <app-goal [goal]="story.goal"></app-goal>
                       </figure>
                     </div>
                   </div>
