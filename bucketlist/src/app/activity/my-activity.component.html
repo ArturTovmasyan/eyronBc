@@ -9,7 +9,7 @@
     <div class="new-activity" *ngIf="newActivity && !single">
         <a (click)="addNew()">{{ 'new_activity'|translate }}</a>
     </div>
-    <h3 class="text-dark-gray " *ngIf="showNoActivities && !single" id="non-activity" >{{ 'active.not_have'|translate }}
+    <h3 class="text-dark-gray " *ngIf="noActivities && !single" id="non-activity" >{{ 'active.not_have'|translate }}
         <a routerLink="/ideas" class="text-purple">adding</a>
     </h3>
     <!--{% else %}-->
@@ -120,10 +120,18 @@
                         <figure class="rounded-corners-bottom">
 
                             <h3>
-                                <a [href]="goal.publish ? 'goal/' + goal.slug : '#' ">{{ goal.title }}</a>
+                                <a *ngIf="goal.publish" routerLink="goal/{{ goal.slug }}">{{ goal.title }}</a>
+                                <a *ngIf="!goal.publish">{{ goal.title }}</a>
                             </h3>
 
-                            <a [href]="goal.publish? 'goal/' + goal.slug : '#'"
+                            <a *ngIf="goal.publish" routerLink="goal/{{ goal.slug }}"
+                               class="goalTitle">
+                                <span class="overlay"></span>
+                                <img src="{{ goal.cached_image }}"
+                                    alt="{{ goal.title }}"
+                                    *ngIf="goal.cached_image"/>
+                            </a>
+                            <a *ngIf="!goal.publish"
                                class="goalTitle">
                                 <span class="overlay"></span>
                                 <img src="{{ goal.cached_image }}"
@@ -187,8 +195,8 @@
         <br/>
     </div>
     <div class="navigation text-center" *ngIf="!single">
-        <a *ngIf="!ActivitiesBusy && ActivitiesRequest >= 1"
-           (click)='ActivitiesGetReserve()'
+        <a *ngIf="!busy && reserve && reserve.length > 0"
+           (click)='getReserve()'
            class="show-more ">
             <!--ActivitiesName -> Activities.name-->
             <span></span>

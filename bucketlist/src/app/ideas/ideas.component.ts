@@ -26,6 +26,8 @@ export class IdeasComponent implements OnInit {
   public filterVisibility: boolean = false;
   public eventId: number = 0;
   public isHover: boolean = false;
+  public ideasTitle: boolean = true;
+  public noIdeas: boolean = false;
   public hoveredText: string = '';
   public serverPath:string = '';
 
@@ -36,6 +38,7 @@ export class IdeasComponent implements OnInit {
   public userLocation: any;
   public isCompletedGoals: boolean = false;
   public search: string = '';
+  public searchError: string = '';
   public locations:Location[] = [];
   public locationsIds = [];
 
@@ -57,8 +60,10 @@ export class IdeasComponent implements OnInit {
               this.locationsIds = [];
               this.locations = [];
               this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'nearby';
+              this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
               this.ideas = null;
               this.reserve = null;
+              this.ideasTitle = false;
               this.getGoals();
           }
       })
@@ -110,9 +115,18 @@ export class IdeasComponent implements OnInit {
     this._projectService.getIdeaGoals(this.start, this.count, this.search, this.category)
         .subscribe(
             goals => {
-              this.ideas = goals;
-              this.start += this.count;
-              this.setReserve();
+              this.noIdeas = (this.noIdeas && this.search.length == 0 && this.category == 'discover') || (!goals || !goals.length);
+
+                if(this.noIdeas && (this.search.length > 0 || this.category != 'discover')){
+                    this.category = 'discover';
+                    this.searchError = this.search;
+                    this.search = '';
+                    this.getGoals();
+                } else{
+                    this.ideas = goals;
+                    this.start += this.count;
+                    this.setReserve();
+                }
             },
             error => this.errorMessage = <any>error);
   }
@@ -140,6 +154,7 @@ export class IdeasComponent implements OnInit {
   }
 
   doSearch(){
+      this.ideasTitle = false;
       if(this.category == 'nearby'){
           this.category = 'discover'
       }

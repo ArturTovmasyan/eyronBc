@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { DiscoverGoalComponent } from './components/discover-goal/discover-goal.component';
 import { BaseStoriesComponent } from './components/base-stories/base-stories.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
+import { ReportComponent } from './modals/report/report.component';
 import { ComponentModule } from './components/components.module';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { PageComponent } from './page/page.component';
@@ -32,7 +33,8 @@ import { PageComponent } from './page/page.component';
     RegisterComponent,
     ResettingRequestComponent,
     PageComponent,
-    MarkdownToHtmlPipe
+    MarkdownToHtmlPipe,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

@@ -79,7 +79,10 @@
         "take_note": "Take notes, follow your goal",
         "deside": "Be better prepared to decide on goals",
         "visibility": "Visibility",
-        "not_found": "<p class=\"empty-text text-center\">\n     Sorry, we couldn't find anything.\n </p>\n\n <p  class=\"empty-text text-center ng-hide\" data-ng-show='%isSearch%'>\n     <span>You can create this goal:</span>\n     <span class=\"text-purple\">%search%</span>\n     <a  class=\"btn btn-purple\" href=\"%href%\">Start</a>\n </p>\n\n <p  class=\"empty-text text-center ng-hide\" data-ng-show='%isSearch%'>or you can explore other ideas:</p>\n",
+        "not_found": "<p class=\"empty-text text-center\">\n     Sorry, we couldn't find anything.\n </p>\n\n ",
+        "not_found2": "You can create this goal:",
+        "not_found3": "or you can explore other ideas:",
+        "start": "Start",
         "list_title": "Discover ideas that inspire you",
         "is_completed": "Goal is completed",
         "is_active": "Goal is active",
@@ -143,7 +146,7 @@
     "Type in a youtube or vimeo link in the field": "Type in a youtube or vimeo link in the field",
     "Done": "complete",
     "ideas_list_title": "Explore thousands of great ideas for your Bucket List",
-    "ideas_near_by_allow": "<span class=\"text-purple\" data-ng-click=\"allowBrowserLocation()\">Allow</span> your Browser Location Service or enter your location",
+    "ideas_near_by_allow": "<span class=\"text-purple\" (click)=\"setCurrentPosition()\">Allow</span> your Browser Location Service or enter your location",
     "nearby": "Nearby",
     "hide_nearby": "Hide from Nearby",
     "explore": "Confirm",
@@ -600,5 +603,18 @@
         "level": "Level"
     },
     "goalfriend": "Goalfriend",
-    "closefriend": "Closefriend"
+    "closefriend": "Closefriend",
+    "security": {
+        "login": {
+            "title": "Login to Your Account",
+            "username": "Username",
+            "password": "Password",
+            "remember_me": "Remember me",
+            "forgot_password": "Forgot password?",
+            "email": "Email",
+            "sign_up": "Sign Up",
+            "submit": "Sign In",
+            "connect": "CONNECT WITH"
+        }
+    }
 }

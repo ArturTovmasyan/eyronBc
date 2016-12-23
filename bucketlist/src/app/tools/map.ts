@@ -11,11 +11,7 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 @Component({
     selector: 'map-autocomplate',
     templateUrl: './autocomplate-map.component.html',
-    styles: [`
-    .sebm-google-map-container {
-      height: 300px;
-    }
-  `],
+    styleUrls: ['./map.component.less'],
     encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
@@ -79,6 +75,10 @@ export class MapComponent implements OnInit {
                     this.markers = [marker];
                     this.latitude = place.geometry.location.lat();
                     this.longitude = place.geometry.location.lng();
+                    this.bounds.extend({
+                        lat: this.latitude,
+                        lng: this.longitude
+                    });
                     this.zoom = 10;
                 });
             });
