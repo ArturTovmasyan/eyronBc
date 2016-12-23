@@ -863,6 +863,28 @@ class GoalRepository extends EntityRepository
             ->getResult();
     }
 
+
+
+    public function findOwnedGoalsCount($owner, $onlyPublish = false)
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('count(g)')
+            ->from('AppBundle:Goal', 'g')
+            ->andWhere('g.author = :owner')
+            ->setParameter('owner', $owner);
+        ;
+
+        if($onlyPublish){
+            $query
+                ->andWhere('g.publish = 1')
+            ;
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
+
+    }
+
     /**
      * @param $owner
      * @param $first

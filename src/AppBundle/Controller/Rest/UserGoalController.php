@@ -282,6 +282,11 @@ class UserGoalController extends FOSRestController
         }
 
         $serializer = $this->get('serializer');
+        $onlyPublish = (is_null($userId) || $userId == $this->getUser()->getId()) ? false : true;
+
+        $states = $user->getStats();
+        $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($user->getId(), $onlyPublish);
+        $user->setStats($states);
 
         if ($request->get('_route') != 'rest_post_usergoal_locations'){
             if ($user->getId() != $this->getUser()->getId()){
