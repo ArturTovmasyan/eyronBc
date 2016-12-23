@@ -225,6 +225,11 @@
         <div *ngIf="joinShow">
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
+
+        <div *ngIf="reportModal">
+            <report-modal (changeModal)="hideModal('report')" [data]="{contentType:1,contentId: 352}"></report-modal>
+        </div>
+
         <router-outlet></router-outlet>
     </div>
     <footer>

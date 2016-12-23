@@ -22,6 +22,9 @@ export class AppComponent implements OnInit  {
   public translatedText: string;
   public supportedLanguages: any[];
   public joinShow:boolean = false;
+  public reportModal:boolean = false;
+  public commonModal:boolean = false;
+  public usersModal:boolean = false;
   public menus: any[];
   public privacyMenu: any;
   public serverPath:string = '';
@@ -104,5 +107,11 @@ export class AppComponent implements OnInit  {
               this._cacheService.set('footerMenu', [menus, this.privacyMenu], {maxAge: 3 * 24 * 60 * 60});
             },
             error => this.errorMessage = <any>error);
+  }
+
+  hideModal(name:string){
+        if(name == 'report'){
+            this.reportModal = false;
+        }
   }
 }
