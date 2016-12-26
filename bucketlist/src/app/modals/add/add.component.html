@@ -146,7 +146,16 @@
 
                         <div class="row">
 
-                            <div class="col-sm-4 date " *ngIf="!(complete.switch == 1)">
+                            <div class="col-sm-4 date " *ngIf="complete.switch != 1">
+                                <ng-select [allowClear]="true"
+                                           [items]="months"
+                                           [disabled]="disabled"
+                                           (data)="refreshValue($event, 'year')"
+                                           (selected)="selected($event)"
+                                           (removed)="removed($event)"
+                                           (typed)="typed($event)"
+                                           placeholder="{{ 'form.birth_date_year'|translate }}">
+                                </ng-select>
                                 <!--<ui-select search-enabled="false" [(ngModel)]="$parent.year" skip-focusser="true">-->
                                     <!--<ui-select-match-->
                                             <!--placeholder="{{ 'form.birth_date_year'|translate }}">-->
@@ -159,6 +168,15 @@
                                 <!--</ui-select>-->
                             </div>
                             <div class="col-sm-4 " *ngIf="complete.switch == 1">
+                                <ng-select [allowClear]="true"
+                                           [items]="months"
+                                           [disabled]="disabled"
+                                           (data)="refreshValue($event, 'year')"
+                                           (selected)="selected($event)"
+                                           (removed)="removed($event)"
+                                           (typed)="typed($event)"
+                                           placeholder="{{ 'form.birth_date_year'|translate }}">
+                                </ng-select>
                                 <!--<ui-select search-enabled="false" [(ngModel)]="$parent.year" skip-focusser="true">-->
                                     <!--<ui-select-match-->
                                             <!--placeholder="{{ 'form.birth_date_year'|translate }}">-->
@@ -172,6 +190,15 @@
                             </div>
 
                             <div class="col-sm-4 date " *ngIf="complete.switch == 1">
+                                <ng-select [allowClear]="true"
+                                           [items]="months"
+                                           [disabled]="disabled"
+                                           (data)="refreshValue($event, 'month')"
+                                           (selected)="selected($event)"
+                                           (removed)="removed($event)"
+                                           (typed)="typed($event)"
+                                           placeholder="{{ 'form.birth_date_month'|translate }}">
+                                </ng-select>
                                 <!--<ui-select search-enabled="false" [(ngModel)]="$parent.month" skip-focusser="true">-->
                                     <!--<ui-select-match-->
                                             <!--placeholder="{{ 'form.birth_date_month'|translate }}">-->
@@ -184,6 +211,15 @@
                                 <!--</ui-select>-->
                             </div>
                             <div class="col-sm-4 date " *ngIf="!(complete.switch == 1)">
+                                <ng-select [allowClear]="true"
+                                           [items]="months"
+                                           [disabled]="disabled"
+                                           (data)="refreshValue($event, 'month')"
+                                           (selected)="selected($event)"
+                                           (removed)="removed($event)"
+                                           (typed)="typed($event)"
+                                           placeholder="{{ 'form.birth_date_month'|translate }}">
+                                </ng-select>
                                 <!--<ui-select search-enabled="false" [(ngModel)]="$parent.month" skip-focusser="true">-->
                                     <!--<ui-select-match-->
                                             <!--placeholder="{{ 'form.birth_date_month'|translate }}">-->
@@ -196,6 +232,15 @@
                                 <!--</ui-select>-->
                             </div>
                             <div class="col-sm-4 date " *ngIf="complete.switch == 1">
+                                <ng-select [allowClear]="true"
+                                           [items]="months"
+                                           [disabled]="disabled"
+                                           (data)="refreshValue($event, 'day')"
+                                           (selected)="selected($event)"
+                                           (removed)="removed($event)"
+                                           (typed)="typed($event)"
+                                           placeholder="{{ 'form.birth_date_day'|translate }}">
+                                </ng-select>
                                 <!--<ui-select search-enabled="false" [(ngModel)]="$parent.day" skip-focusser="true">-->
                                     <!--<ui-select-match-->
                                             <!--placeholder="{{ 'form.birth_date_day'|translate }}">-->
@@ -208,6 +253,15 @@
                                 <!--</ui-select>-->
                             </div>
                             <div class="col-sm-4 date " *ngIf="!(complete.switch == 1)">
+                                <ng-select [allowClear]="true"
+                                           [items]="months"
+                                           [disabled]="disabled"
+                                           (data)="refreshValue($event, 'day')"
+                                           (selected)="selected($event)"
+                                           (removed)="removed($event)"
+                                           (typed)="typed($event)"
+                                           placeholder="{{ 'form.birth_date_day'|translate }}">
+                                </ng-select>
                                 <!--<ui-select search-enabled="false" [(ngModel)]="$parent.day" skip-focusser="true">-->
                                     <!--<ui-select-match-->
                                             <!--placeholder="{{ 'form.birth_date_day'|translate }}">-->
