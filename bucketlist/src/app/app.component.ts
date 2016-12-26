@@ -67,13 +67,17 @@ export class AppComponent implements OnInit  {
     if(localStorage.getItem('apiKey')){
         this._projectService.getUser()
             .subscribe(
-            user => this.appUser = user,
+            user => {
+                this.appUser = user;
+                this.broadcaster.broadcast('getUser', user);
+            },
             error => localStorage.removeItem('apiKey'));
     }
 
     this.broadcaster.on<User>('login')
         .subscribe(user => {
-          this.appUser = user;         
+          this.appUser = user;
+          this.broadcaster.broadcast('getUser', user);
         });
 
     this.broadcaster.on<string>('logout')
