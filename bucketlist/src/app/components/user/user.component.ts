@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , ViewEncapsulation} from '@angular/core';
 import { Broadcaster } from '../../tools/broadcaster';
 import { ProjectService } from '../../project.service'
 
@@ -7,7 +7,8 @@ import { User } from '../../interface/user';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.less']
+  styleUrls: ['./user.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class UserComponent implements OnInit {
   @Input() user: User;
