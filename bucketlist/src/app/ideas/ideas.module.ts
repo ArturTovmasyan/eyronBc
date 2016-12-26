@@ -27,9 +27,6 @@ import { IdeasRouting } from './ideas-routing';
   declarations: [
     IdeasComponent,
     MapComponent
-  ],
-  providers: [
-    // HeroService
   ]
 })
 export class IdeasModule {}
