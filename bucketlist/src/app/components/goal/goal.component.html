@@ -15,7 +15,7 @@
         <a routerLink="/goal/{{ goal.slug }}">{{ goal.title }}</a>
       </h3>
 
-      <a routerLink="/goal/{{ goal.slug }}" >
+      <a routerLink="/goal/{{ goal.slug }}" class="goal-item-image">
         <span class="overlay"></span>
         <img src="{{ goal.cached_image }}" *ngIf="goal.cached_image" alt="{{ goal.title }}"/>
       </a>
