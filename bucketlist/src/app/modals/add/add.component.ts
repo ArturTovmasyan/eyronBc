@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { Router } from '@angular/router';
 
@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'add-modal',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.less']
+  styleUrls: ['./add.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AddComponent implements OnInit {
   @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
