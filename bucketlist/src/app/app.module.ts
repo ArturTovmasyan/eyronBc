@@ -6,6 +6,12 @@ import {TranslateModule} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import {SelectModule} from 'ng2-select/ng2-select';
 import {DndModule} from 'ng2-dnd';
+import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+
+const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 import { AppComponent } from './app.component';
 import { AuthGuard }      from './common/auth.guard';
@@ -53,6 +59,7 @@ import { DoneComponent } from './modals/done/done.component';
     JsonpModule,
     appRouting,
     SelectModule,
+    PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),
     TranslateModule.forRoot()
   ],
