@@ -1,5 +1,5 @@
 <div class="bg-grey my-modal" id="goal-users-modal">
-    <div class="bg-white relative" *ngIf="users && users.length && data.category">
+    <div class="bg-white relative text-left" *ngIf="users && users.length && data.category">
         <h3 *ngIf="data.category == 1"  >{{ 'home_listed_by'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
         <h3 *ngIf="data.category == 2"  >{{ 'home_complete'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
         <h3 *ngIf="data.category == 3"  >{{ 'home_voters'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
@@ -14,7 +14,10 @@
         <div [hidden]="!users || !users.length"
              class="row"
              *ngFor="let user of users">
-            <app-user [user]="user"></app-user>
+
+            <div class="col-xs-12">
+                <app-user [user]="user"></app-user>
+            </div>
 
         </div>
     </div>

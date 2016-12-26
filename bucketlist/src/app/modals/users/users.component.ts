@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input , ViewEncapsulation,} from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,8 @@ import { User } from '../../interface/user';
 @Component({
   selector: 'users-modal',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.less']
+  styleUrls: ['./users.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class UsersComponent implements OnInit {
   @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
