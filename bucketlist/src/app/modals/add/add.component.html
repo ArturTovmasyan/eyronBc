@@ -1,4 +1,4 @@
-<div class="my-modal" id="goal-modal">
+<div class="my-modal goal-modal">
     <div class="goal-container">
         <div *ngIf="newAdded" class="email">
             {{ "goal.create_goal" | translate }}
@@ -58,7 +58,7 @@
 
         <!--data-ng-init="myMonths={{ arrayMonth |json_encode() }}; redirectPath='{{ path('user_profile') }}'"-->
         <form class="form-horizontal" method="post" #addForm="ngForm" (ngSubmit)="add(addForm)">
-            <div class="goal-end">
+            <div class="goal-add bg-white">
                 <div class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
