@@ -1,20 +1,20 @@
-<a *ngIf="type == 1">
+<a *ngIf="type == 1" (click)="openUsersModal(goal.id, goal.stats.listedBy, type)">
   <span>
       {{ 'home_listed_by' | translate }}
       {{ goal.stats.listedBy }}
   </span>
   <i class="icon-user-small"></i>
 </a>
-<a *ngIf="type == 2">
+<a *ngIf="type == 2" (click)="openUsersModal(goal.id, goal.stats.doneBy, type)">
   <span>
       {{ 'home_complete' | translate }}
       {{ goal.stats.doneBy }}
   </span>
   <i class="icon-user-small"></i>
 </a>
-<a *ngIf="type == 3">
+<a *ngIf="type == 3" (click)="openUsersModal(story.id, story.count, type)">
   <span>
-      <!--{{ count }}-->
+      <!--{{ story.count }}-->
   </span>
     <!--<i [ngClass]="{'like-active': $parent.vote[activity.success_story.id],'user-story':(activity.success_story.user.id == app.user.id )}" (click)="manageVote(activity.success_story.id, (activity.success_story.user.id != app.user.id ))" class="like-icon"></i>-->
 </a>

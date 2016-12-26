@@ -19,7 +19,11 @@ export class UserComponent implements OnInit {
   }
 
   openCommons(id){
-    this.broadcaster.broadcast('commonModal', id);
+    if(!localStorage.getItem('apiKey')){
+      this.broadcaster.broadcast('openLogin', 'some message');
+    } else {
+      this.broadcaster.broadcast('commonModal', id);
+    }
   }
 
 }

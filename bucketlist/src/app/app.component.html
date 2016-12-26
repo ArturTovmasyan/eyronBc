@@ -227,23 +227,23 @@
         </div>
 
         <div *ngIf="reportModal">
-            <report-modal (changeModal)="hideModal('report')" [data]="{contentType:1,contentId: 352}"></report-modal>
+            <report-modal (changeModal)="hideModal('report')" [data]="{contentType:1,contentId: 352}" class="modal-block"></report-modal>
         </div>
 
         <div *ngIf="commonModal">
-            <common-modal (changeModal)="hideModal('common')" [id]="commonId"></common-modal>
+            <common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>
         </div>
 
         <div *ngIf="usersModal">
-            <users-modal (changeModal)="hideModal('users')" [data]="{}"></users-modal>
+            <users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>
         </div>
 
         <div *ngIf="addModal">
-            <add-modal (changeModal)="hideModal('add')" [data]="{}"></add-modal>
+            <add-modal (changeModal)="hideModal('add')" [data]="{}" class="modal-block"></add-modal>
         </div>
 
         <div *ngIf="doneModal">
-            <done-modal (changeModal)="hideModal('done')" [data]="{}"></done-modal>
+            <done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>
         </div>
 
         <router-outlet></router-outlet>

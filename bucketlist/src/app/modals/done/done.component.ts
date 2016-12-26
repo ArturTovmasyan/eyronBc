@@ -11,15 +11,20 @@ import { Router } from '@angular/router';
 export class DoneComponent implements OnInit {
   @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
   @Input() data: any;
+  public userGoal:any;
+  public story:string;
 
   constructor(private ProjectService: ProjectService, private router: Router) { }
 
   ngOnInit() {
     if(!localStorage.getItem('apiKey')){
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
       this.modalHideEmitter.emit(null);
     } else {
-
+        this.userGoal = this.data;
+        if(this.data.story){
+          this.story = this.data.story.story;
+        }
     }
   }
   

@@ -219,6 +219,31 @@
     animation: login 300ms ease-out;
 }
 
-.my-modal{
+.modal-block{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #000;
+    background-color: rgba(0,0,0,0.75);
+    text-align: center;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: backwards;
+    animation-fill-mode: backwards;
     animation: login 400ms ease-out;
+}
+.my-modal{
+    position: relative;
+}
+#story-modal{
+    min-height: 925px;
 }

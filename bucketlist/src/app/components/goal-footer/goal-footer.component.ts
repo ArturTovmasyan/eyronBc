@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Goal } from '../../interface/goal';
 import {Broadcaster} from '../../tools/broadcaster';
+import {ProjectService} from '../../project.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import {Broadcaster} from '../../tools/broadcaster';
 })
 export class GoalFooterComponent implements OnInit {
   @Input() goal: Goal;
-  constructor(private broadcaster: Broadcaster) { }
+  constructor(private broadcaster: Broadcaster, private ProjectService: ProjectService) { }
 
   ngOnInit() {
   }
@@ -30,7 +31,11 @@ export class GoalFooterComponent implements OnInit {
     if(!key){
       this.broadcaster.broadcast('openLogin', 'message');
     } else {
-      
+      this.ProjectService.setDoneUserGoal(id).subscribe(() => {
+          this.ProjectService.getStory(id).subscribe((data)=> {
+            this.broadcaster.broadcast('doneModal', data);
+          })
+        });
     }
   }
 }

@@ -39,7 +39,8 @@ export class ProjectService {
     private commonUrl2 = '/common';
     private usersUrl = this.baseUrl + 'user-list/';
 
-    private userGoalsUrl = 'usergoals';  // URL to web API
+    private userGoalsUrl = this.baseUrl + 'usergoals/';  // URL to web API
+    private getStoryUrl = this.baseUrl + 'story/';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
     private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
@@ -97,16 +98,38 @@ export class ProjectService {
             .catch(this.handleError);
     }
     
-    // /**
-    //  *
-    //  * @param goalId
-    //  * @returns {Observable<R>}
-    //  */
-    // getUserGoal(goalId:number):Observable<UserGoal> {
-    //     return this.http.get(this.userGoalsUrl + '/' + goalId)
-    //         .map((r:Response) => r.json() as UserGoal)
-    //         .catch(this.handleError);
-    // }
+    /**
+     *
+     * @param goalId
+     * @returns {Observable<R>}
+     */
+    getUserGoal(goalId:number):Observable<UserGoal> {
+        return this.http.get(this.userGoalsUrl + goalId, {headers: this.headers})
+            .map((r:Response) => r.json() as UserGoal)
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param goalId
+     * @returns {Observable<R>}
+     */
+    setDoneUserGoal(goalId:number):Observable<UserGoal> {
+        return this.http.get(this.userGoalsUrl + goalId + '/dones/true', {headers: this.headers})
+            .map((r:Response) => r.json() as UserGoal)
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param goalId
+     * @returns {Observable<R>}
+     */
+    getStory(goalId:number):Observable<any> {
+        return this.http.get(this.getStoryUrl + goalId, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
 
     /**
      * 
