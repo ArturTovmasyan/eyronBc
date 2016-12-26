@@ -14,9 +14,15 @@ export class AddComponent implements OnInit {
   public userGoal: any;
   public appUser: any;
   public year: number;
-  public years: any;
+  public years: number[] = [];
+  public completeYears: number[] = [];
+  public days: number[] = [];
   public month: number;
   public day: number;
+  public noStory:boolean = false;
+  public invalidYear:boolean = false;
+  public uncompletedYear:boolean = false;
+  // public newAdded:boolean = userGoal.manage? false: true;
   public completedStepCount: number;
   public complete:any = {
     switch: 0
@@ -55,7 +61,8 @@ export class AddComponent implements OnInit {
     this.value = value;console.log(value, type);
   }
 
-  constructor(private ProjectService: ProjectService, private router: Router) { }
+  constructor(private ProjectService: ProjectService, private router: Router) {
+  }
 
   ngOnInit() {
     if(!localStorage.getItem('apiKey')){
@@ -64,6 +71,15 @@ export class AddComponent implements OnInit {
     } else {
       this.appUser = this.ProjectService.getMyUser();
       this.userGoal = this.data;
+      let date = new Date();
+      let currentYear = date.getFullYear();
+      for(let i = 0 ; i < 50; i++){
+        this.years[i] = +currentYear + i;
+        this.completeYears[i] = +currentYear - i;
+        if(i < 31){
+          this.days[i] = i + 1;
+        }
+      }
     }
   }
   

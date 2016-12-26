@@ -148,7 +148,7 @@
 
                             <div class="col-sm-4 date " *ngIf="complete.switch != 1">
                                 <ng-select [allowClear]="true"
-                                           [items]="months"
+                                           [items]="years"
                                            [disabled]="disabled"
                                            (data)="refreshValue($event, 'year')"
                                            (selected)="selected($event)"
@@ -169,7 +169,7 @@
                             </div>
                             <div class="col-sm-4 " *ngIf="complete.switch == 1">
                                 <ng-select [allowClear]="true"
-                                           [items]="months"
+                                           [items]="completeYears"
                                            [disabled]="disabled"
                                            (data)="refreshValue($event, 'year')"
                                            (selected)="selected($event)"
@@ -233,7 +233,7 @@
                             </div>
                             <div class="col-sm-4 date " *ngIf="complete.switch == 1">
                                 <ng-select [allowClear]="true"
-                                           [items]="months"
+                                           [items]="days"
                                            [disabled]="disabled"
                                            (data)="refreshValue($event, 'day')"
                                            (selected)="selected($event)"
@@ -254,7 +254,7 @@
                             </div>
                             <div class="col-sm-4 date " *ngIf="!(complete.switch == 1)">
                                 <ng-select [allowClear]="true"
-                                           [items]="months"
+                                           [items]="days"
                                            [disabled]="disabled"
                                            (data)="refreshValue($event, 'day')"
                                            (selected)="selected($event)"
@@ -362,101 +362,106 @@
                             <!--</div>-->
                         </div>
 
-                        <!--<div data-dnd-list="userGoal.formatted_steps"-->
-                             <!--data-dnd-disable-if="complete.switch == 1"-->
-                             <!--data-dnd-dragover="dragoverCallback(event, index, external, type)"-->
-                             <!--data-dnd-drop="dropCallback(event, index, item, external, type, '')">-->
-                            <!--<div class="form-group row"-->
-                                 <!--data-ng-repeat="(k, step) in userGoal.formatted_steps"-->
-                                 <!--data-ng-init="myStep[k] = step.switch"-->
-                                 <!--*ngIf="(!step.switch || !myStep[k]) && !(!step.text && complete.switch == 1)"-->
-                                 <!--data-dnd-draggable="step"-->
-                                 <!--data-dnd-disable-if="!step.text || step.switch"-->
-                                 <!--data-dnd-moved="moveElement($index)"-->
-                                 <!--data-dnd-effect-allowed="move"-->
-                                 <!--data-dnd-selected="models.selected = step"-->
-                                 <!--[ngClass]="{'selected': models.selected === step, 'noselect': !step.text}">-->
+                        <div dnd-sortable-container [sortableData]="userGoal.formatted_steps">
+                            <!--data-dnd-list="userGoal.formatted_steps"-->
+                            <!--data-dnd-disable-if="complete.switch == 1"-->
+                            <!--data-dnd-dragover="dragoverCallback(event, index, external, type)"-->
+                            <!--data-dnd-drop="dropCallback(event, index, item, external, type, '')"-->
+                            <div class="form-group row"
+                                 *ngFor="let step of userGoal.formatted_steps; let i = index"
+                                 dnd-sortable
+                                 [sortableIndex]="i"
+                                 [hidden]="!((!step.switch || !myStep[k]) && !(!step.text && complete.switch == 1))"
+                                 [ngClass]="{'noselect': !step.text}">
+                                <!--data-ng-init="myStep[k] = step.switch"-->
+                                <!--data-dnd-draggable="step"-->
+                                <!--data-dnd-disable-if="!step.text || step.switch"-->
+                                <!--data-dnd-moved="moveElement($index)"-->
+                                <!--data-dnd-effect-allowed="move"-->
+                                <!--data-dnd-selected="models.selected = step"-->
+                                <!--class 'selected': models.selected === step,-->
 
-                                <!--<div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">-->
+                                <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
 
-                                    <!--<label class="relative">-->
-                                        <!--<span class="my-md-container" [ngClass]="{'my-md-checked': step.switch}">-->
-                                            <!--<span class="my-md-icon"></span>-->
-                                            <!--<input id="myonoffswitch{{k}}"-->
-                                                   <!--type="checkbox" aria-label="steps"-->
-                                                   <!--name="{% if app.environment !='test' %}switch[ {{k}} ]{% endif %}"-->
-                                                   <!--[(ngModel)]="step.switch"-->
-                                                   <!--data-ng-change="myStep[k] = false"-->
+                                    <label class="relative">
+                                        <span class="my-md-container" [ngClass]="{'my-md-checked': step.switch}">
+                                            <span class="my-md-icon"></span>
+                                            <!--id="myonoffswitch{{k}}"-->
+                                            <input id="myonoffswitch{{ i }}" type="checkbox" aria-label="steps"
+                                                   name="{% if app.environment !='test' %}switch[ {{k}} ]{% endif %}"
+                                                   [(ngModel)]="step.switch"
+                                                   style="display: none" />
+                                            <!--(change)="myStep[k] = false"-->
                                                    <!--data-ng-disabled="complete.switch == 1 || !step.text"-->
-                                                   <!--style="display: none" />-->
-                                        <!--</span>-->
+                                        </span>
 
-                                    <!--</label>-->
+                                    </label>
 
-                                <!--</div>-->
+                                </div>
 
-                                <!--<div class="col-xs-10 col-sm-11">-->
-                                    <!--<div class="to-do-list">-->
+                                <div class="col-xs-10 col-sm-11">
+                                    <div class="to-do-list">
 
-                                        <!--<input type="text"-->
-                                               <!--class="form-control"-->
-                                               <!--[ngClass]="{'market-step': step.switch}"-->
-                                               <!--data-step-->
-                                               <!--data-key="k"-->
-                                               <!--data-array="userGoal.formatted_steps"-->
-                                               <!--[(ngModel)]="step.text"-->
-                                               <!--data-ng-disabled="complete.switch == 1 || step.switch"-->
-                                               <!--name="{% if app.environment !='test' %}stepText[ {{ k }} ]{% endif %}"-->
-                                               <!--placeholder="{{ "goal.add_step"|translate }}">-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                                        <input type="text"
+                                               class="form-control"
+                                               [ngClass]="{'market-step': step.switch}"
+                                               [(ngModel)]="step.text"
+                                               name="stepText{{i}}"
+                                               placeholder="{{ 'goal.add_step'|translate }}">
+                                        <!--name="stepText[ {{ k }} ]"-->
+                                        <!--data-step-->
+                                        <!--data-key="k"-->
+                                        <!--data-array="userGoal.formatted_steps"-->
+                                        <!--data-ng-disabled="complete.switch == 1 || step.switch"-->
+                                    </div>
+                                </div>
 
-                            <!--</div>-->
+                            </div>
 
-                            <!--<p (click)="completedStepsShow = !completedStepsShow"-->
-                               <!--*ngIf="completedStepCount" class="text-purple">-->
-                                <!--<span *ngIf="!completedStepsShow">{{ "show" |translate }}</span>-->
-                                <!--<span *ngIf="completedStepsShow">{{ "hide" |translate }}</span> {{ completedStepCount}} {{ "completed" |translate }}-->
-                            <!--</p>-->
+                            <p (click)="completedStepsShow = !completedStepsShow"
+                               *ngIf="completedStepCount" class="text-purple">
+                                <span *ngIf="!completedStepsShow">{{ "show" |translate }}</span>
+                                <span *ngIf="completedStepsShow">{{ "hide" |translate }}</span> {{ completedStepCount}} {{ "completed" |translate }}
+                            </p>
 
-                            <!--<div class="form-group row"-->
-                                 <!--data-ng-repeat="(k, step) in userGoal.formatted_steps | filter: {switch: true}"-->
-                                 <!--*ngIf="completedStepsShow">-->
+                            <div class="form-group row"
+                                 *ngFor="let step of userGoal.formatted_steps; let k = index"
+                                 [hidden]="!completedStepsShow || !step.switch">
 
-                                <!--<div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">-->
+                                <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
 
-                                    <!--<label class="relative">-->
-                                        <!--<span class="my-md-container my-md-checked">-->
-                                            <!--<span class="my-md-icon"></span>-->
-                                            <!--<input id="myonoffswitch{{k}}" type="checkbox" aria-label="steps"-->
-                                                   <!--name="{% if app.environment !='test' %}switch[ {{k}} ]{% endif %}"-->
-                                                   <!--[(ngModel)]="step.switch"-->
-                                                   <!--data-ng-disabled="complete.switch == 1 || !step.text"-->
-                                                   <!--style="display: none" />-->
-                                        <!--</span>-->
+                                    <label class="relative">
+                                        <span class="my-md-container my-md-checked">
+                                            <span class="my-md-icon"></span>
+                                            <input id="myonoffswitch{{ k }}" type="checkbox" aria-label="steps"
+                                                   name="switch{{ k }}"
+                                                   [(ngModel)]="step.switch"
+                                                   style="display: none" />
+                                            <!--data-ng-disabled="complete.switch == 1 || !step.text"-->
+                                        </span>
 
-                                    <!--</label>-->
-                                <!--</div>-->
+                                    </label>
+                                </div>
 
-                                <!--<div class="col-xs-10 col-sm-11">-->
-                                    <!--<div class="to-do-list">-->
-                                        <!--<input type="text"-->
-                                               <!--class="form-control"-->
-                                               <!--data-step-->
-                                               <!--data-key="k"-->
-                                               <!--data-array="userGoal.formatted_steps"-->
-                                               <!--[(ngModel)]="step.text"-->
-                                               <!--data-ng-disabled="complete.switch == 1"-->
-                                               <!--name="{% if app.environment !='test' %}stepText[ {{ k }} ]{% endif %}"-->
-                                               <!--placeholder="{{ "goal.add_step"|translate }}">-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                                <div class="col-xs-10 col-sm-11">
+                                    <div class="to-do-list">
+                                        <input type="text"
+                                               class="form-control"
+                                               [(ngModel)]="step.text"
+                                               name="stepText{{ k }}"
+                                               placeholder="{{ 'goal.add_step'|translate }}">
+                                        <!--data-step-->
+                                        <!--data-key="k"-->
+                                        <!--data-array="userGoal.formatted_steps"-->
+                                        <!--data-ng-disabled="complete.switch == 1"-->
+                                    </div>
+                                </div>
 
-                            <!--</div>-->
+                            </div>
 
-                            <!--<div class="dndPlaceholder form-group row"></div>-->
+                            <div class="dndPlaceholder form-group row"></div>
 
-                        <!--</div>-->
+                        </div>
 
 
                     </div>

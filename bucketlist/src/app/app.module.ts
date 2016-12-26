@@ -5,6 +5,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import {TranslateModule} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import {SelectModule} from 'ng2-select/ng2-select';
+import {DndModule} from 'ng2-dnd';
 
 import { AppComponent } from './app.component';
 import { AuthGuard }      from './common/auth.guard';
@@ -52,6 +53,7 @@ import { DoneComponent } from './modals/done/done.component';
     JsonpModule,
     appRouting,
     SelectModule,
+    DndModule.forRoot(),
     TranslateModule.forRoot()
   ],
   providers: [
