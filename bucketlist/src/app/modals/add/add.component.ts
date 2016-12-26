@@ -11,6 +11,11 @@ import { Router } from '@angular/router';
 export class AddComponent implements OnInit {
   @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
   @Input() data: any;
+  public userGoal: any;
+  public appUser: any;
+  public complete:any = {
+    switch: 0
+  };
 
   constructor(private ProjectService: ProjectService, private router: Router) { }
 
@@ -19,9 +24,13 @@ export class AddComponent implements OnInit {
       this.router.navigate(['/']);
       this.modalHideEmitter.emit(null);
     } else {
-      
+      this.appUser = this.ProjectService.getMyUser();
+      this.userGoal = this.data;
     }
   }
   
-
+  add(addForm){
+    console.log('submit');
+    event.preventDefault();
+  }
 }

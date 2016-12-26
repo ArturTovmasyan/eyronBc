@@ -12,6 +12,7 @@ export class DoneComponent implements OnInit {
   @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
   @Input() data: any;
   public userGoal:any;
+  public appUser:any;
   public story:string;
 
   constructor(private ProjectService: ProjectService, private router: Router) { }
@@ -21,6 +22,7 @@ export class DoneComponent implements OnInit {
       // this.router.navigate(['/']);
       this.modalHideEmitter.emit(null);
     } else {
+        this.appUser = this.ProjectService.getMyUser();
         this.userGoal = this.data;
         if(this.data.story){
           this.story = this.data.story.story;

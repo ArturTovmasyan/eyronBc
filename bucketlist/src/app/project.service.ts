@@ -25,6 +25,7 @@ export class ProjectService {
     // private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
+    private appUser:User;
 
     private envprefix = '/app_dev.php/';
     // private envprefix = '/';
@@ -56,6 +57,10 @@ export class ProjectService {
     private resetNearByUrl = this.baseOrigin + this.envprefix + 'usergoals/';
     constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
+        this.broadcaster.on<User>('getUser')
+            .subscribe(user => {
+                this.appUser = user;
+            });
     }
 
     /**
@@ -73,6 +78,14 @@ export class ProjectService {
      */
     getPath(){
         return this.baseOrigin;
+    }
+    
+    /**
+     * 
+     * @returns {Observable<R>}
+     */
+    getMyUser(){
+        return this.appUser;
     }
 
     /**

@@ -239,7 +239,7 @@
         </div>
 
         <div *ngIf="addModal">
-            <add-modal (changeModal)="hideModal('add')" [data]="{}" class="modal-block"></add-modal>
+            <add-modal (changeModal)="hideModal('add')" [data]="addData" class="modal-block"></add-modal>
         </div>
 
         <div *ngIf="doneModal">
