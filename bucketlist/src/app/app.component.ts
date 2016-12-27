@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TranslateService} from 'ng2-translate';
 import {Broadcaster} from './tools/broadcaster';
 import {ProjectService} from './project.service';
+import { Router } from '@angular/router';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import {User} from './interface/user';
@@ -25,6 +26,8 @@ export class AppComponent implements OnInit  {
   public menus: any[];
   public privacyMenu: any;
   public serverPath:string = '';
+  public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
+  public isMobile:Boolean= (window.innerWidth < 768);
   errorMessage:string;
   public appUser:User;
     
@@ -44,7 +47,8 @@ export class AppComponent implements OnInit  {
       private _translate: TranslateService,
       private broadcaster: Broadcaster,
       private _projectService: ProjectService,
-      private _cacheService: CacheService
+      private _cacheService: CacheService,
+      private router: Router,
   ) { }
 
   ngOnInit() {
@@ -135,6 +139,12 @@ export class AppComponent implements OnInit  {
   selectLang(lang: string) {
     // set default;
     this._translate.use(lang);
+  }
+
+  logout(){
+      localStorage.removeItem('apiKey');
+      this.router.navigate(['/']);
+      this.appUser = null;
   }
 
   getBottomMenu() {
