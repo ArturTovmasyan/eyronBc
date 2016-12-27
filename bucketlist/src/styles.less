@@ -459,6 +459,7 @@ header{
               height: 25px;
               position: absolute;
               top: 27px;
+              right:18px;
 
               &.menu-hamburger{
                 background: url('assets/images/grey-burger.svg') no-repeat center center;
@@ -477,14 +478,14 @@ header{
               }
             }
 
-            .icon-arrow-down,.icon-icon-up{
-              margin-top:9px;
-              position:absolute;
-              right:5px;
-              span{
-                padding-left:0;
-              }
-            }
+            //.icon-arrow-down,.icon-icon-up{
+            //  margin-top:9px;
+            //  position:absolute;
+            //  right:5px;
+            //  span{
+            //    padding-left:0;
+            //  }
+            //}
           }
 
           .user+div.popover{
@@ -494,9 +495,14 @@ header{
           .user-menu{
             background-color: #021523;
             padding-left:0;
+            text-align: left;
+            width: 100%;
+
             li{
               border-left:0;
               text-align: left;
+              display: block;
+
               a{
                 display: block;
                 padding:10px 20px;
@@ -513,9 +519,15 @@ header{
                   width:30px;
                   height:30px;
                   font-size:30px;
+
                   &.mybucketlist-icon{
                     margin-right: 0;
                     background-size: 100%;
+                    width: 25px;
+                  }
+
+                  &.settings-icon,&.add-goal{
+                    width: 25px;
                   }
 
                   &.ideas-icon,&.activity-icon{
