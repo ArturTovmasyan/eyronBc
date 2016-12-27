@@ -39,6 +39,7 @@ export class ProjectService {
     private commonUrl1 = this.baseUrl + 'goals/';
     private commonUrl2 = '/common';
     private usersUrl = this.baseUrl + 'user-list/';
+    private friendsUrl = this.baseUrl + 'goals/';
 
     private userGoalsUrl = this.baseUrl + 'usergoals/';  // URL to web API
     private getStoryUrl = this.baseUrl + 'story/';  // URL to web API
@@ -177,7 +178,7 @@ export class ProjectService {
      * @returns {Observable<T>}
      */
     getUserList(first:number, count:number, search:string, type:string):Observable<User[]> {
-        return this.http.get(this.usersUrl + first + '/'+count+'?search='+search+'&type='+ type, {headers: this.headers})
+        return this.http.get(this.friendsUrl + first + '/friends/'+count+'?search='+search+'&type='+ type, {headers: this.headers})
             .map((r:Response) => r.json() as User[])
             .catch(this.handleError);
     }

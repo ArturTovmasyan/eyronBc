@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LeaderboardComponent } from './leaderboard.component';
 import {TranslateModule} from 'ng2-translate';
 import { ComponentModule } from '../components/components.module';
+import { ProjectService } from '../project.service';
 
 import { LeaderboardRouting } from './leaderboard-routing';
 
@@ -13,6 +14,9 @@ import { LeaderboardRouting } from './leaderboard-routing';
     ComponentModule,
     TranslateModule
   ],
-  declarations: [LeaderboardComponent]
+  declarations: [LeaderboardComponent],
+  providers: [
+    ProjectService
+  ]
 })
 export class LeaderboardModule { }
