@@ -865,24 +865,67 @@ class GoalRepository extends EntityRepository
 
 
 
-    public function findOwnedGoalsCount($owner, $onlyPublish = false)
-    {
-        $query = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('count(g)')
-            ->from('AppBundle:Goal', 'g')
-            ->andWhere('g.author = :owner')
-            ->setParameter('owner', $owner);
-        ;
+//    public function findOwnedGoalsCount($owner, $onlyPublish = false)
+//    {
+//        $query = $this->getEntityManager()
+//            ->createQueryBuilder()
+//            ->select('count(g)')
+//            ->from('AppBundle:Goal', 'g')
+//            ->andWhere('g.author = :owner')
+//            ->setParameter('owner', $owner);
+//        ;
+//
+//        if($onlyPublish){
+//            $query
+//                ->andWhere('g.publish = 1')
+//            ;
+//        }
+//
+//        return $query->getQuery()->getSingleScalarResult();
+//
+//    }
 
-        if($onlyPublish){
+
+    /**
+     * @param $owner
+     * @param $publish
+     * @return array|null
+     */
+    public function findOwnedGoalsCount($owner, $publish)
+    {
+
+        $filter = $this->getEntityManager()->getFilters();
+        $filter->isEnabled('visibility_filter') ? $filter->disable('visibility_filter') : null;
+
+        $query = $this->getEntityManager()
+            ->createQueryBuilder();
+
+        if(!$publish){
             $query
-                ->andWhere('g.publish = 1')
+                ->select('count(ug)')
+                ->from('AppBundle:UserGoal', 'ug')
+                ->join('ug.goal', 'g')
+                ->addOrderBy('ug.updated', 'DESC')
+                ->andWhere('ug.user = :owner')
+            ;
+
+        }else{
+            $query
+                ->select('count(g)')
+                ->from('AppBundle:Goal', 'g')
+                ->andWhere('g.publish = :publish')
+                ->setParameter('publish', PublishAware::PUBLISH)
             ;
         }
 
-        return $query->getQuery()->getSingleScalarResult();
+        $query
+            ->andWhere('g.author = :owner')
+            ->orderBy('g.created', 'DESC')
+            ->setParameter('owner', $owner)
+            ->getQuery()->getSingleScalarResult();
+        ;
 
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     /**
