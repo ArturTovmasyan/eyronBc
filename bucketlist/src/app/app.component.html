@@ -1,5 +1,6 @@
 <div id="mainframe">
     <div id="wrap">
+        <div [class.bg-transparent]="isMobile && joinToggle1"></div>
         <header>
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div id="line"></div>
@@ -128,6 +129,7 @@
                     <!--</div>-->
 
                     <!--{% if not is_mobile() or is_tablet() %}-->
+
                     <div id="navbar" class="clearfix">
 
                         <a class="navbar-brand" [class.hidden-xs]="appUser" routerLink="/" routerLinkActive="active">
@@ -158,6 +160,7 @@
                             </li>
                         </ul>
 
+
                         <ul class="nav navbar-nav navbar-right">
                             <li id="notification" *ngIf="appUser && (!isMobile || !joinToggle1)">
                                 <div>
@@ -167,7 +170,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li *ngIf="appUser">
+                            <li *ngIf="appUser" [class.block]="isMobile && joinToggle1">
                                 <!--{% if app.user %}-->
                                 <!--{% set user = app.user %}-->
                                 <!--{% set lastName = appUser.lastName %}-->
@@ -196,7 +199,7 @@
 
                                     <!--{% if not isMobile() %}-->
                                     <i class="menu-hamburger hidden-xs" *ngIf="!joinToggle1"></i>
-                                    <i class="menu-remove" *ngIf="joinToggle1"></i>
+                                    <i [ngClass]="{'menu-remove': !isMobile, 'icon-remove-email': isMobile}" *ngIf="joinToggle1"></i>
                                     <!--{% endif %}-->
                                 </a>
                                 <ul class="user-menu" *ngIf="joinToggle1">
