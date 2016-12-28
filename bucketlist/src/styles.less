@@ -353,6 +353,11 @@ header{
         display:inline-block;
         vertical-align: top;
         //border-bottom: 1px solid #4421AB;
+
+        &.block{
+          display: block;
+        }
+
         a{
           color: #E5E5E5;
           font-weight: 700;
@@ -422,6 +427,13 @@ header{
             display: block;
             padding: 19px 5px 19px 15px;
             position: relative;
+
+            .navbar-brand{
+              width: 120px;
+              padding: 0 10px 0 0;
+
+            }
+
             figure{
               background-color: transparent;
               width:40px;
@@ -459,6 +471,7 @@ header{
               height: 25px;
               position: absolute;
               top: 27px;
+              right:18px;
 
               &.menu-hamburger{
                 background: url('assets/images/grey-burger.svg') no-repeat center center;
@@ -475,16 +488,27 @@ header{
                   background: url('assets/images/white-remove.svg') no-repeat center center;
                 }
               }
-            }
 
-            .icon-arrow-down,.icon-icon-up{
-              margin-top:9px;
-              position:absolute;
-              right:5px;
-              span{
-                padding-left:0;
+              &.icon-remove-email{
+                font-size: 40px;
+                background: #021523;
+                line-height: 75px;
+                height: 75px;
+                width: 75px;
+                text-align: center;
+                right: 0;
+                top: 0;
               }
             }
+
+            //.icon-arrow-down,.icon-icon-up{
+            //  margin-top:9px;
+            //  position:absolute;
+            //  right:5px;
+            //  span{
+            //    padding-left:0;
+            //  }
+            //}
           }
 
           .user+div.popover{
@@ -494,9 +518,15 @@ header{
           .user-menu{
             background-color: #021523;
             padding-left:0;
+            text-align: left;
+            width: 100%;
+            top: 75px;
+
             li{
               border-left:0;
               text-align: left;
+              display: block;
+
               a{
                 display: block;
                 padding:10px 20px;
@@ -513,9 +543,15 @@ header{
                   width:30px;
                   height:30px;
                   font-size:30px;
+
                   &.mybucketlist-icon{
                     margin-right: 0;
                     background-size: 100%;
+                    width: 25px;
+                  }
+
+                  &.settings-icon,&.add-goal{
+                    width: 25px;
                   }
 
                   &.ideas-icon,&.activity-icon{
@@ -561,11 +597,11 @@ header{
 
           .join-class {
             min-width:320px;
-            background-color: #021523;
+            //background-color: #021523;
             color:#e3e3e3;
-            &:hover{
-              background-color: #021523;
-            }
+            //&:hover{
+            //  background-color: #021523;
+            //}
           }
           .popover{
             padding:0;
@@ -2844,6 +2880,7 @@ footer{
   margin: 5px 0 10px;
 }
 
+
 @media (min-width: @screen-sm) {
 
   header{
@@ -2929,6 +2966,10 @@ footer{
 
             .join-class {
               min-width:210px;
+              background-color: #021523;
+              &:hover{
+                background-color: #021523;
+              }
             }
 
             .sign-in-popover+div.popover{
