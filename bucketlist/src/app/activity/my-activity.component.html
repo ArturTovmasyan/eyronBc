@@ -119,40 +119,40 @@
 
                         <figure class="rounded-corners-bottom">
 
-                            <h3>
-                                <a *ngIf="goal.publish" routerLink="goal/{{ goal.slug }}">{{ goal.title }}</a>
-                                <a *ngIf="!goal.publish">{{ goal.title }}</a>
-                            </h3>
+                            <!--<h3>-->
+                                <!--<a *ngIf="goal.publish" routerLink="goal/{{ goal.slug }}">{{ goal.title }}</a>-->
+                                <!--<a *ngIf="!goal.publish">{{ goal.title }}</a>-->
+                            <!--</h3>-->
 
-                            <a *ngIf="goal.publish" routerLink="goal/{{ goal.slug }}"
-                               class="goalTitle">
-                                <span class="overlay"></span>
-                                <img src="{{ goal.cached_image }}"
-                                    alt="{{ goal.title }}"
-                                    *ngIf="goal.cached_image"/>
-                            </a>
-                            <a *ngIf="!goal.publish"
-                               class="goalTitle">
-                                <span class="overlay"></span>
-                                <img src="{{ goal.cached_image }}"
-                                    alt="{{ goal.title }}"
-                                    *ngIf="goal.cached_image"/>
-                            </a>
+                            <!--<a *ngIf="goal.publish" routerLink="goal/{{ goal.slug }}"-->
+                               <!--class="goalTitle">-->
+                                <!--<span class="overlay"></span>-->
+                                <!--<img src="{{ goal.cached_image }}"-->
+                                    <!--alt="{{ goal.title }}"-->
+                                    <!--*ngIf="goal.cached_image"/>-->
+                            <!--</a>-->
+                            <!--<a *ngIf="!goal.publish"-->
+                               <!--class="goalTitle">-->
+                                <!--<span class="overlay"></span>-->
+                                <!--<img src="{{ goal.cached_image }}"-->
+                                    <!--alt="{{ goal.title }}"-->
+                                    <!--*ngIf="goal.cached_image"/>-->
+                            <!--</a>-->
 
-                            <div class="absolute" *ngIf="goal.stats.listedBy">
-                                <ul>
-                                    <li>
-                                        <goal-users [goal]="goal" type="1"></goal-users>
-                                    </li>
-                                    <li>
-                                        <goal-users [goal]="goal" type="2"></goal-users>
-                                    </li>
-                                </ul>
-                            </div>
+                            <!--<div class="absolute" *ngIf="goal.stats.listedBy">-->
+                                <!--<ul>-->
+                                    <!--<li>-->
+                                        <!--<goal-users [goal]="goal" type="1"></goal-users>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<goal-users [goal]="goal" type="2"></goal-users>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <app-goal [goal]="goal"></app-goal>
 
-                            <figcaption>
-                                <activity-goal-footer [goal]="goal" [activity]="activity"></activity-goal-footer>
-                            </figcaption>
+
+                            <activity-goal-footer [goal]="goal" [activity]="activity"></activity-goal-footer>
                         </figure>
                     </div>
                 </div>
