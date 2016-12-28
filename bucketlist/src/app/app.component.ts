@@ -48,7 +48,7 @@ export class AppComponent implements OnInit  {
       private broadcaster: Broadcaster,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
-      private router: Router,
+      private router: Router
   ) { }
 
   ngOnInit() {

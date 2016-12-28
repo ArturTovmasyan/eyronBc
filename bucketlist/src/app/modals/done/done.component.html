@@ -136,7 +136,7 @@
 
         <!--{#{{ form_errors(form) }}#}-->
 
-        <form id="goal-done-form" action="#">
+        <form id="goal-done-form" action="#" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-xs-10 col-xs-offset-1">
                     <div class="form-group row">
@@ -144,23 +144,34 @@
                             <textarea required="required" name="story" [(ngModel)]="story" class="form-control" placeholder="{{ 'success_story.add'|translate }}" rows="4"></textarea>
                         </div>
                     </div>
-                    <!--data-ng-init="initDropzone('{{ path('add_goal_success_story_images') }}')"-->
-                    <div class="text-center">
-                        <div class="dropzone" id="goalDropzone">
-                            <div class="dz-message">
-                                <div class="row">
-                                    <div class="col-sm-12">
 
-                                        <h3 class="text-dark-gray">
-                                            <i class="icon-cloud"></i>{{ 'drag_drop'|translate  }}
-                                        </h3>
+                    <fileDroppa
+                            [url]="serverPath + '/api/v1.0/success-story/add-images'"
+                            [autoUpload]="false"
+                            [showFilesList]="true"
+                            [beforeRequest]="beforeRequest"
+                            [beforeFileUpload]="beforeFileUpload"
+                            [beforeAddFile]="beforeAddFile"
+                            (filesUpdated)="filesUpdated($event)"
+                            (fileUploaded)="fileUploaded($event)">
+                        <div class="text-center">
+                            <div class="dropzone" id="goalDropzone">
+                                <div class="dz-message">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            <h3 class="text-dark-gray">
+                                                <i class="icon-cloud"></i>{{ 'drag_drop'|translate  }}
+                                            </h3>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <p [innerHTML]="'upload'|translate"></p>
+                                    <p [innerHTML]="'upload'|translate"></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </fileDroppa>`
+
 
                     <!--{#{{ form_widget(form.files, {'attr': { "value" : "{{ files }}" } }) }}#}-->
 

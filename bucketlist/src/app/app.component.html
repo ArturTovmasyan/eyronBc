@@ -289,7 +289,7 @@
         </div>
 
         <div *ngIf="reportModal">
-            <report-modal (changeModal)="hideModal('report')" [data]="{contentType:1,contentId: 352}" class="modal-block"></report-modal>
+            <report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>
         </div>
 
         <div *ngIf="commonModal">

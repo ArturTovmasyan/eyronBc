@@ -23,6 +23,7 @@
     "angular2-google-maps": "^0.16.0",
     "angular2-infinite-scroll": "^0.2.8",
     "core-js": "^2.4.1",
+    "file-droppa": "^1.0.0",
     "ng2-cache": "0.1.5",
     "ng2-dnd": "^2.1.1",
     "ng2-select": "^1.1.2",
