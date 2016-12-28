@@ -17,10 +17,16 @@ import { LoginComponent } from './login/login.component';
 import { DiscoverGoalComponent } from './components/discover-goal/discover-goal.component';
 import { BaseStoriesComponent } from './components/base-stories/base-stories.component';
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
-import { ReportComponent } from './modals/report/report.component';
 import { ComponentModule } from './components/components.module';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { PageComponent } from './page/page.component';
+
+//modals
+import { ReportComponent } from './modals/report/report.component';
+import { CommonComponent } from './modals/common/common.component';
+import { UsersComponent } from './modals/users/users.component';
+import { AddComponent } from './modals/add/add.component';
+import { DoneComponent } from './modals/done/done.component';
 
 @NgModule({
   declarations: [
@@ -32,19 +38,27 @@ import { PageComponent } from './page/page.component';
     LoginComponent,
     RegisterComponent,
     ResettingRequestComponent,
+
     PageComponent,
     MarkdownToHtmlPipe,
-    ReportComponent
+    ReportComponent,
+
+    ReportComponent,
+    CommonComponent,
+    UsersComponent,
+    AddComponent,
+    DoneComponent
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ComponentModule,
     InfiniteScrollModule,
     HttpModule,
     JsonpModule,
     appRouting,
-    TranslateModule.forRoot(),
-    ComponentModule
+    TranslateModule.forRoot()
   ],
   providers: [
     ProjectService,
