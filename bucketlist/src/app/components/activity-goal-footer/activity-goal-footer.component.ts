@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {Broadcaster} from '../../tools/broadcaster';
+import {ProjectService} from '../../project.service';
 
 import { Goal } from '../../interface/goal';
 import { Activity } from '../../interface/activity';
@@ -11,9 +13,47 @@ import { Activity } from '../../interface/activity';
 export class ActivityGoalFooterComponent implements OnInit {
   @Input() goal: Goal;
   @Input() activity: Activity;
-  constructor() { }
+  constructor(private broadcaster: Broadcaster, private ProjectService: ProjectService) { }
 
   ngOnInit() {
   }
 
+  addGoal(id){
+    let key = localStorage.getItem('apiKey');
+    if(!key){
+      this.broadcaster.broadcast('openLogin', 'some message');
+    } else {
+      this.ProjectService.getUserGoal(id).subscribe((data) => {
+        this.broadcaster.broadcast('addModal', data);
+      });
+    }
+  }
+
+  completeGoal(id){
+    let key = localStorage.getItem('apiKey');
+    if(!key){
+      this.broadcaster.broadcast('openLogin', 'message');
+    } else {
+      this.ProjectService.setDoneUserGoal(id).subscribe(() => {
+        this.ProjectService.getStory(id).subscribe((data)=> {
+          this.broadcaster.broadcast('doneModal', data);
+        })
+      });
+    }
+  }
+
+  showComment(activity, goal){
+    if(activity){
+      activity.createComment = true;
+      // $timeout(function () {
+      activity.showComment = !activity.showComment;
+      // },300);
+    } else {
+      goal.createComment = true;
+      // $timeout(function () {
+        goal.showComment = !goal.showComment;
+      // },300);
+    }
+  }
+  
 }

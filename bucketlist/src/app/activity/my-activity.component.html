@@ -143,19 +143,9 @@
                                 <ul>
                                     <li>
                                         <goal-users [goal]="goal" type="1"></goal-users>
-                                        <!--<span [hide]="castInt(goal.stats.listedBy)">-->
-                                            <!--{{ 'home_listed_by'|translate }}-->
-                                            <!--{{ goal.stats.listedBy }}-->
-                                        <!--</span>-->
-                                        <!--<i class="icon-user-small" data-="castInt(goal.stats.listedBy)"></i>-->
                                     </li>
                                     <li>
                                         <goal-users [goal]="goal" type="2"></goal-users>
-                                        <!--<span [hide]="castInt(goal.stats.doneBy)">-->
-                                            <!--{{ 'home_complete'|translate }}-->
-                                            <!--{{ goal.stats.doneBy }}-->
-                                        <!--</span>-->
-                                        <!--<i class="icon-user-small" [hide]="castInt(goal.stats.doneBy)"></i>-->
                                     </li>
                                 </ul>
                             </div>
@@ -175,7 +165,8 @@
             </div>
 
             <div [ngClass]="{'line': activity.createComment && activity.showComment}"></div>
-
+            <app-comment *ngIf="activity.createComment" [hidden]="!activity.showComment" [data]="{id:1398, slug:'visit-palau',inner:false}">
+            </app-comment>
             <!--<div data-ls-comment-manage-->
                  <!--class="padding slide "-->
                  <!--*ngIf="activity.createComment"-->

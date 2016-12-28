@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
@@ -10,13 +11,15 @@ import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {GoalFriendComponent} from './goal-friend/goal-friend.component';
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
 import { UserComponent } from './user/user.component';
+import { CommentComponent } from './comment/comment.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     TranslateModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   declarations: [
     GoalUsersComponent,
@@ -25,7 +28,8 @@ import { UserComponent } from './user/user.component';
     LeaderboardComponent,
     GoalFriendComponent,
     CapitalizePipe,
-    UserComponent
+    UserComponent,
+    CommentComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -33,7 +37,8 @@ import { UserComponent } from './user/user.component';
     LeaderboardComponent,
     GoalFriendComponent,
     CapitalizePipe,
-    UserComponent
+    UserComponent,
+    CommentComponent
   ]
 })
 export class ComponentModule { }

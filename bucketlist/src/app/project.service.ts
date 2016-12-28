@@ -6,6 +6,7 @@ import { Broadcaster } from './tools/broadcaster';
 import {Goal} from "./interface/goal";
 import {Story} from "./interface/story";
 import {User} from "./interface/user";
+import {Comment} from "./interface/comment";
 import {Category} from "./interface/category";
 import {UserGoal} from "./interface/userGoal";
 import {Activity} from "./interface/activity";
@@ -55,7 +56,10 @@ export class ProjectService {
     private categoriesUrl = this.baseUrl + 'goal/categories';
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
     private nearByUrl = this.baseUrl + 'goals/nearby/';
-    private resetNearByUrl = this.baseOrigin + this.envprefix + 'usergoals/';
+    private resetNearByUrl = this.baseUrl + 'usergoals/';
+    private getCommentsUrl = this.baseUrl + 'comments/goal_';
+    private putCommentUrl = this.baseUrl + 'comments/';
+
     constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
         this.broadcaster.on<User>('getUser')
@@ -300,6 +304,27 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
+
+    /**
+     *
+     */
+    getComments(slug:string):Observable<Comment[]> {
+        return this.http.get(this.getCommentsUrl + slug, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+     /**
+     *
+     */
+    putComment(id:number, body:any, commentId?:number):Observable<Comment> {
+         let comment = commentId? ('/'+ commentId): '';
+        return this.http.put(this.putCommentUrl + id + comment, {'commentBody': body}, {headers: this.headers})
+            .map((r:Response) => r.json() as Comment)
+            .catch(this.handleError);
+    }
+    
+    
+    
 
     //modal requests
     /**

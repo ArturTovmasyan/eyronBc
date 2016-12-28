@@ -15,10 +15,12 @@ export class DoneComponent implements OnInit {
   public userGoal:any;
   public appUser:any;
   public story:string;
+  public serverPath:string = '';
 
   constructor(private ProjectService: ProjectService, private router: Router) { }
 
   ngOnInit() {
+    this.serverPath = this.ProjectService.getPath();
     if(!localStorage.getItem('apiKey')){
       // this.router.navigate(['/']);
       this.modalHideEmitter.emit(null);
@@ -29,6 +31,23 @@ export class DoneComponent implements OnInit {
           this.story = this.data.story.story;
         }
     }
+  }
+  beforeFileUpload(formData){console.log(formData);
+    // formData.append("file",[]);
+    return formData;
+  }
+
+  fileUploaded(success, response, file){
+    success && console.log("uploaded - awesome", response, file);
+    success || console.log("not uploaded - very bad", response, file);
+  }
+
+  filesUpdated(files) {
+    console.log("Store state updated! Current state: ", files)
+  }
+
+  beforeRequest(xhr){
+    xhr.setRequestHeader('apikey', localStorage.getItem('apiKey'));
   }
   
 
