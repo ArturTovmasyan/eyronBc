@@ -18,6 +18,13 @@ import {Story} from '../../interface/story';
 export class BaseStoriesComponent implements OnInit {
   stories:Story[] = null;
   errorMessage:string;
+  config: Object = {
+    observer: true,
+    autoHeight: true,
+    nextButton: '.swiper-button-next-home-story',
+    prevButton: '.swiper-button-prev-home-story',
+    spaceBetween: 30
+  };
 
   constructor(
       private _projectService: ProjectService, 

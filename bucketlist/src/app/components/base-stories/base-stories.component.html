@@ -7,109 +7,105 @@
     <div class="row">
 
       <div class="col-sm-12">
-        <div class="swiper-container" id="story-slider-homepage-container">
-          <!-- Slides Container -->
-          <!--data-story-count="{{ stories| length }}"-->
-          <div class="swiper-wrapper">
-            <!--*ngFor="let story of stories;let addedUser = story.user,i = index,files = story.files,videos = story.videoLink;"-->
-            <div *ngFor="let story of stories; let i = index; trackBy: trackByFn" class="swiper-slide comment-place story-fade-in">
-                 <!--data-ng-init="count[{{ story.id }}] = {{ story.getVotersCount() }}">-->
+        <!--<my-component>-->
+          <swiper [config]="config" class="swiper-container" id="story-slider-homepage-container">
+            <div class="swiper-wrapper">
+              <div *ngFor="let story of stories; let i = index; trackBy: trackByFn" class="swiper-slide comment-place story-fade-in">
+                <!--data-ng-init="count[{{ story.id }}] = {{ story.voters_count }}">-->
 
-              <div class="row no-gutter">
-                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-                  <div class="bg-white" >
+                <div class="row no-gutter">
+                  <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                    <div class="bg-white" >
 
-                    <div class="row padding">
+                      <div class="row padding">
 
-                      <div class="col-xs-9">
+                        <div class="col-xs-9">
 
-                        <div class="clearfix">
+                          <div class="clearfix">
 
-                          <div class="pull-left">
-                            <a href="#" (click)="openSignInPopover()">
+                            <div class="pull-left">
+                              <a href="#" (click)="openSignInPopover()">
 
-                              <figure class="user-image">
-                                <!--blImageFilter('user_icon')-->
-                                <img *ngIf="story.user.cached_image" src="{{ story.user.cached_image }}"
-                                     class="img-circle img-responsive"
-                                     alt="{{ story.user.firstName }}">
-                                <span *ngIf="!story.user.cached_image" class="no-image text-white user-no4">{{ story.user.firstName|slice:0:1 + story.user.lastName|slice:0:1 }}</span>
-                              </figure>
-                            </a>
-                          </div>
+                                <figure class="user-image">
+                                  <!--blImageFilter('user_icon')-->
+                                  <img *ngIf="story.user.cached_image" src="{{ story.user.cached_image }}"
+                                       class="img-circle img-responsive"
+                                       alt="{{ story.user.firstName }}">
+                                  <span *ngIf="!story.user.cached_image" class="no-image text-white user-no4">{{ story.user.firstName|slice:0:1 + story.user.lastName|slice:0:1 }}</span>
+                                </figure>
+                              </a>
+                            </div>
 
-                          <div class="pull-left success-story-user" *ngIf="story.user">
-                            <p class="user-name">
-                              <a href="#" (click)="openSignInPopover()" class="text-dark-gray">{{ story.user.showName }}</a>
-                            </p>
+                            <div class="pull-left success-story-user" *ngIf="story.user">
+                              <p class="user-name">
+                                <a href="#" (click)="openSignInPopover()" class="text-dark-gray">{{ story.user.showName }}</a>
+                              </p>
                             <span>
                                 {{ story.created | date:'longDate' }}
                             </span>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="col-xs-3 text-right">
+                          <span class="text-purple">{{ story.voters_count }}</span>
+                          <a (click)="openSignInPopover(story.id)">
+                            <i class="like-icon"></i>
+                          </a>
+                        </div>
+
+                      </div>
+
+                      <div class="border-left">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <!--data-ng-scrollbars data-ng-scrollbars-config="scroller_config" data-ng-scrollbars-update="updateScrollbar"-->
+                            <perfect-scrollbar class="success-scroll" [config]="config">
+                              <div class="content">
+                                <p>{{ story.story }}</p>
+
+                                <!--file.downloadLink|blImageFilter('slide_max_size')-->
+                                <a *ngFor="let file of story.files; let k = index; trackBy: trackByFn" href="{{ file.downloadLinkMaxSize }}"
+                                   class="swipebox-{{ i }}" [hidden]="k > 0">
+                                  <i class="photo-icon"></i>
+                                  <!--('story_homepage_small')-->
+                                  <img src="{{ file.getDownloadLink }}"
+                                       alt="{{ file.fileName }}" height="83" width="106"/>
+                                </a>
+
+                                <!--{#<span  data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"></span>#}-->
+                                <a *ngFor="let video of story.videos; let key = index; trackBy: trackByFn" class="swipebox-video-{{ key }}" href="{{ video }}">
+                                  <i class="video-icon" [hidden]="key > 0"></i>
+                                  <!--<embed-video-->
+                                  <!--href="{{ video ]]"-->
+                                  <!--height="83" width="106">-->
+                                  <!--</embed-video >-->
+                                </a>
+                              </div>
+                            </perfect-scrollbar>
+
                           </div>
                         </div>
-
                       </div>
 
-                      <div class="col-xs-3 text-right">
-                        <span class="text-purple">{{ story.votersCount }}</span>
-                        <a (click)="openSignInPopover(story.id)">
-                          <i class="like-icon"></i>
-                        </a>
-                      </div>
-
-                    </div>
-
-                    <div class="border-left">
-                      <div class="row">
-                        <div class="col-xs-12">
-                          <!--data-ng-scrollbars data-ng-scrollbars-config="scroller_config" data-ng-scrollbars-update="updateScrollbar"-->
-                          <perfect-scrollbar class="success-scroll" [config]="config">
-                            <div class="content">
-                              <p>{{ story.story }}</p>
-
-                              <!--file.downloadLink|blImageFilter('slide_max_size')-->
-                              <a *ngFor="let file of story.files; let k = index; trackBy: trackByFn" href="{{ file.downloadLinkMaxSize }}"
-                                 class="swipebox-{{ i }}" [hidden]="k > 0">
-                                <i class="photo-icon"></i>
-                                <!--('story_homepage_small')-->
-                                <img src="{{ file.getDownloadLink }}"
-                                     alt="{{ file.fileName }}" height="83" width="106"/>
-                              </a>
-
-                              <!--{#<span  data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"></span>#}-->
-                              <a *ngFor="let video of story.videos; let key = index; trackBy: trackByFn" class="swipebox-video-{{ key }}" href="{{ video }}">
-                                <i class="video-icon" [hidden]="key > 0"></i>
-                                <!--<embed-video-->
-                                        <!--href="{{ video ]]"-->
-                                        <!--height="83" width="106">-->
-                                <!--</embed-video >-->
-                              </a>
-                            </div>
-                          </perfect-scrollbar>
-
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="idea-item" *ngIf="story.goal">
-                      <figure class="rounded-corners">
-                        <i class="icon-lock-white"></i>
+                      <div class="idea-item" *ngIf="story.goal">
+                        <figure class="rounded-corners">
+                          <i class="icon-lock-white"></i>
                           <app-goal [goal]="story.goal"></app-goal>
-                      </figure>
+                        </figure>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-          </div>
-
-          <div class="swiper-pagination"></div>
-
-        </div>
-        <!-- Add Arrows -->
-        <div class="swiper-button-next swiper-button-next-home-story"></div>
-        <div class="swiper-button-prev swiper-button-prev-home-story"></div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-next-home-story"></div>
+            <div class="swiper-button-prev swiper-button-prev-home-story"></div>
+          </swiper>
       </div>
     </div>
 

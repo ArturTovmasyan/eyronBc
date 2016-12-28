@@ -145,32 +145,32 @@
                         </div>
                     </div>
 
-                    <fileDroppa
-                            [url]="serverPath + '/api/v1.0/success-story/add-images'"
-                            [autoUpload]="false"
-                            [showFilesList]="true"
-                            [beforeRequest]="beforeRequest"
-                            [beforeFileUpload]="beforeFileUpload"
-                            [beforeAddFile]="beforeAddFile"
-                            (filesUpdated)="filesUpdated($event)"
-                            (fileUploaded)="fileUploaded($event)">
-                        <div class="text-center">
-                            <div class="dropzone" id="goalDropzone">
-                                <div class="dz-message">
-                                    <div class="row">
-                                        <div class="col-sm-12">
+                    <!--<fileDroppa-->
+                            <!--[url]="serverPath + '/api/v1.0/success-story/add-images'"-->
+                            <!--[autoUpload]="false"-->
+                            <!--[showFilesList]="true"-->
+                            <!--[beforeRequest]="beforeRequest"-->
+                            <!--[beforeFileUpload]="beforeFileUpload"-->
+                            <!--[beforeAddFile]="beforeAddFile"-->
+                            <!--(filesUpdated)="filesUpdated($event)"-->
+                            <!--(fileUploaded)="fileUploaded($event)">-->
+                        <!--<div class="text-center">-->
+                            <!--<div class="dropzone" id="goalDropzone">-->
+                                <!--<div class="dz-message">-->
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-sm-12">-->
 
-                                            <h3 class="text-dark-gray">
-                                                <i class="icon-cloud"></i>{{ 'drag_drop'|translate  }}
-                                            </h3>
-                                        </div>
-                                    </div>
+                                            <!--<h3 class="text-dark-gray">-->
+                                                <!--<i class="icon-cloud"></i>{{ 'drag_drop'|translate  }}-->
+                                            <!--</h3>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
 
-                                    <p [innerHTML]="'upload'|translate"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </fileDroppa>`
+                                    <!--<p [innerHTML]="'upload'|translate"></p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</fileDroppa>-->
 
 
                     <!--{#{{ form_widget(form.files, {'attr': { "value" : "{{ files }}" } }) }}#}-->

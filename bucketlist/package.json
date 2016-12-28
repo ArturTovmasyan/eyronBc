@@ -22,6 +22,7 @@
     "@angular/router": "3.2.3",
     "angular2-google-maps": "^0.16.0",
     "angular2-infinite-scroll": "^0.2.8",
+    "angular2-useful-swiper": "^3.0.0",
     "core-js": "^2.4.1",
     "file-droppa": "^1.0.0",
     "ng2-cache": "0.1.5",
