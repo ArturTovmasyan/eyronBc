@@ -48,11 +48,6 @@ export class GoalUsersComponent implements OnInit {
     }
 
   }
-
-  isVoting(isVoting, isStory){
-    if(!isStory)return false;
-    return isVoting;
-  }
   
   manageVote(id) {
     if(this.isMy())return;

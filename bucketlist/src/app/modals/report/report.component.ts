@@ -13,7 +13,7 @@ export class ReportComponent implements OnInit {
   @Input() data: any;
   public isReported:boolean = false;
   public reportText:string;
-  public reportOption:any = 2;
+  public reportOption:any;
   constructor(private ProjectService: ProjectService, private router: Router) { }
 
   ngOnInit() {
@@ -21,7 +21,7 @@ export class ReportComponent implements OnInit {
       this.router.navigate(['/']);
       this.modalHideEmitter.emit(null);
     } else {
-      if(this.data && this.data.contentType && this.data.contentId){
+      if(this.data && this.data.contentId){
         this.ProjectService.getReport(this.data).subscribe(
             data => {
               if(data && data.content_id){

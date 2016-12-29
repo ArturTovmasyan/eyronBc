@@ -238,6 +238,9 @@
     animation-fill-mode: backwards;
     animation: login 400ms ease-out;
 }
+common-modal.modal-block{
+    z-index: 10001;
+}
 .my-modal{
     position: relative;
 }
