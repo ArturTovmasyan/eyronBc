@@ -43,7 +43,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v622
+        assets_version: v619
 
     default_locale:  en
     trusted_hosts:   ~
@@ -399,7 +399,7 @@ liip_imagine:
         user_icon:
             quality: 100
             filters:
-                central_crop: { size: [60, 60] }
+                central_crop: { size: [150, 150] }
             post_processors:
                 opt_post_processor: {}
 

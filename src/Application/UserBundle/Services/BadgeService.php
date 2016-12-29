@@ -200,12 +200,11 @@ class BadgeService extends AbstractProcessService
         if(!$user){
             throw new NotFoundHttpException('User not found');
         }
-
+        $this->em->getConnection()->beginTransaction(); // suspend auto-commit
         // get badge
         $badge = $this->em->getRepository("ApplicationUserBundle:Badge")
             ->findBadgeByUserAndType($userId, $type);
 
-        $this->em->getConnection()->beginTransaction(); // suspend auto-commit
         try {
 
             if(!$badge){
@@ -248,7 +247,7 @@ class BadgeService extends AbstractProcessService
         }
 
         // check has changed
-        if($this->hasScoreChanged($newScore, $oldScore, $type) && $notify){
+        if($notify && $this->hasScoreChanged($newScore, $oldScore, $type)){
 
             $this->runAsProcess('bl.badge.service', 'sendNotify',
                 array($userId, 1, $type));
@@ -332,6 +331,7 @@ class BadgeService extends AbstractProcessService
         if(!$user){
             throw new NotFoundHttpException('User not found');
         }
+        $this->em->getConnection()->beginTransaction(); // suspend auto-commit
 
         // get badge
         $badge = $this->em->getRepository("ApplicationUserBundle:Badge")
@@ -339,7 +339,6 @@ class BadgeService extends AbstractProcessService
 
         if($badge){
 
-            $this->em->getConnection()->beginTransaction(); // suspend auto-commit
             try {
                 $oldScore = $badge->getScore();
                 // generate new score
@@ -380,7 +379,7 @@ class BadgeService extends AbstractProcessService
             }
 
             // check has changed
-            if($this->hasScoreChanged($newScore, $oldScore, $type) && $notify){
+            if($notify && $this->hasScoreChanged($newScore, $oldScore, $type)){
 
                 $this->runAsProcess('bl.badge.service', 'sendNotify',
                     array($userId, 0, $type));
