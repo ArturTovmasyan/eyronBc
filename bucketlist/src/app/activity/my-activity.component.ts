@@ -1,6 +1,7 @@
 import { Component, OnInit, Input , ViewEncapsulation } from '@angular/core';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Activity } from '../interface/activity';
+import { Broadcaster } from '../tools/broadcaster';
 
 import { ProjectService } from '../project.service';
 
@@ -23,38 +24,14 @@ export class MyActivityComponent implements OnInit {
     public start:number = 0;
     public count:number = 9;
     public interval:any;
+    public activeIndex:number[] = [];
+    public createComment:boolean[] = [];
     public noActivities:boolean = false;
     public busy:boolean = false;
     public newActivity:boolean = false;
     errorMessage:string;
-    config: Object = {
-        observer: true,
-        autoHeight: true,
-        onSlideNextStart: function (ev) {
-            // scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex++;
-            // scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
-            // scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
-            // scope.$parent.loadImage($(ev.container).data('index'));
-            // scope.$parent.$apply();
-            // $timeout(function () {
-            //     ev.update(true);
-            // }, 100)
-
-        },
-        onSlidePrevStart: function (ev) {
-            // scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
-            // scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
-            // scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex--;
-            // scope.$parent.$apply();
-        },
-
-        // loop: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        spaceBetween: 30
-    };
     
-    constructor(private _projectService: ProjectService, private _cacheService: CacheService) {}
+    constructor(private _projectService: ProjectService, private _cacheService: CacheService, private broadcaster: Broadcaster) {}
     
     ngOnInit() {
         let data = this._cacheService.get('activities');
@@ -65,6 +42,13 @@ export class MyActivityComponent implements OnInit {
         } else {
           this.getActivities()
         }
+
+        this.broadcaster.on<any>('slide-change')
+            .subscribe(data => {
+                this.activeIndex[data.id] = data.index;
+                this.Activities[data.number].createComment = false;
+                this.Activities[data.number].showComment = false;
+            });
 
         this.interval = setInterval(() => {
             if(this.Activities && !this.single){
@@ -194,6 +178,12 @@ export class MyActivityComponent implements OnInit {
                 removingCount++;
             }
             this.newData[i].forTop = true;
+            if (this.newData[i].goals.length > 2) {
+                this.newData[i].reserveGoals = [this.newData[i].goals[0], this.newData[i].goals[1]];
+                this.optimizeReserveImages(this.newData[i].reserveGoals);
+            } else {
+                this.newData[i].reserveGoals = this.newData[i].goals
+            }
             this.Activities.unshift(this.newData[i]);
         }
     // if(angular.isFunction(cb)){

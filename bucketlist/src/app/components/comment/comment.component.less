@@ -27,7 +27,7 @@
   }
 }
 
-.fos_comment_comment_new_form{
+.fos_comment_comment_authorname,.fos_comment_comment_new_form{
   background-color: #f4f4f4;
   padding: 0;
   i{
@@ -46,6 +46,112 @@
   }
 
 }
+.fos_comment_comment_authorname{
+  .arrow-up{
+    top: -6px;
+  }
+}
+
+.reply{
+  display: inline-block;
+  padding: 1px 15px 10px;
+  cursor: pointer;
+}
+
+.comment-place{
+  padding: 10px 10px 0;
+  background-color: #f4f4f4;
+  font-size: 17px;
+  position: relative;
+  margin: 0 0 9px;
+  color:#4a4a4a;
+  white-space: normal;
+  word-break: break-word;
+
+  a{
+    cursor: pointer;
+  }
+
+  figure{
+    margin-top:10px;
+    img{
+      width: 100%;
+    }
+  }
+
+  figure.user-image{
+    margin: 0 10px 8px 0;
+    background-color: transparent;
+    width:40px;
+    height:40px;
+
+    img,span{
+      height:40px;
+      width:40px;
+      border:2px solid #cecece;
+      line-height: 34px;
+    }
+
+    span{
+      display: inline-block;
+    }
+  }
+
+  p{
+    padding:0;
+    font-size:13px;
+    color:#666666;
+    margin:0;
+    white-space: normal;
+    word-break: break-word;
+
+    &:first-child{
+      font-weight:600;
+    }
+
+    &:last-child{
+      padding:0 0 5px 0;
+      text-align: justify;
+      font-weight: normal;
+    }
+  }
+
+  span{
+    font-size:12px;
+    color:#999999;
+
+    &.report{
+      font-size:14px;
+      color: #666666;
+    }
+  }
+
+  .swiper-container-free-mode{
+    .swiper-wrapper{
+      margin: 20px auto;
+    }
+  }
+}
+
+.comment-information{
+  p{
+    margin: 0;
+    padding: 0 !important;
+    font-weight: 600;
+    color: #666666;
+    white-space: normal;
+  }
+
+  span{
+    color: #999999;
+    font-size: 13px;
+
+    &.report{
+      color: #666666;
+      font-size: 14px;
+    }
+  }
+}
 
 @media (min-width: @screen-sm) {
   .comments-column{
@@ -59,7 +165,8 @@
       font-size:14px;
     }
   }
- .fos_comment_comment_new_form{
+
+ .fos_comment_comment_authorname,.fos_comment_comment_new_form{
     position:relative;
     background-color:#f4f4f4;
     //padding: 15px 15px 20px;
@@ -98,8 +205,46 @@
       font-size: 13px;
     }
   }
+
+ .fos_comment_comment_authorname{
+   padding: 15px 15px 20px;
+  }
+
+  .comment-place{
+    padding:15px 10px 5px;
+    margin-bottom: 10px;
+
+    figure.user-image{
+      margin: 0 10px 15px 0;
+    }
+
+    span{
+      font-size:12px;
+    }
+
+    p{
+      font-size: 14px;
+    }
+  }
+
+
 }
 
 @media (min-width: @screen-md) {
+  .comment-place{
+    padding:20px 15px 30px;
+    margin-bottom: 20px;
 
+    figure.user-image{
+      margin: 0 20px 15px 0;
+    }
+
+    span{
+      font-size:13px;
+
+      &.text-purple{
+        font-size: 14px;
+      }
+    }
+  }
 }
