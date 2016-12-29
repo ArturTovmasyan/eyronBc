@@ -27,14 +27,16 @@ export class GoalUsersComponent implements OnInit {
       this.is_vote = this.story.is_vote
     }
 
-    this.appUser = this._projectService.getMyUser();
-    if(!this.appUser){
-      this._projectService.getUser()
-          .subscribe(
-              user => {
-                this.appUser = user;
-                this.broadcaster.broadcast('getUser', user);
-              })
+    if(localStorage.getItem('apiKey')){
+      this.appUser = this._projectService.getMyUser();
+      if(!this.appUser){
+        this._projectService.getUser()
+            .subscribe(
+                user => {
+                  this.appUser = user;
+                  this.broadcaster.broadcast('getUser', user);
+                })
+      }
     }
   }
 
