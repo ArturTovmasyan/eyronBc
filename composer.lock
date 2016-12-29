@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9641f6c61f622a351494b23424aaa911",
-    "content-hash": "fdac9b870ec0573b2784a3f979236d24",
+    "hash": "ca25e4dde47c7e222a812050f79d6f5c",
+    "content-hash": "52389ee3d9e9848ac70f0db181d8b97e",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
@@ -232,6 +232,45 @@
                 "slugify"
             ],
             "time": "2016-08-09 20:10:17"
+        },
+        {
+            "name": "ddtraceweb/monolog-parser",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ddtraceweb/monolog-parser.git",
+                "reference": "1aa1a4af21c28796d89adacac096bb370b73a42b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ddtraceweb/monolog-parser/zipball/1aa1a4af21c28796d89adacac096bb370b73a42b",
+                "reference": "1aa1a4af21c28796d89adacac096bb370b73a42b",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "1.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Dubture": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Gruendler",
+                    "email": "r.gruendler@gmail.com"
+                }
+            ],
+            "description": "A parser for monolog log entries",
+            "time": "2015-06-25 08:36:59"
         },
         {
             "name": "doctrine/annotations",
@@ -6012,6 +6051,49 @@
                 "templating"
             ],
             "time": "2016-11-23 18:41:40"
+        },
+        {
+            "name": "w3docs/log-viewer-bundle",
+            "version": "v1.0.0",
+            "target-dir": "W3docs/LogViewerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vazgen/log-viewer.git",
+                "reference": "fc12af482a6973f0982b30c235d0408542840205"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vazgen/log-viewer/zipball/fc12af482a6973f0982b30c235d0408542840205",
+                "reference": "fc12af482a6973f0982b30c235d0408542840205",
+                "shasum": ""
+            },
+            "require": {
+                "ddtraceweb/monolog-parser": "1.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "W3docs\\LogViewerBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vazgen Manukyan",
+                    "email": "vazgen.manukyan@gmail.com"
+                }
+            ],
+            "description": "W3DocsLogViewerBundle allows to filter, group and analyse symfony2 log files",
+            "keywords": [
+                "Viewer",
+                "log",
+                "parser",
+                "view"
+            ],
+            "time": "2015-03-13 15:00:43"
         },
         {
             "name": "willdurand/jsonp-callback-validator",
