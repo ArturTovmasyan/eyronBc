@@ -35,6 +35,7 @@ export class ProjectService {
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private goalUrl = '';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
+    private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
 
     //modals
     private reportUrl = this.baseUrl + 'report';
@@ -79,6 +80,16 @@ export class ProjectService {
      */
     auth(loginData: Object):Observable<any> {
         return this.http.post(this.baseUrl + 'users/logins', JSON.stringify(loginData)).map((res:Response) => res.json());
+    }
+    /**
+     *
+     * @param loginData
+     * @returns {any}
+     */
+    socialLogin(type:string, token:string, secret?:string):Observable<any> {
+        return this.http.get(this.socialLoginUrl + type + '/' + token + (secret?('/' + secret):'') + '?apikey=true')
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
     }
 
     /**

@@ -147,9 +147,8 @@
                 <app-goal [goal]="goal" [type]="(category == 'nearby')?'nearby':''"
                           (onHover)="hideJoin($event)" [userLocation]="userLocation"
                           [ngClass]="{height: ((+i + 1) % 7) == 6 || ((+i + 1) % 7) == 0}"></app-goal>
-                <figcaption>
-                  <app-goal-footer [goal]="goal"></app-goal-footer>
-                </figcaption>
+
+                <app-goal-footer [goal]="goal"></app-goal-footer>
               </figure>
             </div>
           </div>

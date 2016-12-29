@@ -1,5 +1,6 @@
 <div id="mainframe">
     <div id="wrap">
+        <div [class.bg-transparent]="isMobile && joinToggle1"></div>
         <header>
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div id="line"></div>
@@ -128,13 +129,14 @@
                     <!--</div>-->
 
                     <!--{% if not is_mobile() or is_tablet() %}-->
+
                     <div id="navbar" class="clearfix">
 
                         <a class="navbar-brand" [class.hidden-xs]="appUser" routerLink="/" routerLinkActive="active">
                             <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
                         </a>
 
-                        <ul class="nav navbar-nav pull-left">
+                        <ul class="nav navbar-nav pull-left" *ngIf="!isMobile || !joinToggle1">
 
                             <li *ngIf="appUser">
                                 <a routerLink="/activity" routerLinkActive="active">
@@ -158,8 +160,9 @@
                             </li>
                         </ul>
 
+
                         <ul class="nav navbar-nav navbar-right">
-                            <li id="notification" *ngIf="appUser">
+                            <li id="notification" *ngIf="appUser && (!isMobile || !joinToggle1)">
                                 <div>
                                     <a routerLink="/notifications" class="relative notify">
                                         <i class="bell"></i>
@@ -167,7 +170,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li *ngIf="appUser">
+                            <li *ngIf="appUser" [class.block]="isMobile && joinToggle1">
                                 <!--{% if app.user %}-->
                                 <!--{% set user = app.user %}-->
                                 <!--{% set lastName = appUser.lastName %}-->
@@ -178,22 +181,25 @@
                                 <!--data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'-->
 
 
-                                <a class="user user-popover clearfix hidden-xs"
+                                <a class="user user-popover clearfix"
                                    (click)="joinToggle1 = !joinToggle1"
                                    [ngClass]="{'join-class': joinToggle1}">
-                                    <figure class="img-circle" *ngIf="appUser.image_path">
+                                    <figure class="img-circle" *ngIf="appUser.image_path && (!isMobile || !joinToggle1)">
                                         <!--'user_icon'-->
                                         <img src="{{ serverPath + appUser.image_path }}" alt="{{ appUser.filename }}" class="img-responsive">
                                     </figure>
-                                    <p *ngIf="!appUser.image_path" class="no-image user-no2">{{ (appUser.firstName|slice:0:1 + appUser.lastName|slice:0:1 ) | uppercase }}</p>
+                                    <p *ngIf="!appUser.image_path && (!isMobile || !joinToggle1)" class="no-image user-no2">{{ appUser.first_name|slice:0:1| uppercase }}{{ appUser.last_name|slice:0:1 | uppercase}}</p>
 
-                                    <span class="name hidden-xs">{{ appUser.firstName|slice:0: 8 }} {{ appUser.firstName && appUser.firstName.length > 8 ? '...' : '' }}
+                                    <span class="name hidden-xs">{{ appUser.first_name|slice:0: 8 }} {{ appUser.first_name && appUser.first_name.length > 8 ? '...' : '' }}
                                         <br class="hidden-xs"/>
                                     </span>
+                                    <a class="navbar-brand" routerLink="/" routerLinkActive="active" *ngIf="isMobile && joinToggle1">
+                                        <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
+                                    </a>
 
                                     <!--{% if not isMobile() %}-->
-                                    <i class="menu-hamburger" *ngIf="!joinToggle1"></i>
-                                    <i class="menu-remove" *ngIf="joinToggle1"></i>
+                                    <i class="menu-hamburger hidden-xs" *ngIf="!joinToggle1"></i>
+                                    <i [ngClass]="{'menu-remove': !isMobile, 'icon-remove-email': isMobile}" *ngIf="joinToggle1"></i>
                                     <!--{% endif %}-->
                                 </a>
                                 <ul class="user-menu" *ngIf="joinToggle1">
@@ -257,13 +263,13 @@
                                     </li>
                                 </ul>
                                 <!--when mobile menu-->
-                                <a (click)="joinToggle1 = !joinToggle1;" class=" mobile-user hidden-sm hidden-md hidden-lg" *ngIf="!joinToggle1">
-                                    <figure class="img-circle" *ngIf="appUser.image_path">
-                                        <!--'user_icon'-->
-                                        <img src="{{ serverPath + appUser.image_path }}" alt="{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}" class="img-responsive img-circle" height="40">
-                                    </figure>
-                                    <p class="no-image user-no1" *ngIf="!appUser.image_path">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>
-                                </a>
+                                <!--<a (click)="joinToggle1 = !joinToggle1;" class=" mobile-user hidden-sm hidden-md hidden-lg" *ngIf="!joinToggle1">-->
+                                    <!--<figure class="img-circle" *ngIf="appUser.image_path">-->
+                                        <!--&lt;!&ndash;'user_icon'&ndash;&gt;-->
+                                        <!--<img src="{{ serverPath + appUser.image_path }}" alt="{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}" class="img-responsive img-circle" height="40">-->
+                                    <!--</figure>-->
+                                    <!--<p class="no-image user-no1" *ngIf="!appUser.image_path">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>-->
+                                <!--</a>-->
                             </li>
                             <li *ngIf="!appUser">
                                 <a (click)="joinShow = !joinShow"

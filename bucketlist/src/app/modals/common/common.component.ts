@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,8 @@ import { Goal } from '../../interface/goal';
 @Component({
   selector: 'common-modal',
   templateUrl: './common.component.html',
-  styleUrls: ['./common.component.less']
+  styleUrls: ['./common.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CommonComponent implements OnInit {
   @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();

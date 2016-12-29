@@ -5,6 +5,15 @@ import { ProjectService } from '../project.service';
 import { Broadcaster } from '../tools/broadcaster';
 import { User } from '../interface/user';
 
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AuthProviders } from 'angularfire2';
+import { AuthMethods } from 'angularfire2';
+import { EmailPasswordCredentials } from 'angularfire2/auth';
+import { FirebaseAuthState } from 'angularfire2';
+
+const TWITTER = 2;
+const FACEBOOK = 3;
+const GOOGLE = 4;
 
 @Component({
     selector: 'my-login',
@@ -18,11 +27,13 @@ export class LoginComponent {
     loginForm;
     user:User;
     error:string;
+    authState: FirebaseAuthState;
 
     constructor(
         private ProjectService: ProjectService,
         private router: Router,
-        private broadcaster: Broadcaster
+        private broadcaster: Broadcaster,
+        private angularFire: AngularFire
     ) {
 
         this.loginForm = {
@@ -30,6 +41,96 @@ export class LoginComponent {
             password: '',
             apikey: true
         };
+
+        this.angularFire.auth.subscribe(state => {
+            this.authState = state;
+        });
+    }
+
+    getAuthState(): FirebaseAuthState {
+        return this.authState;
+    }
+
+    googleLogin() {
+        return this.angularFire.auth.login({
+            provider: AuthProviders.Google,
+            method: AuthMethods.Popup
+        });
+    }
+
+    facebookLogin() {
+        return this.angularFire.auth.login({
+            provider: AuthProviders.Facebook,
+            method: AuthMethods.Popup
+        });
+    }
+
+    twitterLogin() {
+        return this.angularFire.auth.login({
+            provider: AuthProviders.Twitter,
+            method: AuthMethods.Popup
+        });
+    }
+
+    logoutSocial() {
+        this.angularFire.auth.logout();
+    }
+
+    loginSocial(index:number){
+        switch (index) {
+            case TWITTER:
+                this.twitterLogin().then((socialUser:any) => {console.log(socialUser);
+                    // this.setData(user);
+                }).catch((error) => {
+                    this.errorHandler(error);
+                });
+                break;
+            case FACEBOOK:
+                this.facebookLogin().then((socialUser:any) => {
+                    if(socialUser.facebook && socialUser.facebook.accessToken){
+                        console.log(socialUser.facebook.accessToken);
+                        this.setData('facebook', socialUser.facebook.accessToken);
+                    }
+                }).catch((error:any) => {
+                    if(error.credential && error.credential.accessToken){
+                        console.log(error.credential.accessToken);
+                        this.setData('facebook', error.credential.accessToken);
+                    }
+                    this.errorHandler(error);
+                });
+                break;
+            case GOOGLE:
+                this.googleLogin().then((socialUser:any) => {console.log(socialUser);
+                    if(socialUser.google && socialUser.google.accessToken){
+                        this.setData('google', socialUser.google.accessToken);
+                    }
+                    // this.setData(user);
+                }).catch((error) => {
+                    this.errorHandler(error);
+                });
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    setData(type, token, secter?) {
+        this.ProjectService.socialLogin(type, token, secter)
+            .subscribe(
+                res => {console.log(res);
+                    if(res.apiKey) {
+                        localStorage.setItem('apiKey', res.apiKey);
+                        this.broadcaster.broadcast('login', res.userInfo);
+                        this.joinHide();
+                        this.router.navigate(['/activity']);
+                    }
+                });
+    }
+
+    errorHandler(error) {
+        // this.error = error;
+        console.log(error);
     }
 
     joinHide(){
@@ -58,6 +159,7 @@ export class LoginComponent {
     }
 
     logout(){
+        this.logoutSocial();
         localStorage.removeItem('apiKey');
         this.router.navigate(['/']);
         this.broadcaster.broadcast('logout', 'some message');
