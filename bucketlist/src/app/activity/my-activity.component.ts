@@ -27,6 +27,32 @@ export class MyActivityComponent implements OnInit {
     public busy:boolean = false;
     public newActivity:boolean = false;
     errorMessage:string;
+    config: Object = {
+        observer: true,
+        autoHeight: true,
+        onSlideNextStart: function (ev) {
+            // scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex++;
+            // scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
+            // scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
+            // scope.$parent.loadImage($(ev.container).data('index'));
+            // scope.$parent.$apply();
+            // $timeout(function () {
+            //     ev.update(true);
+            // }, 100)
+
+        },
+        onSlidePrevStart: function (ev) {
+            // scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
+            // scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
+            // scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex--;
+            // scope.$parent.$apply();
+        },
+
+        // loop: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 30
+    };
     
     constructor(private _projectService: ProjectService, private _cacheService: CacheService) {}
     

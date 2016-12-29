@@ -111,7 +111,7 @@
             </div>
 
             <!--data-index="{{ $index }}"-->
-            <div *ngIf="!activity.comment && !activity.success_story" class="activity-slider swiper-container">
+            <swiper [config]="config" *ngIf="!activity.comment && !activity.success_story" class="activity-slider swiper-container">
                 <div class="idea-item swiper-wrapper goals-animate">
                     <div class="swiper-slide"
 
@@ -162,7 +162,7 @@
                     <div class="swiper-button-next swiper-button-white"></div>
                     <div class="swiper-button-prev swiper-button-white"></div>
                 </div>
-            </div>
+            </swiper>
 
             <div [ngClass]="{'line': activity.createComment && activity.showComment}"></div>
             <app-comment *ngIf="activity.createComment" [hidden]="!activity.showComment" [data]="{id:1398, slug:'visit-palau',inner:false}">

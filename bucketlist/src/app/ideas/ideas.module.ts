@@ -3,7 +3,7 @@ import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 import {TranslateModule} from 'ng2-translate';
 import { ComponentModule } from '../components/components.module';
-import { MapModule } from '../tools/map.module';
+import { MapModule } from '../tools/map/map.module';
 import { ProjectService } from '../project.service';
 
 import { IdeasComponent }    from './ideas.component';
