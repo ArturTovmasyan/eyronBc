@@ -13,12 +13,12 @@
         <a *ngIf="!goal.is_my_goal"
          (click)="addGoal(goal.id)">
           <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-          <span class="text">{{ 'add'|translate | uppercase }} </span>
+          <span class="text">{{ 'add'|translate | capitalize }} </span>
         </a>
 
         <span *ngIf="goal.is_my_goal && goal.is_my_goal !== 0">
             <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-            <span class="text">{{ 'added'|translate | uppercase }} </span>
+            <span class="text">{{ 'added'|translate | capitalize }} </span>
         </span>
       </li>
 
@@ -27,13 +27,13 @@
             <span *ngIf="!goal.is_my_goal || goal.is_my_goal !== 2">
                 <a (click)="completeGoal(goal.id)">
                      <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
-                     <span class="text">{{ 'done'|translate | uppercase }}</span>
+                     <span class="text">{{ 'done'|translate | capitalize }}</span>
                  </a>
             </span>
 
             <span *ngIf="goal.is_my_goal && goal.is_my_goal === 2 " id="success{{ goal.id }}">
                  <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                <span class="text">{{ 'completed'|translate | uppercase }}</span>
+                <span class="text">{{ 'completed'|translate | capitalize }}</span>
             </span>
 
       </li>
