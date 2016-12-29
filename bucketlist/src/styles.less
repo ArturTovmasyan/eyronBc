@@ -2388,9 +2388,24 @@ footer{
 
   #story-slider-homepage-container{
     overflow: hidden;
+
+    .idea-item {
+      .goal-item-image{
+        height: 190px;
+      }
+    }
   }
+
   .comment-place{
     padding-top:0;
+
+    .user-image{
+      width: 40px;
+      height: 40px;
+      img{
+        border: 2px solid #cecece;
+      }
+    }
   }
 
   .user-name{
@@ -2398,17 +2413,23 @@ footer{
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
+    font-weight: 600;
+    margin-bottom: 0;
   }
-
+  //.border-left{
+  //
+  //  margin: 0 0 15px 15px;
+  //}
   .border-left{
+    border-left: 2px solid #cccccc;
     margin: -14px 0 0 25px;
   }
 
-  figure:not(.user-image){
-    img{
-      height: 190px;
-    }
-  }
+  //figure:not(.user-image){
+  //  img{
+  //    height: 190px;
+  //  }
+  //}
 
   .user-image{
     margin: 0 10px 8px 1px;
@@ -3522,6 +3543,17 @@ footer{
   border-top:1px solid #e6e6e6;
 }
 
+.like-icon{
+  display: inline-block;
+  height: 21px;
+  width: 40px;
+  margin: 0 0 5px 12px;
+  background: url('assets/images/like-icon.png') no-repeat center center;
+  background-size: 100%;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
 @media (min-width: @screen-md) {
 
   header{
@@ -3858,6 +3890,13 @@ footer{
     }
   }
   /*end goal item*/
+
+  .like-icon{
+    &:hover{
+      background: url('assets/images/like-hover.png') no-repeat center center;
+      background-size: 100%;
+    }
+  }
 }
 
 .modal-open {
