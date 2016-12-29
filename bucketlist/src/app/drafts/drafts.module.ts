@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DraftsComponent } from './drafts.component';
+import { ProjectService } from '../project.service';
 
 import { DraftRouting } from './draft-routing';
 
@@ -9,6 +10,9 @@ import { DraftRouting } from './draft-routing';
     CommonModule,
     DraftRouting
   ],
-  declarations: [DraftsComponent]
+  declarations: [DraftsComponent],
+  providers: [
+    ProjectService
+  ]
 })
 export class DraftsModule { }

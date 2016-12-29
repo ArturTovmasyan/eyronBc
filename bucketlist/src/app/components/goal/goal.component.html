@@ -1,6 +1,6 @@
-<div class="row idea-item">
-  <div class="col-sm-12">
-    <figure>
+<!--<div class="row idea-item">-->
+  <!--<div class="col-sm-12">-->
+    <!--<figure>-->
 
       <span class="hide-nearby"
             *ngIf="type == 'nearby' && !hideDisableNearBy && isLoggedIn"
@@ -12,13 +12,29 @@
       </span>
 
       <h3 [ngClass]="{'nearby': (type== 'nearby' && goal.location && goal.distance > 0)}">
-        <a routerLink="/goal/{{ goal.slug }}">{{ goal.title }}</a>
+          <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}">{{ goal.title }}</a>
+          <a *ngIf="!goal.publish">{{ goal.title }}</a>
       </h3>
 
-      <a routerLink="/goal/{{ goal.slug }}" >
-        <span class="overlay"></span>
-        <img src="{{ goal.cached_image }}" *ngIf="goal.cached_image" alt="{{ goal.title }}"/>
-      </a>
+      <!--<a routerLink="/goal/{{ goal.slug }}" class="goal-item-image">-->
+        <!--<span class="overlay"></span>-->
+        <!--<img src="{{ goal.cached_image }}" *ngIf="goal.cached_image" alt="{{ goal.title }}"/>-->
+      <!--</a>-->
+
+        <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}"
+           class="goalTitle goal-item-image">
+            <span class="overlay"></span>
+            <img src="{{ goal.cached_image }}"
+                 alt="{{ goal.title }}"
+                 *ngIf="goal.cached_image"/>
+        </a>
+        <a *ngIf="!goal.publish"
+           class="goalTitle goal-item-image">
+            <span class="overlay"></span>
+            <img src="{{ goal.cached_image }}"
+                 alt="{{ goal.title }}"
+                 *ngIf="goal.cached_image"/>
+        </a>
 
       <a class="nearby-distance"
          target="_blank"
@@ -33,7 +49,7 @@
       <span class="text-center">{{ goal.distance | number:'1.0-3' }} km</span>
       </a>
 
-      <div class="absolute">
+      <div class="absolute" >
         <ul>
           <li>
             <goal-users [goal]="goal" type="1"></goal-users>
@@ -44,10 +60,7 @@
         </ul>
       </div>
 
-      <figcaption>
-        <app-goal-footer [goal]="goal"></app-goal-footer>
-      </figcaption>
 
-    </figure>
-  </div>
-</div>
+    <!--</figure>-->
+  <!--</div>-->
+<!--</div>-->

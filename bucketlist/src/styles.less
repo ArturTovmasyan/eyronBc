@@ -353,6 +353,11 @@ header{
         display:inline-block;
         vertical-align: top;
         //border-bottom: 1px solid #4421AB;
+
+        &.block{
+          display: block;
+        }
+
         a{
           color: #E5E5E5;
           font-weight: 700;
@@ -422,6 +427,13 @@ header{
             display: block;
             padding: 19px 5px 19px 15px;
             position: relative;
+
+            .navbar-brand{
+              width: 120px;
+              padding: 0 10px 0 0;
+
+            }
+
             figure{
               background-color: transparent;
               width:40px;
@@ -459,6 +471,7 @@ header{
               height: 25px;
               position: absolute;
               top: 27px;
+              right:18px;
 
               &.menu-hamburger{
                 background: url('assets/images/grey-burger.svg') no-repeat center center;
@@ -475,16 +488,27 @@ header{
                   background: url('assets/images/white-remove.svg') no-repeat center center;
                 }
               }
-            }
 
-            .icon-arrow-down,.icon-icon-up{
-              margin-top:9px;
-              position:absolute;
-              right:5px;
-              span{
-                padding-left:0;
+              &.icon-remove-email{
+                font-size: 40px;
+                background: #021523;
+                line-height: 75px;
+                height: 75px;
+                width: 75px;
+                text-align: center;
+                right: 0;
+                top: 0;
               }
             }
+
+            //.icon-arrow-down,.icon-icon-up{
+            //  margin-top:9px;
+            //  position:absolute;
+            //  right:5px;
+            //  span{
+            //    padding-left:0;
+            //  }
+            //}
           }
 
           .user+div.popover{
@@ -494,9 +518,15 @@ header{
           .user-menu{
             background-color: #021523;
             padding-left:0;
+            text-align: left;
+            width: 100%;
+            top: 75px;
+
             li{
               border-left:0;
               text-align: left;
+              display: block;
+
               a{
                 display: block;
                 padding:10px 20px;
@@ -513,9 +543,15 @@ header{
                   width:30px;
                   height:30px;
                   font-size:30px;
+
                   &.mybucketlist-icon{
                     margin-right: 0;
                     background-size: 100%;
+                    width: 25px;
+                  }
+
+                  &.settings-icon,&.add-goal{
+                    width: 25px;
                   }
 
                   &.ideas-icon,&.activity-icon{
@@ -561,11 +597,11 @@ header{
 
           .join-class {
             min-width:320px;
-            background-color: #021523;
+            //background-color: #021523;
             color:#e3e3e3;
-            &:hover{
-              background-color: #021523;
-            }
+            //&:hover{
+            //  background-color: #021523;
+            //}
           }
           .popover{
             padding:0;
@@ -2352,9 +2388,24 @@ footer{
 
   #story-slider-homepage-container{
     overflow: hidden;
+
+    .idea-item {
+      .goal-item-image{
+        height: 190px;
+      }
+    }
   }
+
   .comment-place{
     padding-top:0;
+
+    .user-image{
+      width: 40px;
+      height: 40px;
+      img{
+        border: 2px solid #cecece;
+      }
+    }
   }
 
   .user-name{
@@ -2362,17 +2413,23 @@ footer{
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
+    font-weight: 600;
+    margin-bottom: 0;
   }
-
+  //.border-left{
+  //
+  //  margin: 0 0 15px 15px;
+  //}
   .border-left{
+    border-left: 2px solid #cccccc;
     margin: -14px 0 0 25px;
   }
 
-  figure:not(.user-image){
-    img{
-      height: 190px;
-    }
-  }
+  //figure:not(.user-image){
+  //  img{
+  //    height: 190px;
+  //  }
+  //}
 
   .user-image{
     margin: 0 10px 8px 1px;
@@ -2778,6 +2835,11 @@ footer{
   margin: 30px 0;
 }
 
+.footer-bordered{
+  border:1px solid #f4f4f4;
+  border-top: 0;
+}
+
 //#rewards{
 //
 //  padding: 0 17px;
@@ -2838,6 +2900,7 @@ footer{
 .hr-margin{
   margin: 5px 0 10px;
 }
+
 
 @media (min-width: @screen-sm) {
 
@@ -2924,6 +2987,10 @@ footer{
 
             .join-class {
               min-width:210px;
+              background-color: #021523;
+              &:hover{
+                background-color: #021523;
+              }
             }
 
             .sign-in-popover+div.popover{
@@ -3476,6 +3543,17 @@ footer{
   border-top:1px solid #e6e6e6;
 }
 
+.like-icon{
+  display: inline-block;
+  height: 21px;
+  width: 40px;
+  margin: 0 0 5px 12px;
+  background: url('assets/images/like-icon.png') no-repeat center center;
+  background-size: 100%;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
 @media (min-width: @screen-md) {
 
   header{
@@ -3812,6 +3890,13 @@ footer{
     }
   }
   /*end goal item*/
+
+  .like-icon{
+    &:hover{
+      background: url('assets/images/like-hover.png') no-repeat center center;
+      background-size: 100%;
+    }
+  }
 }
 
 .modal-open {
@@ -4117,7 +4202,7 @@ div[dnd-list] {
     box-sizing: border-box;
     position: relative;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     white-space: normal;
     -webkit-user-select: text;
     -moz-user-select: text;
@@ -4200,7 +4285,7 @@ ul{
 .arrow-up{
   width: 0;
   height: 0;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid #b0b0b0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #f4f4f4;
 }

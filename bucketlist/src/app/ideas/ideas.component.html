@@ -28,18 +28,16 @@
   <div class="container">
     <div class="row no-gutter">
       <div class="col-xs-12">
-        <div class="filters-slider">
-          <ul class="filter" [hidden]="!filterVisibility">
-
-            <li
-                [ngClass]="{'active-category': category == 'nearby'}">
+        <swiper [config]="config" class="filters-slider swiper-container">
+          <ul class="filter swiper-wrapper" [hidden]="!filterVisibility">
+            <li class="swiper-slide"  [ngClass]="{'active-category': category == 'nearby'}">
               <a routerLink="/ideas/nearby" routerLinkActive="active">
                 <img src="assets/images/nearby.svg" class="svg"/>
                 <span>{{ 'nearby'|translate }}</span>
               </a>
             </li>
 
-            <li [ngClass]="{'active-category': category == 'discover'}">
+            <li class="swiper-slide" [ngClass]="{'active-category': category == 'discover'}">
               <a routerLink="/ideas/discover">
                 <img src="assets/images/discover.svg" class="svg"/>
                 <span>{{ 'discover'|translate }}</span>
@@ -47,7 +45,7 @@
             </li>
 
             <!--{% if featured %}-->
-            <li [ngClass]="{'active-category': category == 'featured'}">
+            <li class="swiper-slide" [ngClass]="{'active-category': category == 'featured'}">
               <a routerLink="/ideas/featured">
                 <img src="assets/images/featured.svg" class="svg"/>
                 <span>{{ 'featured'|translate }}</span>
@@ -56,7 +54,7 @@
             <!--{% endif %}-->
 
             <!--{% if mostPopular %}-->
-            <li [ngClass]="{'active-category': category == 'most-popular'}">
+            <li class="swiper-slide" [ngClass]="{'active-category': category == 'most-popular'}">
               <a routerLink="/ideas/most-popular">
                 <img src="assets/images/most-popular.svg"  class="svg"/>
                 <span>{{ 'most_popular'|translate }}</span>
@@ -66,7 +64,7 @@
 
             <!--{% for category in categories %}-->
             <!--{% if category.slug != 'most-popular' and category.slug != 'featured' and category.slug != 'nearby' %}-->
-            <li *ngFor="let cat of categories" [style.display]="(cat.slug == 'most-popular' || cat.slug == 'featured' || cat.slug == 'nearby')?'none':'inline-block'" [ngClass]="{'active-category': category == cat.slug}">
+            <li class="swiper-slide" *ngFor="let cat of categories" [style.display]="(cat.slug == 'most-popular' || cat.slug == 'featured' || cat.slug == 'nearby')?'none':'inline-block'" [ngClass]="{'active-category': category == cat.slug}">
               <a routerLink="/ideas/{{ cat.slug }}">
                 <img src="{{ serverPath + cat.image_download_link }}" class="svg"/>
                 <span>{{ cat.title }}</span>
@@ -84,7 +82,7 @@
               <i class="swiper-button-next"></i>
             </div>
           </div>
-        </div>
+        </swiper>
       </div>
     </div>
   </div>
@@ -141,7 +139,17 @@
         <!--{% if search %} ideas-result {% endif %}-->
         <div class="col-md-{{ ((+i + 1) % 7) < 5 ? 4 : 8 }} goals-animate"
              *ngFor="let goal of ideas; let i = index">
-          <app-goal [goal]="goal" [type]="(category == 'nearby')?'nearby':''" (onHover)="hideJoin($event)" [userLocation]="userLocation"></app-goal>
+          <div class="row idea-item">
+            <div class="col-sm-12">
+              <figure>
+                <app-goal [goal]="goal" [type]="(category == 'nearby')?'nearby':''"
+                          (onHover)="hideJoin($event)" [userLocation]="userLocation"
+                          [ngClass]="{height: ((+i + 1) % 7) == 6 || ((+i + 1) % 7) == 0}"></app-goal>
+
+                <app-goal-footer [goal]="goal"></app-goal-footer>
+              </figure>
+            </div>
+          </div>
         </div>
       </div>
     </div>

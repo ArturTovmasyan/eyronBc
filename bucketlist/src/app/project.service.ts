@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams, Headers } from '@angular/http';
+import {Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { Broadcaster } from './tools/broadcaster';
 
 import {Goal} from "./interface/goal";
 import {Story} from "./interface/story";
 import {User} from "./interface/user";
+import {Comment} from "./interface/comment";
 import {Category} from "./interface/category";
 import {UserGoal} from "./interface/userGoal";
 import {Activity} from "./interface/activity";
@@ -25,6 +26,7 @@ export class ProjectService {
     private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
+    private appUser:User;
 
     // private envprefix = '/app_dev.php/';
     private envprefix = '/';
@@ -32,8 +34,19 @@ export class ProjectService {
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private goalUrl = '';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
+    private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
 
-    private userGoalsUrl = 'usergoals';  // URL to web API
+    //modals
+    private reportUrl = this.baseUrl + 'report';
+    private commonUrl1 = this.baseUrl + 'goals/';
+    private commonUrl2 = '/common';
+    private usersUrl = this.baseUrl + 'user-list/';
+    private friendsUrl = this.baseUrl + 'goals/';
+
+    private userGoalsUrl = this.baseUrl + 'usergoals/';  // URL to web API
+    private getStoryUrl = this.baseUrl + 'story/';  // URL to web API
+    private addVoteUrl = this.baseUrl + 'success-story/add-vote/';  // URL to web API
+    private removeVoteUrl = this.baseUrl + 'success-story/remove-vote/';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
     private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
@@ -46,9 +59,16 @@ export class ProjectService {
     private categoriesUrl = this.baseUrl + 'goal/categories';
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
     private nearByUrl = this.baseUrl + 'goals/nearby/';
-    private resetNearByUrl = this.baseOrigin + this.envprefix + 'usergoals/';
+    private resetNearByUrl = this.baseUrl + 'usergoals/';
+    private getCommentsUrl = this.baseUrl + 'comments/goal_';
+    private putCommentUrl = this.baseUrl + 'comments/';
+
     constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
         this.headers.append('apikey', localStorage.getItem('apiKey'));
+        this.broadcaster.on<User>('getUser')
+            .subscribe(user => {
+                this.appUser = user;
+            });
     }
 
     /**
@@ -62,10 +82,31 @@ export class ProjectService {
 
     /**
      * 
+     * @param type
+     * @param token
+     * @param secret
+     * @returns {Observable<R>}
+     */
+    socialLogin(type:string, token:string, secret?:string):Observable<any> {
+        return this.http.get(this.socialLoginUrl + type + '/' + token + (secret?('/' + secret):'') + '?apikey=true')
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
      * @returns {Observable<R>}
      */
     getPath(){
         return this.baseOrigin;
+    }
+    
+    /**
+     * 
+     * @returns {Observable<R>}
+     */
+    getMyUser(){
+        return this.appUser;
     }
 
     /**
@@ -83,6 +124,7 @@ export class ProjectService {
      * 
      * @param start
      * @param count
+     * @param time
      * @returns {Observable<R>}
      */
     getActivities(start:number, count:number, time?:any):Observable<Activity[]> {
@@ -91,17 +133,61 @@ export class ProjectService {
             .catch(this.handleError);
     }
     
-    // /**
-    //  *
-    //  * @param goalId
-    //  * @returns {Observable<R>}
-    //  */
-    // getUserGoal(goalId:number):Observable<UserGoal> {
-    //     return this.http.get(this.userGoalsUrl + '/' + goalId)
-    //         .map((r:Response) => r.json() as UserGoal)
-    //         .catch(this.handleError);
-    // }
+    /**
+     *
+     * @param goalId
+     * @returns {Observable<R>}
+     */
+    getUserGoal(goalId:number):Observable<UserGoal> {
+        return this.http.get(this.userGoalsUrl + goalId, {headers: this.headers})
+            .map((r:Response) => r.json() as UserGoal)
+            .catch(this.handleError);
+    }
 
+    /**
+     *
+     * @param goalId
+     * @returns {Observable<R>}
+     */
+    setDoneUserGoal(goalId:number):Observable<UserGoal> {
+        return this.http.get(this.userGoalsUrl + goalId + '/dones/true', {headers: this.headers})
+            .map((r:Response) => r.json() as UserGoal)
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param goalId
+     * @returns {Observable<R>}
+     */
+    getStory(goalId:number):Observable<any> {
+        return this.http.get(this.getStoryUrl + goalId, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    addVote(id:number):Observable<any> {
+        return this.http.get(this.addVoteUrl + id, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    removeVote(id:number):Observable<any> {
+        return this.http.get(this.removeVoteUrl + id, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    
     /**
      * 
      */
@@ -135,7 +221,7 @@ export class ProjectService {
      * @returns {Observable<T>}
      */
     getUserList(first:number, count:number, search:string, type:string):Observable<User[]> {
-        return this.http.get(this.baseUrl +'user-list/'+first+'/'+count+'?search='+search+'&type='+ type, {headers: this.headers})
+        return this.http.get(this.friendsUrl + first + '/friends/'+count+'?search='+search+'&type='+ type, {headers: this.headers})
             .map((r:Response) => r.json() as User[])
             .catch(this.handleError);
     }
@@ -258,6 +344,65 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
+    /**
+     *
+     */
+    getComments(slug:string):Observable<Comment[]> {
+        return this.http.get(this.getCommentsUrl + slug, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+     /**
+     *
+     */
+    putComment(id:number, body:any, commentId?:number):Observable<Comment> {
+         let comment = commentId? ('/'+ commentId): '';
+        return this.http.put(this.putCommentUrl + id + comment, {'commentBody': body}, {headers: this.headers})
+            .map((r:Response) => r.json() as Comment)
+            .catch(this.handleError);
+    }
+    
+    
+    
+
+    //modal requests
+    /**
+     *
+     */
+    getReport(data:any):Observable<any> {
+        return this.http.get(this.reportUrl + '?commentId=' + data.contentId + '&type=' + data.contentType, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    /**
+     *
+     */
+    report(data:any):Observable<any> {
+        return this.http.put(this.reportUrl, data, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     */
+    getCommons(id:number, start?:number, count?:number):Observable<any> {
+        let end = count?('/' + start + '/' + count):'';
+        return this.http.get(this.commonUrl1 + id + this.commonUrl2 + end, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     */
+    getUsers(start:number, count:number, id:number, type:number):Observable<User[]> {
+        return this.http.get(this.usersUrl + start + '/' + count + '/' + id + '/' + type, {headers: this.headers})
+            .map((r:Response) => r.json() as User[])
+            .catch(this.handleError);
+    }
+
+    
     /**
      *
      * @param error

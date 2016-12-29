@@ -1,4 +1,4 @@
-<ul class="badge-place leaderboard-list goals-animate">
+<ul class="badge-place leaderboard-list goals-animate" *ngIf="user">
   <li class="text-gray">
     <i class="badge-{{ index + 1 }}"></i>
   </li>
@@ -15,7 +15,7 @@
   </li>
 
   <li>
-    <a routerLink="/profile/{{ user.uid }}"  class="text-dark-gray">{{ getFullName(user) }} </a>
+    <a routerLink="/profile/{{ user.u_id }}"  class="text-dark-gray">{{ getFullName(user) }} </a>
   </li>
 
   <li class="text-gray">{{ score }}</li>

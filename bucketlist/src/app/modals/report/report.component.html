@@ -1,0 +1,41 @@
+<div class="bg-grey my-modal" id="report-modal">
+
+    <div class="bg-white">
+        <h3 *ngIf="!isReported">{{ 'report.title'|translate }}</h3>
+
+        <h3 class=" text-center" *ngIf="isReported">{{ 'report.thanks'|translate }}</h3>
+
+        <a class="close-icon" (click)="modalHideEmitter.emit(null)" *ngIf="!isReported"></a>
+    </div>
+
+    <div class="report-content">
+
+        <form class="form-horizontal" *ngIf="!isReported">
+
+            <div class="radio">
+                <label>
+                    <input type="radio" [(ngModel)]="reportOption" name="optionsRadios" id="optionsRadios1" [value]="2" checked>
+                    {{ 'report.spam'|translate }}
+                </label>
+            </div>
+
+            <div class="radio">
+                <label>
+                    <input type="radio" [(ngModel)]="reportOption" name="optionsRadios" id="optionsRadios2" [value]="3">
+                    {{ 'report.opinion'|translate }}
+                </label>
+            </div>
+
+            <textarea class="form-control" rows="3" name="reportText" [(ngModel)]='reportText' placeholder="{{ 'report.other'|translate }}"></textarea>
+
+        </form>
+
+        <p *ngIf="isReported" class="text-center ">{{ 'report.message'|translate }}</p>
+
+    </div>
+
+    <div class="bg-white padding text-center" *ngIf="!isReported">
+        <button name="submit" (click)="report()" class="btn btn-purple" [ngClass]="{'purple-transparent': !(reportOption || reportText)}">{{ 'submit'|translate | uppercase }}</button>
+    </div>
+
+</div>

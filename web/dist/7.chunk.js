@@ -1,13 +1,13 @@
 webpackJsonp([7,13],{
 
-/***/ 793:
+/***/ 888:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__goal_create_component__ = __webpack_require__(829);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__goal_create_routing__ = __webpack_require__(849);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__goal_create_component__ = __webpack_require__(940);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__goal_create_routing__ = __webpack_require__(953);
 /* harmony export (binding) */ __webpack_require__.d(exports, "GoalCreateModule", function() { return GoalCreateModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -28,7 +28,7 @@ var GoalCreateModule = (function () {
     GoalCreateModule = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
                 __WEBPACK_IMPORTED_MODULE_3__goal_create_routing__["a" /* GoalCreateRouting */]
             ],
             declarations: [__WEBPACK_IMPORTED_MODULE_2__goal_create_component__["a" /* GoalCreateComponent */]]
@@ -41,7 +41,7 @@ var GoalCreateModule = (function () {
 
 /***/ },
 
-/***/ 829:
+/***/ 940:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65,8 +65,8 @@ var GoalCreateComponent = (function () {
     GoalCreateComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-goal-create',
-            template: __webpack_require__(881),
-            styles: [__webpack_require__(871)]
+            template: __webpack_require__(980),
+            styles: [__webpack_require__(969)]
         }), 
         __metadata('design:paramtypes', [])
     ], GoalCreateComponent);
@@ -76,12 +76,12 @@ var GoalCreateComponent = (function () {
 
 /***/ },
 
-/***/ 849:
+/***/ 953:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__goal_create_component__ = __webpack_require__(829);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__goal_create_component__ = __webpack_require__(940);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalCreateRouting; });
 
 
@@ -94,14 +94,14 @@ var GoalCreateRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* Rou
 
 /***/ },
 
-/***/ 871:
+/***/ 969:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 881:
+/***/ 980:
 /***/ function(module, exports) {
 
 module.exports = "<p>\n  goal-create works!\n</p>\n"

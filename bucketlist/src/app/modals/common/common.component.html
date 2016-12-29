@@ -1,0 +1,30 @@
+<div class="bg-grey my-modal" id="common-modal">
+    <div class="bg-white" *ngIf="goals && goals.length">
+        <h3>{{ 'menu.common'|translate }} {{ goals.length }} Goals</h3>
+        <a  (click)="modalHideEmitter.emit(null)" class="close-icon"></a>
+    </div>
+
+    <div class="common-content"
+         infinite-scroll
+         [infiniteScrollDistance]="1"
+         [infiniteScrollThrottle]="500"
+         (scrolled)="onScroll()">
+        <div [hidden]="!goals || !goals.length"
+             class=" row"
+             *ngFor="let goal of goals">
+
+            <div class="col-sm-12">
+                <div class="idea-item">
+                    <figure>
+                        <app-goal [goal]="goal"></app-goal>
+                        <app-goal-footer [goal]="goal"></app-goal-footer>
+                    </figure>
+                </div>
+            </div>
+
+        </div>
+        <div *ngIf="!goals || !goals.length" >
+            <p>{{ 'no_common'| translate  }}</p>
+        </div>
+    </div>
+</div>
