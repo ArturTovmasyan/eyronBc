@@ -4,6 +4,7 @@ import { NotificationComponent } from './notification.component';
 import { ComponentModule } from '../components/components.module';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import {TranslateModule} from 'ng2-translate';
+import { ProjectService } from '../project.service';
 
 import { NotificationRouting } from './notification-routing';
 
@@ -15,6 +16,11 @@ import { NotificationRouting } from './notification-routing';
     ActivityBlockModule,
     TranslateModule
   ],
-  declarations: [NotificationComponent]
+  declarations: [
+    NotificationComponent
+  ],
+  providers: [
+    ProjectService
+  ]
 })
 export class NotificationModule { }

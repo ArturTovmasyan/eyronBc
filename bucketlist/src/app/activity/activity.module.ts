@@ -8,6 +8,7 @@ import { ActivityGoalComponent } from '../components/activity-goal/activity-goal
 import { ActivityGoalFooterComponent } from '../components/activity-goal-footer/activity-goal-footer.component';
 import { ComponentModule } from '../components/components.module';
 import { ActivityBlockModule } from '../block/activityBlock.module';
+import { ProjectService } from '../project.service';
 
 import { ActivityRouting } from './activity-routing';
 
@@ -24,6 +25,9 @@ import { ActivityRouting } from './activity-routing';
     MyActivityComponent,
     ActivityGoalComponent,
     ActivityGoalFooterComponent
+  ],
+  providers: [
+    ProjectService
   ]
 })
 export class ActivityModule { }

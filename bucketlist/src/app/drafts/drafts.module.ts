@@ -4,6 +4,7 @@ import { DraftsComponent } from './drafts.component';
 import {TranslateModule} from 'ng2-translate';
 import {ProfileHeaderComponent} from '../block/profile-header/profile-header.component';
 import {ComponentModule} from '../components/components.module'
+import { ProjectService } from '../project.service';
 
 import { DraftRouting } from './draft-routing';
 
@@ -17,6 +18,9 @@ import { DraftRouting } from './draft-routing';
   declarations: [
     DraftsComponent,
     ProfileHeaderComponent
+  ],
+  providers: [
+    ProjectService
   ]
 })
 export class DraftsModule { }

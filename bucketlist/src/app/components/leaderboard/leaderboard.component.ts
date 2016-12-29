@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , ViewEncapsulation} from '@angular/core';
 
 import {User} from "../../interface/user";
 
 @Component({
   selector: 'leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.less']
+  styleUrls: ['./leaderboard.component.less'] ,
+  encapsulation: ViewEncapsulation.None
 })
 export class LeaderboardComponent implements OnInit {
 

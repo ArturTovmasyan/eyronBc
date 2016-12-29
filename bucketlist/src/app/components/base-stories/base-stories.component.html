@@ -63,27 +63,29 @@
                       <div class="row">
                         <div class="col-xs-12">
                           <!--data-ng-scrollbars data-ng-scrollbars-config="scroller_config" data-ng-scrollbars-update="updateScrollbar"-->
-                          <div  class="success-scroll">
-                            <p>{{ story.story }}</p>
+                          <perfect-scrollbar class="success-scroll" [config]="config">
+                            <div class="content">
+                              <p>{{ story.story }}</p>
 
-                            <!--file.downloadLink|blImageFilter('slide_max_size')-->
-                            <a *ngFor="let file of story.files; let k = index; trackBy: trackByFn" href="{{ file.downloadLinkMaxSize }}"
-                               class="swipebox-{{ i }}" [hidden]="k > 0">
-                              <i class="photo-icon"></i>
-                              <!--('story_homepage_small')-->
-                              <img src="{{ file.getDownloadLink }}"
-                                   alt="{{ file.fileName }}" height="83" width="106"/>
-                            </a>
+                              <!--file.downloadLink|blImageFilter('slide_max_size')-->
+                              <a *ngFor="let file of story.files; let k = index; trackBy: trackByFn" href="{{ file.downloadLinkMaxSize }}"
+                                 class="swipebox-{{ i }}" [hidden]="k > 0">
+                                <i class="photo-icon"></i>
+                                <!--('story_homepage_small')-->
+                                <img src="{{ file.getDownloadLink }}"
+                                     alt="{{ file.fileName }}" height="83" width="106"/>
+                              </a>
 
-                            <!--{#<span  data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"></span>#}-->
-                            <a *ngFor="let video of story.videos; let key = index; trackBy: trackByFn" class="swipebox-video-{{ key }}" href="{{ video }}">
-                              <i class="video-icon" [hidden]="key > 0"></i>
-                              <!--<embed-video-->
-                                      <!--href="{{ video ]]"-->
-                                      <!--height="83" width="106">-->
-                              <!--</embed-video >-->
-                            </a>
-                          </div>
+                              <!--{#<span  data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"></span>#}-->
+                              <a *ngFor="let video of story.videos; let key = index; trackBy: trackByFn" class="swipebox-video-{{ key }}" href="{{ video }}">
+                                <i class="video-icon" [hidden]="key > 0"></i>
+                                <!--<embed-video-->
+                                        <!--href="{{ video ]]"-->
+                                        <!--height="83" width="106">-->
+                                <!--</embed-video >-->
+                              </a>
+                            </div>
+                          </perfect-scrollbar>
 
                         </div>
                       </div>

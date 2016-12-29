@@ -6,6 +6,7 @@ import {TranslateModule} from 'ng2-translate';
 import { ComponentModule } from '../components/components.module';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { ProjectService } from '../project.service';
 
 import { GoalfriendsRouting } from './goal-friends-routing';
 
@@ -19,6 +20,9 @@ import { GoalfriendsRouting } from './goal-friends-routing';
     InfiniteScrollModule,
     ActivityBlockModule
   ],
-  declarations: [GoalfriendsComponent]
+  declarations: [GoalfriendsComponent],
+  providers: [
+    ProjectService
+  ]
 })
 export class GoalfriendsModule { }

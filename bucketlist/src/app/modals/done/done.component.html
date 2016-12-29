@@ -1,4 +1,4 @@
-<div id="story-modal" class="overflow my-modal">
+<div class="overflow my-modal goal-modal">
     <div *ngIf="newAdded" class="email">{{ "message_on_top_of_the_page" | translate | uppercase }}</div>
     <div class="modal-top">
         <figure *ngIf="userGoal && userGoal.goal.cached_image">
@@ -71,118 +71,131 @@
     <!--12:'form.month_december'|trans({}, 'FOSUserBundle') }-->
     <!--%}-->
     <!--data-ng-init="myMonths={{ arrayMonth |json_encode()}}"-->
-    <div *ngIf="newAdded">
-        <div class="row">
-            <div class="col-xs-10 col-xs-offset-1">
+    <div class="bg-white">
 
-                <h3 class="story-title text-grey-dark">{{ "success_story.completion_date"|translate }}</h3>
+        <div *ngIf="newAdded">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
 
-                <p class="complete-text">{{ "success_story.complete_edit_text"|translate }}</p>
+                    <h3 class="story-title text-grey-dark">{{ "success_story.completion_date"|translate }}</h3>
 
-                <div class="form-group row">
-                    <div class="col-sm-4 date">
-                         <!--data-ng-init="defaultYear = '{{ 'form.birth_date_year'|translate  }}';-->
-                                        <!--defaultDay = '{{ 'form.birth_date_day'|translate }}';-->
-                                        <!--defaultMonth = '{{ 'form.birth_date_month'|translate }}'">-->
-                        <!--<ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">-->
-                            <!--<ui-select-match placeholder="{{ 'form.birth_date_year'|translate }}">-->
-                                <!--<span>{{ $select.selected }}</span>-->
-                            <!--</ui-select-match>-->
+                    <p class="complete-text">{{ "success_story.complete_edit_text"|translate }}</p>
 
-                            <!--<ui-select-choices repeat="y in years">-->
-                                <!--<span data-ng-bind="y"></span>-->
-                            <!--</ui-select-choices>-->
-                        <!--</ui-select>-->
-                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-4 date">
+                             <!--data-ng-init="defaultYear = '{{ 'form.birth_date_year'|translate  }}';-->
+                                            <!--defaultDay = '{{ 'form.birth_date_day'|translate }}';-->
+                                            <!--defaultMonth = '{{ 'form.birth_date_month'|translate }}'">-->
+                            <!--<ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">-->
+                                <!--<ui-select-match placeholder="{{ 'form.birth_date_year'|translate }}">-->
+                                    <!--<span>{{ $select.selected }}</span>-->
+                                <!--</ui-select-match>-->
 
-                    <div class="col-sm-4 date">
-                        <!--<ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">-->
-                            <!--<ui-select-match placeholder="{{ 'form.birth_date_month'|translate }}">-->
-                                <!--<span>{{ $select.selected }}</span>-->
-                            <!--</ui-select-match>-->
+                                <!--<ui-select-choices repeat="y in years">-->
+                                    <!--<span data-ng-bind="y"></span>-->
+                                <!--</ui-select-choices>-->
+                            <!--</ui-select>-->
+                        </div>
 
-                            <!--<ui-select-choices repeat="m in months">-->
-                                <!--<span data-ng-bind="m"></span>-->
-                            <!--</ui-select-choices>-->
-                        <!--</ui-select>-->
-                    </div>
-                    <div class="col-sm-4 date">
+                        <div class="col-sm-4 date">
+                            <!--<ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">-->
+                                <!--<ui-select-match placeholder="{{ 'form.birth_date_month'|translate }}">-->
+                                    <!--<span>{{ $select.selected }}</span>-->
+                                <!--</ui-select-match>-->
 
-                        <!--<ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">-->
-                            <!--<ui-select-match placeholder="{{ 'form.birth_date_day'|translate }}">-->
-                                <!--<span>{{ $select.selected }}</span>-->
-                            <!--</ui-select-match>-->
+                                <!--<ui-select-choices repeat="m in months">-->
+                                    <!--<span data-ng-bind="m"></span>-->
+                                <!--</ui-select-choices>-->
+                            <!--</ui-select>-->
+                        </div>
+                        <div class="col-sm-4 date">
 
-                            <!--<ui-select-choices repeat="day in days">-->
-                                <!--<span data-ng-bind="day"></span>-->
-                            <!--</ui-select-choices>-->
-                        <!--</ui-select>-->
-                    </div>
-                </div>
+                            <!--<ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">-->
+                                <!--<ui-select-match placeholder="{{ 'form.birth_date_day'|translate }}">-->
+                                    <!--<span>{{ $select.selected }}</span>-->
+                                <!--</ui-select-match>-->
 
-            </div>
-        </div>
-
-        <hr/>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-10 col-xs-offset-1">
-            <h3 class="story-title text-grey-dark">{{ 'success_story.title'|translate }}</h3>
-        </div>
-    </div>
-
-    <!--{#{{ form_errors(form) }}#}-->
-
-    <form id="goal-done-form" action="#">
-        <div class="row">
-            <div class="col-xs-10 col-xs-offset-1">
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <textarea required="required" name="story" [(ngModel)]="story" class="form-control" placeholder="{{ 'success_story.add'|translate }}" rows="4"></textarea>
-                    </div>
-                </div>
-                <!--data-ng-init="initDropzone('{{ path('add_goal_success_story_images') }}')"-->
-                <div class="text-center">
-                    <div class="dropzone" id="goalDropzone">
-                        <div class="dz-message">
-                            <div class="row">
-                                <div class="col-sm-12">
-
-                                    <h3 class="text-dark-gray">
-                                        <i class="icon-cloud"></i>{{ 'drag_drop'|translate  }}
-                                    </h3>
-                                </div>
-                            </div>
-
-                            <p [innerHTML]="'upload'|translate"></p>
+                                <!--<ui-select-choices repeat="day in days">-->
+                                    <!--<span data-ng-bind="day"></span>-->
+                                <!--</ui-select-choices>-->
+                            <!--</ui-select>-->
                         </div>
                     </div>
+
                 </div>
+            </div>
 
-                <!--{#{{ form_widget(form.files, {'attr': { "value" : "{{ files }}" } }) }}#}-->
+            <hr/>
+        </div>
 
-                <div class="form-group">
-                    <label class="text-grey-dark story-title">Video</label>
-                    <!--<video-link data-ng-repeat="(k, video) in userGoal.videos_array"-->
-                                <!--data-key="k"-->
-                                <!--data-limit="3"-->
-                                <!--data-link="video.link"-->
-                                <!--data-array="userGoal.videos_array">-->
-                    <!--</video-link>-->
-                </div>
-                <p class="text-center error-message" *ngIf="noStory">{{ 'success_story.error_widht_file'|translate }}</p>
-                <p class="text-center error-message" *ngIf="invalidYear">{{ 'success_story.error_day_in_month1'|translate }} {{ dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}</p>
-                <p class="text-center error-message" *ngIf="uncompletedYear">{{ 'success_story.error_uncomplete_year'|translate }}</p>
-
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <h3 class="story-title text-grey-dark">{{ 'success_story.title'|translate }}</h3>
             </div>
         </div>
 
-        <div class="text-center bottom-modal">
-            <a  (click)="save()" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</a>
-            <a  (click)="modalHideEmitter.emit(null)" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|translate }}</a>
-        </div>
+        <!--{#{{ form_errors(form) }}#}-->
 
-    </form>
+        <form id="goal-done-form" action="#" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea required="required" name="story" [(ngModel)]="story" class="form-control" placeholder="{{ 'success_story.add'|translate }}" rows="4"></textarea>
+                        </div>
+                    </div>
 
+                    <fileDroppa
+                            [url]="serverPath + '/api/v1.0/success-story/add-images'"
+                            [autoUpload]="false"
+                            [showFilesList]="true"
+                            [beforeRequest]="beforeRequest"
+                            [beforeFileUpload]="beforeFileUpload"
+                            [beforeAddFile]="beforeAddFile"
+                            (filesUpdated)="filesUpdated($event)"
+                            (fileUploaded)="fileUploaded($event)">
+                        <div class="text-center">
+                            <div class="dropzone" id="goalDropzone">
+                                <div class="dz-message">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            <h3 class="text-dark-gray">
+                                                <i class="icon-cloud"></i>{{ 'drag_drop'|translate  }}
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <p [innerHTML]="'upload'|translate"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </fileDroppa>`
+
+
+                    <!--{#{{ form_widget(form.files, {'attr': { "value" : "{{ files }}" } }) }}#}-->
+
+                    <div class="form-group">
+                        <label class="text-grey-dark story-title">Video</label>
+                        <!--<video-link data-ng-repeat="(k, video) in userGoal.videos_array"-->
+                                    <!--data-key="k"-->
+                                    <!--data-limit="3"-->
+                                    <!--data-link="video.link"-->
+                                    <!--data-array="userGoal.videos_array">-->
+                        <!--</video-link>-->
+                    </div>
+                    <p class="text-center error-message" *ngIf="noStory">{{ 'success_story.error_widht_file'|translate }}</p>
+                    <p class="text-center error-message" *ngIf="invalidYear">{{ 'success_story.error_day_in_month1'|translate }} {{ dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}</p>
+                    <p class="text-center error-message" *ngIf="uncompletedYear">{{ 'success_story.error_uncomplete_year'|translate }}</p>
+
+                </div>
+            </div>
+
+            <div class="text-center modal-bottom">
+                <a  (click)="save()" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</a>
+                <a  (click)="modalHideEmitter.emit(null)" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|translate }}</a>
+            </div>
+
+        </form>
+    </div>
 </div>
