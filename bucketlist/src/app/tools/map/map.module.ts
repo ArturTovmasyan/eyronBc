@@ -5,8 +5,7 @@ import {TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
 import { AgmCoreModule } from "angular2-google-maps/core";
 
-import {MapComponent} from './map';
-
+import { MapComponent } from './map.component';
 
 @NgModule({
   imports: [
@@ -20,10 +19,9 @@ import {MapComponent} from './map';
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [
+  declarations: [MapComponent],
+  exports: [
     MapComponent
-  ],
-  exports: [MapComponent
   ]
 })
 export class MapModule { }

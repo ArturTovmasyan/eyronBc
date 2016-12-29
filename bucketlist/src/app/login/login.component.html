@@ -31,9 +31,9 @@
     <ul class="social">
         <meta charset="UTF-8">
         <div>
-            <li><a class="facebook" [href]="connect/facebook"></a></li>
-            <li><a class="google" [href]="connect/google"></a></li>
-            <li><a class="twitter" [href]="connect/twitter"></a></li>
+            <li><a class="facebook" (click)="loginSocial(3);"></a></li>
+            <li><a class="google" (click)="loginSocial(4);"></a></li>
+            <li><a class="twitter" (click)="loginSocial(2);"></a></li>
         </div>
     </ul>
 </div>
