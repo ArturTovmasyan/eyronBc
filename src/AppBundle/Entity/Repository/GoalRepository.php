@@ -1104,10 +1104,10 @@ class GoalRepository extends EntityRepository
             ->createQuery("SELECT g, p, img, ug
                            FROM AppBundle:Goal g
                            JOIN g.place p
-                           LEFT JOIN g.userGoal ug
+                           LEFT JOIN g.userGoal ug WITH ug.goal = g and ug.user = :userId 
                            LEFT JOIN ug.user u
                            LEFT JOIN g.images img
-                           WHERE (ug.goal = g and ug.user = :userId) and ug.id is null or (ug.confirmed != :status AND ug.status != :completed) ")
+                           WHERE ug.id is null or (ug.confirmed != :status AND ug.status != :completed) ")
             ->setParameter('userId', $userId)
             ->setParameter('status', true)
             ->setParameter('completed', UserGoal::COMPLETED)
