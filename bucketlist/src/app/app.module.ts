@@ -8,7 +8,8 @@ import {SelectModule} from 'ng2-select/ng2-select';
 import {DndModule} from 'ng2-dnd';
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
-import FileDroppa from 'file-droppa'
+import { SwiperModule } from 'angular2-useful-swiper';
+// import FileDroppa from 'file-droppa'
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -60,7 +61,8 @@ import { DoneComponent } from './modals/done/done.component';
     JsonpModule,
     appRouting,
     SelectModule,
-    FileDroppa,
+    SwiperModule,
+    // FileDroppa,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),
     TranslateModule.forRoot()
