@@ -16,6 +16,15 @@ figcaption{
       i{
         font-size:25px;
         vertical-align: middle;
+
+        &.comment-icon{
+          vertical-align: middle;
+          display: inline-block;
+          background: url('../../../assets/images/comment-icon.svg') no-repeat center center;
+          width:21px;
+          height:20px;
+          margin: 0;
+        }
       }
 
       i.icon-green-ok,.icon-green-plus{
@@ -38,6 +47,7 @@ figcaption{
       }
       &:last-child{
         text-align:left;
+        padding-left: 1px;
       }
     }
     .transparent{
@@ -67,6 +77,12 @@ figcaption{
 
         i{
           font-size:30px;
+
+          &.comment-icon{
+            width:30px;
+            height:24px;
+            margin: 3px 1px 0 -17px;
+          }
         }
 
         .text{
@@ -84,6 +100,7 @@ figcaption{
   figcaption{
     ul{
       li{
+
         &:hover{
           background-color: #7724F6;
           color:#ffffff;
