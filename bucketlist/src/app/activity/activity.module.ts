@@ -5,6 +5,7 @@ import { SwiperModule } from 'angular2-useful-swiper';
 
 import { ActivityComponent } from './activity.component';
 import { MyActivityComponent } from './my-activity.component';
+import { SliderComponent } from './slider.component';
 import { ActivityGoalComponent } from '../components/activity-goal/activity-goal.component';
 import { ActivityGoalFooterComponent } from '../components/activity-goal-footer/activity-goal-footer.component';
 import { ComponentModule } from '../components/components.module';
@@ -26,7 +27,8 @@ import { ActivityRouting } from './activity-routing';
     ActivityComponent,
     MyActivityComponent,
     ActivityGoalComponent,
-    ActivityGoalFooterComponent
+    ActivityGoalFooterComponent,
+    SliderComponent
   ],
   providers: [
     ProjectService
