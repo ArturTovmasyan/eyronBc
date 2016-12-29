@@ -38,6 +38,7 @@ export class IdeasComponent implements OnInit {
   public userLocation: any;
   public isCompletedGoals: boolean = false;
   public search: string = '';
+  public sliderCount: number;
   public searchError: string = '';
   public locations:Location[] = [];
   public locationsIds = [];
@@ -45,6 +46,7 @@ export class IdeasComponent implements OnInit {
   public categories: Category[];
   public ideas: Goal[];
   public reserve: Goal[];
+  public config: Object;
   constructor(
       private route: ActivatedRoute,
       private _projectService: ProjectService,
@@ -74,12 +76,12 @@ export class IdeasComponent implements OnInit {
     let data = this._cacheService.get('categories');
     if(data){
       this.categories = data;
+      this.initSlide();
     }else {
       this.getCategories();
     }
 
     this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
-    this.filterVisibility = true;
       
     this.broadcaster.on<Marker>('location_changed')
           .subscribe(marker => {
@@ -97,13 +99,40 @@ export class IdeasComponent implements OnInit {
               this.getNearByGoals();
     });
   }
+    initSlide(){
+        if(window.innerWidth < 766){
+            this.sliderCount = 3;
+            //$scope.isMobile = true;
+            //$scope.placeholder = '';
+        }
+        else if(window.innerWidth < 992){
+            this.sliderCount = (this.categories.length < 8)?this.categories.length + 1 : 8;
+            //$scope.isMobile = false;
+            //$scope.placeholder = $scope.placeholderText;
+        }
+        else {
+            this.sliderCount = (this.categories.length < 10)?this.categories.length + 1 : 10;
+            //$scope.isMobile = false;
+            //$scope.placeholder = $scope.placeholderText;
+        }
+
+        this.config  = {
+            observer: true,
+            autoHeight: true,
+            slidesPerView: this.sliderCount,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 10
+        };
+        this.filterVisibility = true;
+    }
 
   getCategories(){
     this._projectService.getCategories()
         .subscribe(
             categories => {
               this.categories = categories;
-
+              this.initSlide();
               this._cacheService.set('categories', categories, {maxAge: 3 * 24 * 60 * 60});
             },
             error => this.errorMessage = <any>error);
