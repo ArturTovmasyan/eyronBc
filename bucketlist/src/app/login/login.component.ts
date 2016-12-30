@@ -80,8 +80,13 @@ export class LoginComponent {
         switch (index) {
             case TWITTER:
                 this.twitterLogin().then((socialUser:any) => {console.log(socialUser);
-                    // this.setData(user);
-                }).catch((error) => {
+                    if(socialUser.twitter && socialUser.twitter.accessToken){
+                        this.setData('twitter', socialUser.twitter.accessToken, socialUser.twitter.secret);
+                    }
+                }).catch((error:any) => {
+                    if(error.credential && error.credential.accessToken && error.credential.secret){
+                        this.setData('twitter', error.credential.accessToken, error.credential.secret);
+                    }
                     this.errorHandler(error);
                 });
                 break;
