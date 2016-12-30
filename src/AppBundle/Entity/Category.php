@@ -74,6 +74,7 @@ class Category
 
     /**
      * @VirtualProperty()
+     * @Serializer\SerializedName("svg_download_link")
      * @Groups("category")
      */
     public function getImageDownloadLink()
@@ -224,7 +225,7 @@ class Category
     /**
      * @return null|string
      * @VirtualProperty()
-     * @Serializer\SerializedName("png_download_link")
+     * @Serializer\SerializedName("image_download_link")
      *  @Groups("category")
      */
     public function getDownloadLinkPng()
