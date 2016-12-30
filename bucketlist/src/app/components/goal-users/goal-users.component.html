@@ -13,8 +13,10 @@
   <i class="icon-user-small"></i>
 </a>
 <a *ngIf="type == 3" (click)="openUsersModal(story.id, story.count, type)">
-  <span>
-      <!--{{ story.count }}-->
+  <span class="text-purple">
+      {{ voters_count }}
   </span>
-    <!--<i [ngClass]="{'like-active': $parent.vote[activity.success_story.id],'user-story':(activity.success_story.user.id == app.user.id )}" (click)="manageVote(activity.success_story.id, (activity.success_story.user.id != app.user.id ))" class="like-icon"></i>-->
+    <i [ngClass]="{'like-active': is_vote,'user-story': isMy()}"
+       (click)="manageVote(story.id)" *ngIf="story"
+       class="like-icon"></i>
 </a>

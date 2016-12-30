@@ -7,5 +7,7 @@ export interface Story {
     goal: Goal,
     file?: any,
     story: string,
-    videos?: any
+    videos?: any,
+    voters_count?: number,
+    is_vote?:boolean
 }

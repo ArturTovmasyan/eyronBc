@@ -30,19 +30,19 @@
                                   <!--blImageFilter('user_icon')-->
                                   <img *ngIf="story.user.cached_image" src="{{ story.user.cached_image }}"
                                        class="img-circle img-responsive"
-                                       alt="{{ story.user.firstName }}">
-                                  <span *ngIf="!story.user.cached_image" class="no-image text-white user-no4">{{ story.user.firstName|slice:0:1 + story.user.lastName|slice:0:1 }}</span>
+                                       alt="{{ story.user.first_name }}">
+                                  <span *ngIf="!story.user.cached_image" class="no-image text-white user-no4">{{ story.user.first_name|slice:0:1 |uppercase}}{{ story.user.last_name|slice:0:1 |uppercase}}</span>
                                 </figure>
                               </a>
                             </div>
 
                             <div class="pull-left success-story-user" *ngIf="story.user">
                               <p class="user-name">
-                                <a href="#" (click)="openSignInPopover()" class="text-dark-gray">{{ story.user.showName }}</a>
+                                <a href="#" (click)="openSignInPopover()" class="text-dark-gray">{{ story.user.show_name }}</a>
                               </p>
-                            <span>
-                                {{ story.created | date:'longDate' }}
-                            </span>
+                              <span class="text-gray">
+                                  {{ story.created| date:'dd MMMM,  yyyy' }} at {{ story.created| date:'HH:mm' }}
+                              </span>
                             </div>
                           </div>
 

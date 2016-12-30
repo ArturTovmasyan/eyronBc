@@ -33,7 +33,7 @@
             <div class="padding" [ngClass]="{'padding-no': !activity.comment && !activity.success_story}">
                 <div class="clearfix relative">
 
-                    <figure class="image img-circle" style="float:left; margin: 0 20px 0 0;">
+                    <figure class="image img-circle">
 
                         <!--{% set className = "user-no" ~ random(4) %}-->
 
@@ -94,7 +94,7 @@
                            <!--data-ls-item-id="{{ activity.success_story.id }}"-->
                            <!--data-ls-count="{{ $parent.count[ activity.success_story.id ] }}"-->
                            <!--data-ls-category="3">{{ $parent.count[ activity.success_story.id ] }}</a>-->
-                        <goal-users [goal]="goal" type="3"></goal-users>
+                        <goal-users [story]="activity.success_story" [type]="3" [user]="activity.user"></goal-users>
                     </div>
                 </div>
 
