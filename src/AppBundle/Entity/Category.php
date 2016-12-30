@@ -224,6 +224,7 @@ class Category
     /**
      * @return null|string
      * @VirtualProperty()
+     * @Serializer\SerializedName("png_download_link")
      *  @Groups("category")
      */
     public function getDownloadLinkPng()
