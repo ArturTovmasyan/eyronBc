@@ -29,7 +29,7 @@
                 {{ marker.title}}
             </sebm-google-map-info-window>
         </sebm-google-map-marker>
-        <sebm-google-map-marker width='50' height='50' *ngFor="let marker of locations"
+        <sebm-google-map-marker width='30' height='30' *ngFor="let marker of locations"
             [latitude]="marker.latitude" [longitude]="marker.longitude"
             (mouseOut)="marker.isHover = false" (markerClick)="clickMarker(marker)" (mouseOver)="marker.isHover = true"
             [iconUrl]="(marker.status == 1)?activeGoalMarkerIcon1:(marker.status == 2)?activeGoalMarkerIcon1:passiveMarkerIcon">

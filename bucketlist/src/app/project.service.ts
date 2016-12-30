@@ -22,14 +22,14 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ProjectService {
 
-    // private baseOrigin = 'http://bucketlist.loc';
-    private baseOrigin = 'http://stage.bucketlist127.com';
+     private baseOrigin = 'http://bucketlist.loc';
+    //private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
     private appUser:User;
 
-    // private envprefix = '/app_dev.php/';
-    private envprefix = '/';
+     private envprefix = '/app_dev.php/';
+    //private envprefix = '/';
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private goalUrl = '';  // URL to web API
