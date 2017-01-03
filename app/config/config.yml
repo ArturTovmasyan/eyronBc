@@ -43,14 +43,14 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v619
+        assets_version: v620
 
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        name: %session_name%
-        cookie_domain: "%cookie_domain%"
+#        name: %session_name%
+#        cookie_domain: "%cookie_domain%"
         # handler_id set to null will use default session handler from php.ini
 #        cookie_lifetime: 86400
 #        gc_maxlifetime: 1800
