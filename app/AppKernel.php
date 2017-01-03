@@ -49,8 +49,7 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
 
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+
             new Application\CommentBundle\ApplicationCommentBundle(),
 
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
@@ -70,10 +69,12 @@ class AppKernel extends Kernel
 
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
             new Application\AffiliateBundle\ApplicationAffiliateBundle(),
-            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'behat'))) {
+            $bundles[] = new Liuggio\ExcelBundle\LiuggioExcelBundle();
+            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+            $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
             $bundles[] = new W3docs\LogViewerBundle\W3docsLogViewerBundle();
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
