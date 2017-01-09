@@ -90,7 +90,7 @@ class MainRestController extends FOSRestController
             foreach ($pages as $page)
             {
                 $menu[] = ['name' => $page->getName(), 'url' => $router->generate('page', ['slug' => $page->getSlug()], true),
-                'isTerm' => $page->getIsTerm()];
+                    'slug' => $page->getSlug(), 'isTerm' => $page->getIsTerm()];
             }
             $menu[] = ['name' => $tr->trans('menu.bucketlist_stories'), 'url' => $router->generate('blog_list', [], true), 'isTerm' => false];
         }

@@ -5,10 +5,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { AuthGuard }      from './common/auth.guard';
-
+import {PageComponent} from './page/page.component';
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'resetting/request', component: ResettingRequestComponent },
+  { path: 'page', component: PageComponent},
+  { path: 'page/:name', component: PageComponent},
   { path: 'activity', loadChildren: './activity/activity.module#ActivityModule', canActivate: [AuthGuard]},
   { path: 'profile', loadChildren: './profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
   { path: 'goal/my-ideas', loadChildren: './drafts/drafts.module#DraftsModule', canActivate: [AuthGuard]},

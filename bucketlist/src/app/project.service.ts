@@ -3,6 +3,7 @@ import {Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { Broadcaster } from './tools/broadcaster';
 
+
 import {Goal} from "./interface/goal";
 import {Story} from "./interface/story";
 import {User} from "./interface/user";
@@ -57,7 +58,10 @@ export class ProjectService {
     private badgesUrl = this.baseUrl + 'badges'; 
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
+    private notificationUrl = this.baseUrl + 'notifications/0/10';
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
+    private PageUrl = this.baseUrl + 'page';
+
     private nearByUrl = this.baseUrl + 'goals/nearby/';
     private resetNearByUrl = this.baseUrl + 'usergoals/';
     private getCommentsUrl = this.baseUrl + 'comments/goal_';
@@ -255,6 +259,16 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
+    
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getNotifications():Observable<any> {
+        return this.http.get(this.notificationUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
 
     /**
      *
@@ -340,6 +354,16 @@ export class ProjectService {
     getBottomMenu():Observable<any> {
 
         return this.http.get(this.bottomMenuUrl)
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getPage():Observable<any> {
+
+        return this.http.get(this.PageUrl)
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }

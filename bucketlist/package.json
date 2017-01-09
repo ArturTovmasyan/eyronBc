@@ -25,6 +25,7 @@
     "angular2-useful-swiper": "^3.0.0",
     "angularfire2": "^2.0.0-beta.6",
     "core-js": "^2.4.1",
+    "markdown-to-html-pipe": "^1.2.0",
     "file-droppa": "^1.0.0",
     "firebase": "^3.6.4",
     "ng2-cache": "0.1.5",
