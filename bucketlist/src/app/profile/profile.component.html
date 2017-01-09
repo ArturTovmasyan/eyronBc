@@ -1,1 +1,6 @@
-<profile-header></profile-header>
+<profile-header (onHover)="hideJoin($event)"></profile-header>
+<div class="list-tooltip"
+     [hidden]="!isHover" #tooltip>
+    <span class="arrow-up"></span>
+    {{ hoveredText |translate}}
+</div>

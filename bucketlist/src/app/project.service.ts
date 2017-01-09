@@ -61,6 +61,8 @@ export class ProjectService {
     private notificationUrl = this.baseUrl + 'notifications/0/10';
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
     private PageUrl = this.baseUrl + 'page';
+    private followToggleUrl = this.baseUrl + 'users/';
+    private followToggleUrl2 = '/toggles/followings';
 
     private nearByUrl = this.baseUrl + 'goals/nearby/';
     private resetNearByUrl = this.baseUrl + 'usergoals/';
@@ -423,6 +425,18 @@ export class ProjectService {
     getUsers(start:number, count:number, id:number, type:number):Observable<User[]> {
         return this.http.get(this.usersUrl + start + '/' + count + '/' + id + '/' + type, {headers: this.headers})
             .map((r:Response) => r.json() as User[])
+            .catch(this.handleError);
+    }
+    
+    //profile page requests
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    toggleFollow(id:number):Observable<any> {
+        return this.http.post(this.followToggleUrl + id + this.followToggleUrl2, {headers: this.headers})
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
