@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer} from '@angular/core';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.less']
 })
+
 export class ProfileComponent implements OnInit {
   @ViewChild("tooltip") public tooltipElementRef: ElementRef;
   public hoveredText:string;
