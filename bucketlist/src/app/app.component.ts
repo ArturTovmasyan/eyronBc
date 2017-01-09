@@ -63,6 +63,7 @@ export class AppComponent implements OnInit  {
     if(data){
         this.menus = data[0];
         this.privacyMenu = data[1];
+        
     }else {
         this.getBottomMenu();
     }
