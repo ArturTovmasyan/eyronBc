@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams, Headers } from '@angular/http';
+import {Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { Broadcaster } from './tools/broadcaster';
 
@@ -23,14 +23,14 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ProjectService {
 
-    private baseOrigin = 'http://bucketlist.loc';
-    // private baseOrigin = 'http://stage.bucketlist127.com';
+     private baseOrigin = 'http://bucketlist.loc';
+    //private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
     private appUser:User;
 
-    private envprefix = '/app_dev.php/';
-    // private envprefix = '/';
+     private envprefix = '/app_dev.php/';
+    //private envprefix = '/';
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private goalUrl = '';  // URL to web API
@@ -46,6 +46,8 @@ export class ProjectService {
 
     private userGoalsUrl = this.baseUrl + 'usergoals/';  // URL to web API
     private getStoryUrl = this.baseUrl + 'story/';  // URL to web API
+    private addVoteUrl = this.baseUrl + 'success-story/add-vote/';  // URL to web API
+    private removeVoteUrl = this.baseUrl + 'success-story/remove-vote/';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
     private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
@@ -81,10 +83,13 @@ export class ProjectService {
     auth(loginData: Object):Observable<any> {
         return this.http.post(this.baseUrl + 'users/logins', JSON.stringify(loginData)).map((res:Response) => res.json());
     }
+
     /**
-     *
-     * @param loginData
-     * @returns {any}
+     * 
+     * @param type
+     * @param token
+     * @param secret
+     * @returns {Observable<R>}
      */
     socialLogin(type:string, token:string, secret?:string):Observable<any> {
         return this.http.get(this.socialLoginUrl + type + '/' + token + (secret?('/' + secret):'') + '?apikey=true')
@@ -123,6 +128,7 @@ export class ProjectService {
      * 
      * @param start
      * @param count
+     * @param time
      * @returns {Observable<R>}
      */
     getActivities(start:number, count:number, time?:any):Observable<Activity[]> {
@@ -164,6 +170,28 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    addVote(id:number):Observable<any> {
+        return this.http.get(this.addVoteUrl + id, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    removeVote(id:number):Observable<any> {
+        return this.http.get(this.removeVoteUrl + id, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    
     /**
      * 
      */
