@@ -18,7 +18,7 @@ const appRoutes: Routes = [
   { path: 'goal-friends', loadChildren: './goalfriends/goalfriends.module#GoalfriendsModule', canActivate: [AuthGuard]},
   { path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardModule' },
   { path: 'notifications', loadChildren: './notification/notification.module#NotificationModule', canActivate: [AuthGuard]},
-  { path: 'edit/:type', loadChildren: './settings/settings.module#SettingsModule', canActivate: [AuthGuard]},
+  { path: 'edit', loadChildren: './settings/settings.module#SettingsModule', canActivate: [AuthGuard]},
   { path: 'goal/:slug', loadChildren: './inner/inner.module#InnerModule'},
   { path: 'ideas', loadChildren: './ideas/ideas.module#IdeasModule'},
   { path: '', component: DashboardComponent }

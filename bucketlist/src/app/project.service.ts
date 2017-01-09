@@ -33,6 +33,7 @@ export class ProjectService {
     //private envprefix = '/';
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
+    private base2Url = this.baseOrigin + this.envprefix + 'api/v2.0/' ;
     private goalUrl = '';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
     private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
@@ -61,6 +62,11 @@ export class ProjectService {
     private notificationUrl = this.baseUrl + 'notifications/0/10';
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
     private PageUrl = this.baseUrl + 'page';
+
+    //profile page urls
+    private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
+    private followToggleUrl = this.baseUrl + 'users/';
+    private followToggleUrl2 = '/toggles/followings';
 
     private nearByUrl = this.baseUrl + 'goals/nearby/';
     private resetNearByUrl = this.baseUrl + 'usergoals/';
@@ -423,6 +429,43 @@ export class ProjectService {
     getUsers(start:number, count:number, id:number, type:number):Observable<User[]> {
         return this.http.get(this.usersUrl + start + '/' + count + '/' + id + '/' + type, {headers: this.headers})
             .map((r:Response) => r.json() as User[])
+            .catch(this.handleError);
+    }
+    
+    //profile page requests
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    toggleFollow(id:number):Observable<any> {
+        return this.http.post(this.followToggleUrl + id + this.followToggleUrl2, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param condition
+     * @param count
+     * @param first
+     * @param isDream
+     * @param notUrgentImportant
+     * @param notUrgentNotImportant
+     * @param urgentImportant
+     * @param urgentNotImportant
+     * @param status
+     * @param userId
+     * @returns {Observable<R>}
+     */
+    profileGoals(condition:number, count:number, first:number, isDream:boolean,
+                 notUrgentImportant:boolean, notUrgentNotImportant:boolean,
+                 urgentImportant:boolean, urgentNotImportant:boolean, status:string, userId?:number):Observable<any> {
+        return this.http.get(this.profileGoalsUrl + 'condition=' + condition +
+            '&count=' + count + '&first=' + first + '&isDream=' + isDream + '&notUrgentImportant=' + notUrgentImportant +
+            '&notUrgentNotImportant=' + notUrgentNotImportant + '&urgentImportant=' + urgentImportant +
+            '&status=' + status + '&urgentNotImportant=' + urgentNotImportant + '&userId=' + userId, {headers: this.headers})
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
