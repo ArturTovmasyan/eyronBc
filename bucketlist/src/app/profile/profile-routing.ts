@@ -5,7 +5,9 @@ import { ProfileComponent }    from './profile.component';
 // import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
 
 const ProfileRoutes: Routes = [
-  { path: '',  component: ProfileComponent }
+  { path: '',  component: ProfileComponent },
+  { path: ':uId',  component: ProfileComponent },
+  { path: ':uId/:type',  component: ProfileComponent }
 ];
 
 export const ProfileRouting: ModuleWithProviders = RouterModule.forChild(ProfileRoutes);
