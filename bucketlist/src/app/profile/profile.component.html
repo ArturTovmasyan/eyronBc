@@ -98,24 +98,32 @@
             <div class="col-sm-12">
                 <form class="form-inline" action="#">
                     <!--{# dream filter #}-->
-                    <label class="radio-inline" [ngClass]="{'checked-label': (isDream === 'true')}">
+                    <label class="radio-inline" [ngClass]="{'checked-label': (isDream == true)}">
+                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="isDream" (change)="getData()"></md-checkbox>
                         <!--<input [(ngModel)]="isDream" type="checkbox" name="d" data-ng-true-value="'true'"-->
                                <!--data-ng-false-value="'false'">-->
                         {{ 'filter.dream'|translate}}
                     </label>
 
-                    <!--{# other filters #}-->
-                    <!--{% for id, name in filters %}-->
-                    <!--{% set queryParameterName = "f_" ~ id %}-->
-                    <!--<label [ngClass]="{'checked-label': (profile['{{ queryParameterName }}'] === 'true') }" class="radio-inline">-->
-                        <!--<input data-ng-model="profile['{{ queryParameterName }}']"-->
-                               <!--type="checkbox"-->
-                               <!--name="f_{{ id }}"-->
-                               <!--data-ng-true-value="'true'"-->
-                               <!--data-ng-false-value="'false'">-->
-                        <!--{{ name|translate}}-->
-                    <!--</label>-->
-                    <!--{% endfor %}-->
+                    <label class="radio-inline" [ngClass]="{'checked-label': (urgentImportant == true)}">
+                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentImportant" (change)="getData()"></md-checkbox>
+                        {{ 'filter.import_urgent'|translate}}
+                    </label>
+
+                    <label class="radio-inline" [ngClass]="{'checked-label': (urgentNotImportant == true)}">
+                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentNotImportant" (change)="getData()"></md-checkbox>
+                        {{ 'filter.not_import_urgent'|translate}}
+                    </label>
+
+                    <label class="radio-inline" [ngClass]="{'checked-label': (notUrgentImportant == true)}">
+                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentImportant" (change)="getData()"></md-checkbox>
+                        {{ 'filter.import_not_urgent'|translate}}
+                    </label>
+
+                    <label class="radio-inline" [ngClass]="{'checked-label': (notUrgentNotImportant == true)}">
+                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentNotImportant" (change)="getData()"></md-checkbox>
+                        {{ 'filter.not_import_not_urgent'|translate}}
+                    </label>
                 </form>
             </div>
 
@@ -178,7 +186,7 @@
                     <!--{% endif %}-->
                 </div>
 
-            <p class="empty-text  text-center"
+            <p class="empty-text text-center"
                *ngIf="(!userGoals || !userGoals.length) && noItem">
                 <!--data-ng-init="link = (activeGoals? '{{ path('user_profile_single', {'status': active }) }}': '{{ path('goals_list') }}')"-->
                 <!--{% if myProfile %}-->

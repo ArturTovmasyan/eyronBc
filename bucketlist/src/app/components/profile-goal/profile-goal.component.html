@@ -120,7 +120,7 @@
             <a class="text-gray manage-modal">
               <!--data-ls-type="manage"-->
               <!--data-ls-goal-id="{{ goal.id }}"-->
-              <!--data-ls-goal-manage-->
+              data-ls-goal-manage
               <i *ngIf="userGoal.note" title="{{ 'my_bucket_list.notes'|translate}}" class="svg edit-note"></i>
             </a>
           </li>
@@ -180,7 +180,7 @@
               <i class="icon done-icon"></i>
               {{ 'done'|translate| capitalize }}
             </a>
-            <a  *ngIf="success" class="btn btn-transparent successtory "->
+            <a  *ngIf="success" class="btn btn-transparent successtory ">
                 <!--data-ls-user-goal-manage-->
                 <!--data-ls-type="manage"-->
 
