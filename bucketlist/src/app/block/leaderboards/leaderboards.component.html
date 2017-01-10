@@ -16,9 +16,13 @@
 
     <hr class="hr-margin"/>
 
-    <leaderboard
-        *ngFor="let badge of users;let i = index" [badge]="badge" [index]="i">
-      <!--<leaderboard ></leaderboard>-->
-    </leaderboard>
+    <ul>
+      <li *ngFor="let badge of users;let i = index">
+        <leaderboard [badge]="badge" [index]="i">
+          <!--<leaderboard ></leaderboard>-->
+        </leaderboard>
+      </li>
+    </ul>
+
   </div>
 </div>

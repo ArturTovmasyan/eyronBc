@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter , ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import {User} from "../../interface/user";
 
 @Component({
   selector: 'profile-header',
   templateUrl: './profile-header.component.html',
-  styleUrls: ['./profile-header.component.less']
+  styleUrls: ['./profile-header.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProfileHeaderComponent implements OnInit {
   @Input() userInfo: string ;
