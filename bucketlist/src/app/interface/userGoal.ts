@@ -5,5 +5,8 @@ export interface UserGoal {
     id: number,
     status: number,
     goal: Goal,
-    user: User
+    user: User,
+    date_status?: number,
+    do_date?:any,
+    completion_date?:any
 }

@@ -15,12 +15,13 @@ import {UserGoal} from "../interface/userGoal";
 
 export class ProfileComponent implements OnInit {
   @ViewChild("tooltip") public tooltipElementRef: ElementRef;
-  public categories: string[]= ['my-list', 'active', 'completed'];
+  public categories: string[]= ['all', 'active', 'completed'];
   public uId: string;
   public id: number;
   public type: string;
   public errorMessage: string;
   public filterVisibility: boolean = false;
+  public myProfile: boolean = false;
   public isDream: boolean = false;
   public notUrgentImportant: boolean = false;
   public notUrgentNotImportant: boolean = false;
@@ -31,6 +32,8 @@ export class ProfileComponent implements OnInit {
   public noGoals: boolean = false;
   public hoveredText: string = '';
   public serverPath:string = '';
+  public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
+  public isMobile:Boolean= (window.innerWidth < 768);
 
   public start: number = 0;
   public count: number = 10;
@@ -56,7 +59,8 @@ export class ProfileComponent implements OnInit {
         this.locationsIds = [];
         this.locations = [];
         this.uId = this.route.snapshot.params['uId']?this.route.snapshot.params['uId']:'my';
-        this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:(this.uId == 'my')?'my-list':'activity';
+        this.myProfile = this.uId == 'my';
+        this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:this.myProfile?'all':'activity';
         this.goals = null;
         this.userGoals = null;
         this.reserveGoals = null;
@@ -99,7 +103,7 @@ export class ProfileComponent implements OnInit {
   getGoals(condition){
     this._projectService.profileGoals(
         condition, this.count, this.start, this.isDream, this.notUrgentImportant, this.notUrgentNotImportant,
-        this.urgentImportant, this.urgentNotImportant, ((this.type == 'my-list')?'': (this.type + '-goals')),((this.uId == 'my')?0:this.id) )
+        this.urgentImportant, this.urgentNotImportant, ((this.type == 'all')?'': (this.type + '-goals')),((this.myProfile)?0:this.id) )
         .subscribe(
         data => {
           this.userGoals = data.user_goals;
