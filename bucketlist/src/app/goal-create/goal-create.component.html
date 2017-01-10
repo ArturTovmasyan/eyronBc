@@ -14,7 +14,7 @@
 
 <form method="post" id="goal-create-form" class="main-form" action="#" enctype="multipart/form-data" >
   <!--data-ng-init="redirectPath='{{ path('user_profile') }}'"-->
-  <div class="content-top">
+  <div class="content-top bg-white">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -23,6 +23,7 @@
             <div class="col-xs-1 suggest-input">
               <!--<input id="{{ form.status.vars.id }}" name="{{ form.status.vars.full_name}}" type="checkbox" value="1" >-->
               <!--{% if form.status.vars.data == 1 %} checked {% endif %}-->
+              <input id="" name="" type="checkbox" value="1" >
             </div>
 
             <div class="col-xs-11">
@@ -50,7 +51,9 @@
             <!--{% if not isPrivate %}-->
 
             <button type="submit" class="btn btn-transparent draft-save-submit" name="btn_save_draft">
-              <span></span>
+              <span>{{ 'draft.create'|translate }}</span>
+              <!--<span>{{ 'draft.update'|translate }}</span>-->
+
               <!--{% if id %}{{ 'draft.update'|translate }}{% else %}{{ 'draft.create'|translate }}{% endif %}-->
             </button>
 
@@ -62,7 +65,8 @@
                     <!--data-ls-jquery-modal-->
                     <!--data-ls-identity="goalSave"-->
                     <!--data-ls-template="[[ ::goalSubmitTemplate ]]"-->
-
+              {{ 'goal.publish'|translate }}
+              <!--{{ 'goal.edit'|translate }}-->
               <!--{% if id and isPrivate%}{{ 'goal.edit'|translate }}{% else %}{{ 'goal.publish'|translate }}{% endif %}-->
               <i class="icon-arrow-right"></i>
             </button>
@@ -83,12 +87,11 @@
             <div class="col-xs-10 col-xs-offset-1">
               <div class="form-group">
                 <input type="text" name="title" required="required" maxlength="64" pattern=".{3,}"
-                       class="form-control" placeholder="Title" autocomplete="off"
+                       class="form-control title" placeholder="Title" autocomplete="off"
                        [(ngModel)]="title"
                        (ngModelChange)="getGoals()">
 
-                <div  class="col-md-4"
-                      *ngFor="let goal of goals">
+                <div  class="col-md-4" *ngFor="let goal of goals">
 
                   <div class="row idea-item">
                     <div class="col-sm-12">
@@ -199,6 +202,7 @@
 
               <div class="form-group">
 
+                <textarea class="form-control margin-top" placeholder="Description" rows="4"></textarea>
                 <!--{{ form_widget(form.description, {'attr': {'class':'form-control margin-top', 'placeholder' : 'Description', 'rows' :"4", "data-ng-model":"description", "data-ng-init":"description =\"" ~ form.vars.value.description |replace({'\"': '\\\"'})  ~ "\"", "data-value" : "[[ description ]]" } }) }}-->
                 <div class="tags" >
                   <!--data-ng-cloak-->
@@ -206,7 +210,7 @@
                 </div>
 
                 <p class="text-gray">
-                  <!--{{ 'goal.description_title'|trans|raw}}-->
+                  {{ 'goal.description_title'| translate }}
                 </p>
                 <!--{{ form_widget(form.hashTags, {'attr': { "value" : "[[ tags ]]" } }) }}-->
 
