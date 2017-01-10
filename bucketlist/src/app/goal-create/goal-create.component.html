@@ -82,6 +82,26 @@
           <div class="row bg-white">
             <div class="col-xs-10 col-xs-offset-1">
               <div class="form-group">
+                <input type="text" name="title" required="required" maxlength="64" pattern=".{3,}"
+                       class="form-control" placeholder="Title" autocomplete="off"
+                       [(ngModel)]="title"
+                       (ngModelChange)="getGoals()">
+
+                <div  class="col-md-4"
+                      *ngFor="let goal of goals">
+
+                  <div class="row idea-item">
+                    <div class="col-sm-12">
+                      <figure>
+                        <app-goal [goal]="goal" [type]="(category == 'nearby')?'nearby':''"
+                                  (onHover)="hideJoin($event)" [userLocation]="userLocation">
+                        </app-goal>
+
+                        <app-goal-footer [goal]="goal"></app-goal-footer>
+                      </figure>
+                    </div>
+                  </div>
+                </div>
                 <!--{% if form.vars.value.title %}data-ng-init="addTitle ='{{ form.vars.value.title }}'" {% endif %}-->
                 <!--{{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title', 'data-ng-model' : "addTitle",-->
                 <!--'data-ng-change' : "searchGoal($event)"} }) }}-->
