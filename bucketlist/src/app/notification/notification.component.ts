@@ -4,7 +4,7 @@ import {ProjectService} from '../project.service';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.css'],
+  styleUrls: ['./notification.component.less'],
   providers: [
     ProjectService
   ]
