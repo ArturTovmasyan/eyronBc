@@ -367,12 +367,12 @@
 
     li{
       display: inline-block;
-      padding:8px 6px;
-      font-size:14px;
+      padding:8px 3px 7px;
+      font-size:13px;
       a{
         color:#666666;
-        font-size:13px;
-        line-height: 23px;
+        font-size: 12px;
+        line-height: 18px;
 
         &:hover,&:focus{
           text-decoration: none;
@@ -395,19 +395,21 @@
         }
       }
 
+      &:first-child{
+        padding: 8px 3px 7px 10px;
+      }
+
       &:last-child{
-        padding:0 10px;
+        padding: 3px 2px 2px;
         a{
           display: inline-block;
-          margin: 0 0 0 5px;
 
           .svg{
             display: inline-block;
-            height: 30px;
-            width: 25px;
+            height: 25px;
+            width: 21px;
           }
         }
-
 
         &:hover{
           border-bottom:0;
@@ -449,17 +451,6 @@
       &:first-child{
         padding-left:30px;
       }
-    }
-
-    .icheckbox_square-purple{
-      background: url('../images/checkbox.png') no-repeat 0 0;
-
-      &:hover{
-        background: url('../images/checkbox.png') no-repeat -26px 0;
-      }
-    }
-    .checked{
-      background: url('../images/checkbox.png') no-repeat -52px 0 !important;
     }
   }
 }
@@ -655,6 +646,7 @@
           a{
             .svg{
               width: 35px;
+              height: 30px;
             }
           }
         }
