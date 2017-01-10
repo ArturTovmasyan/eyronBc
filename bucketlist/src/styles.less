@@ -1,5 +1,6 @@
 @import "assets/less/variables.less";
 @import "assets/less/function.less";
+@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
 
 body, html{
   height:100%;
@@ -2125,8 +2126,9 @@ footer{
     }
   }
 
-  &:hover{
+  &:hover,&:focus{
     color: #666666 !important;
+    text-decoration: none;
   }
 }
 
@@ -4288,4 +4290,14 @@ ul{
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 10px solid #f4f4f4;
+}
+
+.example-margin{
+  .md-checkbox-inner-container{
+    margin: auto 3px auto auto;
+  }
+}
+
+.md-checkbox-checked.md-accent .md-checkbox-background, .md-checkbox-indeterminate.md-accent .md-checkbox-background{
+  background: #6108EA;
 }

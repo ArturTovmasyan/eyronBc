@@ -4,6 +4,8 @@ import {TranslateModule} from 'ng2-translate';
 import { ProfileComponent } from './profile.component';
 import { ProjectService } from '../project.service';
 import { ActivityBlockModule } from '../block/activityBlock.module';
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '@angular/material';
 
 import { ProfileRouting } from './profile-routing';
 import { ComponentModule } from '../components/components.module';
@@ -18,7 +20,9 @@ import { CalendarYearComponent } from './calendar-year/calendar-year.component';
     ProfileRouting,
     ComponentModule,
     TranslateModule,
-    ActivityBlockModule
+    ActivityBlockModule,
+    FormsModule,
+    MaterialModule.forRoot(),
   ],
   declarations: [
     ProfileComponent,
