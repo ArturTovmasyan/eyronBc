@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
   public isHover: boolean = false;
   public busy: boolean = false;
   public noGoals: boolean = false;
+  public noItem: boolean = false;
   public hoveredText: string = '';
   public serverPath:string = '';
   public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
@@ -63,6 +64,7 @@ export class ProfileComponent implements OnInit {
         this.myProfile = this.uId == 'my';
         this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:this.myProfile?'all':'activity';
         this.goals = null;
+        this.noItem = false;
         this.userGoals = null;
         this.reserveGoals = null;
         this.reserveUserGoals = null;
@@ -76,6 +78,8 @@ export class ProfileComponent implements OnInit {
   }
 
   getData(){
+    this.start = 0;
+    this.noItem = false;
     let index = this.categories.indexOf(this.type);
     if(index != -1){
       this.getGoals(index);
@@ -100,22 +104,71 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  getReserve(){
+    this.userGoals = this.userGoals.concat(this.reserveUserGoals);
+    let index = this.categories.indexOf(this.type);
+    if(index != -1){
+      this.getGoalsReserve(index);
+    } else {
+      switch (this.type){
+        case 'common':
+          this.getOwnedReserve();
+          break;
+        case 'owned':
+          this.getOwnedReserve();
+          break;
+      }
+    }
+  }
+
   getGoals(condition){
+    let c = condition;
     this._projectService.profileGoals(
         condition, this.count, this.start, this.isDream, this.notUrgentImportant, this.notUrgentNotImportant,
         this.urgentImportant, this.urgentNotImportant, ((this.type == 'all')?'': (this.type + '-goals')),((this.myProfile)?0:this.id) )
         .subscribe(
         data => {
+          this.noItem = !data.user_goals.length;
           this.userGoals = data.user_goals;
+          this.start += this.count;
+          this.getGoalsReserve(c);
         });
   }
 
+  getGoalsReserve(condition){
+    this._projectService.profileGoals(
+        condition, this.count, this.start, this.isDream, this.notUrgentImportant, this.notUrgentNotImportant,
+        this.urgentImportant, this.urgentNotImportant, ((this.type == 'all')?'': (this.type + '-goals')),((this.myProfile)?0:this.id) )
+        .subscribe(
+            data => {
+              this.reserveUserGoals = data.user_goals;
+              this.optimiseImages();
+              this.start += this.count;
+              this.busy = false;
+            });
+  }
+  
   getOwned(){
     this._projectService.ownedGoals(
         this.id, this.count, this.start)
         .subscribe(
             data => {
+              this.noItem = !data.goals.length;
               this.userGoals = data.goals;
+              this.start += this.count;
+              this.getOwnedReserve();
+            });
+  }
+
+  getOwnedReserve(){
+    this._projectService.ownedGoals(
+        this.id, this.count, this.start)
+        .subscribe(
+            data => {
+              this.reserveUserGoals = data.goals;
+              this.optimiseImages();
+              this.start += this.count;
+              this.busy = false;
             });
   }
   
@@ -124,8 +177,50 @@ export class ProfileComponent implements OnInit {
         this.id, this.count, this.start)
         .subscribe(
             data => {
-              this.userGoals = data.goals;
+              this.noItem = !data.goals.length;
+              this.goals = data.goals;
+              this.start += this.count;
+              this.getCommonReserve();
             });
+  }
+
+  getCommonReserve(){
+    this._projectService.commonGoals(
+        this.id, this.count, this.start)
+        .subscribe(
+            data => {
+              this.reserveGoals = data.goals;
+              this.optimiseImages(true);
+              this.start += this.count;
+              this.busy = false;
+            });
+  }
+
+  onScroll(){
+    if(this.busy || !this.reserveUserGoals || !this.reserveUserGoals.length)return;
+    this.busy = true;
+    this.getReserve();
+  }
+
+  optimiseImages(isGoal?:boolean){
+    if(isGoal){
+      for(let item of this.reserveGoals){
+        let img;
+        if(item.cached_image){
+          img = new Image();
+          img.src = this.serverPath + item.cached_image;
+        }
+      }
+    } else {
+      for(let item of this.reserveUserGoals){
+        let img;
+        if(item.goal.cached_image){
+          img = new Image();
+          img.src = this.serverPath + item.goal.cached_image;
+        }
+      }
+    }
+
   }
 
   hideJoin(event){

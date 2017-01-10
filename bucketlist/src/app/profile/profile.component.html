@@ -140,7 +140,11 @@
             </div>
 
             <div [class.goals-information]="myProfile" [class.user-goals]="!myProfile"
-                 *ngIf="type != 'activity'">
+                 *ngIf="type != 'activity'"
+                 infinite-scroll
+                 [infiniteScrollDistance]="1"
+                 [infiniteScrollThrottle]="500"
+                 (scrolled)="onScroll()">
                 <!--data-infinite-scroll='ProfileItems.nextPage(profile)'-->
                 <!--data-infinite-scroll-disabled='ProfileItems.noItem || ProfileItems.busy'-->
                 <div *ngIf="userGoals && userGoals.length">
