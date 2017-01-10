@@ -58,7 +58,7 @@
                 </li>
 
                 <li class="pull-right">
-                    <a href="#" *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar">
+                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar">
                         <img src="assets/images/calendar-icon.svg" class="svg"/>
                     </a>
 
@@ -89,6 +89,7 @@
 
     <hr/>
     <!--{% include 'AppBundle:BucketList:calendar.html.twig' %}-->
+    <calendar *ngIf="showCalendar"></calendar>
 
     <!--{% if myProfile %}-->
 
