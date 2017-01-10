@@ -18,7 +18,7 @@
       <div class="col-sm-4">
         <figure>
 
-          <a routerLink="/edit/profile" routerLinkActive="active" *ngIf="!userInfo || userInfo == 'my'" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon">settings </a>
+          <a routerLink="/edit/profile" routerLinkActive="active" *ngIf="!userInfo || userInfo == 'my'" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
 
           <div>
             <img src="{{ profileUser.getPhotoLink }}" *ngIf="profileUser && profileUser.getPhotoLink" alt="Profile image" class="img-responsive img-circle"/>
