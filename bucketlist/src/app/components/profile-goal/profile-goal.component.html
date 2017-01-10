@@ -43,7 +43,7 @@
     <div class="elipse" >
 
       <div  *ngIf="!isMobile && goalDate != 'dreaming' && dateStatus != 2" class="text-gray ">
-        {{ goalDate | date:'MMM, yyyy' }}
+        {{ goalDate | date:'MMM, yyyy' }} Dec , 2016
       </div>
       <div  *ngIf="!isMobile && goalDate != 'dreaming' && dateStatus == 2" class="text-gray  only-year">
         {{ goalDate | date:'yyyy' }}
