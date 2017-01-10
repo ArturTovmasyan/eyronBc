@@ -6,6 +6,7 @@ import { ProjectService } from '../project.service';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
+import { ActivitySharingModule } from '../activity/activity-sharing.module';
 
 import { ProfileRouting } from './profile-routing';
 import { ComponentModule } from '../components/components.module';
@@ -18,6 +19,7 @@ import { ComponentModule } from '../components/components.module';
     TranslateModule,
     ActivityBlockModule,
     FormsModule,
+    ActivitySharingModule,
     MaterialModule.forRoot(),
   ],
   declarations: [

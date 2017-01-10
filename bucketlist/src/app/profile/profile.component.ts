@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   @ViewChild("tooltip") public tooltipElementRef: ElementRef;
   public categories: string[]= ['all', 'active', 'completed'];
   public uId: string;
-  public id: number;
+  public id: number = 1;
   public type: string;
   public errorMessage: string;
   public filterVisibility: boolean = false;
@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
   public urgentImportant: boolean = false;
   public eventId: number = 0;
   public isHover: boolean = false;
+  public busy: boolean = false;
   public noGoals: boolean = false;
   public hoveredText: string = '';
   public serverPath:string = '';
@@ -81,20 +82,19 @@ export class ProfileComponent implements OnInit {
     } else {
       switch (this.type){
         case 'common':
-          // $scope.ProfileItems.busy = true;
-          // $scope.profile.status = UserGoalConstant.COMMON_PATH;
-          // $scope.ProfileItems.common($scope.profile.userId);
+          // this.busy = true;
+          this.busy = false;
+          this.getOwned();
           break;
         case 'activity':
-          // $scope.ProfileItems.busy = true;
+          this.busy = true;
           // $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
           // $scope.Activities.nextActivity();
           // $scope.$emit('lsGoActivity');
           break;
         case 'owned':
-          // $scope.ProfileItems.busy = false;
-          // $scope.profile.status = UserGoalConstant.OWNED_PATH;
-          // $scope.ProfileItems.nextPage($scope.profile);
+          this.busy = false;
+          this.getOwned();
           break;
       }
     }
@@ -108,6 +108,24 @@ export class ProfileComponent implements OnInit {
         data => {
           this.userGoals = data.user_goals;
         });
+  }
+
+  getOwned(){
+    this._projectService.ownedGoals(
+        this.id, this.count, this.start)
+        .subscribe(
+            data => {
+              this.userGoals = data.goals;
+            });
+  }
+  
+  getCommon(){
+    this._projectService.commonGoals(
+        this.id, this.count, this.start)
+        .subscribe(
+            data => {
+              this.userGoals = data.goals;
+            });
   }
 
   hideJoin(event){

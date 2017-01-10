@@ -134,7 +134,8 @@
         </div>
         <br/>
     </div>
-    <div class="navigation text-center" *ngIf="!single">
+    <!--*ngIf="!single"-->
+    <div class="navigation text-center">
         <a *ngIf="!busy && reserve && reserve.length > 0"
            (click)='getReserve()'
            class="show-more ">

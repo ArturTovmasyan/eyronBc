@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TranslateModule} from 'ng2-translate';
-import { SwiperModule } from 'angular2-useful-swiper';
 
 import { ActivityComponent } from './activity.component';
-import { MyActivityComponent } from './my-activity.component';
-import { SliderComponent } from './slider.component';
+import { ActivitySharingModule } from './activity-sharing.module';
 import { ComponentModule } from '../components/components.module';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { ProjectService } from '../project.service';
@@ -19,12 +17,10 @@ import { ActivityRouting } from './activity-routing';
     TranslateModule,
     ComponentModule,
     ActivityBlockModule,
-    SwiperModule
+    ActivitySharingModule
   ],
   declarations: [
-    ActivityComponent,
-    MyActivityComponent,
-    SliderComponent
+    ActivityComponent
   ],
   providers: [
     ProjectService

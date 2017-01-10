@@ -136,9 +136,7 @@
     <div class="row">
         <div class="col-md-8">
             <div id="news-feed" class="user-activities" *ngIf="type == 'activity'">
-                <!--data-infinite-scroll='Activities.nextActivity()'-->
-                <!--data-infinite-scroll-disabled='Activities.noItem || Activities.busy || type != "{{ activity }}"'-->
-                <!--{%  include "AppBundle:Blocks:activities.html.twig" with {'single': true, 'activity': activity, 'userId': profileUser.id} %}-->
+                <my-activity [single]="true" [userId]="id"></my-activity>
             </div>
 
             <div [class.goals-information]="myProfile" [class.user-goals]="!myProfile"
@@ -161,7 +159,6 @@
                     <div *ngIf="!myProfile">
                         <div class="row goals-animate"
                              *ngFor="let userGoal of userGoals">
-                            <!--data-ng-init="singleGoal = userGoal.goal? userGoal.goal: userGoal"-->
                             <div class="col-sm-12">
                                 <div class="bg-white round">
                                     <div class="idea-item">
