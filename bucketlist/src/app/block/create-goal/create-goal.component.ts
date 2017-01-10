@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'create-goal',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-goal.component.less']
 })
 export class CreateGoalComponent implements OnInit {
-
+  @Input() myProfile: string ;
+  @Input() myIdeasCount: string ;
   constructor() { }
 
   ngOnInit() {

@@ -7,7 +7,7 @@
       </li>
       <li class="col-xs-5 text-right">
         <!--{% if profileUser.id == app.user.id %}-->
-        <a routerLink="/goal/create">{{ 'right_menu.my_ideas'|translate }} {{ myIdeasCount }}</a>
+        <a routerLink="/goal/create" *ngIf="myProfile">{{ 'right_menu.my_ideas'|translate }} {{ myIdeasCount }}</a>
         <!--{% endif %}-->
       </li>
     </ul>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewEncapsulation } from '@angular/core';
 
 import { ProjectService } from '../../project.service';
 import { LeaderboardComponent } from '../../components/leaderboard/leaderboard.component';
@@ -8,7 +8,8 @@ import {User} from '../../interface/user';
 @Component({
   selector: 'leaderboards-block',
   templateUrl: './leaderboards.component.html',
-  styleUrls: ['./leaderboards.component.less']
+  styleUrls: ['./leaderboards.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LeaderboardsBlockComponent implements OnInit {
 
