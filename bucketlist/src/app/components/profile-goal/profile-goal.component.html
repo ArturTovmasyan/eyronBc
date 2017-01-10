@@ -43,7 +43,7 @@
     <div class="elipse" >
 
       <div  *ngIf="!isMobile && goalDate != 'dreaming' && dateStatus != 2" class="text-gray ">
-        {{ goalDate | date:'MMM, yyyy' }} Dec , 2016
+        {{ goalDate | date:'MMM, yyyy' }}
       </div>
       <div  *ngIf="!isMobile && goalDate != 'dreaming' && dateStatus == 2" class="text-gray  only-year">
         {{ goalDate | date:'yyyy' }}
@@ -76,14 +76,14 @@
 
 
         <figcaption>
-          <ul *ngIf="goal">
-            <li>
+          <div class="row" *ngIf="goal">
+            <div class="col-xs-5">
               <goal-users [goal]="goal" type="1"></goal-users>
-            </li>
-            <li>
+            </div>
+            <div class="col-xs-7">
               <goal-users [goal]="goal" type="2"></goal-users>
-            </li>
-          </ul>
+            </div>
+          </div>
         </figcaption>
       </figure>
     </div>
