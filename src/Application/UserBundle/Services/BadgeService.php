@@ -220,6 +220,13 @@ class BadgeService extends AbstractProcessService
             $newScore = $oldScore + $score;
 
             $badge->setScore($newScore);
+            
+            if($newScore > 0){
+                $user->setLevel($type, true);
+            } else {
+                $user->setLevel($type, false);
+            }
+            
             $this->em->persist($badge);
             $this->em->flush();
             $this->em->getConnection()->commit();
@@ -347,9 +354,11 @@ class BadgeService extends AbstractProcessService
 
                 if($newScore == 0){
                     $this->em->remove($badge);
+                    $user->setLevel($type, false);
                 }else{
                     $badge->setScore($newScore);
                     $this->em->persist($badge);
+                    $user->setLevel($type, true);
                 }
 
                 $this->em->flush();

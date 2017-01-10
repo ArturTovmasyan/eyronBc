@@ -4,6 +4,7 @@ namespace Application\UserBundle\Entity\Repository;
 
 use Application\UserBundle\Entity\Badge;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * Class BadgeRepository
@@ -200,5 +201,27 @@ class BadgeRepository extends EntityRepository
         }
 
         return  $result;
+    }
+
+    /**
+     * This repository find unique users by id limit
+     *
+     * @param $begin
+     * @param $limit
+     * @return array
+     */
+    public function findByLimit($begin, $limit)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT b
+                           FROM ApplicationUserBundle:Badge b
+                           LEFT JOIN b.user u
+                           ORDER BY b.id ASC ")
+            ->setFirstResult($begin)
+            ->setMaxResults($limit);
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+
+        return $paginator->getIterator()->getArrayCopy();
     }
 }
