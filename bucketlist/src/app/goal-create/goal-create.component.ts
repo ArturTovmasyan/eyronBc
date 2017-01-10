@@ -5,7 +5,7 @@ import {Goal} from '../interface/goal';
 @Component({
   selector: 'app-goal-create',
   templateUrl: './goal-create.component.html',
-  styleUrls: ['./goal-create.component.css']
+  styleUrls: ['./goal-create.component.less']
 })
 export class GoalCreateComponent implements OnInit {
   public title: string = '' ;
