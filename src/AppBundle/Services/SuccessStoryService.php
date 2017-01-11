@@ -77,7 +77,9 @@ class SuccessStoryService extends AbstractProcessService
 
 
         // add score for
-        $this->runAsProcess('bl.badge.service', 'addScore', array(Badge::TYPE_MOTIVATOR, $successStoryAuthor->getId(), 1));
+//        $this->runAsProcess('bl.badge.service', 'addScore', array(Badge::TYPE_MOTIVATOR, $successStoryAuthor->getId(), 1));
+
+        $this->container->get('bl.badge.service')->addScore(Badge::TYPE_MOTIVATOR, $successStoryAuthor->getId(), 1);
 
         return new JsonResponse();
     }
@@ -111,8 +113,9 @@ class SuccessStoryService extends AbstractProcessService
 
         // get success story author
         $successStoryAuthor = $successStory->getUser();
-        // add score for
-        $this->runAsProcess('bl.badge.service', 'removeScore', array(Badge::TYPE_MOTIVATOR, $successStoryAuthor->getId(), 1));
+        // delete score for
+//        $this->runAsProcess('bl.badge.service', 'removeScore', array(Badge::TYPE_MOTIVATOR, $successStoryAuthor->getId(), 1));
+        $this->container->get('bl.badge.service')->removeScore(Badge::TYPE_MOTIVATOR, $successStoryAuthor->getId(), 1);
 
         return new JsonResponse();
     }
