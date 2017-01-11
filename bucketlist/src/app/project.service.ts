@@ -17,19 +17,19 @@ import {Observable}     from 'rxjs/Observable';
 // Operators
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-
+import { environment } from '../environments/environment';
 
 
 @Injectable()
 export class ProjectService {
 
-     private baseOrigin = 'http://bucketlist.loc';
+     private baseOrigin = environment.production?'http://stage.bucketlist127.com':'http://bucketlist.loc';
     //private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
     private appUser:User;
 
-     private envprefix = '/app_dev.php/';
+     private envprefix = environment.production?'/':'/app_dev.php/';
     //private envprefix = '/';
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;

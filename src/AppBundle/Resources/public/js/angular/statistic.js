@@ -16,15 +16,15 @@ angular.module('statistic',["chart.js", "Interpolation"])
   .controller("LineCtrl", ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
     var envPrefix = (window.location.pathname.indexOf('app_dev.php') === -1) ? "/" : "/app_dev.php/",
       path = envPrefix + 'api/v1.0/statistic/{type}/{groupBy}/{start}/{end}';
-    $scope.groupType = 'month';
-    $scope.type = {name:'email'};
+    $scope.groupType = 'day';
+    $scope.type = {name:'device'};
     $scope.dateTo = new Date();
     $scope.noResult = false;
 
-     var startdate = moment().subtract(1, "years");
+     var startdate = moment().subtract(1, "months");
 
     // $scope.dateFrom = new Date(moment(new Date()).format('YYYY') + '-01-01');
-    $scope.dateFrom = new Date(startdate.format('YYYY-MM') + '-01');
+    $scope.dateFrom = new Date(startdate);
 
     $scope.series = ['Read','Send'];
 

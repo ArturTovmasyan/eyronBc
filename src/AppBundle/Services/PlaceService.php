@@ -7,7 +7,11 @@ use AppBundle\Entity\UserPlace;
 use Application\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 
-class PlaceService
+/**
+ * Class PlaceService
+ * @package AppBundle\Services
+ */
+class PlaceService extends AbstractProcessService
 {
     /**
      * @var GooglePlaceService
@@ -81,6 +85,7 @@ class PlaceService
     {
         //get all places in DB
         $places = $this->em->getRepository('AppBundle:Place')->findAllByIds($placesIds, $user->getId());
+        $created = false;
 
         //check if place exists
         if ($places) {
@@ -96,10 +101,19 @@ class PlaceService
                     $userPlace->setPlace($place[0]);
                     $userPlace->setUser($user);
                     $this->em->persist($userPlace);
+                    $created = true;
                 }
             }
 
             $this->em->flush();
         }
+
+        // check if user place created, send push not
+        if($created){
+            // send push via process
+            $this->runAsProcess('bl_put_notification_service', 'sendPushNotForAutocomplete',
+                array($user->getId()));
+        }
+
     }
 }

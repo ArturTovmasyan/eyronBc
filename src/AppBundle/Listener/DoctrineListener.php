@@ -17,6 +17,7 @@ use AppBundle\Model\ActivityableInterface;
 use AppBundle\Model\ImageableInterface;
 use AppBundle\Model\PublishAware;
 use Application\CommentBundle\Entity\Comment;
+use Application\UserBundle\Entity\Badge;
 use Application\UserBundle\Entity\User;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
@@ -130,11 +131,18 @@ class DoctrineListener
             }
         }
         elseif($entity instanceof User){
-            if ($request && $request->get('_format') == "json" && $entity->getImagePath()){
-                $liipManager->getBrowserPath($entity->getImagePath(), 'user_goal');
-                $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'user_icon'];
-                $filterUrl = $route->generate('liip_imagine_filter', $params);
-                $entity->setMobileImagePath($filterUrl);
+            if ($request && $request->get('_format') == "json" ){
+                if ($entity->getImagePath()){
+                    $liipManager->getBrowserPath($entity->getImagePath(), 'user_goal');
+                    $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'user_icon'];
+                    $filterUrl = $route->generate('liip_imagine_filter', $params);
+                    $entity->setMobileImagePath($filterUrl);
+                }
+                
+                if($token && ($user = $token->getUser()) && is_object($user)){
+                    $entity->setIsFollow($user->isFollowing($entity));
+                }
+                
             }
         }
 
