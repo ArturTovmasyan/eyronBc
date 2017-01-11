@@ -131,8 +131,8 @@ doctrine:
         auto_mapping: true
         entity_listener_resolver: bl.settings.listener.resolver
         default_entity_manager: default
-        result_cache_driver: apcu
-        query_cache_driver: apcu
+        result_cache_driver: apc
+        query_cache_driver: apc
 
         dql:
             datetime_functions:
