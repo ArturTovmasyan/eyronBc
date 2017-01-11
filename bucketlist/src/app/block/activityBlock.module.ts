@@ -12,8 +12,6 @@ import {TopIdeasBlockComponent} from './top-ideas/top-ideas.component';
 import {CompleteProfileBlockComponent} from './complete-profile/complete-profile.component';
 import {ProfileHeaderComponent} from './profile-header/profile-header.component';
 import {CreateGoalComponent} from './create-goal/create-goal.component';
-import { ActivityGoalComponent } from '../components/activity-goal/activity-goal.component';
-import { ActivityGoalFooterComponent } from '../components/activity-goal-footer/activity-goal-footer.component';
 
 @NgModule({
   imports: [
@@ -30,8 +28,6 @@ import { ActivityGoalFooterComponent } from '../components/activity-goal-footer/
     CompleteProfileBlockComponent,
     ProfileHeaderComponent,
     CreateGoalComponent,
-    ActivityGoalComponent,
-    ActivityGoalFooterComponent
   ],
   exports: [ GoalFriendsBlockComponent,
     LeaderboardsBlockComponent,
@@ -40,8 +36,6 @@ import { ActivityGoalFooterComponent } from '../components/activity-goal-footer/
     CompleteProfileBlockComponent,
     ProfileHeaderComponent,
     CreateGoalComponent,
-    ActivityGoalComponent,
-    ActivityGoalFooterComponent
   ]
 })
 export class ActivityBlockModule { }

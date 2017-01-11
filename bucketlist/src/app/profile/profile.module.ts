@@ -6,6 +6,8 @@ import { ProjectService } from '../project.service';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
+import { ActivitySharingModule } from '../activity/activity-sharing.module';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { ProfileRouting } from './profile-routing';
 import { ComponentModule } from '../components/components.module';
@@ -22,6 +24,8 @@ import { CalendarYearComponent } from './calendar-year/calendar-year.component';
     TranslateModule,
     ActivityBlockModule,
     FormsModule,
+    ActivitySharingModule,
+    InfiniteScrollModule,
     MaterialModule.forRoot(),
   ],
   declarations: [

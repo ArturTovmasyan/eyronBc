@@ -18,6 +18,7 @@ import { ProjectService } from '../project.service';
 })
 export class MyActivityComponent implements OnInit {
     @Input() single: boolean;
+    @Input() userId: number;
     public Activities:Activity[];
     public reserve:Activity[];
     public newData:Activity[];
@@ -35,7 +36,7 @@ export class MyActivityComponent implements OnInit {
     
     ngOnInit() {
         let data = this._cacheService.get('activities');
-        if(data){
+        if(data && !this.single){
           this.Activities = data;
           this.noActivities = (!data || !data.length);
           this.refreshCache();
@@ -69,7 +70,7 @@ export class MyActivityComponent implements OnInit {
     
     getActivities(){
         this.busy = true;
-        this._projectService.getActivities(this.start, this.count)
+        this._projectService.getActivities(this.start, this.count, this.userId)
             .subscribe(
                 activities => {
                   this.Activities = activities;
@@ -93,7 +94,7 @@ export class MyActivityComponent implements OnInit {
     refreshCache(){
         this.busy = false;
           
-        this._projectService.getActivities(this.start, this.count)
+        this._projectService.getActivities(this.start, this.count, this.userId)
             .subscribe(
                 activities => {
                   this.Activities = activities;
@@ -109,13 +110,15 @@ export class MyActivityComponent implements OnInit {
                     this.start += this.count;
                     this.busy = false;
                     this.setReserve();
-                  this._cacheService.set('activities', this.Activities);
+                    if(!this.single){
+                        this._cacheService.set('activities', this.Activities);
+                    }
                 },
                 error => this.errorMessage = <any>error);
     }
 
     setReserve(){
-        this._projectService.getActivities(this.start, this.count)
+        this._projectService.getActivities(this.start, this.count, this.userId)
             .subscribe(
                 activities => {
                   this.reserve = activities;
