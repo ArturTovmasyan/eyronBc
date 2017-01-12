@@ -61,7 +61,7 @@ export class ProjectService {
     private categoriesUrl = this.baseUrl + 'goal/categories';
     private notificationUrl = this.baseUrl + 'notifications/0/10';
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
-    private PageUrl = this.baseUrl + 'page';
+    private PageUrl = this.baseUrl + 'pages/';
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
@@ -364,13 +364,17 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
+
     /**
      *
+     * @param slug
+     * @param locale
      * @returns {Observable<R>}
      */
-    getPage():Observable<any> {
 
-        return this.http.get(this.PageUrl)
+    getPage(slug:string, locale:string):Observable<any> {
+
+        return this.http.get(this.PageUrl + slug + '/' + locale)
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
@@ -392,9 +396,6 @@ export class ProjectService {
             .map((r:Response) => r.json() as Comment)
             .catch(this.handleError);
     }
-    
-    
-    
 
     //modal requests
     /**

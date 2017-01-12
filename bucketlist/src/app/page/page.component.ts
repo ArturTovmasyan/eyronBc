@@ -18,6 +18,7 @@ export class PageComponent implements OnInit {
   public isSend: boolean = false;
   public description: any ;
   public data: any;
+  public locale: string = 'en';
 
   constructor(
       private route: ActivatedRoute,
@@ -28,24 +29,28 @@ export class PageComponent implements OnInit {
     router.events.subscribe((val) => {
       if(this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
-        this.name = this.route.snapshot.params['name']?this.route.snapshot.params['name']:'how-it-works';
-        // this.getPage();
+        this.name = this.route.snapshot.params['name'] ? this.route.snapshot.params['name'] : 'how-it-works';
+        this.getPage(this.name, this.locale);
       }
     })
   }
 
   ngOnInit() {
   }
-  getPage(){
-    this._projectService.getPage()
+
+  getPage(name, locale){
+    this._projectService.getPage(name, locale)
         .subscribe(
             data => {
-              this.data = data;
-              this.description = data.description;
-              this.title = data.title;
-              if(data.isSend){
-                this.isSend = data.isSend;
-              }
+              this.data = data[0];
+                console.log(this.data);
+
+                this.description = this.data.description;
+                this.title = this.data.title;
+
+                // if(data.isSend){
+              //   this.isSend = data.isSend;
+              // }
               
             });
   }

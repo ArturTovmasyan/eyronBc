@@ -97,4 +97,67 @@ class MainRestController extends FOSRestController
 
         return new JsonResponse($menu);
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Main",
+     *  description="This function is used to get page data by slug and locale",
+     *  statusCodes={
+     *         200="OK",
+     *  })
+     *
+     * @Rest\Get("/pages/{slug}/{locale}", name="app_rest_goal_title", options={"method_prefix"=false})
+     * @param $slug
+     * @param $locale
+     * @return JsonResponse
+     */
+    public function getPageAction($slug, $locale = 'en')
+    {
+        //set default array data
+        $data = [];
+
+        // get doctrine manager
+        $em = $this->container->get('doctrine')->getManager();
+
+        //get page data by page name
+        $pageData = $em->getRepository("AppBundle:Page")->findOneBy(['slug' => $slug]);
+
+        if($locale == 'en') {
+
+            $data[] = ['name' => $pageData->getName(), 'title' => $pageData->getTitle(), 'description' => $pageData->getDescription()];
+        }
+        else {
+
+            //set default null value
+            $name = null;
+            $description = null;
+            $title = null;
+
+            //get page translations data
+            $translations = $pageData->getTranslations();
+
+            foreach ($translations as $trans)
+            {
+                if ($trans->getLocale() == $locale) {
+
+                    if ($trans->getField() == 'name') {
+                        $name = $trans->getContent();
+                    }
+
+                    if ($trans->getField() == 'description') {
+                        $description = $trans->getContent();
+                    }
+
+                    if ($trans->getField() == 'title') {
+                        $title = $trans->getContent();
+                    }
+                }
+            }
+
+            $data[] = ['name' => $name, 'title' => $title, 'description' => $description];
+        }
+
+        return new JsonResponse($data);
+    }
 }
