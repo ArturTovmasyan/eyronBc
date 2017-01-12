@@ -37,7 +37,6 @@ export class NotificationComponent implements OnInit {
               this.count = notify.unreadCount;
 
                 this.setReserve();
-                console.log(this.notifications.length);
 
             },
             error => this.errorMessage = <any>error);
