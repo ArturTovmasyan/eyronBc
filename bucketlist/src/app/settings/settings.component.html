@@ -152,6 +152,7 @@
 
                             <!--{% endif %}-->
 
+                            <br/>
                             <div class="form-group row">
 
                                 <div class="col-sm-4 date">
@@ -168,6 +169,12 @@
                                     <!--{% if year.value == form.birthDate.year.vars.value %} selected {% endif %}-->
                                     <!--{% endfor %}-->
                                     <!--</select>-->
+
+                                    <md-select placeholder="Year">
+                                        <md-option *ngFor="" [value]="">
+                                            2013
+                                        </md-option>
+                                    </md-select>
                                 </div>
 
                                 <div class="col-sm-4 date">
@@ -199,6 +206,12 @@
                                     <!--{% endfor %}-->
                                     <!--</select>-->
 
+                                    <md-select placeholder="Month">
+                                        <md-option *ngFor="" [value]="">
+                                            September
+                                        </md-option>
+                                    </md-select>
+
                                 </div>
                                 <div class="col-sm-4 date">
 
@@ -213,6 +226,12 @@
                                     <!--{% if day.value == form.birthDate.day.vars.value %} selected {% endif %}-->
                                     <!--{% endfor %}-->
                                     <!--</select>-->
+
+                                    <md-select placeholder="Day">
+                                        <md-option *ngFor="" [value]="">
+                                            15
+                                        </md-option>
+                                    </md-select>
                                 </div>
                             </div>
 
@@ -220,13 +239,16 @@
                                 <!--{{ form_errors(form.birthDate) }}-->
                             </div>
 
+                            <br />
+
                             <div class="form-group row">
                                 <div class="col-sm-12 language lng">
                                     <!--{{ form_widget(form.language) }}-->
-                                    <select class="form-control">
-                                        <option>En</option>
-                                        <option>Ru</option>
-                                    </select>
+                                    <md-select placeholder="Language" style="width: 100%">
+                                        <md-option *ngFor="let language of languages" [value]="language.vale">
+                                            {{ language.name }}
+                                        </md-option>
+                                    </md-select>
                                 </div>
                             </div>
 
