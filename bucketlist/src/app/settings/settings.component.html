@@ -20,7 +20,7 @@
             <div class="col-md-8">
                 <div class="settings bg-white round">
 
-                    <div class="row">
+                    <div *ngIf="type == 'profile'" class="row">
                         <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0">
                             <div class="form-group row no-padding">
                                 <div class="col-sm-6">
@@ -240,7 +240,75 @@
                         </div>
                         <div class="col-md-4"></div>
                     </div>
+
+                    <div *ngIf="type == 'notification'">
+                        <h3>{{ 'user.notify_settings_text'|translate }}</h3>
+                        <hr />
+
+                        <div class="row">
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.comment_goal'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.comment_goal_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.comment_idea'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.comment_idea_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_goal'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.success_story_goal_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_idea'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.success_story_idea_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_like'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.success_story_like_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.publish_goal'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.publish_goal_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.reply_comment'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.reply_comment_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.deadline'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.deadline_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.new_goalfriend'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.new_goalfriend_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.new_idea'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.new_idea_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                        </div>
+
+                        <hr />
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</button>
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
         </div>
     </div>

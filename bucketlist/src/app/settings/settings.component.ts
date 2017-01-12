@@ -7,7 +7,7 @@ import { Broadcaster } from '../tools/broadcaster';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  styleUrls: ['./settings.component.less']
 })
 export class SettingsComponent implements OnInit {
   public eventId: number = 0;
