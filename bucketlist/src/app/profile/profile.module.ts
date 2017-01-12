@@ -12,6 +12,10 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { ProfileRouting } from './profile-routing';
 import { ComponentModule } from '../components/components.module';
+import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarAllYearComponent } from './calendar-all-year/calendar-all-year.component';
+import { CalendarMonthComponent } from './calendar-month/calendar-month.component';
+import { CalendarYearComponent } from './calendar-year/calendar-year.component';
 
 @NgModule({
   imports: [
@@ -27,7 +31,11 @@ import { ComponentModule } from '../components/components.module';
     MaterialModule.forRoot(),
   ],
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    CalendarComponent,
+    CalendarAllYearComponent,
+    CalendarMonthComponent,
+    CalendarYearComponent
   ],
   providers: [
     ProjectService

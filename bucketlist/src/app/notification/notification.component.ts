@@ -30,8 +30,10 @@ export class NotificationComponent implements OnInit {
               this.notifications = notify.userNotifications;
               this.count = notify.unreadCount;
 
+
             },
             
             error => this.errorMessage = <any>error);
+    
   }
 }

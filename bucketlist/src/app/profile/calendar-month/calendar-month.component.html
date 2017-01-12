@@ -1,0 +1,51 @@
+<table class="table table-bordered month-calendar">
+  <thead>
+  <tr>
+    <th>Sun</th>
+    <th>Mon</th>
+    <th>Tue</th>
+    <th>Wed</th>
+    <th>Thu</th>
+    <th>Fri</th>
+    <th>Sat</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <!--{% for i in 0..5 %}-->
+  <tr [hidden]="(i == 5 && noShowLast)">
+    <!--{% for j in 0..6 %}-->
+    <td>
+                    <span >
+                        <!--[ngClass]="{'text-gray': (days{(7 * {{ i }} + {{ j }} + 1)}.status == 'inActive'), 'text-gray-dark': (days{(7 * {{ i }} + {{ j }} + 1)}.status == 'active')}"-->
+                        <sup>
+                            <!--{{days{7 * {{ i }} + {{ j }} + 1}.day }}-->
+                        </sup>
+                    </span>
+
+                    <span [ngClass]="{'absolute': !isMobile}">
+                    <span class="goal-count bg-green ng-hide"
+                          (mouseleave)="isHover = false">
+                          <!--(mousemove)="hoverIn($event, myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.complete + ' ' + (myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.complete > 1?'{{ 'my_bucket_list.calendar.theCompleted'|translate }}':'{{ 'my_bucket_list.calendar.completed'|translate }}'))"-->
+                          <!--*ngIf="myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.complete > 0">-->
+                        <!--{{myDays[days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days[7 * {{ i }} + {{ j }} + 1}.day}.complete }}-->
+                    </span>
+                    <span class="goal-count bg-gradinet ng-hide"
+                          (mouseleave)="isHover = false">
+                          <!--(mousemove)="hoverIn($event, myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.deadline + ' ' + (myDays[days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.deadline > 1?'{{ 'my_bucket_list.calendar.deadlines'|translate }}':'{{ 'my_bucket_list.calendar.deadline'|translate }}'))"-->
+                          <!--*ngIf="myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.deadline > 0">-->
+                        <!--{{myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.deadline }}-->
+                    </span>
+                    <span class="goal-count bg-purple ng-hide"
+                          (mouseleave)="isHover = false">
+                          <!--(mousemove)="hoverIn($event, myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.current + ' ' + (myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.current > 1?'{{ 'my_bucket_list.calendar.actives'|translate }}':'{{ 'my_bucket_list.calendar.active'|translate }}'))"-->
+                          <!--*ngIf="myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.current > 0">-->
+                        <!--{{myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.current }}-->
+                    </span>
+                    </span>
+    </td>
+    <!--{% endfor %}-->
+  </tr>
+  <!--{% endfor %}-->
+  </tbody>
+</table>
