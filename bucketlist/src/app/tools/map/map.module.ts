@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AgmCoreModule } from "angular2-google-maps/core";
 
 import { MapComponent } from './map.component';
+import { AutocomplateMapComponent } from './autocomplate-map.component';
 
 @NgModule({
   imports: [
@@ -19,9 +20,13 @@ import { MapComponent } from './map.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [MapComponent],
+  declarations: [
+    MapComponent,
+    AutocomplateMapComponent
+  ],
   exports: [
-    MapComponent
+    MapComponent,
+    AutocomplateMapComponent
   ]
 })
 export class MapModule { }
