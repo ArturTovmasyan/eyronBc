@@ -3,6 +3,7 @@ import { CommonModule }     from '@angular/common';
 import { FormsModule }      from '@angular/forms';
 import { SettingsComponent } from './settings.component';
 import { ComponentModule } from '../components/components.module';
+import { MaterialModule } from '@angular/material';
 
 import {TranslateModule} from 'ng2-translate';
 import { ActivityBlockModule } from '../block/activityBlock.module';
@@ -16,7 +17,8 @@ import { SettingsRouting } from './settings-routing';
     TranslateModule,
     SettingsRouting,
     FormsModule,
-    ActivityBlockModule
+    ActivityBlockModule,
+    MaterialModule.forRoot(),
   ],
   declarations: [
     SettingsComponent

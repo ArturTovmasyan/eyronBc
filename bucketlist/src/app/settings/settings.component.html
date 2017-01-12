@@ -20,10 +20,11 @@
             <div class="col-md-8">
                 <div class="settings bg-white round">
 
-                    <div class="row">
+                    <div *ngIf="type == 'profile'" class="row">
                         <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0">
                             <div class="form-group row no-padding">
                                 <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="{{ 'form.firstName'|translate }}">
                                     <!--{{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|translate } }) }}-->
                                     <div class="error-message">
                                         <!--{{ form_errors(form.firstName)?('setting.invalid_user_name'|translate): '' }}-->
@@ -31,6 +32,7 @@
                                 </div>
 
                                 <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="{{ 'form.lastName'|translate }}">
                                     <!--{{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|translate } }) }}-->
                                     <div class="error-message" >
                                         <!--{{ form_errors(form.lastName) }}-->
@@ -42,6 +44,7 @@
                             <div class="form-group row no-padding emails">
 
                                 <div class="col-sm-3 primary">
+                                    <label for="bl_user_settings_email">Primary Email</label>
                                     <!--{{ form_label(form.email, 'Primary Email'|translate) }}-->
                                 </div>
 
@@ -50,10 +53,11 @@
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-xs-2 text-center">
-                                            <!--<input name="primary" type="radio" value="{{ email }}" checked/>-->
+                                            <input name="primary" type="radio" value="{{ email }}" checked/>
                                         </div>
 
                                         <div class="col-xs-10">
+                                            <input type="email" class="form-control" id="bl_user_settings_email" placeholder="{{ 'form.email'|translate }}">
                                             <!--{{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|translate } }) }}-->
                                         </div>
                                     </div>
@@ -75,13 +79,14 @@
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-xs-2 text-right">
-                                            <!--<input name="primary" type="radio" value="{{ key }}"/>-->
+                                            <input name="primary" type="radio" value="{{ key }}"/>
                                         </div>
 
                                         <div class="col-xs-10">
                                             <div class="delete-email">
                                                 <a class="delete-link icon" ></a>
                                                 <!--href="{{ path('remove_email', {'email' : key } ) }}"-->
+                                                <input name="userEmail"  class="form-control" type="text" value="" readonly />
                                                 <!--<input name="userEmail"  class="form-control" type="text" value="{{ userEmail.userEmails }}" readonly />-->
                                             </div>
                                         </div>
@@ -102,6 +107,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-4"></div>
                                 <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="{{ 'form.add_email'|translate }}">
                                     <!--{{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'form.add_email'|translate } }) }}-->
                                 </div>
                                 <div class="error-message">
@@ -118,6 +124,8 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-12">
+                                    <input type="text" class="form-control" placeholder="{{ 'form.current_password'|translate }}">
+
                                     <!--{{ form_widget(form.currentPassword, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|translate } }) }}-->
                                 </div>
                                 <!--<div class="error-message">{{ form_errors(form.currentPassword) }}</div>-->
@@ -125,12 +133,16 @@
 
                             <div class="form-group row no-padding">
                                 <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="{{ 'form.new_password'|translate }}">
+
                                     <!--{{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.new_password'|translate } }) }}-->
                                     <div class="error-message">
                                         <!--{{ form_errors(form.plainPassword.first) }}-->
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="{{ 'form.re_new_password'|translate }}">
+
                                     <!--{{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_new_password'|translate } }) }}-->
                                     <div class="error-message">
                                         <!--{{ form_errors(form.plainPassword.second) }}-->
@@ -140,6 +152,7 @@
 
                             <!--{% endif %}-->
 
+                            <br/>
                             <div class="form-group row">
 
                                 <div class="col-sm-4 date">
@@ -156,6 +169,12 @@
                                     <!--{% if year.value == form.birthDate.year.vars.value %} selected {% endif %}-->
                                     <!--{% endfor %}-->
                                     <!--</select>-->
+
+                                    <md-select placeholder="Year">
+                                        <md-option *ngFor="" [value]="">
+                                            2013
+                                        </md-option>
+                                    </md-select>
                                 </div>
 
                                 <div class="col-sm-4 date">
@@ -187,6 +206,12 @@
                                     <!--{% endfor %}-->
                                     <!--</select>-->
 
+                                    <md-select placeholder="Month">
+                                        <md-option *ngFor="" [value]="">
+                                            September
+                                        </md-option>
+                                    </md-select>
+
                                 </div>
                                 <div class="col-sm-4 date">
 
@@ -201,6 +226,12 @@
                                     <!--{% if day.value == form.birthDate.day.vars.value %} selected {% endif %}-->
                                     <!--{% endfor %}-->
                                     <!--</select>-->
+
+                                    <md-select placeholder="Day">
+                                        <md-option *ngFor="" [value]="">
+                                            15
+                                        </md-option>
+                                    </md-select>
                                 </div>
                             </div>
 
@@ -208,9 +239,16 @@
                                 <!--{{ form_errors(form.birthDate) }}-->
                             </div>
 
+                            <br />
+
                             <div class="form-group row">
                                 <div class="col-sm-12 language lng">
                                     <!--{{ form_widget(form.language) }}-->
+                                    <md-select placeholder="Language" style="width: 100%">
+                                        <md-option *ngFor="let language of languages" [value]="language.vale">
+                                            {{ language.name }}
+                                        </md-option>
+                                    </md-select>
                                 </div>
                             </div>
 
@@ -224,7 +262,75 @@
                         </div>
                         <div class="col-md-4"></div>
                     </div>
+
+                    <div *ngIf="type == 'notification'">
+                        <h3>{{ 'user.notify_settings_text'|translate }}</h3>
+                        <hr />
+
+                        <div class="row">
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.comment_goal'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.comment_goal_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.comment_idea'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.comment_idea_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_goal'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.success_story_goal_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_idea'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.success_story_idea_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_like'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.success_story_like_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.publish_goal'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.publish_goal_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.reply_comment'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.reply_comment_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.deadline'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.deadline_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.new_goalfriend'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.new_goalfriend_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                            <md-slide-toggle>
+                                <strong class="text-grey-dark center-block">{{ 'notify_settings.new_idea'|translate }}</strong>
+                                <strong class="text-muted">{{ 'notify_settings.new_idea_desc'|translate }}</strong>
+                            </md-slide-toggle>
+
+                        </div>
+
+                        <hr />
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</button>
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
         </div>
     </div>
