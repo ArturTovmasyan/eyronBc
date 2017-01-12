@@ -19,6 +19,8 @@ export class PageComponent implements OnInit {
   public description: any ;
   public data: any;
   public locale: string = 'en';
+  error:string;
+  emailData;
 
   constructor(
       private route: ActivatedRoute,
@@ -32,7 +34,14 @@ export class PageComponent implements OnInit {
         this.name = this.route.snapshot.params['name'] ? this.route.snapshot.params['name'] : 'how-it-works';
         this.getPage(this.name, this.locale);
       }
-    })
+    });
+
+    this.emailData = {
+        fullName: '',
+        email: '',
+        subject: '',
+        message: '',
+    }
   }
 
   ngOnInit() {
@@ -42,16 +51,24 @@ export class PageComponent implements OnInit {
     this._projectService.getPage(name, locale)
         .subscribe(
             data => {
-              this.data = data[0];
-                console.log(this.data);
-
+                this.data = data[0];
                 this.description = this.data.description;
                 this.title = this.data.title;
-
-                // if(data.isSend){
-              //   this.isSend = data.isSend;
-              // }
-              
             });
+  }
+
+  sendEmail(emailData) {
+    this.emailData.fullName = emailData.fullName;
+    this.emailData.email = emailData.email;
+    this.emailData.subject = emailData.subject;
+    this.emailData.message = emailData.message;
+
+    this._projectService.sendEmail(this.emailData)
+        .subscribe(
+            () => {
+                this.isSend = true;
+                console.log(this.isSend);
+            }
+          );
   }
 }

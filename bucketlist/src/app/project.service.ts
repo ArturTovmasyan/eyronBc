@@ -62,6 +62,7 @@ export class ProjectService {
     private notificationUrl = this.baseUrl + 'notifications/0/10';
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
     private PageUrl = this.baseUrl + 'pages/';
+    private sendEmailUrl = this.baseUrl + 'contact/send-email';
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
@@ -376,6 +377,16 @@ export class ProjectService {
 
         return this.http.get(this.PageUrl + slug + '/' + locale)
             .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    sendEmail(emailData: any):Observable<any> {
+        return this.http.post(this.sendEmailUrl, {'emailData' : emailData})
+            .map((r:Response) => r)
             .catch(this.handleError);
     }
 

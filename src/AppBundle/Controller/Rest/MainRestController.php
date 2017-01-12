@@ -1,16 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: andranik
- * Date: 6/27/16
- * Time: 6:20 PM
- */
+
 namespace AppBundle\Controller\Rest;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Rest\Prefix("/api/v1.0")
@@ -30,10 +28,7 @@ class MainRestController extends FOSRestController
      *  },
      *  parameters={
      *      {"name"="mobileAppPlatform", "dataType"="string", "required"=true, "description"="mobile app platform"}
-     *  }
-     *
-     *
-     * )
+     *  })
      *
      * @param $mobileAppPlatform
      * @return array
@@ -159,5 +154,44 @@ class MainRestController extends FOSRestController
         }
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Main",
+     *  description="This function is used to send contact us email",
+     *  statusCodes={
+     *         200="OK",
+     *  })
+     *
+     * @Rest\Post("/contact/send-email", name="post_contact_us", options={"method_prefix"=false})
+     * @param $request
+     * @return Response
+     */
+    public function postContactUsAction(Request $request)
+    {
+        // get doctrine manager
+        $em = $this->container->get('doctrine')->getManager();
+
+        //get all emails user data
+        $admins = $em->getRepository('ApplicationUserBundle:User')->findAdmins('ROLE_SUPER_ADMIN');
+
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        //get emailData
+        $emailData = $request->get('emailData');
+
+        foreach ($admins as $admin)
+        {
+            $this->get('bl.email.sender')->sendContactUsEmail($admin['email'], $admin['fullName'], $emailData);
+        }
+
+        return new Response('', Response::HTTP_OK);
     }
 }
