@@ -2,13 +2,8 @@
 <figure [class.my-profile]="!userInfo || userInfo == 'my'">
 
   <span class="overlay"></span>
-  <img src="{{ (profileUser && profileUser.photo-link)?profileUser.photo-link: imgPath}}" alt="Profile Cover Photo" class="img-responsive" />
+  <img src="{{ (profileUser && profileUser.cached_image)?profileUser.cached_image: imgPath}}" alt="Profile Cover Photo" class="img-responsive" />
 
-  <!--{% if profileUser.photo-link %}-->
-                <!--{{ profileUser.photo-link|blImageFilter('user_cover') }}-->
-            <!--{% else %}-->
-                <!--{{ asset(imgPath) }}-->
-            <!--{% endif %}"-->
 </figure>
 
 <div class="profile">
@@ -21,9 +16,9 @@
           <a routerLink="/edit/profile" routerLinkActive="active" *ngIf="!userInfo || userInfo == 'my'" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
 
           <div *ngIf="profileUser">
-            <img src="{{ profileUser.photo-link }}" *ngIf="profileUser.photo-link" alt="Profile image" class="img-responsive img-circle"/>
-            <!--{{ profileUser.photo-link|blImageFilter('user_image') }}-->
-            <span class="no-image profile-image profile-image1" *ngIf="!profileUser.photo-link">
+            <img src="{{ profileUser.cached_image }}" *ngIf="profileUser.cached_image" alt="Profile image" class="img-responsive img-circle"/>
+            <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->
+            <span class="no-image profile-image profile-image1" *ngIf="!profileUser.cached_image">
               {{ profileUser.first_name |slice:0:1 |uppercase }} {{ profileUser.last_name |slice:0:1 |uppercase }}</span>
           </div>
 
@@ -42,11 +37,6 @@
                   *ngIf="userInfo && userInfo != 'my'"
                   (click)="toggleFollow()"
                   [mdTooltip]="(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate">
-                  <!--(mouseleave)="hoverEmitter.emit(null)"-->
-                  <!--(mousemove)="hoverEmitter.emit({ ev:$event, val:(isFollow?'my_bucket_list.un_follow': 'my_bucket_list.follow')})">-->
-                  <!--data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"-->
-                  <!--data-ls-user-id="{{ profileUser.id }}"-->
-                  <!--data-ls-is-follow="isFollow">-->
 
               <i class="follow-icon" *ngIf="!isFollow" title="{{ 'my_bucket_list.follow'|translate }}"></i>
               <i class="closefriend-icon" *ngIf="isFollow" title="{{ 'my_bucket_list.un_follow'|translate }}"></i>
@@ -87,11 +77,6 @@
               *ngIf="userInfo && userInfo != 'my'"
               (click)="toggleFollow()"
               [mdTooltip]="(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate">
-              <!--(mouseleave)="hoverEmitter.emit(null)"-->
-              <!--(mousemove)="hoverEmitter.emit({ ev:$event, val:(isFollow?'my_bucket_list.un_follow': 'my_bucket_list.follow')})">-->
-                  <!--data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"-->
-          <!--data-ls-user-id="{{ profileUser.id }}"-->
-          <!--data-ls-is-follow="isFollow">-->
 
               <i class="follow-icon" *ngIf="!isFollow" title="{{ 'my_bucket_list.follow'|translate }}"></i>
               <i class="closefriend-icon" *ngIf="isFollow" title="{{ 'my_bucket_list.un_follow'|translate }}"></i>

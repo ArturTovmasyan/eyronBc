@@ -573,6 +573,13 @@ class UserController extends FOSRestController
             throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
         }
 
+        if ($currentUser->getImagePath()){
+            $imagineCacheManager = $this->get('liip_imagine.cache.manager');
+            $resolvedPath = $imagineCacheManager->getBrowserPath($currentUser->getImagePath(), 'user_image');
+
+            $currentUser->setCachedImage($resolvedPath);
+        }
+
         return $currentUser;
     }
 
