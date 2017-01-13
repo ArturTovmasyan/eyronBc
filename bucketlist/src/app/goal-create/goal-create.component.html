@@ -91,7 +91,7 @@
                        [(ngModel)]="title"
                        (ngModelChange)="getGoals()">
 
-                <div  class="col-md-4" *ngFor="let goal of goals">
+                <div  class="col-md-4 goals-animate" style="margin-top: 10px" *ngFor="let goal of goals">
 
                   <div class="row idea-item">
                     <div class="col-sm-12">
@@ -108,6 +108,7 @@
                 <!--{% if form.vars.value.title %}data-ng-init="addTitle ='{{ form.vars.value.title }}'" {% endif %}-->
                 <!--{{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title', 'data-ng-model' : "addTitle",-->
                 <!--'data-ng-change' : "searchGoal($event)"} }) }}-->
+
               </div>
               <div *ngIf="haveIdeas && showIdeas" class="padding-top"></div>
             </div>
@@ -138,6 +139,7 @@
 
                 </div>
               </div>
+
               <!--<slick settings="slickConfig" class="row idea-item">-->
                 <!--<div class="col-md-4 goals-animate" *ngFor=" let goal of Ideas.items">-->
                      <!--&lt;!&ndash;data-ng-cloak&ndash;&gt;-->
@@ -209,6 +211,8 @@
                   <button *ngFor=" let tag of tags" type="button" class="btn btn-purple"> {{tag }} </button>
                 </div>
 
+
+
                 <p class="text-gray">
                   {{ 'goal.description_title'| translate }}
                 </p>
@@ -263,14 +267,19 @@
             <br />
             <!--{{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}-->
             <br class="hidden-xs"/>
+              <input type="text" placeholder="Type in a youtube or vimeo link in the field" class="form-control">
+
           </div>
         </div>
 
         <!--{{ form_widget(form._token) }}-->
       </div>
+
     </div>
   </div>
+
   </div>
+
 </form>
 <!--{% endblock %}-->
 

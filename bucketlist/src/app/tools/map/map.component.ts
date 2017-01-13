@@ -9,8 +9,8 @@ import { Broadcaster } from '../broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 @Component({
-  selector: 'map-autocomplate',
-  templateUrl: './autocomplate-map.component.html',
+  selector: 'map-single',
+  templateUrl: './map.component.html',
   styleUrls: ['./map.component.less']
 })
 export class MapComponent implements OnInit {
@@ -47,41 +47,6 @@ export class MapComponent implements OnInit {
 
     //create search FormControl
     this.searchControl = new FormControl();
-
-    //set current position
-    this.setCurrentPosition();
-
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: []
-      });
-      this.bounds = new google.maps.LatLngBounds(null);
-      this.autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
-
-          let marker:Marker = {
-            latitude: place.geometry.location.lat(),
-            longitude: place.geometry.location.lng(),
-            iconUrl: this.passiveMarkerIcon,
-            title: this.searchElementRef.nativeElement.value
-          };
-
-          this.broadcaster.broadcast('location_changed', marker);
-
-          this.markers = [marker];
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.bounds.extend({
-            lat: this.latitude,
-            lng: this.longitude
-          });
-          this.zoom = 10;
-        });
-      });
-    });
 
     this.broadcaster.on<Location[]>('getLocation')
         .subscribe(locations => {
@@ -127,47 +92,7 @@ export class MapComponent implements OnInit {
 
   }
 
-  setType(types){
-    this.autocomplete.setTypes(types)
-  }
-
-  setPosition(position){
-    this.latitude = position.coords.latitude;
-    this.longitude = position.coords.longitude;
-    let marker:Marker = {
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-      iconUrl: this.passiveMarkerIcon,
-      title: "Your Position"
-    };
-
-    this.bounds.extend({
-      'latitude':this.latitude,
-      'longitude': this.longitude
-    });
-
-    this.broadcaster.broadcast('location_changed', marker);
-    this.markers = [marker];
-    this.notAllowed = false;
-    this.zoom = 10;
-  }
-
   clickMarker(marker){
     this.router.navigate(['/goal/'+marker.slug]);
-  }
-
-  private setCurrentPosition() {
-    let position = this._cacheService.get('location');
-    if(position && position.coords){
-      this.setPosition(position);
-    }else {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.notAllowed = false;
-          this.setPosition(position);
-          this._cacheService.set('location', position, {maxAge: 3 * 24 * 60 * 60});
-        });
-      }
-    }
   }
 }

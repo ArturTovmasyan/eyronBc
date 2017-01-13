@@ -61,12 +61,14 @@ export class ProjectService {
     private categoriesUrl = this.baseUrl + 'goal/categories';
     private notificationUrl = this.baseUrl + 'notifications/0/10';
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
-    private PageUrl = this.baseUrl + 'page';
+    private PageUrl = this.baseUrl + 'pages/';
+    private sendEmailUrl = this.baseUrl + 'contact/send-email';
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
     private followToggleUrl = this.baseUrl + 'users/';
     private followToggleUrl2 = '/toggles/followings';
+    private calendarUrl = this.baseUrl + 'usergoal/calendar/data';
 
     private nearByUrl = this.baseUrl + 'goals/nearby/';
     private resetNearByUrl = this.baseUrl + 'usergoals/';
@@ -364,14 +366,28 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
+
+    /**
+     *
+     * @param slug
+     * @param locale
+     * @returns {Observable<R>}
+     */
+
+    getPage(slug:string, locale:string):Observable<any> {
+
+        return this.http.get(this.PageUrl + slug + '/' + locale)
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
     /**
      *
      * @returns {Observable<R>}
      */
-    getPage():Observable<any> {
-
-        return this.http.get(this.PageUrl)
-            .map((r:Response) => r.json())
+    sendEmail(emailData: any):Observable<any> {
+        return this.http.post(this.sendEmailUrl, {'emailData' : emailData})
+            .map((r:Response) => r)
             .catch(this.handleError);
     }
 
@@ -392,9 +408,6 @@ export class ProjectService {
             .map((r:Response) => r.json() as Comment)
             .catch(this.handleError);
     }
-    
-    
-    
 
     //modal requests
     /**
@@ -441,6 +454,16 @@ export class ProjectService {
      */
     toggleFollow(id:number):Observable<any> {
         return this.http.post(this.followToggleUrl + id + this.followToggleUrl2, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @returns {Observable<R>}
+     */
+    getCalendarData():Observable<any> {
+        return this.http.get(this.calendarUrl, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
