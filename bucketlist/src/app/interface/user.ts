@@ -3,5 +3,6 @@ export interface User {
     uId: string,
     first_name?: string,
     last_name?: string,
-    cached_image?: string
+    cached_image?: string,
+    stats?:any
 }

@@ -1,13 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
-import {TranslateModule} from 'ng2-translate';
+import { HttpModule, JsonpModule, Http } from '@angular/http';
+import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import {MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import {SelectModule} from 'ng2-select/ng2-select';
 import {DndModule} from 'ng2-dnd';
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+
 import { AngularFireModule } from 'angularfire2';
 import { AuthProviders } from 'angularfire2';
 import { AuthMethods } from 'angularfire2';
@@ -44,6 +46,7 @@ import { BaseStoriesComponent } from './components/base-stories/base-stories.com
 import { HomeFooterComponent } from './components/home-footer/home-footer.component';
 import { ComponentModule } from './components/components.module';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
+import { PageComponent } from './page/page.component';
 
 //modals
 import { ReportComponent } from './modals/report/report.component';
@@ -51,6 +54,10 @@ import { CommonComponent } from './modals/common/common.component';
 import { UsersComponent } from './modals/users/users.component';
 import { AddComponent } from './modals/add/add.component';
 import { DoneComponent } from './modals/done/done.component';
+
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -62,11 +69,17 @@ import { DoneComponent } from './modals/done/done.component';
     LoginComponent,
     RegisterComponent,
     ResettingRequestComponent,
+
+    PageComponent,
+    MarkdownToHtmlPipe,
+    ReportComponent,
+
     ReportComponent,
     CommonComponent,
     UsersComponent,
     AddComponent,
     DoneComponent
+
   ],
   imports: [
     BrowserModule,
@@ -82,7 +95,11 @@ import { DoneComponent } from './modals/done/done.component';
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),
-    TranslateModule.forRoot()
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    })
   ],
   providers: [
     ProjectService,

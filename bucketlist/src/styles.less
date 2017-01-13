@@ -1,5 +1,6 @@
 @import "assets/less/variables.less";
 @import "assets/less/function.less";
+@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
 
 body, html{
   height:100%;
@@ -2125,8 +2126,9 @@ footer{
     }
   }
 
-  &:hover{
+  &:hover,&:focus{
     color: #666666 !important;
+    text-decoration: none;
   }
 }
 
@@ -4288,4 +4290,44 @@ ul{
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 10px solid #f4f4f4;
+}
+
+.example-margin{
+  .md-checkbox-inner-container{
+    margin: auto 3px auto auto;
+  }
+}
+
+.md-checkbox-checked.md-accent .md-checkbox-background, .md-checkbox-indeterminate.md-accent .md-checkbox-background{
+  background: #6108EA;
+}
+
+md-slide-toggle.md-checked:not(.md-disabled),md-slide-toggle.md-slide-toggle-focused {
+  .md-slide-toggle-thumb{
+    background-color: #7724f6;
+
+    .md-ink-ripple,.md-slide-toggle-focused{
+      background-color: rgba(119, 36, 246, 0.3);
+    }
+  }
+
+  .md-slide-toggle-bar {
+    background-color: rgba(119, 36, 246, 0.5);
+  }
+}
+
+md-radio-button.md-radio-checked{
+
+  .md-radio-inner-circle{
+    background-color: #7724f6;
+  }
+
+  .md-radio-outer-circle{
+   border-color: #7724f6;
+  }
+
+  .md-ripple-foreground{
+    background-color: rgba(119, 36, 246, 0.3) !important;
+  }
+
 }

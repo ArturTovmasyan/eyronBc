@@ -1,21 +1,501 @@
 webpackJsonp([2,13],{
 
-/***/ 890:
+/***/ 1008:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(443);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tools_map_map_module__ = __webpack_require__(921);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_useful_swiper__ = __webpack_require__(444);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_useful_swiper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular2_useful_swiper__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ideas_component__ = __webpack_require__(942);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ideas_routing__ = __webpack_require__(955);
-/* harmony export (binding) */ __webpack_require__.d(exports, "IdeasModule", function() { return IdeasModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__ = __webpack_require__(975);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__broadcaster__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(139);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MapComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var MapComponent = (function () {
+    function MapComponent(_cacheService, mapsAPILoader, ngZone, router, broadcaster) {
+        this._cacheService = _cacheService;
+        this.mapsAPILoader = mapsAPILoader;
+        this.ngZone = ngZone;
+        this.router = router;
+        this.broadcaster = broadcaster;
+        this.activeGoalMarkerIcon1 = "assets/images/Active-icon.png";
+        this.activeGoalMarkerIcon2 = "assets/images/Completed-icon.png";
+        this.passiveMarkerIcon = "assets/images/map-marker-purple.png";
+        this.activeMarkerIcon = "assets/images/map-marker-purple.png";
+        this.notAllowed = true;
+    }
+    MapComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        //set google maps defaults
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+        //create search FormControl
+        this.searchControl = new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* FormControl */]();
+        //set current position
+        this.setCurrentPosition();
+        //load Places Autocomplete
+        this.mapsAPILoader.load().then(function () {
+            _this.autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement, {
+                types: []
+            });
+            _this.bounds = new google.maps.LatLngBounds(null);
+            _this.autocomplete.addListener("place_changed", function () {
+                _this.ngZone.run(function () {
+                    //get the place result
+                    var place = _this.autocomplete.getPlace();
+                    var marker = {
+                        latitude: place.geometry.location.lat(),
+                        longitude: place.geometry.location.lng(),
+                        iconUrl: _this.passiveMarkerIcon,
+                        title: _this.searchElementRef.nativeElement.value
+                    };
+                    _this.broadcaster.broadcast('location_changed', marker);
+                    _this.markers = [marker];
+                    _this.latitude = place.geometry.location.lat();
+                    _this.longitude = place.geometry.location.lng();
+                    _this.bounds.extend({
+                        lat: _this.latitude,
+                        lng: _this.longitude
+                    });
+                    _this.zoom = 10;
+                });
+            });
+        });
+        this.broadcaster.on('getLocation')
+            .subscribe(function (locations) {
+            _this.bounds = new google.maps.LatLngBounds(null);
+            for (var _i = 0, locations_1 = locations; _i < locations_1.length; _i++) {
+                var location = locations_1[_i];
+                _this.bounds.extend(location);
+            }
+        });
+        this.broadcaster.on('addGoal')
+            .subscribe(function (data) {
+            // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+            //     var icon = {
+            //         url: this.activeGoalMarkerIcon1,
+            //         scaledSize:new google.maps.Size(35, 50)
+            //     };
+            //     scope.mapMarkers[data].setIcon(icon);
+            // }
+        });
+        this.broadcaster.on('lsJqueryModalClosedSaveGoal')
+            .subscribe(function (userGoal) {
+            // if(!userGoal || !userGoal.status || !scope.mapMarkers[userGoal.goal.id] || !scope.mapMarkers[userGoal.goal.id].map)
+            //         return;
+            //
+            //     var icon = {
+            //         url: scope['activeGoalMarkerIcon'+userGoal.status],
+            //         scaledSize:new google.maps.Size(35, 50)
+            //     };
+            //     scope.mapMarkers[userGoal.goal.id].setIcon(icon);
+        });
+        this.broadcaster.on('doneGoal')
+            .subscribe(function (data) {
+            console.log(data);
+            // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+            //     var icon = {
+            //         url: scope.activeGoalMarkerIcon2,
+            //         scaledSize:new google.maps.Size(35, 50)
+            //     };
+            //     scope.mapMarkers[data].setIcon(icon);
+            // }
+        });
+    };
+    MapComponent.prototype.setType = function (types) {
+        this.autocomplete.setTypes(types);
+    };
+    MapComponent.prototype.setPosition = function (position) {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        var marker = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            iconUrl: this.passiveMarkerIcon,
+            title: "Your Position"
+        };
+        this.bounds.extend({
+            'latitude': this.latitude,
+            'longitude': this.longitude
+        });
+        this.broadcaster.broadcast('location_changed', marker);
+        this.markers = [marker];
+        this.notAllowed = false;
+        this.zoom = 10;
+    };
+    MapComponent.prototype.clickMarker = function (marker) {
+        this.router.navigate(['/goal/' + marker.slug]);
+    };
+    MapComponent.prototype.setCurrentPosition = function () {
+        var _this = this;
+        var position = this._cacheService.get('location');
+        if (position && position.coords) {
+            this.setPosition(position);
+        }
+        else {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    _this.notAllowed = false;
+                    _this.setPosition(position);
+                    _this._cacheService.set('location', position, { maxAge: 3 * 24 * 60 * 60 });
+                });
+            }
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Array)
+    ], MapComponent.prototype, "locations", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])("search"), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
+    ], MapComponent.prototype, "searchElementRef", void 0);
+    MapComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'map-autocomplate',
+            template: __webpack_require__(1022),
+            styles: [__webpack_require__(1017)]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */]) === 'function' && _f) || Object])
+    ], MapComponent);
+    return MapComponent;
+    var _a, _b, _c, _d, _e, _f;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/map.component.js.map
+
+/***/ },
+
+/***/ 1009:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__ = __webpack_require__(975);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__map_component__ = __webpack_require__(1008);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MapModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var MapModule = (function () {
+    function MapModule() {
+    }
+    MapModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__["AgmCoreModule"].forRoot({
+                    apiKey: "AIzaSyBN9sWpmv-6mArNqz_oSStVdpuCTt-lu6g",
+                    libraries: ["places"]
+                }),
+                __WEBPACK_IMPORTED_MODULE_2__angular_common__["CommonModule"],
+                __WEBPACK_IMPORTED_MODULE_3_ng2_translate__["a" /* TranslateModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["e" /* ReactiveFormsModule */],
+            ],
+            declarations: [__WEBPACK_IMPORTED_MODULE_6__map_component__["a" /* MapComponent */]],
+            exports: [
+                __WEBPACK_IMPORTED_MODULE_6__map_component__["a" /* MapComponent */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MapModule);
+    return MapModule;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/map.module.js.map
+
+/***/ },
+
+/***/ 1010:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var core_1 = __webpack_require__(0);
+var google_map_1 = __webpack_require__(974);
+var google_map_circle_1 = __webpack_require__(970);
+var google_map_info_window_1 = __webpack_require__(958);
+var google_map_marker_1 = __webpack_require__(971);
+var google_map_polygon_1 = __webpack_require__(972);
+var google_map_polyline_1 = __webpack_require__(973);
+var google_map_polyline_point_1 = __webpack_require__(959);
+var lazy_maps_api_loader_1 = __webpack_require__(964);
+var lazy_maps_api_loader_2 = __webpack_require__(964);
+var maps_api_loader_1 = __webpack_require__(956);
+var browser_globals_1 = __webpack_require__(976);
+/**
+ * @internal
+ */
+function coreDirectives() {
+    return [
+        google_map_1.SebmGoogleMap, google_map_marker_1.SebmGoogleMapMarker, google_map_info_window_1.SebmGoogleMapInfoWindow, google_map_circle_1.SebmGoogleMapCircle,
+        google_map_polygon_1.SebmGoogleMapPolygon, google_map_polyline_1.SebmGoogleMapPolyline, google_map_polyline_point_1.SebmGoogleMapPolylinePoint
+    ];
+}
+exports.coreDirectives = coreDirectives;
+;
+/**
+ * The angular2-google-maps core module. Contains all Directives/Services/Pipes
+ * of the core module. Please use `AgmCoreModule.forRoot()` in your app module.
+ */
+var AgmCoreModule = (function () {
+    function AgmCoreModule() {
+    }
+    /**
+     * Please use this method when you register the module at the root level.
+     */
+    AgmCoreModule.forRoot = function (lazyMapsAPILoaderConfig) {
+        return {
+            ngModule: AgmCoreModule,
+            providers: browser_globals_1.BROWSER_GLOBALS_PROVIDERS.concat([
+                { provide: maps_api_loader_1.MapsAPILoader, useClass: lazy_maps_api_loader_1.LazyMapsAPILoader },
+                { provide: lazy_maps_api_loader_2.LAZY_MAPS_API_CONFIG, useValue: lazyMapsAPILoaderConfig }
+            ]),
+        };
+    };
+    AgmCoreModule.decorators = [
+        { type: core_1.NgModule, args: [{ declarations: coreDirectives(), exports: coreDirectives() },] },
+    ];
+    /** @nocollapse */
+    AgmCoreModule.ctorParameters = [];
+    return AgmCoreModule;
+}());
+exports.AgmCoreModule = AgmCoreModule;
+//# sourceMappingURL=core-module.js.map
+
+/***/ },
+
+/***/ 1011:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var google_map_1 = __webpack_require__(974);
+exports.SebmGoogleMap = google_map_1.SebmGoogleMap;
+var google_map_circle_1 = __webpack_require__(970);
+exports.SebmGoogleMapCircle = google_map_circle_1.SebmGoogleMapCircle;
+var google_map_info_window_1 = __webpack_require__(958);
+exports.SebmGoogleMapInfoWindow = google_map_info_window_1.SebmGoogleMapInfoWindow;
+var google_map_marker_1 = __webpack_require__(971);
+exports.SebmGoogleMapMarker = google_map_marker_1.SebmGoogleMapMarker;
+var google_map_polygon_1 = __webpack_require__(972);
+exports.SebmGoogleMapPolygon = google_map_polygon_1.SebmGoogleMapPolygon;
+var google_map_polyline_1 = __webpack_require__(973);
+exports.SebmGoogleMapPolyline = google_map_polyline_1.SebmGoogleMapPolyline;
+var google_map_polyline_point_1 = __webpack_require__(959);
+exports.SebmGoogleMapPolylinePoint = google_map_polyline_point_1.SebmGoogleMapPolylinePoint;
+//# sourceMappingURL=directives.js.map
+
+/***/ },
+
+/***/ 1012:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var google_maps_api_wrapper_1 = __webpack_require__(930);
+exports.GoogleMapsAPIWrapper = google_maps_api_wrapper_1.GoogleMapsAPIWrapper;
+var circle_manager_1 = __webpack_require__(960);
+exports.CircleManager = circle_manager_1.CircleManager;
+var info_window_manager_1 = __webpack_require__(961);
+exports.InfoWindowManager = info_window_manager_1.InfoWindowManager;
+var marker_manager_1 = __webpack_require__(955);
+exports.MarkerManager = marker_manager_1.MarkerManager;
+var polygon_manager_1 = __webpack_require__(962);
+exports.PolygonManager = polygon_manager_1.PolygonManager;
+var polyline_manager_1 = __webpack_require__(963);
+exports.PolylineManager = polyline_manager_1.PolylineManager;
+var lazy_maps_api_loader_1 = __webpack_require__(964);
+exports.GoogleMapsScriptProtocol = lazy_maps_api_loader_1.GoogleMapsScriptProtocol;
+exports.LAZY_MAPS_API_CONFIG = lazy_maps_api_loader_1.LAZY_MAPS_API_CONFIG;
+exports.LazyMapsAPILoader = lazy_maps_api_loader_1.LazyMapsAPILoader;
+var maps_api_loader_1 = __webpack_require__(956);
+exports.MapsAPILoader = maps_api_loader_1.MapsAPILoader;
+var noop_maps_api_loader_1 = __webpack_require__(1013);
+exports.NoOpMapsAPILoader = noop_maps_api_loader_1.NoOpMapsAPILoader;
+//# sourceMappingURL=services.js.map
+
+/***/ },
+
+/***/ 1013:
+/***/ function(module, exports) {
+
+"use strict";
+"use strict";
+/**
+ * When using the NoOpMapsAPILoader, the Google Maps API must be added to the page via a `<script>`
+ * Tag.
+ * It's important that the Google Maps API script gets loaded first on the page.
+ */
+var NoOpMapsAPILoader = (function () {
+    function NoOpMapsAPILoader() {
+    }
+    NoOpMapsAPILoader.prototype.load = function () {
+        if (!window.google || !window.google.maps) {
+            throw new Error('Google Maps API not loaded on page. Make sure window.google.maps is available!');
+        }
+        return Promise.resolve();
+    };
+    ;
+    return NoOpMapsAPILoader;
+}());
+exports.NoOpMapsAPILoader = NoOpMapsAPILoader;
+//# sourceMappingURL=noop-maps-api-loader.js.map
+
+/***/ },
+
+/***/ 1017:
+/***/ function(module, exports) {
+
+module.exports = ".sebm-google-map-container {\n  height: 300px;\n}\n#hide-completed {\n  display: inline-block;\n  margin: 10px 25px 5px 0;\n}\n.controls {\n  margin-top: 10px;\n  border: 1px solid transparent;\n  border-radius: 2px 0 0 2px;\n  box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  height: 32px;\n  outline: none;\n  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n}\n.map-autocomplete div.clearfix {\n  position: absolute;\n  z-index: 1;\n}\n#pac-input {\n  background-color: #fff;\n  font-family: Roboto;\n  font-size: 15px;\n  font-weight: 300;\n  margin-left: 120px;\n  padding: 3px 11px 3px 13px;\n  text-overflow: ellipsis;\n  width: 185px;\n  margin-top: 10px;\n}\n#pac-input:focus {\n  border: 2px solid #4d90fe;\n}\n.pac-container {\n  font-family: Roboto;\n}\n#type-selector {\n  color: #fff;\n  background-color: #4d90fe;\n  padding: 5px 11px 0 11px;\n  margin-top: 10px;\n}\n#type-selector label {\n  font-family: Roboto;\n  font-size: 13px;\n  font-weight: 300;\n  color: #fff;\n  vertical-align: middle;\n}\n"
+
+/***/ },
+
+/***/ 1022:
+/***/ function(module, exports) {
+
+module.exports = "<h3 class=\"text-center nearby-title text-dark \" *ngIf=\"notAllowed\" [innerHTML]=\"'ideas_near_by_allow'|translate\" (click)=\"setCurrentPosition()\">\n</h3>\n<div class=\"map-autocomplete\">\n    <div class=\"clearfix\">\n        <input id=\"pac-input\" autocorrect=\"off\" autocapitalize=\"off\" class=\"mapControls pull-left\" type=\"text\"\n               placeholder=\"Enter a location\" #search [formControl]=\"searchControl\">\n\n        <div id=\"type-selector\" class=\"mapControls pull-left\">\n            <input type=\"radio\" name=\"type\" id=\"changetype-all\" checked=\"checked\" (click)=\"setType([])\">\n            <label for=\"changetype-all\">All</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-establishment\" (click)=\"setType(['establishment'])\">\n            <label for=\"changetype-establishment\">Establishments</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-address\" (click)=\"setType(['address'])\">\n            <label for=\"changetype-address\">Addresses</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-geocode\" (click)=\"setType(['geocode'])\">\n            <label for=\"changetype-geocode\">Geocodes</label>\n        </div>\n    </div>\n\n    <sebm-google-map [latitude]=\"latitude\" [longitude]=\"longitude\" [scrollwheel]=\"false\" [zoom]=\"zoom\" [fitBounds]=\"bounds\"\n                     [mapTypeControl]=\"true\">\n        <sebm-google-map-marker *ngFor=\"let marker of markers\"\n            [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n            [iconUrl]=\"marker.iconUrl\">\n            <sebm-google-map-info-window [disableAutoPan]=\"true\">\n                {{ marker.title}}\n            </sebm-google-map-info-window>\n        </sebm-google-map-marker>\n        <sebm-google-map-marker width='30' height='30' *ngFor=\"let marker of locations\"\n            [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n            (mouseOut)=\"marker.isHover = false\" (markerClick)=\"clickMarker(marker)\" (mouseOver)=\"marker.isHover = true\"\n            [iconUrl]=\"(marker.status == 1)?activeGoalMarkerIcon1:(marker.status == 2)?activeGoalMarkerIcon1:passiveMarkerIcon\">\n            <sebm-google-map-info-window [disableAutoPan]=\"true\" [isOpen]=\"marker.isHover\">\n                {{ marker.title}}\n            </sebm-google-map-info-window>\n        </sebm-google-map-marker>\n    </sebm-google-map>\n</div>"
+
+/***/ },
+
+/***/ 1081:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(22);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InnerComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var InnerComponent = (function () {
+    function InnerComponent(_projectService, route) {
+        this._projectService = _projectService;
+        this.route = route;
+        this.goal = null;
+    }
+    InnerComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.forEach(function (params) {
+            var goalSlug = params['slug'];
+            // load data
+            _this.getProject(goalSlug);
+        });
+    };
+    /**
+     *
+     * @param slug
+     */
+    InnerComponent.prototype.getProject = function (slug) {
+        var _this = this;
+        this._projectService.getGoal(slug)
+            .subscribe(function (goal) { return _this.goal = goal; }, function (error) { return _this.errorMessage = error; });
+    };
+    InnerComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-inner',
+            template: __webpack_require__(1155),
+            styles: [__webpack_require__(1147)],
+            providers: [__WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["d" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["d" /* ActivatedRoute */]) === 'function' && _b) || Object])
+    ], InnerComponent);
+    return InnerComponent;
+    var _a, _b;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/inner.component.js.map
+
+/***/ },
+
+/***/ 1135:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inner_component__ = __webpack_require__(1081);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InnerRouting; });
+
+
+// import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
+var InnerRoutes = [
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__inner_component__["a" /* InnerComponent */] }
+];
+var InnerRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forChild(InnerRoutes);
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/inner-routing.js.map
+
+/***/ },
+
+/***/ 1147:
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+
+/***/ 1155:
+/***/ function(module, exports) {
+
+module.exports = "<!--{% set inner = constant(\"AppBundle\\\\Entity\\\\Goal::INNER\") %}-->\n<!--{% set view = constant(\"AppBundle\\\\Entity\\\\Goal::VIEW\") %}-->\n<!--{% set user = app.user %}-->\n<!--{% set storiesCount = 5 %}-->\n<!--{% set author = goal.author %}-->\n<!--{% if user.id is defined %}-->\n<!--{% set userId = user.id %}-->\n<!--{% else %}-->\n<!--{% set userId = 0 %}-->\n<!--{% endif %}-->\n\n<!--<div id=\"fb-root\"></div>-->\n<!--class {% if not aphorisms %} no-quote {% if not author or author.isAdmin %} no-author{% endif %} {% endif %}-->\n<div class=\"inner-container\" *ngIf=\"goal\">\n  <!--{% set cover = goal.getCoverPhotoDownloadLink %}-->\n  <!--{% set goalInner = true %}-->\n  <!--{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}-->\n  <figure class=\"goal-image\">\n    <span class=\"overlay\"></span>\n    <!--<img src=\"-->\n        <!--{% if cover %}-->\n             <!--{{ cover|blImageFilter('goal_bg') }}-->\n        <!--{% else %}-->\n             <!--{{ asset(imgPath)}}-->\n        <!--{% endif %}\"-->\n         <!--alt=\"{{ goal.title }}\" />-->\n  </figure>\n  <div class=\"container\">\n    <!--data-infinite-scroll='Ideas.nextPage(\"{{ env_prefix }}/api/v1.0/goals/{first}/{count}\")'-->\n    <!--data-infinite-scroll-disabled='Ideas.request >= 1'-->\n    <!--data-infinite-scroll-distance='2'-->\n  </div>\n  <!--data-ng-init=\"goal.public= {% if goal.status %} true {% else %} false {% endif %} \"-->\n  <div class=\"goal-content\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-md-5\"></div>\n        <div class=\"col-md-7\">\n          <div class=\"quote\">\n\n            <div class=\"ticker\">\n              <!--{% if aphorisms %}-->\n              <i class=\"icon-quote-left\"></i>\n              <i class=\"icon-quote-right\"></i>\n              <!--<ul class=\"aphorism\" data-delay-add-class data-delay=\"12000\">-->\n                <!--{% for aphorism in aphorisms %}-->\n                <!--<li>{{ aphorism.content|length > 230 ? aphorism.content|slice(0, 230)|removeTag ~ '...' : aphorism.content|removeTag }}-->\n                  <!--<span class=\"text-right\">{{ aphorism.author }}</span>-->\n                <!--</li>-->\n                <!--{% endfor %}-->\n              <!--</ul>-->\n              <!--{% endif %}-->\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-sm-12\">\n          <!--{% if author and not author.isAdmin %}-->\n          <p class=\"goal-author\">\n            <!--<a href=\"{{ path('user_profile',  {'user': author.uId})}}\" class=\"text-gray bg-blue\">{{ 'by' ~ \" \" ~ author.showName }} </a>-->\n          </p>\n          <!--{% endif %}-->\n          <h2 class=\"goal-inner-title {% if goal.title|length > 40 %}title-smaller{% endif %}\">{{ goal.title }}</h2>\n        </div>\n      </div>\n\n      <div class=\"inner-content\">\n\n        <div class=\"row no-gutter\">\n          <div class=\"col-md-8\">\n\n            <!--{% set images = goal.images %}-->\n            <!--{% if images and images | length %}-->\n            <div id=\"main-slider\" class=\"swiper-container\">\n              <!-- Slides Container -->\n              <!--{% if images| length > 1 %} class=\"swiper-wrapper\" {% endif %}-->\n              <div>\n                <!--{% for key, image in images %}-->\n\n                <!--{% if image.downloadLink|length > 0 %}-->\n                <div class=\"overlay swiper-slide\">\n                  <!--<a href=\"{{ image.downloadLink|blImageFilter('slide_max_size') }}\" class=\"swipebox-main\" data-title=\"{{ goal.title }}\">-->\n                    <!--<img class=\"img-responsive\" src=\"{{ image.downloadLink|blImageFilter('goal_bg') }}\" alt=\"{{ goal.title }}\" {% if image.imageSize[\"height\"] < 435 %}style=\"height: 100%;\" {% endif %}/>-->\n                  <!--</a>-->\n                </div>\n                <!--{% endif %}-->\n                <!--{% endfor %}-->\n              </div>\n\n              <!--{% if images| length > 1 %}-->\n              <!-- Add Pagination -->\n              <!--<div class=\"swiper-pagination swiper-pagination-white\"></div>-->\n              <!--&lt;!&ndash; Add Arrows &ndash;&gt;-->\n              <!--<div class=\"swiper-button-next swiper-button-white\"></div>-->\n              <!--<div class=\"swiper-button-prev swiper-button-white\"></div>-->\n              <!--{% endif %}-->\n            </div>\n            <!--{% else%}-->\n            <!--<figure class=\"goal-preview\" id=\"main-slider\">-->\n              <!--<img class=\"img-responsive\" src=\"{{ asset(imgPath)}}\" alt=\"view goal img\" style=\"height: 100%;\"/>-->\n            <!--</figure>-->\n            <!--{% endif %}-->\n          </div>\n          <!--data-ng-init=\"success[ {{ goal.id }} ] = {% if goal.isMyGoal == 2 %} true {% else %} false {% endif %}\"-->\n          <div class=\"col-md-4\">\n            <!--{% if page == inner %}-->\n            <div class=\"goal-information\">\n              <!--data-ng-init=\"added = true\"-->\n              <!--<ul class=\"row goal-links\">-->\n                <!--&lt;!&ndash;{% set xs = 6 %}&ndash;&gt;-->\n                <!--&lt;!&ndash;{% if is_granted('ROLE_SUPER_ADMIN', app.user) %}&ndash;&gt;-->\n                <!--&lt;!&ndash;{% set xs = 3 %}&ndash;&gt;-->\n                <!--&lt;!&ndash;<li class=\"col-xs-3 clone\">&ndash;&gt;-->\n                  <!--&lt;!&ndash;<a href=\"{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}\">&ndash;&gt;-->\n                    <!--&lt;!&ndash;{#<span class=\"glyphicon glyphicon-copy \"></span>#}&ndash;&gt;-->\n                    <!--&lt;!&ndash;<img src=\"{{ asset('bundles/app/images/clone-icon.svg') }}\" width=\"25\" height=\"25\"/>{{ 'clone'|trans }}&ndash;&gt;-->\n                  <!--&lt;!&ndash;</a>&ndash;&gt;-->\n                <!--&lt;!&ndash;</li>&ndash;&gt;-->\n                <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->\n\n                <!--&lt;!&ndash;<li class=\"col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}\" {% if goal.isMyGoal == 0 %}data-ng-class=\"{transparent: added || success[ {{ goal.id }} ]}\" {% endif %}>&ndash;&gt;-->\n                  <!--&lt;!&ndash;{% if goal.isMyGoal == 0 %}&ndash;&gt;-->\n                  <!--&lt;!&ndash;data-ng-init=\"added = false\" *ngIf=\"!added\"&ndash;&gt;-->\n                  <!--&lt;!&ndash;<a data-ls-goal-manage&ndash;&gt;-->\n                     <!--&lt;!&ndash;data-ls-goal-id=\"{{ goal.id }}\"&ndash;&gt;-->\n                     <!--&lt;!&ndash;data-ng-click=\"added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}\">&ndash;&gt;-->\n                    <!--&lt;!&ndash;<i class=\"icon-plus-icon\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>&ndash;&gt;-->\n                    <!--&lt;!&ndash;<span class=\"text\">{{ 'add'|trans | upper}}</span>&ndash;&gt;-->\n                  <!--&lt;!&ndash;</a>&ndash;&gt;-->\n                    <!--<span class=\"\" *ngIf=\"goal.isMyGoal || added\">-->\n                        <!--<i class=\"icon-green-plus\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>-->\n                        <!--&lt;!&ndash;<span class=\"text\">{{ 'added'|trans | upper}}</span>&ndash;&gt;-->\n                    <!--</span>-->\n                <!--&lt;!&ndash;</li>&ndash;&gt;-->\n\n                <!--&lt;!&ndash;{% if goal.isMyGoal == 2 %}transparent{% endif %}&ndash;&gt;-->\n                <!--&lt;!&ndash;{% if goal.isMyGoal != 2 %}data-ng-class=\"{transparent: success[ {{ goal.id }} ]}\"{% endif %}&ndash;&gt;-->\n                <!--<li class=\"col-xs-6 \">-->\n                  <!--&lt;!&ndash;<a *ngIf=\"!success[ {{ goal.id }} ]\"&ndash;&gt;-->\n                     <!--&lt;!&ndash;data-ls-user-goal-manage&ndash;&gt;-->\n                     <!--&lt;!&ndash;data-ls-goal-id=\"{{ goal.id }}\"&ndash;&gt;-->\n                     <!--&lt;!&ndash;data-ng-click=\"success[ {{ goal.id }} ] = true; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}\">&ndash;&gt;-->\n                    <!--&lt;!&ndash;<i class=\"icon-ok-icon\"><span class=\"path1\"></span><span class=\"path2\"></span></i>&ndash;&gt;-->\n                    <!--&lt;!&ndash;<span class=\"text\">{{ 'done'|trans | upper }}</span>&ndash;&gt;-->\n                  <!--&lt;!&ndash;</a>&ndash;&gt;-->\n\n                    <!--&lt;!&ndash;<span class=\"\" *ngIf=\"success[ goal.id ]\">&ndash;&gt;-->\n                         <!--&lt;!&ndash;<i class=\"icon-green-ok\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>&ndash;&gt;-->\n                         <!--&lt;!&ndash;<span class=\"text\">{{ 'completed'|trans | upper}}</span>&ndash;&gt;-->\n                    <!--&lt;!&ndash;</span>&ndash;&gt;-->\n                <!--</li>-->\n              <!--</ul>-->\n              <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n              <!--{% if goal and goal.isMyGoal == 1 or goal.isMyGoal == 2 %}-->\n              <!--data-ng-init=\"goalId = {{ goal.id }}\"-->\n              <ul class=\"goal-icons\">\n                <!--{% if author and author.id == userId %}-->\n                <!--data-ng-init=\"isAuthor=true\"-->\n                <li>\n                  <!--<a href=\"{{ path('add_goal') }}?id={{ goal.id }}&slug=Public\">-->\n                    <!--<i title=\"{{ 'my_bucket_list.edit'|trans }}\" class=\"icon-pencil\"></i>-->\n                  <!--</a>-->\n                </li>\n                <!--{% endif %}-->\n\n                <li class=\"bordered-list\">\n                  <!--<a data-ls-type=\"manage\"-->\n                     <!--data-ls-goal-id=\"{{  goal.id }}\"-->\n                     <!--data-ls-goal-manage-->\n                     <!--class=\"text-gray manage-modal\">-->\n                    <!--<i class=\"icon-manage\"></i>-->\n                  <!--</a>-->\n                </li>\n\n                <li class=\"bordered-list\">\n                  <div class=\"check_status\">\n                    <!--<a *ngIf=\"!success[ goal.id ]\"-->\n                       <!--data-ng-click=\"success[ goal.id ] = true\"-->\n                       <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n                       <!--data-ls-user-goal-manage-->\n                       <!--id=\"done{{ goal.id }}\"-->\n                       <!--class=\"\">-->\n                      <!--<i class=\"icon-ok-icon\"><span class=\"path1\"></span><span class=\"path2\"></span></i>-->\n                    <!--</a>-->\n                    <!--<a  *ngIf=\"success[ {{ goal.id }} ]\"-->\n                        <!--data-ls-user-goal-manage-->\n                        <!--data-ls-type=\"manage\"-->\n                        <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n                        <!--class=\"successtory \"-->\n                        <!--id=\"success{{ goal.id }}\">-->\n                      <!--<i class=\"icon-green-ok\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>-->\n                    <!--</a>-->\n                  </div>\n                </li>\n\n                <li *ngIf=\"isLate(goal.do_date)\">\n                  <i title=\"{{ 'my_bucket_list.missed_deadline'|translate }}\"  class=\"icon-info text-purple\"></i>\n                </li>\n\n                <li *ngIf=\"goal.note\">\n                  <i title=\"{{ 'my_bucket_list.notes'|translate }}\" class=\"edit-note\"></i>\n                </li>\n\n                <li *ngIf=\"goal.steps\">\n                  <i title=\"{{ 'goal.steps'|translate }}\"  class=\"icon-step-list\"></i>\n                </li>\n\n                <li *ngIf=\"goal.is_visible\">\n                  <i title=\"{{ 'goal.visible'|translate }}\" class=\"icon-eye-icon\"></i>\n                </li>\n                <li *ngIf=\"!goal.is_visible\">\n                  <i title=\"{{ 'my_bucket_list.invisible'|translate }}\" class=\"icon-eye\"></i>\n                </li>\n\n                <li *ngIf=\"!goal.public\">\n                  <i title=\"{{ 'my_bucket_list.private'|translate }}\"  class=\"icon-lock-white\"></i>\n                </li>\n              </ul>\n              <!--{% endif %}-->\n\n              <!--{% if goal.lat is not null and goal.lng is not null %}-->\n              <!--<div *ngIf=\"isDesktop\" data-ng-init=\"location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]\">-->\n                <!--<div class=\"map-marker\" *ngIf=\"location\"-->\n                     <!--data-simple-map-marker-->\n                     <!--data-zoom=\"14\"-->\n                     <!--data-active-goal-marker-icon1=\"{{ asset('bundles/app/images/Active-icon.png') }}\"-->\n                     <!--data-active-goal-marker-icon2=\"{{ asset('bundles/app/images/Completed-icon.png') }}\"-->\n                     <!--data-passive-marker-icon=\"{{ asset('bundles/app/images/map-marker-purple.png') }}\"-->\n                     <!--data-markers=\"location\"-->\n\n                     <!--style=\"width: 99.8%; height: 120px\">-->\n                <!--</div>-->\n              <!--</div>-->\n              <!--{% else %}-->\n              <hr />\n              <!--{% endif %}-->\n\n\n              <!--<div id=\"affiliate-right\" class=\"right-menu-scroll bg-white\" *ngIf=\"isDesktop\">-->\n                <!--<adds-affiliate class=\"affiliate-right\" data-zone=\"1\" data-link=\"{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}\"></adds-affiliate>-->\n              <!--</div>-->\n            </div>\n            <!--{% endif %}-->\n          </div>\n        </div>\n\n        <!--{% if page != view %}-->\n\n        <div class=\"row bg-white\">\n\n          <div class=\"col-md-8\">\n            <!--{% if page == inner %}-->\n            <ul class=\"users-lists row\">\n              <li class=\"col-xs-6\">\n                <ul class=\"row no-gutter\">\n                  <li class=\"col-xs-9 col-sm-5\">\n                    {{ 'done_by'|translate | uppercase }}\n                    <p class=\"text-purple\">{{ goal.stats.doneBy }}</p>\n                  </li>\n                  <li class=\"col-xs-3 col-sm-7\">\n                    <ul class=\"users\">\n                      <!--{% set left = 80 %}-->\n                      <!--{% for doneByUser in doneByUsers %}-->\n                      <!--{% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}-->\n                      <!--{% set className = \"user-no\" ~ random(4) %}-->\n                      <li [style.right]=\"80 + (i + 1)*20\" *ngFor=\"let user of doneByUsers;let i = index\" class=\"hidden-xs\">\n                        <!--{% if doneByUser.getPhotoLink  %}-->\n                        <figure>\n                          <!--<img src=\"{{ doneByUser.getPhotoLink|blImageFilter('user_icon') }}\" class=\"img-circle img-responsive\" alt=\"{{ doneByUser.firstName }}\">-->\n                        </figure>\n                        <!--{% else %}-->\n                        <!--<p class=\"no-image {{ className }}\">{{ nameOnImage | upper }}</p>-->\n                        <!--{% endif %}-->\n\n                      </li>\n                      <!--{% set left = left + 20 %}-->\n                      <!--{% endfor %}-->\n\n                      <li class=\"users-arrow\">\n                        <!--{% if goal.stats.doneBy == 0 %}-->\n                        <!--<i></i>-->\n                        <!--{% else %}-->\n                        <!--<a data-ls-goal-users-->\n                           <!---->\n                           <!--data-ls-count=\"{{ goal.stats.doneBy }}\"-->\n                           <!--data-ls-goal-id=\"{{ goal.id }}\">-->\n                        <!--</a>-->\n                        <!--{% endif %}-->\n                      </li>\n                    </ul>\n                  </li>\n                </ul>\n              </li>\n\n              <li class=\"col-xs-6\">\n                <ul class=\"row no-gutter\">\n                  <li class=\"col-xs-9 col-sm-5\">\n                    {{ 'listed_by'|translate | uppercase }}\n                    <p class=\"text-purple\">{{ goal.stats.listedBy }}</p>\n                  </li>\n                  <li class=\"col-xs-3 col-sm-7\">\n                    <ul class=\"users\">\n                      <!--{% set left = 80 %}-->\n                      <!--{#{{ dump(listedByUsers) }}#}-->\n                      <!--{% for listedByUser in listedByUsers %}-->\n                      <!--{% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}-->\n                      <!--{% set className = \"user-no\" ~ random(4) %}-->\n                      <li [style.right]=\"80 + (i + 1)*20\" *ngFor=\"let user of listedByUsers;let i = index\" class=\"hidden-xs\">\n                        <!--{% if listedByUser.getPhotoLink  %}-->\n                        <figure>\n                          <!--<img src=\"{{ listedByUser.getPhotoLink|blImageFilter('user_icon') }}\" class=\"img-circle img-responsive\" alt=\"{{ listedByUser.firstName }}\">-->\n                        </figure>\n                        <!--{% else %}-->\n                        <!--<p class=\"no-image {{ className }}\">{{ nameOnImage | upper}}</p>-->\n                        <!--{% endif %}-->\n                      </li>\n                      <!--{% set left = left + 20 %}-->\n                      <!--{% endfor %}-->\n                      <li class=\"users-arrow\">\n                        <!--{% if goal.stats.listedBy == 0 %}-->\n                        <!--<i></i>-->\n                        <!--{% else %}-->\n                        <!--<a data-ls-goal-users-->\n                           <!---->\n                           <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n                           <!--data-ls-count=\"{{ goal.stats.listedBy }}\"-->\n                           <!--data-ls-category=\"1\"></a>-->\n                        <!--{% endif %}-->\n                      </li>\n                    </ul>\n                  </li>\n                </ul>\n              </li>\n            </ul>\n            <!--{% if goal.lat is not null and goal.lng is not null %}-->\n            <!--<div *ngIf=\"!isDesktop\" data-ng-init=\"location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]\">-->\n              <!--<div class=\"map-marker\" *ngIf=\"location\"-->\n                   <!--data-simple-map-marker-->\n                   <!--data-zoom=\"14\"-->\n                   <!--data-active-goal-marker-icon1=\"{{ asset('bundles/app/images/Active-icon.png') }}\"-->\n                   <!--data-active-goal-marker-icon2=\"{{ asset('bundles/app/images/Completed-icon.png') }}\"-->\n                   <!--data-passive-marker-icon=\"{{ asset('bundles/app/images/map-marker-purple.png') }}\"-->\n                   <!--data-markers=\"location\"-->\n\n                   <!--style=\"width: 99.8%; height: 215px\">-->\n              <!--</div>-->\n            <!--</div>-->\n            <!--<div id=\"affiliate-right-mobile\" class=\"right-menu-scroll bg-white\" *ngIf=\"!isDesktop\">-->\n              <!--<adds-affiliate class=\"affiliate-right-mobile\" data-zone=\"1\" data-link=\"{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}\"></adds-affiliate>-->\n            <!--</div>-->\n          </div>\n          <div class=\"col-md-4 hidden-xs\"></div>\n        </div>\n\n        <div class=\"row padding-top bg-white\">\n\n          <div class=\"col-md-8\">\n            <div class=\"row\">\n              <div class=\"col-sm-8\">\n                <div class=\"row\">\n                  <div class=\"col-xs-4 col-sm-3 col-md-3\">\n                    <!--<div class=\"fb-like\"-->\n                         <!--data-href=\"{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}\"-->\n                         <!--data-layout=\"button_count\"-->\n                         <!--data-action=\"like\"-->\n                         <!--data-show-faces=\"false\"-->\n                         <!--data-share=\"false\">-->\n                    <!--</div>-->\n                  </div>\n                  <div class=\"col-xs-8 col-sm-9 col-md-9\">\n                    <!--<a href=\"https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{ goal.title }}\" class=\"twitter-hashtag-button\" data-related=\"BucketList127\" data-url=\"{{ SchemeAndHttpHost + goal.shareLink }}\" data-dnt=\"true\">Tweet #BucketList127</a>-->\n                    <!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>-->\n                  </div>\n                </div>\n              </div>\n\n              <div class=\"col-sm-4\">\n                <!--<div class=\"addthis_native_toolbox\" data-url=\"{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}\"></div>-->\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4 hidden-xs\"></div>\n\n        </div>\n\n        <!--{% endif %}-->\n\n        <div class=\"row no-gutter bg-white\">\n          <div class=\"col-md-8\">\n\n            <div class=\"inner\">\n              <hr/>\n              <!--{% if goal.description and not goal.description == '' %}-->\n              <!--<div class=\"text-dark-grey goal-info\">{{ goal.description|removeTag|markdown }}</div>-->\n\n              <!--{% endif %}-->\n\n              <!--{% if goal.videoLink %}-->\n              <!--{% if goal.videoLink and goal.videoLink|length %}-->\n\n              <!--{% if goal.videoLink|length == 1 %}-->\n              <!--{% set v = goal.videoLink[0] %}-->\n              <div class=\"row\">\n                <div class=\"col-sm-12\">\n                  <!--<embed-video-->\n                          <!--data-ng-init=\"mainSliderVideo='{{ v }}'\"-->\n                          <!--data-ng-href=\"[[ ::mainSliderVideo ]]\"-->\n                          <!--height=\"360px\"-->\n                          <!--width=\"100%\">-->\n                  <!--</embed-video>-->\n                </div>\n              </div>\n              <!--{% else %}-->\n              <div class=\"row\">\n                <div id=\"main-slider-video\" class=\"swiper-container\" style=\"position: relative; top: 0; left: 0\">\n                  <!-- Slides Container -->\n                  <div class=\"swiper-wrapper\">\n                    <!--{% for k, video in goal.videoLink %}-->\n                    <!--{% if video %}-->\n                    <div class=\"swiper-slide\">\n                      <!--<embed-video u=\"image\"-->\n                                   <!--width=\"100%\"-->\n                                   <!--height=\"300px\"-->\n                                   <!--data-ng-init=\"mainSliderVideo[{{ k }}]='{{ video }}'\"-->\n                                   <!--data-ng-href=\"[[ ::mainSliderVideo[{{ k }}] ]]\">-->\n                      <!--</embed-video>-->\n                    </div>\n                    <!--{% endif %}-->\n                    <!--{% endfor %}-->\n                  </div>\n\n                  <div class=\"swiper-pagination swiper-pagination-white\"></div>\n                  <!-- Add Arrows -->\n                  <div class=\"swiper-button-next swiper-button-white\"></div>\n                  <div class=\"swiper-button-prev swiper-button-white\"></div>\n                </div>\n              </div>\n              <!--{% endif %}-->\n              <!--{% endif %}-->\n              <!--{% endif %}-->\n\n              <!--{% if page == inner %}-->\n\n              <!--{% set stories = goal.getSuccessStories %}-->\n\n              <!--{% if stories|length > 0 %}-->\n              <div class=\"story-count\">\n                <div class=\"row\">\n                  <div class=\"col-xs-12\">\n                    <a name=\"success_story\"></a>\n                    <h4 class=\"text-dark-gray\">\n                      <i class=\"success-icon\"></i>\n                      {{ 'success_stories'|translate }}\n                    </h4>\n                  </div>\n                </div>\n                <hr />\n              </div>\n\n              <!--{% for key, story in stories %}-->\n              <!--{% set addedUser = story.user %}-->\n              <!--{% set files = story.files %}-->\n              <!--{% set videos = story.videoLink %}-->\n\n              <!--data-ng-init=\"successStoryShow[{{ key }}]={{ key < storiesCount ? 'true':'false' }};-->\n              <!--count[{{ story.id }}] = {{ story.getVotersCount() }};-->\n              <!--vote[{{ story.id }}] = '{{ app.user is not null and story.getIsVote() }}'? true: false-->\n              <!--{% if app.user and story.user.id == app.user.id %};showMyStory[{{ story.id }}] = true{% endif %}\"-->\n              <!--<div class=\"comment-place story-fade-in \" *ngIf=\"successStoryShow[{{ key }}]{% if app.user and story.user.id == app.user.id %} && showMyStory[{{ story.id }}]{% endif %}\">-->\n                <div class=\"row no-gutter\">\n                  <div class=\"col-xs-9\">\n                      <div class=\"clearfix\">\n                        <!--<a {% if app.user is not null %} href=\"{{ path('user_profile',  {'user': addedUser.uId})}}\"{% else %}-->\n                           <!--data-ng-click=\"openSignInPopover()\" {% endif %}-->\n                           <!--class=\"pull-left\">-->\n                          <!--{% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}-->\n                          <!--{% set className = \"user-no\" ~ random(4) %}-->\n\n                          <figure class=\"user-image\">\n                            <!--{% if addedUser.getPhotoLink  %}-->\n                            <!--<img src=\"{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}\" class=\"img-circle img-responsive\" alt=\"{{ addedUser.firstName }}\">-->\n                            <!--{% else %}-->\n                            <!--<span class=\"no-image text-white {{ className }}\">{{ nameOnImage | upper}}</span>-->\n                            <!--{% endif %}-->\n                          </figure>\n\n                        <!--</a>-->\n\n                        <div class=\"pull-left\">\n                          <p>\n                            <!--<a {% if app.user is not null %} href=\"{{ path('user_profile',  {'user': addedUser.uId})}}\"{% else %}-->\n                               <!--data-ng-click=\"openSignInPopover()\" {% endif %}-->\n                               <!--class=\"text-dark-gray\">{{ addedUser.showName }}</a>-->\n                          </p>\n                            <span >\n                                <!--[[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]-->\n                            </span>\n                          <!--{% if app.user is not null and addedUser.id != app.user.id%}-->\n                            <!--<span data-ls-report-->\n                                  <!--data-ls-type=\"1\"-->\n                                  <!--data-ls-comment=\"{{ story.id }}\"-->\n                                  <!--class=\"report\">{{ 'report.title'|trans({},'messages') }}-->\n                            <!--</span>-->\n                          <!--{% endif %}-->\n                        </div>\n                      </div>\n\n                    </div>\n\n                    <div class=\" col-xs-3 text-right\" >\n                      <span class=\"text-purple \" *ngIf=\"count[story.id] < 1\">0</span>\n                      <!--<a data-ls-goal-users-->\n                         <!--class=\"text-purple \"-->\n                         <!--*ngIf=\"count[{{ story.id }}] > 0\"-->\n                         <!---->\n                         <!--data-ls-item-id=\"{{ story.id }}\"-->\n                         <!--data-ls-count=\"[[ count[{{ story.id }}] ]]\"-->\n                         <!--data-ls-category=\"3\">-->\n                        <!--[[ count[{{ story.id }}] ]]-->\n                      <!--</a>-->\n                      <!--{% set class = '' %}-->\n                      <!--<i data-ng-class=\"{'like-active': vote[{{ story.id }}]}\" {% if app.user is  null %} data-ng-click=\"openLogin()\" {% elseif story.user.id != app.user.id %}data-ng-click=\"manageVote({{ story.id }})\" {% else %}  {% set class = 'user-story' %} {% endif %} class=\"like-icon {{ class }}\"></i>-->\n                    </div>\n\n                  </div>\n\n                    <!--{% if app.user and story.user.id == app.user.id %}-->\n                    <!--<div class=\"story-remove\" data-ls-text=\"{{ 'success_story.delete_confirm'|trans }}\" data-ls-confirm=\"removeStory({{ story.id }})\"><span class=\"report\">{{ 'btn_delete'|trans }}</span></div>-->\n                    <!--{% endif %}-->\n\n                    <div class=\"border-left\">\n                      <div class=\"row\">\n                        <div class=\"col-xs-12\">\n                          <p>{{ story.story }} </p>\n                        </div>\n                      </div>\n                    </div>\n                    <!--{% if files and files|length %}-->\n\n                    <!--{% if files|length == 1 %}-->\n                    <!--{% set file = files.first %}-->\n                    <div class=\"row\">\n                      <div class=\"col-sm-12\">\n                        <figure>\n                          <!--<img src=\"{{ file.getDownloadLink|blImageFilter('goal_list_small') }}\" alt=\"{{ file.fileName }}\" height=\"360\"/>-->\n                        </figure>\n                      </div>\n                    </div>\n                    <!--{% else %}-->\n                    <!--<div class=\"row\">-->\n                      <!--<div class=\"col-sm-12\">-->\n                        <!--<div id=\"story-slider-image{{ key }}\" data-ng-init=\"successStoryImageKeys[{{ key }}] = {{ key }}\" class=\"swiper-container story-slider image-slider\">-->\n                          <!--&lt;!&ndash; Slides Container &ndash;&gt;-->\n                          <!--<div class=\"swiper-wrapper\">-->\n                            <!--{% for k,file in files %}-->\n                            <!--<div class=\"swiper-slide\">-->\n                              <!--<a href=\"{{ file.downloadLink|blImageFilter('slide_max_size') }}\" class=\"swipebox-key-{{ key }}\">-->\n                                <!--<img class=\"img-responsive\" src=\"{{ file.downloadLink|blImageFilter('goal_list_small') }}\" alt=\"{{ file.fileName }}\"/>-->\n                              <!--</a>-->\n                            <!--</div>-->\n                            <!--{% endfor %}-->\n                          <!--</div>-->\n\n                          <!--{% if files|length > 2 %}-->\n                          <!--<div class=\"swiper-pagination swiper-pagination-white\"></div>-->\n                          <!--&lt;!&ndash; Add Arrows &ndash;&gt;-->\n                          <!--<div class=\"swiper-button-next swiper-button-white\"></div>-->\n                          <!--<div class=\"swiper-button-prev swiper-button-white\"></div>-->\n                          <!--{% endif %}-->\n                        <!--</div>-->\n                      <!--</div>-->\n                    <!--</div>-->\n                    <!--{% endif %}-->\n                    <!--{% endif %}-->\n\n                    <!--{% if videos and videos|length %}-->\n\n                    <!--{% if videos|length == 1 %}-->\n                    <!--{% set v = videos[0] %}-->\n                    <div class=\"row\">\n                      <div class=\"col-sm-12\">\n                        <figure>\n                          <!--{#<iframe src=\"{{ v }}\" width=\"700\" height=\"360\"></iframe>#}-->\n                          <!--<embed-video-->\n                                  <!--data-ng-href=\"[[ ::storySliderVideo[{{ key }}] ]]\"-->\n                                  <!--data-ng-init=\"storySliderVideo[{{ key }}]='{{ v }}'\"-->\n                                  <!--height=\"360px\"-->\n                                  <!--width=\"100%\">-->\n                          <!--</embed-video >-->\n                        </figure>\n                      </div>\n                    </div>\n                    <!--{% else %}-->\n                    <!--<div class=\"row\">-->\n                      <!--<div class=\"col-sm-12\">-->\n                        <!--<div id=\"story-slider-video{{ key }}\" class=\"swiper-container story-slider video-slider\">-->\n                          <!--&lt;!&ndash; Slides Container &ndash;&gt;-->\n                          <!--<div class=\"swiper-wrapper\">-->\n                            <!--{% for k,video in videos %}-->\n                            <!--{% if video %}-->\n                            <!--<div class=\"swiper-slide\">-->\n                              <!--<embed-video-->\n                                      <!--u=\"image\"-->\n                                      <!--data-ng-init=\"storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'\"-->\n                                      <!--width=\"100%\"-->\n                                      <!--height=\"360px\"-->\n                                      <!--data-ng-href=\"[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]\">-->\n                              <!--</embed-video>-->\n                            <!--</div>-->\n                            <!--{% endif %}-->\n                            <!--{% endfor %}-->\n                          <!--</div>-->\n\n                          <!--<div class=\"swiper-pagination swiper-pagination-white\"></div>-->\n                          <!--&lt;!&ndash; Add Arrows &ndash;&gt;-->\n                          <!--<div class=\"swiper-button-next swiper-button-white\"></div>-->\n                          <!--<div class=\"swiper-button-prev swiper-button-white\"></div>-->\n                        <!--</div>-->\n                      <!--</div>-->\n                    <!--</div>-->\n                    <!--{% endif %}-->\n                    <!--{% endif %}-->\n                  <!--</div>-->\n                  <!--{% endfor %}-->\n\n                  <!--{% if stories|length > storiesCount %}-->\n                  <div class=\"row\">\n                    <div class=\"col-xs-12\">\n                      <div class=\"text-right\">\n                        <!--<a *ngIf=\"successStoryActiveIndex !== {{ stories.length }}\"-->\n                           <!--data-ng-click=\"showMoreSuccessStory({{ stories.length }})\"-->\n                           <!--data-ng-init=\"storyLength={{ stories|length - storiesCount}};storiesCount = {{ storiesCount }}\"-->\n                           <!--class=\"text-purple view-more-comments\">-->\n                          <!--Show More +<span data-ng-bind=\"storyLength\"></span>-->\n                        <!--</a>-->\n                      </div>\n                    </div>\n                  </div>\n\n                  <!--<div data-ls-comment-manage-->\n                       <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n                       <!--data-ls-slug=\"{{ goal.slug }}\"-->\n                       <!--data-ls-inner=\"true\"-->\n                       <!--data-ls-reply=\"{{ 'reply'|trans }}\"-->\n                       <!--data-ls-replied=\"{{ 'replied'|trans }}\"-->\n                       <!--data-ls-logged=\"{% if app.user %}true{% else %}false{% endif %}\"-->\n                       <!--data-ls-report-title=\"{{ 'report.title'|trans({},'messages') }}\"-->\n                       <!--data-ls-title=\"{{ 'comments'|trans }}\"-->\n                       <!--{% if app.user %}-->\n                       <!--data-ls-user-image=\"{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}-->\n                                            <!--{% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}-->\n                                            <!--{{ nameOnImage  |upper}}{% endif %}\"-->\n                       <!--{% endif %}>-->\n                  <!--</div>-->\n                </div>\n\n              </div>\n              <div class=\"col-md-4\"></div>\n            </div>\n            <br class=\"hidden-xs\" />\n      </div>\n\n    </div>\n\n  </div>\n\n  <div class=\"bg-grey\">\n    <div class=\"container\" id=\"random_goals\">\n\n      <h2 class=\"text-center text-dark\">{{ 'goal.see_also'|translate }}</h2>\n\n      <div class=\"row\">\n        <div class=\"col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0\">\n          <div class=\"row idea-item \">\n            <div class=\"col-md-4 goals-animate\" *ngFor=\"let goal of items\">\n              <figure>\n                <app-goal [goal]=\"goal\"></app-goal>\n                <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n              </figure>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ },
+
+/***/ 924:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__inner_component__ = __webpack_require__(1081);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(458);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tools_map_map_module__ = __webpack_require__(1009);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__project_service__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_translate__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__inner_routing__ = __webpack_require__(1135);
+/* harmony export (binding) */ __webpack_require__.d(exports, "InnerModule", function() { return InnerModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33,45 +513,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-
-var IdeasModule = (function () {
-    function IdeasModule() {
+var InnerModule = (function () {
+    function InnerModule() {
     }
-    IdeasModule = __decorate([
+    InnerModule = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_9__ideas_routing__["a" /* IdeasRouting */],
-                __WEBPACK_IMPORTED_MODULE_3_ng2_translate__["a" /* TranslateModule */],
-                __WEBPACK_IMPORTED_MODULE_4__components_components_module__["a" /* ComponentModule */],
-                __WEBPACK_IMPORTED_MODULE_5__tools_map_map_module__["a" /* MapModule */],
-                __WEBPACK_IMPORTED_MODULE_7_angular2_useful_swiper__["SwiperModule"]
+                __WEBPACK_IMPORTED_MODULE_7__inner_routing__["a" /* InnerRouting */],
+                __WEBPACK_IMPORTED_MODULE_3__components_components_module__["a" /* ComponentModule */],
+                __WEBPACK_IMPORTED_MODULE_4__tools_map_map_module__["a" /* MapModule */],
+                __WEBPACK_IMPORTED_MODULE_6_ng2_translate__["a" /* TranslateModule */]
             ],
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_8__ideas_component__["a" /* IdeasComponent */]
+                __WEBPACK_IMPORTED_MODULE_2__inner_component__["a" /* InnerComponent */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_6__project_service__["a" /* ProjectService */]
+                __WEBPACK_IMPORTED_MODULE_5__project_service__["a" /* ProjectService */]
             ],
         }), 
         __metadata('design:paramtypes', [])
-    ], IdeasModule);
-    return IdeasModule;
+    ], InnerModule);
+    return InnerModule;
 }());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/ideas.module.js.map
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/inner.module.js.map
 
 /***/ },
 
-/***/ 896:
+/***/ 930:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var maps_api_loader_1 = __webpack_require__(898);
+var maps_api_loader_1 = __webpack_require__(956);
 /**
  * Wrapper class that handles the communication with the Google Maps Javascript
  * API v3
@@ -192,14 +668,14 @@ exports.GoogleMapsAPIWrapper = GoogleMapsAPIWrapper;
 
 /***/ },
 
-/***/ 897:
+/***/ 955:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var google_maps_api_wrapper_1 = __webpack_require__(896);
+var google_maps_api_wrapper_1 = __webpack_require__(930);
 var MarkerManager = (function () {
     function MarkerManager(_mapsWrapper, _zone) {
         this._mapsWrapper = _mapsWrapper;
@@ -283,7 +759,7 @@ exports.MarkerManager = MarkerManager;
 
 /***/ },
 
-/***/ 898:
+/***/ 956:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -304,13 +780,13 @@ exports.MapsAPILoader = MapsAPILoader;
 
 /***/ },
 
-/***/ 899:
+/***/ 958:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
-var info_window_manager_1 = __webpack_require__(902);
+var info_window_manager_1 = __webpack_require__(961);
 var infoWindowId = 0;
 /**
  * SebmGoogleMapInfoWindow renders a info window inside a {@link SebmGoogleMapMarker} or standalone.
@@ -426,7 +902,7 @@ exports.SebmGoogleMapInfoWindow = SebmGoogleMapInfoWindow;
 
 /***/ },
 
-/***/ 900:
+/***/ 959:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -469,14 +945,14 @@ exports.SebmGoogleMapPolylinePoint = SebmGoogleMapPolylinePoint;
 
 /***/ },
 
-/***/ 901:
+/***/ 960:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var google_maps_api_wrapper_1 = __webpack_require__(896);
+var google_maps_api_wrapper_1 = __webpack_require__(930);
 var CircleManager = (function () {
     function CircleManager(_apiWrapper, _zone) {
         this._apiWrapper = _apiWrapper;
@@ -575,14 +1051,14 @@ exports.CircleManager = CircleManager;
 
 /***/ },
 
-/***/ 902:
+/***/ 961:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
-var google_maps_api_wrapper_1 = __webpack_require__(896);
-var marker_manager_1 = __webpack_require__(897);
+var google_maps_api_wrapper_1 = __webpack_require__(930);
+var marker_manager_1 = __webpack_require__(955);
 var InfoWindowManager = (function () {
     function InfoWindowManager(_mapsWrapper, _zone, _markerManager) {
         this._mapsWrapper = _mapsWrapper;
@@ -659,14 +1135,14 @@ exports.InfoWindowManager = InfoWindowManager;
 
 /***/ },
 
-/***/ 903:
+/***/ 962:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var google_maps_api_wrapper_1 = __webpack_require__(896);
+var google_maps_api_wrapper_1 = __webpack_require__(930);
 var PolygonManager = (function () {
     function PolygonManager(_mapsWrapper, _zone) {
         this._mapsWrapper = _mapsWrapper;
@@ -737,14 +1213,14 @@ exports.PolygonManager = PolygonManager;
 
 /***/ },
 
-/***/ 904:
+/***/ 963:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var google_maps_api_wrapper_1 = __webpack_require__(896);
+var google_maps_api_wrapper_1 = __webpack_require__(930);
 var PolylineManager = (function () {
     function PolylineManager(_mapsWrapper, _zone) {
         this._mapsWrapper = _mapsWrapper;
@@ -821,7 +1297,7 @@ exports.PolylineManager = PolylineManager;
 
 /***/ },
 
-/***/ 905:
+/***/ 964:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -832,8 +1308,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = __webpack_require__(0);
-var browser_globals_1 = __webpack_require__(912);
-var maps_api_loader_1 = __webpack_require__(898);
+var browser_globals_1 = __webpack_require__(976);
+var maps_api_loader_1 = __webpack_require__(956);
 (function (GoogleMapsScriptProtocol) {
     GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTP"] = 1] = "HTTP";
     GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTPS"] = 2] = "HTTPS";
@@ -931,13 +1407,13 @@ exports.LazyMapsAPILoader = LazyMapsAPILoader;
 
 /***/ },
 
-/***/ 906:
+/***/ 970:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
-var circle_manager_1 = __webpack_require__(901);
+var circle_manager_1 = __webpack_require__(960);
 var SebmGoogleMapCircle = (function () {
     function SebmGoogleMapCircle(_manager) {
         this._manager = _manager;
@@ -1135,14 +1611,14 @@ exports.SebmGoogleMapCircle = SebmGoogleMapCircle;
 
 /***/ },
 
-/***/ 907:
+/***/ 971:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
-var marker_manager_1 = __webpack_require__(897);
-var google_map_info_window_1 = __webpack_require__(899);
+var marker_manager_1 = __webpack_require__(955);
+var google_map_info_window_1 = __webpack_require__(958);
 var markerId = 0;
 /**
  * SebmGoogleMapMarker renders a map marker inside a {@link SebmGoogleMap}.
@@ -1316,13 +1792,13 @@ exports.SebmGoogleMapMarker = SebmGoogleMapMarker;
 
 /***/ },
 
-/***/ 908:
+/***/ 972:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
-var polygon_manager_1 = __webpack_require__(903);
+var polygon_manager_1 = __webpack_require__(962);
 /**
  * SebmGoogleMapPolygon renders a polygon on a {@link SebmGoogleMap}
  *
@@ -1550,14 +2026,14 @@ exports.SebmGoogleMapPolygon = SebmGoogleMapPolygon;
 
 /***/ },
 
-/***/ 909:
+/***/ 973:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
-var polyline_manager_1 = __webpack_require__(904);
-var google_map_polyline_point_1 = __webpack_require__(900);
+var polyline_manager_1 = __webpack_require__(963);
+var google_map_polyline_point_1 = __webpack_require__(959);
 var polylineId = 0;
 /**
  * SebmGoogleMapPolyline renders a polyline on a {@link SebmGoogleMap}
@@ -1762,18 +2238,18 @@ exports.SebmGoogleMapPolyline = SebmGoogleMapPolyline;
 
 /***/ },
 
-/***/ 910:
+/***/ 974:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
-var google_maps_api_wrapper_1 = __webpack_require__(896);
-var circle_manager_1 = __webpack_require__(901);
-var info_window_manager_1 = __webpack_require__(902);
-var marker_manager_1 = __webpack_require__(897);
-var polygon_manager_1 = __webpack_require__(903);
-var polyline_manager_1 = __webpack_require__(904);
+var google_maps_api_wrapper_1 = __webpack_require__(930);
+var circle_manager_1 = __webpack_require__(960);
+var info_window_manager_1 = __webpack_require__(961);
+var marker_manager_1 = __webpack_require__(955);
+var polygon_manager_1 = __webpack_require__(962);
+var polyline_manager_1 = __webpack_require__(963);
 /**
  * SebMGoogleMap renders a Google Map.
  * **Important note**: To be able see a map in the browser, you have to define a height for the CSS
@@ -2080,7 +2556,7 @@ exports.SebmGoogleMap = SebmGoogleMap;
 
 /***/ },
 
-/***/ 911:
+/***/ 975:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2089,19 +2565,19 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 // main modules
-__export(__webpack_require__(923));
-__export(__webpack_require__(924));
+__export(__webpack_require__(1011));
+__export(__webpack_require__(1012));
 // Google Maps types
 // core module
 // we explicitly export the module here to prevent this Ionic 2 bug:
 // http://stevemichelotti.com/integrate-angular-2-google-maps-into-ionic-2/
-var core_module_1 = __webpack_require__(922);
+var core_module_1 = __webpack_require__(1010);
 exports.AgmCoreModule = core_module_1.AgmCoreModule;
 //# sourceMappingURL=index.js.map
 
 /***/ },
 
-/***/ 912:
+/***/ 976:
 /***/ function(module, exports) {
 
 "use strict";
@@ -2122,692 +2598,6 @@ var DocumentRef = (function () {
 exports.DocumentRef = DocumentRef;
 exports.BROWSER_GLOBALS_PROVIDERS = [WindowRef, DocumentRef];
 //# sourceMappingURL=browser-globals.js.map
-
-/***/ },
-
-/***/ 920:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__ = __webpack_require__(911);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__broadcaster__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(179);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MapComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var MapComponent = (function () {
-    function MapComponent(_cacheService, mapsAPILoader, ngZone, router, broadcaster) {
-        this._cacheService = _cacheService;
-        this.mapsAPILoader = mapsAPILoader;
-        this.ngZone = ngZone;
-        this.router = router;
-        this.broadcaster = broadcaster;
-        this.activeGoalMarkerIcon1 = "assets/images/Active-icon.png";
-        this.activeGoalMarkerIcon2 = "assets/images/Completed-icon.png";
-        this.passiveMarkerIcon = "assets/images/map-marker-purple.png";
-        this.activeMarkerIcon = "assets/images/map-marker-purple.png";
-        this.notAllowed = true;
-    }
-    MapComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        //set google maps defaults
-        this.zoom = 4;
-        this.latitude = 39.8282;
-        this.longitude = -98.5795;
-        //create search FormControl
-        this.searchControl = new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */]();
-        //set current position
-        this.setCurrentPosition();
-        //load Places Autocomplete
-        this.mapsAPILoader.load().then(function () {
-            _this.autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement, {
-                types: []
-            });
-            _this.bounds = new google.maps.LatLngBounds(null);
-            _this.autocomplete.addListener("place_changed", function () {
-                _this.ngZone.run(function () {
-                    //get the place result
-                    var place = _this.autocomplete.getPlace();
-                    var marker = {
-                        latitude: place.geometry.location.lat(),
-                        longitude: place.geometry.location.lng(),
-                        iconUrl: _this.passiveMarkerIcon,
-                        title: _this.searchElementRef.nativeElement.value
-                    };
-                    _this.broadcaster.broadcast('location_changed', marker);
-                    _this.markers = [marker];
-                    _this.latitude = place.geometry.location.lat();
-                    _this.longitude = place.geometry.location.lng();
-                    _this.bounds.extend({
-                        lat: _this.latitude,
-                        lng: _this.longitude
-                    });
-                    _this.zoom = 10;
-                });
-            });
-        });
-        this.broadcaster.on('getLocation')
-            .subscribe(function (locations) {
-            _this.bounds = new google.maps.LatLngBounds(null);
-            for (var _i = 0, locations_1 = locations; _i < locations_1.length; _i++) {
-                var location = locations_1[_i];
-                _this.bounds.extend(location);
-            }
-        });
-        this.broadcaster.on('addGoal')
-            .subscribe(function (data) {
-            // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
-            //     var icon = {
-            //         url: this.activeGoalMarkerIcon1,
-            //         scaledSize:new google.maps.Size(35, 50)
-            //     };
-            //     scope.mapMarkers[data].setIcon(icon);
-            // }
-        });
-        this.broadcaster.on('lsJqueryModalClosedSaveGoal')
-            .subscribe(function (userGoal) {
-            // if(!userGoal || !userGoal.status || !scope.mapMarkers[userGoal.goal.id] || !scope.mapMarkers[userGoal.goal.id].map)
-            //         return;
-            //
-            //     var icon = {
-            //         url: scope['activeGoalMarkerIcon'+userGoal.status],
-            //         scaledSize:new google.maps.Size(35, 50)
-            //     };
-            //     scope.mapMarkers[userGoal.goal.id].setIcon(icon);
-        });
-        this.broadcaster.on('doneGoal')
-            .subscribe(function (data) {
-            console.log(data);
-            // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
-            //     var icon = {
-            //         url: scope.activeGoalMarkerIcon2,
-            //         scaledSize:new google.maps.Size(35, 50)
-            //     };
-            //     scope.mapMarkers[data].setIcon(icon);
-            // }
-        });
-    };
-    MapComponent.prototype.setType = function (types) {
-        this.autocomplete.setTypes(types);
-    };
-    MapComponent.prototype.setPosition = function (position) {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        var marker = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            iconUrl: this.passiveMarkerIcon,
-            title: "Your Position"
-        };
-        this.bounds.extend({
-            'latitude': this.latitude,
-            'longitude': this.longitude
-        });
-        this.broadcaster.broadcast('location_changed', marker);
-        this.markers = [marker];
-        this.notAllowed = false;
-        this.zoom = 10;
-    };
-    MapComponent.prototype.clickMarker = function (marker) {
-        this.router.navigate(['/goal/' + marker.slug]);
-    };
-    MapComponent.prototype.setCurrentPosition = function () {
-        var _this = this;
-        var position = this._cacheService.get('location');
-        if (position && position.coords) {
-            this.setPosition(position);
-        }
-        else {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    _this.notAllowed = false;
-                    _this.setPosition(position);
-                    _this._cacheService.set('location', position, { maxAge: 3 * 24 * 60 * 60 });
-                });
-            }
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Array)
-    ], MapComponent.prototype, "locations", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])("search"), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
-    ], MapComponent.prototype, "searchElementRef", void 0);
-    MapComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'map-autocomplate',
-            template: __webpack_require__(937),
-            styles: [__webpack_require__(931)]
-        }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */]) === 'function' && _f) || Object])
-    ], MapComponent);
-    return MapComponent;
-    var _a, _b, _c, _d, _e, _f;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/map.component.js.map
-
-/***/ },
-
-/***/ 921:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__ = __webpack_require__(911);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__map_component__ = __webpack_require__(920);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MapModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var MapModule = (function () {
-    function MapModule() {
-    }
-    MapModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__["AgmCoreModule"].forRoot({
-                    apiKey: "AIzaSyBN9sWpmv-6mArNqz_oSStVdpuCTt-lu6g",
-                    libraries: ["places"]
-                }),
-                __WEBPACK_IMPORTED_MODULE_2__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_3_ng2_translate__["a" /* TranslateModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* RouterModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* ReactiveFormsModule */],
-            ],
-            declarations: [__WEBPACK_IMPORTED_MODULE_6__map_component__["a" /* MapComponent */]],
-            exports: [
-                __WEBPACK_IMPORTED_MODULE_6__map_component__["a" /* MapComponent */]
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MapModule);
-    return MapModule;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/map.module.js.map
-
-/***/ },
-
-/***/ 922:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var core_1 = __webpack_require__(0);
-var google_map_1 = __webpack_require__(910);
-var google_map_circle_1 = __webpack_require__(906);
-var google_map_info_window_1 = __webpack_require__(899);
-var google_map_marker_1 = __webpack_require__(907);
-var google_map_polygon_1 = __webpack_require__(908);
-var google_map_polyline_1 = __webpack_require__(909);
-var google_map_polyline_point_1 = __webpack_require__(900);
-var lazy_maps_api_loader_1 = __webpack_require__(905);
-var lazy_maps_api_loader_2 = __webpack_require__(905);
-var maps_api_loader_1 = __webpack_require__(898);
-var browser_globals_1 = __webpack_require__(912);
-/**
- * @internal
- */
-function coreDirectives() {
-    return [
-        google_map_1.SebmGoogleMap, google_map_marker_1.SebmGoogleMapMarker, google_map_info_window_1.SebmGoogleMapInfoWindow, google_map_circle_1.SebmGoogleMapCircle,
-        google_map_polygon_1.SebmGoogleMapPolygon, google_map_polyline_1.SebmGoogleMapPolyline, google_map_polyline_point_1.SebmGoogleMapPolylinePoint
-    ];
-}
-exports.coreDirectives = coreDirectives;
-;
-/**
- * The angular2-google-maps core module. Contains all Directives/Services/Pipes
- * of the core module. Please use `AgmCoreModule.forRoot()` in your app module.
- */
-var AgmCoreModule = (function () {
-    function AgmCoreModule() {
-    }
-    /**
-     * Please use this method when you register the module at the root level.
-     */
-    AgmCoreModule.forRoot = function (lazyMapsAPILoaderConfig) {
-        return {
-            ngModule: AgmCoreModule,
-            providers: browser_globals_1.BROWSER_GLOBALS_PROVIDERS.concat([
-                { provide: maps_api_loader_1.MapsAPILoader, useClass: lazy_maps_api_loader_1.LazyMapsAPILoader },
-                { provide: lazy_maps_api_loader_2.LAZY_MAPS_API_CONFIG, useValue: lazyMapsAPILoaderConfig }
-            ]),
-        };
-    };
-    AgmCoreModule.decorators = [
-        { type: core_1.NgModule, args: [{ declarations: coreDirectives(), exports: coreDirectives() },] },
-    ];
-    /** @nocollapse */
-    AgmCoreModule.ctorParameters = [];
-    return AgmCoreModule;
-}());
-exports.AgmCoreModule = AgmCoreModule;
-//# sourceMappingURL=core-module.js.map
-
-/***/ },
-
-/***/ 923:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var google_map_1 = __webpack_require__(910);
-exports.SebmGoogleMap = google_map_1.SebmGoogleMap;
-var google_map_circle_1 = __webpack_require__(906);
-exports.SebmGoogleMapCircle = google_map_circle_1.SebmGoogleMapCircle;
-var google_map_info_window_1 = __webpack_require__(899);
-exports.SebmGoogleMapInfoWindow = google_map_info_window_1.SebmGoogleMapInfoWindow;
-var google_map_marker_1 = __webpack_require__(907);
-exports.SebmGoogleMapMarker = google_map_marker_1.SebmGoogleMapMarker;
-var google_map_polygon_1 = __webpack_require__(908);
-exports.SebmGoogleMapPolygon = google_map_polygon_1.SebmGoogleMapPolygon;
-var google_map_polyline_1 = __webpack_require__(909);
-exports.SebmGoogleMapPolyline = google_map_polyline_1.SebmGoogleMapPolyline;
-var google_map_polyline_point_1 = __webpack_require__(900);
-exports.SebmGoogleMapPolylinePoint = google_map_polyline_point_1.SebmGoogleMapPolylinePoint;
-//# sourceMappingURL=directives.js.map
-
-/***/ },
-
-/***/ 924:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var google_maps_api_wrapper_1 = __webpack_require__(896);
-exports.GoogleMapsAPIWrapper = google_maps_api_wrapper_1.GoogleMapsAPIWrapper;
-var circle_manager_1 = __webpack_require__(901);
-exports.CircleManager = circle_manager_1.CircleManager;
-var info_window_manager_1 = __webpack_require__(902);
-exports.InfoWindowManager = info_window_manager_1.InfoWindowManager;
-var marker_manager_1 = __webpack_require__(897);
-exports.MarkerManager = marker_manager_1.MarkerManager;
-var polygon_manager_1 = __webpack_require__(903);
-exports.PolygonManager = polygon_manager_1.PolygonManager;
-var polyline_manager_1 = __webpack_require__(904);
-exports.PolylineManager = polyline_manager_1.PolylineManager;
-var lazy_maps_api_loader_1 = __webpack_require__(905);
-exports.GoogleMapsScriptProtocol = lazy_maps_api_loader_1.GoogleMapsScriptProtocol;
-exports.LAZY_MAPS_API_CONFIG = lazy_maps_api_loader_1.LAZY_MAPS_API_CONFIG;
-exports.LazyMapsAPILoader = lazy_maps_api_loader_1.LazyMapsAPILoader;
-var maps_api_loader_1 = __webpack_require__(898);
-exports.MapsAPILoader = maps_api_loader_1.MapsAPILoader;
-var noop_maps_api_loader_1 = __webpack_require__(925);
-exports.NoOpMapsAPILoader = noop_maps_api_loader_1.NoOpMapsAPILoader;
-//# sourceMappingURL=services.js.map
-
-/***/ },
-
-/***/ 925:
-/***/ function(module, exports) {
-
-"use strict";
-"use strict";
-/**
- * When using the NoOpMapsAPILoader, the Google Maps API must be added to the page via a `<script>`
- * Tag.
- * It's important that the Google Maps API script gets loaded first on the page.
- */
-var NoOpMapsAPILoader = (function () {
-    function NoOpMapsAPILoader() {
-    }
-    NoOpMapsAPILoader.prototype.load = function () {
-        if (!window.google || !window.google.maps) {
-            throw new Error('Google Maps API not loaded on page. Make sure window.google.maps is available!');
-        }
-        return Promise.resolve();
-    };
-    ;
-    return NoOpMapsAPILoader;
-}());
-exports.NoOpMapsAPILoader = NoOpMapsAPILoader;
-//# sourceMappingURL=noop-maps-api-loader.js.map
-
-/***/ },
-
-/***/ 931:
-/***/ function(module, exports) {
-
-module.exports = ".sebm-google-map-container {\n  height: 300px;\n}\n#hide-completed {\n  display: inline-block;\n  margin: 10px 25px 5px 0;\n}\n.controls {\n  margin-top: 10px;\n  border: 1px solid transparent;\n  border-radius: 2px 0 0 2px;\n  box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  height: 32px;\n  outline: none;\n  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n}\n.map-autocomplete div.clearfix {\n  position: absolute;\n  z-index: 1;\n}\n#pac-input {\n  background-color: #fff;\n  font-family: Roboto;\n  font-size: 15px;\n  font-weight: 300;\n  margin-left: 120px;\n  padding: 3px 11px 3px 13px;\n  text-overflow: ellipsis;\n  width: 185px;\n  margin-top: 10px;\n}\n#pac-input:focus {\n  border: 2px solid #4d90fe;\n}\n.pac-container {\n  font-family: Roboto;\n}\n#type-selector {\n  color: #fff;\n  background-color: #4d90fe;\n  padding: 5px 11px 0 11px;\n  margin-top: 10px;\n}\n#type-selector label {\n  font-family: Roboto;\n  font-size: 13px;\n  font-weight: 300;\n  color: #fff;\n  vertical-align: middle;\n}\n"
-
-/***/ },
-
-/***/ 937:
-/***/ function(module, exports) {
-
-module.exports = "<h3 class=\"text-center nearby-title text-dark \" *ngIf=\"notAllowed\" [innerHTML]=\"'ideas_near_by_allow'|translate\" (click)=\"setCurrentPosition()\">\n</h3>\n<div class=\"map-autocomplete\">\n    <div class=\"clearfix\">\n        <input id=\"pac-input\" autocorrect=\"off\" autocapitalize=\"off\" class=\"mapControls pull-left\" type=\"text\"\n               placeholder=\"Enter a location\" #search [formControl]=\"searchControl\">\n\n        <div id=\"type-selector\" class=\"mapControls pull-left\">\n            <input type=\"radio\" name=\"type\" id=\"changetype-all\" checked=\"checked\" (click)=\"setType([])\">\n            <label for=\"changetype-all\">All</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-establishment\" (click)=\"setType(['establishment'])\">\n            <label for=\"changetype-establishment\">Establishments</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-address\" (click)=\"setType(['address'])\">\n            <label for=\"changetype-address\">Addresses</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-geocode\" (click)=\"setType(['geocode'])\">\n            <label for=\"changetype-geocode\">Geocodes</label>\n        </div>\n    </div>\n\n    <sebm-google-map [latitude]=\"latitude\" [longitude]=\"longitude\" [scrollwheel]=\"false\" [zoom]=\"zoom\" [fitBounds]=\"bounds\"\n                     [mapTypeControl]=\"true\">\n        <sebm-google-map-marker *ngFor=\"let marker of markers\"\n            [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n            [iconUrl]=\"marker.iconUrl\">\n            <sebm-google-map-info-window [disableAutoPan]=\"true\">\n                {{ marker.title}}\n            </sebm-google-map-info-window>\n        </sebm-google-map-marker>\n        <sebm-google-map-marker width='50' height='50' *ngFor=\"let marker of locations\"\n            [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n            (mouseOut)=\"marker.isHover = false\" (markerClick)=\"clickMarker(marker)\" (mouseOver)=\"marker.isHover = true\"\n            [iconUrl]=\"(marker.status == 1)?activeGoalMarkerIcon1:(marker.status == 2)?activeGoalMarkerIcon1:passiveMarkerIcon\">\n            <sebm-google-map-info-window [disableAutoPan]=\"true\" [isOpen]=\"marker.isHover\">\n                {{ marker.title}}\n            </sebm-google-map-info-window>\n        </sebm-google-map-marker>\n    </sebm-google-map>\n</div>"
-
-/***/ },
-
-/***/ 942:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__ = __webpack_require__(179);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return IdeasComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var IdeasComponent = (function () {
-    function IdeasComponent(route, _projectService, _cacheService, broadcaster, router, renderer) {
-        var _this = this;
-        this.route = route;
-        this._projectService = _projectService;
-        this._cacheService = _cacheService;
-        this.broadcaster = broadcaster;
-        this.router = router;
-        this.renderer = renderer;
-        this.filterVisibility = false;
-        this.eventId = 0;
-        this.isHover = false;
-        this.ideasTitle = true;
-        this.noIdeas = false;
-        this.hoveredText = '';
-        this.serverPath = '';
-        this.start = 0;
-        this.count = 7;
-        this.isCompletedGoals = false;
-        this.search = '';
-        this.searchError = '';
-        this.locations = [];
-        this.locationsIds = [];
-        router.events.subscribe(function (val) {
-            if (_this.eventId != val.id && val instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* NavigationEnd */]) {
-                _this.eventId = val.id;
-                _this.start = 0;
-                _this.locationsIds = [];
-                _this.locations = [];
-                _this.category = _this.route.snapshot.params['category'] ? _this.route.snapshot.params['category'] : 'nearby';
-                _this.search = _this.route.snapshot.params['search'] ? _this.route.snapshot.params['search'] : '';
-                _this.ideas = null;
-                _this.reserve = null;
-                _this.ideasTitle = false;
-                _this.getGoals();
-            }
-        });
-    }
-    IdeasComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.serverPath = this._projectService.getPath();
-        var data = this._cacheService.get('categories');
-        if (data) {
-            this.categories = data;
-            this.initSlide();
-        }
-        else {
-            this.getCategories();
-        }
-        this.search = this.route.snapshot.params['search'] ? this.route.snapshot.params['search'] : '';
-        this.broadcaster.on('location_changed')
-            .subscribe(function (marker) {
-            _this.latitude = marker.latitude;
-            _this.longitude = marker.longitude;
-            _this.userLocation = {
-                latitude: _this.latitude,
-                longitude: _this.longitude
-            };
-            _this.locationsIds = [];
-            _this.locations = [];
-            _this.start = 0;
-            _this.ideas = null;
-            _this.reserve = null;
-            _this.getNearByGoals();
-        });
-    };
-    IdeasComponent.prototype.initSlide = function () {
-        if (window.innerWidth < 766) {
-            this.sliderCount = 3;
-        }
-        else if (window.innerWidth < 992) {
-            this.sliderCount = (this.categories.length < 8) ? this.categories.length + 1 : 8;
-        }
-        else {
-            this.sliderCount = (this.categories.length < 10) ? this.categories.length + 1 : 10;
-        }
-        this.config = {
-            observer: true,
-            autoHeight: true,
-            slidesPerView: this.sliderCount,
-            nextButton: '.swiper-button-next',
-            prevButton: '.swiper-button-prev',
-            spaceBetween: 10
-        };
-        this.filterVisibility = true;
-    };
-    IdeasComponent.prototype.getCategories = function () {
-        var _this = this;
-        this._projectService.getCategories()
-            .subscribe(function (categories) {
-            _this.categories = categories;
-            _this.initSlide();
-            _this._cacheService.set('categories', categories, { maxAge: 3 * 24 * 60 * 60 });
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    IdeasComponent.prototype.getGoals = function () {
-        var _this = this;
-        if (this.category == 'nearby')
-            return;
-        this._projectService.getIdeaGoals(this.start, this.count, this.search, this.category)
-            .subscribe(function (goals) {
-            _this.noIdeas = (_this.noIdeas && _this.search.length == 0 && _this.category == 'discover') || (!goals || !goals.length);
-            if (_this.noIdeas && (_this.search.length > 0 || _this.category != 'discover')) {
-                _this.category = 'discover';
-                _this.searchError = _this.search;
-                _this.search = '';
-                _this.getGoals();
-            }
-            else {
-                _this.ideas = goals;
-                _this.start += _this.count;
-                _this.setReserve();
-            }
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    IdeasComponent.prototype.setReserve = function () {
-        var _this = this;
-        if (this.category == 'nearby') {
-            this._projectService.getNearByGoals(this.latitude, this.longitude, this.start, this.count, this.isCompletedGoals)
-                .subscribe(function (goals) {
-                _this.reserve = goals;
-                _this.optimizeReserveImages();
-                _this.start += _this.count;
-            }, function (error) { return _this.errorMessage = error; });
-        }
-        else {
-            this._projectService.getIdeaGoals(this.start, this.count, this.search, this.category)
-                .subscribe(function (goals) {
-                _this.reserve = goals;
-                _this.optimizeReserveImages();
-                _this.start += _this.count;
-            }, function (error) { return _this.errorMessage = error; });
-        }
-    };
-    IdeasComponent.prototype.doSearch = function () {
-        this.ideasTitle = false;
-        if (this.category == 'nearby') {
-            this.category = 'discover';
-        }
-        this.router.navigate(['/ideas/' + this.category + '/' + this.search]);
-    };
-    IdeasComponent.prototype.getReserve = function () {
-        this.ideas = this.ideas.concat(this.reserve);
-        if (this.category == 'nearby') {
-            this.calculateLocations(this.reserve);
-        }
-        this.setReserve();
-    };
-    IdeasComponent.prototype.getNearByGoals = function () {
-        var _this = this;
-        this._projectService.getNearByGoals(this.latitude, this.longitude, this.start, this.count, this.isCompletedGoals)
-            .subscribe(function (goals) {
-            _this.ideas = goals;
-            _this.start += _this.count;
-            _this.calculateLocations(_this.ideas);
-            _this.setReserve();
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    IdeasComponent.prototype.completedChange = function () {
-        if (this.latitude && this.longitude) {
-            this.start = 0;
-            this.getNearByGoals();
-        }
-    };
-    IdeasComponent.prototype.calculateLocations = function (items) {
-        for (var _i = 0, items_1 = items; _i < items_1.length; _i++) {
-            var item = items_1[_i];
-            var location = {
-                id: 0,
-                latitude: 0,
-                lat: 0,
-                longitude: 0,
-                lng: 0,
-                slug: '',
-                title: '',
-                status: 0,
-                isHover: false,
-            };
-            if (item.location && this.locationsIds.indexOf(item.id) == -1) {
-                location.id = item.id;
-                this.locationsIds.push(location.id);
-                location.latitude = item.location.latitude;
-                location.lat = item.location.latitude;
-                location.longitude = item.location.longitude;
-                location.lng = item.location.longitude;
-                location.title = item.title;
-                location.slug = item.slug;
-                location.status = item.is_my_goal;
-                this.locations.push(location);
-            }
-        }
-        this.broadcaster.broadcast('getLocation', this.locations);
-    };
-    IdeasComponent.prototype.optimizeReserveImages = function () {
-        for (var _i = 0, _a = this.reserve; _i < _a.length; _i++) {
-            var item = _a[_i];
-            var img = void 0;
-            if (item.cached_image) {
-                img = new Image();
-                img.src = item.cached_image;
-            }
-        }
-    };
-    IdeasComponent.prototype.hideJoin = function (event) {
-        if (event && event.val) {
-            this.hoveredText = event.val;
-            this.isHover = true;
-            var left = +event.ev.pageX - 60;
-            var top = event.ev.pageY - 60;
-            this.renderer.setElementStyle(this.tooltipElementRef.nativeElement, 'left', left + 'px');
-            this.renderer.setElementStyle(this.tooltipElementRef.nativeElement, 'top', top + 'px');
-        }
-        else {
-            this.hoveredText = '';
-            this.isHover = false;
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])("tooltip"), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
-    ], IdeasComponent.prototype, "tooltipElementRef", void 0);
-    IdeasComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-ideas',
-            template: __webpack_require__(982),
-            styles: [__webpack_require__(966)],
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
-        }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]) === 'function' && _g) || Object])
-    ], IdeasComponent);
-    return IdeasComponent;
-    var _a, _b, _c, _d, _e, _f, _g;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/ideas.component.js.map
-
-/***/ },
-
-/***/ 955:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ideas_component__ = __webpack_require__(942);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return IdeasRouting; });
-
-
-var IdeasRoutes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__ideas_component__["a" /* IdeasComponent */] },
-    { path: ':category', component: __WEBPACK_IMPORTED_MODULE_1__ideas_component__["a" /* IdeasComponent */] },
-    { path: ':category/:search', component: __WEBPACK_IMPORTED_MODULE_1__ideas_component__["a" /* IdeasComponent */] }
-];
-var IdeasRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forChild(IdeasRoutes);
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/ideas-routing.js.map
-
-/***/ },
-
-/***/ 966:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n[hidden] {\n  display: none;\n}\n.ideas-result {\n  padding-top: 20px;\n}\n.content-top {\n  background-color: #ffffff;\n}\n.ideas-top {\n  min-height: 114px;\n}\n.ideas-top .search {\n  height: 51px;\n}\nhr {\n  margin: 0;\n}\n.filters-slider {\n  height: 60px;\n}\n.filters-slider .bg-left,\n.filters-slider .bg-right {\n  position: absolute;\n  z-index: 10;\n  height: 100%;\n  width: 20px;\n  top: 0;\n  background: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n}\n.filters-slider .bg-left {\n  left: 0;\n}\n.filters-slider .bg-right {\n  right: 0;\n}\n.filters-slider .swiper-button-prev,\n.filters-slider .swiper-button-next {\n  width: 10px;\n  height: 19px;\n  top: 65%;\n  cursor: pointer;\n}\n.filters-slider .swiper-button-prev {\n  background: url('../../assets/images/left-slide.png') no-repeat center center;\n  background-size: 100%;\n  left: 7px;\n}\n.filters-slider .swiper-button-next {\n  background: url('../../assets/images/right-slide.png') no-repeat center center;\n  background-size: 100%;\n  right: 7px;\n}\nul.filter {\n  padding: 7px 5px 10px;\n  margin-bottom: 0;\n  min-width: 125px;\n  height: 60px;\n}\nul.filter li {\n  display: inline-block;\n  cursor: pointer;\n}\nul.filter li a {\n  color: #666666;\n  display: block;\n  vertical-align: middle;\n  font-weight: 500;\n  font-size: 12px;\n  padding: 0;\n  text-align: center;\n}\nul.filter li a span {\n  display: block;\n  vertical-align: middle;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  overflow: hidden;\n}\nul.filter li a img {\n  height: 30px;\n}\nul.filter li a .svg {\n  width: 30px;\n  height: 30px;\n}\nul.filter li a:hover,\nul.filter li a:active,\nul.filter li a:focus {\n  text-decoration: none;\n  color: #7725f6 ;\n}\nul.filter li a:hover span,\nul.filter li a:active span,\nul.filter li a:focus span {\n  color: #7725f6 ;\n}\nul.filter li.active-category .most-popular {\n  stroke: #7725f6;\n}\nul.filter li.active-category svg path,\nul.filter li.active-category circle,\nul.filter li.active-category polygon,\nul.filter li.active-category rect,\nul.filter li.active-category line,\nul.filter li.active-category polyline,\nul.filter li.active-category .st0 {\n  stroke: #7725f6;\n}\nul.filter li.active-category a {\n  color: #7725f6;\n}\nul.filter li.active-category a[data-slug=nearby] svg ellipse {\n  stroke: #7725f6;\n}\nul.filter li.active-category a[data-slug=travel] svg path {\n  fill: #7725f6;\n  stroke: transparent;\n}\nul.filter li.active-category a[data-slug=experience] svg polygon {\n  fill: #7725f6;\n}\nul.filter li.active-category a[data-slug=newskills] svg circle {\n  fill: #7725f6;\n}\nul.filter li.active-category a[data-slug=social] svg g g path {\n  fill: #7725f6;\n}\nul.filter li.active-category a[data-slug=personal] svg g path:first-child {\n  fill: #7725f6;\n}\n.list-tooltip {\n  position: absolute;\n  z-index: 1000;\n  text-align: center;\n  background-color: #ffffff;\n  color: #333333;\n  border: 1px solid #b0b0b0;\n  min-width: 150px;\n  height: 34px;\n  line-height: normal;\n  padding: 5px 10px;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  -ms-border-radius: 4px;\n  -o-border-radius: 4px;\n}\n.list-tooltip .arrow-up {\n  top: -7px;\n  left: 60px;\n  position: absolute;\n  border-bottom-color: #ffffff;\n  border-top-color: #ffffff;\n}\n@media (min-width: 768px) {\n  .filters-slider {\n    height: 70px;\n  }\n  .filters-slider .bg-left {\n    left: -7px;\n  }\n  .filters-slider .bg-right {\n    right: 1px;\n  }\n  .ideas-top {\n    min-height: 146px;\n  }\n  .ideas-top .search {\n    height: 75px;\n  }\n  ul.filter {\n    min-width: 170px;\n    padding: 8px 0 11px;\n  }\n  ul.filter li a {\n    font-size: 13px;\n  }\n  ul.filter li a span {\n    padding: 3px 0 0;\n  }\n}\n@media (min-width: 768px) {\n  ul.filter li a {\n    font-size: 14px;\n  }\n}\n"
-
-/***/ },
-
-/***/ 982:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"content-top ideas-top\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <div class=\"search\">\n          <form class=\"navbar-form\" role=\"search\">\n          <span class=\"icon-search-icon\" [ngClass]=\"{'text-purple': search}\"></span>\n          <input type=\"text\"\n                 name=\"search\"\n                 [(ngModel)]=\"search\"\n                 autocomplete=\"off\"\n                 placeholder=\"{{ 'search'|translate | capitalize}}\"\n                 (keyup.enter)=\"doSearch($event)\"\n                 class=\"form-control\">\n\n          <i class=\"close-icon hidden-sm hidden-md hidden-lg\"\n             [ngClass]=\"{'hidden-xs': !search}\"\n             (click)=\"search = ''\">\n          </i>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <hr/>\n\n  <div class=\"container\">\n    <div class=\"row no-gutter\">\n      <div class=\"col-xs-12\">\n        <swiper [config]=\"config\" class=\"filters-slider swiper-container\">\n          <ul class=\"filter swiper-wrapper\" [hidden]=\"!filterVisibility\">\n            <li class=\"swiper-slide\"  [ngClass]=\"{'active-category': category == 'nearby'}\">\n              <a routerLink=\"/ideas/nearby\" routerLinkActive=\"active\">\n                <img src=\"assets/images/nearby.svg\" class=\"svg\"/>\n                <span>{{ 'nearby'|translate }}</span>\n              </a>\n            </li>\n\n            <li class=\"swiper-slide\" [ngClass]=\"{'active-category': category == 'discover'}\">\n              <a routerLink=\"/ideas/discover\">\n                <img src=\"assets/images/discover.svg\" class=\"svg\"/>\n                <span>{{ 'discover'|translate }}</span>\n              </a>\n            </li>\n\n            <!--{% if featured %}-->\n            <li class=\"swiper-slide\" [ngClass]=\"{'active-category': category == 'featured'}\">\n              <a routerLink=\"/ideas/featured\">\n                <img src=\"assets/images/featured.svg\" class=\"svg\"/>\n                <span>{{ 'featured'|translate }}</span>\n              </a>\n            </li>\n            <!--{% endif %}-->\n\n            <!--{% if mostPopular %}-->\n            <li class=\"swiper-slide\" [ngClass]=\"{'active-category': category == 'most-popular'}\">\n              <a routerLink=\"/ideas/most-popular\">\n                <img src=\"assets/images/most-popular.svg\"  class=\"svg\"/>\n                <span>{{ 'most_popular'|translate }}</span>\n              </a>\n            </li>\n            <!--{% endif %}-->\n\n            <!--{% for category in categories %}-->\n            <!--{% if category.slug != 'most-popular' and category.slug != 'featured' and category.slug != 'nearby' %}-->\n            <li class=\"swiper-slide\" *ngFor=\"let cat of categories\" [style.display]=\"(cat.slug == 'most-popular' || cat.slug == 'featured' || cat.slug == 'nearby')?'none':'inline-block'\" [ngClass]=\"{'active-category': category == cat.slug}\">\n              <a routerLink=\"/ideas/{{ cat.slug }}\">\n                <img src=\"{{ serverPath + cat.image_download_link }}\" class=\"svg\"/>\n                <span>{{ cat.title }}</span>\n              </a>\n            </li>\n            <!--{% endif %}-->\n            <!--{% endfor %}-->\n          </ul>\n\n          <div class=\"hidden-lg\">\n            <div class=\"bg-left\">\n              <i class=\"swiper-button-prev\"></i>\n            </div>\n            <div  class=\"bg-right\">\n              <i class=\"swiper-button-next\"></i>\n            </div>\n          </div>\n        </swiper>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n<div class=\"container\"  *ngIf=\"category == 'nearby'\">\n  <map-autocomplate [locations]=\"locations\"></map-autocomplate>\n\n  <div>\n    <label>\n      <div id=\"hide-completed\" class=\"task-checkbox purple-checkbox\">\n        <label class=\"relative\">\n            <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': isCompletedGoals}\">\n                <span class=\"my-md-icon\"></span>\n                <input type=\"checkbox\" aria-label=\"steps\"\n                       name=\"completed\"\n                       [(ngModel)]=\"isCompletedGoals\"\n                       (change)=\"completedChange()\"\n                       style=\"display: none\" />\n            </span>\n        </label>\n      </div>\n      Show Completed\n    </label>\n  </div>\n\n</div>\n\n<div class=\"container ideas-list\" >\n\n  <!--{% set href = path('add_goal')~'?title=[[search]]'  %}-->\n  <h2 *ngIf=\"noIdeas\" class=\" text-center creating-goal\">\n    <!-- {{ ({'%search%' : '[[search]]', '%href%': href, '%isSearch%' : '!!search'})|raw }}-->\n    <div class=\"empty-text text-center\" [innerHTML]=\"'goal.not_found'|translate\"></div>\n    <p  class=\"empty-text textc-enter\" *ngIf='searchError'>\n      <span>{{ 'goal.not_found2'| translate}}</span>\n      <span class=\"text-purple\">{{ searchError }}</span>\n      <a  class=\"btn btn-purple\" routerLink=\"/goal/create/{{ search }}\">{{'goal.start'| translate}}</a>\n    </p>\n    <p class=\"empty-text text-center\" *ngIf='searchError'>{{ 'goal.not_found3'| translate}}</p>\n  </h2>\n\n  <!--{% if not search %}-->\n  <!--<h2 *ngIf=\"!search && ideas && ideas.length && !noIdeas && ideasTitle\" class=\"text-center text-dark\">-->\n    <!--{{ 'ideas_list_title'|translate }}-->\n  <!--</h2>-->\n  <!--{% endif %}-->\n\n  <div class=\"row\">\n\n    <div class=\"col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0\">\n      <div class=\"row idea-item ideas-result\">\n        <!--{% if search %} ideas-result {% endif %}-->\n        <div class=\"col-md-{{ ((+i + 1) % 7) < 5 ? 4 : 8 }} goals-animate\"\n             *ngFor=\"let goal of ideas; let i = index\">\n          <div class=\"row idea-item\">\n            <div class=\"col-sm-12\">\n              <figure>\n                <app-goal [goal]=\"goal\" [type]=\"(category == 'nearby')?'nearby':''\"\n                          (onHover)=\"hideJoin($event)\" [userLocation]=\"userLocation\"\n                          [ngClass]=\"{height: ((+i + 1) % 7) == 6 || ((+i + 1) % 7) == 0}\"></app-goal>\n\n                <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n              </figure>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"list-tooltip\"\n       [hidden]=\"!isHover\" #tooltip>\n    <span class=\"arrow-up\"></span>\n    {{ hoveredText |translate}}\n  </div>\n\n  <div class=\"navigation text-center\">\n    <a *ngIf=\"reserve && reserve.length > 0\"\n       (click)='getReserve()'\n       class=\"show-more \">\n      <span></span>\n      <span></span>\n      <span></span>\n    </a>\n  </div>\n\n</div>"
 
 /***/ }
 

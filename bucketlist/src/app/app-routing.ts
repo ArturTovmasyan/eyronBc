@@ -5,10 +5,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { AuthGuard }      from './common/auth.guard';
-
+import {PageComponent} from './page/page.component';
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'resetting/request', component: ResettingRequestComponent },
+  { path: 'page', component: PageComponent},
+  { path: 'page/:name', component: PageComponent},
   { path: 'activity', loadChildren: './activity/activity.module#ActivityModule', canActivate: [AuthGuard]},
   { path: 'profile', loadChildren: './profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
   { path: 'goal/my-ideas', loadChildren: './drafts/drafts.module#DraftsModule', canActivate: [AuthGuard]},
@@ -16,7 +18,7 @@ const appRoutes: Routes = [
   { path: 'goal-friends', loadChildren: './goalfriends/goalfriends.module#GoalfriendsModule', canActivate: [AuthGuard]},
   { path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardModule' },
   { path: 'notifications', loadChildren: './notification/notification.module#NotificationModule', canActivate: [AuthGuard]},
-  { path: 'edit/:type', loadChildren: './settings/settings.module#SettingsModule', canActivate: [AuthGuard]},
+  { path: 'edit', loadChildren: './settings/settings.module#SettingsModule', canActivate: [AuthGuard]},
   { path: 'goal/:slug', loadChildren: './inner/inner.module#InnerModule'},
   { path: 'ideas', loadChildren: './ideas/ideas.module#IdeasModule'},
   { path: '', component: DashboardComponent }

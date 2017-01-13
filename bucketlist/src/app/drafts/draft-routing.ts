@@ -5,7 +5,8 @@ import { DraftsComponent }    from './drafts.component';
 // import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
 
 const DraftRoutes: Routes = [
-  { path: '',  component: DraftsComponent }
+  { path: '', component: DraftsComponent },
+  { path: ':slug',  component: DraftsComponent }
 ];
 
 export const DraftRouting: ModuleWithProviders = RouterModule.forChild(DraftRoutes);

@@ -31,7 +31,7 @@
                                   <img *ngIf="story.user.cached_image" src="{{ story.user.cached_image }}"
                                        class="img-circle img-responsive"
                                        alt="{{ story.user.first_name }}">
-                                  <span *ngIf="!story.user.cached_image" class="no-image text-white user-no4">{{ story.user.first_name|slice:0:1 + story.user.last_name|slice:0:1 }}</span>
+                                  <span *ngIf="!story.user.cached_image" class="no-image text-white user-no4">{{ story.user.first_name|slice:0:1 |uppercase}}{{ story.user.last_name|slice:0:1 |uppercase}}</span>
                                 </figure>
                               </a>
                             </div>

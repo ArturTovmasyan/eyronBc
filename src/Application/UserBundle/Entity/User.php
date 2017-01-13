@@ -297,7 +297,7 @@ class User extends BaseUser
     protected $factorCommandDate;
 
     /**
-     * @Groups({"tiny_user", "badge", "inspireStory"})
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
      */
     private $cachedImage;
 
@@ -367,6 +367,17 @@ class User extends BaseUser
      */
     private $userGoalRemoveDate;
 
+    /**
+     * @Groups({"tiny_user", "user", "badge"})
+     * @ORM\Column(name="innovator", type="boolean", nullable=false)
+     */
+    protected $innovator = false;
+    
+    /**
+     * @Groups({"tiny_user", "user", "badge"})
+     * @ORM\Column(name="mentor", type="boolean", nullable=false)
+     */
+    protected $mentor = false;
 
     /**
      * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User")
@@ -376,6 +387,12 @@ class User extends BaseUser
      *      )
      */
     protected $followings;
+
+    /**
+     * @Groups({"tiny_user", "user", "badge"})
+     */
+    protected $isFollow;
+    
 
     /**
      * @ORM\OneToOne(targetEntity="Application\UserBundle\Entity\UserNotify", inversedBy="user", cascade={"persist"})
@@ -2059,6 +2076,37 @@ class User extends BaseUser
         return $this->sentEmails;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getInnovator()
+    {
+        return $this->innovator;
+    }
+
+    /**
+     * @param mixed $innovator
+     */
+    public function setInnovator($innovator)
+    {
+        $this->innovator = $innovator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMentor()
+    {
+        return $this->mentor;
+    }
+
+    /**
+     * @param mixed $mentor
+     */
+    public function setMentor($mentor)
+    {
+        $this->mentor = $mentor;
+    }
 
     /**
      * Add following
@@ -2093,6 +2141,38 @@ class User extends BaseUser
         return $this->followings->contains($user)?1:0;
     }
 
+    /**
+     * @param $type
+     * @param $level
+     */
+    public function setLevel($type, $level)
+    {
+        switch ($type){
+            case Badge::TYPE_INNOVATOR:
+                $this->setInnovator($level);
+                break;
+            case Badge::TYPE_MOTIVATOR:
+                $this->setMentor($level);
+                break;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsFollow()
+    {
+        return $this->isFollow;
+    }
+
+    /**
+     * @param mixed $isFollow
+     */
+    public function setIsFollow($isFollow)
+    {
+        $this->isFollow = $isFollow;
+    }
+    
     /**
      * Get followings
      *

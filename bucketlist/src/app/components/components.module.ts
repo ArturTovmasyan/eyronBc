@@ -10,8 +10,10 @@ import {GoalComponent} from './goal/goal.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {GoalFriendComponent} from './goal-friend/goal-friend.component';
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
+import { RoundPipe } from '../pipes/round.pipe';
 import { UserComponent } from './user/user.component';
 import { CommentComponent } from './comment/comment.component';
+import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
 
 
 @NgModule({
@@ -28,8 +30,10 @@ import { CommentComponent } from './comment/comment.component';
     LeaderboardComponent,
     GoalFriendComponent,
     CapitalizePipe,
+    RoundPipe,
     UserComponent,
-    CommentComponent
+    CommentComponent,
+    ProfileGoalComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -37,8 +41,10 @@ import { CommentComponent } from './comment/comment.component';
     LeaderboardComponent,
     GoalFriendComponent,
     CapitalizePipe,
+    RoundPipe,
     UserComponent,
-    CommentComponent
+    CommentComponent,
+    ProfileGoalComponent
   ]
 })
 export class ComponentModule { }

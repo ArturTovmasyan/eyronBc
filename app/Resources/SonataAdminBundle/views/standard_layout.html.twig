@@ -34,6 +34,16 @@ file that was distributed with this source code.
         {% for stylesheet in sonata_admin.adminPool.getOption('stylesheets', []) %}
             <link rel="stylesheet" href="{{ asset(stylesheet) }}">
         {% endfor %}
+
+        <style>
+            .row-menu{
+                list-style: none; padding: 0; margin-left: 20px;
+            }
+
+            .row-menu li{
+                padding: 10px 0;
+            }
+        </style>
     {% endblock %}
 
     {% block javascripts %}
@@ -244,28 +254,17 @@ file that was distributed with this source code.
 
                         {% block side_bar_before_nav %}
                             <hr />
-                            <a href="{{ path('homepage') }}" style="margin-left: 20px">Homepage</a> <br/><br>
+                            <ul class="row-menu">
+                                <li>
+                                    <a href="{{ path('homepage') }}">Homepage</a>
+                                </li>
 
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <ul class="sidebar-menu">
-                                    <li class="treeview">
-                                        <a href="#">
-                                            <i class="fa fa-folder"></i>
-                                            <span>Statistic</span>
-                                            <i class="fa pull-right fa-angle-left"></i>
-                                        </a>
-
-                                        <ul class="treeview-menu">
-                                            <li class="first">
-                                                <a href="{{ path('statistic') }}">
-                                                    <i class="fa fa-angle-double-right"></i>Statistic
-                                                </a>
-                                            </li>
-                                        </ul>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li>
+                                        <a href="{{ path('statistic') }}">Statistic</a>
                                     </li>
-                                </ul>
-                            {% endif %}
-
+                                {% endif %}
+                            </ul>
                             <hr />
                         {% endblock %}
 

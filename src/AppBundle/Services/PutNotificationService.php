@@ -94,11 +94,16 @@ class PutNotificationService
             // create ios message
             $push = new AndroidMessage();
             $push->setGCM(true);
+
+            $isAutocomplete = is_array($message) && array_key_exists('isAutocomplete', $message) ?
+                $message['isAutocomplete'] : false;
+
             // check is array
             if (is_array($message)) {
                 // set message
                 $push->setMessage($message['message']);
-                $push->setData(array('adId' => $message['adId']));
+
+                $push->setData(array('adId' => $message['adId'], 'isAutocomplete' => $isAutocomplete));
             } else {
                 $push->setMessage($message);
             }
@@ -203,35 +208,35 @@ class PutNotificationService
     {
         $count = 0;
         $overall = 0;
-        
-        if($userGoals){
-            foreach($userGoals as $userGoal){
-                if($userGoal->getStatus() != UserGoal::COMPLETED){
+
+        if ($userGoals) {
+            foreach ($userGoals as $userGoal) {
+                if ($userGoal->getStatus() != UserGoal::COMPLETED) {
                     //if goal have listed and do dates
-                    if($userGoal->getListedDate() && $userGoal->getDoDate()){
+                    if ($userGoal->getListedDate() && $userGoal->getDoDate()) {
 
                         $time1 = $userGoal->getListedDate();
                         $time2 = $userGoal->getDoDate();
-                        $limit = date_diff($time2,$time1)->days;
+                        $limit = date_diff($time2, $time1)->days;
                         $time3 = new \DateTime('now');
-                        $currentLimit = date_diff($time3,$time1)->days;
+                        $currentLimit = date_diff($time3, $time1)->days;
 
-                        if($currentLimit > $limit){
-                            $timesAgo = $limit?$limit:1;
-                            $allTimes = $limit?$limit:1;
-                        }else{
-                            $timesAgo = $currentLimit?$currentLimit:1;
-                            $allTimes = $limit?$limit:1;
+                        if ($currentLimit > $limit) {
+                            $timesAgo = $limit ? $limit : 1;
+                            $allTimes = $limit ? $limit : 1;
+                        } else {
+                            $timesAgo = $currentLimit ? $currentLimit : 1;
+                            $allTimes = $limit ? $limit : 1;
                         }
 
                         $goalPercent = $userGoal->getCompleted();
-                        $currentTimePercent = (100 * $timesAgo)/$allTimes;
-                        $currentOverall = ($userGoal->getSteps() && $goalPercent)?($goalPercent * 100/$currentTimePercent):(($currentLimit > $limit || !$limit)?0:(100 - ($currentLimit*100/$limit)));
+                        $currentTimePercent = (100 * $timesAgo) / $allTimes;
+                        $currentOverall = ($userGoal->getSteps() && $goalPercent) ? ($goalPercent * 100 / $currentTimePercent) : (($currentLimit > $limit || !$limit) ? 0 : (100 - ($currentLimit * 100 / $limit)));
 
-                        if($userGoal->getSteps() && !$goalPercent){
+                        if ($userGoal->getSteps() && !$goalPercent) {
                             $stepsCount = count($userGoal->getSteps());
-                            $oneComplatePercent = 100/(2 * $stepsCount);
-                            $currentOverall = ($currentOverall < $oneComplatePercent)?$currentOverall:$oneComplatePercent;
+                            $oneComplatePercent = 100 / (2 * $stepsCount);
+                            $currentOverall = ($currentOverall < $oneComplatePercent) ? $currentOverall : $oneComplatePercent;
 
                         }
 
@@ -241,12 +246,26 @@ class PutNotificationService
                 }
             }
 
-            if($count && $overall){
-                return floor($overall/$count);
+            if ($count && $overall) {
+                return floor($overall / $count);
             }
         }
-        
+
         return null;
+    }
         
+
+    /**
+     * @param $userId
+     */
+    public function sendPushNotForAutocomplete($userId)
+    {
+        // get user
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->find($userId);
+
+        if($user){
+            $messages = ['message'=> 'Message for autocomplete', 'adId'=> null ,'isAutocomplete' => true];
+            $this->sendPushNote($user, $messages);
+        }
     }
 }

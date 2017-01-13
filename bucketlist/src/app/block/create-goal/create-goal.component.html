@@ -3,11 +3,11 @@
     <ul class="row">
       <li class="col-xs-7">
         <i class="icon-creat-icon"></i>
-        <a routerLink="/goal/my-ideas">{{ 'right_menu.create'|translate }}</a>
+        <a routerLink="/goal/create">{{ 'right_menu.create'|translate }}</a>
       </li>
       <li class="col-xs-5 text-right">
         <!--{% if profileUser.id == app.user.id %}-->
-        <a routerLink="/goal/create">{{ 'right_menu.my_ideas'|translate }} {{ myIdeasCount }}</a>
+        <a routerLink="/goal/my-ideas" *ngIf="myProfile">{{ 'right_menu.my_ideas'|translate }} {{ myIdeasCount }}</a>
         <!--{% endif %}-->
       </li>
     </ul>

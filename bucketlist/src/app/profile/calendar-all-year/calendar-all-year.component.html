@@ -1,0 +1,22 @@
+<div class="col-xs-6 col-sm-3 col-md-2" *ngFor="let item of colArray">
+  <div class="lifetime bg-white">
+        <span class="text-grey-dark">
+           <sup>Year {{ +currentYear + +item }}</sup>
+        </span>
+
+        <span class="absolute" *ngIf="currentYear && myYears && myYears[ +currentYear + i ]">
+            <span class="goal-count bg-green" [mdTooltip]="myYears[+currentYear + i ].complete +' '+ (myYears[+currentYear + i].complete > 1?('my_bucket_list.calendar.theCompleted'|translate ):('my_bucket_list.calendar.completed'|translate))"
+                  *ngIf="myYears[ +currentYear + i ].complete > 0">
+                {{ myYears[ currentYear + i].complete }}
+            </span>
+            <span class="goal-count bg-gradinet" [mdTooltip]="myYears[+currentYear + i ].deadline +' '+ (myYears[+currentYear + i].deadline > 1?('my_bucket_list.calendar.deadlines'|translate ):('my_bucket_list.calendar.deadline'|translate))"
+                  *ngIf="myYears[ +currentYear + i ].deadline > 0">
+                {{ myYears[ +currentYear + i].deadline }}
+            </span>
+            <span class="goal-count bg-purple" *ngIf="myYears[ +currentYear + i].current > 0"
+                  [mdTooltip]="myYears[+currentYear + i ].current +' '+ (myYears[+currentYear + i].current > 1?('my_bucket_list.calendar.actives'|translate ):('my_bucket_list.calendar.active'|translate))">
+                {{ myYears[ +currentYear + i].current }}
+            </span>
+        </span>
+  </div>
+</div>
