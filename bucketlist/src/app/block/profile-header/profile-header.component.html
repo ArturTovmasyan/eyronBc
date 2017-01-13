@@ -68,8 +68,7 @@
 
         <!--{% if profileUser.show_name %}-->
         <h1 *ngIf="!isMobile && profileUser && profileUser.show_name">
-          <span class="bg-blue" [class.title-smaller]="profileUser.show_name.length > 11"></span>
-          {{ profileUser.show_name }}
+          <span class="bg-blue" [class.title-smaller]="profileUser.show_name.length > 11">{{ profileUser.show_name }}</span>
         </h1>
         <!--{% endif %}-->
 
