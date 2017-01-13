@@ -12,38 +12,29 @@
   </thead>
 
   <tbody>
-  <!--{% for i in 0..5 %}-->
-  <tr [hidden]="(i == 5 && noShowLast)" *ngFor="let i of trArray">
-    <!--{% for j in 0..6 %}-->
-    <td *ngFor="let j of tdArray">
-        <span *ngIf="days" [ngClass]="{'text-gray': (days[(7 * i + j + 1)].status == 'inActive'), 'text-gray-dark': (days[(7 * i + j + 1)].status == 'active')}">
-            <sup>
-                {{ days[7 * i + j + 1].day }}
-            </sup>
-        </span>
+      <tr [hidden]="(i == 5 && noShowLast)" *ngFor="let i of trArray">
+        <td *ngFor="let j of tdArray">
+            <span *ngIf="days" [ngClass]="{'text-gray': (days[(7 * i + j + 1)].status == 'inActive'), 'text-gray-dark': (days[(7 * i + j + 1)].status == 'active')}">
+                <sup>
+                    {{ days[7 * i + j + 1].day }}
+                </sup>
+            </span>
 
-        <span [ngClass]="{'absolute': !isMobile}" *ngIf="days && myDays && days[7 * i + j + 1] && myDays[days[7 * i + j + 1].year] && myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month] && myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day]">
-            <span class="goal-count bg-green" *ngIf="myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete > 0"
-                  (mouseleave)="isHover = false">
-                  <!--(mousemove)="hoverIn($event, myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.complete + ' ' + (myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.complete > 1?'{{ 'my_bucket_list.calendar.theCompleted'|translate }}':'{{ 'my_bucket_list.calendar.completed'|translate }}'))"-->
-                {{ myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete }}
+            <span [ngClass]="{'absolute': !isMobile}" *ngIf="days && myDays && days[7 * i + j + 1] && myDays[days[7 * i + j + 1].year] && myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month] && myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day]">
+                <span class="goal-count bg-green" *ngIf="myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete > 0"
+                      [mdTooltip]="myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete + ' ' + (myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete > 1?('my_bucket_list.calendar.theCompleted'|translate ):('my_bucket_list.calendar.completed'|translate))">
+                    {{ myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete }}
+                </span>
+                <span class="goal-count bg-gradinet" *ngIf="myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline > 0"
+                      [mdTooltip]="myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline + ' ' + (myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline > 1?('my_bucket_list.calendar.deadlines'|translate ):('my_bucket_list.calendar.deadline'|translate))">
+                    {{ myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline }}
+                </span>
+                <span class="goal-count bg-purple" *ngIf="myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current > 0"
+                      [mdTooltip]="myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current + ' ' + (myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current > 1?('my_bucket_list.calendar.actives'|translate ):('my_bucket_list.calendar.active'|translate))">
+                    {{myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current }}
+                </span>
             </span>
-            <span class="goal-count bg-gradinet"
-                  *ngIf="myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline > 0"
-                  (mouseleave)="isHover = false">
-                  <!--(mousemove)="hoverIn($event, myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.deadline + ' ' + (myDays[days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.deadline > 1?'{{ 'my_bucket_list.calendar.deadlines'|translate }}':'{{ 'my_bucket_list.calendar.deadline'|translate }}'))"-->
-                {{ myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline }}
-            </span>
-            <span class="goal-count bg-purple"
-                  *ngIf="myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current > 0"
-                  (mouseleave)="isHover = false">
-                  <!--(mousemove)="hoverIn($event, myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.current + ' ' + (myDays{days{7 * {{ i }} + {{ j }} + 1}.year}{days{7 * {{ i }} + {{ j }} + 1}.month}{days{7 * {{ i }} + {{ j }} + 1}.day}.current > 1?'{{ 'my_bucket_list.calendar.actives'|translate }}':'{{ 'my_bucket_list.calendar.active'|translate }}'))"-->
-                {{myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current }}
-            </span>
-        </span>
-    </td>
-    <!--{% endfor %}-->
-  </tr>
-  <!--{% endfor %}-->
+        </td>
+      </tr>
   </tbody>
 </table>

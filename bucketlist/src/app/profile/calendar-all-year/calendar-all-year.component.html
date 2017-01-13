@@ -4,23 +4,17 @@
            <sup>Year {{ +currentYear + +item }}</sup>
         </span>
 
-        <span class="absolute" *ngIf="myYears && myYears[ +currentYear + i ]">
-            <span class="goal-count bg-green"
-                  *ngIf="myYears[ +currentYear + i ].complete > 0"
-                  (mouseleave)="isHover = false">
-                  <!--(mousemove)="hoverIn($event, myYears{+currentYear + {{ index }} }.complete +' '+ (myYears{+currentYear + {{ index }} }.complete > 1?'{{ 'my_bucket_list.calendar.theCompleted'|translate }}':'{{ 'my_bucket_list.calendar.completed'|translate }}'))"-->
-                {{ myYears[ currentYear + i ].complete }}
+        <span class="absolute" *ngIf="currentYear && myYears && myYears[ +currentYear + i ]">
+            <span class="goal-count bg-green" [mdTooltip]="myYears[+currentYear + i ].complete +' '+ (myYears[+currentYear + i].complete > 1?('my_bucket_list.calendar.theCompleted'|translate ):('my_bucket_list.calendar.completed'|translate))"
+                  *ngIf="myYears[ +currentYear + i ].complete > 0">
+                {{ myYears[ currentYear + i].complete }}
             </span>
-            <span class="goal-count bg-gradinet"
-                  *ngIf="myYears[ +currentYear + i ].deadline > 0"
-                  (mouseleave)="isHover = false">
-                  <!--(mousemove)="hoverIn($event, myYears{+currentYear + {{ index }} }.deadline + ' ' + (myYears[+currentYear + {{ index }} ].deadline > 1?'{{ 'my_bucket_list.calendar.deadlines'|translate }}':'{{ 'my_bucket_list.calendar.deadline'|translate }}'))"-->
-                {{ myYears[ +currentYear + i ].deadline }}
+            <span class="goal-count bg-gradinet" [mdTooltip]="myYears[+currentYear + i ].deadline +' '+ (myYears[+currentYear + i].deadline > 1?('my_bucket_list.calendar.deadlines'|translate ):('my_bucket_list.calendar.deadline'|translate))"
+                  *ngIf="myYears[ +currentYear + i ].deadline > 0">
+                {{ myYears[ +currentYear + i].deadline }}
             </span>
-            <span class="goal-count bg-purple"
-                  *ngIf="myYears[ +currentYear + i].current > 0"
-                  (mouseleave)="isHover = false">
-                  <!--(mousemove)="hoverIn($event, myYears{+currentYear + {{ index }} }.current + ' ' + (myYears{+currentYear + {{ index }} }.current > 1?'{{ 'my_bucket_list.calendar.actives'|translate }}':'{{ 'my_bucket_list.calendar.active'|translate }}'))"-->
+            <span class="goal-count bg-purple" *ngIf="myYears[ +currentYear + i].current > 0"
+                  [mdTooltip]="myYears[+currentYear + i ].current +' '+ (myYears[+currentYear + i].current > 1?('my_bucket_list.calendar.actives'|translate ):('my_bucket_list.calendar.active'|translate))">
                 {{ myYears[ +currentYear + i].current }}
             </span>
         </span>

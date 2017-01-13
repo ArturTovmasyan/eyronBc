@@ -39,17 +39,12 @@
       </div>
     </div>
 
-    <!--{# start year calendar#}-->
     <div class="row" *ngIf="type == 'year'">
       <calendar-year [myYAMonths]="myYAMonths" [currentYear]="currentYear"></calendar-year>
     </div>
-    <!--{# end year calendar#}-->
 
     <div class="row" *ngIf="type == 'all'">
-      <!--{% for i in 0..11 %}-->
-      <!--{%  include "AppBundle:BucketList:calendarAllYear.html.twig" with {'index': i}  %}-->
       <calendar-all-year [currentYear]="currentYear" [myYears]="myYears"></calendar-all-year>
-      <!--{% endfor %}-->
     </div>
 
   </div>
