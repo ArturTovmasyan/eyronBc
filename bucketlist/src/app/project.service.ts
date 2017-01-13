@@ -67,6 +67,7 @@ export class ProjectService {
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
     private followToggleUrl = this.baseUrl + 'users/';
     private followToggleUrl2 = '/toggles/followings';
+    private calendarUrl = this.baseUrl + 'usergoal/calendar/data';
 
     private nearByUrl = this.baseUrl + 'goals/nearby/';
     private resetNearByUrl = this.baseUrl + 'usergoals/';
@@ -441,6 +442,16 @@ export class ProjectService {
      */
     toggleFollow(id:number):Observable<any> {
         return this.http.post(this.followToggleUrl + id + this.followToggleUrl2, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @returns {Observable<R>}
+     */
+    getCalendarData():Observable<any> {
+        return this.http.get(this.calendarUrl, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
