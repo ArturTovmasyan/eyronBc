@@ -1971,8 +1971,14 @@ footer{
           color:#E5E5E5;
           text-decoration: underline;
         }
+
+        &:focus{
+          color:#E5E5E5;
+          text-decoration: none;
+        }
       }
     }
+
     &.apps{
       li{
         padding: 5px;
@@ -2404,6 +2410,14 @@ footer{
     .user-image{
       width: 40px;
       height: 40px;
+
+      span{
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 34px;
+      }
+
       img{
         border: 2px solid #cecece;
       }
