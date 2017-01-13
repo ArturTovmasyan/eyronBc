@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {ProjectService} from '../../project.service';
 
 @Component({
   selector: 'calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.less']
+  styleUrls: ['./calendar.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CalendarComponent implements OnInit {
 
