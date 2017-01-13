@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Broadcaster } from '../../tools/broadcaster';
 import {ProjectService} from '../../project.service';
+import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { Goal } from '../../interface/goal';
 import { Story } from '../../interface/story';
@@ -19,7 +20,11 @@ export class GoalUsersComponent implements OnInit {
   is_vote: boolean;
   appUser:User;
   
-  constructor(private _projectService: ProjectService, private broadcaster: Broadcaster) { }
+  constructor(
+      private _projectService: ProjectService,
+      private _cacheService: CacheService,
+      private broadcaster: Broadcaster
+  ) { }
 
   ngOnInit() {
     if(this.story){
@@ -30,12 +35,16 @@ export class GoalUsersComponent implements OnInit {
     if(localStorage.getItem('apiKey')){
       this.appUser = this._projectService.getMyUser();
       if(!this.appUser){
-        this._projectService.getUser()
-            .subscribe(
-                user => {
-                  this.appUser = user;
-                  this.broadcaster.broadcast('getUser', user);
-                })
+        this.appUser = this._cacheService.get('user_');
+        if(!this.appUser) {
+          this._projectService.getUser()
+              .subscribe(
+                  user => {
+                    this.appUser = user;
+                    this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                    this.broadcaster.broadcast('getUser', user);
+                  })
+        }
       }
     }
   }

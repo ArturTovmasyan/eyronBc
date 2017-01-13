@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from '@angular/material';
 
 import { ComponentModule } from '../components/components.module';
 
@@ -18,7 +19,8 @@ import {CreateGoalComponent} from './create-goal/create-goal.component';
     CommonModule,
     TranslateModule,
     RouterModule,
-    ComponentModule
+    ComponentModule,
+    MaterialModule.forRoot()
   ],
   declarations: [
     GoalFriendsBlockComponent,
