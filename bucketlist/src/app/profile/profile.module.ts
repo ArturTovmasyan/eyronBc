@@ -28,7 +28,7 @@ import { CalendarYearComponent } from './calendar-year/calendar-year.component';
     MapModule,
     ActivitySharingModule,
     InfiniteScrollModule,
-    MaterialModule.forRoot(),
+    MaterialModule.forRoot()
   ],
   declarations: [
     ProfileComponent,

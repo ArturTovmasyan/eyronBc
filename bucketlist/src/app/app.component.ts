@@ -59,6 +59,8 @@ export class AppComponent implements OnInit  {
       { display: 'Russian', value: 'ru' }
     ];
 
+    this._cacheService.set('supportedLanguages', this.supportedLanguages, {maxAge: 3 * 24 * 60 * 60});
+
     let data = this._cacheService.get('footerMenu');
     if(data){
         this.menus = data[0];
@@ -74,6 +76,7 @@ export class AppComponent implements OnInit  {
             .subscribe(
             user => {
                 this.appUser = user;
+                this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                 this.broadcaster.broadcast('getUser', user);
             },
             error => localStorage.removeItem('apiKey'));
@@ -82,6 +85,7 @@ export class AppComponent implements OnInit  {
     this.broadcaster.on<User>('login')
         .subscribe(user => {
           this.appUser = user;
+          this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
           this.broadcaster.broadcast('getUser', user);
         });
 

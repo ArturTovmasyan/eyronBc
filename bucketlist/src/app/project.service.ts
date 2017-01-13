@@ -209,6 +209,18 @@ export class ProjectService {
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);
     }
+
+    /**
+     * 
+     * @param uId
+     * @returns {Observable<R>}
+     */
+    getUserByUId(uId):Observable<User> {
+        let end = uId == 'my'?'':('/' + uId);console.log(end,uId);
+        return this.http.get(this.userUrl + end, {headers: this.headers})
+            .map((r:Response) => r.json() as User)
+            .catch(this.handleError);
+    }
     
     /**
      * 

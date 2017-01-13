@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from '../../project.service'
 import { Broadcaster } from '../../tools/broadcaster';
 import { Router } from '@angular/router';
+import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { Comment } from '../../interface/comment';
 
@@ -25,7 +26,11 @@ export class CommentComponent implements OnInit {
   public commentIndex: any = null;
   public comments: Comment[];
   
-  constructor(private broadcaster: Broadcaster, private _projectService: ProjectService, private router: Router) { }
+  constructor(
+      private broadcaster: Broadcaster, 
+      private _projectService: ProjectService,
+      private _cacheService: CacheService,
+      private router: Router) { }
 
   ngOnInit() {
     if(!localStorage.getItem('apiKey')){
@@ -33,12 +38,16 @@ export class CommentComponent implements OnInit {
     } else {
       this.appUser = this._projectService.getMyUser();
       if(!this.appUser){
-        this._projectService.getUser()
-            .subscribe(
-                user => {
-                  this.appUser = user;
-                  this.broadcaster.broadcast('getUser', user);
-                })
+        this.appUser = this._cacheService.get('user_');
+        if(!this.appUser){
+          this._projectService.getUser()
+              .subscribe(
+                  user => {
+                    this.appUser = user;
+                    this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                    this.broadcaster.broadcast('getUser', user);
+                  })
+        }
       }
       
       if(this.data && this.data.slug){

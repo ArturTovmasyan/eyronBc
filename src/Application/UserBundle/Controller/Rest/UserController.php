@@ -548,19 +548,25 @@ class UserController extends FOSRestController
      *     },
      * )
      * @Rest\View(serializerGroups={"user"})
+     * @Rest\Get("/user/{uid}", name="get_user", defaults={"uid" = null}, options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
      */
-    public function getAction(Request $request)
+    public function getAction(Request $request, $uid = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        //get current user
-        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+        if($uid){
+            //get current user
+            $currentUser = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('uId' => $uid));;
+        } else {
+            //get current user
+            $currentUser = $this->get('security.token_storage')->getToken()->getUser();
 
-        // get drafts
-        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
-
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
+        }
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($currentUser);
 
         //check if not logged in user
         if(!is_object($currentUser)) {

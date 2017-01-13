@@ -2,6 +2,7 @@ import { Component, OnInit, Input , ViewEncapsulation} from '@angular/core';
 import {UserGoal} from "../../interface/userGoal";
 import {Goal} from "../../interface/goal";
 import {User} from "../../interface/user";
+import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { ProjectService } from '../../project.service'
 import { Broadcaster } from '../../tools/broadcaster';
@@ -26,18 +27,25 @@ export class ProfileGoalComponent implements OnInit {
   public goalDate:any;
   public appUser:User;
   public isMobile:Boolean= (window.innerWidth < 768);
-  constructor(private broadcaster: Broadcaster, private _projectService: ProjectService) { }
+  constructor(
+      private broadcaster: Broadcaster,
+      private _cacheService: CacheService,
+      private _projectService: ProjectService) { }
 
   ngOnInit() {
     if(localStorage.getItem('apiKey')){
       this.appUser = this._projectService.getMyUser();
       if (!this.appUser) {
-        this._projectService.getUser()
-            .subscribe(
-                user => {
-                  this.appUser = user;
-                  this.broadcaster.broadcast('getUser', user);
-                })
+        this.appUser = this._cacheService.get('user_');
+        if(!this.appUser) {
+          this._projectService.getUser()
+              .subscribe(
+                  user => {
+                    this.appUser = user;
+                    this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                    this.broadcaster.broadcast('getUser', user);
+                  })
+        }
       }
     } else {
       this.broadcaster.broadcast('logout', 'some message');

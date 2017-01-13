@@ -1,4 +1,4 @@
-<profile-header (onHover)="hideJoin($event)"></profile-header>
+<profile-header (onHover)="hideJoin($event)" [userInfo]="uId"></profile-header>
 
 <!--{% block content_container %}-->
 <!--{% set myProfile = true %}-->
@@ -58,12 +58,12 @@
                 </li>
 
                 <li class="pull-right">
-                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar">
+                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar;showMap = false">
                         <img src="assets/images/calendar-icon.svg" class="svg"/>
                     </a>
 
                     <a [ngClass]="{'map-marker-active': showMap}"
-                       (click)="showMap=!showMap">
+                       (click)="showMap=!showMap;showCalendar = false">
                         <img src="assets/images/map-icon.svg" class="svg"/>
                     </a>
                 </li>
