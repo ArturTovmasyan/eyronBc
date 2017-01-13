@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
-import {TranslateModule} from 'ng2-translate';
+import { HttpModule, JsonpModule, Http } from '@angular/http';
+import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import {MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import {SelectModule} from 'ng2-select/ng2-select';
@@ -55,6 +55,10 @@ import { UsersComponent } from './modals/users/users.component';
 import { AddComponent } from './modals/add/add.component';
 import { DoneComponent } from './modals/done/done.component';
 
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +95,11 @@ import { DoneComponent } from './modals/done/done.component';
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),
-    TranslateModule.forRoot()
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    })
   ],
   providers: [
     ProjectService,
