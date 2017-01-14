@@ -555,31 +555,20 @@ class UserController extends FOSRestController
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
-
-        if($uid){
-            //get current user
-            $currentUser = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('uId' => $uid));;
-        } else {
-            //get current user
-            $currentUser = $this->get('security.token_storage')->getToken()->getUser();
-
-            // get drafts
-            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
-        }
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($currentUser);
-
+        //get current user
+        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+        // get drafts
+        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
         //check if not logged in user
         if(!is_object($currentUser)) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
         }
 
-        if ($currentUser->getImagePath()){
-            $imagineCacheManager = $this->get('liip_imagine.cache.manager');
-            $resolvedPath = $imagineCacheManager->getBrowserPath($currentUser->getImagePath(), 'user_image');
+        $states = $currentUser->getStats();
 
-            $currentUser->setCachedImage($resolvedPath);
-        }
-
+        $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($currentUser->getId(), false);
+        
+        $currentUser->setStats($states);
         return $currentUser;
     }
 

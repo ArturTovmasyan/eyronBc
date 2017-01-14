@@ -48,6 +48,7 @@ class User extends BaseUser
     const FACEBOOK = 'Facebook';
     const GOOGLE = 'Google';
     const TWITTER = 'Twitter';
+    const FOLLOWERS = 'followerByUser-';
 
     // use file trait
     use File;
@@ -380,7 +381,7 @@ class User extends BaseUser
     protected $mentor = false;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User")
+     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id")
      * @ORM\JoinTable(name="following",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="following_id", referencedColumnName="id")}
@@ -2118,6 +2119,15 @@ class User extends BaseUser
     public function addFollowing(\Application\UserBundle\Entity\User $following)
     {
         $this->followings[] = $following;
+        $followings = apc_fetch(self::FOLLOWERS . $this->getId());
+
+        if(is_array($followings)){
+            $followings[] = $following->getId();
+        } else {
+            $followings = [$following->getId()];
+        }
+
+        apc_store(self::FOLLOWERS . $this->getId(), $followings, 3600);
 
         return $this;
     }
@@ -2129,6 +2139,7 @@ class User extends BaseUser
      */
     public function removeFollowing(\Application\UserBundle\Entity\User $following)
     {
+        apc_delete(self::FOLLOWERS . $this->getId());
         $this->followings->removeElement($following);
     }
 
@@ -2181,6 +2192,22 @@ class User extends BaseUser
     public function getFollowings()
     {
         return $this->followings;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFollowingIds()
+    {
+        $followingIds = apc_fetch(self::FOLLOWERS . $this->getId());
+        if(!$followingIds){
+            if($followings = $this->getFollowings()){
+                $followingIds = array_keys($followings->toArray());
+                apc_store(self::FOLLOWERS . $this->getId(), $followingIds, 3600);
+            }
+        }
+
+        return $followingIds;
     }
 
     /**
