@@ -59,7 +59,8 @@ export class ProjectService {
     private badgesUrl = this.baseUrl + 'badges'; 
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
-    private notificationUrl = this.baseUrl + 'notifications/0/10';
+    private notificationUrl = this.baseUrl + 'notifications';
+    private notificationAllReadUrl = this.baseUrl + 'notification';
     private getCompateProfileUrl = this.baseUrl + 'goal/categories';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
@@ -285,9 +286,33 @@ export class ProjectService {
      *
      * @returns {Observable<T>}
      */
-    getNotifications():Observable<any> {
-        return this.http.get(this.notificationUrl, {headers: this.headers})
+    getNotifications(start: number, end: number):Observable<any> {
+        return this.http.get(this.notificationUrl + '/' + start + '/' + end , {headers: this.headers})
             .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    readAllNotifications():Observable<any>{
+        return this.http.get(this.notificationAllReadUrl +'/all/read',{headers: this.headers})
+            .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    deleteNotifications(id: number):Observable<any>{
+        return this.http.delete(this.notificationUrl + '/' + id,{headers: this.headers})
+           .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    readSigle(id: number):Observable<any>{
+        return this.http.get(this.notificationUrl + '/' +id +'/read',{headers: this.headers})
             .catch(this.handleError);
     }
 

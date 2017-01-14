@@ -32,9 +32,9 @@
                   <div (click)="goNotificationPage(notify, i)" class="clearfix" >
                     <!--[ngInit]="time[notify.id] = getInterval(notify.notification.created)"-->
                     <figure class="pull-left">
-                      <img  *ngIf="notify.notification.performer.image_path" src="{{serverPath + notify.notification.performer.image_path}}" alt="photo"  height="40"/>
+                      <img  *ngIf=" notify.notification.performer && notify.notification.performer.image_path" src="{{serverPath + notify.notification.performer.image_path}}" alt="photo"  height="40"/>
                       <!--[src]="[[ ::notify.notification.performer.image_path ]]"-->
-                      <img src="assets/images/notify-user.png" *ngIf="!notify.notification.performer.image_path" alt="photo "  height="40"/>
+                      <img src="assets/images/notify-user.png" *ngIf="!notify.notification.performer || !notify.notification.performer.image_path" alt="photo "  height="40"/>
                     </figure>
 
                     <p>
