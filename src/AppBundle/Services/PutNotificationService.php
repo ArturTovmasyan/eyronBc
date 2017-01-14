@@ -85,6 +85,9 @@ class PutNotificationService
         if($deviceId) {
             // device
             $push->setDeviceIdentifier($deviceId);
+
+            // send push
+            $notifications->send($push);
         }
         else{
 
