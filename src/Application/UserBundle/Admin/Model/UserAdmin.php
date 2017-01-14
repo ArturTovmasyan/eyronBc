@@ -153,7 +153,6 @@ class UserAdmin extends AbstractAdmin
                         'show' => [],
                         'edit' => [],
                         'delete' => [],
-                        'pushNote' => ['template' => 'ApplicationUserBundle:Admin:test_message.html.twig']
                     ]
                 ]
             )
