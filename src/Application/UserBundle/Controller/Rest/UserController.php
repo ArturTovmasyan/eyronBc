@@ -799,12 +799,14 @@ class UserController extends FOSRestController
             $device = $regData[$mobileOc];
             if(!in_array($registrationId, $device)){
                 array_push($device, $registrationId);
+                $this->cleanRegIds($registrationId, $mobileOc);
             }
 
             $regData[$mobileOc] = $device;
         }
         else {
             $regData[$mobileOc][] =  $registrationId;
+            $this->cleanRegIds($registrationId, $mobileOc);
         }
 
         $currentUser->setRegistrationIds($regData);
@@ -820,7 +822,22 @@ class UserController extends FOSRestController
         return new JsonResponse(Response::HTTP_NO_CONTENT);
     }
 
+//    this function clean duplicate registration ids from old users
+    private function cleanRegIds($registrationId, $mobileOc){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('ApplicationUserBundle:User')->findWithRelationsIds($registrationId);
+        foreach ($users as $user){
+            $userRegData = $user->getRegistrationIds();
+            $userDevice = $userRegData[$mobileOc];
+            $key = array_search($registrationId, $userDevice);
+            if(!($key === false)){
+                unset($userDevice[$key]);
+                $userRegData[$mobileOc] = $userDevice;
+                $user->setRegistrationIds($userRegData);
+            }
 
+        }
+    }
     /**
      * @ApiDoc(
      *  resource=true,
