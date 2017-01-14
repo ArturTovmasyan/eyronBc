@@ -216,12 +216,14 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/sand-message/{userId}", name="sand-test-message")
-     * @param $userId
+     * @Route("/sand-message/{userId}/{deviceId}/{mobileOS}", name="sand-test-message")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @param Request $request
+     * @param $userId
+     * @param $deviceId
+     * @param $mobileOS
      */
-    public function sandMessageAction(Request $request, $userId)
+    public function sandMessageAction(Request $request, $userId, $deviceId = null, $mobileOS = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -241,7 +243,7 @@ class MainController extends Controller
                 $this->generateUrl('homepage');
         //check if user haven`t any goals
         if ($user) {
-            $sendNoteService->sendTestMassage($user);
+            $sendNoteService->sendTestMassage($user, $deviceId, $mobileOS);
             $this->addFlash('success', 'You sand Test Message successfully');
         }else {
             $this->addFlash('error', 'User Not Found');

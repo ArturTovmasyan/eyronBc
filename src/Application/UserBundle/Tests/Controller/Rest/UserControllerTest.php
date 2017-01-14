@@ -417,7 +417,7 @@ class UserControllerTest extends WebTestCase
 
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(6, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal testGetCurrentUser rest!");
+            $this->assertLessThan(8, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal testGetCurrentUser rest!");
         }
 
         //get response content
