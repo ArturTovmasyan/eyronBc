@@ -52,7 +52,7 @@ export class LeaderboardComponent implements OnInit {
 
   getFullName(user) {
   let name = user.first_name + ' ' + user.last_name,
-      count = this.isTouchdevice?50:((this.isMobile || (window.innerWidth > 991 && window.innerWidth < 1170))?9:24);
+      count = this.isTouchdevice?50:((this.isMobile || (window.innerWidth > 991 && window.innerWidth < 1170))?8:24);
   return (name.length > count)?(name.substr(0,count -3) + '...'):name;
 };
 }

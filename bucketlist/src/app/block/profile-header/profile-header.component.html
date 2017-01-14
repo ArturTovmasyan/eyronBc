@@ -2,13 +2,8 @@
 <figure [class.my-profile]="!userInfo || userInfo == 'my'">
 
   <span class="overlay"></span>
-  <img src="{{ (profileUser && profileUser.getPhotoLink)?profileUser.getPhotoLink: imgPath}}" alt="Profile Cover Photo" class="img-responsive" />
+  <img src="{{ (profileUser && profileUser.cached_image)?profileUser.cached_image: imgPath}}" alt="Profile Cover Photo" class="img-responsive" />
 
-  <!--{% if profileUser.getPhotoLink %}-->
-                <!--{{ profileUser.getPhotoLink|blImageFilter('user_cover') }}-->
-            <!--{% else %}-->
-                <!--{{ asset(imgPath) }}-->
-            <!--{% endif %}"-->
 </figure>
 
 <div class="profile">
@@ -18,19 +13,20 @@
       <div class="col-sm-4">
         <figure>
 
-          <a routerLink="/edit/profile" routerLinkActive="active" *ngIf="!userInfo || userInfo == 'my'" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon">settings </a>
+          <a routerLink="/edit/profile" routerLinkActive="active" *ngIf="!userInfo || userInfo == 'my'" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
 
-          <div>
-            <img src="{{ profileUser.getPhotoLink }}" *ngIf="profileUser && profileUser.getPhotoLink" alt="Profile image" class="img-responsive img-circle"/>
-            <!--{{ profileUser.getPhotoLink|blImageFilter('user_image') }}-->
-            <span class="no-image profile-image profile-image1" *ngIf="!profileUser || !profileUser.getPhotoLink">{{ nameOnImage }}</span>
+          <div *ngIf="profileUser">
+            <img src="{{ profileUser.cached_image }}" *ngIf="profileUser.cached_image" alt="Profile image" class="img-responsive img-circle"/>
+            <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->
+            <span class="no-image profile-image profile-image1" *ngIf="!profileUser.cached_image">
+              {{ profileUser.first_name |slice:0:1 |uppercase }} {{ profileUser.last_name |slice:0:1 |uppercase }}</span>
           </div>
 
           <figcaption>
 
             <h3>
-              <span  *ngIf="isMobile" [class.title-smaller]="profileUser && profileUser.showName && profileUser.showName.length > 12">
-                  <span *ngIf="profileUser && profileUser.showName">{{ profileUser.showName }}</span>
+              <span  *ngIf="isMobile && profileUser && profileUser.show_name" [class.title-smaller]="profileUser && profileUser.show_name && profileUser.show_name.length > 12">
+                  {{ profileUser.show_name }}
               </span>
             </h3>
 
@@ -40,11 +36,7 @@
             <span class="close-friends hidden-sm hidden-md hidden-lg"
                   *ngIf="userInfo && userInfo != 'my'"
                   (click)="toggleFollow()"
-                  (mouseleave)="hoverEmitter.emit(null)"
-                  (mousemove)="hoverEmitter.emit({ ev:$event, val:(isFollow?'my_bucket_list.un_follow': 'my_bucket_list.follow')})">
-                  <!--data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"-->
-                  <!--data-ls-user-id="{{ profileUser.id }}"-->
-                  <!--data-ls-is-follow="isFollow">-->
+                  [mdTooltip]="(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate">
 
               <i class="follow-icon" *ngIf="!isFollow" title="{{ 'my_bucket_list.follow'|translate }}"></i>
               <i class="closefriend-icon" *ngIf="isFollow" title="{{ 'my_bucket_list.un_follow'|translate }}"></i>
@@ -74,21 +66,16 @@
       </div>
       <div class="col-sm-4 hidden-xs relative">
 
-        <!--{% if profileUser.showName %}-->
-        <h1 *ngIf="profileUser && profileUser.showName">
-          <span class="bg-blue" [class.title-smaller]="profileUser.showName.length > 11"></span>
-          {{ profileUser.showName }}
+        <!--{% if profileUser.show_name %}-->
+        <h1 *ngIf="!isMobile && profileUser && profileUser.show_name">
+          <span class="bg-blue" [class.title-smaller]="profileUser.show_name.length > 11">{{ profileUser.show_name }}</span>
         </h1>
         <!--{% endif %}-->
 
         <span class="close-friends hidden-xs"
               *ngIf="userInfo && userInfo != 'my'"
               (click)="toggleFollow()"
-              (mouseleave)="hoverEmitter.emit(null)"
-              (mousemove)="hoverEmitter.emit({ ev:$event, val:(isFollow?'my_bucket_list.un_follow': 'my_bucket_list.follow')})">
-                  <!--data-ng-init="isFollow = {{ app.user.isFollowing(profileUser) }}"-->
-          <!--data-ls-user-id="{{ profileUser.id }}"-->
-          <!--data-ls-is-follow="isFollow">-->
+              [mdTooltip]="(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate">
 
               <i class="follow-icon" *ngIf="!isFollow" title="{{ 'my_bucket_list.follow'|translate }}"></i>
               <i class="closefriend-icon" *ngIf="isFollow" title="{{ 'my_bucket_list.un_follow'|translate }}"></i>

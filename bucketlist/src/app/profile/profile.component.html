@@ -1,4 +1,4 @@
-<profile-header (onHover)="hideJoin($event)"></profile-header>
+<profile-header (onHover)="hideJoin($event)" [userInfo]="uId"></profile-header>
 
 <!--{% block content_container %}-->
 <!--{% set myProfile = true %}-->
@@ -58,12 +58,12 @@
                 </li>
 
                 <li class="pull-right">
-                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar">
+                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar;showMap = false">
                         <img src="assets/images/calendar-icon.svg" class="svg"/>
                     </a>
 
-                    <a href="#" [ngClass]="{'map-marker-active': showMap}"
-                       (click)="showMap=!showMap; triggerMap('.google-map')">
+                    <a [ngClass]="{'map-marker-active': showMap}"
+                       (click)="showMap=!showMap;showCalendar = false">
                         <img src="assets/images/map-icon.svg" class="svg"/>
                     </a>
                 </li>
@@ -71,24 +71,12 @@
         </div>
     </div>
 
-    <div class="slide map-marker"  [hidden]="!showMap">
-        <!--<div data-simple-map-marker-->
-             <!--data-markers="locations"-->
-             <!--data-on-marker-click="onMarkerClick(goal)"-->
-             <!--data-is-bounded="true"-->
-             <!--data-item-page-url="{{ env_prefix  }}/goal/"-->
-             <!--data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"-->
-             <!--data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"-->
-             <!--data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"-->
-             <!--data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
-             <!--data-refresh="showMap"-->
-             <!--class="google-map "-->
-             <!--style="width: 100%; height: 300px">-->
-        <!--</div>-->
+    <div class="slide map-marker accordion"  *ngIf="showMap">
+        <map-single [locations]="locations"></map-single>
+         <!--style="width: 100%; height: 300px">-->
     </div>
 
     <hr/>
-    <!--{% include 'AppBundle:BucketList:calendar.html.twig' %}-->
     <calendar *ngIf="showCalendar"></calendar>
 
     <!--{% if myProfile %}-->

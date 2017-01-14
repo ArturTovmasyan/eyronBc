@@ -4,6 +4,7 @@ import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@an
 import { Broadcaster } from '../tools/broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import {ProjectService} from '../project.service';
+import {Location} from '../interface/location';
 import {Goal} from "../interface/goal";
 import {UserGoal} from "../interface/userGoal";
 
@@ -88,7 +89,7 @@ export class ProfileComponent implements OnInit {
         case 'common':
           // this.busy = true;
           this.busy = false;
-          this.getOwned();
+          this.getCommon();
           break;
         case 'activity':
           this.busy = true;
@@ -106,13 +107,14 @@ export class ProfileComponent implements OnInit {
 
   getReserve(){
     this.userGoals = this.userGoals.concat(this.reserveUserGoals);
+    this.calculateLocations(this.reserveUserGoals);
     let index = this.categories.indexOf(this.type);
     if(index != -1){
       this.getGoalsReserve(index);
     } else {
       switch (this.type){
         case 'common':
-          this.getOwnedReserve();
+          this.getCommonReserve();
           break;
         case 'owned':
           this.getOwnedReserve();
@@ -130,6 +132,7 @@ export class ProfileComponent implements OnInit {
         data => {
           this.noItem = !data.user_goals.length;
           this.userGoals = data.user_goals;
+          this.calculateLocations(this.userGoals);
           this.start += this.count;
           this.getGoalsReserve(c);
         });
@@ -155,6 +158,7 @@ export class ProfileComponent implements OnInit {
             data => {
               this.noItem = !data.goals.length;
               this.userGoals = data.goals;
+              this.calculateLocations(this.userGoals);
               this.start += this.count;
               this.getOwnedReserve();
             });
@@ -179,6 +183,7 @@ export class ProfileComponent implements OnInit {
             data => {
               this.noItem = !data.goals.length;
               this.goals = data.goals;
+              this.calculateLocations(this.goals);
               this.start += this.count;
               this.getCommonReserve();
             });
@@ -221,6 +226,36 @@ export class ProfileComponent implements OnInit {
       }
     }
 
+  }
+
+  calculateLocations(items){
+    for(let data of items){
+      let item = data.goal?data.goal:data;
+      let location:Location = {
+        id: 0,
+        latitude: 0,
+        lat: 0,
+        longitude: 0,
+        lng: 0,
+        slug: '',
+        title: '',
+        status: 0,
+        isHover: false,
+      };
+      if(item.location && this.locationsIds.indexOf(item.id) == -1){
+        location.id = item.id;
+        this.locationsIds.push(location.id);
+        location.latitude = item.location.latitude;
+        location.lat = item.location.latitude;
+        location.longitude = item.location.longitude;
+        location.lng = item.location.longitude;
+        location.title = item.title;
+        location.slug = item.slug;
+        location.status = item.is_my_goal;
+        this.locations.push(location);
+      }
+    }
+    this.broadcaster.broadcast('getLocation', this.locations);
   }
 
   hideJoin(event){

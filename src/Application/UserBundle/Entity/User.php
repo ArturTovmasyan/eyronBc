@@ -297,7 +297,7 @@ class User extends BaseUser
     protected $factorCommandDate;
 
     /**
-     * @Groups({"tiny_user", "badge", "inspireStory"})
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
      */
     private $cachedImage;
 
