@@ -567,7 +567,7 @@ class UserController extends FOSRestController
         $states = $currentUser->getStats();
 
         $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($currentUser->getId(), false);
-        
+
         $currentUser->setStats($states);
         return $currentUser;
     }
