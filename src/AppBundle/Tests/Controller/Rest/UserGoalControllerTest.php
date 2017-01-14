@@ -143,7 +143,7 @@ class UserGoalControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on  user-goal postBucketlistAction rest!");
+            $this->assertLessThan(11, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on  user-goal postBucketlistAction rest!");
         }
 
         //get response content
@@ -269,7 +269,7 @@ class UserGoalControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client4->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(9, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on delete user-goal rest!");
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on delete user-goal rest!");
         }
     }
 
@@ -365,7 +365,7 @@ class UserGoalControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on  user-goal postBucketlistLocationAction rest!");
+            $this->assertLessThan(12, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on  user-goal postBucketlistLocationAction rest!");
         }
 
         //get response content
@@ -445,7 +445,7 @@ class UserGoalControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on testGetUserGoalInfo rest!");
+            $this->assertLessThan(11, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on testGetUserGoalInfo rest!");
         }
 
         //get response content
