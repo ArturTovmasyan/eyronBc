@@ -2,13 +2,17 @@
 
 {% block field %}
     <div>
-        {% if object is defined and object.id %}
+        {% if object.registrationIds is defined and object.registrationIds %}
             {% for key, value in object.registrationIds %}
                 {{ key }} </br>
                 <ul>
                     {% for data in value %}
                         <li>
-                            {{ data}}
+                            {{ data }} </br>
+                            <a href="{{ path("sand-test-message", {'userId': object.id, 'deviceId': data, 'mobileOS': key }) }}" class="btn btn-sm btn-default edit_link">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                                {{ 'admin.label.name.messages'|trans({}, 'messages') }}
+                            </a>
                         </li>
                     {% endfor %}
                 </ul>
