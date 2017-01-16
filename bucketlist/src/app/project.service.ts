@@ -216,8 +216,8 @@ export class ProjectService {
      * @param uId
      * @returns {Observable<R>}
      */
-    getUserByUId(uId):Observable<User> {
-        let end = uId == 'my'?'':('/' + uId);console.log(end,uId);
+    getUserByUId(uId:string):Observable<User> {
+        let end = uId == 'my'?'':('/' + uId);
         return this.http.get(this.userUrl + end, {headers: this.headers})
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);
