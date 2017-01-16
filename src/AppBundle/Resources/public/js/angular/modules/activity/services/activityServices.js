@@ -275,8 +275,8 @@ angular.module('activity')
                 }});
 
 
-          scope.$parent.inArray = function (id) {
-            return (scope.$parent.topUsers.indexOf(id) != -1);
+          scope.$parent.inArray = function (user) {
+            return (user.innovator || user.mentor || user.traveler)
           };
           
           scope.$parent.isVoting = function(isVoting, isStory){
