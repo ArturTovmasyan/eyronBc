@@ -47,7 +47,8 @@ class PutNotificationService
     /**
      * @param $ids
      * @param $message
-     * @param $deviceId
+     * @param null $deviceId
+     * @return array
      */
     public function sendNoteToIos($ids, $message, $deviceId = null)
     {
@@ -56,6 +57,8 @@ class PutNotificationService
 
         // get pem file
         $pemFile = $this->container->getParameter("rms_push_notifications.ios.pem");
+
+        $response = [];
 
         if($deviceId) {
 
@@ -89,6 +92,9 @@ class PutNotificationService
 
             // send push
             $notifications->send($push);
+
+            $response = $notifications->getResponses('rms_push_notifications.os.ios');
+
         }
         else{
 
@@ -124,19 +130,25 @@ class PutNotificationService
 
                 // send push
                 $notifications->send($push);
+
+                $response = $notifications->getResponses('rms_push_notifications.os.ios');
             }
         }
+        return $response;
     }
 
     /**
      * @param $ids
      * @param $message
-     * @param $deviceId
+     * @param null $deviceId
+     * @return array|mixed
      */
     public function sendNoteToAndroid($ids, $message, $deviceId = null)
     {
         // get notifications
         $notifications = $this->container->get('rms_push_notifications');
+
+        $response = [];
 
         if($deviceId) {
 
@@ -159,6 +171,9 @@ class PutNotificationService
 
             $push->setDeviceIdentifier($deviceId);
             $notifications->send($push);
+
+            $response = $notifications->getResponses('rms_push_notifications.os.android.gcm')[0]->getContent();
+            $response = json_decode($response, true);
         }
         else {
 
@@ -184,32 +199,29 @@ class PutNotificationService
                 // device
                 $push->setDeviceIdentifier($id);
 
-                // get pem file
-                //        $pemFile = $this->container->getParameter("rms_push_notifications.ios.pem");
-                // set content
-                //        $notifications->setAPNSPemAsString($pemContent, $passphrase);
                 // send push
                 $notifications->send($push);
+
+                $response = $notifications->getResponses('rms_push_notifications.os.android.gcm')[0]->getContent();
+                $response = json_decode($response, true);
             }
         }
+
+        return $response;
     }
 
     /**
      * Check and send mobiles notes
-     *
      * @param $currentUser
      * @param $message
-     * @param $deviceId
-     * @param $mobileOS
+     * @param null $deviceId
+     * @param null $mobileOS
+     * @return array
      */
     public function sendPushNote($currentUser, $message, $deviceId = null, $mobileOS = null)
     {
         $androidIds = array();
         $iosIds = array();
-        // if user is deactivate, return
-//        if($currentUser->getDeactivate() || !$currentUser->getNotificationSwitch()){
-//            return;
-//        }
 
         if($deviceId && $mobileOS == self::ANDROID) {
             $androidIds = $deviceId;
@@ -236,14 +248,18 @@ class PutNotificationService
             }
         }
 
+        $data = [];
+
         // check androids ids
         if(count($androidIds) > 0){
-            $this->sendNoteToAndroid($androidIds, $message, $deviceId);
+            $data['android'] = $this->sendNoteToAndroid($androidIds, $message, $deviceId);
         }
         // check ios ids
         if(count($iosIds) > 0){
-            $this->sendNoteToIos($iosIds, $message, $deviceId);
+            $data['ios'] = $this->sendNoteToIos($iosIds, $message, $deviceId);
         }
+
+        return $data;
     }
 
     /**
@@ -255,9 +271,9 @@ class PutNotificationService
     {
         $massage = $this->container->get('translator')->trans('test_message');
 
-        $this->sendPushNote($currentUser, $massage, $deviceId, $mobileOS);
+       return $this->sendPushNote($currentUser, $massage, $deviceId, $mobileOS);
 
-        $this->sendProgressMassage($currentUser, $deviceId, $mobileOS);
+//        $this->sendProgressMassage($currentUser, $deviceId, $mobileOS);
     }
 
     /**

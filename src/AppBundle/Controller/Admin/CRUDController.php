@@ -457,22 +457,25 @@ class CRUDController extends Controller
 
         $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
 
+        $data = [];
+
         // get referer
-        $referer = $request->server->get('HTTP_REFERER');
+//        $referer = $request->server->get('HTTP_REFERER');
 
         // generate url
-        $url =
-            $referer ?
-                $referer :
-                $this->generateUrl('homepage');
+//        $url =
+//            $referer ?
+//                $referer :
+//                $this->generateUrl('homepage');
+
         //check if user haven`t any goals
         if ($user) {
-            $sendNoteService->sendTestMassage($user, $deviceId, $mobileOS);
+            $data = $sendNoteService->sendTestMassage($user, $deviceId, $mobileOS);
             $this->addFlash('success', 'You sand Test Message successfully');
         }else {
             $this->addFlash('error', 'User Not Found');
         }
 
-        return $this->redirect($url);
+        return  $this->redirectToRoute('admin-user_show', ['id' => $userId, 'data' => $data]);
     }
 }

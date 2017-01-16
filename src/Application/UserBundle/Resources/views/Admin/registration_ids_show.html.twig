@@ -14,7 +14,31 @@
                                 {{ 'admin.label.name.messages'|trans({}, 'messages') }}
                             </a>
                         </li>
+                        </br>
+
+                        {#{% if app.request.query.get('data')  %}#}
+
+                            {#{% set response = app.request.query.get('data') %}#}
+                            {#{{ dump(response) }}#}
+                            {#{{ dump(key) }}#}
+
+                            {#<b>Response:</b>#}
+                            {#{% for key, val in response[key] %}#}
+                                {#{{ key ~ ' => '}} <br>#}
+                                {#{% if 'results' in val|keys and val[0]['registration_id'] is defined %}#}
+                                    {#{{ 'registration_id =>' ~ val[0]['registration_id'] }} <br />#}
+                                    {#{{ 'message_id =>' ~ val[0]['message_id'] }} <br />#}
+                                {#{% else %}#}
+                                    {#{{ val }}#}
+                                {#{% endif %}#}
+                                {#<br>#}
+                            {#{% endfor %}#}
+
+                        {#{% endif %}#}
+                        {#<hr>#}
                     {% endfor %}
+
+                    {#{% set results = app.request.query.get('data')['android']['results'][0]['registration_id'] %}#}
                 </ul>
             {% endfor %}
         {% endif %}
