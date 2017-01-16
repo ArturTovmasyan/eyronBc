@@ -9,7 +9,7 @@ import { ProjectService } from '../project.service';
 @Component({
   selector: 'my-activity',
   templateUrl: './my-activity.component.html',
-  styleUrls: ['./my-activity.component.less'],
+  styleUrls: ['./my-activity.component.less','../components/comment/comment.component.less'],
   providers: [
     ProjectService,
     CacheService
