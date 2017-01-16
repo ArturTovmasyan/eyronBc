@@ -13,7 +13,7 @@
               <div class="col-sm-12">
                 <!--{{ form_widget(form.fullName , {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.full_name' } }) }}-->
 
-                <input name="fullName" type="text" [(ngModel)]="emailData.fullName" class="form-control" placeholder="Full Name">
+                <input name="fullName" type="text" [(ngModel)]="emailData.fullName" class="form-control" placeholder="Full Name" required>
 
               </div>
 
@@ -25,7 +25,7 @@
               <div class="col-sm-12">
                 <!--{{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.email' } }) }}-->
 
-                <input name="email" type="email" [(ngModel)]="emailData.email" class="form-control" placeholder="Email">
+                <input name="email" type="email" [(ngModel)]="emailData.email" class="form-control" placeholder="Email" required>
               </div>
               <!--<div class="error-message">{{ form_errors(form.email) }}</div>-->
 
@@ -35,7 +35,7 @@
               <div class="col-sm-12">
                 <!--{{ form_widget(form.subject, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.subject' } }) }}-->
 
-                <input name="subject" type="text" [(ngModel)]="emailData.subject" class="form-control" placeholder="Subject">
+                <input name="subject" type="text" [(ngModel)]="emailData.subject" class="form-control" placeholder="Subject" required>
 
               </div>
               <!--<div class="error-message">{{ form_errors(form.subject) }}</div>-->
@@ -45,7 +45,7 @@
               <div class="col-sm-12">
                 <!--{{ form_widget(form.message, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.message' } }) }}-->
 
-                <textarea name="message" [(ngModel)]="emailData.message" class="form-control" placeholder="Message" rows="5"></textarea>
+                <textarea name="message" [(ngModel)]="emailData.message" class="form-control" placeholder="Message" rows="5" required></textarea>
 
               </div>
               <!--<div class="error-message">{{ form_errors(form.message) }}</div>-->
@@ -83,8 +83,8 @@
 
 <div class="container standart-pages" *ngIf="name != 'contact-us'">
   <div class="row">
+    <h1 class="text-center"> {{ title }} </h1>
     <div class="col-sm-8 col-sm-offset-2" [innerHTML] = description>
-      <h1 class="text-center"> {{ title }} </h1>
     </div>
   </div>
 </div>

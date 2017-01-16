@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -73,6 +74,7 @@ class Category
 
     /**
      * @VirtualProperty()
+     * @Serializer\SerializedName("svg_download_link")
      * @Groups("category")
      */
     public function getImageDownloadLink()
@@ -217,5 +219,19 @@ class Category
     public function getTranslations()
     {
         return $this->translations;
+    }
+
+
+    /**
+     * @return null|string
+     * @VirtualProperty()
+     * @Serializer\SerializedName("image_download_link")
+     *  @Groups("category")
+     */
+    public function getDownloadLinkPng()
+    {
+        $path = '/' . $this->getUploadDir() . '/' . $this->getPath() . '/' . $this->getSlug() . '.png';
+
+        return $path;
     }
 }

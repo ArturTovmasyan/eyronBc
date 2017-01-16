@@ -271,6 +271,132 @@ class UserNotifyService extends AbstractProcessService
     }
 
 
+    /**
+     * @param $users
+     * @return int
+     * @throws \Throwable
+     */
+    public function uniqueDevice($users)
+    {
+        $em = $this->container->get('doctrine')->getManager();
+        $androidIds = array();
+        $iosIds = array();
+        $androidRelations = [];
+        $iosRelations = [];
+        $count = 0;
+
+        foreach($users as $k => $user)
+        {
+            // check registration ids
+            $registrations = $user->getRegistrationIds();
+            
+            // check registrations
+            if($registrations){
+                // check, and get android ids, if exist
+                if(array_key_exists( PutNotificationService::ANDROID, $registrations)){
+                    $androidIds = $registrations[PutNotificationService::ANDROID];
+                    foreach($androidIds as $i => $id){
+                        $notSet = false;
+                        $key = array_search($id, $androidRelations);
+
+                        if(!($key === false)){
+                            $count++;
+                            if(gettype ($key) == "integer"){
+                                $firstUser = $users[$key];
+                                $secondUser = $users[$k];
+                                if($firstUser->getCreatedAt() < $secondUser->getCreatedAt()){
+                                    unset($androidRelations[$key]);
+                                    $registrationIds = $users[$key]->getRegistrationIds();
+                                    unset($registrationIds[PutNotificationService::ANDROID][0]);
+                                    $users[$key]->setRegistrationIds($registrationIds);
+                                } else{
+                                    $notSet = true;
+                                    $registrationIds = $users[$k]->getRegistrationIds();
+                                    unset($registrationIds[PutNotificationService::ANDROID][$i]);
+                                    $users[$k]->setRegistrationIds($registrationIds);
+                                }
+                            } else{
+                                $keys = explode("_", $key);
+                                $firstUser = $users[$keys[0]];
+                                $secondUser = $users[$k];
+                                if($firstUser->getCreatedAt() < $secondUser->getCreatedAt()){
+                                    unset($androidRelations[$key]);
+                                    $registrationIds = $users[$keys[0]]->getRegistrationIds();
+                                    unset($registrationIds[PutNotificationService::ANDROID][$keys[1]]);
+                                    $users[$keys[0]]->setRegistrationIds($registrationIds);
+                                } else{
+                                    $notSet = true;
+                                    $registrationIds = $users[$k]->getRegistrationIds();
+                                    unset($registrationIds[PutNotificationService::ANDROID][$i]);
+                                    $users[$k]->setRegistrationIds($registrationIds);
+                                }
+                            };
+                        }
+                        if(!$notSet) {
+                            if (!$i) {
+                                $androidRelations[$k] = $id;
+                            } else {
+                                $androidRelations[$k . '_' . $i] = $id;
+                            }
+                        }
+                    }
+
+                }
+                // check, and get ios ids, if exist
+                if(array_key_exists(PutNotificationService::IOS, $registrations)){
+                    $iosIds = $registrations[PutNotificationService::IOS];
+                    foreach($iosIds as $i => $id){
+                        $notSet = false;
+                        $key = array_search($id, $iosRelations);
+                        if(!($key === false)){
+                            $count++;
+                            if(gettype ($key) == "integer"){
+                                $firstUser = $users[$key];
+                                $secondUser = $users[$k];
+                                if($firstUser->getCreatedAt() < $secondUser->getCreatedAt()){
+                                    unset($iosRelations[$key]);
+                                    $registrationIds = $firstUser->getRegistrationIds();
+                                    unset($registrationIds[PutNotificationService::IOS][0]);
+                                    $users[$key]->setRegistrationIds($registrationIds);
+                                } else{
+                                    $notSet = true;
+                                    $registrationIds = $secondUser->getRegistrationIds();
+                                    unset($registrationIds[PutNotificationService::IOS][$i]);
+                                    $users[$k]->setRegistrationIds($registrationIds);
+                                }
+                            } else{
+                                $keys = explode("_", $key);
+                                $firstUser = $users[$keys[0]];
+                                $secondUser = $users[$k];
+                                if($firstUser->getCreatedAt() < $secondUser->getCreatedAt()){
+                                    unset($iosRelations[$key]);
+                                    $registrationIds = $firstUser->getRegistrationIds();
+                                    unset($registrationIds[PutNotificationService::IOS][$keys[1]]);
+                                    $users[$keys[0]]->setRegistrationIds($registrationIds);
+                                } else{
+                                    $notSet = true;
+                                    $registrationIds = $secondUser->getRegistrationIds();
+                                    unset($registrationIds[PutNotificationService::IOS][$i]);
+                                    $users[$k]->setRegistrationIds($registrationIds);
+                                }
+                            };
+                        }
+                        if(!$notSet){
+                            if(!$i){
+                                $iosRelations[$k] = $id;
+                            } else{
+                                $iosRelations[$k . '_' . $i] = $id;
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
+        
+        return $count;
+    }
 
     /**
      * @param User $receiver

@@ -555,24 +555,20 @@ class UserController extends FOSRestController
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
-
-        if($uid){
-            //get current user
-            $currentUser = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('uId' => $uid));;
-        } else {
-            //get current user
-            $currentUser = $this->get('security.token_storage')->getToken()->getUser();
-
-            // get drafts
-            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
-        }
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($currentUser);
-
+        //get current user
+        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+        // get drafts
+        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
         //check if not logged in user
         if(!is_object($currentUser)) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
         }
 
+        $states = $currentUser->getStats();
+
+        $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($currentUser->getId(), false);
+
+        $currentUser->setStats($states);
         return $currentUser;
     }
 
@@ -809,12 +805,14 @@ class UserController extends FOSRestController
             $device = $regData[$mobileOc];
             if(!in_array($registrationId, $device)){
                 array_push($device, $registrationId);
+                $this->cleanRegIds($registrationId, $mobileOc);
             }
 
             $regData[$mobileOc] = $device;
         }
         else {
             $regData[$mobileOc][] =  $registrationId;
+            $this->cleanRegIds($registrationId, $mobileOc);
         }
 
         $currentUser->setRegistrationIds($regData);
@@ -830,7 +828,22 @@ class UserController extends FOSRestController
         return new JsonResponse(Response::HTTP_NO_CONTENT);
     }
 
+//    this function clean duplicate registration ids from old users
+    private function cleanRegIds($registrationId, $mobileOc){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('ApplicationUserBundle:User')->findWithRelationsIds($registrationId);
+        foreach ($users as $user){
+            $userRegData = $user->getRegistrationIds();
+            $userDevice = $userRegData[$mobileOc];
+            $key = array_search($registrationId, $userDevice);
+            if(!($key === false)){
+                unset($userDevice[$key]);
+                $userRegData[$mobileOc] = $userDevice;
+                $user->setRegistrationIds($userRegData);
+            }
 
+        }
+    }
     /**
      * @ApiDoc(
      *  resource=true,

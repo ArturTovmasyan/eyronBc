@@ -70,20 +70,20 @@ class GoalService extends AbstractProcessService
         $function = $isMy ? 'getOwnedUserGoals' : 'getOwnedGoals';
 
         $arguments = array($user, $first, $count);
-        $lastUpdateArg = array_merge($arguments, [true]);
-        $lastUpdated =  call_user_func_array(array($this, $function), $lastUpdateArg);
-
-        // get last updated
-        if (is_null($lastUpdated)) {
-            return  ['goals' => [] ];
-        }
-        $response->setLastModified($lastUpdated);
-        $response->headers->set('cache-control', 'private, must-revalidate');
-
-        // check is modified
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
+//        $lastUpdateArg = array_merge($arguments, [true]);
+//        $lastUpdated =  call_user_func_array(array($this, $function), $lastUpdateArg);
+//
+//        // get last updated
+//        if (is_null($lastUpdated)) {
+//            return  ['goals' => [] ];
+//        }
+//        $response->setLastModified($lastUpdated);
+//        $response->headers->set('cache-control', 'private, must-revalidate');
+//
+//        // check is modified
+//        if ($response->isNotModified($request)) {
+//            return $response;
+//        }
 
         $data =  call_user_func_array(array($this, $function), $arguments);
         $result = ['goals' => $data];

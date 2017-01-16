@@ -90,15 +90,25 @@ class PlaceService extends AbstractProcessService
         //check if place exists
         if ($places) {
 
-            foreach ($places as $place)
-            {
+            foreach ($places as $place){
+
+                $userPlaceCreate = true;
+
+                $userPlaceArray = $place->getUserPlace()->toArray();
+
+                array_map(function($item) use (&$userPlaceCreate, $user) {
+                    if($item->getUser()->getId() == $user->getId()){
+                        $userPlaceCreate = false;
+                    }
+                }, $userPlaceArray);
+
                 //check if user not related with place
-                if(!$place['related']) {
+                if($userPlaceCreate) {
                     //create userPlace
                     $userPlace = new UserPlace();
                     $userPlace->setLatitude($latitude);
                     $userPlace->setLongitude($longitude);
-                    $userPlace->setPlace($place[0]);
+                    $userPlace->setPlace($place);
                     $userPlace->setUser($user);
                     $this->em->persist($userPlace);
                     $created = true;
