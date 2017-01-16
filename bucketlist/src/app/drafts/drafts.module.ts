@@ -5,6 +5,7 @@ import {TranslateModule} from 'ng2-translate';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import {ComponentModule} from '../components/components.module'
 import { ProjectService } from '../project.service';
+import { MaterialModule } from '@angular/material';
 
 import { DraftRouting } from './draft-routing';
 
@@ -14,7 +15,8 @@ import { DraftRouting } from './draft-routing';
     DraftRouting,
     TranslateModule,
     ComponentModule,
-    ActivityBlockModule
+    ActivityBlockModule,
+    MaterialModule.forRoot()
   ],
   declarations: [
     DraftsComponent
