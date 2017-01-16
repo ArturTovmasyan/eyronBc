@@ -54,42 +54,69 @@ class PutNotificationService
         // get notifications
         $notifications = $this->container->get('rms_push_notifications');
 
-        // create ios message
-        $push = new iOSMessage();
-        $push->setAPSBadge(1);
-        $push->setAPSSound('default');
-
-        // check is array
-        if(is_array($message)){
-
-            // set message
-            $push->setMessage($message['message']);
-            $push->setData(array('adId' => $message['adId']));
-        }
-        else{
-            $push->setMessage($message);
-        }
-
         // get pem file
         $pemFile = $this->container->getParameter("rms_push_notifications.ios.pem");
 
-        // set passphrase
-        $passphrase =null;
-
-        // get pem phrase
-        $pemContent = file_get_contents($pemFile);
-
-        // set content
-        $notifications->setAPNSPemAsString($pemContent, $passphrase);
-
         if($deviceId) {
+
+            // create ios message
+            $push = new iOSMessage();
+            $push->setAPSBadge(1);
+            $push->setAPSSound('default');
+
+            // check is array
+            if(is_array($message)){
+
+                // set message
+                $push->setMessage($message['message']);
+                $push->setData(array('adId' => $message['adId']));
+            }
+            else{
+                $push->setMessage($message);
+            }
+
+            // set passphrase
+            $passphrase =null;
+
+            // get pem phrase
+            $pemContent = file_get_contents($pemFile);
+
+            // set content
+            $notifications->setAPNSPemAsString($pemContent, $passphrase);
+
             // device
             $push->setDeviceIdentifier($deviceId);
+
+            // send push
+            $notifications->send($push);
         }
         else{
-
             foreach($ids as $id)
             {
+                // create ios message
+                $push = new iOSMessage();
+                $push->setAPSBadge(1);
+                $push->setAPSSound('default');
+
+                // check is array
+                if(is_array($message)){
+                    // set message
+                    $push->setMessage($message['message']);
+                    $push->setData(array('adId' => $message['adId']));
+                }
+                else{
+                    $push->setMessage($message);
+                }
+
+                // set passphrase
+                $passphrase =null;
+
+                // get pem phrase
+                $pemContent = file_get_contents($pemFile);
+
+                // set content
+                $notifications->setAPNSPemAsString($pemContent, $passphrase);
+
                 // device
                 $push->setDeviceIdentifier($id);
 
@@ -109,39 +136,50 @@ class PutNotificationService
         // get notifications
         $notifications = $this->container->get('rms_push_notifications');
 
-        // create ios message
-        $push = new AndroidMessage();
-        $push->setGCM(true);
-
-        $isAutocomplete = is_array($message) && array_key_exists('isAutocomplete', $message) ?
-            $message['isAutocomplete'] : false;
-
-        // check is array
-        if (is_array($message)) {
-            // set message
-            $push->setMessage($message['message']);
-
-            $push->setData(array('adId' => $message['adId'], 'isAutocomplete' => $isAutocomplete));
-        } else {
-            $push->setMessage($message);
-        }
-
         if($deviceId) {
+
+            // create ios message
+            $push = new AndroidMessage();
+
+            $push->setGCM(true);
+
+            $isAutocomplete = is_array($message) && array_key_exists('isAutocomplete', $message) ?
+                $message['isAutocomplete'] : false;
+
+            // check is array
+            if (is_array($message)) {
+
+                // set message
+                $push->setMessage($message['message']);
+                $push->setData(array('adId' => $message['adId'], 'isAutocomplete' => $isAutocomplete));
+            } else {
+                $push->setMessage($message);
+            }
+
             $push->setDeviceIdentifier($deviceId);
             $notifications->send($push);
         }
         else {
-
             foreach($ids as $id)
             {
+                // create ios message
+                $push = new AndroidMessage();
+                $push->setGCM(true);
+
+                $isAutocomplete = is_array($message) && array_key_exists('isAutocomplete', $message) ?
+                    $message['isAutocomplete'] : false;
+
+                // check is array
+                if (is_array($message)) {
+
+                    // set message
+                    $push->setMessage($message['message']);
+                    $push->setData(array('adId' => $message['adId'], 'isAutocomplete' => $isAutocomplete));
+                } else {
+                    $push->setMessage($message);
+                }
                 // device
                 $push->setDeviceIdentifier($id);
-
-                // get pem file
-                //        $pemFile = $this->container->getParameter("rms_push_notifications.ios.pem");
-                // set content
-                //        $notifications->setAPNSPemAsString($pemContent, $passphrase);
-                // send push
                 $notifications->send($push);
             }
         }
