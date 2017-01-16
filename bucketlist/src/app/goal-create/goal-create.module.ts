@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import {ComponentModule} from '../components/components.module';
 
 import { GoalCreateRouting } from './goal-create-routing';
+import { MaterialModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { GoalCreateRouting } from './goal-create-routing';
     GoalCreateRouting,
     TranslateModule,
     ComponentModule,
-    FormsModule
+    FormsModule,
+    MaterialModule.forRoot()
   ],
   declarations: [
     GoalCreateComponent
