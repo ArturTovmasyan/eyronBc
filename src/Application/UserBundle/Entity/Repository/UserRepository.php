@@ -57,6 +57,26 @@ class UserRepository extends EntityRepository
     }
 
     /**
+     * @param null $regId
+     * @return array
+     */
+    public function findWithRelationsIds($regId = null)
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('u')
+            ->from('ApplicationUserBundle:User', 'u')
+            ->where('u.registrationIds is not NULL');
+
+        if($regId){
+            $query->andWhere('u.registrationIds LIKE :regId')
+            ->setParameter('regId', '%'.$regId.'%');
+        }
+        
+        return $query->getQuery()->getResult();
+    }
+    
+    /**
      * This function is used to get users who follow me
      *
      * @param $userId
