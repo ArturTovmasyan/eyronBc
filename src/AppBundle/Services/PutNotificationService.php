@@ -93,7 +93,7 @@ class PutNotificationService
             // send push
             $notifications->send($push);
 
-            $response = $notifications->getResponses('rms_push_notifications.os.ios');
+            $response = $notifications->getResponses('rms_push_notifications.os.ios')[0];
 
         }
         else{
@@ -130,8 +130,7 @@ class PutNotificationService
 
                 // send push
                 $notifications->send($push);
-
-                $response = $notifications->getResponses('rms_push_notifications.os.ios');
+//                $response = $notifications->getResponses('rms_push_notifications.os.ios')[0];
             }
         }
         return $response;
@@ -173,7 +172,6 @@ class PutNotificationService
             $notifications->send($push);
 
             $response = $notifications->getResponses('rms_push_notifications.os.android.gcm')[0]->getContent();
-            $response = json_decode($response, true);
         }
         else {
 
@@ -201,9 +199,7 @@ class PutNotificationService
 
                 // send push
                 $notifications->send($push);
-
-                $response = $notifications->getResponses('rms_push_notifications.os.android.gcm')[0]->getContent();
-                $response = json_decode($response, true);
+//                $response = $notifications->getResponses('rms_push_notifications.os.android.gcm')[0]->getContent();
             }
         }
 
@@ -266,13 +262,13 @@ class PutNotificationService
      * @param $currentUser
      * @param $deviceId
      * @param $mobileOS
+     * @return array
      */
     public function sendTestMassage($currentUser, $deviceId, $mobileOS)
     {
         $massage = $this->container->get('translator')->trans('test_message');
 
        return $this->sendPushNote($currentUser, $massage, $deviceId, $mobileOS);
-
 //        $this->sendProgressMassage($currentUser, $deviceId, $mobileOS);
     }
 

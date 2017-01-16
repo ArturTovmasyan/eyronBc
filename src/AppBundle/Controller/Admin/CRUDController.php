@@ -448,6 +448,7 @@ class CRUDController extends Controller
         $userId = $request->query->get('userId');
         $deviceId = $request->query->get('deviceId');
         $mobileOS = $request->query->get('mobileOS');
+        $showResponse = $request->query->get('showResponse');
 
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -475,6 +476,8 @@ class CRUDController extends Controller
         }else {
             $this->addFlash('error', 'User Not Found');
         }
+
+        $data[$deviceId] = true;
 
         return  $this->redirectToRoute('admin-user_show', ['id' => $userId, 'data' => $data]);
     }

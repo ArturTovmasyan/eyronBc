@@ -4,41 +4,24 @@
     <div>
         {% if object.registrationIds is defined and object.registrationIds %}
             {% for key, value in object.registrationIds %}
-                {{ key }} </br>
+                {{ key }} <br />
                 <ul>
-                    {% for data in value %}
+                    {% for val in value %}
                         <li>
-                            {{ data }} </br>
-                            <a href="{{ admin.generateObjectUrl('sendMessage', object, {'userId' : object.id, 'deviceId': data, 'mobileOS': key }) }}" class="btn btn-sm btn-default edit_link">
+                            {{ val }} <br />
+                            <a href="{{ admin.generateObjectUrl('sendMessage', object, {'userId' : object.id, 'deviceId': val, 'mobileOS': key }) }}" class="btn btn-sm btn-default edit_link">
                                 <i class="glyphicon glyphicon-envelope"></i>
                                 {{ 'admin.label.name.messages'|trans({}, 'messages') }}
                             </a>
                         </li>
-                        </br>
+                        <br />
 
-                        {#{% if app.request.query.get('data')  %}#}
-
-                            {#{% set response = app.request.query.get('data') %}#}
-                            {#{{ dump(response) }}#}
-                            {#{{ dump(key) }}#}
-
-                            {#<b>Response:</b>#}
-                            {#{% for key, val in response[key] %}#}
-                                {#{{ key ~ ' => '}} <br>#}
-                                {#{% if 'results' in val|keys and val[0]['registration_id'] is defined %}#}
-                                    {#{{ 'registration_id =>' ~ val[0]['registration_id'] }} <br />#}
-                                    {#{{ 'message_id =>' ~ val[0]['message_id'] }} <br />#}
-                                {#{% else %}#}
-                                    {#{{ val }}#}
-                                {#{% endif %}#}
-                                {#<br>#}
-                            {#{% endfor %}#}
-
-                        {#{% endif %}#}
-                        {#<hr>#}
+                        {% if app.request.query.get('data') and app.request.query.get('data')[val] is defined %}
+                            {% set response = app.request.query.get('data') %}
+                            <b>Response:</b> {{ response[key] }}
+                        {% endif %}
+                        <hr>
                     {% endfor %}
-
-                    {#{% set results = app.request.query.get('data')['android']['results'][0]['registration_id'] %}#}
                 </ul>
             {% endfor %}
         {% endif %}
