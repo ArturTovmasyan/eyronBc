@@ -1,7 +1,7 @@
 <!--{% extends "AppBundle:BucketList:baseList.html.twig" %}-->
 
 <!--{% block content_container %}-->
-<profile-header></profile-header>
+<profile-header (onHover)="hideJoin($event)" [userInfo]="'my'"></profile-header>
 <div class="bucketlist settings-menu">
     <div class="container">
         <div class="row">

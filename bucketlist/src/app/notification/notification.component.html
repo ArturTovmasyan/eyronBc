@@ -3,7 +3,11 @@
     <div class="row">
 
       <div class="col-md-8">
-        <div  class="bg-white padding">
+        <div  class="bg-white padding"
+          infinite-scroll
+          [infiniteScrollDistance]="1"
+          [infiniteScrollThrottle]="500"
+          (scrolled)="onScroll()">
              <!--data-infinite-scroll='nextNotifications()'-->
              <!--data-infinite-scroll-disabled='noNotification || busy'-->
 
@@ -28,9 +32,9 @@
                   <div (click)="goNotificationPage(notify, i)" class="clearfix" >
                     <!--[ngInit]="time[notify.id] = getInterval(notify.notification.created)"-->
                     <figure class="pull-left">
-                      <img  *ngIf="notify.notification.performer.image_path" src="{{notify.notification.performer.image_path}}" alt="photo"  height="40"/>
+                      <img  *ngIf=" notify.notification.performer && notify.notification.performer.image_path" src="{{serverPath + notify.notification.performer.image_path}}" alt="photo"  height="40"/>
                       <!--[src]="[[ ::notify.notification.performer.image_path ]]"-->
-                      <img src="assets/images/notify-user.png" *ngIf="!notify.notification.performer.image_path" alt="photo "  height="40"/>
+                      <img src="assets/images/notify-user.png" *ngIf="!notify.notification.performer || !notify.notification.performer.image_path" alt="photo "  height="40"/>
                     </figure>
 
                     <p>
@@ -38,14 +42,14 @@
                             <a class="pull-left" *ngIf="notify.notification.performer" routerLink="/profile/{{notify.notification.performer.u_id }}">{{ notify.notification.performer.show_name}} &nbsp</a>
                             <span class="text-dark-gray" [innerHTML]="bodyInHtml(notify.notification.body)"></span>
                         </span>
-                      <span class="text-gray " [hidden]="!time[notify.id].title == 'datetime'">{{ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm a" }} </span>
-                      <span class="text-gray " [hidden]="!time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|translate }} {{ notify.notification.created | date: "h:mm a" }}</span>
-                      <span class="text-gray " [hidden]="!time[notify.id].title == 'hr'">
-                          <span *ngIf="time[notify.id].time == 1">{{ time[notify.id].time }} {{ 'notify.hour'|translate }}</span>
-                          <span *ngIf="time[notify.id].time != 1">{{ time[notify.id].time }} {{ 'notify.hours'|translate }}</span>
-                      </span>
-                      <span class="text-gray " [hidden]="!time[notify.id].title == 'minute'">{{ time[notify.id].time }} {{ 'notify.minute'|translate }}</span>
-                      <span class="text-gray " [hidden]="!time[notify.id].title == 'now'">{{ 'notify.now'|translate }}</span>
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'datetime'">{{ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm a" }} </span>-->
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|translate }} {{ notify.notification.created | date: "h:mm a" }}</span>-->
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'hr'">-->
+                          <!--<span *ngIf="time[notify.id].time == 1">{{ time[notify.id].time }} {{ 'notify.hour'|translate }}</span>-->
+                          <!--<span *ngIf="time[notify.id].time != 1">{{ time[notify.id].time }} {{ 'notify.hours'|translate }}</span>-->
+                      <!--</span>-->
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'minute'">{{ time[notify.id].time }} {{ 'notify.minute'|translate }}</span>-->
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'now'">{{ 'notify.now'|translate }}</span>-->
                     </p>
 
                   </div>
