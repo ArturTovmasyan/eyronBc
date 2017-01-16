@@ -37,7 +37,7 @@
                                 <span class="ng-hide text-dark-gray" data-ng-init="filterCount= goalFriend.last_name.length - (nameLength - 26) " data-ng-show="nameLength > 30 " data-toggle="tooltip" data-placement="bottom" title="[[ ::goalFriend.first_name ]] [[ ::goalFriend.last_name ]]">
                                     [[ ::goalFriend.first_name ]] [[ ::goalFriend.last_name | limitTo: filterCount ]]...
                                 </span>
-                                <i class="leaderboard-small" data-ng-if="haveTop && inArray(goalFriend.id)"></i>
+                                <i class="leaderboard-small" data-ng-if="haveTop && inArray(goalFriend)"></i>
                             </h4>
 
                             <span class="text-gray">{{ 'listed_by'|trans }} <span data-ng-bind="stats.listedBy"></span></span> |

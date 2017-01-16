@@ -381,6 +381,12 @@ class User extends BaseUser
     protected $mentor = false;
 
     /**
+     * @Groups({"tiny_user", "user", "badge"})
+     * @ORM\Column(name="traveler", type="boolean", nullable=false)
+     */
+    protected $traveler = false;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id")
      * @ORM\JoinTable(name="following",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -2109,6 +2115,21 @@ class User extends BaseUser
     }
 
     /**
+     * @return mixed
+     */
+    public function getTraveler()
+    {
+        return $this->traveler;
+    }
+
+    /**
+     * @param mixed $traveler
+     */
+    public function setTraveler($traveler)
+    {
+        $this->traveler = $traveler;
+    }
+    /**
      * Add following
      *
      * @param \Application\UserBundle\Entity\User $following
@@ -2163,6 +2184,9 @@ class User extends BaseUser
                 break;
             case Badge::TYPE_MOTIVATOR:
                 $this->setMentor($level);
+                break;
+            case Badge::TYPE_TRAVELLER:
+                $this->setTraveler($level);
                 break;
         }
     }
