@@ -91,7 +91,6 @@ class PutNotificationService
             $notifications->send($push);
         }
         else{
-
             foreach($ids as $id)
             {
                 // create ios message
@@ -101,7 +100,6 @@ class PutNotificationService
 
                 // check is array
                 if(is_array($message)){
-
                     // set message
                     $push->setMessage($message['message']);
                     $push->setData(array('adId' => $message['adId']));
@@ -161,7 +159,6 @@ class PutNotificationService
             $notifications->send($push);
         }
         else {
-
             foreach($ids as $id)
             {
                 // create ios message
@@ -183,12 +180,6 @@ class PutNotificationService
 
                 // device
                 $push->setDeviceIdentifier($id);
-
-                // get pem file
-                //        $pemFile = $this->container->getParameter("rms_push_notifications.ios.pem");
-                // set content
-                //        $notifications->setAPNSPemAsString($pemContent, $passphrase);
-                // send push
                 $notifications->send($push);
             }
         }
