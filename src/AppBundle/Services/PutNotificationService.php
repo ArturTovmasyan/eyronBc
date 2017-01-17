@@ -97,7 +97,6 @@ class PutNotificationService
 
         }
         else{
-
             foreach($ids as $id)
             {
                 // create ios message
@@ -107,7 +106,6 @@ class PutNotificationService
 
                 // check is array
                 if(is_array($message)){
-
                     // set message
                     $push->setMessage($message['message']);
                     $push->setData(array('adId' => $message['adId']));
@@ -130,9 +128,9 @@ class PutNotificationService
 
                 // send push
                 $notifications->send($push);
-//                $response = $notifications->getResponses('rms_push_notifications.os.ios')[0];
             }
         }
+
         return $response;
     }
 
@@ -174,7 +172,6 @@ class PutNotificationService
             $response = $notifications->getResponses('rms_push_notifications.os.android.gcm')[0]->getContent();
         }
         else {
-
             foreach($ids as $id)
             {
                 // create ios message
@@ -196,10 +193,7 @@ class PutNotificationService
 
                 // device
                 $push->setDeviceIdentifier($id);
-
-                // send push
                 $notifications->send($push);
-//                $response = $notifications->getResponses('rms_push_notifications.os.android.gcm')[0]->getContent();
             }
         }
 
