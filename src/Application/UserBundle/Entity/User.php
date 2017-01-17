@@ -924,6 +924,9 @@ class User extends BaseUser
     /**
      * This function is used to check percent of completed profile
      *
+     * @VirtualProperty()
+     * @SerializedName("completed_percent")
+     * @Groups({"completed_profile"})
      * @return int
      */
     public function getCompletedPercent()
@@ -966,6 +969,9 @@ class User extends BaseUser
     /**
      * This function is used to check hav user add deadline
      *
+     * @VirtualProperty()
+     * @SerializedName("check_deadline")
+     * @Groups({"completed_profile"})
      * @return bool
      */
     public function checkDeadLines()
@@ -995,6 +1001,9 @@ class User extends BaseUser
     /**
      * This function is used to check have user complete goal
      *
+     * @VirtualProperty()
+     * @SerializedName("check_completed_goals")
+     * @Groups({"completed_profile"})
      * @return bool
      */
     public function checkCompletedGoals()
@@ -1024,6 +1033,10 @@ class User extends BaseUser
 
     /**
      * This function is used to check have user add success story
+     *
+     * @VirtualProperty()
+     * @SerializedName("check_success_story")
+     * @Groups({"completed_profile"})
      *
      * @return bool
      */
@@ -1547,6 +1560,9 @@ class User extends BaseUser
     }
 
     /**
+     * @VirtualProperty()
+     * @SerializedName("user_goal_count")
+     * @Groups({"completed_profile"})
      * @return null
      */
     public function getUserGoalCount()
