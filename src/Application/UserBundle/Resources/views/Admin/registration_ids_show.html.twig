@@ -18,7 +18,14 @@
 
                         {% if app.request.query.get('data') and app.request.query.get('data')[val] is defined %}
                             {% set response = app.request.query.get('data') %}
-                            <b>Response:</b> {{ response[key] }}
+                            <b>Response:</b>
+                            {% if response[key]|length == 3 %}
+                                {{ 'command' ~ ' =>' ~ response[key]['command'] }}<br />
+                                {{ 'status' ~ ' =>' ~ response[key]['status'] }}<br />
+                                {{ 'identifier' ~ ' =>' ~ response[key]['identifier'] }}
+                            {% else %}
+                                {{ response[key] }}
+                            {% endif %}
                         {% endif %}
                         <hr>
                     {% endfor %}
