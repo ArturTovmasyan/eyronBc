@@ -7,9 +7,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  registerData;
+
+  constructor()
+  {
+
+    this.registerData = {
+      file: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password : {
+        first: '',
+        second: ''
+      }
+    }
+
+  }
 
   ngOnInit() {
+  }
+
+  /**
+   * 
+   * @param registerData
+   */
+  sendRegisterData(registerData)
+  {
+    console.log(registerData);
   }
 
 }

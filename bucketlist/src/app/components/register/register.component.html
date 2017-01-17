@@ -10,16 +10,16 @@
             <div class="col-sm-4 col-sm-offset-4">
 
               <!--{{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}-->
-              <input type="file" name="file" class="upload">
+              <input type="file" name="file" class="upload" [(ngModel)]="registerData.file">
 
               <div class="registration-image">
-                <img src="#" class="uploaded-image" alt="User Image"  style="display: none">
+                <img src="#" class="uploaded-image" alt="User Image" style="display: none">
               </div>
             </div>
 
             <div class="hide">
               <!--{{ form_widget(form.file, {'attr': {'onchange': "showUploadedImage(this)" } }) }}-->
-              <input type="file" name="file" class="upload" (change)="showUploadedImage(this)" >
+              <input type="file" name="file" class="upload" (change)="showUploadedImage(this)">
             </div>
           </div>
 
@@ -28,13 +28,13 @@
           <div class="form-group row no-padding">
             <div class="col-sm-6">
               <!--{{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}-->
-              <input type="text" name="firstName" class="form-control" placeholder= "{{ 'form.firstName'|translate }}">
+              <input type="text" name="firstName" class="form-control" [(ngModel)]="registerData.firstName" placeholder= "{{ 'form.firstName'|translate }}">
               <!--<div class="error-message">{{ form_errors(form.firstName) }}</div>-->
             </div>
 
             <div class="col-sm-6">
               <!--{{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}-->
-              <input type="text" name="lastName" class="form-control" placeholder= "{{ 'form.lastName'|translate }}">
+              <input type="text" name="lastName" class="form-control" [(ngModel)]="registerData.lastName" placeholder= "{{ 'form.lastName'|translate }}">
               <!--<div class="error-message">{{ form_errors(form.lastName) }}</div>-->
             </div>
           </div>
@@ -42,7 +42,7 @@
           <div class="form-group row">
             <div class="col-sm-12">
               <!--{{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}-->
-              <input type="email" name="email" class="form-control" placeholder= "{{ 'form.email'|translate }}">
+              <input type="email" name="email" class="form-control" [(ngModel)]="registerData.email" placeholder= "{{ 'form.email'|translate }}">
             </div>
 
             <!--<div class="error-message">{{ form_errors(form) }}</div>-->
@@ -54,11 +54,11 @@
           <div class="form-group row no-padding">
             <div class="col-sm-6">
               <!--{{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}-->
-              <input type="password" name="password.first" class="form-control" placeholder= "{{ 'form.password'|translate }}">
+              <input type="password" name="password.first" class="form-control" [(ngModel)]="registerData.password.first" placeholder= "{{ 'form.password'|translate }}">
             </div>
             <div class="col-sm-6">
               <!--{{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}-->
-              <input type="password" name="password.second" class="form-control" placeholder="{{ 'form.re_password'|translate }}">
+              <input type="password" name="password.second" class="form-control" [(ngModel)]="registerData.password.second" placeholder="{{ 'form.re_password'|translate }}">
               <!--{% if errorMessage != 'password.validation'|trans({}, 'FOSUserBundle') %}-->
               <!--<div class="error-message">{{ errorMessage }}</div>-->
               <!--{% endif %}-->
@@ -115,7 +115,7 @@
             </p>
           </div>
           <!--{% endif %}-->
-          <button type="submit" name="register" class="btn btn-purple">{{ 'security.login.sign_up'|translate }}</button>
+          <button type="submit" name="register" class="btn btn-purple" (click)="sendRegisterData(registerData)">{{ 'security.login.sign_up'|translate }}</button>
 
         </form>
       </div>
