@@ -28,8 +28,8 @@
   <div class="container">
     <div class="row no-gutter">
       <div class="col-xs-12">
-        <swiper [config]="config" class="filters-slider swiper-container">
-          <ul class="filter swiper-wrapper" [hidden]="!filterVisibility">
+        <swiper [config]="config" class="filters-slider swiper-container" *ngIf="filterVisibility">
+          <ul class="filter swiper-wrapper">
             <li class="swiper-slide"  [ngClass]="{'active-category': category == 'nearby'}">
               <a routerLink="/ideas/nearby" routerLinkActive="active">
                 <img src="assets/images/nearby.svg" class="svg"/>
