@@ -1,3 +1,136 @@
-<p>
-  register works!
-</p>
+<div class="container">
+  <div  class="signup">
+    <div class="row">
+      <h1 class="text-center">{{ 'registration.sign_up_title'|translate }}</h1>
+
+      <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+        <form action="#" method="POST" class="form-horizontal text-center">
+          <!--{{ path('fos_user_registration_register') }}-->
+          <div class="form-group row">
+            <div class="col-sm-4 col-sm-offset-4">
+
+              <!--{{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}-->
+              <input type="file" name="file" class="upload">
+
+              <div class="registration-image">
+                <img src="#" class="uploaded-image" alt="User Image"  style="display: none">
+              </div>
+            </div>
+
+            <div class="hide">
+              <!--{{ form_widget(form.file, {'attr': {'onchange': "showUploadedImage(this)" } }) }}-->
+              <input type="file" name="file" class="upload" (change)="showUploadedImage(this)" >
+            </div>
+          </div>
+
+          <!--<div class="error-message">{{ form_errors(form.file) }}</div>-->
+
+          <div class="form-group row no-padding">
+            <div class="col-sm-6">
+              <!--{{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}-->
+              <input type="text" name="firstName" class="form-control" placeholder= "{{ 'form.firstName'|translate }}">
+              <!--<div class="error-message">{{ form_errors(form.firstName) }}</div>-->
+            </div>
+
+            <div class="col-sm-6">
+              <!--{{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}-->
+              <input type="text" name="lastName" class="form-control" placeholder= "{{ 'form.lastName'|translate }}">
+              <!--<div class="error-message">{{ form_errors(form.lastName) }}</div>-->
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <!--{{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}-->
+              <input type="email" name="email" class="form-control" placeholder= "{{ 'form.email'|translate }}">
+            </div>
+
+            <!--<div class="error-message">{{ form_errors(form) }}</div>-->
+
+          </div>
+
+          <!--{% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}-->
+
+          <div class="form-group row no-padding">
+            <div class="col-sm-6">
+              <!--{{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}-->
+              <input type="password" name="password.first" class="form-control" placeholder= "{{ 'form.password'|translate }}">
+            </div>
+            <div class="col-sm-6">
+              <!--{{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}-->
+              <input type="password" name="password.second" class="form-control" placeholder="{{ 'form.re_password'|translate }}">
+              <!--{% if errorMessage != 'password.validation'|trans({}, 'FOSUserBundle') %}-->
+              <!--<div class="error-message">{{ errorMessage }}</div>-->
+              <!--{% endif %}-->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+
+              <!--{% if errorMessage == 'password.validation'|trans({}, 'FOSUserBundle') %}class="error-message"{% endif %}-->
+              <p class="text-gray">
+              {{ 'password.validation'|translate }}
+              </p>
+
+            </div>
+          </div>
+
+          <p class="text-dark-gray">{{ 'form.date_of_birth'|translate }}</p>
+
+          <!--drop down date part-->
+          <div class="form-group row">
+
+            <div class="col-sm-4 date">
+              <md-select placeholder="Year">
+                <md-option *ngFor="" [value]="">
+                  2013
+                </md-option>
+              </md-select>
+            </div>
+
+            <div class="col-sm-4 date">
+
+              <md-select placeholder="Month">
+                <md-option *ngFor="" [value]="">
+                  September
+                </md-option>
+              </md-select>
+
+            </div>
+            <div class="col-sm-4 date">
+
+              <md-select placeholder="Day">
+                <md-option *ngFor="" [value]="">
+                  15
+                </md-option>
+              </md-select>
+            </div>
+          </div>
+
+          <!--{% set menu = knp_menu_get('AppBundle:Builder:privacyMenu') %}-->
+          <!--{% if menu.children|length > 0 %}-->
+          <div class="form-group row">
+            <p class="text-gray">{{ 'registration.agreement'|translate }}
+              <!--<a href="{{ (menu.children|first).uri }}" class="text-purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>-->
+            </p>
+          </div>
+          <!--{% endif %}-->
+          <button type="submit" name="register" class="btn btn-purple">{{ 'security.login.sign_up'|translate }}</button>
+
+        </form>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p class="text-center margin-top text-gray">{{ 'registration.have_account'|translate }}
+          <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="text-purple">
+            {{ 'registration.sign_in_btn'|translate | capitalize}}
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
