@@ -140,7 +140,6 @@ class PutNotificationService
 
             // create ios message
             $push = new AndroidMessage();
-
             $push->setGCM(true);
 
             $isAutocomplete = is_array($message) && array_key_exists('isAutocomplete', $message) ?
@@ -148,9 +147,9 @@ class PutNotificationService
 
             // check is array
             if (is_array($message)) {
-
                 // set message
                 $push->setMessage($message['message']);
+
                 $push->setData(array('adId' => $message['adId'], 'isAutocomplete' => $isAutocomplete));
             } else {
                 $push->setMessage($message);
@@ -171,13 +170,14 @@ class PutNotificationService
 
                 // check is array
                 if (is_array($message)) {
-
                     // set message
                     $push->setMessage($message['message']);
+
                     $push->setData(array('adId' => $message['adId'], 'isAutocomplete' => $isAutocomplete));
                 } else {
                     $push->setMessage($message);
                 }
+
                 // device
                 $push->setDeviceIdentifier($id);
                 $notifications->send($push);

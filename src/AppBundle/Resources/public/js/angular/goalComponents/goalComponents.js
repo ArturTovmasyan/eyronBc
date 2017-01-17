@@ -143,6 +143,7 @@ angular.module('goalComponents', ['Interpolation',
       $scope.users = {};
       $scope.allUsers = [];
       $scope.index = 0;
+      var img;
       $scope.currentUserId = UserContext.id;
       $scope.isMobile = (window.innerWidth < 768);
       $scope.isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
@@ -158,6 +159,12 @@ angular.module('goalComponents', ['Interpolation',
       $scope.initUsers = function () {
         angular.forEach($scope.allUsers, function (k,item) {
           $scope.users[item] = ($scope.index < k.length)?k[$scope.index]:k[($scope.index % k.length)];
+          angular.forEach(k, function (item) {
+            if(item){
+              img = new Image();
+              img.src = item.user.image_path;
+            }
+          })
         });
       };
       
@@ -480,8 +487,8 @@ angular.module('goalComponents', ['Interpolation',
       }
     }, 500);
 
-    $scope.inArray = function (id) {
-      return ($scope.topUsers.indexOf(id) != -1)
+    $scope.inArray = function (user) {
+      return (user.innovator || user.mentor || user.traveler)
     };
 
     $scope.getGaolFriends = function(id){
