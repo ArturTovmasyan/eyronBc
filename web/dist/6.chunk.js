@@ -2494,7 +2494,10 @@ var InnerComponent = (function () {
     InnerComponent.prototype.getProject = function (slug) {
         var _this = this;
         this._projectService.getGoal(slug)
-            .subscribe(function (goal) { return _this.goal = goal; }, function (error) { return _this.errorMessage = error; });
+            .subscribe(function (goal) {
+            _this.goal = goal;
+            // console.log(this.goal);
+        }, function (error) { return _this.errorMessage = error; });
     };
     InnerComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({

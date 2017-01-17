@@ -46,7 +46,7 @@ var ProjectService = (function () {
         //private envprefix = '/';
         this.baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/';
         this.base2Url = this.baseOrigin + this.envprefix + 'api/v2.0/';
-        this.goalUrl = ''; // URL to web API
+        this.goalUrl = this.baseUrl + 'goal/by-slug'; // URL to web API
         this.userUrl = this.baseUrl + 'user'; // URL to web API
         this.socialLoginUrl = this.baseUrl + 'users/social-login/'; // URL to web API
         //modals
@@ -70,7 +70,7 @@ var ProjectService = (function () {
         this.bottomMenuUrl = this.baseUrl + 'bottom/menu';
         this.categoriesUrl = this.baseUrl + 'goal/categories';
         this.notificationUrl = this.baseUrl + 'notifications/0/10';
-        this.getCompateProfileUrl = this.baseUrl + 'goal/categories';
+        this.completeProfileUrl = this.baseUrl + 'goal/categories';
         this.PageUrl = this.baseUrl + 'pages/';
         this.sendEmailUrl = this.baseUrl + 'contact/send-email';
         //profile page urls
@@ -218,8 +218,8 @@ var ProjectService = (function () {
     /**
      *
      */
-    ProjectService.prototype.getCompateProfileInfo = function () {
-        return this.http.get(this.getCompateProfileUrl, { headers: this.headers })
+    ProjectService.prototype.getCompleteProfileUrl = function () {
+        return this.http.get(this.completeProfileUrl, { headers: this.headers })
             .map(function (r) { return r.json(); })
             .catch(this.handleError);
     };
@@ -950,7 +950,6 @@ var PageComponent = (function () {
             this._projectService.sendEmail(this.emailData)
                 .subscribe(function () {
                 _this.isSend = true;
-                // this.form.reset();
             });
         }
         else {

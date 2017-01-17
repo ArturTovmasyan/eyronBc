@@ -60,7 +60,7 @@ export class ProjectService {
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
     private notificationUrl = this.baseUrl + 'notifications/0/10';
-    private getCompateProfileUrl = this.baseUrl + 'goal/categories';
+    private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
 
@@ -225,8 +225,8 @@ export class ProjectService {
     /**
      * 
      */
-    getCompateProfileInfo():Observable<any> {
-        return this.http.get(this.getCompateProfileUrl, {headers: this.headers})
+    getCompleteProfileUrl():Observable<any> {
+        return this.http.get(this.completeProfileUrl, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }

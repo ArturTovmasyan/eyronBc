@@ -9895,16 +9895,17 @@ var CompleteProfileBlockComponent = (function () {
         this._cacheService = _cacheService;
     }
     CompleteProfileBlockComponent.prototype.ngOnInit = function () {
-        // let data = this._cacheService.get('complate-profile');
-        // if (data) {
-        //   this.data = data;
-        // } else {
-        // this.getCompateProfileInfo()
-        // }
+        var data = this._cacheService.get('complate-profile');
+        if (data) {
+            this.data = data;
+        }
+        else {
+            this.getCompleteProfileUrl();
+        }
     };
-    CompleteProfileBlockComponent.prototype.getCompateProfileInfo = function () {
+    CompleteProfileBlockComponent.prototype.getCompleteProfileUrl = function () {
         var _this = this;
-        this._projectService.getCompateProfileInfo()
+        this._projectService.getCompleteProfileUrl()
             .subscribe(function (data) {
             _this.data = data;
             _this._cacheService.set('complate-profile', data);
