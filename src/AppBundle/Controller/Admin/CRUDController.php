@@ -441,6 +441,7 @@ class CRUDController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @param Request $request
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
      */
     public function sendMessageAction(Request $request)
     {
@@ -448,7 +449,6 @@ class CRUDController extends Controller
         $userId = $request->query->get('userId');
         $deviceId = $request->query->get('deviceId');
         $mobileOS = $request->query->get('mobileOS');
-        $showResponse = $request->query->get('showResponse');
 
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -456,6 +456,7 @@ class CRUDController extends Controller
         //get put notification service
         $sendNoteService = $this->container->get('bl_put_notification_service');
 
+        //get user by id
         $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
 
         $data = [];
