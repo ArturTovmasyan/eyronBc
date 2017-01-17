@@ -1,0 +1,297 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.modal-bottom {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 12px 0 10px;
+}
+.goal-modal {
+  width: 280px;
+  margin: 0 auto;
+  text-align: left;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+}
+.goal-modal i {
+  font-size: 30px;
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  color: #a3a3a3;
+}
+.goal-modal .location {
+  position: relative;
+  z-index: inherit;
+}
+.goal-modal .location i {
+  position: absolute;
+  top: 2px;
+  margin-right: 0;
+  left: 5px;
+}
+.goal-modal hr {
+  margin: 5px 0;
+}
+.modal-top {
+  position: relative;
+  overflow: hidden;
+}
+.modal-top div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.modal-top h2 {
+  color: #fff;
+  margin: 10px 0 5px 10px;
+  font-size: 18px;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 28px;
+  height: 30px;
+  width: 260px;
+  overflow: hidden;
+  padding: 0;
+}
+.modal-top h2 span {
+  background-color: #021523;
+  display: inline-block;
+  padding: 0 5px 5px;
+}
+.modal-top ul {
+  padding: 0 0 0 15px;
+}
+.modal-top ul li {
+  display: inline-block;
+}
+.modal-top a {
+  color: #fff;
+  font-size: 12px;
+}
+.modal-top figure {
+  position: absolute;
+  width: 100%;
+}
+.modal-top .overlay {
+  height: 260px;
+  background: rgba(0, 0, 0, 0.28);
+}
+.goal-add {
+  background-color: #ffffff;
+  padding: 10px 10px 0;
+  margin-bottom: 50px;
+}
+.goal-add h3 {
+  font-size: 17px;
+  margin-top: 5px;
+}
+.goal-add h4 {
+  font-size: 14px;
+  color: #3d3d3d;
+}
+.goal-add h4.text-dark-gray {
+  color: #666666;
+}
+.goal-add h6 {
+  font-size: 14px;
+  color: #a2a2a2;
+  margin: 0;
+}
+.goal-add p {
+  color: #a2a2a2;
+  margin-bottom: 2px;
+}
+.goal-add label.text-purple {
+  font-size: 18px;
+}
+.goal-add label.relative {
+  margin-right: 12px;
+}
+.goal-add .task-checkbox {
+  margin: 7px 0;
+}
+.goal-add form {
+  padding-bottom: 10px;
+}
+.goal-add form button.button-lg {
+  padding: 6px 15px;
+}
+.goal-add p {
+  font-size: 12px;
+}
+.goal-add label.onoffswitch-label {
+  border: 1px solid #cccccc;
+}
+.goal-add .onoffswitch .onoffswitch-switch {
+  border: 1px solid #cccccc;
+}
+.goal-add .modal-bottom button,
+.goal-add .modal-bottom a {
+  padding: 8px 15px;
+  color: #666666;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-right: 3px;
+  font-weight: bold;
+}
+.goal-add .modal-bottom button.forget,
+.goal-add .modal-bottom a.forget {
+  padding: 5px 10px 5px 5px;
+}
+.goal-add .modal-bottom button:hover,
+.goal-add .modal-bottom a:hover,
+.goal-add .modal-bottom button:focus,
+.goal-add .modal-bottom a:focus,
+.goal-add .modal-bottom button.btn-purple,
+.goal-add .modal-bottom a.btn-purple {
+  color: #ffffff;
+}
+.priority {
+  padding-top: 10px;
+}
+.title-smaller {
+  font-size: 12px;
+  line-height: 28px;
+  height: 30px;
+  width: 260px;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .goal-modal {
+    width: 530px;
+  }
+  .goal-modal i {
+    margin-right: 0;
+  }
+  .goal-modal hr {
+    margin: 15px 0;
+  }
+  .goal-add {
+    padding: 0;
+    margin-bottom: 78px;
+  }
+  .goal-add textarea {
+    resize: none;
+  }
+  .goal-add .private-space {
+    padding: 15px 0 6px;
+  }
+  .goal-add h3 {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+  .goal-add h3 i {
+    margin-top: -5px;
+  }
+  .goal-add h4 {
+    font-size: 18px;
+  }
+  .goal-add p {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .goal-add label {
+    font-size: 18px;
+    padding-top: 3px !important;
+    font-weight: normal;
+  }
+  .goal-add label.onoffswitch-label {
+    padding-top: 0 !important;
+  }
+  .goal-add .modal-bottom button,
+  .goal-add .modal-bottom a {
+    padding: 10px 45px;
+    font-size: 14px;
+    margin-right: 5px;
+  }
+  .goal-add .modal-bottom button.forget,
+  .goal-add .modal-bottom a.forget {
+    padding: 6px 15px 6px 10px;
+  }
+  .modal-top {
+    height: 260px;
+  }
+  .modal-top h2 {
+    width: auto;
+    height: auto;
+    margin: 0 0 5px 0;
+    font-size: 25px;
+    line-height: 38px;
+  }
+  .modal-top h2 span {
+    padding: 10px 30px;
+    font-size: 32px;
+  }
+  .modal-top .title-top {
+    margin: 150px 30px 5px 30px;
+  }
+  .modal-top ul {
+    padding: 0 0 0 35px;
+  }
+  .modal-top ul li {
+    margin-right: 15px;
+  }
+  .modal-top a {
+    font-size: 16px;
+  }
+  .modal-bottom {
+    padding: 20px 0 ;
+  }
+  .priority {
+    padding-top: 15px;
+  }
+  .title-smaller {
+    width: auto;
+    height: auto;
+    font-size: 18px;
+    line-height: 23px;
+  }
+}
+@media (min-width: 992px) {
+  .goal-modal h2 {
+    font-size: 27px;
+    line-height: 41px;
+  }
+  .goal-add {
+    padding-bottom: 3px;
+  }
+  .goal-add label.text-purple {
+    font-size: 24px;
+    vertical-align: middle;
+  }
+  .goal-add label.text-purple span {
+    font-size: 24px;
+  }
+  .goal-add .private-space {
+    padding: 30px 0 21px;
+  }
+  .goal-add strong {
+    display: inline-block;
+  }
+  .goal-add h4 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .goal-add h5 {
+    padding-left: 0 !important;
+    font-size: 18px;
+    color: #666666 !important;
+  }
+  .goal-add .modal-bottom button,
+  .goal-add .modal-bottom a {
+    width: 135px;
+    padding: 10px 0;
+    font-size: 15px;
+    margin-right: 5px;
+    text-align: center;
+  }
+}

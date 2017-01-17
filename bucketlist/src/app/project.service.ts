@@ -34,7 +34,7 @@ export class ProjectService {
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private base2Url = this.baseOrigin + this.envprefix + 'api/v2.0/' ;
-    private goalUrl = '';  // URL to web API
+    private goalUrl =  this.baseUrl + 'goal/by-slug';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
     private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
 
