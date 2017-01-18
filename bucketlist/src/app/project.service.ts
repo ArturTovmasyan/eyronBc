@@ -307,6 +307,16 @@ export class ProjectService {
         return this.http.delete(this.notificationUrl + '/' + id,{headers: this.headers})
            .catch(this.handleError);
     }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    deleteDrafts(id: number):Observable<any>{
+        return this.http.delete(this.ideasUrl + id + '/drafts',{headers: this.headers})
+            .catch(this.handleError);
+    }
+
     /**
      *
      * @returns {Observable<T>}
@@ -446,6 +456,8 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
+
+
     //modal requests
     /**
      *
@@ -482,7 +494,9 @@ export class ProjectService {
             .map((r:Response) => r.json() as User[])
             .catch(this.handleError);
     }
-    
+
+
+
     //profile page requests
     /**
      * 
@@ -554,6 +568,10 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
+
+
+
+
     /**
      *
      * @param error

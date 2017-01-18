@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NotificationComponent } from './notification.component';
 import { ComponentModule } from '../components/components.module';
 import { ActivityBlockModule } from '../block/activityBlock.module';
-import {TranslateModule} from 'ng2-translate';
+import { TranslateModule} from 'ng2-translate';
 import { ProjectService } from '../project.service';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
