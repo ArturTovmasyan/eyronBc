@@ -93,12 +93,10 @@ export class LoginComponent {
             case FACEBOOK:
                 this.facebookLogin().then((socialUser:any) => {
                     if(socialUser.facebook && socialUser.facebook.accessToken){
-                        console.log(socialUser.facebook.accessToken);
                         this.setData('facebook', socialUser.facebook.accessToken);
                     }
                 }).catch((error:any) => {
                     if(error.credential && error.credential.accessToken){
-                        console.log(error.credential.accessToken);
                         this.setData('facebook', error.credential.accessToken);
                     }
                     this.errorHandler(error);
