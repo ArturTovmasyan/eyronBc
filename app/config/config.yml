@@ -271,6 +271,7 @@ sonata_user:
     admin:
         user:
             class: Application\UserBundle\Admin\Model\UserAdmin
+            controller: 'AppBundle:Admin/CRUD'
 
 # stfo doctrine extensions
 stof_doctrine_extensions:

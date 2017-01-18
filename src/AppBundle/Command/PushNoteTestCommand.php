@@ -28,7 +28,7 @@ class PushNoteTestCommand extends ContainerAwareCommand
         $user = $em->getRepository('ApplicationUserBundle:User')->findOneby(array('username' => $username));
 
         if($user){
-            $sendNoteService->sendTestMassage($user);
+            $sendNoteService->sendTestMassage($user, null, null);
             $output->writeln(" <info>Success.Test Message send to ".$username." user</info>");
         }else{
             $output->writeln("<error>Sorry,user by ".$username." username does not exist</error>");
@@ -55,6 +55,5 @@ class PushNoteTestCommand extends ContainerAwareCommand
             );
             $input->setArgument('username', $username);
         }
-
     }
 }
