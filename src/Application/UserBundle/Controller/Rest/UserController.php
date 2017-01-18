@@ -547,38 +547,33 @@ class UserController extends FOSRestController
      *         401="Access allowed only for registered users"
      *     },
      * )
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "completed_profile"})
      * @Rest\Get("/user/{uid}", name="get_user", defaults={"uid" = null}, options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
+     * @param $uid
+     * @return array
      */
     public function getAction(Request $request, $uid = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        if($uid){
-            //get current user
-            $currentUser = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('uId' => $uid));;
-        } else {
-            //get current user
-            $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+        //get current user
+        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
 
-            // get drafts
-            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
-        }
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($currentUser);
+        // get drafts
+        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
 
         //check if not logged in user
         if(!is_object($currentUser)) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
         }
 
-        if ($currentUser->getImagePath()){
-            $imagineCacheManager = $this->get('liip_imagine.cache.manager');
-            $resolvedPath = $imagineCacheManager->getBrowserPath($currentUser->getImagePath(), 'user_image');
+        $states = $currentUser->getStats();
 
-            $currentUser->setCachedImage($resolvedPath);
-        }
+        $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($currentUser->getId(), false);
+
+        $currentUser->setStats($states);
 
         return $currentUser;
     }
@@ -816,12 +811,14 @@ class UserController extends FOSRestController
             $device = $regData[$mobileOc];
             if(!in_array($registrationId, $device)){
                 array_push($device, $registrationId);
+                $this->cleanRegIds($registrationId, $mobileOc);
             }
 
             $regData[$mobileOc] = $device;
         }
         else {
             $regData[$mobileOc][] =  $registrationId;
+            $this->cleanRegIds($registrationId, $mobileOc);
         }
 
         $currentUser->setRegistrationIds($regData);
@@ -837,7 +834,22 @@ class UserController extends FOSRestController
         return new JsonResponse(Response::HTTP_NO_CONTENT);
     }
 
+//    this function clean duplicate registration ids from old users
+    private function cleanRegIds($registrationId, $mobileOc){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('ApplicationUserBundle:User')->findWithRelationsIds($registrationId);
+        foreach ($users as $user){
+            $userRegData = $user->getRegistrationIds();
+            $userDevice = $userRegData[$mobileOc];
+            $key = array_search($registrationId, $userDevice);
+            if(!($key === false)){
+                unset($userDevice[$key]);
+                $userRegData[$mobileOc] = $userDevice;
+                $user->setRegistrationIds($userRegData);
+            }
 
+        }
+    }
     /**
      * @ApiDoc(
      *  resource=true,

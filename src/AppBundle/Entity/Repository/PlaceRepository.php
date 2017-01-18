@@ -38,13 +38,14 @@ class PlaceRepository extends EntityRepository
     public function findAllByIds($placesIds, $userId)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT p, (CASE WHEN ur.id = :userId THEN 1 ELSE 0 END) AS related
+//            ->createQuery("SELECT p, (CASE WHEN ur.id = :userId THEN 1 ELSE 0 END) AS related
+            ->createQuery("SELECT p, up, ur
                            FROM AppBundle:Place p
                            LEFT JOIN p.userPlace up
                            LEFT JOIN up.user ur
                            WHERE p.id in (:placesIds)
                            ")
-            ->setParameter('userId', $userId)
+//            ->setParameter('userId', $userId)
             ->setParameter('placesIds', $placesIds)
             ->getResult();
     }

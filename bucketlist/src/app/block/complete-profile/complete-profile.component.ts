@@ -20,16 +20,16 @@ export class CompleteProfileBlockComponent implements OnInit {
   constructor(private _projectService: ProjectService, private _cacheService: CacheService) { }
 
   ngOnInit() {
-    // let data = this._cacheService.get('complate-profile');
-    // if (data) {
-    //   this.data = data;
-    // } else {
-      // this.getCompateProfileInfo()
-    // }
+    let data = this._cacheService.get('complate-profile');
+    if (data) {
+      this.data = data;
+    } else {
+      this.getCompleteProfileUrl()
+    }
   }
 
-  getCompateProfileInfo(){
-    this._projectService.getCompateProfileInfo()
+  getCompleteProfileUrl(){
+    this._projectService.getCompleteProfileUrl()
         .subscribe(
             data => {
               this.data = data;

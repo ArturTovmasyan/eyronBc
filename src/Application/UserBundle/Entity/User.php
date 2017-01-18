@@ -48,6 +48,7 @@ class User extends BaseUser
     const FACEBOOK = 'Facebook';
     const GOOGLE = 'Google';
     const TWITTER = 'Twitter';
+    const FOLLOWERS = 'followerByUser-';
 
     // use file trait
     use File;
@@ -380,7 +381,13 @@ class User extends BaseUser
     protected $mentor = false;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User")
+     * @Groups({"tiny_user", "user", "badge"})
+     * @ORM\Column(name="traveler", type="boolean", nullable=false)
+     */
+    protected $traveler = false;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id")
      * @ORM\JoinTable(name="following",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="following_id", referencedColumnName="id")}
@@ -917,6 +924,9 @@ class User extends BaseUser
     /**
      * This function is used to check percent of completed profile
      *
+     * @VirtualProperty()
+     * @SerializedName("completed_percent")
+     * @Groups({"completed_profile"})
      * @return int
      */
     public function getCompletedPercent()
@@ -959,6 +969,9 @@ class User extends BaseUser
     /**
      * This function is used to check hav user add deadline
      *
+     * @VirtualProperty()
+     * @SerializedName("check_deadline")
+     * @Groups({"completed_profile"})
      * @return bool
      */
     public function checkDeadLines()
@@ -988,6 +1001,9 @@ class User extends BaseUser
     /**
      * This function is used to check have user complete goal
      *
+     * @VirtualProperty()
+     * @SerializedName("check_completed_goals")
+     * @Groups({"completed_profile"})
      * @return bool
      */
     public function checkCompletedGoals()
@@ -1017,6 +1033,10 @@ class User extends BaseUser
 
     /**
      * This function is used to check have user add success story
+     *
+     * @VirtualProperty()
+     * @SerializedName("check_success_story")
+     * @Groups({"completed_profile"})
      *
      * @return bool
      */
@@ -1540,6 +1560,9 @@ class User extends BaseUser
     }
 
     /**
+     * @VirtualProperty()
+     * @SerializedName("user_goal_count")
+     * @Groups({"completed_profile"})
      * @return null
      */
     public function getUserGoalCount()
@@ -2109,6 +2132,21 @@ class User extends BaseUser
     }
 
     /**
+     * @return mixed
+     */
+    public function getTraveler()
+    {
+        return $this->traveler;
+    }
+
+    /**
+     * @param mixed $traveler
+     */
+    public function setTraveler($traveler)
+    {
+        $this->traveler = $traveler;
+    }
+    /**
      * Add following
      *
      * @param \Application\UserBundle\Entity\User $following
@@ -2118,6 +2156,15 @@ class User extends BaseUser
     public function addFollowing(\Application\UserBundle\Entity\User $following)
     {
         $this->followings[] = $following;
+        $followings = apc_fetch(self::FOLLOWERS . $this->getId());
+
+        if(is_array($followings)){
+            $followings[] = $following->getId();
+        } else {
+            $followings = [$following->getId()];
+        }
+
+        apc_store(self::FOLLOWERS . $this->getId(), $followings, 3600);
 
         return $this;
     }
@@ -2129,6 +2176,7 @@ class User extends BaseUser
      */
     public function removeFollowing(\Application\UserBundle\Entity\User $following)
     {
+        apc_delete(self::FOLLOWERS . $this->getId());
         $this->followings->removeElement($following);
     }
 
@@ -2153,6 +2201,9 @@ class User extends BaseUser
                 break;
             case Badge::TYPE_MOTIVATOR:
                 $this->setMentor($level);
+                break;
+            case Badge::TYPE_TRAVELLER:
+                $this->setTraveler($level);
                 break;
         }
     }
@@ -2181,6 +2232,22 @@ class User extends BaseUser
     public function getFollowings()
     {
         return $this->followings;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFollowingIds()
+    {
+        $followingIds = apc_fetch(self::FOLLOWERS . $this->getId());
+        if(!$followingIds){
+            if($followings = $this->getFollowings()){
+                $followingIds = array_keys($followings->toArray());
+                apc_store(self::FOLLOWERS . $this->getId(), $followingIds, 3600);
+            }
+        }
+
+        return $followingIds;
     }
 
     /**

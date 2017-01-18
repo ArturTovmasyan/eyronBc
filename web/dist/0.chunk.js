@@ -1,12 +1,3705 @@
-webpackJsonp([0,13],{
+webpackJsonp([0,13],Array(927).concat([
+/* 927 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 1000:
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_translate__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile_component__ = __webpack_require__(1137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__project_service__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__block_activityBlock_module__ = __webpack_require__(1063);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_forms__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tools_map_map_module__ = __webpack_require__(1110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_material__ = __webpack_require__(1020);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__activity_activity_sharing_module__ = __webpack_require__(1117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular2_infinite_scroll__ = __webpack_require__(464);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular2_infinite_scroll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_angular2_infinite_scroll__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__profile_routing__ = __webpack_require__(1151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_components_module__ = __webpack_require__(458);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__calendar_calendar_component__ = __webpack_require__(1150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__calendar_all_year_calendar_all_year_component__ = __webpack_require__(1147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__calendar_month_calendar_month_component__ = __webpack_require__(1148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__calendar_year_calendar_year_component__ = __webpack_require__(1149);
+/* harmony export (binding) */ __webpack_require__.d(exports, "ProfileModule", function() { return ProfileModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ProfileModule = (function () {
+    function ProfileModule() {
+    }
+    ProfileModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
+                __WEBPACK_IMPORTED_MODULE_11__profile_routing__["a" /* ProfileRouting */],
+                __WEBPACK_IMPORTED_MODULE_12__components_components_module__["a" /* ComponentModule */],
+                __WEBPACK_IMPORTED_MODULE_2_ng2_translate__["b" /* TranslateModule */],
+                __WEBPACK_IMPORTED_MODULE_5__block_activityBlock_module__["a" /* ActivityBlockModule */],
+                __WEBPACK_IMPORTED_MODULE_6__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_7__tools_map_map_module__["a" /* MapModule */],
+                __WEBPACK_IMPORTED_MODULE_9__activity_activity_sharing_module__["a" /* ActivitySharingModule */],
+                __WEBPACK_IMPORTED_MODULE_10_angular2_infinite_scroll__["InfiniteScrollModule"],
+                __WEBPACK_IMPORTED_MODULE_8__angular_material__["MaterialModule"].forRoot()
+            ],
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_3__profile_component__["a" /* ProfileComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__calendar_calendar_component__["a" /* CalendarComponent */],
+                __WEBPACK_IMPORTED_MODULE_14__calendar_all_year_calendar_all_year_component__["a" /* CalendarAllYearComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__calendar_month_calendar_month_component__["a" /* CalendarMonthComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__calendar_year_calendar_year_component__["a" /* CalendarYearComponent */]
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_4__project_service__["a" /* ProjectService */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ProfileModule);
+    return ProfileModule;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile.module.js.map
+
+/***/ },
+/* 928 */,
+/* 929 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_index__ = __webpack_require__(972);
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "MaterialModule")) __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MaterialModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "ComponentPortal")) __webpack_require__.d(exports, "ComponentPortal", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["ComponentPortal"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "OverlayState")) __webpack_require__.d(exports, "OverlayState", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["OverlayState"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "Overlay")) __webpack_require__.d(exports, "Overlay", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["Overlay"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "OverlayModule")) __webpack_require__.d(exports, "OverlayModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["OverlayModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "DefaultStyleCompatibilityModeModule")) __webpack_require__.d(exports, "DefaultStyleCompatibilityModeModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["DefaultStyleCompatibilityModeModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "MdError")) __webpack_require__.d(exports, "MdError", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdError"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "TemplatePortalDirective")) __webpack_require__.d(exports, "TemplatePortalDirective", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["TemplatePortalDirective"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "RIGHT_ARROW")) __webpack_require__.d(exports, "RIGHT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["RIGHT_ARROW"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "LEFT_ARROW")) __webpack_require__.d(exports, "LEFT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["LEFT_ARROW"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "ENTER")) __webpack_require__.d(exports, "ENTER", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["ENTER"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "Dir")) __webpack_require__.d(exports, "Dir", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["Dir"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "PortalHostDirective")) __webpack_require__.d(exports, "PortalHostDirective", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["PortalHostDirective"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "TemplatePortal")) __webpack_require__.d(exports, "TemplatePortal", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["TemplatePortal"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "coerceBooleanProperty")) __webpack_require__.d(exports, "coerceBooleanProperty", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["coerceBooleanProperty"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "PortalModule")) __webpack_require__.d(exports, "PortalModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["PortalModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "BasePortalHost")) __webpack_require__.d(exports, "BasePortalHost", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["BasePortalHost"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "LiveAnnouncer")) __webpack_require__.d(exports, "LiveAnnouncer", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["LiveAnnouncer"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "OVERLAY_PROVIDERS")) __webpack_require__.d(exports, "OVERLAY_PROVIDERS", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["OVERLAY_PROVIDERS"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "applyCssTransform")) __webpack_require__.d(exports, "applyCssTransform", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["applyCssTransform"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "GestureConfig")) __webpack_require__.d(exports, "GestureConfig", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["GestureConfig"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "coerceNumberProperty")) __webpack_require__.d(exports, "coerceNumberProperty", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["coerceNumberProperty"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "MdRippleModule")) __webpack_require__.d(exports, "MdRippleModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdRippleModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "UniqueSelectionDispatcher")) __webpack_require__.d(exports, "UniqueSelectionDispatcher", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["UniqueSelectionDispatcher"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "isFakeMousedownFromScreenReader")) __webpack_require__.d(exports, "isFakeMousedownFromScreenReader", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["isFakeMousedownFromScreenReader"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "MdLineSetter")) __webpack_require__.d(exports, "MdLineSetter", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdLineSetter"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "MdLine")) __webpack_require__.d(exports, "MdLine", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdLine"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "MdLineModule")) __webpack_require__.d(exports, "MdLineModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdLineModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "InteractivityChecker")) __webpack_require__.d(exports, "InteractivityChecker", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["InteractivityChecker"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "Platform")) __webpack_require__.d(exports, "Platform", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["Platform"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core_index__, "A11yModule")) __webpack_require__.d(exports, "A11yModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["A11yModule"]; });
+
+
+//# sourceMappingURL=core.js.map
+
+
+/***/ },
+/* 930 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ exports["a"] = coerceBooleanProperty;
+/** Coerces a data-bound value (typically a string) to a boolean. */
+function coerceBooleanProperty(value) {
+    return value != null && "" + value !== 'false';
+}
+
+//# sourceMappingURL=boolean-property.js.map
+
+
+/***/ },
+/* 931 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_keyboard_keycodes__ = __webpack_require__(966);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_coercion_boolean_property__ = __webpack_require__(953);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ViewportRuler; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+/**
+ * Simple utility for getting the bounds of the browser viewport.
+ * @docs-private
+ */
+var ViewportRuler = (function () {
+    function ViewportRuler() {
+    }
+    // TODO(jelbourn): cache the document's bounding rect and only update it when the window
+    // is resized (debounced).
+    /** Gets a ClientRect for the viewport's bounds. */
+    ViewportRuler.prototype.getViewportRect = function () {
+        // Use the document element's bounding rect rather than the window scroll properties
+        // (e.g. pageYOffset, scrollY) due to in issue in Chrome and IE where window scroll
+        // properties and client coordinates (boundingClientRect, clientX/Y, etc.) are in different
+        // conceptual viewports. Under most circumstances these viewports are equivalent, but they
+        // can disagree when the page is pinch-zoomed (on devices that support touch).
+        // See https://bugs.chromium.org/p/chromium/issues/detail?id=489206#c4
+        // We use the documentElement instead of the body because, by default (without a css reset)
+        // browsers typically give the document body an 8px margin, which is not included in
+        // getBoundingClientRect().
+        var documentRect = document.documentElement.getBoundingClientRect();
+        var scrollPosition = this.getViewportScrollPosition(documentRect);
+        var height = window.innerHeight;
+        var width = window.innerWidth;
+        return {
+            top: scrollPosition.top,
+            left: scrollPosition.left,
+            bottom: scrollPosition.top + height,
+            right: scrollPosition.left + width,
+            height: height,
+            width: width,
+        };
+    };
+    /**
+     * Gets the (top, left) scroll position of the viewport.
+     * @param documentRect
+     */
+    ViewportRuler.prototype.getViewportScrollPosition = function (documentRect) {
+        if (documentRect === void 0) { documentRect = document.documentElement.getBoundingClientRect(); }
+        // The top-left-corner of the viewport is determined by the scroll position of the document
+        // body, normally just (scrollLeft, scrollTop). However, Chrome and Firefox disagree about
+        // whether `document.body` or `document.documentElement` is the scrolled element, so reading
+        // `scrollTop` and `scrollLeft` is inconsistent. However, using the bounding rect of
+        // `document.documentElement` works consistently, where the `top` and `left` values will
+        // equal negative the scroll position.
+        var top = -documentRect.top || document.body.scrollTop || window.scrollY || 0;
+        var left = -documentRect.left || document.body.scrollLeft || window.scrollX || 0;
+        return { top: top, left: left };
+    };
+    ViewportRuler = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
+        __metadata('design:paramtypes', [])
+    ], ViewportRuler);
+    return ViewportRuler;
+}());
+
+//# sourceMappingURL=viewport-ruler.js.map
+
+
+/***/ },
+/* 932 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MATERIAL_COMPATIBILITY_MODE; });
+/* unused harmony export MAT_ELEMENTS_SELECTOR */
+/* unused harmony export MatPrefixEnforcer */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DefaultStyleCompatibilityModeModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+var MATERIAL_COMPATIBILITY_MODE = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["OpaqueToken"]('md-compatibiility-mode');
+/** Selector that matches all elements that may have style collisions with material1. */
+var MAT_ELEMENTS_SELECTOR = "\n  mat-autocomplete,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-container,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-ink-bar,\n  mat-input,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-progress-circle,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-toolbar\n";
+/** Directive that enforces that the `mat-` prefix cannot be used. */
+var MatPrefixEnforcer = (function () {
+    function MatPrefixEnforcer(isCompatibilityMode) {
+        if (!isCompatibilityMode) {
+            throw Error('The "mat-" prefix cannot be used out of ng-material v1 compatibility mode.');
+        }
+    }
+    MatPrefixEnforcer = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({ selector: MAT_ELEMENTS_SELECTOR }),
+        __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(MATERIAL_COMPATIBILITY_MODE)), 
+        __metadata('design:paramtypes', [Boolean])
+    ], MatPrefixEnforcer);
+    return MatPrefixEnforcer;
+}());
+/**
+ * Module that enforces the default "compatibility mode" settings. When this module is loaded
+ * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
+ * there are any uses of the `mat-` prefix.
+ *
+ * Because the point of this directive is to *not* be used, it will be tree-shaken away by
+ * optimizers when not in compatibility mode.
+ */
+var DefaultStyleCompatibilityModeModule = (function () {
+    function DefaultStyleCompatibilityModeModule() {
+    }
+    DefaultStyleCompatibilityModeModule.forRoot = function () {
+        return {
+            ngModule: DefaultStyleCompatibilityModeModule,
+            providers: [],
+        };
+    };
+    DefaultStyleCompatibilityModeModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            declarations: [MatPrefixEnforcer],
+            exports: [MatPrefixEnforcer],
+            providers: [{
+                    provide: MATERIAL_COMPATIBILITY_MODE, useValue: false,
+                }]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], DefaultStyleCompatibilityModeModule);
+    return DefaultStyleCompatibilityModeModule;
+}());
+
+//# sourceMappingURL=default-mode.js.map
+
+
+/***/ },
+/* 933 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "h", function() { return UP_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "i", function() { return DOWN_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return RIGHT_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return LEFT_ARROW; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return PAGE_UP; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "e", function() { return PAGE_DOWN; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "g", function() { return HOME; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "f", function() { return END; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return ENTER; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "k", function() { return SPACE; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "l", function() { return TAB; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "j", function() { return ESCAPE; });
+/* unused harmony export BACKSPACE */
+/* unused harmony export DELETE */
+// Due to a bug in the ChromeDriver, Angular 2 keyboard events are not triggered by `sendKeys`
+// during E2E tests when using dot notation such as `(keydown.rightArrow)`. To get around this,
+// we are temporarily using a single (keydown) handler.
+// See: https://github.com/angular/angular/issues/9419
+var UP_ARROW = 38;
+var DOWN_ARROW = 40;
+var RIGHT_ARROW = 39;
+var LEFT_ARROW = 37;
+var PAGE_UP = 33;
+var PAGE_DOWN = 34;
+var HOME = 36;
+var END = 35;
+var ENTER = 13;
+var SPACE = 32;
+var TAB = 9;
+var ESCAPE = 27;
+var BACKSPACE = 8;
+var DELETE = 46;
+
+//# sourceMappingURL=keycodes.js.map
+
+
+/***/ },
+/* 934 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Dir; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return RtlModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+/**
+ * Directive to listen for changes of direction of part of the DOM.
+ *
+ * Applications should use this directive instead of the native attribute so that Material
+ * components can listen on changes of direction.
+ */
+var Dir = (function () {
+    function Dir() {
+        /** Layout direction of the element. */
+        this._dir = 'ltr';
+        /** Event emitted when the direction changes. */
+        this.dirChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+    }
+    Object.defineProperty(Dir.prototype, "dir", {
+        /** @docs-private */
+        get: function () {
+            return this._dir;
+        },
+        set: function (v) {
+            var old = this._dir;
+            this._dir = v;
+            if (old != this._dir) {
+                this.dirChange.emit();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Dir.prototype, "value", {
+        /** Current layout direction of the element. */
+        get: function () { return this.dir; },
+        set: function (v) { this.dir = v; },
+        enumerable: true,
+        configurable: true
+    });
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('dir'), 
+        __metadata('design:type', String)
+    ], Dir.prototype, "_dir", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], Dir.prototype, "dirChange", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.dir'), 
+        __metadata('design:type', String)
+    ], Dir.prototype, "dir", null);
+    Dir = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: '[dir]',
+            // TODO(hansl): maybe `$implicit` isn't the best option here, but for now that's the best we got.
+            exportAs: '$implicit'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], Dir);
+    return Dir;
+}());
+var RtlModule = (function () {
+    function RtlModule() {
+    }
+    RtlModule.forRoot = function () {
+        return {
+            ngModule: RtlModule,
+            providers: []
+        };
+    };
+    RtlModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            exports: [Dir],
+            declarations: [Dir]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], RtlModule);
+    return RtlModule;
+}());
+
+//# sourceMappingURL=dir.js.map
+
+
+/***/ },
+/* 935 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__portal_errors__ = __webpack_require__(1035);
+/* unused harmony export Portal */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ComponentPortal; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return TemplatePortal; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return BasePortalHost; });
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/**
+ * A `Portal` is something that you want to render somewhere else.
+ * It can be attach to / detached from a `PortalHost`.
+ */
+var Portal = (function () {
+    function Portal() {
+    }
+    /** Attach this portal to a host. */
+    Portal.prototype.attach = function (host) {
+        if (host == null) {
+            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["a" /* NullPortalHostError */]();
+        }
+        if (host.hasAttached()) {
+            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["b" /* PortalAlreadyAttachedError */]();
+        }
+        this._attachedHost = host;
+        return host.attach(this);
+    };
+    /** Detach this portal from its host */
+    Portal.prototype.detach = function () {
+        var host = this._attachedHost;
+        if (host == null) {
+            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["c" /* NoPortalAttachedError */]();
+        }
+        this._attachedHost = null;
+        return host.detach();
+    };
+    Object.defineProperty(Portal.prototype, "isAttached", {
+        /** Whether this portal is attached to a host. */
+        get: function () {
+            return this._attachedHost != null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Sets the PortalHost reference without performing `attach()`. This is used directly by
+     * the PortalHost when it is performing an `attach()` or `detach()`.
+     */
+    Portal.prototype.setAttachedHost = function (host) {
+        this._attachedHost = host;
+    };
+    return Portal;
+}());
+/**
+ * A `ComponentPortal` is a portal that instantiates some Component upon attachment.
+ */
+var ComponentPortal = (function (_super) {
+    __extends(ComponentPortal, _super);
+    function ComponentPortal(component, viewContainerRef, injector) {
+        if (viewContainerRef === void 0) { viewContainerRef = null; }
+        if (injector === void 0) { injector = null; }
+        _super.call(this);
+        this.component = component;
+        this.viewContainerRef = viewContainerRef;
+        this.injector = injector;
+    }
+    return ComponentPortal;
+}(Portal));
+/**
+ * A `TemplatePortal` is a portal that represents some embedded template (TemplateRef).
+ */
+var TemplatePortal = (function (_super) {
+    __extends(TemplatePortal, _super);
+    function TemplatePortal(template, viewContainerRef) {
+        _super.call(this);
+        /**
+         * Additional locals for the instantiated embedded view.
+         * These locals can be seen as "exports" for the template, such as how ngFor has
+         * index / event / odd.
+         * See https://angular.io/docs/ts/latest/api/core/EmbeddedViewRef-class.html
+         */
+        this.locals = new Map();
+        this.templateRef = template;
+        this.viewContainerRef = viewContainerRef;
+    }
+    Object.defineProperty(TemplatePortal.prototype, "origin", {
+        get: function () {
+            return this.templateRef.elementRef;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TemplatePortal.prototype.attach = function (host, locals) {
+        this.locals = locals == null ? new Map() : locals;
+        return _super.prototype.attach.call(this, host);
+    };
+    TemplatePortal.prototype.detach = function () {
+        this.locals = new Map();
+        return _super.prototype.detach.call(this);
+    };
+    return TemplatePortal;
+}(Portal));
+/**
+ * Partial implementation of PortalHost that only deals with attaching either a
+ * ComponentPortal or a TemplatePortal.
+ */
+var BasePortalHost = (function () {
+    function BasePortalHost() {
+        /** Whether this host has already been permanently disposed. */
+        this._isDisposed = false;
+    }
+    /** Whether this host has an attached portal. */
+    BasePortalHost.prototype.hasAttached = function () {
+        return this._attachedPortal != null;
+    };
+    BasePortalHost.prototype.attach = function (portal) {
+        if (portal == null) {
+            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["d" /* NullPortalError */]();
+        }
+        if (this.hasAttached()) {
+            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["b" /* PortalAlreadyAttachedError */]();
+        }
+        if (this._isDisposed) {
+            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["e" /* PortalHostAlreadyDisposedError */]();
+        }
+        if (portal instanceof ComponentPortal) {
+            this._attachedPortal = portal;
+            return this.attachComponentPortal(portal);
+        }
+        else if (portal instanceof TemplatePortal) {
+            this._attachedPortal = portal;
+            return this.attachTemplatePortal(portal);
+        }
+        throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["f" /* UnknownPortalTypeError */]();
+    };
+    BasePortalHost.prototype.detach = function () {
+        if (this._attachedPortal) {
+            this._attachedPortal.setAttachedHost(null);
+        }
+        this._attachedPortal = null;
+        if (this._disposeFn != null) {
+            this._disposeFn();
+            this._disposeFn = null;
+        }
+    };
+    BasePortalHost.prototype.dispose = function () {
+        if (this.hasAttached()) {
+            this.detach();
+        }
+        this._isDisposed = true;
+    };
+    BasePortalHost.prototype.setDisposeFn = function (fn) {
+        this._disposeFn = fn;
+    };
+    return BasePortalHost;
+}());
+
+//# sourceMappingURL=portal.js.map
+
+
+/***/ },
+/* 936 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__ = __webpack_require__(1037);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__compatibility_default_mode__ = __webpack_require__(932);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__overlay_position_viewport_ruler__ = __webpack_require__(931);
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MdRipple; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdRippleModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var MdRipple = (function () {
+    function MdRipple(_elementRef, _ngZone, _ruler) {
+        var _this = this;
+        /**
+         * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
+         * will be the distance from the center of the ripple to the furthest corner of the host element's
+         * bounding rectangle.
+         */
+        this.maxRadius = 0;
+        /**
+         * If set, the normal duration of ripple animations is divided by this value. For example,
+         * setting it to 0.5 will cause the animations to take twice as long.
+         */
+        this.speedFactor = 1;
+        // These event handlers are attached to the element that triggers the ripple animations.
+        var eventHandlers = new Map();
+        eventHandlers.set('mousedown', function (event) { return _this._mouseDown(event); });
+        eventHandlers.set('click', function (event) { return _this._click(event); });
+        eventHandlers.set('mouseleave', function (event) { return _this._mouseLeave(event); });
+        this._rippleRenderer = new __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__["a" /* RippleRenderer */](_elementRef, eventHandlers, _ngZone);
+        this._ruler = _ruler;
+    }
+    Object.defineProperty(MdRipple.prototype, "_triggerDeprecated", {
+        /** @deprecated */
+        get: function () { return this.trigger; },
+        set: function (value) { this.trigger = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_centeredDeprecated", {
+        /** @deprecated */
+        get: function () { return this.centered; },
+        set: function (value) { this.centered = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_disabledDeprecated", {
+        /** @deprecated */
+        get: function () { return this.disabled; },
+        set: function (value) { this.disabled = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_maxRadiusDeprecated", {
+        /** @deprecated */
+        get: function () { return this.maxRadius; },
+        set: function (value) { this.maxRadius = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_speedFactorDeprecated", {
+        /** @deprecated */
+        get: function () { return this.speedFactor; },
+        set: function (value) { this.speedFactor = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_colorDeprecated", {
+        /** @deprecated */
+        get: function () { return this.color; },
+        set: function (value) { this.color = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_backgroundColorDeprecated", {
+        /** @deprecated */
+        get: function () { return this.backgroundColor; },
+        set: function (value) { this.backgroundColor = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_focusedDeprecated", {
+        /** @deprecated */
+        get: function () { return this.focused; },
+        set: function (value) { this.focused = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_unboundedDeprecated", {
+        /** @deprecated */
+        get: function () { return this.unbounded; },
+        set: function (value) { this.unbounded = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    MdRipple.prototype.ngOnInit = function () {
+        // If no trigger element was explicity set, use the host element
+        if (!this.trigger) {
+            this._rippleRenderer.setTriggerElementToHost();
+        }
+        if (!this.disabled) {
+            this._rippleRenderer.createBackgroundIfNeeded();
+        }
+    };
+    MdRipple.prototype.ngOnDestroy = function () {
+        // Remove event listeners on the trigger element.
+        this._rippleRenderer.clearTriggerElement();
+    };
+    MdRipple.prototype.ngOnChanges = function (changes) {
+        // If the trigger element changed (or is being initially set), add event listeners to it.
+        var changedInputs = Object.keys(changes);
+        if (changedInputs.indexOf('trigger') !== -1) {
+            this._rippleRenderer.setTriggerElement(this.trigger);
+        }
+        if (!this.disabled) {
+            this._rippleRenderer.createBackgroundIfNeeded();
+        }
+    };
+    /**
+     * Responds to the start of a ripple animation trigger by fading the background in.
+     */
+    MdRipple.prototype.start = function () {
+        this._rippleRenderer.createBackgroundIfNeeded();
+        this._rippleRenderer.fadeInRippleBackground(this.backgroundColor);
+    };
+    /**
+     * Responds to the end of a ripple animation trigger by fading the background out, and creating a
+     * foreground ripple that expands from the event location (or from the center of the element if
+     * the "centered" property is set or forceCenter is true).
+     */
+    MdRipple.prototype.end = function (left, top, forceCenter) {
+        var _this = this;
+        if (forceCenter === void 0) { forceCenter = true; }
+        this._rippleRenderer.createForegroundRipple(left, top, this.color, this.centered || forceCenter, this.maxRadius, this.speedFactor, function (ripple, e) { return _this._rippleTransitionEnded(ripple, e); });
+        this._rippleRenderer.fadeOutRippleBackground();
+    };
+    MdRipple.prototype._rippleTransitionEnded = function (ripple, event) {
+        if (event.propertyName === 'opacity') {
+            // If the ripple finished expanding, start fading it out. If it finished fading out,
+            // remove it from the DOM.
+            switch (ripple.state) {
+                case __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__["b" /* ForegroundRippleState */].EXPANDING:
+                    this._rippleRenderer.fadeOutForegroundRipple(ripple.rippleElement);
+                    ripple.state = __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__["b" /* ForegroundRippleState */].FADING_OUT;
+                    break;
+                case __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__["b" /* ForegroundRippleState */].FADING_OUT:
+                    this._rippleRenderer.removeRippleFromDom(ripple.rippleElement);
+                    break;
+            }
+        }
+    };
+    /**
+     * Called when the trigger element receives a mousedown event. Starts the ripple animation by
+     * fading in the background.
+     */
+    MdRipple.prototype._mouseDown = function (event) {
+        if (!this.disabled && event.button === 0) {
+            this.start();
+        }
+    };
+    /**
+     * Called when the trigger element receives a click event. Creates a foreground ripple and
+     * runs its animation.
+     */
+    MdRipple.prototype._click = function (event) {
+        if (!this.disabled && event.button === 0) {
+            // If screen and page positions are all 0, this was probably triggered by a keypress.
+            // In that case, use the center of the bounding rect as the ripple origin.
+            // FIXME: This fails on IE11, which still sets pageX/Y and screenX/Y on keyboard clicks.
+            var isKeyEvent = (event.screenX === 0 && event.screenY === 0 && event.pageX === 0 && event.pageY === 0);
+            this.end(event.pageX - this._ruler.getViewportScrollPosition().left, event.pageY - this._ruler.getViewportScrollPosition().top, isKeyEvent);
+        }
+    };
+    /**
+     * Called when the trigger element receives a mouseleave event. Fades out the background.
+     */
+    MdRipple.prototype._mouseLeave = function (event) {
+        // We can always fade out the background here; It's a no-op if it was already inactive.
+        this._rippleRenderer.fadeOutRippleBackground();
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleTrigger'), 
+        __metadata('design:type', Object)
+    ], MdRipple.prototype, "trigger", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-trigger'), 
+        __metadata('design:type', Object)
+    ], MdRipple.prototype, "_triggerDeprecated", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleCentered'), 
+        __metadata('design:type', Boolean)
+    ], MdRipple.prototype, "centered", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-centered'), 
+        __metadata('design:type', Object)
+    ], MdRipple.prototype, "_centeredDeprecated", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleDisabled'), 
+        __metadata('design:type', Boolean)
+    ], MdRipple.prototype, "disabled", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-disabled'), 
+        __metadata('design:type', Object)
+    ], MdRipple.prototype, "_disabledDeprecated", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleMaxRadius'), 
+        __metadata('design:type', Number)
+    ], MdRipple.prototype, "maxRadius", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-max-radius'), 
+        __metadata('design:type', Object)
+    ], MdRipple.prototype, "_maxRadiusDeprecated", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleSpeedFactor'), 
+        __metadata('design:type', Number)
+    ], MdRipple.prototype, "speedFactor", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-speed-factor'), 
+        __metadata('design:type', Object)
+    ], MdRipple.prototype, "_speedFactorDeprecated", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleColor'), 
+        __metadata('design:type', String)
+    ], MdRipple.prototype, "color", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-color'), 
+        __metadata('design:type', Object)
+    ], MdRipple.prototype, "_colorDeprecated", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleBackgroundColor'), 
+        __metadata('design:type', String)
+    ], MdRipple.prototype, "backgroundColor", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-background-color'), 
+        __metadata('design:type', Object)
+    ], MdRipple.prototype, "_backgroundColorDeprecated", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('class.md-ripple-focused'),
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleFocused'), 
+        __metadata('design:type', Boolean)
+    ], MdRipple.prototype, "focused", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-focused'), 
+        __metadata('design:type', Boolean)
+    ], MdRipple.prototype, "_focusedDeprecated", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('class.md-ripple-unbounded'),
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleUnbounded'), 
+        __metadata('design:type', Boolean)
+    ], MdRipple.prototype, "unbounded", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-unbounded'), 
+        __metadata('design:type', Boolean)
+    ], MdRipple.prototype, "_unboundedDeprecated", null);
+    MdRipple = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: '[md-ripple], [mat-ripple]',
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"], __WEBPACK_IMPORTED_MODULE_3__overlay_position_viewport_ruler__["a" /* ViewportRuler */]])
+    ], MdRipple);
+    return MdRipple;
+}());
+var MdRippleModule = (function () {
+    function MdRippleModule() {
+    }
+    MdRippleModule.forRoot = function () {
+        return {
+            ngModule: MdRippleModule,
+            providers: [__WEBPACK_IMPORTED_MODULE_3__overlay_position_viewport_ruler__["a" /* ViewportRuler */]]
+        };
+    };
+    MdRippleModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [__WEBPACK_IMPORTED_MODULE_2__compatibility_default_mode__["a" /* DefaultStyleCompatibilityModeModule */]],
+            exports: [MdRipple, __WEBPACK_IMPORTED_MODULE_2__compatibility_default_mode__["a" /* DefaultStyleCompatibilityModeModule */]],
+            declarations: [MdRipple],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MdRippleModule);
+    return MdRippleModule;
+}());
+
+//# sourceMappingURL=ripple.js.map
+
+
+/***/ },
+/* 937 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interactivity_checker__ = __webpack_require__(938);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__coercion_boolean_property__ = __webpack_require__(930);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return FocusTrap; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+/**
+ * Directive for trapping focus within a region.
+ *
+ * NOTE: This directive currently uses a very simple (naive) approach to focus trapping.
+ * It assumes that the tab order is the same as DOM order, which is not necessarily true.
+ * Things like tabIndex > 0, flex `order`, and shadow roots can cause to two to misalign.
+ * This will be replaced with a more intelligent solution before the library is considered stable.
+ */
+var FocusTrap = (function () {
+    function FocusTrap(_checker, _ngZone) {
+        this._checker = _checker;
+        this._ngZone = _ngZone;
+        this._disabled = false;
+    }
+    Object.defineProperty(FocusTrap.prototype, "disabled", {
+        /** Whether the focus trap is active. */
+        get: function () { return this._disabled; },
+        set: function (val) { this._disabled = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__coercion_boolean_property__["a" /* coerceBooleanProperty */])(val); },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Waits for microtask queue to empty, then focuses the first tabbable element within the focus
+     * trap region.
+     */
+    FocusTrap.prototype.focusFirstTabbableElementWhenReady = function () {
+        var _this = this;
+        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+            _this.focusFirstTabbableElement();
+        });
+    };
+    /**
+     * Waits for microtask queue to empty, then focuses the last tabbable element within the focus
+     * trap region.
+     */
+    FocusTrap.prototype.focusLastTabbableElementWhenReady = function () {
+        var _this = this;
+        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+            _this.focusLastTabbableElement();
+        });
+    };
+    /**
+     * Focuses the first tabbable element within the focus trap region.
+     */
+    FocusTrap.prototype.focusFirstTabbableElement = function () {
+        var rootElement = this.trappedContent.nativeElement;
+        var redirectToElement = rootElement.querySelector('[cdk-focus-start]') ||
+            this._getFirstTabbableElement(rootElement);
+        if (redirectToElement) {
+            redirectToElement.focus();
+        }
+    };
+    /**
+     * Focuses the last tabbable element within the focus trap region.
+     */
+    FocusTrap.prototype.focusLastTabbableElement = function () {
+        var rootElement = this.trappedContent.nativeElement;
+        var focusTargets = rootElement.querySelectorAll('[cdk-focus-end]');
+        var redirectToElement = null;
+        if (focusTargets.length) {
+            redirectToElement = focusTargets[focusTargets.length - 1];
+        }
+        else {
+            redirectToElement = this._getLastTabbableElement(rootElement);
+        }
+        if (redirectToElement) {
+            redirectToElement.focus();
+        }
+    };
+    /** Get the first tabbable element from a DOM subtree (inclusive). */
+    FocusTrap.prototype._getFirstTabbableElement = function (root) {
+        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
+            return root;
+        }
+        // Iterate in DOM order.
+        var childCount = root.children.length;
+        for (var i = 0; i < childCount; i++) {
+            var tabbableChild = this._getFirstTabbableElement(root.children[i]);
+            if (tabbableChild) {
+                return tabbableChild;
+            }
+        }
+        return null;
+    };
+    /** Get the last tabbable element from a DOM subtree (inclusive). */
+    FocusTrap.prototype._getLastTabbableElement = function (root) {
+        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
+            return root;
+        }
+        // Iterate in reverse DOM order.
+        for (var i = root.children.length - 1; i >= 0; i--) {
+            var tabbableChild = this._getLastTabbableElement(root.children[i]);
+            if (tabbableChild) {
+                return tabbableChild;
+            }
+        }
+        return null;
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('trappedContent'), 
+        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"])
+    ], FocusTrap.prototype, "trappedContent", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Boolean)
+    ], FocusTrap.prototype, "disabled", null);
+    FocusTrap = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'cdk-focus-trap, focus-trap',
+            template: "<div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusLastTabbableElement()\"></div><div #trappedContent class=\"cdk-focus-trap-content\"><ng-content></ng-content></div><div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusFirstTabbableElement()\"></div>",
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_1__interactivity_checker__["a" /* InteractivityChecker */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
+    ], FocusTrap);
+    return FocusTrap;
+}());
+
+//# sourceMappingURL=focus-trap.js.map
+
+
+/***/ },
+/* 938 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__platform_platform__ = __webpack_require__(942);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InteractivityChecker; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * The InteractivityChecker leans heavily on the ally.js accessibility utilities.
+ * Methods like `isTabbable` are only covering specific edge-cases for the browsers which are
+ * supported.
+ */
+/**
+ * Utility for checking the interactivity of an element, such as whether is is focusable or
+ * tabbable.
+ */
+var InteractivityChecker = (function () {
+    function InteractivityChecker(_platform) {
+        this._platform = _platform;
+    }
+    /**
+     * Gets whether an element is disabled.
+     *
+     * @param element Element to be checked.
+     * @returns Whether the element is disabled.
+     */
+    InteractivityChecker.prototype.isDisabled = function (element) {
+        // This does not capture some cases, such as a non-form control with a disabled attribute or
+        // a form control inside of a disabled form, but should capture the most common cases.
+        return element.hasAttribute('disabled');
+    };
+    /**
+     * Gets whether an element is visible for the purposes of interactivity.
+     *
+     * This will capture states like `display: none` and `visibility: hidden`, but not things like
+     * being clipped by an `overflow: hidden` parent or being outside the viewport.
+     *
+     * @returns Whether the element is visible.
+     */
+    InteractivityChecker.prototype.isVisible = function (element) {
+        return hasGeometry(element) && getComputedStyle(element).visibility === 'visible';
+    };
+    /**
+     * Gets whether an element can be reached via Tab key.
+     * Assumes that the element has already been checked with isFocusable.
+     *
+     * @param element Element to be checked.
+     * @returns Whether the element is tabbable.
+     */
+    InteractivityChecker.prototype.isTabbable = function (element) {
+        var frameElement = getWindow(element).frameElement;
+        if (frameElement) {
+            var frameType = frameElement && frameElement.nodeName.toLowerCase();
+            // Frame elements inherit their tabindex onto all child elements.
+            if (getTabIndexValue(frameElement) === -1) {
+                return false;
+            }
+            // Webkit and Blink consider anything inside of an <object> element as non-tabbable.
+            if ((this._platform.BLINK || this._platform.WEBKIT) && frameType === 'object') {
+                return false;
+            }
+            // Webkit and Blink disable tabbing to an element inside of an invisible frame.
+            if ((this._platform.BLINK || this._platform.WEBKIT) && !this.isVisible(frameElement)) {
+                return false;
+            }
+        }
+        var nodeName = element.nodeName.toLowerCase();
+        var tabIndexValue = getTabIndexValue(element);
+        if (element.hasAttribute('contenteditable')) {
+            return tabIndexValue !== -1;
+        }
+        if (nodeName === 'iframe') {
+            // The frames may be tabbable depending on content, but it's not possibly to reliably
+            // investigate the content of the frames.
+            return false;
+        }
+        if (nodeName === 'audio') {
+            if (!element.hasAttribute('controls')) {
+                // By default an <audio> element without the controls enabled is not tabbable.
+                return false;
+            }
+            else if (this._platform.BLINK) {
+                // In Blink <audio controls> elements are always tabbable.
+                return true;
+            }
+        }
+        if (nodeName === 'video') {
+            if (!element.hasAttribute('controls') && this._platform.TRIDENT) {
+                // In Trident a <video> element without the controls enabled is not tabbable.
+                return false;
+            }
+            else if (this._platform.BLINK || this._platform.FIREFOX) {
+                // In Chrome and Firefox <video controls> elements are always tabbable.
+                return true;
+            }
+        }
+        if (nodeName === 'object' && (this._platform.BLINK || this._platform.WEBKIT)) {
+            // In all Blink and WebKit based browsers <object> elements are never tabbable.
+            return false;
+        }
+        // In iOS the browser only considers some specific elements as tabbable.
+        if (this._platform.WEBKIT && this._platform.IOS && !isPotentiallyTabbableIOS(element)) {
+            return false;
+        }
+        return element.tabIndex >= 0;
+    };
+    /**
+     * Gets whether an element can be focused by the user.
+     *
+     * @param element Element to be checked.
+     * @returns Whether the element is focusable.
+     */
+    InteractivityChecker.prototype.isFocusable = function (element) {
+        // Perform checks in order of left to most expensive.
+        // Again, naive approach that does not capture many edge cases and browser quirks.
+        return isPotentiallyFocusable(element) && !this.isDisabled(element) && this.isVisible(element);
+    };
+    InteractivityChecker = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_1__platform_platform__["a" /* Platform */]])
+    ], InteractivityChecker);
+    return InteractivityChecker;
+}());
+/** Checks whether the specified element has any geometry / rectangles. */
+function hasGeometry(element) {
+    // Use logic from jQuery to check for an invisible element.
+    // See https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js#L12
+    return !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
+}
+/** Gets whether an element's  */
+function isNativeFormElement(element) {
+    var nodeName = element.nodeName.toLowerCase();
+    return nodeName === 'input' ||
+        nodeName === 'select' ||
+        nodeName === 'button' ||
+        nodeName === 'textarea';
+}
+/** Gets whether an element is an <input type="hidden">. */
+function isHiddenInput(element) {
+    return isInputElement(element) && element.type == 'hidden';
+}
+/** Gets whether an element is an anchor that has an href attribute. */
+function isAnchorWithHref(element) {
+    return isAnchorElement(element) && element.hasAttribute('href');
+}
+/** Gets whether an element is an input element. */
+function isInputElement(element) {
+    return element.nodeName == 'input';
+}
+/** Gets whether an element is an anchor element. */
+function isAnchorElement(element) {
+    return element.nodeName.toLowerCase() == 'a';
+}
+/** Gets whether an element has a valid tabindex. */
+function hasValidTabIndex(element) {
+    if (!element.hasAttribute('tabindex') || element.tabIndex === undefined) {
+        return false;
+    }
+    var tabIndex = element.getAttribute('tabindex');
+    // IE11 parses tabindex="" as the value "-32768"
+    if (tabIndex == '-32768') {
+        return false;
+    }
+    return !!(tabIndex && !isNaN(parseInt(tabIndex, 10)));
+}
+/**
+ * Returns the parsed tabindex from the element attributes instead of returning the
+ * evaluated tabindex from the browsers defaults.
+ */
+function getTabIndexValue(element) {
+    if (!hasValidTabIndex(element)) {
+        return null;
+    }
+    // See browser issue in Gecko https://bugzilla.mozilla.org/show_bug.cgi?id=1128054
+    var tabIndex = parseInt(element.getAttribute('tabindex'), 10);
+    return isNaN(tabIndex) ? -1 : tabIndex;
+}
+/** Checks whether the specified element is potentially tabbable on iOS */
+function isPotentiallyTabbableIOS(element) {
+    var nodeName = element.nodeName.toLowerCase();
+    var inputType = nodeName === 'input' && element.type;
+    return inputType === 'text'
+        || inputType === 'password'
+        || nodeName === 'select'
+        || nodeName === 'textarea';
+}
+/**
+ * Gets whether an element is potentially focusable without taking current visible/disabled state
+ * into account.
+ */
+function isPotentiallyFocusable(element) {
+    // Inputs are potentially focusable *unless* they're type="hidden".
+    if (isHiddenInput(element)) {
+        return false;
+    }
+    return isNativeFormElement(element) ||
+        isAnchorWithHref(element) ||
+        element.hasAttribute('contenteditable') ||
+        hasValidTabIndex(element);
+}
+/** Gets the parent window of a DOM node with regards of being inside of an iframe. */
+function getWindow(node) {
+    return node.ownerDocument.defaultView || window;
+}
+
+//# sourceMappingURL=interactivity-checker.js.map
+
+
+/***/ },
+/* 939 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__overlay__ = __webpack_require__(940);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__portal_portal__ = __webpack_require__(935);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__overlay_state__ = __webpack_require__(951);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__position_connected_position__ = __webpack_require__(952);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__ = __webpack_require__(954);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rtl_dir__ = __webpack_require__(934);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__scroll_scrollable__ = __webpack_require__(1034);
+/* unused harmony export OverlayOrigin */
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return ConnectedOverlayDirective; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return OverlayModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+
+
+
+/** Default set of positions for the overlay. Follows the behavior of a dropdown. */
+var defaultPositionList = [
+    new __WEBPACK_IMPORTED_MODULE_4__position_connected_position__["b" /* ConnectionPositionPair */]({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
+    new __WEBPACK_IMPORTED_MODULE_4__position_connected_position__["b" /* ConnectionPositionPair */]({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }),
+];
+/**
+ * Directive applied to an element to make it usable as an origin for an Overlay using a
+ * ConnectedPositionStrategy.
+ */
+var OverlayOrigin = (function () {
+    function OverlayOrigin(elementRef) {
+        this.elementRef = elementRef;
+    }
+    OverlayOrigin = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: '[cdk-overlay-origin], [overlay-origin]',
+            exportAs: 'cdkOverlayOrigin',
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
+    ], OverlayOrigin);
+    return OverlayOrigin;
+}());
+/**
+ * Directive to facilitate declarative creation of an Overlay using a ConnectedPositionStrategy.
+ */
+var ConnectedOverlayDirective = (function () {
+    // TODO(jelbourn): inputs for size, scroll behavior, animation, etc.
+    function ConnectedOverlayDirective(_overlay, templateRef, viewContainerRef, _dir) {
+        this._overlay = _overlay;
+        this._dir = _dir;
+        this._open = false;
+        this._hasBackdrop = false;
+        this._offsetX = 0;
+        this._offsetY = 0;
+        /** Event emitted when the backdrop is clicked. */
+        this.backdropClick = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        /** Event emitted when the position has changed. */
+        this.positionChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        /** Event emitted when the overlay has been attached. */
+        this.attach = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        /** Event emitted when the overlay has been detached. */
+        this.detach = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this._templatePortal = new __WEBPACK_IMPORTED_MODULE_2__portal_portal__["b" /* TemplatePortal */](templateRef, viewContainerRef);
+    }
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "offsetX", {
+        /** The offset in pixels for the overlay connection point on the x-axis */
+        get: function () {
+            return this._offsetX;
+        },
+        set: function (offsetX) {
+            this._offsetX = offsetX;
+            if (this._position) {
+                this._position.withOffsetX(offsetX);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "offsetY", {
+        /** The offset in pixels for the overlay connection point on the y-axis */
+        get: function () {
+            return this._offsetY;
+        },
+        set: function (offsetY) {
+            this._offsetY = offsetY;
+            if (this._position) {
+                this._position.withOffsetY(offsetY);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "hasBackdrop", {
+        /** Whether or not the overlay should attach a backdrop. */
+        get: function () {
+            return this._hasBackdrop;
+        },
+        // TODO: move the boolean coercion logic to a shared function in core
+        set: function (value) {
+            this._hasBackdrop = value != null && "" + value !== 'false';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "open", {
+        get: function () {
+            return this._open;
+        },
+        set: function (value) {
+            value ? this._attachOverlay() : this._detachOverlay();
+            this._open = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "overlayRef", {
+        /** The associated overlay reference. */
+        get: function () {
+            return this._overlayRef;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConnectedOverlayDirective.prototype, "dir", {
+        /** The element's layout direction. */
+        get: function () {
+            return this._dir ? this._dir.value : 'ltr';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ConnectedOverlayDirective.prototype.ngOnDestroy = function () {
+        this._destroyOverlay();
+    };
+    /** Creates an overlay */
+    ConnectedOverlayDirective.prototype._createOverlay = function () {
+        if (!this.positions || !this.positions.length) {
+            this.positions = defaultPositionList;
+        }
+        this._overlayRef = this._overlay.create(this._buildConfig());
+    };
+    /** Builds the overlay config based on the directive's inputs */
+    ConnectedOverlayDirective.prototype._buildConfig = function () {
+        var overlayConfig = new __WEBPACK_IMPORTED_MODULE_3__overlay_state__["a" /* OverlayState */]();
+        if (this.width || this.width === 0) {
+            overlayConfig.width = this.width;
+        }
+        if (this.height || this.height === 0) {
+            overlayConfig.height = this.height;
+        }
+        if (this.minWidth || this.minWidth === 0) {
+            overlayConfig.minWidth = this.minWidth;
+        }
+        if (this.minHeight || this.minHeight === 0) {
+            overlayConfig.minHeight = this.minHeight;
+        }
+        overlayConfig.hasBackdrop = this.hasBackdrop;
+        if (this.backdropClass) {
+            overlayConfig.backdropClass = this.backdropClass;
+        }
+        this._position = this._createPositionStrategy();
+        overlayConfig.positionStrategy = this._position;
+        overlayConfig.direction = this.dir;
+        return overlayConfig;
+    };
+    /** Returns the position strategy of the overlay to be set on the overlay config */
+    ConnectedOverlayDirective.prototype._createPositionStrategy = function () {
+        var pos = this.positions[0];
+        var originPoint = { originX: pos.originX, originY: pos.originY };
+        var overlayPoint = { overlayX: pos.overlayX, overlayY: pos.overlayY };
+        var strategy = this._overlay.position()
+            .connectedTo(this.origin.elementRef, originPoint, overlayPoint)
+            .withDirection(this.dir)
+            .withOffsetX(this.offsetX)
+            .withOffsetY(this.offsetY);
+        this._handlePositionChanges(strategy);
+        return strategy;
+    };
+    ConnectedOverlayDirective.prototype._handlePositionChanges = function (strategy) {
+        var _this = this;
+        for (var i = 1; i < this.positions.length; i++) {
+            strategy.withFallbackPosition({ originX: this.positions[i].originX, originY: this.positions[i].originY }, { overlayX: this.positions[i].overlayX, overlayY: this.positions[i].overlayY });
+        }
+        this._positionSubscription =
+            strategy.onPositionChange.subscribe(function (pos) { return _this.positionChange.emit(pos); });
+    };
+    /** Attaches the overlay and subscribes to backdrop clicks if backdrop exists */
+    ConnectedOverlayDirective.prototype._attachOverlay = function () {
+        var _this = this;
+        if (!this._overlayRef) {
+            this._createOverlay();
+        }
+        if (!this._overlayRef.hasAttached()) {
+            this._overlayRef.attach(this._templatePortal);
+            this.attach.emit();
+        }
+        if (this.hasBackdrop) {
+            this._backdropSubscription = this._overlayRef.backdropClick().subscribe(function () {
+                _this.backdropClick.emit();
+            });
+        }
+    };
+    /** Detaches the overlay and unsubscribes to backdrop clicks if backdrop exists */
+    ConnectedOverlayDirective.prototype._detachOverlay = function () {
+        if (this._overlayRef) {
+            this._overlayRef.detach();
+            this.detach.emit();
+        }
+        if (this._backdropSubscription) {
+            this._backdropSubscription.unsubscribe();
+            this._backdropSubscription = null;
+        }
+    };
+    /** Destroys the overlay created by this directive. */
+    ConnectedOverlayDirective.prototype._destroyOverlay = function () {
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+        }
+        if (this._backdropSubscription) {
+            this._backdropSubscription.unsubscribe();
+        }
+        if (this._positionSubscription) {
+            this._positionSubscription.unsubscribe();
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', OverlayOrigin)
+    ], ConnectedOverlayDirective.prototype, "origin", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Array)
+    ], ConnectedOverlayDirective.prototype, "positions", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Number)
+    ], ConnectedOverlayDirective.prototype, "offsetX", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "offsetY", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "width", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "height", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "minWidth", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "minHeight", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], ConnectedOverlayDirective.prototype, "backdropClass", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "hasBackdrop", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "open", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "backdropClick", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "positionChange", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "attach", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], ConnectedOverlayDirective.prototype, "detach", void 0);
+    ConnectedOverlayDirective = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: '[cdk-connected-overlay], [connected-overlay]',
+            exportAs: 'cdkConnectedOverlay'
+        }),
+        __param(3, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_1__overlay__["b" /* Overlay */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"], __WEBPACK_IMPORTED_MODULE_6__rtl_dir__["a" /* Dir */]])
+    ], ConnectedOverlayDirective);
+    return ConnectedOverlayDirective;
+}());
+var OverlayModule = (function () {
+    function OverlayModule() {
+    }
+    OverlayModule.forRoot = function () {
+        return {
+            ngModule: OverlayModule,
+            providers: __WEBPACK_IMPORTED_MODULE_1__overlay__["a" /* OVERLAY_PROVIDERS */],
+        };
+    };
+    OverlayModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [__WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__["a" /* PortalModule */]],
+            exports: [ConnectedOverlayDirective, OverlayOrigin, __WEBPACK_IMPORTED_MODULE_7__scroll_scrollable__["a" /* Scrollable */]],
+            declarations: [ConnectedOverlayDirective, OverlayOrigin, __WEBPACK_IMPORTED_MODULE_7__scroll_scrollable__["a" /* Scrollable */]],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], OverlayModule);
+    return OverlayModule;
+}());
+
+//# sourceMappingURL=overlay-directives.js.map
+
+
+/***/ },
+/* 940 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__overlay_state__ = __webpack_require__(951);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__portal_dom_portal_host__ = __webpack_require__(978);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__overlay_ref__ = __webpack_require__(975);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__position_overlay_position_builder__ = __webpack_require__(1033);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__position_viewport_ruler__ = __webpack_require__(931);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__overlay_container__ = __webpack_require__(974);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__scroll_scroll_dispatcher__ = __webpack_require__(953);
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return Overlay; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return OVERLAY_PROVIDERS; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+/** Next overlay unique ID. */
+var nextUniqueId = 0;
+/** The default state for newly created overlays. */
+var defaultState = new __WEBPACK_IMPORTED_MODULE_1__overlay_state__["a" /* OverlayState */]();
+/**
+ * Service to create Overlays. Overlays are dynamically added pieces of floating UI, meant to be
+ * used as a low-level building building block for other components. Dialogs, tooltips, menus,
+ * selects, etc. can all be built using overlays. The service should primarily be used by authors
+ * of re-usable components rather than developers building end-user applications.
+ *
+ * An overlay *is* a PortalHost, so any kind of Portal can be loaded into one.
+ */
+var Overlay = (function () {
+    function Overlay(_overlayContainer, _componentFactoryResolver, _positionBuilder, _appRef, _injector, _ngZone) {
+        this._overlayContainer = _overlayContainer;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._positionBuilder = _positionBuilder;
+        this._appRef = _appRef;
+        this._injector = _injector;
+        this._ngZone = _ngZone;
+    }
+    /**
+     * Creates an overlay.
+     * @param state State to apply to the overlay.
+     * @returns Reference to the created overlay.
+     */
+    Overlay.prototype.create = function (state) {
+        if (state === void 0) { state = defaultState; }
+        return this._createOverlayRef(this._createPaneElement(), state);
+    };
+    /**
+     * Returns a position builder that can be used, via fluent API,
+     * to construct and configure a position strategy.
+     */
+    Overlay.prototype.position = function () {
+        return this._positionBuilder;
+    };
+    /**
+     * Creates the DOM element for an overlay and appends it to the overlay container.
+     * @returns Newly-created pane element
+     */
+    Overlay.prototype._createPaneElement = function () {
+        var pane = document.createElement('div');
+        pane.id = "cdk-overlay-" + nextUniqueId++;
+        pane.classList.add('cdk-overlay-pane');
+        this._overlayContainer.getContainerElement().appendChild(pane);
+        return pane;
+    };
+    /**
+     * Create a DomPortalHost into which the overlay content can be loaded.
+     * @param pane The DOM element to turn into a portal host.
+     * @returns A portal host for the given DOM element.
+     */
+    Overlay.prototype._createPortalHost = function (pane) {
+        return new __WEBPACK_IMPORTED_MODULE_2__portal_dom_portal_host__["a" /* DomPortalHost */](pane, this._componentFactoryResolver, this._appRef, this._injector);
+    };
+    /**
+     * Creates an OverlayRef for an overlay in the given DOM element.
+     * @param pane DOM element for the overlay
+     * @param state
+     */
+    Overlay.prototype._createOverlayRef = function (pane, state) {
+        return new __WEBPACK_IMPORTED_MODULE_3__overlay_ref__["a" /* OverlayRef */](this._createPortalHost(pane), pane, state, this._ngZone);
+    };
+    Overlay = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_6__overlay_container__["a" /* OverlayContainer */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"], __WEBPACK_IMPORTED_MODULE_4__position_overlay_position_builder__["a" /* OverlayPositionBuilder */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
+    ], Overlay);
+    return Overlay;
+}());
+/** Providers for Overlay and its related injectables. */
+var OVERLAY_PROVIDERS = [
+    __WEBPACK_IMPORTED_MODULE_5__position_viewport_ruler__["a" /* ViewportRuler */],
+    __WEBPACK_IMPORTED_MODULE_4__position_overlay_position_builder__["a" /* OverlayPositionBuilder */],
+    Overlay,
+    __WEBPACK_IMPORTED_MODULE_6__overlay_container__["a" /* OverlayContainer */],
+    __WEBPACK_IMPORTED_MODULE_7__scroll_scroll_dispatcher__["a" /* ScrollDispatcher */],
+];
+
+//# sourceMappingURL=overlay.js.map
+
+
+/***/ },
+/* 941 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__platform__ = __webpack_require__(942);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__platform__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__features__ = __webpack_require__(977);
+/* unused harmony namespace reexport */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PlatformModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PlatformModule = (function () {
+    function PlatformModule() {
+    }
+    PlatformModule.forRoot = function () {
+        return {
+            ngModule: PlatformModule,
+            providers: [__WEBPACK_IMPORTED_MODULE_1__platform__["a" /* Platform */]],
+        };
+    };
+    PlatformModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({}), 
+        __metadata('design:paramtypes', [])
+    ], PlatformModule);
+    return PlatformModule;
+}());
+
+//# sourceMappingURL=index.js.map
+
+
+/***/ },
+/* 942 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Platform; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+// Whether the current platform supports the V8 Break Iterator. The V8 check
+// is necessary to detect all Blink based browsers.
+var hasV8BreakIterator = typeof (window) !== 'undefined' ?
+    (window.Intl && window.Intl.v8BreakIterator) :
+    (typeof (Intl) !== 'undefined' && Intl.v8BreakIterator);
+/**
+ * Service to detect the current platform by comparing the userAgent strings and
+ * checking browser-specific global properties.
+ * @docs-private
+ */
+var Platform = (function () {
+    function Platform() {
+        /** Layout Engines */
+        this.EDGE = /(edge)/i.test(navigator.userAgent);
+        this.TRIDENT = /(msie|trident)/i.test(navigator.userAgent);
+        // EdgeHTML and Trident mock Blink specific things and need to excluded from this check.
+        this.BLINK = !!(window.chrome || hasV8BreakIterator) && !!CSS && !this.EDGE && !this.TRIDENT;
+        // Webkit is part of the userAgent in EdgeHTML Blink and Trident, so we need to
+        // ensure that Webkit runs standalone and is not use as another engines base.
+        this.WEBKIT = /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
+        /** Browsers and Platform Types */
+        this.IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        // It's difficult to detect the plain Gecko engine, because most of the browsers identify
+        // them self as Gecko-like browsers and modify the userAgent's according to that.
+        // Since we only cover one explicit Firefox case, we can simply check for Firefox
+        // instead of having an unstable check for Gecko.
+        this.FIREFOX = /(firefox|minefield)/i.test(navigator.userAgent);
+        // Trident on mobile adds the android platform to the userAgent to trick detections.
+        this.ANDROID = /android/i.test(navigator.userAgent) && !this.TRIDENT;
+    }
+    Platform = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
+        __metadata('design:paramtypes', [])
+    ], Platform);
+    return Platform;
+}());
+
+//# sourceMappingURL=platform.js.map
+
+
+/***/ },
+/* 943 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdDialogRef; });
+
+// TODO(jelbourn): resizing
+// TODO(jelbourn): afterOpen and beforeClose
+/**
+ * Reference to a dialog opened via the MdDialog service.
+ */
+var MdDialogRef = (function () {
+    function MdDialogRef(_overlayRef) {
+        this._overlayRef = _overlayRef;
+        /** Subject for notifying the user that the dialog has finished closing. */
+        this._afterClosed = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
+    }
+    /**
+     * Close the dialog.
+     * @param dialogResult Optional result to return to the dialog opener.
+     */
+    MdDialogRef.prototype.close = function (dialogResult) {
+        this._overlayRef.dispose();
+        this._afterClosed.next(dialogResult);
+        this._afterClosed.complete();
+    };
+    /**
+     * Gets an observable that is notified when the dialog is finished closing.
+     */
+    MdDialogRef.prototype.afterClosed = function () {
+        return this._afterClosed.asObservable();
+    };
+    return MdDialogRef;
+}());
+
+//# sourceMappingURL=dialog-ref.js.map
+
+
+/***/ },
+/* 944 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdMenuItem; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+/**
+ * This directive is intended to be used inside an md-menu tag.
+ * It exists mostly to set the role attribute.
+ */
+var MdMenuItem = (function () {
+    function MdMenuItem(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+    }
+    MdMenuItem.prototype.focus = function () {
+        this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
+    };
+    Object.defineProperty(MdMenuItem.prototype, "disabled", {
+        // this is necessary to support anchors
+        /** Whether the menu item is disabled. */
+        get: function () { return this._disabled; },
+        set: function (value) {
+            this._disabled = (value === false || value === undefined) ? null : true;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdMenuItem.prototype, "isAriaDisabled", {
+        /** Sets the aria-disabled property on the menu item. */
+        get: function () { return String(!!this.disabled); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdMenuItem.prototype, "_tabindex", {
+        get: function () { return this.disabled ? '-1' : '0'; },
+        enumerable: true,
+        configurable: true
+    });
+    MdMenuItem.prototype._getHostElement = function () {
+        return this._elementRef.nativeElement;
+    };
+    MdMenuItem.prototype._checkDisabled = function (event) {
+        if (this.disabled) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.disabled'),
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Boolean)
+    ], MdMenuItem.prototype, "disabled", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.aria-disabled'), 
+        __metadata('design:type', String)
+    ], MdMenuItem.prototype, "isAriaDisabled", null);
+    MdMenuItem = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: '[md-menu-item], [mat-menu-item]',
+            host: {
+                'role': 'menuitem',
+                '(click)': '_checkDisabled($event)',
+                '[attr.tabindex]': '_tabindex'
+            },
+            template: "<ng-content></ng-content><div class=\"md-menu-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"></div>",
+            exportAs: 'mdMenuItem'
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
+    ], MdMenuItem);
+    return MdMenuItem;
+}());
+
+//# sourceMappingURL=menu-item.js.map
+
+
+/***/ },
+/* 945 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdInkBar; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+/** The ink-bar is used to display and animate the line underneath the current active tab label. */
+var MdInkBar = (function () {
+    function MdInkBar(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+    }
+    /**
+     * Calculates the styles from the provided element in order to align the ink-bar to that element.
+     * Shows the ink bar if previously set as hidden.
+     * @param element
+     */
+    MdInkBar.prototype.alignToElement = function (element) {
+        this.show();
+        this._renderer.setElementStyle(this._elementRef.nativeElement, 'left', this._getLeftPosition(element));
+        this._renderer.setElementStyle(this._elementRef.nativeElement, 'width', this._getElementWidth(element));
+    };
+    /** Shows the ink bar. */
+    MdInkBar.prototype.show = function () {
+        this._renderer.setElementStyle(this._elementRef.nativeElement, 'visibility', 'visible');
+    };
+    /** Hides the ink bar. */
+    MdInkBar.prototype.hide = function () {
+        this._renderer.setElementStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
+    };
+    /**
+     * Generates the pixel distance from the left based on the provided element in string format.
+     * @param element
+     */
+    MdInkBar.prototype._getLeftPosition = function (element) {
+        return element ? element.offsetLeft + 'px' : '0';
+    };
+    /**
+     * Generates the pixel width from the provided element in string format.
+     * @param element
+     */
+    MdInkBar.prototype._getElementWidth = function (element) {
+        return element ? element.offsetWidth + 'px' : '0';
+    };
+    MdInkBar = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: 'md-ink-bar, mat-ink-bar',
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
+    ], MdInkBar);
+    return MdInkBar;
+}());
+
+//# sourceMappingURL=ink-bar.js.map
+
+
+/***/ },
+/* 946 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__focus_trap__ = __webpack_require__(937);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__live_announcer__ = __webpack_require__(948);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interactivity_checker__ = __webpack_require__(938);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__platform_index__ = __webpack_require__(941);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return A11Y_PROVIDERS; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return A11yModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var A11Y_PROVIDERS = [__WEBPACK_IMPORTED_MODULE_2__live_announcer__["a" /* LiveAnnouncer */], __WEBPACK_IMPORTED_MODULE_3__interactivity_checker__["a" /* InteractivityChecker */]];
+var A11yModule = (function () {
+    function A11yModule() {
+    }
+    A11yModule.forRoot = function () {
+        return {
+            ngModule: A11yModule,
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_5__platform_index__["a" /* PlatformModule */].forRoot().providers,
+                A11Y_PROVIDERS,
+            ],
+        };
+    };
+    A11yModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [__WEBPACK_IMPORTED_MODULE_4__angular_common__["CommonModule"], __WEBPACK_IMPORTED_MODULE_5__platform_index__["a" /* PlatformModule */]],
+            declarations: [__WEBPACK_IMPORTED_MODULE_1__focus_trap__["a" /* FocusTrap */]],
+            exports: [__WEBPACK_IMPORTED_MODULE_1__focus_trap__["a" /* FocusTrap */]],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], A11yModule);
+    return A11yModule;
+}());
+
+//# sourceMappingURL=index.js.map
+
+
+/***/ },
+/* 947 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(971);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ListKeyManager; });
+
+
+/**
+ * This class manages keyboard events for selectable lists. If you pass it a query list
+ * of focusable items, it will focus the correct item when arrow events occur.
+ */
+var ListKeyManager = (function () {
+    function ListKeyManager(_items) {
+        this._items = _items;
+        this._tabOut = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
+        this._wrap = false;
+    }
+    /**
+     * Turns on focus wrapping mode, which ensures that the focus will wrap to
+     * the other end of list when there are no more items in the given direction.
+     *
+     * @returns The ListKeyManager that the method was called on.
+     */
+    ListKeyManager.prototype.withFocusWrap = function () {
+        this._wrap = true;
+        return this;
+    };
+    /**
+     * Sets the focus of the list to the item at the index specified.
+     *
+     * @param index The index of the item to be focused.
+     */
+    ListKeyManager.prototype.setFocus = function (index) {
+        this._focusedItemIndex = index;
+        this._items.toArray()[index].focus();
+    };
+    /**
+     * Sets the focus depending on the key event passed in.
+     * @param event Keyboard event to be used for determining which element to focus.
+     */
+    ListKeyManager.prototype.onKeydown = function (event) {
+        switch (event.keyCode) {
+            case __WEBPACK_IMPORTED_MODULE_0__core__["DOWN_ARROW"]:
+                this.focusNextItem();
+                break;
+            case __WEBPACK_IMPORTED_MODULE_0__core__["UP_ARROW"]:
+                this.focusPreviousItem();
+                break;
+            case __WEBPACK_IMPORTED_MODULE_0__core__["HOME"]:
+                this.focusFirstItem();
+                break;
+            case __WEBPACK_IMPORTED_MODULE_0__core__["END"]:
+                this.focusLastItem();
+                break;
+            case __WEBPACK_IMPORTED_MODULE_0__core__["TAB"]:
+                // Note that we shouldn't prevent the default action on tab.
+                this._tabOut.next(null);
+                return;
+            default:
+                return;
+        }
+        event.preventDefault();
+    };
+    /** Focuses the first enabled item in the list. */
+    ListKeyManager.prototype.focusFirstItem = function () {
+        this._setFocusByIndex(0, 1);
+    };
+    /** Focuses the last enabled item in the list. */
+    ListKeyManager.prototype.focusLastItem = function () {
+        this._setFocusByIndex(this._items.length - 1, -1);
+    };
+    /** Focuses the next enabled item in the list. */
+    ListKeyManager.prototype.focusNextItem = function () {
+        this._setFocusByDelta(1);
+    };
+    /** Focuses a previous enabled item in the list. */
+    ListKeyManager.prototype.focusPreviousItem = function () {
+        this._setFocusByDelta(-1);
+    };
+    Object.defineProperty(ListKeyManager.prototype, "focusedItemIndex", {
+        /** Returns the index of the currently focused item. */
+        get: function () {
+            return this._focusedItemIndex;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Allows setting of the focusedItemIndex without focusing the item.
+     * @param index The new focusedItemIndex.
+     */
+    ListKeyManager.prototype.updateFocusedItemIndex = function (index) {
+        this._focusedItemIndex = index;
+    };
+    Object.defineProperty(ListKeyManager.prototype, "tabOut", {
+        /**
+         * Observable that emits any time the TAB key is pressed, so components can react
+         * when focus is shifted off of the list.
+         */
+        get: function () {
+            return this._tabOut.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * This method sets focus to the correct item, given a list of items and the delta
+     * between the currently focused item and the new item to be focused. It will calculate
+     * the proper focus differently depending on whether wrap mode is turned on.
+     */
+    ListKeyManager.prototype._setFocusByDelta = function (delta, items) {
+        if (items === void 0) { items = this._items.toArray(); }
+        this._wrap ? this._setWrapModeFocus(delta, items)
+            : this._setDefaultModeFocus(delta, items);
+    };
+    /**
+     * Sets the focus properly given "wrap" mode. In other words, it will continue to move
+     * down the list until it finds an item that is not disabled, and it will wrap if it
+     * encounters either end of the list.
+     */
+    ListKeyManager.prototype._setWrapModeFocus = function (delta, items) {
+        // when focus would leave menu, wrap to beginning or end
+        this._focusedItemIndex =
+            (this._focusedItemIndex + delta + items.length) % items.length;
+        // skip all disabled menu items recursively until an active one is reached
+        if (items[this._focusedItemIndex].disabled) {
+            this._setWrapModeFocus(delta, items);
+        }
+        else {
+            items[this._focusedItemIndex].focus();
+        }
+    };
+    /**
+     * Sets the focus properly given the default mode. In other words, it will
+     * continue to move down the list until it finds an item that is not disabled. If
+     * it encounters either end of the list, it will stop and not wrap.
+     */
+    ListKeyManager.prototype._setDefaultModeFocus = function (delta, items) {
+        this._setFocusByIndex(this._focusedItemIndex + delta, delta, items);
+    };
+    /**
+     * Sets the focus to the first enabled item starting at the index specified. If the
+     * item is disabled, it will move in the fallbackDelta direction until it either
+     * finds an enabled item or encounters the end of the list.
+     */
+    ListKeyManager.prototype._setFocusByIndex = function (index, fallbackDelta, items) {
+        if (items === void 0) { items = this._items.toArray(); }
+        if (!items[index]) {
+            return;
+        }
+        while (items[index].disabled) {
+            index += fallbackDelta;
+            if (!items[index]) {
+                return;
+            }
+        }
+        this.setFocus(index);
+    };
+    return ListKeyManager;
+}());
+
+//# sourceMappingURL=list-key-manager.js.map
+
+
+/***/ },
+/* 948 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* unused harmony export LIVE_ANNOUNCER_ELEMENT_TOKEN */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return LiveAnnouncer; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+var LIVE_ANNOUNCER_ELEMENT_TOKEN = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["OpaqueToken"]('liveAnnouncerElement');
+var LiveAnnouncer = (function () {
+    function LiveAnnouncer(elementToken) {
+        // We inject the live element as `any` because the constructor signature cannot reference
+        // browser globals (HTMLElement) on non-browser environments, since having a class decorator
+        // causes TypeScript to preserve the constructor signature types.
+        this._liveElement = elementToken || this._createLiveElement();
+    }
+    /**
+     * Announces a message to screenreaders.
+     * @param message Message to be announced to the screenreader
+     * @param politeness The politeness of the announcer element
+     */
+    LiveAnnouncer.prototype.announce = function (message, politeness) {
+        var _this = this;
+        if (politeness === void 0) { politeness = 'polite'; }
+        this._liveElement.textContent = '';
+        // TODO: ensure changing the politeness works on all environments we support.
+        this._liveElement.setAttribute('aria-live', politeness);
+        // This 100ms timeout is necessary for some browser + screen-reader combinations:
+        // - Both JAWS and NVDA over IE11 will not announce anything without a non-zero timeout.
+        // - With Chrome and IE11 with NVDA or JAWS, a repeated (identical) message won't be read a
+        //   second time without clearing and then using a non-zero delay.
+        // (using JAWS 17 at time of this writing).
+        setTimeout(function () { return _this._liveElement.textContent = message; }, 100);
+    };
+    /** Removes the aria-live element from the DOM. */
+    LiveAnnouncer.prototype._removeLiveElement = function () {
+        if (this._liveElement && this._liveElement.parentNode) {
+            this._liveElement.parentNode.removeChild(this._liveElement);
+        }
+    };
+    LiveAnnouncer.prototype._createLiveElement = function () {
+        var liveEl = document.createElement('div');
+        liveEl.classList.add('cdk-visually-hidden');
+        liveEl.setAttribute('aria-atomic', 'true');
+        liveEl.setAttribute('aria-live', 'polite');
+        document.body.appendChild(liveEl);
+        return liveEl;
+    };
+    LiveAnnouncer = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()),
+        __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(LIVE_ANNOUNCER_ELEMENT_TOKEN)), 
+        __metadata('design:paramtypes', [Object])
+    ], LiveAnnouncer);
+    return LiveAnnouncer;
+}());
+
+//# sourceMappingURL=live-announcer.js.map
+
+
+/***/ },
+/* 949 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdError; });
+// TODO(kara): Revisit why error messages are not being properly set.
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/**
+ * Wrapper around Error that sets the error message.
+ * @docs-private
+ */
+var MdError = (function (_super) {
+    __extends(MdError, _super);
+    function MdError(value) {
+        _super.call(this);
+        this.message = value;
+    }
+    return MdError;
+}(Error));
+
+//# sourceMappingURL=error.js.map
+
+
+/***/ },
+/* 950 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* unused harmony export ObserveContent */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ObserveContentModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+/**
+ * Directive that triggers a callback whenever the content of
+ * its associated element has changed.
+ */
+var ObserveContent = (function () {
+    function ObserveContent(_elementRef) {
+        this._elementRef = _elementRef;
+        /** Event emitted for each change in the element's content. */
+        this.event = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+    }
+    ObserveContent.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this._observer = new MutationObserver(function (mutations) { return mutations.forEach(function () { return _this.event.emit(); }); });
+        this._observer.observe(this._elementRef.nativeElement, {
+            characterData: true,
+            childList: true,
+            subtree: true
+        });
+    };
+    ObserveContent.prototype.ngOnDestroy = function () {
+        if (this._observer) {
+            this._observer.disconnect();
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])('cdkObserveContent'), 
+        __metadata('design:type', Object)
+    ], ObserveContent.prototype, "event", void 0);
+    ObserveContent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: '[cdkObserveContent]'
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
+    ], ObserveContent);
+    return ObserveContent;
+}());
+var ObserveContentModule = (function () {
+    function ObserveContentModule() {
+    }
+    ObserveContentModule.forRoot = function () {
+        return {
+            ngModule: ObserveContentModule,
+            providers: []
+        };
+    };
+    ObserveContentModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            exports: [ObserveContent],
+            declarations: [ObserveContent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ObserveContentModule);
+    return ObserveContentModule;
+}());
+
+//# sourceMappingURL=observe-content.js.map
+
+
+/***/ },
+/* 951 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return OverlayState; });
+/**
+ * OverlayState is a bag of values for either the initial configuration or current state of an
+ * overlay.
+ */
+var OverlayState = (function () {
+    function OverlayState() {
+        /** Whether the overlay has a backdrop. */
+        this.hasBackdrop = false;
+        /** Custom class to add to the backdrop **/
+        this.backdropClass = 'cdk-overlay-dark-backdrop';
+        /** The direction of the text in the overlay panel. */
+        this.direction = 'ltr';
+    }
+    return OverlayState;
+}());
+
+//# sourceMappingURL=overlay-state.js.map
+
+
+/***/ },
+/* 952 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return ConnectionPositionPair; });
+/* unused harmony export ScrollableViewProperties */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ConnectedOverlayPositionChange; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+/** The points of the origin element and the overlay element to connect. */
+var ConnectionPositionPair = (function () {
+    function ConnectionPositionPair(origin, overlay) {
+        this.originX = origin.originX;
+        this.originY = origin.originY;
+        this.overlayX = overlay.overlayX;
+        this.overlayY = overlay.overlayY;
+    }
+    return ConnectionPositionPair;
+}());
+/**
+ * Set of properties regarding the position of the origin and overlay relative to the viewport
+ * with respect to the containing Scrollable elements.
+ *
+ * The overlay and origin are clipped if any part of their bounding client rectangle exceeds the
+ * bounds of any one of the strategy's Scrollable's bounding client rectangle.
+ *
+ * The overlay and origin are outside view if there is no overlap between their bounding client
+ * rectangle and any one of the strategy's Scrollable's bounding client rectangle.
+ *
+ *       -----------                    -----------
+ *       | outside |                    | clipped |
+ *       |  view   |              --------------------------
+ *       |         |              |     |         |        |
+ *       ----------               |     -----------        |
+ *  --------------------------    |                        |
+ *  |                        |    |      Scrollable        |
+ *  |                        |    |                        |
+ *  |                        |     --------------------------
+ *  |      Scrollable        |
+ *  |                        |
+ *  --------------------------
+ */
+var ScrollableViewProperties = (function () {
+    function ScrollableViewProperties() {
+    }
+    return ScrollableViewProperties;
+}());
+/** The change event emitted by the strategy when a fallback position is used. */
+var ConnectedOverlayPositionChange = (function () {
+    function ConnectedOverlayPositionChange(connectionPair, scrollableViewProperties) {
+        this.connectionPair = connectionPair;
+        this.scrollableViewProperties = scrollableViewProperties;
+    }
+    ConnectedOverlayPositionChange = __decorate([
+        __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()), 
+        __metadata('design:paramtypes', [ConnectionPositionPair, ScrollableViewProperties])
+    ], ConnectedOverlayPositionChange);
+    return ConnectedOverlayPositionChange;
+}());
+
+//# sourceMappingURL=connected-position.js.map
+
+
+/***/ },
+/* 953 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent__ = __webpack_require__(459);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ScrollDispatcher; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/**
+ * Service contained all registered Scrollable references and emits an event when any one of the
+ * Scrollable references emit a scrolled event.
+ */
+var ScrollDispatcher = (function () {
+    function ScrollDispatcher() {
+        var _this = this;
+        /** Subject for notifying that a registered scrollable reference element has been scrolled. */
+        this._scrolled = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
+        /**
+         * Map of all the scrollable references that are registered with the service and their
+         * scroll event subscriptions.
+         */
+        this.scrollableReferences = new Map();
+        // By default, notify a scroll event when the document is scrolled or the window is resized.
+        __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].fromEvent(window.document, 'scroll').subscribe(function () { return _this._notify(); });
+        __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].fromEvent(window, 'resize').subscribe(function () { return _this._notify(); });
+    }
+    /**
+     * Registers a Scrollable with the service and listens for its scrolled events. When the
+     * scrollable is scrolled, the service emits the event in its scrolled observable.
+     *
+     * @param scrollable Scrollable instance to be registered.
+     */
+    ScrollDispatcher.prototype.register = function (scrollable) {
+        var _this = this;
+        var scrollSubscription = scrollable.elementScrolled().subscribe(function () { return _this._notify(); });
+        this.scrollableReferences.set(scrollable, scrollSubscription);
+    };
+    /**
+     * Deregisters a Scrollable reference and unsubscribes from its scroll event observable.
+     *
+     * @param scrollable Scrollable instance to be deregistered.
+     */
+    ScrollDispatcher.prototype.deregister = function (scrollable) {
+        this.scrollableReferences.get(scrollable).unsubscribe();
+        this.scrollableReferences.delete(scrollable);
+    };
+    /**
+     * Returns an observable that emits an event whenever any of the registered Scrollable
+     * references (or window, document, or body) fire a scrolled event.
+     */
+    ScrollDispatcher.prototype.scrolled = function () {
+        // TODO: Add an event limiter that includes throttle with the leading and trailing events.
+        return this._scrolled.asObservable();
+    };
+    /** Returns all registered Scrollables that contain the provided element. */
+    ScrollDispatcher.prototype.getScrollContainers = function (elementRef) {
+        var _this = this;
+        var scrollingContainers = [];
+        this.scrollableReferences.forEach(function (subscription, scrollable) {
+            if (_this.scrollableContainsElement(scrollable, elementRef)) {
+                scrollingContainers.push(scrollable);
+            }
+        });
+        return scrollingContainers;
+    };
+    /** Returns true if the element is contained within the provided Scrollable. */
+    ScrollDispatcher.prototype.scrollableContainsElement = function (scrollable, elementRef) {
+        var element = elementRef.nativeElement;
+        var scrollableElement = scrollable.getElementRef().nativeElement;
+        // Traverse through the element parents until we reach null, checking if any of the elements
+        // are the scrollable's element.
+        do {
+            if (element == scrollableElement) {
+                return true;
+            }
+        } while (element = element.parentElement);
+    };
+    /** Sends a notification that a scroll event has been fired. */
+    ScrollDispatcher.prototype._notify = function () {
+        this._scrolled.next();
+    };
+    ScrollDispatcher = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
+        __metadata('design:paramtypes', [])
+    ], ScrollDispatcher);
+    return ScrollDispatcher;
+}());
+
+//# sourceMappingURL=scroll-dispatcher.js.map
+
+
+/***/ },
+/* 954 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__portal__ = __webpack_require__(935);
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return TemplatePortalDirective; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return PortalHostDirective; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PortalModule; });
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,
+ * the directive instance itself can be attached to a host, enabling declarative use of portals.
+ *
+ * Usage:
+ * <template portal #greeting>
+ *   <p> Hello {{name}} </p>
+ * </template>
+ */
+var TemplatePortalDirective = (function (_super) {
+    __extends(TemplatePortalDirective, _super);
+    function TemplatePortalDirective(templateRef, viewContainerRef) {
+        _super.call(this, templateRef, viewContainerRef);
+    }
+    TemplatePortalDirective = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: '[cdk-portal], [portal]',
+            exportAs: 'cdkPortal',
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]])
+    ], TemplatePortalDirective);
+    return TemplatePortalDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__portal__["b" /* TemplatePortal */]));
+/**
+ * Directive version of a PortalHost. Because the directive *is* a PortalHost, portals can be
+ * directly attached to it, enabling declarative use.
+ *
+ * Usage:
+ * <template [cdkPortalHost]="greeting"></template>
+ */
+var PortalHostDirective = (function (_super) {
+    __extends(PortalHostDirective, _super);
+    function PortalHostDirective(_componentFactoryResolver, _viewContainerRef) {
+        _super.call(this);
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._viewContainerRef = _viewContainerRef;
+    }
+    Object.defineProperty(PortalHostDirective.prototype, "_deprecatedPortal", {
+        /** @deprecated */
+        get: function () { return this.portal; },
+        set: function (v) { this.portal = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PortalHostDirective.prototype, "portal", {
+        /** Portal associated with the Portal host. */
+        get: function () {
+            return this._portal;
+        },
+        set: function (p) {
+            if (p) {
+                this._replaceAttachedPortal(p);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    PortalHostDirective.prototype.ngOnDestroy = function () {
+        this.dispose();
+    };
+    /**
+     * Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver.
+     *
+     * @param portal Portal to be attached to the portal host.
+     */
+    PortalHostDirective.prototype.attachComponentPortal = function (portal) {
+        portal.setAttachedHost(this);
+        // If the portal specifies an origin, use that as the logical location of the component
+        // in the application tree. Otherwise use the location of this PortalHost.
+        var viewContainerRef = portal.viewContainerRef != null ?
+            portal.viewContainerRef :
+            this._viewContainerRef;
+        var componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
+        var ref = viewContainerRef.createComponent(componentFactory, viewContainerRef.length, portal.injector || viewContainerRef.parentInjector);
+        this.setDisposeFn(function () { return ref.destroy(); });
+        return ref;
+    };
+    /**
+     * Attach the given TemplatePortal to this PortlHost as an embedded View.
+     * @param portal Portal to be attached.
+     */
+    PortalHostDirective.prototype.attachTemplatePortal = function (portal) {
+        var _this = this;
+        portal.setAttachedHost(this);
+        this._viewContainerRef.createEmbeddedView(portal.templateRef);
+        this.setDisposeFn(function () { return _this._viewContainerRef.clear(); });
+        // TODO(jelbourn): return locals from view
+        return new Map();
+    };
+    /** Detaches the currently attached Portal (if there is one) and attaches the given Portal. */
+    PortalHostDirective.prototype._replaceAttachedPortal = function (p) {
+        if (this.hasAttached()) {
+            this.detach();
+        }
+        if (p) {
+            this.attach(p);
+            this._portal = p;
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('portalHost'), 
+        __metadata('design:type', Object)
+    ], PortalHostDirective.prototype, "_deprecatedPortal", null);
+    PortalHostDirective = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: '[cdkPortalHost], [portalHost]',
+            inputs: ['portal: cdkPortalHost']
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]])
+    ], PortalHostDirective);
+    return PortalHostDirective;
+}(__WEBPACK_IMPORTED_MODULE_1__portal__["c" /* BasePortalHost */]));
+var PortalModule = (function () {
+    function PortalModule() {
+    }
+    PortalModule.forRoot = function () {
+        return {
+            ngModule: PortalModule,
+            providers: []
+        };
+    };
+    PortalModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            exports: [TemplatePortalDirective, PortalHostDirective],
+            declarations: [TemplatePortalDirective, PortalHostDirective],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], PortalModule);
+    return PortalModule;
+}());
+
+//# sourceMappingURL=portal-directives.js.map
+
+
+/***/ },
+/* 955 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dialog_errors__ = __webpack_require__(1038);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_focus_trap__ = __webpack_require__(937);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__ = __webpack_require__(1017);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdDialogContainer; });
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+/**
+ * Internal component that wraps user-provided dialog content.
+ * @docs-private
+ */
+var MdDialogContainer = (function (_super) {
+    __extends(MdDialogContainer, _super);
+    function MdDialogContainer(_ngZone) {
+        _super.call(this);
+        this._ngZone = _ngZone;
+        /** Element that was focused before the dialog was opened. Save this to restore upon close. */
+        this._elementFocusedBeforeDialogWasOpened = null;
+    }
+    /**
+     * Attach a portal as content to this dialog container.
+     * @param portal Portal to be attached as the dialog content.
+     */
+    MdDialogContainer.prototype.attachComponentPortal = function (portal) {
+        var _this = this;
+        if (this._portalHost.hasAttached()) {
+            throw new __WEBPACK_IMPORTED_MODULE_2__dialog_errors__["a" /* MdDialogContentAlreadyAttachedError */]();
+        }
+        var attachResult = this._portalHost.attachComponentPortal(portal);
+        // If were to attempt to focus immediately, then the content of the dialog would not yet be
+        // ready in instances where change detection has to run first. To deal with this, we simply
+        // wait for the microtask queue to be empty.
+        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+            _this._elementFocusedBeforeDialogWasOpened = document.activeElement;
+            _this._focusTrap.focusFirstTabbableElement();
+        });
+        return attachResult;
+    };
+    /** @docs-private */
+    MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
+        throw Error('Not yet implemented');
+    };
+    /**
+     * Handles the user pressing the Escape key.
+     * @docs-private
+     */
+    MdDialogContainer.prototype.handleEscapeKey = function () {
+        if (!this.dialogConfig.disableClose) {
+            this.dialogRef.close();
+        }
+    };
+    MdDialogContainer.prototype.ngOnDestroy = function () {
+        var _this = this;
+        // When the dialog is destroyed, return focus to the element that originally had it before
+        // the dialog was opened. Wait for the DOM to finish settling before changing the focus so
+        // that it doesn't end up back on the <body>.
+        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+            _this._elementFocusedBeforeDialogWasOpened.focus();
+        });
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1__core__["PortalHostDirective"]), 
+        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_1__core__["PortalHostDirective"])
+    ], MdDialogContainer.prototype, "_portalHost", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_3__core_a11y_focus_trap__["a" /* FocusTrap */]), 
+        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_3__core_a11y_focus_trap__["a" /* FocusTrap */])
+    ], MdDialogContainer.prototype, "_focusTrap", void 0);
+    MdDialogContainer = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'md-dialog-container, mat-dialog-container',
+            template: "<cdk-focus-trap><template cdkPortalHost></template></cdk-focus-trap>",
+            styles: ["md-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){md-dialog-container{outline:solid 1px}}[mat-dialog-content],[md-dialog-content],mat-dialog-content,md-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto}[mat-dialog-title],[md-dialog-title]{font-size:20px;font-weight:700;margin:0 0 20px;display:block}[mat-dialog-actions],[md-dialog-actions],mat-dialog-actions,md-dialog-actions{padding:12px 0;display:block}[mat-dialog-actions]:last-child,[md-dialog-actions]:last-child,mat-dialog-actions:last-child,md-dialog-actions:last-child{margin-bottom:-24px}"],
+            host: {
+                'class': 'md-dialog-container',
+                '[attr.role]': 'dialogConfig?.role',
+                '(keydown.escape)': 'handleEscapeKey()',
+            },
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
+    ], MdDialogContainer);
+    return MdDialogContainer;
+}(__WEBPACK_IMPORTED_MODULE_1__core__["BasePortalHost"]));
+
+//# sourceMappingURL=dialog-container.js.map
+
+
+/***/ },
+/* 956 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(929);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdGridListColsError; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MdGridTileTooWideError; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return MdGridListBadRatioError; });
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/**
+ * Exception thrown when cols property is missing from grid-list
+ * @docs-private
+ */
+var MdGridListColsError = (function (_super) {
+    __extends(MdGridListColsError, _super);
+    function MdGridListColsError() {
+        _super.call(this, "md-grid-list: must pass in number of columns. Example: <md-grid-list cols=\"3\">");
+    }
+    return MdGridListColsError;
+}(__WEBPACK_IMPORTED_MODULE_0__core__["MdError"]));
+/**
+ * Exception thrown when a tile's colspan is longer than the number of cols in list
+ * @docs-private
+ */
+var MdGridTileTooWideError = (function (_super) {
+    __extends(MdGridTileTooWideError, _super);
+    function MdGridTileTooWideError(cols, listLength) {
+        _super.call(this, "md-grid-list: tile with colspan " + cols + " is wider than grid with cols=\"" + listLength + "\".");
+    }
+    return MdGridTileTooWideError;
+}(__WEBPACK_IMPORTED_MODULE_0__core__["MdError"]));
+/**
+ * Exception thrown when an invalid ratio is passed in as a rowHeight
+ * @docs-private
+ */
+var MdGridListBadRatioError = (function (_super) {
+    __extends(MdGridListBadRatioError, _super);
+    function MdGridListBadRatioError(value) {
+        _super.call(this, "md-grid-list: invalid ratio given for row-height: \"" + value + "\"");
+    }
+    return MdGridListBadRatioError;
+}(__WEBPACK_IMPORTED_MODULE_0__core__["MdError"]));
+
+//# sourceMappingURL=grid-list-errors.js.map
+
+
+/***/ },
+/* 957 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_errors__ = __webpack_require__(996);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu_item__ = __webpack_require__(944);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_list_key_manager__ = __webpack_require__(947);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__menu_animations__ = __webpack_require__(995);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdMenu; });
+// TODO(kara): prevent-close functionality
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+var MdMenu = (function () {
+    function MdMenu(posX, posY) {
+        /** Config object to be passed into the menu's ngClass */
+        this._classList = {};
+        /** Position of the menu in the X axis. */
+        this.positionX = 'after';
+        /** Position of the menu in the Y axis. */
+        this.positionY = 'below';
+        /** Event emitted when the menu is closed. */
+        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        if (posX) {
+            this._setPositionX(posX);
+        }
+        if (posY) {
+            this._setPositionY(posY);
+        }
+        this.setPositionClasses(this.positionX, this.positionY);
+    }
+    MdMenu.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this._keyManager = new __WEBPACK_IMPORTED_MODULE_3__core_a11y_list_key_manager__["a" /* ListKeyManager */](this.items).withFocusWrap();
+        this._tabSubscription = this._keyManager.tabOut.subscribe(function () {
+            _this._emitCloseEvent();
+        });
+    };
+    MdMenu.prototype.ngOnDestroy = function () {
+        this._tabSubscription.unsubscribe();
+    };
+    Object.defineProperty(MdMenu.prototype, "classList", {
+        /**
+         * This method takes classes set on the host md-menu element and applies them on the
+         * menu template that displays in the overlay container.  Otherwise, it's difficult
+         * to style the containing menu from outside the component.
+         * @param classes list of class names
+         */
+        set: function (classes) {
+            this._classList = classes.split(' ').reduce(function (obj, className) {
+                obj[className] = true;
+                return obj;
+            }, {});
+            this.setPositionClasses(this.positionX, this.positionY);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Focus the first item in the menu. This method is used by the menu trigger
+     * to focus the first item when the menu is opened by the ENTER key.
+     */
+    MdMenu.prototype.focusFirstItem = function () {
+        this._keyManager.focusFirstItem();
+    };
+    /**
+     * This emits a close event to which the trigger is subscribed. When emitted, the
+     * trigger will close the menu.
+     */
+    MdMenu.prototype._emitCloseEvent = function () {
+        this.close.emit();
+    };
+    MdMenu.prototype._setPositionX = function (pos) {
+        if (pos !== 'before' && pos !== 'after') {
+            throw new __WEBPACK_IMPORTED_MODULE_1__menu_errors__["a" /* MdMenuInvalidPositionX */]();
+        }
+        this.positionX = pos;
+    };
+    MdMenu.prototype._setPositionY = function (pos) {
+        if (pos !== 'above' && pos !== 'below') {
+            throw new __WEBPACK_IMPORTED_MODULE_1__menu_errors__["b" /* MdMenuInvalidPositionY */]();
+        }
+        this.positionY = pos;
+    };
+    /**
+     * It's necessary to set position-based classes to ensure the menu panel animation
+     * folds out from the correct direction.
+     */
+    MdMenu.prototype.setPositionClasses = function (posX, posY) {
+        this._classList['md-menu-before'] = posX == 'before';
+        this._classList['md-menu-after'] = posX == 'after';
+        this._classList['md-menu-above'] = posY == 'above';
+        this._classList['md-menu-below'] = posY == 'below';
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"]), 
+        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"])
+    ], MdMenu.prototype, "templateRef", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ContentChildren"])(__WEBPACK_IMPORTED_MODULE_2__menu_item__["a" /* MdMenuItem */]), 
+        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"])
+    ], MdMenu.prototype, "items", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('class'), 
+        __metadata('design:type', String), 
+        __metadata('design:paramtypes', [String])
+    ], MdMenu.prototype, "classList", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], MdMenu.prototype, "close", void 0);
+    MdMenu = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'md-menu, mat-menu',
+            host: { 'role': 'menu' },
+            template: "<template><div class=\"md-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_keyManager.onKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\"><div class=\"md-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></template>",
+            styles: [".md-menu-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh + 48px)}.md-menu-panel.md-menu-after.md-menu-below{transform-origin:left top}.md-menu-panel.md-menu-after.md-menu-above{transform-origin:left bottom}.md-menu-panel.md-menu-before.md-menu-below{transform-origin:right top}.md-menu-panel.md-menu-before.md-menu-above{transform-origin:right bottom}[dir=rtl] .md-menu-panel.md-menu-after.md-menu-below{transform-origin:right top}[dir=rtl] .md-menu-panel.md-menu-after.md-menu-above{transform-origin:right bottom}[dir=rtl] .md-menu-panel.md-menu-before.md-menu-below{transform-origin:left top}[dir=rtl] .md-menu-panel.md-menu-before.md-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.md-menu-panel{outline:solid 1px}}.md-menu-content{padding-top:8px;padding-bottom:8px}[md-menu-item]{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;border:none;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;display:flex;flex-direction:row;align-items:center;height:48px;padding:0 16px;font-size:16px;font-family:Roboto,\"Helvetica Neue\",sans-serif;text-align:start;text-decoration:none;position:relative}[md-menu-item][disabled]{cursor:default}[md-menu-item] md-icon{margin-right:16px}[dir=rtl] [md-menu-item] md-icon{margin-left:16px}button[md-menu-item]{width:100%}.md-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
+            animations: [
+                __WEBPACK_IMPORTED_MODULE_4__menu_animations__["a" /* transformMenu */],
+                __WEBPACK_IMPORTED_MODULE_4__menu_animations__["b" /* fadeInItems */]
+            ],
+            exportAs: 'mdMenu'
+        }),
+        __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Attribute"])('x-position')),
+        __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Attribute"])('y-position')), 
+        __metadata('design:paramtypes', [String, String])
+    ], MdMenu);
+    return MdMenu;
+}());
+
+//# sourceMappingURL=menu-directive.js.map
+
+
+/***/ },
+/* 958 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_errors__ = __webpack_require__(996);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(929);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdMenuTrigger; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+/**
+ * This directive is intended to be used in conjunction with an md-menu tag.  It is
+ * responsible for toggling the display of the provided menu instance.
+ */
+var MdMenuTrigger = (function () {
+    function MdMenuTrigger(_overlay, _element, _viewContainerRef, _renderer, _dir) {
+        this._overlay = _overlay;
+        this._element = _element;
+        this._viewContainerRef = _viewContainerRef;
+        this._renderer = _renderer;
+        this._dir = _dir;
+        this._menuOpen = false;
+        // tracking input type is necessary so it's possible to only auto-focus
+        // the first item of the list when the menu is opened via the keyboard
+        this._openedByMouse = false;
+        /** Event emitted when the associated menu is opened. */
+        this.onMenuOpen = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        /** Event emitted when the associated menu is closed. */
+        this.onMenuClose = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+    }
+    Object.defineProperty(MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", {
+        /** @deprecated */
+        get: function () { return this.menu; },
+        set: function (v) { this.menu = v; },
+        enumerable: true,
+        configurable: true
+    });
+    MdMenuTrigger.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this._checkMenu();
+        this.menu.close.subscribe(function () { return _this.closeMenu(); });
+    };
+    MdMenuTrigger.prototype.ngOnDestroy = function () { this.destroyMenu(); };
+    Object.defineProperty(MdMenuTrigger.prototype, "menuOpen", {
+        /** Whether the menu is open. */
+        get: function () { return this._menuOpen; },
+        enumerable: true,
+        configurable: true
+    });
+    /** Toggles the menu between the open and closed states. */
+    MdMenuTrigger.prototype.toggleMenu = function () {
+        return this._menuOpen ? this.closeMenu() : this.openMenu();
+    };
+    /** Opens the menu. */
+    MdMenuTrigger.prototype.openMenu = function () {
+        if (!this._menuOpen) {
+            this._createOverlay();
+            this._overlayRef.attach(this._portal);
+            this._subscribeToBackdrop();
+            this._initMenu();
+        }
+    };
+    /** Closes the menu. */
+    MdMenuTrigger.prototype.closeMenu = function () {
+        if (this._overlayRef) {
+            this._overlayRef.detach();
+            this._backdropSubscription.unsubscribe();
+            this._resetMenu();
+        }
+    };
+    /** Removes the menu from the DOM. */
+    MdMenuTrigger.prototype.destroyMenu = function () {
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+            this._overlayRef = null;
+            this._cleanUpSubscriptions();
+        }
+    };
+    /** Focuses the menu trigger. */
+    MdMenuTrigger.prototype.focus = function () {
+        this._renderer.invokeElementMethod(this._element.nativeElement, 'focus');
+    };
+    Object.defineProperty(MdMenuTrigger.prototype, "dir", {
+        /** The text direction of the containing app. */
+        get: function () {
+            return this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * This method ensures that the menu closes when the overlay backdrop is clicked.
+     * We do not use first() here because doing so would not catch clicks from within
+     * the menu, and it would fail to unsubscribe properly. Instead, we unsubscribe
+     * explicitly when the menu is closed or destroyed.
+     */
+    MdMenuTrigger.prototype._subscribeToBackdrop = function () {
+        var _this = this;
+        this._backdropSubscription = this._overlayRef.backdropClick().subscribe(function () {
+            _this.closeMenu();
+        });
+    };
+    /**
+     * This method sets the menu state to open and focuses the first item if
+     * the menu was opened via the keyboard.
+     */
+    MdMenuTrigger.prototype._initMenu = function () {
+        this._setIsMenuOpen(true);
+        // Should only set focus if opened via the keyboard, so keyboard users can
+        // can easily navigate menu items. According to spec, mouse users should not
+        // see the focus style.
+        if (!this._openedByMouse) {
+            this.menu.focusFirstItem();
+        }
+    };
+    ;
+    /**
+     * This method resets the menu when it's closed, most importantly restoring
+     * focus to the menu trigger if the menu was opened via the keyboard.
+     */
+    MdMenuTrigger.prototype._resetMenu = function () {
+        this._setIsMenuOpen(false);
+        // Focus only needs to be reset to the host element if the menu was opened
+        // by the keyboard and manually shifted to the first menu item.
+        if (!this._openedByMouse) {
+            this.focus();
+        }
+        this._openedByMouse = false;
+    };
+    // set state rather than toggle to support triggers sharing a menu
+    MdMenuTrigger.prototype._setIsMenuOpen = function (isOpen) {
+        this._menuOpen = isOpen;
+        this._menuOpen ? this.onMenuOpen.emit() : this.onMenuClose.emit();
+    };
+    /**
+     *  This method checks that a valid instance of MdMenu has been passed into
+     *  mdMenuTriggerFor. If not, an exception is thrown.
+     */
+    MdMenuTrigger.prototype._checkMenu = function () {
+        if (!this.menu) {
+            throw new __WEBPACK_IMPORTED_MODULE_1__menu_errors__["c" /* MdMenuMissingError */]();
+        }
+    };
+    /**
+     *  This method creates the overlay from the provided menu's template and saves its
+     *  OverlayRef so that it can be attached to the DOM when openMenu is called.
+     */
+    MdMenuTrigger.prototype._createOverlay = function () {
+        if (!this._overlayRef) {
+            this._portal = new __WEBPACK_IMPORTED_MODULE_2__core__["TemplatePortal"](this.menu.templateRef, this._viewContainerRef);
+            var config = this._getOverlayConfig();
+            this._subscribeToPositions(config.positionStrategy);
+            this._overlayRef = this._overlay.create(config);
+        }
+    };
+    /**
+     * This method builds the configuration object needed to create the overlay, the OverlayState.
+     * @returns OverlayState
+     */
+    MdMenuTrigger.prototype._getOverlayConfig = function () {
+        var overlayState = new __WEBPACK_IMPORTED_MODULE_2__core__["OverlayState"]();
+        overlayState.positionStrategy = this._getPosition()
+            .withDirection(this.dir);
+        overlayState.hasBackdrop = true;
+        overlayState.backdropClass = 'cdk-overlay-transparent-backdrop';
+        overlayState.direction = this.dir;
+        return overlayState;
+    };
+    /**
+     * Listens to changes in the position of the overlay and sets the correct classes
+     * on the menu based on the new position. This ensures the animation origin is always
+     * correct, even if a fallback position is used for the overlay.
+     */
+    MdMenuTrigger.prototype._subscribeToPositions = function (position) {
+        var _this = this;
+        this._positionSubscription = position.onPositionChange.subscribe(function (change) {
+            var posX = change.connectionPair.originX === 'start' ? 'after' : 'before';
+            var posY = change.connectionPair.originY === 'top' ? 'below' : 'above';
+            _this.menu.setPositionClasses(posX, posY);
+        });
+    };
+    /**
+     * This method builds the position strategy for the overlay, so the menu is properly connected
+     * to the trigger.
+     * @returns ConnectedPositionStrategy
+     */
+    MdMenuTrigger.prototype._getPosition = function () {
+        var _a = this.menu.positionX === 'before' ? ['end', 'start'] : ['start', 'end'], posX = _a[0], fallbackX = _a[1];
+        var _b = this.menu.positionY === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], posY = _b[0], fallbackY = _b[1];
+        return this._overlay.position()
+            .connectedTo(this._element, { originX: posX, originY: posY }, { overlayX: posX, overlayY: posY })
+            .withFallbackPosition({ originX: fallbackX, originY: posY }, { overlayX: fallbackX, overlayY: posY })
+            .withFallbackPosition({ originX: posX, originY: fallbackY }, { overlayX: posX, overlayY: fallbackY })
+            .withFallbackPosition({ originX: fallbackX, originY: fallbackY }, { overlayX: fallbackX, overlayY: fallbackY });
+    };
+    MdMenuTrigger.prototype._cleanUpSubscriptions = function () {
+        if (this._backdropSubscription) {
+            this._backdropSubscription.unsubscribe();
+        }
+        if (this._positionSubscription) {
+            this._positionSubscription.unsubscribe();
+        }
+    };
+    MdMenuTrigger.prototype._handleMousedown = function (event) {
+        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__core__["isFakeMousedownFromScreenReader"])(event)) {
+            this._openedByMouse = true;
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-menu-trigger-for'), 
+        __metadata('design:type', Object)
+    ], MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdMenuTriggerFor'), 
+        __metadata('design:type', Object)
+    ], MdMenuTrigger.prototype, "menu", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], MdMenuTrigger.prototype, "onMenuOpen", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], MdMenuTrigger.prototype, "onMenuClose", void 0);
+    MdMenuTrigger = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
+            selector: '[md-menu-trigger-for], [mat-menu-trigger-for], [mdMenuTriggerFor]',
+            host: {
+                'aria-haspopup': 'true',
+                '(mousedown)': '_handleMousedown($event)',
+                '(click)': 'toggleMenu()',
+            },
+            exportAs: 'mdMenuTrigger'
+        }),
+        __param(4, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_2__core__["Overlay"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_2__core__["Dir"]])
+    ], MdMenuTrigger);
+    return MdMenuTrigger;
+}());
+
+//# sourceMappingURL=menu-trigger.js.map
+
+
+/***/ },
+/* 959 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
+/* unused harmony export MdProgressSpinner */
+/* unused harmony export MdSpinner */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdProgressSpinnerModule; });
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+// TODO(josephperrott): Benchpress tests.
+/** A single degree in radians. */
+var DEGREE_IN_RADIANS = Math.PI / 180;
+/** Duration of the indeterminate animation. */
+var DURATION_INDETERMINATE = 667;
+/** Duration of the indeterminate animation. */
+var DURATION_DETERMINATE = 225;
+/** Start animation value of the indeterminate animation */
+var startIndeterminate = 3;
+/** End animation value of the indeterminate animation */
+var endIndeterminate = 80;
+/* Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden. */
+var MAX_ANGLE = 359.99 / 100;
+/**
+ * <md-progress-spinner> component.
+ */
+var MdProgressSpinner = (function () {
+    function MdProgressSpinner(_changeDetectorRef, _ngZone, _elementRef) {
+        this._changeDetectorRef = _changeDetectorRef;
+        this._ngZone = _ngZone;
+        this._elementRef = _elementRef;
+        /** The id of the last requested animation. */
+        this._lastAnimationId = 0;
+        this._mode = 'determinate';
+        this.color = 'primary';
+    }
+    Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMin", {
+        /**
+         * Values for aria max and min are only defined as numbers when in a determinate mode.  We do this
+         * because voiceover does not report the progress indicator as indeterminate if the aria min
+         * and/or max value are number values.
+         */
+        get: function () {
+            return this.mode == 'determinate' ? 0 : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMax", {
+        get: function () {
+            return this.mode == 'determinate' ? 100 : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdProgressSpinner.prototype, "interdeterminateInterval", {
+        /** @docs-private */
+        get: function () {
+            return this._interdeterminateInterval;
+        },
+        /** @docs-private */
+        set: function (interval) {
+            clearInterval(this._interdeterminateInterval);
+            this._interdeterminateInterval = interval;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Clean up any animations that were running.
+     */
+    MdProgressSpinner.prototype.ngOnDestroy = function () {
+        this._cleanupIndeterminateAnimation();
+    };
+    Object.defineProperty(MdProgressSpinner.prototype, "value", {
+        get: function () {
+            if (this.mode == 'determinate') {
+                return this._value;
+            }
+        },
+        set: function (v) {
+            if (v != null && this.mode == 'determinate') {
+                var newValue = clamp(v);
+                this._animateCircle((this.value || 0), newValue, linearEase, DURATION_DETERMINATE, 0);
+                this._value = newValue;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdProgressSpinner.prototype, "mode", {
+        /**
+         * Mode of the progress circle
+         *
+         * Input must be one of the values from ProgressMode, defaults to 'determinate'.
+         * mode is bound to the host as the attribute host.
+         */
+        get: function () {
+            return this._mode;
+        },
+        set: function (m) {
+            if (m == 'indeterminate') {
+                this._startIndeterminateAnimation();
+            }
+            else {
+                this._cleanupIndeterminateAnimation();
+            }
+            this._mode = m;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Animates the circle from one percentage value to another.
+     *
+     * @param animateFrom The percentage of the circle filled starting the animation.
+     * @param animateTo The percentage of the circle filled ending the animation.
+     * @param ease The easing function to manage the pace of change in the animation.
+     * @param duration The length of time to show the animation, in milliseconds.
+     * @param rotation The starting angle of the circle fill, with 0° represented at the top center
+     *    of the circle.
+     */
+    MdProgressSpinner.prototype._animateCircle = function (animateFrom, animateTo, ease, duration, rotation) {
+        var _this = this;
+        var id = ++this._lastAnimationId;
+        var startTime = Date.now();
+        var changeInValue = animateTo - animateFrom;
+        // No need to animate it if the values are the same
+        if (animateTo === animateFrom) {
+            this._renderArc(animateTo, rotation);
+        }
+        else {
+            var animation_1 = function () {
+                var elapsedTime = Math.max(0, Math.min(Date.now() - startTime, duration));
+                _this._renderArc(ease(elapsedTime, animateFrom, changeInValue, duration), rotation);
+                // Prevent overlapping animations by checking if a new animation has been called for and
+                // if the animation has lasted longer than the animation duration.
+                if (id === _this._lastAnimationId && elapsedTime < duration) {
+                    requestAnimationFrame(animation_1);
+                }
+            };
+            // Run the animation outside of Angular's zone, in order to avoid
+            // hitting ZoneJS and change detection on each frame.
+            this._ngZone.runOutsideAngular(animation_1);
+        }
+    };
+    /**
+     * Starts the indeterminate animation interval, if it is not already running.
+     */
+    MdProgressSpinner.prototype._startIndeterminateAnimation = function () {
+        var _this = this;
+        var rotationStartPoint = 0;
+        var start = startIndeterminate;
+        var end = endIndeterminate;
+        var duration = DURATION_INDETERMINATE;
+        var animate = function () {
+            _this._animateCircle(start, end, materialEase, duration, rotationStartPoint);
+            // Prevent rotation from reaching Number.MAX_SAFE_INTEGER.
+            rotationStartPoint = (rotationStartPoint + end) % 100;
+            var temp = start;
+            start = -end;
+            end = -temp;
+        };
+        if (!this.interdeterminateInterval) {
+            this._ngZone.runOutsideAngular(function () {
+                _this.interdeterminateInterval = setInterval(animate, duration + 50, 0, false);
+                animate();
+            });
+        }
+    };
+    /**
+     * Removes interval, ending the animation.
+     */
+    MdProgressSpinner.prototype._cleanupIndeterminateAnimation = function () {
+        this.interdeterminateInterval = null;
+    };
+    /**
+     * Renders the arc onto the SVG element. Proxies `getArc` while setting the proper
+     * DOM attribute on the `<path>`.
+     */
+    MdProgressSpinner.prototype._renderArc = function (currentValue, rotation) {
+        // Caches the path reference so it doesn't have to be looked up every time.
+        var path = this._path = this._path || this._elementRef.nativeElement.querySelector('path');
+        // Ensure that the path was found. This may not be the case if the
+        // animation function fires too early.
+        if (path) {
+            path.setAttribute('d', getSvgArc(currentValue, rotation));
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.aria-valuenow'), 
+        __metadata('design:type', Object)
+    ], MdProgressSpinner.prototype, "value", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.mode'),
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], MdProgressSpinner.prototype, "mode", null);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], MdProgressSpinner.prototype, "color", void 0);
+    MdProgressSpinner = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'md-progress-spinner, mat-progress-spinner, md-progress-circle, mat-progress-circle',
+            host: {
+                'role': 'progressbar',
+                '[attr.aria-valuemin]': '_ariaValueMin',
+                '[attr.aria-valuemax]': '_ariaValueMax',
+                '[class.md-primary]': 'color == "primary"',
+                '[class.md-accent]': 'color == "accent"',
+                '[class.md-warn]': 'color == "warn"',
+            },
+            template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
+            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+            changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectionStrategy"].OnPush,
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
+    ], MdProgressSpinner);
+    return MdProgressSpinner;
+}());
+/**
+ * <md-spinner> component.
+ *
+ * This is a component definition to be used as a convenience reference to create an
+ * indeterminate <md-progress-spinner> instance.
+ */
+var MdSpinner = (function (_super) {
+    __extends(MdSpinner, _super);
+    function MdSpinner(changeDetectorRef, elementRef, ngZone) {
+        _super.call(this, changeDetectorRef, ngZone, elementRef);
+        this.mode = 'indeterminate';
+    }
+    MdSpinner.prototype.ngOnDestroy = function () {
+        // The `ngOnDestroy` from `MdProgressSpinner` should be called explicitly, because
+        // in certain cases Angular won't call it (e.g. when using AoT and in unit tests).
+        _super.prototype.ngOnDestroy.call(this);
+    };
+    MdSpinner = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'md-spinner, mat-spinner',
+            host: {
+                'role': 'progressbar',
+                'mode': 'indeterminate',
+            },
+            template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
+            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+        }), 
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
+    ], MdSpinner);
+    return MdSpinner;
+}(MdProgressSpinner));
+/**
+ * Module functions.
+ */
+/** Clamps a value to be between 0 and 100. */
+function clamp(v) {
+    return Math.max(0, Math.min(100, v));
+}
+/**
+ * Converts Polar coordinates to Cartesian.
+ */
+function polarToCartesian(radius, pathRadius, angleInDegrees) {
+    var angleInRadians = (angleInDegrees - 90) * DEGREE_IN_RADIANS;
+    return (radius + (pathRadius * Math.cos(angleInRadians))) +
+        ',' + (radius + (pathRadius * Math.sin(angleInRadians)));
+}
+/**
+ * Easing function for linear animation.
+ */
+function linearEase(currentTime, startValue, changeInValue, duration) {
+    return changeInValue * currentTime / duration + startValue;
+}
+/**
+ * Easing function to match material design indeterminate animation.
+ */
+function materialEase(currentTime, startValue, changeInValue, duration) {
+    var time = currentTime / duration;
+    var timeCubed = Math.pow(time, 3);
+    var timeQuad = Math.pow(time, 4);
+    var timeQuint = Math.pow(time, 5);
+    return startValue + changeInValue * ((6 * timeQuint) + (-15 * timeQuad) + (10 * timeCubed));
+}
+/**
+ * Determines the path value to define the arc.  Converting percentage values to to polar
+ * coordinates on the circle, and then to cartesian coordinates in the viewport.
+ *
+ * @param currentValue The current percentage value of the progress circle, the percentage of the
+ *    circle to fill.
+ * @param rotation The starting point of the circle with 0 being the 0 degree point.
+ * @return A string for an SVG path representing a circle filled from the starting point to the
+ *    percentage value provided.
+ */
+function getSvgArc(currentValue, rotation) {
+    var startPoint = rotation || 0;
+    var radius = 50;
+    var pathRadius = 40;
+    var startAngle = startPoint * MAX_ANGLE;
+    var endAngle = currentValue * MAX_ANGLE;
+    var start = polarToCartesian(radius, pathRadius, startAngle);
+    var end = polarToCartesian(radius, pathRadius, endAngle + startAngle);
+    var arcSweep = endAngle < 0 ? 0 : 1;
+    var largeArcFlag;
+    if (endAngle < 0) {
+        largeArcFlag = endAngle >= -180 ? 0 : 1;
+    }
+    else {
+        largeArcFlag = endAngle <= 180 ? 0 : 1;
+    }
+    return "M" + start + "A" + pathRadius + "," + pathRadius + " 0 " + largeArcFlag + "," + arcSweep + " " + end;
+}
+var MdProgressSpinnerModule = (function () {
+    function MdProgressSpinnerModule() {
+    }
+    MdProgressSpinnerModule.forRoot = function () {
+        return {
+            ngModule: MdProgressSpinnerModule,
+            providers: []
+        };
+    };
+    MdProgressSpinnerModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [__WEBPACK_IMPORTED_MODULE_1__core__["DefaultStyleCompatibilityModeModule"]],
+            exports: [MdProgressSpinner, MdSpinner, __WEBPACK_IMPORTED_MODULE_1__core__["DefaultStyleCompatibilityModeModule"]],
+            declarations: [MdProgressSpinner, MdSpinner],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MdProgressSpinnerModule);
+    return MdProgressSpinnerModule;
+}());
+
+//# sourceMappingURL=progress-spinner.js.map
+
+
+/***/ },
+/* 960 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_keyboard_keycodes__ = __webpack_require__(933);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_coercion_boolean_property__ = __webpack_require__(930);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdOption; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -87,7 +3780,7 @@ var MdOption = (function () {
     };
     /** Ensures the option is selected when activated from the keyboard. */
     MdOption.prototype._handleKeydown = function (event) {
-        if (event.keyCode === __WEBPACK_IMPORTED_MODULE_1__core_keyboard_keycodes__["a" /* ENTER */] || event.keyCode === __WEBPACK_IMPORTED_MODULE_1__core_keyboard_keycodes__["b" /* SPACE */]) {
+        if (event.keyCode === __WEBPACK_IMPORTED_MODULE_1__core_keyboard_keycodes__["c" /* ENTER */] || event.keyCode === __WEBPACK_IMPORTED_MODULE_1__core_keyboard_keycodes__["k" /* SPACE */]) {
             this._selectViaInteraction();
         }
     };
@@ -146,13 +3839,12 @@ var MdOption = (function () {
 
 
 /***/ },
-
-/***/ 1001:
+/* 961 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_coercion_boolean_property__ = __webpack_require__(953);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_coercion_boolean_property__ = __webpack_require__(930);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdTabLabelWrapper; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -210,8 +3902,7 @@ var MdTabLabelWrapper = (function () {
 
 
 /***/ },
-
-/***/ 1002:
+/* 962 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -253,587 +3944,138 @@ var MdTabLabel = (function (_super) {
 
 
 /***/ },
-
-/***/ 1003:
+/* 963 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(458);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular2_useful_swiper__ = __webpack_require__(459);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular2_useful_swiper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular2_useful_swiper__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__my_activity_component__ = __webpack_require__(1004);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__slider_component__ = __webpack_require__(1005);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_activity_goal_activity_goal_component__ = __webpack_require__(1007);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_activity_goal_footer_activity_goal_footer_component__ = __webpack_require__(1006);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivitySharingModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 
-
-
-
-
-
-
-
-
-
-
-var ActivitySharingModule = (function () {
-    function ActivitySharingModule() {
-    }
-    ActivitySharingModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_2__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_3_ng2_translate__["a" /* TranslateModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* RouterModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_5__components_components_module__["a" /* ComponentModule */],
-                __WEBPACK_IMPORTED_MODULE_6_angular2_useful_swiper__["SwiperModule"]
-            ],
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_7__my_activity_component__["a" /* MyActivityComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__components_activity_goal_activity_goal_component__["a" /* ActivityGoalComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__components_activity_goal_footer_activity_goal_footer_component__["a" /* ActivityGoalFooterComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__slider_component__["a" /* SliderComponent */]
-            ],
-            exports: [
-                __WEBPACK_IMPORTED_MODULE_7__my_activity_component__["a" /* MyActivityComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__components_activity_goal_activity_goal_component__["a" /* ActivityGoalComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__components_activity_goal_footer_activity_goal_footer_component__["a" /* ActivityGoalFooterComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__slider_component__["a" /* SliderComponent */]
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ActivitySharingModule);
-    return ActivitySharingModule;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activity-sharing.module.js.map
-
-/***/ },
-
-/***/ 1004:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(16);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MyActivityComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var MyActivityComponent = (function () {
-    function MyActivityComponent(_projectService, _cacheService, broadcaster) {
-        this._projectService = _projectService;
-        this._cacheService = _cacheService;
-        this.broadcaster = broadcaster;
-        this.start = 0;
-        this.count = 9;
-        this.activeIndex = [];
-        this.createComment = [];
-        this.noActivities = false;
-        this.busy = false;
-        this.newActivity = false;
-    }
-    MyActivityComponent.prototype.ngOnInit = function () {
+var core_1 = __webpack_require__(0);
+var Observable_1 = __webpack_require__(2);
+var maps_api_loader_1 = __webpack_require__(1019);
+/**
+ * Wrapper class that handles the communication with the Google Maps Javascript
+ * API v3
+ */
+var GoogleMapsAPIWrapper = (function () {
+    function GoogleMapsAPIWrapper(_loader, _zone) {
         var _this = this;
-        var data = this._cacheService.get('activities');
-        if (data && !this.single) {
-            this.Activities = data;
-            this.noActivities = (!data || !data.length);
-            this.refreshCache();
-        }
-        else {
-            this.getActivities();
-        }
-        this.broadcaster.on('slide-change')
-            .subscribe(function (data) {
-            _this.activeIndex[data.id] = data.index;
-            _this.Activities[data.number].createComment = false;
-            _this.Activities[data.number].showComment = false;
+        this._loader = _loader;
+        this._zone = _zone;
+        this._map =
+            new Promise(function (resolve) { _this._mapResolver = resolve; });
+    }
+    GoogleMapsAPIWrapper.prototype.createMap = function (el, mapOptions) {
+        var _this = this;
+        return this._loader.load().then(function () {
+            var map = new google.maps.Map(el, mapOptions);
+            _this._mapResolver(map);
+            return;
         });
-        this.interval = setInterval(function () {
-            if (_this.Activities && !_this.single) {
-                _this._projectService.getActivities(0, _this.count, _this.Activities[0].datetime).subscribe(function (data) {
-                    if (data && data.length != 0) {
-                        _this.newData = data;
-                        _this.newActivity = true;
-                        clearInterval(_this.interval);
-                    }
-                });
-            }
-            else {
-                clearInterval(_this.interval);
-            }
-        }, 120000);
     };
-    MyActivityComponent.prototype.getActivities = function () {
+    GoogleMapsAPIWrapper.prototype.setMapOptions = function (options) {
+        this._map.then(function (m) { m.setOptions(options); });
+    };
+    /**
+     * Creates a google map marker with the map context
+     */
+    GoogleMapsAPIWrapper.prototype.createMarker = function (options) {
+        if (options === void 0) { options = {}; }
+        return this._map.then(function (map) {
+            options.map = map;
+            return new google.maps.Marker(options);
+        });
+    };
+    GoogleMapsAPIWrapper.prototype.createInfoWindow = function (options) {
+        return this._map.then(function () { return new google.maps.InfoWindow(options); });
+    };
+    /**
+     * Creates a google.map.Circle for the current map.
+     */
+    GoogleMapsAPIWrapper.prototype.createCircle = function (options) {
+        return this._map.then(function (map) {
+            options.map = map;
+            return new google.maps.Circle(options);
+        });
+    };
+    GoogleMapsAPIWrapper.prototype.createPolyline = function (options) {
+        return this.getNativeMap().then(function (map) {
+            var line = new google.maps.Polyline(options);
+            line.setMap(map);
+            return line;
+        });
+    };
+    GoogleMapsAPIWrapper.prototype.createPolygon = function (options) {
+        return this.getNativeMap().then(function (map) {
+            var polygon = new google.maps.Polygon(options);
+            polygon.setMap(map);
+            return polygon;
+        });
+    };
+    /**
+     * Determines if given coordinates are insite a Polygon path.
+     */
+    GoogleMapsAPIWrapper.prototype.containsLocation = function (latLng, polygon) {
+        return google.maps.geometry.poly.containsLocation(latLng, polygon);
+    };
+    GoogleMapsAPIWrapper.prototype.subscribeToMapEvent = function (eventName) {
         var _this = this;
-        this.busy = true;
-        this._projectService.getActivities(this.start, this.count, this.userId)
-            .subscribe(function (activities) {
-            _this.Activities = activities;
-            _this.noActivities = (!activities || !activities.length);
-            for (var _i = 0, _a = _this.Activities; _i < _a.length; _i++) {
-                var activity = _a[_i];
-                if (activity.goals.length > 2) {
-                    activity.reserveGoals = [activity.goals[0], activity.goals[1]];
-                    _this.optimizeReserveImages(activity.reserveGoals);
-                }
-                else {
-                    activity.reserveGoals = activity.goals;
-                }
-            }
-            _this.start += _this.count;
-            _this.busy = false;
-            _this.setReserve();
-            _this._cacheService.set('activities', _this.Activities);
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    MyActivityComponent.prototype.refreshCache = function () {
-        var _this = this;
-        this.busy = false;
-        this._projectService.getActivities(this.start, this.count, this.userId)
-            .subscribe(function (activities) {
-            _this.Activities = activities;
-            _this.noActivities = (!activities || !activities.length);
-            for (var _i = 0, _a = _this.Activities; _i < _a.length; _i++) {
-                var activity = _a[_i];
-                if (activity.goals.length > 2) {
-                    activity.reserveGoals = [activity.goals[0], activity.goals[1]];
-                    _this.optimizeReserveImages(activity.reserveGoals);
-                }
-                else {
-                    activity.reserveGoals = activity.goals;
-                }
-            }
-            _this.start += _this.count;
-            _this.busy = false;
-            _this.setReserve();
-            if (!_this.single) {
-                _this._cacheService.set('activities', _this.Activities);
-            }
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    MyActivityComponent.prototype.setReserve = function () {
-        var _this = this;
-        this._projectService.getActivities(this.start, this.count, this.userId)
-            .subscribe(function (activities) {
-            _this.reserve = activities;
-            for (var _i = 0, _a = _this.reserve; _i < _a.length; _i++) {
-                var activity = _a[_i];
-                if (activity.goals.length > 2) {
-                    activity.reserveGoals = [activity.goals[0], activity.goals[1]];
-                    _this.optimizeReserveImages(activity.reserveGoals);
-                }
-                else {
-                    activity.reserveGoals = activity.goals;
-                }
-            }
-            _this.start += _this.count;
-            _this.busy = false;
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    MyActivityComponent.prototype.getReserve = function () {
-        this.busy = true;
-        this.Activities = this.Activities.concat(this.reserve);
-        this.setReserve();
-    };
-    MyActivityComponent.prototype.addNew = function () {
-        this.newActivity = false;
-        this.addNewActivity();
-        this.interval = setInterval(this.newActivityFn, 120000);
-    };
-    MyActivityComponent.prototype.newActivityFn = function () {
-        var _this = this;
-        if (this.Activities && !this.single) {
-            this._projectService.getActivities(0, this.count, this.Activities[0].datetime).subscribe(function (data) {
-                if (data && data.length != 0) {
-                    _this.newData = data;
-                    _this.newActivity = true;
-                    clearInterval(_this.interval);
-                }
+        return Observable_1.Observable.create(function (observer) {
+            _this._map.then(function (m) {
+                m.addListener(eventName, function (arg) { _this._zone.run(function () { return observer.next(arg); }); });
             });
-        }
-        else {
-            clearInterval(this.interval);
-        }
+        });
     };
-    MyActivityComponent.prototype.addNewActivity = function () {
-        var itemIds = [];
-        for (var _i = 0, _a = this.newData; _i < _a.length; _i++) {
-            var data = _a[_i];
-            itemIds.push(data.id);
-        }
-        var removingCount = 0, k;
-        // angular.element('#activities').addClass('comingByTop');
-        for (var i = this.newData.length - 1, j = 0; i >= 0; i--, j++) {
-            k = itemIds.indexOf(this.newData[i].id);
-            if (k !== -1) {
-                this.Activities.splice(k + j - removingCount, 1);
-                removingCount++;
-            }
-            this.newData[i].forTop = true;
-            if (this.newData[i].goals.length > 2) {
-                this.newData[i].reserveGoals = [this.newData[i].goals[0], this.newData[i].goals[1]];
-                this.optimizeReserveImages(this.newData[i].reserveGoals);
-            }
-            else {
-                this.newData[i].reserveGoals = this.newData[i].goals;
-            }
-            this.Activities.unshift(this.newData[i]);
-        }
-        // if(angular.isFunction(cb)){
-        //     cb();
-        // }
-        // angular.element('#activities').removeClass('comingByTop');
+    GoogleMapsAPIWrapper.prototype.setCenter = function (latLng) {
+        return this._map.then(function (map) { return map.setCenter(latLng); });
     };
-    ;
-    MyActivityComponent.prototype.optimizeReserveImages = function (items) {
-        // for(let activity of this.reserve){
-        for (var _i = 0, items_1 = items; _i < items_1.length; _i++) {
-            var item = items_1[_i];
-            var img = void 0;
-            if (item.cached_image) {
-                img = new Image();
-                img.src = item.cached_image;
-            }
-        }
-        // }
+    GoogleMapsAPIWrapper.prototype.getZoom = function () { return this._map.then(function (map) { return map.getZoom(); }); };
+    GoogleMapsAPIWrapper.prototype.getBounds = function () {
+        return this._map.then(function (map) { return map.getBounds(); });
     };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Boolean)
-    ], MyActivityComponent.prototype, "single", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Number)
-    ], MyActivityComponent.prototype, "userId", void 0);
-    MyActivityComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'my-activity',
-            template: __webpack_require__(1018),
-            styles: [__webpack_require__(1014)],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */],
-                __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
-            ],
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _c) || Object])
-    ], MyActivityComponent);
-    return MyActivityComponent;
-    var _a, _b, _c;
+    GoogleMapsAPIWrapper.prototype.setZoom = function (zoom) {
+        return this._map.then(function (map) { return map.setZoom(zoom); });
+    };
+    GoogleMapsAPIWrapper.prototype.getCenter = function () {
+        return this._map.then(function (map) { return map.getCenter(); });
+    };
+    GoogleMapsAPIWrapper.prototype.panTo = function (latLng) {
+        return this._map.then(function (map) { return map.panTo(latLng); });
+    };
+    GoogleMapsAPIWrapper.prototype.fitBounds = function (latLng) {
+        return this._map.then(function (map) { return map.fitBounds(latLng); });
+    };
+    GoogleMapsAPIWrapper.prototype.panToBounds = function (latLng) {
+        return this._map.then(function (map) { return map.panToBounds(latLng); });
+    };
+    /**
+     * Returns the native Google Maps Map instance. Be careful when using this instance directly.
+     */
+    GoogleMapsAPIWrapper.prototype.getNativeMap = function () { return this._map; };
+    /**
+     * Triggers the given event name on the map instance.
+     */
+    GoogleMapsAPIWrapper.prototype.triggerMapEvent = function (eventName) {
+        return this._map.then(function (m) { return google.maps.event.trigger(m, eventName); });
+    };
+    GoogleMapsAPIWrapper.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    GoogleMapsAPIWrapper.ctorParameters = [
+        { type: maps_api_loader_1.MapsAPILoader, },
+        { type: core_1.NgZone, },
+    ];
+    return GoogleMapsAPIWrapper;
 }());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/my-activity.component.js.map
+exports.GoogleMapsAPIWrapper = GoogleMapsAPIWrapper;
+//# sourceMappingURL=google-maps-api-wrapper.js.map
 
 /***/ },
-
-/***/ 1005:
+/* 964 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_activity__ = __webpack_require__(957);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_activity___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_activity__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(47);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SliderComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var SliderComponent = (function () {
-    function SliderComponent(broadcaster) {
-        var _this = this;
-        this.broadcaster = broadcaster;
-        this.activeIndex = 1;
-        this.config = {
-            observer: true,
-            observeParents: true,
-            autoHeight: true,
-            onSlideNextStart: function (ev) {
-                _this.activeIndex++;
-                _this.broadcaster.broadcast('slide-change', { id: _this.activity.id, index: _this.activeIndex, number: _this.index });
-                // scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex++;
-                // scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
-                // scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
-                _this.loadImage();
-                // scope.$parent.$apply();
-                // $timeout(function () {
-                ev.update(true);
-                // }, 100)
-            },
-            onSlidePrevStart: function (ev) {
-                _this.activeIndex--;
-                _this.broadcaster.broadcast('slide-change', { id: _this.activity.id, index: _this.activeIndex, number: _this.index });
-                // scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
-                // scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
-                // scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex--;
-                // scope.$parent.$apply();
-            },
-            // loop: true,
-            nextButton: '.swiper-button-next',
-            prevButton: '.swiper-button-prev',
-            spaceBetween: 30
-        };
-    }
-    SliderComponent.prototype.ngOnInit = function () {
-    };
-    SliderComponent.prototype.loadImage = function () {
-        if (!this.reserveGoals[this.activeIndex] && this.activity.goals[this.activeIndex]) {
-            this.reserveGoals.push(this.activity.goals[this.activeIndex]);
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Array)
-    ], SliderComponent.prototype, "reserveGoals", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__interface_activity__["Activity"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__interface_activity__["Activity"]) === 'function' && _a) || Object)
-    ], SliderComponent.prototype, "activity", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Number)
-    ], SliderComponent.prototype, "index", void 0);
-    SliderComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'my-slider',
-            template: __webpack_require__(1019)
-        }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object])
-    ], SliderComponent);
-    return SliderComponent;
-    var _a, _b;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/slider.component.js.map
-
-/***/ },
-
-/***/ 1006:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interface_goal__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__interface_goal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface_activity__ = __webpack_require__(957);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface_activity___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__interface_activity__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivityGoalFooterComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var ActivityGoalFooterComponent = (function () {
-    function ActivityGoalFooterComponent(broadcaster, ProjectService) {
-        this.broadcaster = broadcaster;
-        this.ProjectService = ProjectService;
-    }
-    ActivityGoalFooterComponent.prototype.ngOnInit = function () {
-    };
-    ActivityGoalFooterComponent.prototype.addGoal = function (id) {
-        var _this = this;
-        var key = localStorage.getItem('apiKey');
-        if (!key) {
-            this.broadcaster.broadcast('openLogin', 'some message');
-        }
-        else {
-            this.ProjectService.getUserGoal(id).subscribe(function (data) {
-                _this.broadcaster.broadcast('addModal', data);
-            });
-        }
-    };
-    ActivityGoalFooterComponent.prototype.completeGoal = function (id) {
-        var _this = this;
-        var key = localStorage.getItem('apiKey');
-        if (!key) {
-            this.broadcaster.broadcast('openLogin', 'message');
-        }
-        else {
-            this.ProjectService.setDoneUserGoal(id).subscribe(function () {
-                _this.ProjectService.getStory(id).subscribe(function (data) {
-                    _this.broadcaster.broadcast('doneModal', data);
-                });
-            });
-        }
-    };
-    ActivityGoalFooterComponent.prototype.showComment = function (activity, goal) {
-        if (activity) {
-            activity.createComment = true;
-            // $timeout(function () {
-            activity.showComment = !activity.showComment;
-        }
-        else {
-            goal.createComment = true;
-            // $timeout(function () {
-            goal.showComment = !goal.showComment;
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__interface_goal__["Goal"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__interface_goal__["Goal"]) === 'function' && _a) || Object)
-    ], ActivityGoalFooterComponent.prototype, "goal", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__interface_activity__["Activity"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__interface_activity__["Activity"]) === 'function' && _b) || Object)
-    ], ActivityGoalFooterComponent.prototype, "activity", void 0);
-    ActivityGoalFooterComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'activity-goal-footer',
-            template: __webpack_require__(1020),
-            styles: [__webpack_require__(1015)]
-        }), 
-        __metadata('design:paramtypes', [(typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _d) || Object])
-    ], ActivityGoalFooterComponent);
-    return ActivityGoalFooterComponent;
-    var _a, _b, _c, _d;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activity-goal-footer.component.js.map
-
-/***/ },
-
-/***/ 1007:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_activity__ = __webpack_require__(957);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_activity___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_activity__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivityGoalComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var ActivityGoalComponent = (function () {
-    function ActivityGoalComponent() {
-    }
-    ActivityGoalComponent.prototype.ngOnInit = function () {
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__interface_activity__["Activity"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__interface_activity__["Activity"]) === 'function' && _a) || Object)
-    ], ActivityGoalComponent.prototype, "activity", void 0);
-    ActivityGoalComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'activity-goal',
-            template: __webpack_require__(1021),
-            styles: [__webpack_require__(1016)]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ActivityGoalComponent);
-    return ActivityGoalComponent;
-    var _a;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activity-goal.component.js.map
-
-/***/ },
-
-/***/ 1014:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n#activities .idea-item figure {\n  margin-bottom: 0;\n}\n#activities .image {\n  margin: 0 10px 0 0;\n  float: left;\n}\n#activities .image a {\n  height: auto;\n}\n#activities .image img {\n  width: 40px;\n  height: 40px;\n  margin: 0 auto;\n  border: 2px solid #cecece;\n}\n#activities .image .no-image {\n  height: 40px;\n  width: 40px;\n  line-height: 35px;\n  color: #ffffff;\n}\n#activities p {\n  font-size: 12px;\n  color: #999999;\n}\n#activities h4 {\n  font-size: 14px;\n  font-weight: 600;\n  padding: 5px 0 2px 0;\n  margin: 0;\n}\n#activities h4 a {\n  font-size: 14px;\n  padding-bottom: 2px;\n  display: inline-block;\n}\n#activities h4 span {\n  display: block;\n}\n#activities .goals-animate .swiper-button-next,\n#activities .goals-animate .swiper-button-prev {\n  top: 42%;\n}\n#activities .goals-animate .swiper-pagination {\n  text-align: right;\n  position: absolute;\n  right: 3px;\n  top: 36px;\n  width: 100px;\n  height: 25px;\n  font-size: 14px;\n  left: auto;\n}\n#activities .goals-animate .swiper-pagination .swiper-pagination-bullet {\n  margin: 0 5px;\n}\n#activities .goals-animate p {\n  padding-bottom: 0;\n}\n#activities .goals-animate .idea-item figure.rounded-corners {\n  border-radius: 4px;\n  -moz-border-radius-topleft: 4px;\n  -moz-border-radius-topright: 4px;\n  -moz-border-radius-bottomleft: 0;\n  -moz-border-radius-bottomright: 0;\n  -webkit-border-top-left-radius: 4px;\n  -webkit-border-top-right-radius: 4px;\n  -webkit-border-bottom-left-radius: 0;\n  -webkit-border-bottom-right-radius: 0;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n@media (min-width: 768px) {\n  #activities .image {\n    margin: 0 15px 0 0;\n    float: left;\n  }\n  #activities .image a {\n    height: auto;\n  }\n  #activities .image img {\n    width: 50px;\n    height: 50px;\n    margin: 0 auto;\n    border: 2px solid #cecece;\n  }\n  #activities .image .no-image {\n    height: 50px;\n    width: 50px;\n    line-height: 45px;\n  }\n  #activities p {\n    font-size: 13px;\n  }\n  #activities h4 {\n    font-size: 16px;\n    padding: 9px 0 2px 0;\n  }\n  #activities h4 a {\n    font-size: 16px;\n    padding: 0 10px 0 0;\n  }\n  #activities h4 span {\n    display: inline-block;\n  }\n  #activities .goals-animate .swiper-pagination {\n    top: 6px;\n    font-size: 16px;\n  }\n  #activities .goals-animate p {\n    padding-bottom: 0;\n  }\n}\n"
-
-/***/ },
-
-/***/ 1015:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\nfigcaption {\n  background-color: #ffffff;\n}\nfigcaption ul li {\n  height: 35px;\n  line-height: 31px;\n}\nfigcaption ul li a:hover,\nfigcaption ul li a:focus {\n  text-decoration: none;\n}\nfigcaption ul li i {\n  font-size: 25px;\n  vertical-align: middle;\n}\nfigcaption ul li i.comment-icon {\n  vertical-align: middle;\n  display: inline-block;\n  background: url('../../../assets/images/comment-icon.svg') no-repeat center center;\n  width: 21px;\n  height: 20px;\n  margin: 0;\n}\nfigcaption ul li i.icon-green-ok,\nfigcaption ul li .icon-green-plus {\n  font-size: 36px;\n  vertical-align: middle;\n}\nfigcaption ul li:hover {\n  background-color: #7724f6;\n  color: #fff;\n}\nfigcaption ul li:hover a .text {\n  color: #ffffff;\n}\nfigcaption ul li .text {\n  font-size: 12px;\n}\nfigcaption ul li:last-child {\n  text-align: left;\n  padding-left: 1px;\n}\nfigcaption ul .transparent .text {\n  color: #a4a4a4;\n}\nfigcaption ul .transparent:hover {\n  background-color: transparent;\n}\nfigcaption ul .transparent:hover a,\nfigcaption ul .transparent:hover .text {\n  color: #a4a4a4;\n}\n@media (min-width: 768px) {\n  figcaption ul li {\n    height: 50px;\n    line-height: 45px;\n  }\n  figcaption ul li i.icon-green-ok,\n  figcaption ul li .icon-green-plus {\n    font-size: 49px;\n  }\n  figcaption ul li i {\n    font-size: 30px;\n  }\n  figcaption ul li i.comment-icon {\n    width: 30px;\n    height: 24px;\n    margin: 3px 1px 0 -17px;\n  }\n  figcaption ul li .text {\n    font-size: 14px;\n  }\n  figcaption ul li:last-child {\n    text-align: center;\n  }\n}\n@media (min-width: 992px) {\n  figcaption ul li:hover {\n    background-color: #7724F6;\n    color: #ffffff;\n  }\n  figcaption ul li:focus,\n  figcaption ul li:active {\n    background-color: #6108EA;\n  }\n  figcaption ul li:focus a,\n  figcaption ul li:active a {\n    color: #ffffff;\n  }\n}\n"
-
-/***/ },
-
-/***/ 1016:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.goal-item-image {\n  display: block;\n  height: 230px;\n}\n"
-
-/***/ },
-
-/***/ 1018:
-/***/ function(module, exports) {
-
-module.exports = "<div id=\"activities\">\n     <!--{% if single  and activity is defined and userId is defined%}-->\n     <!--data-ls-count=\"10\"-->\n     <!--data-ls-user=\"{{ userId }}\"-->\n     <!--{% endif %}>-->\n\n    <!--{% if not single%}-->\n    <!--data-ng-init=\"activityPage = true\"-->\n    <div class=\"new-activity\" *ngIf=\"newActivity && !single\">\n        <a (click)=\"addNew()\">{{ 'new_activity'|translate }}</a>\n    </div>\n    <h3 class=\"text-dark-gray \" *ngIf=\"noActivities && !single\" id=\"non-activity\" >{{ 'active.not_have'|translate }}\n        <a routerLink=\"/ideas\" class=\"text-purple\">adding</a>\n    </h3>\n    <!--{% else %}-->\n        <!--<span class=\"empty-text  text-center\" *ngIf=\"Activities.noItem && !Activities.items.length && single\" id=\"non-activity\" >-->\n            <!--{{ 'activity_empty'|translate }}-->\n        <!--</span>-->\n    <!--{% endif %}-->\n\n    <!--data-ng-init=\"activity.activeIndex = 1\"-->\n    <div class=\"goals-animate\" [class.comingByTop]=\"activity && activity.forTop\"\n         *ngFor=\"let activity of Activities;let i = index\">\n        <!--Activities -> Activities.items-->\n\n        <div *ngIf=\"activity.comment || activity.success_story\">\n            <activity-goal [activity]=\"activity\"></activity-goal>\n        </div>\n\n        <div [ngClass]=\"{'line': activity.comment || activity.success_story}\"></div>\n\n        <div class=\"bg-white\" [ngClass]=\"{'rounded-corners-bottom': activity.comment || activity.success_story, 'round': !activity.comment && !activity.success_story}\">\n            <div class=\"padding\" [ngClass]=\"{'padding-no': !activity.comment && !activity.success_story}\">\n                <div class=\"clearfix relative\">\n\n                    <figure class=\"image img-circle\">\n\n                        <!--{% set className = \"user-no\" ~ random(4) %}-->\n\n                        <img *ngIf=\"activity.user.cached_image\" src=\"{{ activity.user.cached_image }}\" alt=\"{{ activity.user.filename }}\" class=\"img-circle img-responsive\">\n                        <p *ngIf=\"!activity.user.cached_image\" class=\"no-image user-no3\">\n                            {{ activity.user.first_name |slice:0:1 |uppercase }} {{ activity.user.last_name |slice:0:1 |uppercase }}\n                        </p>\n                    </figure>\n\n                    <div class=\"pull-left text-gray\">\n                        <h4>\n\n                            <a routerLink=\"profile/{{ activity.user.u_id }}\" class=\"text-dark-gray\">\n                                {{ activity.user.first_name }} {{ activity.user.last_name }}\n                                <i class=\"leaderboard-small\" *ngIf=\"haveTop && inArray(activity.user.id)\"></i>\n                            </a>\n\n                            <span class=\"text-gray\" *ngIf=\"activity.action == 0 \">\n                                <span *ngIf=\"activity.goals.length < 2\">{{ 'goal.create'|translate }}</span>\n                                <span *ngIf=\"activity.goals.length > 1\">{{ 'goal.create_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>\n                            </span>\n\n                             <span class=\"text-gray\" *ngIf=\"activity.action == 1\">\n                                <span *ngIf=\"activity.goals.length < 2\">{{ 'goal.add'|translate }}</span>\n                                <span *ngIf=\"activity.goals.length > 1\">{{ 'goal.add_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>\n                             </span>\n\n                             <span class=\"text-gray\" *ngIf=\"activity.action == 2\">\n                                <span *ngIf=\"activity.goals.length < 2\">{{ 'goal.complete'|translate }}</span>\n                                <span *ngIf=\"activity.goals.length > 1\">{{ 'goal.complete_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>\n                             </span>\n\n                             <span class=\"text-gray\" *ngIf=\"activity.action == 3\">\n                                {{ 'goal.success_story'|translate }}\n                             </span>\n\n                             <span class=\"text-gray\" *ngIf=\"activity.action == 4\">\n                                {{ 'goal.comment'|translate }}\n                             </span>\n\n                        </h4>\n\n                        <p>{{ activity.datetime | date:'dd MMMM,  yyyy' }} at {{ activity.datetime | date:'HH:mm' }}</p>\n\n                    </div>\n                    <div class=\"pull-right\" *ngIf=\"activity.goals.length > 1\">\n                        <div class=\"swiper-pagination text-dark-grey\">{{ (activeIndex && activeIndex[activity.id])?activeIndex[activity.id]:1 }} / {{ activity.goals.length }}</div>\n                    </div>\n                    <div class=\"text-right pull-right\"\n                          *ngIf=\"activity.success_story\">\n                        <!--data-ng-init=\"$parent.count[ activity.success_story.id ] = activity.success_story.voters_count;-->\n                        <!--$parent.vote[activity.success_story.id] = isVoting(activity.success_story.is_vote, activity.success_story)\"-->\n                        <!--<span class=\"text-purple \" *ngIf=\"count[ activity.success_story.id ] < 1\">0</span>-->\n                        <!--<a data-ls-goal-users-->\n                           <!--class=\"text-purple \"-->\n                           <!--*ngIf=\"$parent.count[ activity.success_story.id ] > 0\"-->\n                           <!--href=\"javascript:void(0)\"-->\n                           <!--data-ls-item-id=\"{{ activity.success_story.id }}\"-->\n                           <!--data-ls-count=\"{{ $parent.count[ activity.success_story.id ] }}\"-->\n                           <!--data-ls-category=\"3\">{{ $parent.count[ activity.success_story.id ] }}</a>-->\n                        <goal-users [story]=\"activity.success_story\" [type]=\"3\" [user]=\"activity.user\"></goal-users>\n                    </div>\n                </div>\n\n                <div class=\"comment-place \" *ngIf=\"activity.comment\">\n                    <span class=\"arrow-up\"></span>\n                    {{ activity.comment.comment_body }}\n                </div>\n\n                <div class=\"comment-place \" *ngIf=\"activity.success_story\">\n                    <span class=\"arrow-up\"></span>\n                    {{ activity.success_story.story }}\n                </div>\n\n            </div>\n\n            <my-slider *ngIf=\"!activity.comment && !activity.success_story\" [reserveGoals]=\"activity.reserveGoals\" [activity]=\"activity\" [index]=\"i\"></my-slider>\n\n            <div [ngClass]=\"{'line': activity.createComment && activity.showComment}\"></div>\n            <app-comment *ngIf=\"activity.createComment\" [hidden]=\"!activity.showComment\"\n                         [data]=\"{id: activity.reserveGoals[((activeIndex && activeIndex[activity.id])?(activeIndex[activity.id] - 1):0)].id, slug:activity.reserveGoals[((activeIndex && activeIndex[activity.id])?(activeIndex[activity.id] - 1):0)].slug,inner:false}\">\n            </app-comment>\n            <!--<div data-ls-comment-manage-->\n                 <!--class=\"padding slide \"-->\n                 <!--*ngIf=\"activity.createComment\"-->\n                 <!--*ngIf=\"activity.showComment\"-->\n                 <!--data-ls-goal-id=\"{{ activity.reserveGoals[activity.activeIndex - 1].id }}\"-->\n                 <!--data-ls-slug=\"{{ activity.reserveGoals[activity.activeIndex - 1].slug }}\"-->\n                 <!--data-ls-reply=\"{{ 'reply'|translate }}\"-->\n                 <!--data-ls-replied=\"{{ 'replied'|translate }}\"-->\n                 <!--data-ls-logged=\"true\"-->\n                 <!--data-ls-report-title=\"{{ 'report.title'|translate }}\"-->\n                 <!--data-ls-title=\"{{ 'comments'|translate }}\"-->\n                 <!--data-ls-user-image=\"{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}-->\n                <!--{% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}-->\n                <!--{{ nameOnImage  |uppercase}}{% endif %}\">-->\n            <!--</div>-->\n        </div>\n        <br/>\n    </div>\n    <!--*ngIf=\"!single\"-->\n    <div class=\"navigation text-center\">\n        <a *ngIf=\"!busy && reserve && reserve.length > 0\"\n           (click)='getReserve()'\n           class=\"show-more \">\n            <!--ActivitiesName -> Activities.name-->\n            <span></span>\n            <span></span>\n            <span></span>\n        </a>\n    </div>\n\n</div>"
-
-/***/ },
-
-/***/ 1019:
-/***/ function(module, exports) {
-
-module.exports = "<swiper [config]=\"config\" class=\"activity-slider swiper-container\">\n    <div class=\"idea-item swiper-wrapper goals-animate\">\n        <div class=\"swiper-slide\" *ngFor=\"let goal of reserveGoals\">\n\n            <figure class=\"rounded-corners-bottom\">\n\n                <h3>\n                    <a *ngIf=\"goal.publish\" routerLink=\"goal/{{ goal.slug }}\">{{ goal.title }}</a>\n                    <a *ngIf=\"!goal.publish\">{{ goal.title }}</a>\n                </h3>\n\n                <a *ngIf=\"goal.publish\" routerLink=\"goal/{{ goal.slug }}\"\n                   class=\"goalTitle\">\n                    <span class=\"overlay\"></span>\n                    <img src=\"{{ goal.cached_image }}\"\n                         alt=\"{{ goal.title }}\"\n                         *ngIf=\"goal.cached_image\"/>\n                </a>\n                <a *ngIf=\"!goal.publish\"\n                   class=\"goalTitle\">\n                    <span class=\"overlay\"></span>\n                    <img src=\"{{ goal.cached_image }}\"\n                         alt=\"{{ goal.title }}\"\n                         *ngIf=\"goal.cached_image\"/>\n                </a>\n\n                <div class=\"absolute\" *ngIf=\"goal.stats.listedBy\">\n                    <ul>\n                        <li>\n                            <goal-users [goal]=\"goal\" type=\"1\"></goal-users>\n                        </li>\n                        <li>\n                            <goal-users [goal]=\"goal\" type=\"2\"></goal-users>\n                        </li>\n                    </ul>\n                </div>\n\n                <figcaption>\n                    <activity-goal-footer [goal]=\"goal\" [activity]=\"activity\"></activity-goal-footer>\n                </figcaption>\n            </figure>\n        </div>\n    </div>\n\n    <div *ngIf=\"activity && activity.goals.length > 1\">\n        <!-- Add Arrows -->\n        <div class=\"swiper-button-next swiper-button-white\"></div>\n        <div class=\"swiper-button-prev swiper-button-white\"></div>\n    </div>\n</swiper>\n"
-
-/***/ },
-
-/***/ 1020:
-/***/ function(module, exports) {
-
-module.exports = "<figcaption>\n    <ul class=\"row news-footer no-gutter \" *ngIf=\"goal.publish\">\n\n      <li class=\"col-xs-4\" [ngClass]=\"{transparent: (goal.is_my_goal && goal.is_my_goal !== 0) }\">\n        <a *ngIf=\"!goal.is_my_goal\"\n           (click)=\"addGoal(goal.id)\">\n          <i class=\"icon-plus-icon\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n          <span class=\"text\">{{ 'add'|translate | capitalize }} </span>\n        </a>\n\n        <span *ngIf=\"goal.is_my_goal && goal.is_my_goal !== 0\">\n                <i class=\"icon-green-plus\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>\n                <span class=\"text\">{{ 'added'|translate | capitalize }} </span>\n        </span>\n      </li>\n        <!--data-ng-init=\"success[ goal.id ] = false\"-->\n      <li class=\"col-xs-4\" [ngClass]=\"{transparent: (goal.is_my_goal && goal.is_my_goal === 2 )}\">\n        <span *ngIf=\"!goal.is_my_goal || goal.is_my_goal !== 2\">\n                <a (click)=\"completeGoal(goal.id)\">\n                     <i class=\"icon-ok-icon\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n                     <span class=\"text\">{{ 'done'|translate | capitalize }}</span>\n                 </a>\n            </span>\n\n        <span *ngIf=\"goal.is_my_goal && goal.is_my_goal === 2 \" id=\"success{{ goal.id }}\">\n             <i class=\"icon-green-ok\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n            <span class=\"text\">{{ 'completed'|translate | capitalize }}</span>\n        </span>\n      </li>\n\n      <li class=\"col-xs-4\" (click)=\"showComment(activity, goal)\" [ngClass]=\"{'bg-purple': (activity.showComment || goal.showComment)}\">\n        <a>\n          <i class=\"comment-icon\"></i>\n          <span class=\"text\" [ngClass]=\"{'text-white': (activity.showComment || goal.showComment)}\">{{ 'comments'|translate | capitalize }}</span>\n        </a>\n      </li>\n\n    </ul>\n    <ul *ngIf=\"!goal.publish\" class=\"row\">\n      <li class=\"col-xs-12 transparent\">\n        <i title=\"{{ 'my_bucket_list.private'|translate }}\"  class=\"icon-lock-white text-gray\"></i>\n        <span class=\"text text-gray\">{{ 'user_goal.private' | translate | capitalize}}</span>\n      </li>\n    </ul>\n</figcaption>\n"
-
-/***/ },
-
-/***/ 1021:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"row\">\n  <div class=\"col-sm-12 idea-item\">\n    <figure *ngFor=\"let goal of activity.reserveGoals\" class=\"rounded-corners\">\n      <i class=\"icon-lock-white\" *ngIf=\"!goal.status\"></i>\n\n      <!--<a [href]=\"goal.publish? 'goal/' + goal.slug : '#'\"-->\n         <!--class=\"goalTitle goal-item-image\">-->\n        <!--<span class=\"overlay\"></span>-->\n        <!--<h3>{{ goal.title }}</h3>-->\n        <!--<img *ngIf=\"goal.cached_image\" src=\"{{ goal.cached_image }}\" alt=\"{{ goal.title }}\"/>-->\n\n        <!--<div class=\"absolute\" *ngIf=\"goal.stats.listedBy && goal.stats.doneBy\">-->\n          <!--<ul>-->\n            <!--<li>-->\n              <!--<goal-users [goal]=\"goal\" type=\"1\"></goal-users>-->\n            <!--</li>-->\n            <!--<li>-->\n              <!--<goal-users [goal]=\"goal\" type=\"2\"></goal-users>-->\n            <!--</li>-->\n          <!--</ul>-->\n        <!--</div>-->\n\n      <!--</a>-->\n\n      <app-goal [goal]=\"goal\"></app-goal>\n\n      <activity-goal-footer [goal]=\"goal\" [activity]=\"activity\"></activity-goal-footer>\n\n    </figure>\n  </div>\n</div>\n"
-
-/***/ },
-
-/***/ 1023:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__button_toggle__ = __webpack_require__(1087);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__button_toggle__ = __webpack_require__(1021);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__button_toggle__["a"]; });
 
 
@@ -841,12 +4083,11 @@ module.exports = "<div class=\"row\">\n  <div class=\"col-sm-12 idea-item\">\n  
 
 
 /***/ },
-
-/***/ 1024:
+/* 965 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__button__ = __webpack_require__(1088);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__button__ = __webpack_require__(1022);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__button__["a"]; });
 
 
@@ -854,12 +4095,11 @@ module.exports = "<div class=\"row\">\n  <div class=\"col-sm-12 idea-item\">\n  
 
 
 /***/ },
-
-/***/ 1025:
+/* 966 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(1089);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(1023);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__card__["a"]; });
 
 
@@ -867,12 +4107,11 @@ module.exports = "<div class=\"row\">\n  <div class=\"col-sm-12 idea-item\">\n  
 
 
 /***/ },
-
-/***/ 1026:
+/* 967 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__checkbox__ = __webpack_require__(1090);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__checkbox__ = __webpack_require__(1024);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__checkbox__["a"]; });
 
 
@@ -880,13 +4119,12 @@ module.exports = "<div class=\"row\">\n  <div class=\"col-sm-12 idea-item\">\n  
 
 
 /***/ },
-
-/***/ 1027:
+/* 968 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_coercion_boolean_property__ = __webpack_require__(953);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_coercion_boolean_property__ = __webpack_require__(930);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdChip; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1068,14 +4306,13 @@ var MdChip = (function () {
 
 
 /***/ },
-
-/***/ 1028:
+/* 969 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__chip_list__ = __webpack_require__(1091);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__chip__ = __webpack_require__(1027);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__chip_list__ = __webpack_require__(1025);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__chip_list__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__chip__ = __webpack_require__(968);
 /* unused harmony namespace reexport */
 
 
@@ -1084,8 +4321,7 @@ var MdChip = (function () {
 
 
 /***/ },
-
-/***/ 1029:
+/* 970 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1140,116 +4376,113 @@ var UniqueSelectionDispatcher = (function () {
 
 
 /***/ },
-
-/***/ 1030:
+/* 971 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__line_line__ = __webpack_require__(1032);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__rtl_dir__ = __webpack_require__(967);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__observe_content_observe_content__ = __webpack_require__(990);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ripple_ripple__ = __webpack_require__(969);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__ = __webpack_require__(994);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__overlay_overlay_directives__ = __webpack_require__(979);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__a11y_index__ = __webpack_require__(986);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__overlay_overlay__ = __webpack_require__(980);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__portal_portal__ = __webpack_require__(968);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__portal_dom_portal_host__ = __webpack_require__(1037);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__projection_projection__ = __webpack_require__(1102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__platform_index__ = __webpack_require__(981);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__platform_platform__ = __webpack_require__(982);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__overlay_overlay_container__ = __webpack_require__(1033);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__overlay_overlay_ref__ = __webpack_require__(1034);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__overlay_overlay_state__ = __webpack_require__(991);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__overlay_position_connected_position_strategy__ = __webpack_require__(1035);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__overlay_position_connected_position__ = __webpack_require__(992);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__overlay_scroll_scroll_dispatcher__ = __webpack_require__(993);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__gestures_gesture_config__ = __webpack_require__(1097);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__ = __webpack_require__(1096);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__a11y_live_announcer__ = __webpack_require__(988);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__a11y_focus_trap__ = __webpack_require__(977);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__a11y_interactivity_checker__ = __webpack_require__(978);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__a11y_fake_mousedown__ = __webpack_require__(1092);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__coordination_unique_selection_dispatcher__ = __webpack_require__(1029);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__style_apply_transform__ = __webpack_require__(1038);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__errors_error__ = __webpack_require__(989);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__ = __webpack_require__(966);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__compatibility_default_mode__ = __webpack_require__(965);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__animation_animation__ = __webpack_require__(1093);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__coercion_boolean_property__ = __webpack_require__(953);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__coercion_number_property__ = __webpack_require__(1094);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__compatibility_no_conflict_mode__ = __webpack_require__(1095);
-/* unused harmony export MdCoreModule */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__line_line__ = __webpack_require__(973);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__rtl_dir__ = __webpack_require__(934);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__observe_content_observe_content__ = __webpack_require__(950);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ripple_ripple__ = __webpack_require__(936);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__ = __webpack_require__(954);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__overlay_overlay_directives__ = __webpack_require__(939);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__a11y_index__ = __webpack_require__(946);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__overlay_overlay__ = __webpack_require__(940);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "Dir", function() { return __WEBPACK_IMPORTED_MODULE_2__rtl_dir__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "RtlModule", function() { return __WEBPACK_IMPORTED_MODULE_2__rtl_dir__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "ObserveContentModule", function() { return __WEBPACK_IMPORTED_MODULE_3__observe_content_observe_content__["a"]; });
 /* unused harmony reexport ObserveContent */
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "BasePortalHost", function() { return __WEBPACK_IMPORTED_MODULE_9__portal_portal__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "ComponentPortal", function() { return __WEBPACK_IMPORTED_MODULE_9__portal_portal__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "BasePortalHost", function() { return __WEBPACK_IMPORTED_MODULE_9__portal_portal__["c"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__portal_portal__ = __webpack_require__(935);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "TemplatePortal", function() { return __WEBPACK_IMPORTED_MODULE_9__portal_portal__["b"]; });
 /* unused harmony reexport Portal */
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "TemplatePortal", function() { return __WEBPACK_IMPORTED_MODULE_9__portal_portal__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "PortalHostDirective", function() { return __WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "ComponentPortal", function() { return __WEBPACK_IMPORTED_MODULE_9__portal_portal__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "PortalHostDirective", function() { return __WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "TemplatePortalDirective", function() { return __WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "PortalModule", function() { return __WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "TemplatePortalDirective", function() { return __WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__["c"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__portal_dom_portal_host__ = __webpack_require__(978);
 /* unused harmony reexport DomPortalHost */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__projection_projection__ = __webpack_require__(1036);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "ProjectionModule", function() { return __WEBPACK_IMPORTED_MODULE_11__projection_projection__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__platform_index__ = __webpack_require__(941);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "Platform", function() { return __WEBPACK_IMPORTED_MODULE_12__platform_index__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__platform_platform__ = __webpack_require__(942);
 /* unused harmony reexport MdPlatform */
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "OVERLAY_PROVIDERS", function() { return __WEBPACK_IMPORTED_MODULE_8__overlay_overlay__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "Overlay", function() { return __WEBPACK_IMPORTED_MODULE_8__overlay_overlay__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "Overlay", function() { return __WEBPACK_IMPORTED_MODULE_8__overlay_overlay__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "OVERLAY_PROVIDERS", function() { return __WEBPACK_IMPORTED_MODULE_8__overlay_overlay__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__overlay_overlay_container__ = __webpack_require__(974);
 /* unused harmony reexport OverlayContainer */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__overlay_overlay_ref__ = __webpack_require__(975);
 /* unused harmony reexport OverlayRef */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__overlay_overlay_state__ = __webpack_require__(951);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "OverlayState", function() { return __WEBPACK_IMPORTED_MODULE_16__overlay_overlay_state__["a"]; });
 /* unused harmony reexport ConnectedOverlayDirective */
 /* unused harmony reexport OverlayOrigin */
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "OverlayModule", function() { return __WEBPACK_IMPORTED_MODULE_6__overlay_overlay_directives__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__overlay_position_connected_position_strategy__ = __webpack_require__(976);
 /* unused harmony namespace reexport */
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__overlay_position_connected_position__ = __webpack_require__(952);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__overlay_scroll_scroll_dispatcher__ = __webpack_require__(953);
 /* unused harmony reexport ScrollDispatcher */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__gestures_gesture_config__ = __webpack_require__(1031);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "GestureConfig", function() { return __WEBPACK_IMPORTED_MODULE_20__gestures_gesture_config__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__ = __webpack_require__(1030);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__);
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "MaterialModule")) __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["MaterialModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "RIGHT_ARROW")) __webpack_require__.d(exports, "RIGHT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["RIGHT_ARROW"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "LEFT_ARROW")) __webpack_require__.d(exports, "LEFT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["LEFT_ARROW"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "ENTER")) __webpack_require__.d(exports, "ENTER", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["ENTER"]; });
 /* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "DOWN_ARROW")) __webpack_require__.d(exports, "DOWN_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["DOWN_ARROW"]; });
 /* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "UP_ARROW")) __webpack_require__.d(exports, "UP_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["UP_ARROW"]; });
 /* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "HOME")) __webpack_require__.d(exports, "HOME", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["HOME"]; });
 /* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "END")) __webpack_require__.d(exports, "END", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["END"]; });
 /* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "TAB")) __webpack_require__.d(exports, "TAB", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["TAB"]; });
-/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "RIGHT_ARROW")) __webpack_require__.d(exports, "RIGHT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["RIGHT_ARROW"]; });
-/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "LEFT_ARROW")) __webpack_require__.d(exports, "LEFT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["LEFT_ARROW"]; });
-/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "ENTER")) __webpack_require__.d(exports, "ENTER", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["ENTER"]; });
-/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "Platform")) __webpack_require__.d(exports, "Platform", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["Platform"]; });
-/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "ProjectionModule")) __webpack_require__.d(exports, "ProjectionModule", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["ProjectionModule"]; });
-/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__, "MaterialModule")) __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_21__gestures_gesture_annotations__["MaterialModule"]; });
 /* unused harmony reexport MdRipple */
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "MdRippleModule", function() { return __WEBPACK_IMPORTED_MODULE_4__ripple_ripple__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__a11y_live_announcer__ = __webpack_require__(948);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "LiveAnnouncer", function() { return __WEBPACK_IMPORTED_MODULE_22__a11y_live_announcer__["a"]; });
 /* unused harmony reexport LIVE_ANNOUNCER_ELEMENT_TOKEN */
 /* unused harmony reexport MdLiveAnnouncer */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__a11y_focus_trap__ = __webpack_require__(937);
 /* unused harmony reexport FocusTrap */
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "InteractivityChecker", function() { return __WEBPACK_IMPORTED_MODULE_24__a11y_interactivity_checker__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__a11y_interactivity_checker__ = __webpack_require__(938);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__a11y_fake_mousedown__ = __webpack_require__(1026);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "isFakeMousedownFromScreenReader", function() { return __WEBPACK_IMPORTED_MODULE_25__a11y_fake_mousedown__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "A11yModule", function() { return __WEBPACK_IMPORTED_MODULE_7__a11y_index__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__coordination_unique_selection_dispatcher__ = __webpack_require__(970);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "UniqueSelectionDispatcher", function() { return __WEBPACK_IMPORTED_MODULE_26__coordination_unique_selection_dispatcher__["a"]; });
 /* unused harmony reexport MdUniqueSelectionDispatcher */
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "MdLine", function() { return __WEBPACK_IMPORTED_MODULE_1__line_line__["c"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "MdLineSetter", function() { return __WEBPACK_IMPORTED_MODULE_1__line_line__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "MdLineModule", function() { return __WEBPACK_IMPORTED_MODULE_1__line_line__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "MdLineSetter", function() { return __WEBPACK_IMPORTED_MODULE_1__line_line__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "MdLine", function() { return __WEBPACK_IMPORTED_MODULE_1__line_line__["c"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "applyCssTransform", function() { return __WEBPACK_IMPORTED_MODULE_27__style_apply_transform__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__style_apply_transform__ = __webpack_require__(979);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__errors_error__ = __webpack_require__(949);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "MdError", function() { return __WEBPACK_IMPORTED_MODULE_28__errors_error__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "DOWN_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["c"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "UP_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["d"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "HOME", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["e"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__ = __webpack_require__(933);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "RIGHT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "LEFT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "ENTER", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["c"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "DOWN_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["i"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "UP_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["h"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "HOME", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["g"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "END", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["f"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "TAB", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["g"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "RIGHT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["k"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "LEFT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["j"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "ENTER", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "TAB", function() { return __WEBPACK_IMPORTED_MODULE_29__keyboard_keycodes__["l"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__compatibility_default_mode__ = __webpack_require__(932);
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__animation_animation__ = __webpack_require__(1027);
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__coercion_boolean_property__ = __webpack_require__(930);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "coerceBooleanProperty", function() { return __WEBPACK_IMPORTED_MODULE_32__coercion_boolean_property__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__coercion_number_property__ = __webpack_require__(1028);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "coerceNumberProperty", function() { return __WEBPACK_IMPORTED_MODULE_33__coercion_number_property__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "DefaultStyleCompatibilityModeModule", function() { return __WEBPACK_IMPORTED_MODULE_30__compatibility_default_mode__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__compatibility_no_conflict_mode__ = __webpack_require__(1029);
 /* unused harmony reexport NoConflictStyleCompatibilityMode */
+/* unused harmony export MdCoreModule */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1330,7 +4563,7 @@ var MdCoreModule = (function () {
     MdCoreModule.forRoot = function () {
         return {
             ngModule: MdCoreModule,
-            providers: [__WEBPACK_IMPORTED_MODULE_7__a11y_index__["a" /* A11Y_PROVIDERS */], __WEBPACK_IMPORTED_MODULE_8__overlay_overlay__["b" /* OVERLAY_PROVIDERS */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_7__a11y_index__["a" /* A11Y_PROVIDERS */], __WEBPACK_IMPORTED_MODULE_8__overlay_overlay__["a" /* OVERLAY_PROVIDERS */]],
         };
     };
     MdCoreModule = __decorate([
@@ -1363,59 +4596,57 @@ var MdCoreModule = (function () {
 
 
 /***/ },
-
-/***/ 1031:
+/* 972 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(1030);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "coerceBooleanProperty", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["coerceBooleanProperty"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "UniqueSelectionDispatcher", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["UniqueSelectionDispatcher"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "DefaultStyleCompatibilityModeModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["DefaultStyleCompatibilityModeModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdRippleModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdRippleModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "OVERLAY_PROVIDERS", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["OVERLAY_PROVIDERS"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "OverlayModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["OverlayModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "applyCssTransform", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["applyCssTransform"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "GestureConfig", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["GestureConfig"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "coerceNumberProperty", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["coerceNumberProperty"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdError", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdError"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "Dir", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["Dir"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdLineSetter", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdLineSetter"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdLine", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdLine"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdLineModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdLineModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "PortalHostDirective", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["PortalHostDirective"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "BasePortalHost", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["BasePortalHost"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "ComponentPortal", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["ComponentPortal"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "OverlayState", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["OverlayState"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "Overlay", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["Overlay"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "LiveAnnouncer", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["LiveAnnouncer"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "PortalModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["PortalModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "TemplatePortalDirective", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["TemplatePortalDirective"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "TemplatePortal", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["TemplatePortal"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "RIGHT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["RIGHT_ARROW"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "LEFT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["LEFT_ARROW"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "ENTER", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["ENTER"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "isFakeMousedownFromScreenReader", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["isFakeMousedownFromScreenReader"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "InteractivityChecker", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["InteractivityChecker"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "Platform", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["Platform"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "A11yModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["A11yModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "RtlModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["RtlModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "ProjectionModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["ProjectionModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "ObserveContentModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["ObserveContentModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MaterialModule"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(971);
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "MaterialModule")) __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MaterialModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "ComponentPortal")) __webpack_require__.d(exports, "ComponentPortal", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["ComponentPortal"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "OverlayState")) __webpack_require__.d(exports, "OverlayState", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["OverlayState"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "Overlay")) __webpack_require__.d(exports, "Overlay", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["Overlay"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "OverlayModule")) __webpack_require__.d(exports, "OverlayModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["OverlayModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "DefaultStyleCompatibilityModeModule")) __webpack_require__.d(exports, "DefaultStyleCompatibilityModeModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["DefaultStyleCompatibilityModeModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "MdError")) __webpack_require__.d(exports, "MdError", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdError"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "TemplatePortalDirective")) __webpack_require__.d(exports, "TemplatePortalDirective", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["TemplatePortalDirective"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "RIGHT_ARROW")) __webpack_require__.d(exports, "RIGHT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["RIGHT_ARROW"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "LEFT_ARROW")) __webpack_require__.d(exports, "LEFT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["LEFT_ARROW"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "ENTER")) __webpack_require__.d(exports, "ENTER", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["ENTER"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "Dir")) __webpack_require__.d(exports, "Dir", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["Dir"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "PortalHostDirective")) __webpack_require__.d(exports, "PortalHostDirective", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["PortalHostDirective"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "TemplatePortal")) __webpack_require__.d(exports, "TemplatePortal", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["TemplatePortal"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "coerceBooleanProperty")) __webpack_require__.d(exports, "coerceBooleanProperty", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["coerceBooleanProperty"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "PortalModule")) __webpack_require__.d(exports, "PortalModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["PortalModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "BasePortalHost")) __webpack_require__.d(exports, "BasePortalHost", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["BasePortalHost"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "LiveAnnouncer")) __webpack_require__.d(exports, "LiveAnnouncer", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["LiveAnnouncer"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "OVERLAY_PROVIDERS")) __webpack_require__.d(exports, "OVERLAY_PROVIDERS", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["OVERLAY_PROVIDERS"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "applyCssTransform")) __webpack_require__.d(exports, "applyCssTransform", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["applyCssTransform"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "GestureConfig")) __webpack_require__.d(exports, "GestureConfig", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["GestureConfig"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "coerceNumberProperty")) __webpack_require__.d(exports, "coerceNumberProperty", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["coerceNumberProperty"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "MdRippleModule")) __webpack_require__.d(exports, "MdRippleModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdRippleModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "UniqueSelectionDispatcher")) __webpack_require__.d(exports, "UniqueSelectionDispatcher", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["UniqueSelectionDispatcher"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "isFakeMousedownFromScreenReader")) __webpack_require__.d(exports, "isFakeMousedownFromScreenReader", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["isFakeMousedownFromScreenReader"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "MdLineSetter")) __webpack_require__.d(exports, "MdLineSetter", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdLineSetter"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "MdLine")) __webpack_require__.d(exports, "MdLine", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdLine"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "MdLineModule")) __webpack_require__.d(exports, "MdLineModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MdLineModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "InteractivityChecker")) __webpack_require__.d(exports, "InteractivityChecker", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["InteractivityChecker"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "Platform")) __webpack_require__.d(exports, "Platform", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["Platform"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "A11yModule")) __webpack_require__.d(exports, "A11yModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["A11yModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "RtlModule")) __webpack_require__.d(exports, "RtlModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["RtlModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "ProjectionModule")) __webpack_require__.d(exports, "ProjectionModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["ProjectionModule"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "ObserveContentModule")) __webpack_require__.d(exports, "ObserveContentModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["ObserveContentModule"]; });
 
 
 //# sourceMappingURL=index.js.map
 
 
 /***/ },
-
-/***/ 1032:
+/* 973 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__compatibility_default_mode__ = __webpack_require__(965);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__compatibility_default_mode__ = __webpack_require__(932);
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return MdLine; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MdLineSetter; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdLineModule; });
@@ -1496,8 +4727,7 @@ var MdLineModule = (function () {
 
 
 /***/ },
-
-/***/ 1033:
+/* 974 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1538,8 +4768,7 @@ var OverlayContainer = (function () {
 
 
 /***/ },
-
-/***/ 1034:
+/* 975 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1704,12 +4933,11 @@ function formatCssUnit(value) {
 
 
 /***/ },
-
-/***/ 1035:
+/* 976 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__connected_position__ = __webpack_require__(992);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__connected_position__ = __webpack_require__(952);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ConnectedPositionStrategy; });
@@ -2008,8 +5236,7 @@ var ConnectedPositionStrategy = (function () {
 
 
 /***/ },
-
-/***/ 1036:
+/* 977 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2054,12 +5281,11 @@ function getSupportedInputTypes() {
 
 
 /***/ },
-
-/***/ 1037:
+/* 978 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__portal__ = __webpack_require__(968);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__portal__ = __webpack_require__(935);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DomPortalHost; });
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -2166,14 +5392,13 @@ var DomPortalHost = (function (_super) {
         return componentRef.hostView.rootNodes[0];
     };
     return DomPortalHost;
-}(__WEBPACK_IMPORTED_MODULE_0__portal__["b" /* BasePortalHost */]));
+}(__WEBPACK_IMPORTED_MODULE_0__portal__["c" /* BasePortalHost */]));
 
 //# sourceMappingURL=dom-portal-host.js.map
 
 
 /***/ },
-
-/***/ 1038:
+/* 979 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2195,8 +5420,7 @@ function applyCssTransform(element, transformValue) {
 
 
 /***/ },
-
-/***/ 1039:
+/* 980 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2233,8 +5457,7 @@ function extendObject(dest) {
 
 
 /***/ },
-
-/***/ 1040:
+/* 981 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2261,13 +5484,12 @@ var MdDialogConfig = (function () {
 
 
 /***/ },
-
-/***/ 1041:
+/* 982 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dialog_ref__ = __webpack_require__(983);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dialog_ref__ = __webpack_require__(943);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdDialogClose; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MdDialogTitle; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return MdDialogContent; });
@@ -2356,18 +5578,17 @@ var MdDialogActions = (function () {
 
 
 /***/ },
-
-/***/ 1042:
+/* 983 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_util_object_extend__ = __webpack_require__(1039);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dialog_injector__ = __webpack_require__(1105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dialog_config__ = __webpack_require__(1040);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dialog_ref__ = __webpack_require__(983);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dialog_container__ = __webpack_require__(995);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_util_object_extend__ = __webpack_require__(980);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dialog_injector__ = __webpack_require__(1039);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dialog_config__ = __webpack_require__(981);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dialog_ref__ = __webpack_require__(943);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dialog_container__ = __webpack_require__(955);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdDialog; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2529,24 +5750,23 @@ function _applyConfigDefaults(dialogConfig) {
 
 
 /***/ },
-
-/***/ 1043:
+/* 984 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dialog__ = __webpack_require__(1042);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dialog_container__ = __webpack_require__(995);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dialog_content_directives__ = __webpack_require__(1041);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dialog_config__ = __webpack_require__(1040);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dialog_ref__ = __webpack_require__(983);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dialog__ = __webpack_require__(983);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dialog_container__ = __webpack_require__(955);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dialog_content_directives__ = __webpack_require__(982);
+/* unused harmony namespace reexport */
+/* unused harmony namespace reexport */
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dialog_config__ = __webpack_require__(981);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dialog_ref__ = __webpack_require__(943);
+/* unused harmony namespace reexport */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdDialogModule; });
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2609,8 +5829,7 @@ var MdDialogModule = (function () {
 
 
 /***/ },
-
-/***/ 1044:
+/* 985 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2635,12 +5854,11 @@ function coerceToNumber(value) {
 
 
 /***/ },
-
-/***/ 1045:
+/* 986 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid_list__ = __webpack_require__(1106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid_list__ = __webpack_require__(1040);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__grid_list__["a"]; });
 
 
@@ -2648,32 +5866,31 @@ function coerceToNumber(value) {
 
 
 /***/ },
-
-/***/ 1046:
+/* 987 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(929);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_forkJoin__ = __webpack_require__(1160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_forkJoin__ = __webpack_require__(1093);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_forkJoin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_of__ = __webpack_require__(462);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_of__ = __webpack_require__(460);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_map__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_map__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_filter__ = __webpack_require__(289);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_do__ = __webpack_require__(1161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_do__ = __webpack_require__(1094);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_share__ = __webpack_require__(464);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_share__ = __webpack_require__(462);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_share___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_share__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_finally__ = __webpack_require__(1162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_finally__ = __webpack_require__(1095);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_finally___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_add_operator_finally__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_add_operator_catch__ = __webpack_require__(463);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_add_operator_catch__ = __webpack_require__(461);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_rxjs_add_operator_catch__);
 /* unused harmony export MdIconNameNotFoundError */
 /* unused harmony export MdIconSvgTagNotFoundError */
@@ -3081,7 +6298,7 @@ var MdIconRegistry = (function () {
     };
     MdIconRegistry = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["DomSanitizer"]])
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Http */], __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["DomSanitizer"]])
     ], MdIconRegistry);
     return MdIconRegistry;
 }());
@@ -3094,12 +6311,11 @@ function cloneSvg(svg) {
 
 
 /***/ },
-
-/***/ 1047:
+/* 988 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__icon__ = __webpack_require__(1110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__icon__ = __webpack_require__(1044);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__icon__["a"]; });
 
 
@@ -3107,8 +6323,7 @@ function cloneSvg(svg) {
 
 
 /***/ },
-
-/***/ 1048:
+/* 989 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3211,18 +6426,17 @@ var MdTextareaAutosize = (function () {
 
 
 /***/ },
-
-/***/ 1049:
+/* 990 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__autosize__ = __webpack_require__(1048);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__input__ = __webpack_require__(1112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__input_container__ = __webpack_require__(1051);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__input_container_errors__ = __webpack_require__(1050);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__autosize__ = __webpack_require__(989);
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__input__ = __webpack_require__(1045);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__input__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__input_container__ = __webpack_require__(992);
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__input_container_errors__ = __webpack_require__(991);
 /* unused harmony namespace reexport */
 
 
@@ -3233,12 +6447,11 @@ var MdTextareaAutosize = (function () {
 
 
 /***/ },
-
-/***/ 1050:
+/* 991 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_errors_error__ = __webpack_require__(989);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_errors_error__ = __webpack_require__(949);
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return MdInputContainerPlaceholderConflictError; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdInputContainerUnsupportedTypeError; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return MdInputContainerDuplicatedHintError; });
@@ -3287,16 +6500,15 @@ var MdInputContainerMissingMdInputError = (function (_super) {
 
 
 /***/ },
-
-/***/ 1051:
+/* 992 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_platform_features__ = __webpack_require__(1036);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__input_container_errors__ = __webpack_require__(1050);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_platform_features__ = __webpack_require__(977);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__input_container_errors__ = __webpack_require__(991);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdPlaceholder; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MdHint; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return MdInputDirective; });
@@ -3506,7 +6718,7 @@ var MdInputDirective = (function () {
             }
         }),
         __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* NgControl */]])
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["e" /* NgControl */]])
     ], MdInputDirective);
     return MdInputDirective;
 }());
@@ -3656,12 +6868,11 @@ var MdInputContainer = (function () {
 
 
 /***/ },
-
-/***/ 1052:
+/* 993 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list__ = __webpack_require__(1113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list__ = __webpack_require__(1046);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__list__["a"]; });
 
 
@@ -3669,21 +6880,20 @@ var MdInputContainer = (function () {
 
 
 /***/ },
-
-/***/ 1053:
+/* 994 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__menu__ = __webpack_require__(1114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_trigger__ = __webpack_require__(998);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu_animations__ = __webpack_require__(1054);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__menu_directive__ = __webpack_require__(997);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__menu_item__ = __webpack_require__(984);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__menu__ = __webpack_require__(1047);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__menu__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_trigger__ = __webpack_require__(958);
 /* unused harmony reexport MdMenuTrigger */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu_animations__ = __webpack_require__(995);
 /* unused harmony reexport fadeInItems */
 /* unused harmony reexport transformMenu */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__menu_directive__ = __webpack_require__(957);
 /* unused harmony reexport MdMenu */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__menu_item__ = __webpack_require__(944);
 /* unused harmony reexport MdMenuItem */
 
 
@@ -3695,8 +6905,7 @@ var MdInputContainer = (function () {
 
 
 /***/ },
-
-/***/ 1054:
+/* 995 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3749,8 +6958,7 @@ var fadeInItems = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_cor
 
 
 /***/ },
-
-/***/ 1055:
+/* 996 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3804,12 +7012,11 @@ var MdMenuInvalidPositionY = (function (_super) {
 
 
 /***/ },
-
-/***/ 1056:
+/* 997 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__progress_bar__ = __webpack_require__(1116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__progress_bar__ = __webpack_require__(1049);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__progress_bar__["a"]; });
 
 
@@ -3817,14 +7024,13 @@ var MdMenuInvalidPositionY = (function (_super) {
 
 
 /***/ },
-
-/***/ 1057:
+/* 998 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__progress_circle__ = __webpack_require__(1117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__progress_spinner__ = __webpack_require__(999);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__progress_circle__ = __webpack_require__(1050);
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__progress_spinner__ = __webpack_require__(959);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__progress_spinner__["a"]; });
 
 
@@ -3833,12 +7039,11 @@ var MdMenuInvalidPositionY = (function (_super) {
 
 
 /***/ },
-
-/***/ 1058:
+/* 999 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__radio__ = __webpack_require__(1118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__radio__ = __webpack_require__(1051);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__radio__["a"]; });
 
 
@@ -3846,23 +7051,22 @@ var MdMenuInvalidPositionY = (function (_super) {
 
 
 /***/ },
-
-/***/ 1059:
+/* 1000 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__select__ = __webpack_require__(1061);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__option__ = __webpack_require__(1000);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__select__ = __webpack_require__(1002);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__option__ = __webpack_require__(960);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__select_animations__ = __webpack_require__(1060);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdSelectModule; });
 /* unused harmony namespace reexport */
 /* unused harmony reexport MdOption */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__select_animations__ = __webpack_require__(1001);
 /* unused harmony reexport fadeInContent */
 /* unused harmony reexport transformPanel */
 /* unused harmony reexport transformPlaceholder */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdSelectModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3904,8 +7108,7 @@ var MdSelectModule = (function () {
 
 
 /***/ },
-
-/***/ 1060:
+/* 1001 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3982,21 +7185,20 @@ var fadeInContent = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_c
 
 
 /***/ },
-
-/***/ 1061:
+/* 1002 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__option__ = __webpack_require__(1000);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_keyboard_keycodes__ = __webpack_require__(966);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_list_key_manager__ = __webpack_require__(987);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_rtl_dir__ = __webpack_require__(967);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__select_animations__ = __webpack_require__(1060);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__option__ = __webpack_require__(960);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_keyboard_keycodes__ = __webpack_require__(933);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_list_key_manager__ = __webpack_require__(947);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_rtl_dir__ = __webpack_require__(934);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__select_animations__ = __webpack_require__(1001);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_forms__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_coercion_boolean_property__ = __webpack_require__(953);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__core_overlay_overlay_directives__ = __webpack_require__(979);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_overlay_position_viewport_ruler__ = __webpack_require__(954);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_coercion_boolean_property__ = __webpack_require__(930);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__core_overlay_overlay_directives__ = __webpack_require__(939);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_overlay_position_viewport_ruler__ = __webpack_require__(931);
 /* unused harmony export SELECT_OPTION_HEIGHT */
 /* unused harmony export SELECT_PANEL_MAX_HEIGHT */
 /* unused harmony export SELECT_MAX_OPTIONS_DISPLAYED */
@@ -4260,7 +7462,7 @@ var MdSelect = (function () {
     };
     /** Ensures the panel opens if activated by the keyboard. */
     MdSelect.prototype._handleKeydown = function (event) {
-        if (event.keyCode === __WEBPACK_IMPORTED_MODULE_2__core_keyboard_keycodes__["a" /* ENTER */] || event.keyCode === __WEBPACK_IMPORTED_MODULE_2__core_keyboard_keycodes__["b" /* SPACE */]) {
+        if (event.keyCode === __WEBPACK_IMPORTED_MODULE_2__core_keyboard_keycodes__["c" /* ENTER */] || event.keyCode === __WEBPACK_IMPORTED_MODULE_2__core_keyboard_keycodes__["k" /* SPACE */]) {
             this.open();
         }
     };
@@ -4600,7 +7802,7 @@ var MdSelect = (function () {
         }),
         __param(3, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()),
         __param(4, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_9__core_overlay_position_viewport_ruler__["a" /* ViewportRuler */], __WEBPACK_IMPORTED_MODULE_4__core_rtl_dir__["a" /* Dir */], __WEBPACK_IMPORTED_MODULE_6__angular_forms__["c" /* NgControl */]])
+        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_9__core_overlay_position_viewport_ruler__["a" /* ViewportRuler */], __WEBPACK_IMPORTED_MODULE_4__core_rtl_dir__["a" /* Dir */], __WEBPACK_IMPORTED_MODULE_6__angular_forms__["e" /* NgControl */]])
     ], MdSelect);
     return MdSelect;
 }());
@@ -4613,12 +7815,11 @@ function clampValue(min, n, max) {
 
 
 /***/ },
-
-/***/ 1062:
+/* 1003 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidenav__ = __webpack_require__(1119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sidenav__ = __webpack_require__(1052);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__sidenav__["a"]; });
 
 
@@ -4626,12 +7827,11 @@ function clampValue(min, n, max) {
 
 
 /***/ },
-
-/***/ 1063:
+/* 1004 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slide_toggle__ = __webpack_require__(1120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slide_toggle__ = __webpack_require__(1053);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__slide_toggle__["a"]; });
 
 
@@ -4639,12 +7839,11 @@ function clampValue(min, n, max) {
 
 
 /***/ },
-
-/***/ 1064:
+/* 1005 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider__ = __webpack_require__(1121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider__ = __webpack_require__(1054);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__slider__["a"]; });
 
 
@@ -4652,8 +7851,7 @@ function clampValue(min, n, max) {
 
 
 /***/ },
-
-/***/ 1065:
+/* 1006 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4679,14 +7877,13 @@ var MdSnackBarConfig = (function () {
 
 
 /***/ },
-
-/***/ 1066:
+/* 1007 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__snack_bar_errors__ = __webpack_require__(1124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__snack_bar_errors__ = __webpack_require__(1057);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
 /* unused harmony export SHOW_ANIMATION */
@@ -4819,8 +8016,7 @@ var MdSnackBarContainer = (function (_super) {
 
 
 /***/ },
-
-/***/ 1067:
+/* 1008 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4900,19 +8096,18 @@ var MdSnackBarRef = (function () {
 
 
 /***/ },
-
-/***/ 1068:
+/* 1009 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__snack_bar_config__ = __webpack_require__(1065);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__snack_bar_ref__ = __webpack_require__(1067);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__snack_bar_container__ = __webpack_require__(1066);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__simple_snack_bar__ = __webpack_require__(1123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_util_object_extend__ = __webpack_require__(1039);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__snack_bar_config__ = __webpack_require__(1006);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__snack_bar_ref__ = __webpack_require__(1008);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__snack_bar_container__ = __webpack_require__(1007);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__simple_snack_bar__ = __webpack_require__(1056);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_util_object_extend__ = __webpack_require__(980);
 /* unused harmony export MdSnackBar */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdSnackBarModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -5063,24 +8258,23 @@ var MdSnackBarModule = (function () {
 
 
 /***/ },
-
-/***/ 1069:
+/* 1010 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tab_group__ = __webpack_require__(1125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ink_bar__ = __webpack_require__(985);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tab_body__ = __webpack_require__(1070);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tab_header__ = __webpack_require__(1071);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tab_label_wrapper__ = __webpack_require__(1001);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tab__ = __webpack_require__(1073);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tab_label__ = __webpack_require__(1002);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tab_group__ = __webpack_require__(1058);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__tab_group__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ink_bar__ = __webpack_require__(945);
 /* unused harmony reexport MdInkBar */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tab_body__ = __webpack_require__(1011);
 /* unused harmony reexport MdTabBody */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tab_header__ = __webpack_require__(1012);
 /* unused harmony reexport MdTabHeader */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tab_label_wrapper__ = __webpack_require__(961);
 /* unused harmony reexport MdTabLabelWrapper */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tab__ = __webpack_require__(1014);
 /* unused harmony reexport MdTab */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tab_label__ = __webpack_require__(962);
 /* unused harmony reexport MdTabLabel */
 
 
@@ -5094,14 +8288,13 @@ var MdSnackBarModule = (function () {
 
 
 /***/ },
-
-/***/ 1070:
+/* 1011 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdTabBody; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -5264,18 +8457,17 @@ var MdTabBody = (function () {
 
 
 /***/ },
-
-/***/ 1071:
+/* 1012 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tab_label_wrapper__ = __webpack_require__(1001);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ink_bar__ = __webpack_require__(985);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tab_label_wrapper__ = __webpack_require__(961);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ink_bar__ = __webpack_require__(945);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_style_apply_transform__ = __webpack_require__(1038);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_style_apply_transform__ = __webpack_require__(979);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdTabHeader; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5634,15 +8826,14 @@ var MdTabHeader = (function () {
 
 
 /***/ },
-
-/***/ 1072:
+/* 1013 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ink_bar__ = __webpack_require__(985);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_ripple_ripple__ = __webpack_require__(969);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_overlay_position_viewport_ruler__ = __webpack_require__(954);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ink_bar__ = __webpack_require__(945);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_ripple_ripple__ = __webpack_require__(936);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_overlay_position_viewport_ruler__ = __webpack_require__(931);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdTabNavBar; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MdTabLink; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return MdTabLinkRipple; });
@@ -5752,15 +8943,14 @@ var MdTabLinkRipple = (function (_super) {
 
 
 /***/ },
-
-/***/ 1073:
+/* 1014 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_portal_portal__ = __webpack_require__(968);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_portal_portal__ = __webpack_require__(935);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_coercion_boolean_property__ = __webpack_require__(953);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tab_label__ = __webpack_require__(1002);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_coercion_boolean_property__ = __webpack_require__(930);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tab_label__ = __webpack_require__(962);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdTab; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5807,7 +8997,7 @@ var MdTab = (function () {
         configurable: true
     });
     MdTab.prototype.ngOnInit = function () {
-        this._contentPortal = new __WEBPACK_IMPORTED_MODULE_0__core_portal_portal__["a" /* TemplatePortal */](this._content, this._viewContainerRef);
+        this._contentPortal = new __WEBPACK_IMPORTED_MODULE_0__core_portal_portal__["b" /* TemplatePortal */](this._content, this._viewContainerRef);
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["ContentChild"])(__WEBPACK_IMPORTED_MODULE_3__tab_label__["a" /* MdTabLabel */]), 
@@ -5839,12 +9029,11 @@ var MdTab = (function () {
 
 
 /***/ },
-
-/***/ 1074:
+/* 1015 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toolbar__ = __webpack_require__(1127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toolbar__ = __webpack_require__(1060);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__toolbar__["a"]; });
 
 
@@ -5852,12 +9041,11 @@ var MdTab = (function () {
 
 
 /***/ },
-
-/***/ 1075:
+/* 1016 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tooltip__ = __webpack_require__(1129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tooltip__ = __webpack_require__(1062);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__tooltip__["a"]; });
 
 
@@ -5865,262 +9053,212 @@ var MdTab = (function () {
 
 
 /***/ },
-
-/***/ 1084:
+/* 1017 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__project_service__ = __webpack_require__(16);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 
-
-
-
-
-var ProfileComponent = (function () {
-    function ProfileComponent(route, _projectService, _cacheService, broadcaster, router, renderer) {
-        var _this = this;
-        this.route = route;
-        this._projectService = _projectService;
-        this._cacheService = _cacheService;
-        this.broadcaster = broadcaster;
-        this.router = router;
-        this.renderer = renderer;
-        this.categories = ['all', 'active', 'completed'];
-        this.id = 1;
-        this.filterVisibility = false;
-        this.myProfile = false;
-        this.isDream = false;
-        this.notUrgentImportant = false;
-        this.notUrgentNotImportant = false;
-        this.urgentNotImportant = false;
-        this.urgentImportant = false;
-        this.eventId = 0;
-        this.isHover = false;
-        this.busy = false;
-        this.noGoals = false;
-        this.noItem = false;
-        this.hoveredText = '';
-        this.serverPath = '';
-        this.isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
-        this.isMobile = (window.innerWidth < 768);
-        this.start = 0;
-        this.count = 10;
-        this.locations = [];
-        this.locationsIds = [];
-        router.events.subscribe(function (val) {
-            if (_this.eventId != val.id && val instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* NavigationEnd */]) {
-                _this.eventId = val.id;
-                _this.start = 0;
-                _this.locationsIds = [];
-                _this.locations = [];
-                _this.uId = _this.route.snapshot.params['uId'] ? _this.route.snapshot.params['uId'] : 'my';
-                _this.myProfile = _this.uId == 'my';
-                _this.type = _this.route.snapshot.params['type'] ? _this.route.snapshot.params['type'] : _this.myProfile ? 'all' : 'activity';
-                _this.goals = null;
-                _this.noItem = false;
-                _this.userGoals = null;
-                _this.reserveGoals = null;
-                _this.reserveUserGoals = null;
-                _this.getData();
-            }
-        });
-    }
-    ProfileComponent.prototype.ngOnInit = function () {
-        this.serverPath = this._projectService.getPath();
-    };
-    ProfileComponent.prototype.getData = function () {
-        this.start = 0;
-        this.noItem = false;
-        var index = this.categories.indexOf(this.type);
-        if (index != -1) {
-            this.getGoals(index);
-        }
-        else {
-            switch (this.type) {
-                case 'common':
-                    // this.busy = true;
-                    this.busy = false;
-                    this.getOwned();
-                    break;
-                case 'activity':
-                    this.busy = true;
-                    // $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
-                    // $scope.Activities.nextActivity();
-                    // $scope.$emit('lsGoActivity');
-                    break;
-                case 'owned':
-                    this.busy = false;
-                    this.getOwned();
-                    break;
-            }
-        }
-    };
-    ProfileComponent.prototype.getReserve = function () {
-        this.userGoals = this.userGoals.concat(this.reserveUserGoals);
-        var index = this.categories.indexOf(this.type);
-        if (index != -1) {
-            this.getGoalsReserve(index);
-        }
-        else {
-            switch (this.type) {
-                case 'common':
-                    this.getOwnedReserve();
-                    break;
-                case 'owned':
-                    this.getOwnedReserve();
-                    break;
-            }
-        }
-    };
-    ProfileComponent.prototype.getGoals = function (condition) {
-        var _this = this;
-        var c = condition;
-        this._projectService.profileGoals(condition, this.count, this.start, this.isDream, this.notUrgentImportant, this.notUrgentNotImportant, this.urgentImportant, this.urgentNotImportant, ((this.type == 'all') ? '' : (this.type + '-goals')), ((this.myProfile) ? 0 : this.id))
-            .subscribe(function (data) {
-            _this.noItem = !data.user_goals.length;
-            _this.userGoals = data.user_goals;
-            _this.start += _this.count;
-            _this.getGoalsReserve(c);
-        });
-    };
-    ProfileComponent.prototype.getGoalsReserve = function (condition) {
-        var _this = this;
-        this._projectService.profileGoals(condition, this.count, this.start, this.isDream, this.notUrgentImportant, this.notUrgentNotImportant, this.urgentImportant, this.urgentNotImportant, ((this.type == 'all') ? '' : (this.type + '-goals')), ((this.myProfile) ? 0 : this.id))
-            .subscribe(function (data) {
-            _this.reserveUserGoals = data.user_goals;
-            _this.optimiseImages();
-            _this.start += _this.count;
-            _this.busy = false;
-        });
-    };
-    ProfileComponent.prototype.getOwned = function () {
-        var _this = this;
-        this._projectService.ownedGoals(this.id, this.count, this.start)
-            .subscribe(function (data) {
-            _this.noItem = !data.goals.length;
-            _this.userGoals = data.goals;
-            _this.start += _this.count;
-            _this.getOwnedReserve();
-        });
-    };
-    ProfileComponent.prototype.getOwnedReserve = function () {
-        var _this = this;
-        this._projectService.ownedGoals(this.id, this.count, this.start)
-            .subscribe(function (data) {
-            _this.reserveUserGoals = data.goals;
-            _this.optimiseImages();
-            _this.start += _this.count;
-            _this.busy = false;
-        });
-    };
-    ProfileComponent.prototype.getCommon = function () {
-        var _this = this;
-        this._projectService.commonGoals(this.id, this.count, this.start)
-            .subscribe(function (data) {
-            _this.noItem = !data.goals.length;
-            _this.goals = data.goals;
-            _this.start += _this.count;
-            _this.getCommonReserve();
-        });
-    };
-    ProfileComponent.prototype.getCommonReserve = function () {
-        var _this = this;
-        this._projectService.commonGoals(this.id, this.count, this.start)
-            .subscribe(function (data) {
-            _this.reserveGoals = data.goals;
-            _this.optimiseImages(true);
-            _this.start += _this.count;
-            _this.busy = false;
-        });
-    };
-    ProfileComponent.prototype.onScroll = function () {
-        if (this.busy || !this.reserveUserGoals || !this.reserveUserGoals.length)
-            return;
-        this.busy = true;
-        this.getReserve();
-    };
-    ProfileComponent.prototype.optimiseImages = function (isGoal) {
-        if (isGoal) {
-            for (var _i = 0, _a = this.reserveGoals; _i < _a.length; _i++) {
-                var item = _a[_i];
-                var img = void 0;
-                if (item.cached_image) {
-                    img = new Image();
-                    img.src = this.serverPath + item.cached_image;
-                }
-            }
-        }
-        else {
-            for (var _b = 0, _c = this.reserveUserGoals; _b < _c.length; _b++) {
-                var item = _c[_b];
-                var img = void 0;
-                if (item.goal.cached_image) {
-                    img = new Image();
-                    img.src = this.serverPath + item.goal.cached_image;
-                }
-            }
-        }
-    };
-    ProfileComponent.prototype.hideJoin = function (event) {
-        if (event && event.val) {
-            this.hoveredText = event.val;
-            this.isHover = true;
-            var left = +event.ev.pageX - 60;
-            var top = event.ev.pageY - 60;
-            this.renderer.setElementStyle(this.tooltipElementRef.nativeElement, 'left', left + 'px');
-            this.renderer.setElementStyle(this.tooltipElementRef.nativeElement, 'top', top + 'px');
-        }
-        else {
-            this.hoveredText = '';
-            this.isHover = false;
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])("tooltip"), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
-    ], ProfileComponent.prototype, "tooltipElementRef", void 0);
-    ProfileComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-profile',
-            template: __webpack_require__(1158),
-            styles: [__webpack_require__(1145)]
-        }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]) === 'function' && _g) || Object])
-    ], ProfileComponent);
-    return ProfileComponent;
-    var _a, _b, _c, _d, _e, _f, _g;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile.component.js.map
-
-/***/ },
-
-/***/ 1086:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
 var Observable_1 = __webpack_require__(2);
 var first_1 = __webpack_require__(291);
 Observable_1.Observable.prototype.first = first_1.first;
 //# sourceMappingURL=first.js.map
 
 /***/ },
+/* 1018 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 1087:
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var Observable_1 = __webpack_require__(2);
+var google_maps_api_wrapper_1 = __webpack_require__(963);
+var MarkerManager = (function () {
+    function MarkerManager(_mapsWrapper, _zone) {
+        this._mapsWrapper = _mapsWrapper;
+        this._zone = _zone;
+        this._markers = new Map();
+    }
+    MarkerManager.prototype.deleteMarker = function (marker) {
+        var _this = this;
+        var m = this._markers.get(marker);
+        if (m == null) {
+            // marker already deleted
+            return Promise.resolve();
+        }
+        return m.then(function (m) {
+            return _this._zone.run(function () {
+                m.setMap(null);
+                _this._markers.delete(marker);
+            });
+        });
+    };
+    MarkerManager.prototype.updateMarkerPosition = function (marker) {
+        return this._markers.get(marker).then(function (m) { return m.setPosition({ lat: marker.latitude, lng: marker.longitude }); });
+    };
+    MarkerManager.prototype.updateTitle = function (marker) {
+        return this._markers.get(marker).then(function (m) { return m.setTitle(marker.title); });
+    };
+    MarkerManager.prototype.updateLabel = function (marker) {
+        return this._markers.get(marker).then(function (m) { m.setLabel(marker.label); });
+    };
+    MarkerManager.prototype.updateDraggable = function (marker) {
+        return this._markers.get(marker).then(function (m) { return m.setDraggable(marker.draggable); });
+    };
+    MarkerManager.prototype.updateIcon = function (marker) {
+        return this._markers.get(marker).then(function (m) { return m.setIcon(marker.iconUrl); });
+    };
+    MarkerManager.prototype.updateOpacity = function (marker) {
+        return this._markers.get(marker).then(function (m) { return m.setOpacity(marker.opacity); });
+    };
+    MarkerManager.prototype.updateVisible = function (marker) {
+        return this._markers.get(marker).then(function (m) { return m.setVisible(marker.visible); });
+    };
+    MarkerManager.prototype.updateZIndex = function (marker) {
+        return this._markers.get(marker).then(function (m) { return m.setZIndex(marker.zIndex); });
+    };
+    MarkerManager.prototype.addMarker = function (marker) {
+        var markerPromise = this._mapsWrapper.createMarker({
+            position: { lat: marker.latitude, lng: marker.longitude },
+            label: marker.label,
+            draggable: marker.draggable,
+            icon: marker.iconUrl,
+            opacity: marker.opacity,
+            visible: marker.visible,
+            zIndex: marker.zIndex,
+            title: marker.title
+        });
+        this._markers.set(marker, markerPromise);
+    };
+    MarkerManager.prototype.getNativeMarker = function (marker) {
+        return this._markers.get(marker);
+    };
+    MarkerManager.prototype.createEventObservable = function (eventName, marker) {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this._markers.get(marker).then(function (m) {
+                m.addListener(eventName, function (e) { return _this._zone.run(function () { return observer.next(e); }); });
+            });
+        });
+    };
+    MarkerManager.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    MarkerManager.ctorParameters = [
+        { type: google_maps_api_wrapper_1.GoogleMapsAPIWrapper, },
+        { type: core_1.NgZone, },
+    ];
+    return MarkerManager;
+}());
+exports.MarkerManager = MarkerManager;
+//# sourceMappingURL=marker-manager.js.map
+
+/***/ },
+/* 1019 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var MapsAPILoader = (function () {
+    function MapsAPILoader() {
+    }
+    MapsAPILoader.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    MapsAPILoader.ctorParameters = [];
+    return MapsAPILoader;
+}());
+exports.MapsAPILoader = MapsAPILoader;
+//# sourceMappingURL=maps-api-loader.js.map
+
+/***/ },
+/* 1020 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(929);
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__core__, "MaterialModule")) __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MaterialModule"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_1__module__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__module__ = __webpack_require__(1048);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__button_index__ = __webpack_require__(965);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__button_toggle_index__ = __webpack_require__(964);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__card_index__ = __webpack_require__(966);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__chips_index__ = __webpack_require__(969);
+/* unused harmony namespace reexport */
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__checkbox_index__ = __webpack_require__(967);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__dialog_index__ = __webpack_require__(984);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__grid_list_index__ = __webpack_require__(986);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__icon_index__ = __webpack_require__(988);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__input_index__ = __webpack_require__(990);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__list_index__ = __webpack_require__(993);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__menu_index__ = __webpack_require__(994);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__progress_bar_index__ = __webpack_require__(997);
+/* unused harmony namespace reexport */
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__progress_spinner_index__ = __webpack_require__(998);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__radio_index__ = __webpack_require__(999);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__select_index__ = __webpack_require__(1000);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__sidenav_index__ = __webpack_require__(1003);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__slider_index__ = __webpack_require__(1005);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__slide_toggle_index__ = __webpack_require__(1004);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__snack_bar_index__ = __webpack_require__(1055);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__tabs_index__ = __webpack_require__(1010);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__tabs_tab_nav_bar_index__ = __webpack_require__(1059);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__toolbar_index__ = __webpack_require__(1015);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__tooltip_index__ = __webpack_require__(1016);
+/* unused harmony namespace reexport */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+
+/***/ },
+/* 1021 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6157,7 +9295,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
  * @docs-private
  */
 var MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
-    provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* NG_VALUE_ACCESSOR */],
+    provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* NG_VALUE_ACCESSOR */],
     useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["forwardRef"])(function () { return MdButtonToggleGroup; }),
     multi: true
 };
@@ -6640,15 +9778,14 @@ var MdButtonToggleModule = (function () {
 
 
 /***/ },
-
-/***/ 1088:
+/* 1022 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_overlay_position_viewport_ruler__ = __webpack_require__(954);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_overlay_position_viewport_ruler__ = __webpack_require__(931);
 /* unused harmony export MdButton */
 /* unused harmony export MdAnchor */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdButtonModule; });
@@ -6858,8 +9995,7 @@ var MdButtonModule = (function () {
 
 
 /***/ },
-
-/***/ 1089:
+/* 1023 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7051,17 +10187,16 @@ var MdCardModule = (function () {
 
 
 /***/ },
-
-/***/ 1090:
+/* 1024 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_coercion_boolean_property__ = __webpack_require__(953);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_coercion_boolean_property__ = __webpack_require__(930);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_overlay_position_viewport_ruler__ = __webpack_require__(954);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_overlay_position_viewport_ruler__ = __webpack_require__(931);
 /* unused harmony export MD_CHECKBOX_CONTROL_VALUE_ACCESSOR */
 /* unused harmony export TransitionCheckState */
 /* unused harmony export MdCheckboxChange */
@@ -7090,7 +10225,7 @@ var nextId = 0;
  * @docs-private
  */
 var MD_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
-    provide: __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* NG_VALUE_ACCESSOR */],
+    provide: __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* NG_VALUE_ACCESSOR */],
     useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["forwardRef"])(function () { return MdCheckbox; }),
     multi: true
 };
@@ -7502,16 +10637,15 @@ var MdCheckboxModule = (function () {
 
 
 /***/ },
-
-/***/ 1091:
+/* 1025 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__chip__ = __webpack_require__(1027);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_a11y_list_key_manager__ = __webpack_require__(987);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_coercion_boolean_property__ = __webpack_require__(953);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_keyboard_keycodes__ = __webpack_require__(966);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__chip__ = __webpack_require__(968);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_a11y_list_key_manager__ = __webpack_require__(947);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_coercion_boolean_property__ = __webpack_require__(930);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_keyboard_keycodes__ = __webpack_require__(933);
 /* unused harmony export MdChipList */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdChipsModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -7584,7 +10718,7 @@ var MdChipList = (function () {
         // If they are on a chip, check for space/left/right, otherwise pass to our key manager
         if (target && target.classList.contains('md-chip')) {
             switch (event.keyCode) {
-                case __WEBPACK_IMPORTED_MODULE_4__core_keyboard_keycodes__["b" /* SPACE */]:
+                case __WEBPACK_IMPORTED_MODULE_4__core_keyboard_keycodes__["k" /* SPACE */]:
                     // If we are selectable, toggle the focused chip
                     if (this.selectable) {
                         this._toggleSelectOnFocusedChip();
@@ -7592,11 +10726,11 @@ var MdChipList = (function () {
                     // Always prevent space from scrolling the page since the list has focus
                     event.preventDefault();
                     break;
-                case __WEBPACK_IMPORTED_MODULE_4__core_keyboard_keycodes__["j" /* LEFT_ARROW */]:
+                case __WEBPACK_IMPORTED_MODULE_4__core_keyboard_keycodes__["b" /* LEFT_ARROW */]:
                     this._keyManager.focusPreviousItem();
                     event.preventDefault();
                     break;
-                case __WEBPACK_IMPORTED_MODULE_4__core_keyboard_keycodes__["k" /* RIGHT_ARROW */]:
+                case __WEBPACK_IMPORTED_MODULE_4__core_keyboard_keycodes__["a" /* RIGHT_ARROW */]:
                     this._keyManager.focusNextItem();
                     event.preventDefault();
                     break;
@@ -7727,8 +10861,7 @@ var MdChipsModule = (function () {
 
 
 /***/ },
-
-/***/ 1092:
+/* 1026 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7748,8 +10881,7 @@ function isFakeMousedownFromScreenReader(event) {
 
 
 /***/ },
-
-/***/ 1093:
+/* 1027 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7779,8 +10911,7 @@ var AnimationDurations = (function () {
 
 
 /***/ },
-
-/***/ 1094:
+/* 1028 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7798,13 +10929,12 @@ function coerceNumberProperty(value, fallbackValue) {
 
 
 /***/ },
-
-/***/ 1095:
+/* 1029 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__default_mode__ = __webpack_require__(965);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__default_mode__ = __webpack_require__(932);
 /* unused harmony export MD_ELEMENTS_SELECTOR */
 /* unused harmony export MdPrefixEnforcer */
 /* unused harmony export NoConflictStyleCompatibilityMode */
@@ -7858,8 +10988,7 @@ var NoConflictStyleCompatibilityMode = (function () {
 
 
 /***/ },
-
-/***/ 1096:
+/* 1030 */
 /***/ function(module, exports) {
 
 /**
@@ -7872,13 +11001,12 @@ var NoConflictStyleCompatibilityMode = (function () {
 
 
 /***/ },
-
-/***/ 1097:
+/* 1031 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(105);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GestureConfig; });
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -7968,8 +11096,7 @@ var GestureConfig = (function (_super) {
 
 
 /***/ },
-
-/***/ 1098:
+/* 1032 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8125,15 +11252,14 @@ var GlobalPositionStrategy = (function () {
 
 
 /***/ },
-
-/***/ 1099:
+/* 1033 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__viewport_ruler__ = __webpack_require__(954);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__connected_position_strategy__ = __webpack_require__(1035);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__viewport_ruler__ = __webpack_require__(931);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__connected_position_strategy__ = __webpack_require__(976);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global_position_strategy__ = __webpack_require__(1098);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global_position_strategy__ = __webpack_require__(1032);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return OverlayPositionBuilder; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8179,16 +11305,15 @@ var OverlayPositionBuilder = (function () {
 
 
 /***/ },
-
-/***/ 1100:
+/* 1034 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scroll_dispatcher__ = __webpack_require__(993);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent__ = __webpack_require__(461);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scroll_dispatcher__ = __webpack_require__(953);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent__ = __webpack_require__(459);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Scrollable; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8242,12 +11367,11 @@ var Scrollable = (function () {
 
 
 /***/ },
-
-/***/ 1101:
+/* 1035 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__errors_error__ = __webpack_require__(989);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__errors_error__ = __webpack_require__(949);
 /* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return NullPortalError; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return PortalAlreadyAttachedError; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "e", function() { return PortalHostAlreadyDisposedError; });
@@ -8332,8 +11456,7 @@ var NoPortalAttachedError = (function (_super) {
 
 
 /***/ },
-
-/***/ 1102:
+/* 1036 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8455,8 +11578,7 @@ var ProjectionModule = (function () {
 
 
 /***/ },
-
-/***/ 1103:
+/* 1037 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8643,8 +11765,7 @@ var RippleRenderer = (function () {
 
 
 /***/ },
-
-/***/ 1104:
+/* 1038 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8672,12 +11793,11 @@ var MdDialogContentAlreadyAttachedError = (function (_super) {
 
 
 /***/ },
-
-/***/ 1105:
+/* 1039 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dialog_ref__ = __webpack_require__(983);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dialog_ref__ = __webpack_require__(943);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DialogInjector; });
 
 /** Custom injector type specifically for instantiating components with a dialog. */
@@ -8699,18 +11819,17 @@ var DialogInjector = (function () {
 
 
 /***/ },
-
-/***/ 1106:
+/* 1040 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__grid_tile__ = __webpack_require__(1107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tile_coordinator__ = __webpack_require__(1108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tile_styler__ = __webpack_require__(1109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__grid_list_errors__ = __webpack_require__(996);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__grid_tile__ = __webpack_require__(1041);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tile_coordinator__ = __webpack_require__(1042);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tile_styler__ = __webpack_require__(1043);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__grid_list_errors__ = __webpack_require__(956);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__grid_list_measure__ = __webpack_require__(1044);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__grid_list_measure__ = __webpack_require__(985);
 /* unused harmony export MdGridList */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdGridListModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8781,7 +11900,7 @@ var MdGridList = (function () {
     /** Throw a friendly error if cols property is missing */
     MdGridList.prototype._checkCols = function () {
         if (!this.cols) {
-            throw new __WEBPACK_IMPORTED_MODULE_4__grid_list_errors__["c" /* MdGridListColsError */]();
+            throw new __WEBPACK_IMPORTED_MODULE_4__grid_list_errors__["a" /* MdGridListColsError */]();
         }
     };
     /** Default to equal width:height if rowHeight property is missing */
@@ -8882,14 +12001,13 @@ var MdGridListModule = (function () {
 
 
 /***/ },
-
-/***/ 1107:
+/* 1041 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__grid_list_measure__ = __webpack_require__(1044);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__grid_list_measure__ = __webpack_require__(985);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdGridTile; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MdGridTileText; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8976,12 +12094,11 @@ var MdGridTileText = (function () {
 
 
 /***/ },
-
-/***/ 1108:
+/* 1042 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid_list_errors__ = __webpack_require__(996);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid_list_errors__ = __webpack_require__(956);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return TileCoordinator; });
 /* unused harmony export TilePosition */
 
@@ -9045,7 +12162,7 @@ var TileCoordinator = (function () {
     /** Finds the next available space large enough to fit the tile. */
     TileCoordinator.prototype._findMatchingGap = function (tileCols) {
         if (tileCols > this.tracker.length) {
-            throw new __WEBPACK_IMPORTED_MODULE_0__grid_list_errors__["a" /* MdGridTileTooWideError */](tileCols, this.tracker.length);
+            throw new __WEBPACK_IMPORTED_MODULE_0__grid_list_errors__["b" /* MdGridTileTooWideError */](tileCols, this.tracker.length);
         }
         // Start index is inclusive, end index is exclusive.
         var gapStartIndex = -1;
@@ -9116,12 +12233,11 @@ var TilePosition = (function () {
 
 
 /***/ },
-
-/***/ 1109:
+/* 1043 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid_list_errors__ = __webpack_require__(996);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid_list_errors__ = __webpack_require__(956);
 /* unused harmony export TileStyler */
 /* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return FixedTileStyler; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return RatioTileStyler; });
@@ -9299,7 +12415,7 @@ var RatioTileStyler = (function (_super) {
     RatioTileStyler.prototype._parseRatio = function (value) {
         var ratioParts = value.split(':');
         if (ratioParts.length !== 2) {
-            throw new __WEBPACK_IMPORTED_MODULE_0__grid_list_errors__["b" /* MdGridListBadRatioError */](value);
+            throw new __WEBPACK_IMPORTED_MODULE_0__grid_list_errors__["c" /* MdGridListBadRatioError */](value);
         }
         this.rowHeightRatio = parseFloat(ratioParts[0]) / parseFloat(ratioParts[1]);
     };
@@ -9340,19 +12456,18 @@ function normalizeUnits(value) {
 
 
 /***/ },
-
-/***/ 1110:
+/* 1044 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__icon_registry__ = __webpack_require__(1046);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__icon_registry__ = __webpack_require__(987);
+/* unused harmony reexport MdIconRegistry */
 /* unused harmony export MdIconInvalidNameError */
 /* unused harmony export MdIcon */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdIconModule; });
-/* unused harmony reexport MdIconRegistry */
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -9607,7 +12722,7 @@ var MdIconModule = (function () {
     };
     MdIconModule = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_2__core__["DefaultStyleCompatibilityModeModule"]],
+            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_2__core__["DefaultStyleCompatibilityModeModule"]],
             exports: [MdIcon, __WEBPACK_IMPORTED_MODULE_2__core__["DefaultStyleCompatibilityModeModule"]],
             declarations: [MdIcon],
         }), 
@@ -9620,93 +12735,7 @@ var MdIconModule = (function () {
 
 
 /***/ },
-
-/***/ 1111:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__module__ = __webpack_require__(1115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__button_index__ = __webpack_require__(1024);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__button_toggle_index__ = __webpack_require__(1023);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__card_index__ = __webpack_require__(1025);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__chips_index__ = __webpack_require__(1028);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__checkbox_index__ = __webpack_require__(1026);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__dialog_index__ = __webpack_require__(1043);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__grid_list_index__ = __webpack_require__(1045);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__icon_index__ = __webpack_require__(1047);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__input_index__ = __webpack_require__(1049);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__list_index__ = __webpack_require__(1052);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__menu_index__ = __webpack_require__(1053);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__progress_bar_index__ = __webpack_require__(1056);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__progress_spinner_index__ = __webpack_require__(1057);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__radio_index__ = __webpack_require__(1058);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__select_index__ = __webpack_require__(1059);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__sidenav_index__ = __webpack_require__(1062);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__slider_index__ = __webpack_require__(1064);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__slide_toggle_index__ = __webpack_require__(1063);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__snack_bar_index__ = __webpack_require__(1122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__tabs_index__ = __webpack_require__(1069);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__tabs_tab_nav_bar_index__ = __webpack_require__(1126);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__toolbar_index__ = __webpack_require__(1074);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__tooltip_index__ = __webpack_require__(1075);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["MaterialModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_1__module__["a"]; });
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-/* unused harmony namespace reexport */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//# sourceMappingURL=index.js.map
-
-
-/***/ },
-
-/***/ 1112:
+/* 1045 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9716,9 +12745,9 @@ var MdIconModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(929);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__input_container__ = __webpack_require__(1051);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__autosize__ = __webpack_require__(1048);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_platform_index__ = __webpack_require__(981);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__input_container__ = __webpack_require__(992);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__autosize__ = __webpack_require__(989);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_platform_index__ = __webpack_require__(941);
 /* unused harmony export MD_INPUT_CONTROL_VALUE_ACCESSOR */
 /* unused harmony export MdInputPlaceholderConflictError */
 /* unused harmony export MdInputUnsupportedTypeError */
@@ -9749,7 +12778,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var noop = function () { };
 var MD_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* NG_VALUE_ACCESSOR */],
+    provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* NG_VALUE_ACCESSOR */],
     useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["forwardRef"])(function () { return MdInput; }),
     multi: true
 };
@@ -10292,8 +13321,7 @@ var MdInputModule = (function () {
 
 
 /***/ },
-
-/***/ 1113:
+/* 1046 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10426,22 +13454,21 @@ var MdListModule = (function () {
 
 
 /***/ },
-
-/***/ 1114:
+/* 1047 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__menu_directive__ = __webpack_require__(997);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__menu_item__ = __webpack_require__(984);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__menu_trigger__ = __webpack_require__(998);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core_ripple_ripple__ = __webpack_require__(969);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdMenuModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__menu_directive__ = __webpack_require__(957);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__menu_item__ = __webpack_require__(944);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__menu_trigger__ = __webpack_require__(958);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core_ripple_ripple__ = __webpack_require__(936);
 /* unused harmony reexport MdMenu */
 /* unused harmony reexport MdMenuItem */
 /* unused harmony reexport MdMenuTrigger */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdMenuModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10485,36 +13512,35 @@ var MdMenuModule = (function () {
 
 
 /***/ },
-
-/***/ 1115:
+/* 1048 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_index__ = __webpack_require__(1031);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__button_toggle_index__ = __webpack_require__(1023);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__button_index__ = __webpack_require__(1024);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__checkbox_index__ = __webpack_require__(1026);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__radio_index__ = __webpack_require__(1058);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__select_index__ = __webpack_require__(1059);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__slide_toggle_index__ = __webpack_require__(1063);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__slider_index__ = __webpack_require__(1064);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__sidenav_index__ = __webpack_require__(1062);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__list_index__ = __webpack_require__(1052);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__grid_list_index__ = __webpack_require__(1045);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__card_index__ = __webpack_require__(1025);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__chips_index__ = __webpack_require__(1028);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__icon_index__ = __webpack_require__(1047);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__progress_spinner_index__ = __webpack_require__(1057);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__progress_bar_index__ = __webpack_require__(1056);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__input_index__ = __webpack_require__(1049);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__snack_bar_snack_bar__ = __webpack_require__(1068);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__tabs_index__ = __webpack_require__(1069);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__toolbar_index__ = __webpack_require__(1074);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__tooltip_index__ = __webpack_require__(1075);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__menu_index__ = __webpack_require__(1053);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__dialog_index__ = __webpack_require__(1043);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__core_platform_index__ = __webpack_require__(981);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_index__ = __webpack_require__(972);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__button_toggle_index__ = __webpack_require__(964);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__button_index__ = __webpack_require__(965);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__checkbox_index__ = __webpack_require__(967);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__radio_index__ = __webpack_require__(999);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__select_index__ = __webpack_require__(1000);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__slide_toggle_index__ = __webpack_require__(1004);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__slider_index__ = __webpack_require__(1005);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__sidenav_index__ = __webpack_require__(1003);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__list_index__ = __webpack_require__(993);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__grid_list_index__ = __webpack_require__(986);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__card_index__ = __webpack_require__(966);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__chips_index__ = __webpack_require__(969);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__icon_index__ = __webpack_require__(988);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__progress_spinner_index__ = __webpack_require__(998);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__progress_bar_index__ = __webpack_require__(997);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__input_index__ = __webpack_require__(990);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__snack_bar_snack_bar__ = __webpack_require__(1009);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__tabs_index__ = __webpack_require__(1010);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__toolbar_index__ = __webpack_require__(1015);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__tooltip_index__ = __webpack_require__(1016);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__menu_index__ = __webpack_require__(994);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__dialog_index__ = __webpack_require__(984);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__core_platform_index__ = __webpack_require__(941);
 /* unused harmony export MaterialRootModule */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MaterialModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10649,14 +13675,13 @@ var MaterialModule = (function () {
 
 
 /***/ },
-
-/***/ 1116:
+/* 1049 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_compatibility_default_mode__ = __webpack_require__(965);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_compatibility_default_mode__ = __webpack_require__(932);
 /* unused harmony export MdProgressBar */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdProgressBarModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10786,12 +13811,11 @@ var MdProgressBarModule = (function () {
 
 
 /***/ },
-
-/***/ 1117:
+/* 1050 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__progress_spinner__ = __webpack_require__(999);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__progress_spinner__ = __webpack_require__(959);
 /* unused harmony reexport MdProgressCircle */
 /* unused harmony reexport MdProgressCircleModule */
 /** @deprecated */
@@ -10803,8 +13827,7 @@ var MdProgressBarModule = (function () {
 
 
 /***/ },
-
-/***/ 1118:
+/* 1051 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10812,8 +13835,8 @@ var MdProgressBarModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_coercion_boolean_property__ = __webpack_require__(953);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_overlay_position_viewport_ruler__ = __webpack_require__(954);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_coercion_boolean_property__ = __webpack_require__(930);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_overlay_position_viewport_ruler__ = __webpack_require__(931);
 /* unused harmony export MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR */
 /* unused harmony export MdRadioChange */
 /* unused harmony export MdRadioGroup */
@@ -10843,7 +13866,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
  * @docs-private
  */
 var MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
-    provide: __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* NG_VALUE_ACCESSOR */],
+    provide: __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* NG_VALUE_ACCESSOR */],
     useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["forwardRef"])(function () { return MdRadioGroup; }),
     multi: true
 };
@@ -11374,19 +14397,18 @@ var MdRadioModule = (function () {
 
 
 /***/ },
-
-/***/ 1119:
+/* 1052 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_index__ = __webpack_require__(986);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_a11y_focus_trap__ = __webpack_require__(977);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_keyboard_keycodes__ = __webpack_require__(966);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core_overlay_overlay_directives__ = __webpack_require__(979);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_a11y_interactivity_checker__ = __webpack_require__(978);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_index__ = __webpack_require__(946);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_a11y_focus_trap__ = __webpack_require__(937);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_keyboard_keycodes__ = __webpack_require__(933);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core_overlay_overlay_directives__ = __webpack_require__(939);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_a11y_interactivity_checker__ = __webpack_require__(938);
 /* unused harmony export MdDuplicatedSidenavError */
 /* unused harmony export MdSidenavToggleResult */
 /* unused harmony export MdSidenav */
@@ -11598,7 +14620,7 @@ var MdSidenav = (function () {
      * @docs-private
      */
     MdSidenav.prototype.handleKeydown = function (event) {
-        if (event.keyCode === __WEBPACK_IMPORTED_MODULE_5__core_keyboard_keycodes__["l" /* ESCAPE */]) {
+        if (event.keyCode === __WEBPACK_IMPORTED_MODULE_5__core_keyboard_keycodes__["j" /* ESCAPE */]) {
             this.close();
             event.stopPropagation();
         }
@@ -11975,13 +14997,12 @@ var MdSidenavModule = (function () {
 
 
 /***/ },
-
-/***/ 1120:
+/* 1053 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(929);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(2);
@@ -12005,7 +15026,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
-    provide: __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* NG_VALUE_ACCESSOR */],
+    provide: __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* NG_VALUE_ACCESSOR */],
     useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["forwardRef"])(function () { return MdSlideToggle; }),
     multi: true
 };
@@ -12340,18 +15361,17 @@ var MdSlideToggleModule = (function () {
 
 
 /***/ },
-
-/***/ 1121:
+/* 1054 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_rtl_dir__ = __webpack_require__(967);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_rtl_dir__ = __webpack_require__(934);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__ = __webpack_require__(966);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__ = __webpack_require__(933);
 /* unused harmony export MD_SLIDER_VALUE_ACCESSOR */
 /* unused harmony export MdSliderChange */
 /* unused harmony export MdSlider */
@@ -12386,7 +15406,7 @@ var MIN_AUTO_TICK_SEPARATION = 30;
  * This allows it to support [(ngModel)] and [formControl].
  */
 var MD_SLIDER_VALUE_ACCESSOR = {
-    provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* NG_VALUE_ACCESSOR */],
+    provide: __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* NG_VALUE_ACCESSOR */],
     useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["forwardRef"])(function () { return MdSlider; }),
     multi: true
 };
@@ -12698,19 +15718,19 @@ var MdSlider = (function () {
             return;
         }
         switch (event.keyCode) {
-            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["h" /* PAGE_UP */]:
+            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["d" /* PAGE_UP */]:
                 this._increment(10);
                 break;
-            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["i" /* PAGE_DOWN */]:
+            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["e" /* PAGE_DOWN */]:
                 this._increment(-10);
                 break;
             case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["f" /* END */]:
                 this.value = this.max;
                 break;
-            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["e" /* HOME */]:
+            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["g" /* HOME */]:
                 this.value = this.min;
                 break;
-            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["j" /* LEFT_ARROW */]:
+            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["b" /* LEFT_ARROW */]:
                 // NOTE: For a sighted user it would make more sense that when they press an arrow key on an
                 // inverted slider the thumb moves in that direction. However for a blind user, nothing
                 // about the slider indicates that it is inverted. They will expect left to be decrement,
@@ -12720,14 +15740,14 @@ var MdSlider = (function () {
                 // sighted users, therefore we do not swap the meaning.
                 this._increment(this.direction == 'rtl' ? 1 : -1);
                 break;
-            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["d" /* UP_ARROW */]:
+            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["h" /* UP_ARROW */]:
                 this._increment(1);
                 break;
-            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["k" /* RIGHT_ARROW */]:
+            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["a" /* RIGHT_ARROW */]:
                 // See comment on LEFT_ARROW about the conditions under which we flip the meaning.
                 this._increment(this.direction == 'rtl' ? -1 : 1);
                 break;
-            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["c" /* DOWN_ARROW */]:
+            case __WEBPACK_IMPORTED_MODULE_6__core_keyboard_keycodes__["i" /* DOWN_ARROW */]:
                 this._increment(-1);
                 break;
             default:
@@ -12969,18 +15989,17 @@ var MdSliderModule = (function () {
 
 
 /***/ },
-
-/***/ 1122:
+/* 1055 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__snack_bar__ = __webpack_require__(1068);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__snack_bar_container__ = __webpack_require__(1066);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__snack_bar_config__ = __webpack_require__(1065);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__snack_bar_ref__ = __webpack_require__(1067);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__snack_bar__ = __webpack_require__(1009);
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__snack_bar_container__ = __webpack_require__(1007);
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__snack_bar_config__ = __webpack_require__(1006);
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__snack_bar_ref__ = __webpack_require__(1008);
 /* unused harmony namespace reexport */
 
 
@@ -12991,8 +16010,7 @@ var MdSliderModule = (function () {
 
 
 /***/ },
-
-/***/ 1123:
+/* 1056 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13039,8 +16057,7 @@ var SimpleSnackBar = (function () {
 
 
 /***/ },
-
-/***/ 1124:
+/* 1057 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13068,28 +16085,27 @@ var MdSnackBarContentAlreadyAttached = (function (_super) {
 
 
 /***/ },
-
-/***/ 1125:
+/* 1058 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tab_label__ = __webpack_require__(1002);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tab_label_wrapper__ = __webpack_require__(1001);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tab_nav_bar_tab_nav_bar__ = __webpack_require__(1072);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ink_bar__ = __webpack_require__(985);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tab_label__ = __webpack_require__(962);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tab_label_wrapper__ = __webpack_require__(961);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tab_nav_bar_tab_nav_bar__ = __webpack_require__(1013);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ink_bar__ = __webpack_require__(945);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_map__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_map__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_ripple_ripple__ = __webpack_require__(969);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__core_observe_content_observe_content__ = __webpack_require__(990);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__tab__ = __webpack_require__(1073);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__tab_body__ = __webpack_require__(1070);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__core_overlay_position_viewport_ruler__ = __webpack_require__(954);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__tab_header__ = __webpack_require__(1071);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_ripple_ripple__ = __webpack_require__(936);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__core_observe_content_observe_content__ = __webpack_require__(950);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__tab__ = __webpack_require__(1014);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__tab_body__ = __webpack_require__(1011);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__core_overlay_position_viewport_ruler__ = __webpack_require__(931);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__tab_header__ = __webpack_require__(1012);
 /* unused harmony export MdTabChangeEvent */
 /* unused harmony export MdTabGroup */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdTabsModule; });
@@ -13332,12 +16348,11 @@ var MdTabsModule = (function () {
 
 
 /***/ },
-
-/***/ 1126:
+/* 1059 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tab_nav_bar__ = __webpack_require__(1072);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tab_nav_bar__ = __webpack_require__(1013);
 /* unused harmony namespace reexport */
 
 
@@ -13345,8 +16360,7 @@ var MdTabsModule = (function () {
 
 
 /***/ },
-
-/***/ 1127:
+/* 1060 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13442,8 +16456,7 @@ var MdToolbarModule = (function () {
 
 
 /***/ },
-
-/***/ 1128:
+/* 1061 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13471,19 +16484,18 @@ var MdTooltipInvalidPositionError = (function (_super) {
 
 
 /***/ },
-
-/***/ 1129:
+/* 1062 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tooltip_errors__ = __webpack_require__(1128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tooltip_errors__ = __webpack_require__(1061);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_rtl_dir__ = __webpack_require__(967);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_overlay_overlay__ = __webpack_require__(980);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_first__ = __webpack_require__(1086);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_rtl_dir__ = __webpack_require__(934);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_overlay_overlay__ = __webpack_require__(940);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_first__ = __webpack_require__(1017);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_first___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_first__);
 /* unused harmony export TOUCHEND_HIDE_DELAY */
 /* unused harmony export MdTooltip */
@@ -13860,7 +16872,7 @@ var MdTooltipModule = (function () {
     MdTooltipModule.forRoot = function () {
         return {
             ngModule: MdTooltipModule,
-            providers: [__WEBPACK_IMPORTED_MODULE_5__core_overlay_overlay__["b" /* OVERLAY_PROVIDERS */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_5__core_overlay_overlay__["a" /* OVERLAY_PROVIDERS */]]
         };
     };
     MdTooltipModule = __decorate([
@@ -13879,84 +16891,1328 @@ var MdTooltipModule = (function () {
 
 
 /***/ },
-
-/***/ 1138:
+/* 1063 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profile_component__ = __webpack_require__(1084);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileRouting; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_translate__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__(1020);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(458);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__goal_friends_goal_friends_component__ = __webpack_require__(1066);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__leaderboards_leaderboards_component__ = __webpack_require__(1067);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__my_list_my_list_component__ = __webpack_require__(1068);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__top_ideas_top_ideas_component__ = __webpack_require__(1070);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__complete_profile_complete_profile_component__ = __webpack_require__(1064);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__profile_header_profile_header_component__ = __webpack_require__(1069);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__create_goal_create_goal_component__ = __webpack_require__(1065);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivityBlockModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 
-// import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
-var ProfileRoutes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__profile_component__["a" /* ProfileComponent */] },
-    { path: ':uId', component: __WEBPACK_IMPORTED_MODULE_1__profile_component__["a" /* ProfileComponent */] },
-    { path: ':uId/:type', component: __WEBPACK_IMPORTED_MODULE_1__profile_component__["a" /* ProfileComponent */] }
-];
-var ProfileRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forChild(ProfileRoutes);
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile-routing.js.map
+
+
+
+
+
+
+
+
+
+
+
+var ActivityBlockModule = (function () {
+    function ActivityBlockModule() {
+    }
+    ActivityBlockModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
+                __WEBPACK_IMPORTED_MODULE_2_ng2_translate__["b" /* TranslateModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_router__["d" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_5__components_components_module__["a" /* ComponentModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_material__["MaterialModule"].forRoot()
+            ],
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_6__goal_friends_goal_friends_component__["a" /* GoalFriendsBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__leaderboards_leaderboards_component__["a" /* LeaderboardsBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__my_list_my_list_component__["a" /* MyListBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__top_ideas_top_ideas_component__["a" /* TopIdeasBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__complete_profile_complete_profile_component__["a" /* CompleteProfileBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__profile_header_profile_header_component__["a" /* ProfileHeaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__create_goal_create_goal_component__["a" /* CreateGoalComponent */],
+            ],
+            exports: [__WEBPACK_IMPORTED_MODULE_6__goal_friends_goal_friends_component__["a" /* GoalFriendsBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__leaderboards_leaderboards_component__["a" /* LeaderboardsBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__my_list_my_list_component__["a" /* MyListBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__top_ideas_top_ideas_component__["a" /* TopIdeasBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__complete_profile_complete_profile_component__["a" /* CompleteProfileBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__profile_header_profile_header_component__["a" /* ProfileHeaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__create_goal_create_goal_component__["a" /* CreateGoalComponent */],
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ActivityBlockModule);
+    return ActivityBlockModule;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activityBlock.module.js.map
 
 /***/ },
-
-/***/ 1145:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.bucketlist {\n  padding: 5px 0 0;\n  background-color: #ffffff;\n  margin-bottom: 7px;\n}\n.bucketlist ul {\n  padding-left: 0;\n  margin-bottom: 1px;\n}\n.bucketlist ul li {\n  display: inline-block;\n  padding: 8px 6px;\n  font-size: 14px;\n}\n.bucketlist ul li a {\n  color: #666666;\n  font-size: 14px;\n  line-height: 23px;\n}\n.bucketlist ul li a:hover,\n.bucketlist ul li a:focus {\n  text-decoration: none;\n  color: #7724f6;\n}\n.bucketlist ul li a:hover i,\n.bucketlist ul li a:focus i {\n  color: #7724f6;\n}\n.bucketlist ul li a i {\n  font-size: 20px;\n  vertical-align: middle;\n}\n.bucketlist ul li:hover a {\n  color: #7724F6;\n}\n.bucketlist ul li:last-child {\n  padding: 0 10px;\n}\n.bucketlist ul li:last-child a {\n  display: inline-block;\n  margin: 0 0 0 5px;\n}\n.bucketlist ul li:last-child a .svg {\n  display: inline-block;\n  height: 30px;\n  width: 25px;\n}\n.bucketlist ul li:last-child:hover {\n  border-bottom: 0;\n}\n.bucketlist ul .active {\n  border-bottom: 1px solid #7724f6;\n}\n.bucketlist ul .active a {\n  color: #7724f6;\n}\n.bucketlist hr {\n  margin: -2px 0 0;\n}\n.bucketlist form {\n  padding: 12px 0 5px;\n}\n.bucketlist form .checked-label {\n  color: #6108EA;\n}\n.bucketlist form label {\n  display: block;\n  font-size: 13px;\n  margin-bottom: 5px;\n}\n.bucketlist form label:hover,\n.bucketlist form label:active,\n.bucketlist form label:focus {\n  color: #6108EA;\n}\n.bucketlist form label:first-child {\n  padding-left: 30px;\n}\n.bucketlist form .icheckbox_square-purple {\n  background: url('../images/checkbox.png') no-repeat 0 0;\n}\n.bucketlist form .icheckbox_square-purple:hover {\n  background: url('../images/checkbox.png') no-repeat -26px 0;\n}\n.bucketlist form .checked {\n  background: url('../images/checkbox.png') no-repeat -52px 0 !important;\n}\n@media (min-width: 768px) {\n  .bucketlist {\n    padding: 10px 0 0;\n    margin-bottom: 10px;\n  }\n  .bucketlist ul {\n    padding-left: 0;\n    margin-bottom: 1px;\n  }\n  .bucketlist ul li {\n    padding: 10px 15px;\n    font-size: 15px;\n  }\n  .bucketlist ul li a {\n    font-size: 18px;\n    line-height: 26px;\n  }\n  .bucketlist ul li a i {\n    font-size: 22px;\n  }\n  .bucketlist ul li:last-child {\n    padding: 2px 5px 4px;\n  }\n  .bucketlist ul li:last-child a .svg {\n    width: 35px;\n  }\n  .bucketlist .map-marker-new {\n    width: 25px;\n    height: 33px;\n  }\n  .bucketlist hr {\n    margin: -2px 0 0;\n  }\n  .bucketlist form {\n    padding: 7px 0 10px;\n  }\n  .bucketlist form label {\n    display: inline-block;\n    font-size: 12px;\n    padding-left: 0;\n  }\n  .bucketlist form label:first-child {\n    padding-left: 0;\n  }\n}\n@media (min-width: 992px) {\n  .bucketlist {\n    padding: 20px 0 0;\n    margin-bottom: 20px;\n  }\n  .bucketlist ul {\n    padding-left: 0;\n    margin-bottom: 1px;\n  }\n  .bucketlist ul li {\n    padding: 10px 15px;\n    font-size: 15px;\n  }\n  .bucketlist ul li a {\n    font-size: 22px;\n    line-height: 33px;\n  }\n  .bucketlist ul li a i {\n    font-size: 28px;\n  }\n  .bucketlist ul li:last-child {\n    padding: 2px 15px 4px;\n  }\n  .bucketlist hr {\n    margin: -2px 0 0;\n  }\n  .bucketlist form {\n    padding: 27px 0 20px;\n  }\n  .bucketlist form label {\n    font-size: 14px;\n    padding-left: 20px;\n  }\n}\n"
-
-/***/ },
-
-/***/ 1158:
-/***/ function(module, exports) {
-
-module.exports = "<profile-header (onHover)=\"hideJoin($event)\"></profile-header>\n\n<!--{% block content_container %}-->\n<!--{% set myProfile = true %}-->\n<!--{% set my_router_params =  app.request.query.all %}-->\n<!--{% set routeName = 'user_profile_single' %}-->\n<!--{% if profileUser.id != app.user.id %}-->\n<!--{% set myProfile = false %}-->\n<!--{% set routeName = 'user_profile' %}-->\n<!--{% endif %}-->\n<div class=\"bucketlist\">\n    <!--data-ng-init=\"-->\n    <!--profile.status = '{{ (status or myProfile )? status: activity}}';-->\n    <!--profile.condition = '{{ status? (status == 'completed-goals')? 2: 1: 0}}';-->\n    <!--profile.isDream = '{{ app.request.get('d')? 'true': 'false' }}';-->\n    <!--profile.f_1 = '{{ app.request.get('f_1')? 'true': 'false'}}';-->\n    <!--profile.f_2 = '{{ app.request.get('f_2')? 'true': 'false' }}';-->\n    <!--profile.f_3 = '{{ app.request.get('f_3')? 'true': 'false' }}';-->\n    <!--profile.f_4 = '{{ app.request.get('f_4')? 'true': 'false' }}';-->\n    <!--profile.userId = '{{ profileUser.id }}';-->\n    <!--activeGoals = '{{ profileUser.getStats.active }}';-->\n    <!--{% if not myProfile %}ProfileItems.busy = true;{% endif %}-->\n    <!--\"-->\n    <div class=\"container\">\n        <div class=\"row\">\n            <ul class=\"menu\">\n                <li [ngClass]=\"{'active': type == 'activity' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/activity\">\n                        {{ 'menu.activity'|translate }}\n                    </a>\n                </li>\n\n                <li [ngClass]=\"{'active': type == 'all' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/all\">\n                        {{ (myProfile?'menu.bucket':'right_menu.show')|translate }}\n                    </a>\n                </li>\n                <li [ngClass]=\"{'active': type == 'active' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/active\">\n                        {{ 'menu.active'|translate }}\n                    </a>\n                </li>\n                <li [ngClass]=\"{'active': type == 'completed' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/completed\">\n                        {{ 'menu.completed'|translate}}\n                    </a>\n                </li>\n                <li [ngClass]=\"{'active': type == 'common' }\" *ngIf=\"!myProfile\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/common\">\n                        {{ 'menu.common'|translate}}\n                    </a>\n                </li>\n\n                <li [ngClass]=\"{'active': type == 'owned' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my' }}/owned\">\n                        {{ 'menu.owned'|translate}}\n                    </a>\n                </li>\n\n                <li class=\"pull-right\">\n                    <a href=\"#\" *ngIf=\"myProfile\" class=\"calendar\" [ngClass]=\"{'calendar-active': showCalendar}\" (click)=\"showCalendar = !showCalendar\">\n                        <img src=\"assets/images/calendar-icon.svg\" class=\"svg\"/>\n                    </a>\n\n                    <a href=\"#\" [ngClass]=\"{'map-marker-active': showMap}\"\n                       (click)=\"showMap=!showMap; triggerMap('.google-map')\">\n                        <img src=\"assets/images/map-icon.svg\" class=\"svg\"/>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    </div>\n\n    <div class=\"slide map-marker\"  [hidden]=\"!showMap\">\n        <!--<div data-simple-map-marker-->\n             <!--data-markers=\"locations\"-->\n             <!--data-on-marker-click=\"onMarkerClick(goal)\"-->\n             <!--data-is-bounded=\"true\"-->\n             <!--data-item-page-url=\"{{ env_prefix  }}/goal/\"-->\n             <!--data-active-goal-marker-icon1=\"{{ asset('bundles/app/images/Active-icon.png') }}\"-->\n             <!--data-active-goal-marker-icon2=\"{{ asset('bundles/app/images/Completed-icon.png') }}\"-->\n             <!--data-active-marker-icon=\"{{ asset('bundles/app/images/map-marker-white.png') }}\"-->\n             <!--data-passive-marker-icon=\"{{ asset('bundles/app/images/map-marker-purple.png') }}\"-->\n             <!--data-refresh=\"showMap\"-->\n             <!--class=\"google-map \"-->\n             <!--style=\"width: 100%; height: 300px\">-->\n        <!--</div>-->\n    </div>\n\n    <hr/>\n    <!--{% include 'AppBundle:BucketList:calendar.html.twig' %}-->\n\n    <!--{% if myProfile %}-->\n\n    <div class=\"container slide\" *ngIf=\"myProfile && type != 'activity'\">\n        <div class=\"row\">\n\n            <div class=\"col-sm-12\">\n                <form class=\"form-inline\" action=\"#\">\n                    <!--{# dream filter #}-->\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (isDream == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"isDream\" (change)=\"getData()\"></md-checkbox>\n                        <!--<input [(ngModel)]=\"isDream\" type=\"checkbox\" name=\"d\" data-ng-true-value=\"'true'\"-->\n                               <!--data-ng-false-value=\"'false'\">-->\n                        {{ 'filter.dream'|translate}}\n                    </label>\n\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (urgentImportant == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"urgentImportant\" (change)=\"getData()\"></md-checkbox>\n                        {{ 'filter.import_urgent'|translate}}\n                    </label>\n\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (urgentNotImportant == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"urgentNotImportant\" (change)=\"getData()\"></md-checkbox>\n                        {{ 'filter.not_import_urgent'|translate}}\n                    </label>\n\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (notUrgentImportant == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"notUrgentImportant\" (change)=\"getData()\"></md-checkbox>\n                        {{ 'filter.import_not_urgent'|translate}}\n                    </label>\n\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (notUrgentNotImportant == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"notUrgentNotImportant\" (change)=\"getData()\"></md-checkbox>\n                        {{ 'filter.not_import_not_urgent'|translate}}\n                    </label>\n                </form>\n            </div>\n\n        </div>\n    </div>\n    <!--{% endif %}-->\n</div>\n\n<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"col-md-8\">\n            <div id=\"news-feed\" class=\"user-activities\" *ngIf=\"type == 'activity'\">\n                <my-activity [single]=\"true\" [userId]=\"id\"></my-activity>\n            </div>\n\n            <div [class.goals-information]=\"myProfile\" [class.user-goals]=\"!myProfile\"\n                 *ngIf=\"type != 'activity'\"\n                 infinite-scroll\n                 [infiniteScrollDistance]=\"1\"\n                 [infiniteScrollThrottle]=\"500\"\n                 (scrolled)=\"onScroll()\">\n                <!--data-infinite-scroll='ProfileItems.nextPage(profile)'-->\n                <!--data-infinite-scroll-disabled='ProfileItems.noItem || ProfileItems.busy'-->\n                <div *ngIf=\"userGoals && userGoals.length\">\n                    <!--{% if myProfile %}-->\n                    <!--*ngIf=\"$parent.userGoalIds[$index] != 'removed'\"-->\n                    <!--data-ng-init=\"goal = userGoal.goal; status = userGoal.status;$parent.userGoalIds[$index] = userGoal.id\"-->\n                    <div *ngIf=\"myProfile\">\n                        <!--class goal{{goal.id}}-->\n                        <div [ngClass]=\"{'active-idea': ((userGoal.status != 2) && userGoal.do_date)}\"\n                             class=\"row goals-animate\"\n                             *ngFor=\"let userGoal of userGoals;let i = index\">\n                            <profile-goal [userGoal]=\"userGoal\" [last]=\"i == userGoals.length - 1\" [first]=\"i == 0\"></profile-goal>\n                        </div>\n                    </div>\n                    <!--{% else%}-->\n                    <div *ngIf=\"!myProfile\">\n                        <div class=\"row goals-animate\"\n                             *ngFor=\"let userGoal of userGoals\">\n                            <div class=\"col-sm-12\">\n                                <div class=\"bg-white round\">\n                                    <div class=\"idea-item\">\n\n                                        <figure>\n                                            <app-goal [goal]=\"userGoal.goal? userGoal.goal:userGoal\"></app-goal>\n\n                                            <activity-goal-footer [goal]=\"userGoal.goal? userGoal.goal: userGoal\"></activity-goal-footer>\n                                        </figure>\n                                    </div>\n\n                                    <div [ngClass]=\"{'line': (userGoal.createComment && userGoal.showComment) || (userGoal.goal && userGoal.goal.createComment && userGoal.goal.showComment)}\"></div>\n\n                                    <app-comment *ngIf=\"userGoal.createComment || (userGoal.goal && userGoal.goal.createComment)\" [hidden]=\"!userGoal.showComment && (!userGoal.goal || !userGoal.goal.showComment)\"\n                                                 [data]=\"{id: (userGoal && userGoal.goal && userGoal.goal.id)?userGoal.goal.id:userGoal.id, slug:(userGoal && userGoal.goal && userGoal.goal.slug)?userGoal.goal.slug:userGoal.slug,inner:false}\">\n                                    </app-comment>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\n                    <!--{% endif %}-->\n                </div>\n\n            <p class=\"empty-text text-center\"\n               *ngIf=\"(!userGoals || !userGoals.length) && noItem\">\n                <!--data-ng-init=\"link = (activeGoals? '{{ path('user_profile_single', {'status': active }) }}': '{{ path('goals_list') }}')\"-->\n                <!--{% if myProfile %}-->\n                                <span *ngIf=\"myProfile && isDream == 'true'\">\n                                    {{ 'dream'|translate}}\n                                </span>\n                                <span *ngIf=\"(myProfile && !isDream) && (notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant)\">\n                                    {{ 'my_bucket_list.filter'|translate}}\n                                </span>\n                                <span *ngIf=\"myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'completed'\">\n                                    {{ 'my_bucket_list.complete'|translate}} <a data-ng-href=\"[[ link ]]\" class=\"text-purple\">{{ 'my_bucket_list.some_goal'|translate}}</a>\n                                </span>\n                                <span *ngIf=\"myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'active'\">\n                                    {{ 'my_bucket_list.need_goal'|translate}} <a routerLink=\"/goal/create\" class=\"text-purple\">{{ 'my_bucket_list.add_some'|translate}}</a>\n                                </span>\n                                <span *ngIf=\"myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'all'\">\n                                    {{ 'my_bucket_list.doing_here'|translate}} <a routerLink=\"/goal/create\" class=\"text-purple\">{{ 'my_bucket_list.add_goal'|translate}}</a>\n                                </span>\n                <!--{% else %}-->\n                                <span *ngIf=\"!myProfile\">\n                                    {{ 'profile_empty'|translate}}\n                                </span>\n                <!--{% endif %}-->\n            </p>\n        </div>\n        </div>\n\n        <div class=\"col-md-4\" >\n            <create-goal [myProfile]=\"myProfile\"></create-goal>\n            <top-ideas-block [type]=\"'suggest'\"></top-ideas-block>\n            <!--{%  include \"AppBundle:Blocks:popularGoals.html.twig\" with {'user': user, 'count': 1, 'isProfile': true}  %}-->\n            <top-ideas-block [type]=\"'featured'\"></top-ideas-block>\n        </div>\n    </div>\n</div>\n<!--{% endblock %}-->\n\n<div class=\"list-tooltip\"\n     [hidden]=\"!isHover\" #tooltip>\n    <span class=\"arrow-up\"></span>\n    {{ hoveredText |translate}}\n</div>"
-
-/***/ },
-
-/***/ 1160:
+/* 1064 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__ = __webpack_require__(74);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CompleteProfileBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CompleteProfileBlockComponent = (function () {
+    function CompleteProfileBlockComponent(_projectService, _cacheService) {
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+    }
+    CompleteProfileBlockComponent.prototype.ngOnInit = function () {
+        var data = this._cacheService.get('complate-profile');
+        if (data) {
+            this.data = data;
+        }
+        else {
+            this.getCompleteProfileUrl();
+        }
+    };
+    CompleteProfileBlockComponent.prototype.getCompleteProfileUrl = function () {
+        var _this = this;
+        this._projectService.getCompleteProfileUrl()
+            .subscribe(function (data) {
+            _this.data = data;
+            _this._cacheService.set('complate-profile', data);
+        });
+    };
+    CompleteProfileBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'complete-profile-block',
+            template: __webpack_require__(1086),
+            styles: [__webpack_require__(1079)],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */],
+                __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object])
+    ], CompleteProfileBlockComponent);
+    return CompleteProfileBlockComponent;
+    var _a, _b;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/complete-profile.component.js.map
+
+/***/ },
+/* 1065 */
+/***/ function(module, exports, __webpack_require__) {
+
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CreateGoalComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CreateGoalComponent = (function () {
+    function CreateGoalComponent() {
+    }
+    CreateGoalComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], CreateGoalComponent.prototype, "myProfile", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], CreateGoalComponent.prototype, "myIdeasCount", void 0);
+    CreateGoalComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'create-goal',
+            template: __webpack_require__(1087),
+            styles: [__webpack_require__(1080)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], CreateGoalComponent);
+    return CreateGoalComponent;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/create-goal.component.js.map
+
+/***/ },
+/* 1066 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalFriendsBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var GoalFriendsBlockComponent = (function () {
+    function GoalFriendsBlockComponent(_projectService, _cacheService) {
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+    }
+    GoalFriendsBlockComponent.prototype.ngOnInit = function () {
+        var data = this._cacheService.get('goalFriendBox');
+        if (data) {
+            this.users = data[1];
+            this.length = data.length;
+            this.goalReserve();
+        }
+        else {
+            this.goalFriends();
+        }
+    };
+    GoalFriendsBlockComponent.prototype.goalFriends = function () {
+        var _this = this;
+        this._projectService.getGaolFriends()
+            .subscribe(function (data) {
+            _this.users = data[1];
+            _this.length = data.length;
+            _this._cacheService.set('goalFriendBox', data, { maxAge: 2 * 24 * 60 * 60 });
+        }, function (error) { return _this.errorMessage = error; });
+        this.goalReserve();
+    };
+    GoalFriendsBlockComponent.prototype.goalReserve = function () {
+        var _this = this;
+        this._projectService.getGaolFriends()
+            .subscribe(function (data) {
+            _this.reserve = data;
+            for (var _i = 0, _a = data[1]; _i < _a.length; _i++) {
+                var item = _a[_i];
+                var img = void 0;
+                if (item.cached_image) {
+                    img = new Image();
+                    img.src = item.cached_image;
+                }
+            }
+            _this._cacheService.set('goalFriendBox', _this.reserve, { maxAge: 2 * 24 * 60 * 60 });
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    GoalFriendsBlockComponent.prototype.refreshGoalFriends = function () {
+        // angular.element('#popularLoad').css({
+        //   '-webkit-transform': 'rotate('+deg+'deg)',
+        //   '-ms-transform': 'rotate('+deg+'deg)',
+        //   'transform': 'rotate('+deg+'deg)'
+        // });
+        this.users = this.reserve[1];
+        this.length = this.reserve.length;
+        this.goalReserve();
+    };
+    GoalFriendsBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'goal-friends-block',
+            template: __webpack_require__(1088),
+            styles: [__webpack_require__(1081)],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */],
+                __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object])
+    ], GoalFriendsBlockComponent);
+    return GoalFriendsBlockComponent;
+    var _a, _b;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-friends.component.js.map
+
+/***/ },
+/* 1067 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return LeaderboardsBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var LeaderboardsBlockComponent = (function () {
+    function LeaderboardsBlockComponent(_projectService) {
+        this._projectService = _projectService;
+        this.index = 0;
+    }
+    LeaderboardsBlockComponent.prototype.ngOnInit = function () {
+        this.users = [];
+        this.getBadges();
+    };
+    LeaderboardsBlockComponent.prototype.getBadges = function () {
+        var _this = this;
+        this._projectService.getBadges()
+            .subscribe(function (data) {
+            _this.badges = data.badges;
+            _this.maxUpdate = data.maxUpdate;
+            _this.min = data.min;
+            _this.topUsers = data.users;
+            _this.normOfTop = +_this.min.innovator + +_this.min.motivator + +_this.min.traveller;
+            _this.initUsers();
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    LeaderboardsBlockComponent.prototype.initUsers = function () {
+        var i = 0;
+        for (var index in this.badges) {
+            this.users[i++] = (this.index < this.badges[index].length) ? this.badges[index][this.index] : this.badges[index][(this.index % this.badges[index].length)];
+        }
+    };
+    ;
+    LeaderboardsBlockComponent.prototype.refreshLeaderboards = function () {
+        if (this.normOfTop > 0) {
+            this.index = (this.index == 9) ? 0 : this.index + 1;
+            this.initUsers();
+        }
+    };
+    LeaderboardsBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'leaderboards-block',
+            template: __webpack_require__(1089),
+            styles: [__webpack_require__(1082)],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object])
+    ], LeaderboardsBlockComponent);
+    return LeaderboardsBlockComponent;
+    var _a;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/leaderboards.component.js.map
+
+/***/ },
+/* 1068 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MyListBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var MyListBlockComponent = (function () {
+    function MyListBlockComponent() {
+    }
+    MyListBlockComponent.prototype.ngOnInit = function () {
+    };
+    MyListBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'my-list-block',
+            template: __webpack_require__(1090),
+            styles: [__webpack_require__(1083)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MyListBlockComponent);
+    return MyListBlockComponent;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/my-list.component.js.map
+
+/***/ },
+/* 1069 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__ = __webpack_require__(47);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileHeaderComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ProfileHeaderComponent = (function () {
+    function ProfileHeaderComponent(broadcaster, _projectService, _cacheService) {
+        this.broadcaster = broadcaster;
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.hoverEmitter = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.serverPath = '';
+        this.imgPath = '';
+        this.isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
+        this.isMobile = (window.innerWidth < 768);
+    }
+    ProfileHeaderComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.serverPath = this._projectService.getPath();
+        this.imgPath = this.serverPath + '/bundles/app/images/cover3.jpg';
+        if (localStorage.getItem('apiKey')) {
+            this.appUser = this._projectService.getMyUser();
+            if (!this.appUser) {
+                this.appUser = this._cacheService.get('user_');
+                if (!this.appUser) {
+                    this._projectService.getUser()
+                        .subscribe(function (user) {
+                        _this.appUser = user;
+                        _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+                        _this.broadcaster.broadcast('getUser', user);
+                    });
+                }
+            }
+        }
+        else {
+            this.broadcaster.broadcast('logout', 'some message');
+        }
+        setTimeout(function () {
+            _this._projectService.getUserByUId(_this.userInfo)
+                .subscribe(function (user) {
+                _this.profileUser = user;
+                _this.active = _this.profileUser.stats.active;
+                _this.listedBy = _this.profileUser.stats.listedBy;
+                _this.doneBy = _this.profileUser.stats.doneBy;
+            });
+        }, 1000);
+    };
+    ProfileHeaderComponent.prototype.toggleFollow = function () {
+        var _this = this;
+        this._projectService.toggleFollow(1).subscribe(function (user) {
+            _this.isFollow = !_this.isFollow;
+        });
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], ProfileHeaderComponent.prototype, "userInfo", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])('onHover'), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === 'function' && _a) || Object)
+    ], ProfileHeaderComponent.prototype, "hoverEmitter", void 0);
+    ProfileHeaderComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'profile-header',
+            template: __webpack_require__(1091),
+            styles: [__webpack_require__(1084)],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object])
+    ], ProfileHeaderComponent);
+    return ProfileHeaderComponent;
+    var _a, _b, _c, _d;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile-header.component.js.map
+
+/***/ },
+/* 1070 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return TopIdeasBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var TopIdeasBlockComponent = (function () {
+    function TopIdeasBlockComponent(_projectService, _cacheService) {
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.goals = null;
+        this.categories = ['top', 'suggest', 'featured'];
+    }
+    TopIdeasBlockComponent.prototype.ngOnInit = function () {
+        if (this.type == this.categories[2]) {
+            var data = this._cacheService.get('featuredIdea');
+            if (data) {
+                this.goals = data;
+            }
+            else {
+                this.getFeaturedIdeas();
+            }
+        }
+        else {
+            var data = this._cacheService.get('topIdea');
+            if (data) {
+                this.goals = data;
+            }
+            else {
+                this.getTopIdeas();
+            }
+        }
+    };
+    TopIdeasBlockComponent.prototype.getTopIdeas = function () {
+        var _this = this;
+        this._projectService.getTopIdeas()
+            .subscribe(function (goals) {
+            _this.goals = goals;
+            _this._cacheService.set('topIdea', goals, { maxAge: 24 * 60 * 60 });
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    TopIdeasBlockComponent.prototype.getFeaturedIdeas = function () {
+        var _this = this;
+        this._projectService.getFeaturedIdeas()
+            .subscribe(function (goals) {
+            _this.goals = goals;
+            _this._cacheService.set('featuredIdea', goals, { maxAge: 24 * 60 * 60 });
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    TopIdeasBlockComponent.prototype.refreshIdeas = function () {
+        if (this.type == this.categories[2]) {
+            this.getFeaturedIdeas();
+        }
+        else {
+            this.getTopIdeas();
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], TopIdeasBlockComponent.prototype, "type", void 0);
+    TopIdeasBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'top-ideas-block',
+            template: __webpack_require__(1092),
+            styles: [__webpack_require__(1085)],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */],
+                __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
+            ],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object])
+    ], TopIdeasBlockComponent);
+    return TopIdeasBlockComponent;
+    var _a, _b;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/top-ideas.component.js.map
+
+/***/ },
+/* 1071 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var info_window_manager_1 = __webpack_require__(1075);
+var infoWindowId = 0;
+/**
+ * SebmGoogleMapInfoWindow renders a info window inside a {@link SebmGoogleMapMarker} or standalone.
+ *
+ * ### Example
+ * ```typescript
+ * import { Component } from 'angular2/core';
+ * import { SebmGoogleMap, SebmGoogleMapMarker, SebmGoogleMapInfoWindow } from
+ * 'angular2-google-maps/core';
+ *
+ * @Component({
+ *  selector: 'my-map-cmp',
+ *  directives: [SebmGoogleMap, SebmGoogleMapMarker, SebmGoogleMapInfoWindow],
+ *  styles: [`
+ *    .sebm-google-map-container {
+ *      height: 300px;
+ *    }
+ * `],
+ *  template: `
+ *    <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+ *      <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [label]="'M'">
+ *        <sebm-google-map-info-window [disableAutoPan]="true">
+ *          Hi, this is the content of the <strong>info window</strong>
+ *        </sebm-google-map-info-window>
+ *      </sebm-google-map-marker>
+ *    </sebm-google-map>
+ *  `
+ * })
+ * ```
+ */
+var SebmGoogleMapInfoWindow = (function () {
+    function SebmGoogleMapInfoWindow(_infoWindowManager, _el) {
+        this._infoWindowManager = _infoWindowManager;
+        this._el = _el;
+        /**
+         * Sets the open state for the InfoWindow. You can also call the open() and close() methods.
+         */
+        this.isOpen = false;
+        /**
+         * Emits an event when the info window is closed.
+         */
+        this.infoWindowClose = new core_1.EventEmitter();
+        this._infoWindowAddedToManager = false;
+        this._id = (infoWindowId++).toString();
+    }
+    SebmGoogleMapInfoWindow.prototype.ngOnInit = function () {
+        this.content = this._el.nativeElement.querySelector('.sebm-google-map-info-window-content');
+        this._infoWindowManager.addInfoWindow(this);
+        this._infoWindowAddedToManager = true;
+        this._updateOpenState();
+    };
+    /** @internal */
+    SebmGoogleMapInfoWindow.prototype.ngOnChanges = function (changes) {
+        if (!this._infoWindowAddedToManager) {
+            return;
+        }
+        if ((changes['latitude'] || changes['longitude']) && typeof this.latitude === 'number' &&
+            typeof this.longitude === 'number') {
+            this._infoWindowManager.setPosition(this);
+        }
+        if (changes['zIndex']) {
+            this._infoWindowManager.setZIndex(this);
+        }
+        if (changes['isOpen']) {
+            this._updateOpenState();
+        }
+        this._setInfoWindowOptions(changes);
+    };
+    SebmGoogleMapInfoWindow.prototype._updateOpenState = function () {
+        this.isOpen ? this._infoWindowManager.open(this) : this._infoWindowManager.close(this);
+    };
+    SebmGoogleMapInfoWindow.prototype._setInfoWindowOptions = function (changes) {
+        var options = {};
+        var optionKeys = Object.keys(changes).filter(function (k) { return SebmGoogleMapInfoWindow._infoWindowOptionsInputs.indexOf(k) !== -1; });
+        optionKeys.forEach(function (k) { options[k] = changes[k].currentValue; });
+        this._infoWindowManager.setOptions(this, options);
+    };
+    /**
+     * Opens the info window.
+     */
+    SebmGoogleMapInfoWindow.prototype.open = function () { return this._infoWindowManager.open(this); };
+    /**
+     * Closes the info window.
+     */
+    SebmGoogleMapInfoWindow.prototype.close = function () {
+        var _this = this;
+        return this._infoWindowManager.close(this).then(function () { _this.infoWindowClose.emit(void 0); });
+    };
+    /** @internal */
+    SebmGoogleMapInfoWindow.prototype.id = function () { return this._id; };
+    /** @internal */
+    SebmGoogleMapInfoWindow.prototype.toString = function () { return 'SebmGoogleMapInfoWindow-' + this._id.toString(); };
+    /** @internal */
+    SebmGoogleMapInfoWindow.prototype.ngOnDestroy = function () { this._infoWindowManager.deleteInfoWindow(this); };
+    SebmGoogleMapInfoWindow._infoWindowOptionsInputs = ['disableAutoPan', 'maxWidth'];
+    SebmGoogleMapInfoWindow.decorators = [
+        { type: core_1.Component, args: [{
+                    selector: 'sebm-google-map-info-window',
+                    inputs: ['latitude', 'longitude', 'disableAutoPan', 'isOpen', 'zIndex', 'maxWidth'],
+                    outputs: ['infoWindowClose'],
+                    template: "<div class='sebm-google-map-info-window-content'>\n      <ng-content></ng-content>\n    </div>\n  "
+                },] },
+    ];
+    /** @nocollapse */
+    SebmGoogleMapInfoWindow.ctorParameters = [
+        { type: info_window_manager_1.InfoWindowManager, },
+        { type: core_1.ElementRef, },
+    ];
+    return SebmGoogleMapInfoWindow;
+}());
+exports.SebmGoogleMapInfoWindow = SebmGoogleMapInfoWindow;
+//# sourceMappingURL=google-map-info-window.js.map
+
+/***/ },
+/* 1072 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+/**
+ * SebmGoogleMapPolylinePoint represents one element of a polyline within a  {@link
+ * SembGoogleMapPolyline}
+ */
+var SebmGoogleMapPolylinePoint = (function () {
+    function SebmGoogleMapPolylinePoint() {
+        /**
+         * This event emitter gets emitted when the position of the point changed.
+         */
+        this.positionChanged = new core_1.EventEmitter();
+    }
+    SebmGoogleMapPolylinePoint.prototype.ngOnChanges = function (changes) {
+        if (changes['latitude'] || changes['longitude']) {
+            var position = {
+                lat: changes['latitude'].currentValue,
+                lng: changes['longitude'].currentValue
+            };
+            this.positionChanged.emit(position);
+        }
+    };
+    SebmGoogleMapPolylinePoint.decorators = [
+        { type: core_1.Directive, args: [{ selector: 'sebm-google-map-polyline-point' },] },
+    ];
+    /** @nocollapse */
+    SebmGoogleMapPolylinePoint.ctorParameters = [];
+    SebmGoogleMapPolylinePoint.propDecorators = {
+        'latitude': [{ type: core_1.Input },],
+        'longitude': [{ type: core_1.Input },],
+        'positionChanged': [{ type: core_1.Output },],
+    };
+    return SebmGoogleMapPolylinePoint;
+}());
+exports.SebmGoogleMapPolylinePoint = SebmGoogleMapPolylinePoint;
+//# sourceMappingURL=google-map-polyline-point.js.map
+
+/***/ },
+/* 1073 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+// main modules
+__export(__webpack_require__(1112));
+__export(__webpack_require__(1113));
+// Google Maps types
+// core module
+// we explicitly export the module here to prevent this Ionic 2 bug:
+// http://stevemichelotti.com/integrate-angular-2-google-maps-into-ionic-2/
+var core_module_1 = __webpack_require__(1111);
+exports.AgmCoreModule = core_module_1.AgmCoreModule;
+//# sourceMappingURL=index.js.map
+
+/***/ },
+/* 1074 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var forkJoin_1 = __webpack_require__(1164);
+var google_maps_api_wrapper_1 = __webpack_require__(963);
+var CircleManager = (function () {
+    function CircleManager(_apiWrapper, _zone) {
+        this._apiWrapper = _apiWrapper;
+        this._zone = _zone;
+        this._circles = new Map();
+    }
+    CircleManager.prototype.addCircle = function (circle) {
+        this._circles.set(circle, this._apiWrapper.createCircle({
+            center: { lat: circle.latitude, lng: circle.longitude },
+            clickable: circle.clickable,
+            draggable: circle.draggable,
+            editable: circle.editable,
+            fillColor: circle.fillColor,
+            fillOpacity: circle.fillOpacity,
+            radius: circle.radius,
+            strokeColor: circle.strokeColor,
+            strokeOpacity: circle.strokeOpacity,
+            strokePosition: circle.strokePosition,
+            strokeWeight: circle.strokeWeight,
+            visible: circle.visible,
+            zIndex: circle.zIndex
+        }));
+    };
+    ;
+    /**
+     * Removes the given circle from the map.
+     */
+    CircleManager.prototype.removeCircle = function (circle) {
+        var _this = this;
+        return this._circles.get(circle).then(function (c) {
+            c.setMap(null);
+            _this._circles.delete(circle);
+        });
+    };
+    CircleManager.prototype.setOptions = function (circle, options) {
+        return this._circles.get(circle).then(function (c) { return c.setOptions(options); });
+    };
+    ;
+    CircleManager.prototype.getBounds = function (circle) {
+        return this._circles.get(circle).then(function (c) { return c.getBounds(); });
+    };
+    ;
+    CircleManager.prototype.getCenter = function (circle) {
+        return this._circles.get(circle).then(function (c) { return c.getCenter(); });
+    };
+    ;
+    CircleManager.prototype.getRadius = function (circle) {
+        return this._circles.get(circle).then(function (c) { return c.getRadius(); });
+    };
+    CircleManager.prototype.setCenter = function (circle) {
+        return this._circles.get(circle).then(function (c) { return c.setCenter({ lat: circle.latitude, lng: circle.longitude }); });
+    };
+    ;
+    CircleManager.prototype.setEditable = function (circle) {
+        return this._circles.get(circle).then(function (c) { return c.setEditable(circle.editable); });
+    };
+    ;
+    CircleManager.prototype.setDraggable = function (circle) {
+        return this._circles.get(circle).then(function (c) { return c.setDraggable(circle.draggable); });
+    };
+    ;
+    CircleManager.prototype.setVisible = function (circle) {
+        return this._circles.get(circle).then(function (c) { return c.setVisible(circle.visible); });
+    };
+    ;
+    CircleManager.prototype.setRadius = function (circle) {
+        return this._circles.get(circle).then(function (c) { return c.setRadius(circle.radius); });
+    };
+    ;
+    CircleManager.prototype.createEventObservable = function (eventName, circle) {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            var listener = null;
+            _this._circles.get(circle).then(function (c) {
+                listener = c.addListener(eventName, function (e) { return _this._zone.run(function () { return observer.next(e); }); });
+            });
+            return function () {
+                if (listener !== null) {
+                    listener.remove();
+                }
+            };
+        });
+    };
+    CircleManager.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    CircleManager.ctorParameters = [
+        { type: google_maps_api_wrapper_1.GoogleMapsAPIWrapper, },
+        { type: core_1.NgZone, },
+    ];
+    return CircleManager;
+}());
+exports.CircleManager = CircleManager;
+//# sourceMappingURL=circle-manager.js.map
+
+/***/ },
+/* 1075 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var google_maps_api_wrapper_1 = __webpack_require__(963);
+var marker_manager_1 = __webpack_require__(1018);
+var InfoWindowManager = (function () {
+    function InfoWindowManager(_mapsWrapper, _zone, _markerManager) {
+        this._mapsWrapper = _mapsWrapper;
+        this._zone = _zone;
+        this._markerManager = _markerManager;
+        this._infoWindows = new Map();
+    }
+    InfoWindowManager.prototype.deleteInfoWindow = function (infoWindow) {
+        var _this = this;
+        var iWindow = this._infoWindows.get(infoWindow);
+        if (iWindow == null) {
+            // info window already deleted
+            return Promise.resolve();
+        }
+        return iWindow.then(function (i) {
+            return _this._zone.run(function () {
+                i.close();
+                _this._infoWindows.delete(infoWindow);
+            });
+        });
+    };
+    InfoWindowManager.prototype.setPosition = function (infoWindow) {
+        return this._infoWindows.get(infoWindow).then(function (i) { return i.setPosition({
+            lat: infoWindow.latitude,
+            lng: infoWindow.longitude
+        }); });
+    };
+    InfoWindowManager.prototype.setZIndex = function (infoWindow) {
+        return this._infoWindows.get(infoWindow)
+            .then(function (i) { return i.setZIndex(infoWindow.zIndex); });
+    };
+    InfoWindowManager.prototype.open = function (infoWindow) {
+        var _this = this;
+        return this._infoWindows.get(infoWindow).then(function (w) {
+            if (infoWindow.hostMarker != null) {
+                return _this._markerManager.getNativeMarker(infoWindow.hostMarker).then(function (marker) {
+                    return _this._mapsWrapper.getNativeMap().then(function (map) { return w.open(map, marker); });
+                });
+            }
+            return _this._mapsWrapper.getNativeMap().then(function (map) { return w.open(map); });
+        });
+    };
+    InfoWindowManager.prototype.close = function (infoWindow) {
+        return this._infoWindows.get(infoWindow).then(function (w) { return w.close(); });
+    };
+    InfoWindowManager.prototype.setOptions = function (infoWindow, options) {
+        return this._infoWindows.get(infoWindow).then(function (i) { return i.setOptions(options); });
+    };
+    InfoWindowManager.prototype.addInfoWindow = function (infoWindow) {
+        var options = {
+            content: infoWindow.content,
+            maxWidth: infoWindow.maxWidth,
+            zIndex: infoWindow.zIndex,
+        };
+        if (typeof infoWindow.latitude === 'number' && typeof infoWindow.longitude === 'number') {
+            options.position = { lat: infoWindow.latitude, lng: infoWindow.longitude };
+        }
+        var infoWindowPromise = this._mapsWrapper.createInfoWindow(options);
+        this._infoWindows.set(infoWindow, infoWindowPromise);
+    };
+    InfoWindowManager.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    InfoWindowManager.ctorParameters = [
+        { type: google_maps_api_wrapper_1.GoogleMapsAPIWrapper, },
+        { type: core_1.NgZone, },
+        { type: marker_manager_1.MarkerManager, },
+    ];
+    return InfoWindowManager;
+}());
+exports.InfoWindowManager = InfoWindowManager;
+//# sourceMappingURL=info-window-manager.js.map
+
+/***/ },
+/* 1076 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var Observable_1 = __webpack_require__(2);
+var google_maps_api_wrapper_1 = __webpack_require__(963);
+var PolygonManager = (function () {
+    function PolygonManager(_mapsWrapper, _zone) {
+        this._mapsWrapper = _mapsWrapper;
+        this._zone = _zone;
+        this._polygons = new Map();
+    }
+    PolygonManager.prototype.addPolygon = function (path) {
+        var polygonPromise = this._mapsWrapper.createPolygon({
+            clickable: path.clickable,
+            draggable: path.draggable,
+            editable: path.editable,
+            fillColor: path.fillColor,
+            fillOpacity: path.fillOpacity,
+            geodesic: path.geodesic,
+            paths: path.paths,
+            strokeColor: path.strokeColor,
+            strokeOpacity: path.strokeOpacity,
+            strokeWeight: path.strokeWeight,
+            visible: path.visible,
+            zIndex: path.zIndex,
+        });
+        this._polygons.set(path, polygonPromise);
+    };
+    PolygonManager.prototype.updatePolygon = function (polygon) {
+        var _this = this;
+        var m = this._polygons.get(polygon);
+        if (m == null) {
+            return Promise.resolve();
+        }
+        return m.then(function (l) { return _this._zone.run(function () { l.setPaths(polygon.paths); }); });
+    };
+    PolygonManager.prototype.setPolygonOptions = function (path, options) {
+        return this._polygons.get(path).then(function (l) { l.setOptions(options); });
+    };
+    PolygonManager.prototype.deletePolygon = function (paths) {
+        var _this = this;
+        var m = this._polygons.get(paths);
+        if (m == null) {
+            return Promise.resolve();
+        }
+        return m.then(function (l) {
+            return _this._zone.run(function () {
+                l.setMap(null);
+                _this._polygons.delete(paths);
+            });
+        });
+    };
+    PolygonManager.prototype.createEventObservable = function (eventName, path) {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this._polygons.get(path).then(function (l) {
+                l.addListener(eventName, function (e) { return _this._zone.run(function () { return observer.next(e); }); });
+            });
+        });
+    };
+    PolygonManager.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    PolygonManager.ctorParameters = [
+        { type: google_maps_api_wrapper_1.GoogleMapsAPIWrapper, },
+        { type: core_1.NgZone, },
+    ];
+    return PolygonManager;
+}());
+exports.PolygonManager = PolygonManager;
+//# sourceMappingURL=polygon-manager.js.map
+
+/***/ },
+/* 1077 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var Observable_1 = __webpack_require__(2);
+var google_maps_api_wrapper_1 = __webpack_require__(963);
+var PolylineManager = (function () {
+    function PolylineManager(_mapsWrapper, _zone) {
+        this._mapsWrapper = _mapsWrapper;
+        this._zone = _zone;
+        this._polylines = new Map();
+    }
+    PolylineManager._convertPoints = function (line) {
+        var path = line._getPoints().map(function (point) {
+            return { lat: point.latitude, lng: point.longitude };
+        });
+        return path;
+    };
+    PolylineManager.prototype.addPolyline = function (line) {
+        var path = PolylineManager._convertPoints(line);
+        var polylinePromise = this._mapsWrapper.createPolyline({
+            clickable: line.clickable,
+            draggable: line.draggable,
+            editable: line.editable,
+            geodesic: line.geodesic,
+            strokeColor: line.strokeColor,
+            strokeOpacity: line.strokeOpacity,
+            strokeWeight: line.strokeWeight,
+            visible: line.visible,
+            zIndex: line.zIndex,
+            path: path
+        });
+        this._polylines.set(line, polylinePromise);
+    };
+    PolylineManager.prototype.updatePolylinePoints = function (line) {
+        var _this = this;
+        var path = PolylineManager._convertPoints(line);
+        var m = this._polylines.get(line);
+        if (m == null) {
+            return Promise.resolve();
+        }
+        return m.then(function (l) { return _this._zone.run(function () { l.setPath(path); }); });
+    };
+    PolylineManager.prototype.setPolylineOptions = function (line, options) {
+        return this._polylines.get(line).then(function (l) { l.setOptions(options); });
+    };
+    PolylineManager.prototype.deletePolyline = function (line) {
+        var _this = this;
+        var m = this._polylines.get(line);
+        if (m == null) {
+            return Promise.resolve();
+        }
+        return m.then(function (l) {
+            return _this._zone.run(function () {
+                l.setMap(null);
+                _this._polylines.delete(line);
+            });
+        });
+    };
+    PolylineManager.prototype.createEventObservable = function (eventName, line) {
+        var _this = this;
+        return Observable_1.Observable.create(function (observer) {
+            _this._polylines.get(line).then(function (l) {
+                l.addListener(eventName, function (e) { return _this._zone.run(function () { return observer.next(e); }); });
+            });
+        });
+    };
+    PolylineManager.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    PolylineManager.ctorParameters = [
+        { type: google_maps_api_wrapper_1.GoogleMapsAPIWrapper, },
+        { type: core_1.NgZone, },
+    ];
+    return PolylineManager;
+}());
+exports.PolylineManager = PolylineManager;
+//# sourceMappingURL=polyline-manager.js.map
+
+/***/ },
+/* 1078 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var core_1 = __webpack_require__(0);
+var browser_globals_1 = __webpack_require__(1105);
+var maps_api_loader_1 = __webpack_require__(1019);
+(function (GoogleMapsScriptProtocol) {
+    GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTP"] = 1] = "HTTP";
+    GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTPS"] = 2] = "HTTPS";
+    GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["AUTO"] = 3] = "AUTO";
+})(exports.GoogleMapsScriptProtocol || (exports.GoogleMapsScriptProtocol = {}));
+var GoogleMapsScriptProtocol = exports.GoogleMapsScriptProtocol;
+/**
+ * Token for the config of the LazyMapsAPILoader. Please provide an object of type {@link
+ * LazyMapsAPILoaderConfig}.
+ */
+exports.LAZY_MAPS_API_CONFIG = new core_1.OpaqueToken('angular2-google-maps LAZY_MAPS_API_CONFIG');
+var LazyMapsAPILoader = (function (_super) {
+    __extends(LazyMapsAPILoader, _super);
+    function LazyMapsAPILoader(config, w, d) {
+        _super.call(this);
+        this._config = config || {};
+        this._windowRef = w;
+        this._documentRef = d;
+    }
+    LazyMapsAPILoader.prototype.load = function () {
+        var _this = this;
+        if (this._scriptLoadingPromise) {
+            return this._scriptLoadingPromise;
+        }
+        var script = this._documentRef.getNativeDocument().createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.defer = true;
+        var callbackName = "angular2GoogleMapsLazyMapsAPILoader";
+        script.src = this._getScriptSrc(callbackName);
+        this._scriptLoadingPromise = new Promise(function (resolve, reject) {
+            _this._windowRef.getNativeWindow()[callbackName] = function () { resolve(); };
+            script.onerror = function (error) { reject(error); };
+        });
+        this._documentRef.getNativeDocument().body.appendChild(script);
+        return this._scriptLoadingPromise;
+    };
+    LazyMapsAPILoader.prototype._getScriptSrc = function (callbackName) {
+        var protocolType = (this._config && this._config.protocol) || GoogleMapsScriptProtocol.HTTPS;
+        var protocol;
+        switch (protocolType) {
+            case GoogleMapsScriptProtocol.AUTO:
+                protocol = '';
+                break;
+            case GoogleMapsScriptProtocol.HTTP:
+                protocol = 'http:';
+                break;
+            case GoogleMapsScriptProtocol.HTTPS:
+                protocol = 'https:';
+                break;
+        }
+        var hostAndPath = this._config.hostAndPath || 'maps.googleapis.com/maps/api/js';
+        var queryParams = {
+            v: this._config.apiVersion || '3',
+            callback: callbackName,
+            key: this._config.apiKey,
+            client: this._config.clientId,
+            channel: this._config.channel,
+            libraries: this._config.libraries,
+            region: this._config.region,
+            language: this._config.language
+        };
+        var params = Object.keys(queryParams)
+            .filter(function (k) { return queryParams[k] != null; })
+            .filter(function (k) {
+            // remove empty arrays
+            return !Array.isArray(queryParams[k]) ||
+                (Array.isArray(queryParams[k]) && queryParams[k].length > 0);
+        })
+            .map(function (k) {
+            // join arrays as comma seperated strings
+            var i = queryParams[k];
+            if (Array.isArray(i)) {
+                return { key: k, value: i.join(',') };
+            }
+            return { key: k, value: queryParams[k] };
+        })
+            .map(function (entry) { return entry.key + "=" + entry.value; })
+            .join('&');
+        return protocol + "//" + hostAndPath + "?" + params;
+    };
+    LazyMapsAPILoader.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    LazyMapsAPILoader.ctorParameters = [
+        { type: undefined, decorators: [{ type: core_1.Inject, args: [exports.LAZY_MAPS_API_CONFIG,] },] },
+        { type: browser_globals_1.WindowRef, },
+        { type: browser_globals_1.DocumentRef, },
+    ];
+    return LazyMapsAPILoader;
+}(maps_api_loader_1.MapsAPILoader));
+exports.LazyMapsAPILoader = LazyMapsAPILoader;
+//# sourceMappingURL=lazy-maps-api-loader.js.map
+
+/***/ },
+/* 1079 */
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.complete-profile {\n  margin-bottom: 10px;\n}\n.complete-profile em {\n  padding: 0 0 5px 15px;\n  display: block;\n  font-size: 14px;\n}\n.complete-profile ol {\n  padding: 10px 35px;\n  background-color: #e6e6e6;\n}\n.complete-profile ol li {\n  color: #7d7d7d;\n  clear: both;\n}\n.complete-profile ol li i {\n  cursor: default;\n}\n.complete-profile ol li a,\n.complete-profile ol li span {\n  color: #666666;\n  font-size: 14px;\n}\n.complete-profile ol li a i,\n.complete-profile ol li span i {\n  margin-left: 25px;\n}\n.complete-profile ol li a i.question-icon,\n.complete-profile ol li span i.question-icon {\n  float: right;\n}\n.complete-profile ol li a i {\n  cursor: pointer;\n}\n.complete-profile ol li a:hover {\n  color: #666666;\n}\n.complete-profile ol li a:hover i {\n  color: #7724f6;\n}\n.complete-profile i {\n  font-size: 25px;\n  vertical-align: middle;\n}\n@media (min-width: 768px) {\n  .complete-profile {\n    margin-bottom: 20px;\n  }\n  .complete-profile em {\n    padding: 0 0 5px 15px;\n    font-size: 16px;\n  }\n  .complete-profile ol {\n    padding: 20px 15px 20px 50px;\n  }\n  .complete-profile ol li a,\n  .complete-profile ol li bdi {\n    font-size: 16px;\n  }\n  .complete-profile ol li a i,\n  .complete-profile ol li bdi i {\n    margin-left: 25px;\n  }\n  .complete-profile i {\n    font-size: 30px;\n  }\n}\n"
+
+/***/ },
+/* 1080 */
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+/* 1081 */
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+/* 1082 */
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n#leaderboard-list {\n  margin: 0 0 20px 0;\n}\n#leaderboard-list ul li {\n  margin-bottom: 10px;\n}\n#leaderboard-list ul li:first-child {\n  border-bottom: 1px solid #eeeeee;\n}\n#leaderboard-list ul li ul li {\n  margin-bottom: 0;\n}\n#leaderboard-list ul li ul li:first-child {\n  border-bottom: 0;\n}\n"
+
+/***/ },
+/* 1083 */
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.horizontal-menu {\n  padding: 0 5px 0 0;\n}\n.horizontal-menu li {\n  display: inline-block;\n  border-right: 1px solid #cccccc;\n  padding: 0 15px 0 10px;\n}\n.horizontal-menu li strong {\n  display: block;\n  color: #666666;\n  font-size: 13px;\n}\n.horizontal-menu li span {\n  display: block;\n  color: #7d7d7d;\n}\n.horizontal-menu li span:last-child {\n  font-size: 18px;\n}\n.horizontal-menu li:last-child {\n  border: 0;\n}\n.horizontal-menu li:hover {\n  background-color: transparent;\n}\n@media (min-width: 768px) {\n  .horizontal-menu {\n    padding: 0 10px 0 0;\n  }\n  .horizontal-menu li strong {\n    font-size: 14px;\n  }\n  .horizontal-menu li span:last-child {\n    font-size: 22px;\n  }\n  .en li {\n    padding: 0 14px 0 10px;\n  }\n  .ru li {\n    padding: 0 9px;\n  }\n}\n"
+
+/***/ },
+/* 1084 */
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.content-header {\n  position: relative;\n  overflow: hidden;\n}\n.content-header > figure {\n  position: absolute;\n  width: 100%;\n  height: 261px;\n  overflow: hidden;\n}\n.content-header > figure.my-profile {\n  height: 229px;\n}\n.content-header > figure img {\n  width: 100%;\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.content-header .overlay {\n  background: rgba(0, 0, 0, 0.6);\n  height: 270px;\n}\n.content-header .overlay:hover {\n  background: rgba(0, 0, 0, 0.8);\n}\n.content-header a {\n  color: #ffffff;\n}\n.content-header a:hover,\n.content-header a:focus {\n  text-decoration: none;\n}\n.content-header h2 {\n  background-color: #021523;\n  color: #ffffff;\n  padding: 10px 40px;\n  margin: 100px 0 5px;\n}\n.content-header h1 {\n  margin: 25px 0 10px;\n}\n.content-header h1 span {\n  padding: 10px 40px;\n}\n.profile {\n  padding: 10px 0 0 0;\n  background-color: #f4f4f4;\n}\n.profile i.icon-settings {\n  margin-right: -9px;\n}\n.profile .settings-icon {\n  display: inline-block;\n  width: 43px;\n  height: 43px;\n  background: url('../../../assets/images/settings.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .settings-icon:hover {\n  background: url('../../../assets/images/settings_hover.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .close-friends {\n  cursor: pointer;\n  height: 32px;\n  line-height: 32px;\n  background-color: #f4f4f4;\n  border-radius: 6px;\n  -webkit-border-radius: 6px;\n  -moz-border-radius: 6px;\n  -ms-border-radius: 6px;\n  -o-border-radius: 6px;\n  color: #666666;\n  padding: 6px 17px;\n}\n.profile .close-friends i {\n  display: inline-block;\n  width: 16px;\n  height: 14px;\n  margin-right: 5px;\n  vertical-align: middle;\n}\n.profile .close-friends i.follow-icon {\n  background: url('../../../assets/images/follow.svg') no-repeat center center;\n  background-size: 100%;\n}\n.profile .close-friends i.closefriend-icon {\n  background: url('../../../assets/images/closefriend.svg') no-repeat center center;\n  background-size: 100%;\n}\n.profile .close-friends span {\n  display: inline-block;\n  text-transform: uppercase;\n}\n.profile .close-friends:hover {\n  background-color: #ffffff;\n}\n.profile .close-friends:hover i.follow-icon {\n  background: url('../../../assets/images/follow-hover.svg') no-repeat center center;\n  background-size: 100%;\n}\n.profile .close-friends:hover i.closefriend-icon {\n  background: url('../../../assets/images/follow-hover.svg') no-repeat center center;\n  background-size: 100%;\n}\n.profile .mobile-follow {\n  position: absolute;\n  right: 20px;\n  overflow: initial;\n}\n.profile .question-icon-new {\n  display: inline-block;\n  width: 25px;\n  height: 25px;\n  margin: 2px 0 2px 3px;\n  background: url('../../../assets/images/question.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .question-icon-new:hover {\n  background: url('../../../assets/images/question_hover.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .mobile-settings {\n  position: absolute;\n  right: 20px;\n  overflow: initial;\n  display: inline-block;\n  width: 43px;\n  height: 43px;\n  background: url('../../../assets/images/settings_hover.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile figure {\n  background-color: rgba(207, 207, 207, 0.34);\n  text-align: center;\n  position: relative;\n  padding: 10px 0;\n}\n.profile figure div {\n  width: 100px;\n  height: 100px;\n  margin: 0 auto;\n  overflow: hidden;\n}\n.profile figure span.profile-image {\n  display: block;\n  width: 100px;\n  height: 100px;\n  font-size: 45px;\n  font-weight: 600;\n  line-height: 90px;\n  color: #ffffff;\n}\n.profile figure img {\n  height: 100px;\n  width: 100%;\n}\n.profile figure figcaption {\n  margin-top: 11px;\n  background-color: transparent;\n}\n.profile figure figcaption ul {\n  padding-top: 10px;\n}\n.profile figure figcaption h3 {\n  color: #ffffff;\n  font-size: 18px;\n  margin: 0 10px 3px;\n  line-height: normal;\n}\n.profile figure figcaption h3 span {\n  white-space: nowrap;\n  width: 100%;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  display: block;\n}\n.profile figure figcaption li {\n  display: inline-block;\n  border-right: 1px solid #eeeeee;\n  padding: 0 20px;\n}\n.profile figure figcaption li span {\n  display: block;\n  color: #ffffff;\n  font-size: 14px;\n}\n.profile figure figcaption li span:last-child {\n  font-size: 22px;\n}\n.profile figure figcaption li:last-child {\n  border: 0;\n}\n.profile figure figcaption li:hover {\n  background-color: transparent;\n}\n.profile #settings-form figure {\n  background: transparent;\n  padding: 0;\n}\n.profile #settings-form figure .upload {\n  width: 120px;\n  height: 120px;\n  padding: 40px 15px;\n  font-size: 13px;\n}\n.profile #settings-form figure figcaption {\n  position: absolute;\n  top: 0;\n  background: rgba(0, 0, 0, 0.3);\n  width: 100px;\n  height: 100px;\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n  margin: 0;\n  padding: 22px 5px;\n}\n.profile #settings-form figure figcaption label {\n  color: #ffffff !important;\n  text-transform: uppercase;\n  padding: 0 15px;\n  font-size: 14px;\n}\n.profile ol {\n  padding: 20px 20px 0;\n  font-size: 13px;\n}\n.profile ol li {\n  margin-bottom: 5px;\n}\n.profile ol li a {\n  color: #666666;\n  font-size: 13px;\n}\n.profile ol li a:hover i {\n  color: #7724f6;\n}\n.profile ol li .profile-title {\n  color: #666666;\n  font-size: 13px;\n  font-weight: normal;\n}\n.profile ol li span {\n  display: block;\n  font-size: 12px;\n  font-weight: 600;\n}\n.profile ol li i {\n  font-size: 30px;\n  vertical-align: middle;\n}\n.profile ol:last-child {\n  padding: 0 20px 0;\n}\n.profile h1 {\n  margin: 7px 0 5px;\n  font-weight: lighter;\n}\n.profile h1 span {\n  display: inline;\n  line-height: normal;\n  padding: 2px 10px;\n  font-size: 25px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  overflow: hidden;\n}\n.profile h1 span.title-smaller,\n.profile figcaption span.title-smaller {\n  font-size: 18px;\n  line-height: normal;\n}\n.profile h1 span.title-smaller span,\n.profile figcaption span.title-smaller span {\n  padding: 5px 10px;\n}\n.profile p {\n  background-color: #021523;\n  color: #ffffff;\n  padding: 2px 10px 3px;\n  display: inline-block;\n  margin-bottom: 5px;\n  font-weight: 600;\n  line-height: normal;\n}\n.profile em {\n  display: block;\n  color: #666666;\n  padding: 10px 0 5px;\n}\n.profile .profile-information {\n  width: 90%;\n  margin: 17px auto 10px;\n}\n.profile .profile-information i {\n  font-size: 30px;\n  cursor: pointer;\n}\n.profile .profile-information a.text-gray {\n  margin-left: 14px;\n  display: block;\n}\n.bucketlist {\n  padding: 5px 0 0;\n  background-color: #ffffff;\n  margin-bottom: 7px;\n}\n.bucketlist ul {\n  padding-left: 0;\n  margin-bottom: 1px;\n}\n.bucketlist ul li {\n  display: inline-block;\n  padding: 8px 3px 7px;\n  font-size: 13px;\n}\n.bucketlist ul li a {\n  color: #666666;\n  font-size: 12px;\n  line-height: 18px;\n}\n.bucketlist ul li a:hover,\n.bucketlist ul li a:focus {\n  text-decoration: none;\n  color: #7724f6;\n}\n.bucketlist ul li a:hover i,\n.bucketlist ul li a:focus i {\n  color: #7724f6;\n}\n.bucketlist ul li a i {\n  font-size: 20px;\n  vertical-align: middle;\n}\n.bucketlist ul li:hover a {\n  color: #7724F6;\n}\n.bucketlist ul li:first-child {\n  padding: 8px 3px 7px 10px;\n}\n.bucketlist ul li:last-child {\n  padding: 3px 2px 2px;\n}\n.bucketlist ul li:last-child a {\n  display: inline-block;\n}\n.bucketlist ul li:last-child a .svg {\n  display: inline-block;\n  height: 25px;\n  width: 21px;\n}\n.bucketlist ul li:last-child:hover {\n  border-bottom: 0;\n}\n.bucketlist ul .active {\n  border-bottom: 1px solid #7724f6;\n}\n.bucketlist ul .active a {\n  color: #7724f6;\n}\n.bucketlist hr {\n  margin: -2px 0 0;\n}\n.bucketlist form {\n  padding: 12px 0 5px;\n}\n.bucketlist form .checked-label {\n  color: #6108EA;\n}\n.bucketlist form label {\n  display: block;\n  font-size: 13px;\n  margin-bottom: 5px;\n}\n.bucketlist form label label {\n  display: inline-block;\n}\n.bucketlist form label:hover,\n.bucketlist form label:active,\n.bucketlist form label:focus {\n  color: #6108EA;\n}\n.bucketlist form label:first-child {\n  padding-left: 30px;\n}\n.settings-menu {\n  padding: 0;\n}\n.settings-menu ul.menu li:last-child.active {\n  padding: 8px 6px;\n}\n.settings-menu ul.menu li:last-child.active:hover {\n  border-bottom: 1px solid #7724f6;\n}\n@media (min-width: 768px) {\n  .content-header > figure {\n    height: 260px;\n  }\n  .content-header > figure.my-profile {\n    height: 260px;\n  }\n  .content-header .overlay {\n    height: 260px;\n  }\n  .profile {\n    margin-top: 10px;\n    padding: 20px 0 0 0;\n  }\n  .profile figure {\n    padding: 20px 0 10px;\n  }\n  .profile figure div {\n    width: 120px;\n    height: 120px;\n  }\n  .profile figure span.profile-image {\n    width: 120px;\n    height: 120px;\n    font-size: 44px;\n    line-height: 110px;\n  }\n  .profile figure img {\n    height: 120px;\n  }\n  .profile figure figcaption {\n    margin-top: 11px;\n  }\n  .profile figure figcaption ul {\n    padding-top: 0;\n  }\n  .profile figure figcaption li {\n    padding: 0 8px;\n  }\n  .profile figure figcaption li span {\n    font-size: 13px;\n  }\n  .profile figure figcaption li span:last-child {\n    font-size: 16px;\n  }\n  .profile .close-friends {\n    height: 40px;\n    line-height: 40px;\n    padding: 10px 17px;\n  }\n  .profile .close-friends i {\n    width: 18px;\n    height: 16px;\n  }\n  .profile .settings-icon {\n    margin-right: -10px;\n  }\n  .profile .relative {\n    height: 200px;\n  }\n  .profile .relative .badge-place {\n    position: absolute;\n    bottom: 0;\n  }\n  .profile #settings-form figure figcaption {\n    width: 120px;\n    height: 120px;\n    padding: 30px 15px;\n  }\n  .profile #settings-form figure figcaption label {\n    font-size: 15px;\n  }\n  .profile ol {\n    padding: 30px 30px 20px;\n    font-size: 14px;\n  }\n  .profile ol li {\n    margin-bottom: 10px;\n  }\n  .profile ol li a,\n  .profile ol li .profile-title {\n    font-size: 15px;\n  }\n  .profile ol li span {\n    font-size: 13px;\n  }\n  .profile ol:last-child {\n    padding: 30px 30px 20px;\n  }\n  .profile h1 {\n    margin: 25px 0 5px;\n  }\n  .profile h1 span {\n    font-size: 30px;\n    padding: 3px 15px 5px;\n    white-space: normal;\n    max-height: 87px;\n  }\n  .profile h1 span.title-smaller,\n  .profile figcaption span.title-smaller {\n    font-size: 16px;\n    line-height: 35px;\n  }\n  .profile h1 span.title-smaller span,\n  .profile figcaption span.title-smaller span {\n    padding: 3px 7px 5px;\n  }\n  .profile p {\n    padding: 4px 15px 5px;\n    margin-bottom: 10px;\n    font-size: 17px;\n  }\n  .profile em {\n    color: #ffffff;\n    padding: 0 0 5px;\n  }\n  .profile .profile-information {\n    margin-top: 85px;\n  }\n  .bucketlist {\n    padding: 10px 0 0;\n    margin-bottom: 10px;\n  }\n  .bucketlist ul {\n    padding-left: 0;\n    margin-bottom: 1px;\n  }\n  .bucketlist ul li {\n    padding: 10px 15px;\n    font-size: 15px;\n  }\n  .bucketlist ul li a {\n    font-size: 18px;\n    line-height: 26px;\n  }\n  .bucketlist ul li a i {\n    font-size: 22px;\n  }\n  .bucketlist ul li:last-child {\n    padding: 2px 5px 4px;\n  }\n  .bucketlist ul li:last-child a .svg {\n    width: 35px;\n    height: 30px;\n  }\n  .bucketlist .map-marker-new {\n    width: 25px;\n    height: 33px;\n  }\n  .bucketlist hr {\n    margin: -2px 0 0;\n  }\n  .bucketlist form {\n    padding: 7px 0 2px;\n  }\n  .bucketlist form label {\n    display: inline-block;\n    font-size: 12px;\n    padding-left: 0;\n  }\n  .bucketlist form label:first-child {\n    padding-left: 0;\n  }\n  .settings-menu {\n    padding: 0;\n  }\n  .settings-menu ul.menu li {\n    padding: 15px;\n  }\n  .settings-menu ul.menu li:last-child.active {\n    padding: 15px;\n  }\n}\n@media (min-width: 992px) {\n  .content-header > figure {\n    height: 266px;\n  }\n  .content-header > figure.my-profile {\n    height: 266px;\n  }\n  .content-header .overlay {\n    height: 266px;\n  }\n  .profile {\n    margin-top: 10px;\n    padding: 20px 0 0 0;\n  }\n  .profile .settings-icon {\n    margin-right: 0;\n  }\n  .profile figure {\n    padding: 20px 0 14px;\n  }\n  .profile figure div {\n    width: 140px;\n    height: 140px;\n  }\n  .profile figure span.profile-image {\n    width: 140px;\n    height: 140px;\n    font-size: 52px;\n    line-height: 130px;\n  }\n  .profile figure img {\n    height: 140px;\n  }\n  .profile figure figcaption {\n    margin-top: 17px;\n  }\n  .profile figure figcaption li {\n    padding: 0 20px;\n  }\n  .profile figure figcaption li span {\n    font-size: 14px;\n  }\n  .profile figure figcaption li span:last-child {\n    font-size: 18px;\n  }\n  .profile .relative {\n    height: 232px;\n  }\n  .profile #settings-form figure .upload {\n    width: 140px;\n    height: 140px;\n    padding: 47px 15px;\n    font-size: 14px;\n  }\n  .profile #settings-form figure figcaption {\n    width: 140px;\n    height: 140px;\n    padding: 41px 15px;\n  }\n  .profile #settings-form figure figcaption label {\n    font-size: 16px;\n    line-height: 24px;\n    font-weight: normal;\n  }\n  .profile ol {\n    padding: 40px 40px 30px;\n    font-size: 16px;\n  }\n  .profile ol li {\n    margin-bottom: 15px;\n  }\n  .profile ol li a,\n  .profile ol li .profile-title {\n    font-size: 16px;\n  }\n  .profile ol li span {\n    font-size: 14px;\n  }\n  .profile h1 span {\n    font-size: 45px;\n    padding: 0 20px 2px;\n    white-space: nowrap;\n  }\n  .profile h1 span.title-smaller,\n  .profile figcaption span.title-smaller {\n    font-size: 26px;\n    line-height: 51px;\n  }\n  .profile h1 span.title-smaller span,\n  .profile figcaption span.title-smaller span {\n    padding: 7px 20px 14px;\n  }\n  .profile p {\n    padding: 3px 20px 6px;\n    margin-bottom: 15px;\n    font-size: 20px;\n  }\n  .profile .profile-information {\n    margin: 110px auto 0;\n  }\n  .profile .profile-information a.text-gray {\n    margin-left: 30px;\n  }\n  .bucketlist {\n    padding: 20px 0 0;\n    margin-bottom: 20px;\n  }\n  .bucketlist ul {\n    padding-left: 0;\n    margin-bottom: 1px;\n  }\n  .bucketlist ul li {\n    padding: 10px 15px;\n    font-size: 15px;\n  }\n  .bucketlist ul li a {\n    font-size: 22px;\n    line-height: 33px;\n  }\n  .bucketlist ul li a i {\n    font-size: 28px;\n  }\n  .bucketlist ul li:last-child {\n    padding: 2px 15px 4px;\n  }\n  .bucketlist hr {\n    margin: -2px 0 0;\n  }\n  .bucketlist form {\n    padding: 27px 0 20px;\n  }\n  .bucketlist form label {\n    font-size: 14px;\n    padding-left: 20px;\n  }\n  .settings-menu {\n    padding: 0;\n  }\n  .settings-menu ul.menu li {\n    padding: 25px 15px;\n  }\n  .settings-menu ul.menu li:last-child.active {\n    padding: 25px 15px;\n  }\n}\n@media (min-width: 1200px) {\n  .profile h1 span {\n    font-size: 52px;\n    line-height: 78px;\n  }\n}\n"
+
+/***/ },
+/* 1085 */
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.top-ideas {\n  margin: 0 0 20px 0;\n}\n.top-ideas .idea-item figure {\n  margin-bottom: 15px;\n}\n.featured-icon {\n  display: inline-block;\n  width: 27px;\n  height: 27px;\n  background: url('../../../assets/images/featured.svg') no-repeat center center;\n  margin-right: 5px;\n  vertical-align: middle;\n}\n.suggested-icon {\n  display: inline-block;\n  width: 27px;\n  height: 28px;\n  background: url('../../../assets/images/ideas.svg') no-repeat center center;\n  vertical-align: middle;\n}\n"
+
+/***/ },
+/* 1086 */
+/***/ function(module, exports) {
+
+module.exports = "<!--{% if user is defined and user.profileCompletedPercent != 100 %}-->\n<div class=\"complete-profile\" *ngIf=\"percent != 100\">\n\n    <div class=\"bg-white round padding\" >\n        <!--*ngIf=\"{{ user.getCompletedPercent()|round(1, 'floor') }} != 100\"-->\n      <div class=\"row\">\n        <em>{{ 'complete_message'|translate }}</em>\n        <div class=\"col-xs-10\">\n\n          <div class=\"progress\">\n            <div class=\"progress-bar progress-bar-striped\"\n                 role=\"progressbar\">\n                <!--style=\"width: {{ user.getCompletedPercent()|round(1, 'floor') }}%\"-->\n              <!--{% if app.request.locale == 'ru' %}-->\n              {{ 'account.complete'|translate }}\n                <!--{{ user.getCompletedPercent()|round(1, 'floor') }}%-->\n              <!--{% else %}-->\n              <!--{{ user.getCompletedPercent()|round(1, 'floor') }}% -->\n                {{ 'account.complete'|translate }}\n              <!--{% endif %}-->\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"col-xs-2\">\n          <a class=\"text-gray\"\n             (click)=\"completeProfileProperties=!completeProfileProperties\">\n            <i class=\"icon-question-icon \" *ngIf=\"!completeProfileProperties\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n            <i class=\"icon-icon-up \" *ngIf=\"completeProfileProperties\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n          </a>\n        </div>\n      </div>\n\n    </div>\n\n    <ol class=\"slide\" *ngIf=\"completeProfileProperties\">\n      <li>\n            <span>\n                {{ 'security.login.sign_up'|translate }}\n                <i class=\"icon-ok-only\"></i>\n            </span>\n      </li>\n      <li>\n            <span>{{ 'account.complete_text'|translate }}\n                <!--{% if user.registrationToken is null %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n\n      </li>\n      <li>\n        <!--{% if user.socialPhotoLink or  user.fileName %}-->\n                    <span>{{ 'image_complete_text'|translate }}\n                        <i class=\"icon-ok-only\"></i>\n                    </span>\n        <!--{% else %}-->\n\n        <!--<a href=\"{{ path('edit_user_profile') }}\">-->\n          <!--<strong>{{ 'image_complete_text'|translate }}</strong>-->\n          <!--<i class=\"icon-question-only\"></i>-->\n        <!--</a>-->\n        <!--{% endif %}-->\n      </li>\n      <li>\n        <a routerLink=\"/goal/create\"><strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>\n          <!--{% if user.userGoalCount > 0 %}-->\n          <i class=\"icon-ok-only\"></i>\n          <!--{% else %}-->\n          <i class=\"icon-question-only\"></i>\n          <!--{% endif %}-->\n        </a>\n      </li>\n      <li>\n            <span>{{ 'deadline.complete_text'|translate }}\n                <!--{% if user.checkDeadLines() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n      </li>\n      <li>\n            <span>{{ 'goal.complete_text'|translate }}\n                <!--{% if user.checkCompletedGoals() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n      </li>\n\n      <li>\n            <span>{{ 'success_story.complete_text'|translate }}\n                <!--{% if user.checkSuccessStory() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n      </li>\n    </ol>\n</div>\n<!--{% endif %}-->"
+
+/***/ },
+/* 1087 */
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"right-menu\">\n  <div class=\"padding padding-bottom bg-white round\">\n    <ul class=\"row\">\n      <li class=\"col-xs-7\">\n        <i class=\"icon-creat-icon\"></i>\n        <a routerLink=\"/goal/create\">{{ 'right_menu.create'|translate }}</a>\n      </li>\n      <li class=\"col-xs-5 text-right\">\n        <!--{% if profileUser.id == app.user.id %}-->\n        <a routerLink=\"/goal/my-ideas\" *ngIf=\"myProfile\">{{ 'right_menu.my_ideas'|translate }} {{ myIdeasCount }}</a>\n        <!--{% endif %}-->\n      </li>\n    </ul>\n  </div>\n</div>"
+
+/***/ },
+/* 1088 */
+/***/ function(module, exports) {
+
+module.exports = "<div *ngIf=\"users\">\n  <div class=\"bg-white padding round margin-top\">\n\n  <div class=\"row\">\n      <div class=\"col-xs-10\">\n\n        <a routerLink=\"/goal-friends\" class=\"heading text-gray\">\n          <i class=\"goalfrined-icon\"></i>\n          <span class=\"text\">{{ 'goalfriends'|translate }} {{ length}}</span>\n        </a>\n      </div>\n\n      <div class=\"col-xs-2 text-right\">\n        <a (click)=\"refreshGoalFriends()\" class=\"load\" id=\"goalFriendLoad\"></a>\n      </div>\n    </div>\n\n    <hr class=\"hr-margin\"/>\n\n    <ul class=\"list\">\n      <li class=\"clearfix friends-animate\" *ngFor=\"let user of users\">\n        <goal-friend [user]=\"user\"></goal-friend>\n      </li>\n    </ul>\n  </div>\n</div>\n"
+
+/***/ },
+/* 1089 */
+/***/ function(module, exports) {
+
+module.exports = "<div id=\"leaderboard-list\" *ngIf=\"normOfTop > 0\">\n\n  <div class=\"bg-white padding round margin-top\">\n    <div class=\"row\">\n      <div class=\"col-xs-10\">\n        <a routerLink=\"/leaderboard\" routerLinkActive=\"active\" class=\"heading text-gray\">\n          <i class=\"icon-suggest-icon\"></i>\n          <span class=\"text\">{{ 'leaderboard.name'|translate }}</span>\n        </a>\n      </div>\n\n      <div class=\"col-xs-2 text-right\">\n        <a (click)=\"refreshLeaderboards($event)\" class=\"load\" id=\"goalFriendLoad\"></a>\n      </div>\n    </div>\n\n    <hr class=\"hr-margin\"/>\n\n    <ul>\n      <li *ngFor=\"let badge of users;let i = index\">\n        <leaderboard [badge]=\"badge\" [index]=\"i\">\n          <!--<leaderboard ></leaderboard>-->\n        </leaderboard>\n      </li>\n    </ul>\n\n  </div>\n</div>\n"
+
+/***/ },
+/* 1090 */
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"bg-white round padding\">\n\n  <a routerLink=\"/profile\" routerLinkActive=\"active\" class=\"heading text-gray\">\n    <i class=\"mybuucketlist\"></i>\n    {{ 'my_bucketlist'|translate}}\n  </a>\n\n  <hr class=\"hr-margin\"/>\n\n  <ul class=\"horizontal-menu {{ 'lng'| translate}}\" >\n    <li>\n      <a routerLink=\"/profile/active-goals\" routerLinkActive=\"active\">\n        <strong>{{ 'user_goal.active'|translate}}</strong>\n        <span *ngIf=\"true\">1</span>\n      </a>\n    </li>\n\n    <li>\n      <a routerLink=\"/profile\" routerLinkActive=\"active\">\n        <strong>{{ 'block_listed'|translate}}</strong>\n        <span *ngIf=\"true\">2</span>\n      </a>\n    </li>\n\n    <li>\n      <a routerLink=\"/profile/completed-goals\" routerLinkActive=\"active\">\n        <strong>{{ 'block_completed'|translate}}</strong>\n        <span *ngIf=\"true\">3</span>\n      </a>\n    </li>\n  </ul>\n</div>\n\n"
+
+/***/ },
+/* 1091 */
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"content-header\">\n<figure [class.my-profile]=\"!userInfo || userInfo == 'my'\">\n\n  <span class=\"overlay\"></span>\n  <img src=\"{{ (profileUser && profileUser.cached_image)?profileUser.cached_image: imgPath}}\" alt=\"Profile Cover Photo\" class=\"img-responsive\" />\n\n</figure>\n\n<div class=\"profile\">\n  <div class=\"container\">\n\n    <div class=\"row\">\n      <div class=\"col-sm-4\">\n        <figure>\n\n          <a routerLink=\"/edit/profile\" routerLinkActive=\"active\" *ngIf=\"!userInfo || userInfo == 'my'\" class=\"mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon\"></a>\n\n          <div *ngIf=\"profileUser\">\n            <img src=\"{{ profileUser.cached_image }}\" *ngIf=\"profileUser.cached_image\" alt=\"Profile image\" class=\"img-responsive img-circle\"/>\n            <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->\n            <span class=\"no-image profile-image profile-image1\" *ngIf=\"!profileUser.cached_image\">\n              {{ profileUser.first_name |slice:0:1 |uppercase }} {{ profileUser.last_name |slice:0:1 |uppercase }}</span>\n          </div>\n\n          <figcaption>\n\n            <h3>\n              <span  *ngIf=\"isMobile && profileUser && profileUser.show_name\" [class.title-smaller]=\"profileUser && profileUser.show_name && profileUser.show_name.length > 12\">\n                  {{ profileUser.show_name }}\n              </span>\n            </h3>\n\n            <!--{% if profileUser.id != app.user.id %}-->\n            <!--data-ls-follow-manage-->\n\n            <span class=\"close-friends hidden-sm hidden-md hidden-lg\"\n                  *ngIf=\"userInfo && userInfo != 'my'\"\n                  (click)=\"toggleFollow()\"\n                  [mdTooltip]=\"(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate\">\n\n              <i class=\"follow-icon\" *ngIf=\"!isFollow\" title=\"{{ 'my_bucket_list.follow'|translate }}\"></i>\n              <i class=\"closefriend-icon\" *ngIf=\"isFollow\" title=\"{{ 'my_bucket_list.un_follow'|translate }}\"></i>\n              <span *ngIf=\"!isFollow\">{{ 'my_bucket_list.follow' | translate | uppercase }}</span>\n              <span *ngIf=\"isFollow\">{{ 'my_bucket_list.un_follow' | translate | uppercase }}</span>\n            </span>\n            <!--{% endif %}-->\n\n            <ul>\n              <li>\n                <span>{{ 'block_listed'|translate | capitalize }}</span>\n                <span>{{ listedBy }}</span>\n              </li>\n\n              <li>\n                <span>{{ 'user_goal.active'|translate | capitalize }}</span>\n                <span>{{ active }}</span>\n              </li>\n\n              <li>\n                <span>{{ 'block_completed'|translate |capitalize }}</span>\n                <span>{{ doneBy }}</span>\n              </li>\n            </ul>\n          </figcaption>\n        </figure>\n      </div>\n      <div class=\"col-sm-4 hidden-xs relative\">\n\n        <!--{% if profileUser.show_name %}-->\n        <h1 *ngIf=\"!isMobile && profileUser && profileUser.show_name\">\n          <span class=\"bg-blue\" [class.title-smaller]=\"profileUser.show_name.length > 11\">{{ profileUser.show_name }}</span>\n        </h1>\n        <!--{% endif %}-->\n\n        <span class=\"close-friends hidden-xs\"\n              *ngIf=\"userInfo && userInfo != 'my'\"\n              (click)=\"toggleFollow()\"\n              [mdTooltip]=\"(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate\">\n\n              <i class=\"follow-icon\" *ngIf=\"!isFollow\" title=\"{{ 'my_bucket_list.follow'|translate }}\"></i>\n              <i class=\"closefriend-icon\" *ngIf=\"isFollow\" title=\"{{ 'my_bucket_list.un_follow'|translate }}\"></i>\n              <span *ngIf=\"!isFollow\">{{ 'my_bucket_list.follow' | translate | uppercase }}</span>\n              <span *ngIf=\"isFollow\">{{ 'my_bucket_list.un_follow' | translate | uppercase }}</span>\n        </span>\n\n        <!--{% set badges = profileUser.getBadges %}-->\n\n        <ul class=\"badge-place\">\n\n          <!--{% set badgeTitles = {-->\n          <!--1 : 'leaderboard.traveler'|translate,-->\n          <!--2 : 'leaderboard.writer'|translate,-->\n          <!--3 : 'leaderboard.innovator'|translate-->\n          <!--} %}-->\n\n          <!--{% for badge in badges %}-->\n\n          <!--{% set score = badgeNormalizer(badge.type, badge.Score) %}-->\n\n          <!--{% if score  > 0 %}-->\n          <li *ngFor=\"let badge of badges\">\n            <i title=\"{{ (badge.type == 1?'leaderboard.traveler': badge.type == 2?'leaderboard.writer':'leaderboard.innovator')|translate }}\" class=\"badge-{{ badge.type }}\"></i>\n             <a routerLink=\"/leaderboard\" routerLinkActive=\"active\">{{ score }}</a>\n            <!--{{ score|round(0, 'ceil')}}-->\n          </li>\n          <!--{% endif %}-->\n\n          <!--{% endfor %}-->\n        </ul>\n      </div>\n\n      <!--{% if profileUser.id == app.user.id %}-->\n      <div class=\"col-sm-4\" [class.bg-white]=\"isMobile\" *ngIf=\"!userInfo || userInfo == 'my'\">\n        <div class=\"text-right hidden-xs\">\n          <a routerLink=\"/edit/profile\" class=\"settings-icon\"></a>\n        </div>\n\n        <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->\n        <div class=\"profile-information\" *ngIf=\"user && user.completedPercent != 100\">\n          <em>{{ 'complete_message'|translate }}</em>\n\n          <div class=\"row no-gutter\">\n            <div class=\"col-xs-10\">\n              <div class=\"progress\">\n                <div class=\"progress-bar progress-bar-striped\"\n                     role=\"progressbar\"\n                     aria-valuenow=\"45\"\n                     aria-valuemin=\"0\"\n                     aria-valuemax=\"100\"\n                     [ngStyle]=\"{'width.%': user.completedPercent| round}\">\n\n                  {{ user.getCompletedPercent|round }}%\n                </div>\n              </div>\n            </div>\n            <div class=\"col-xs-2\">\n              <a class=\"text-gray\" (click)=\"completeProfileMyBucketList=!completeProfileMyBucketList\">\n                <i class=\"question-icon-new\" [hidden]=\"completeProfileMyBucketList || isMobile\"></i>\n                <i class=\"icon-question-icon\" [hidden]=\"completeProfileMyBucketList || !isMobile\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n                <i class=\"icon-icon-up\" *ngIf=\"completeProfileMyBucketList\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n              </a>\n            </div>\n          </div>\n\n        </div>\n        <!--{% endif %}-->\n      </div>\n    </div>\n    <!--{% if app.session.flashBag.has('success') %}-->\n    <!--<div class=\"alert alert-success alert-dismissible \">-->\n      <!--{% for msg in app.session.flashBag.get('success') %}-->\n      <!--{{ msg }}-->\n      <!--<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">-->\n        <!--<span aria-hidden=\"true\">&times;</span>-->\n      <!--</button>-->\n      <!--{% endfor %}-->\n    <!--</div>-->\n    <!--{% endif %}-->\n\n\n    <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->\n    <div class=\"row slide\" *ngIf=\"user && user.completedPercent != 100 && completeProfileMyBucketList\">\n      <!--data-ng-cloak *ngIf=\"completeProfileMyBucketList\" style=\"display: none\"-->\n      <div class=\"col-sm-6\">\n        <ol style=\"position: relative;\">\n          <li>\n            <span class=\"profile-title\">\n                {{ 'security.login.sign_up'|translate }}\n                <i class=\"icon-ok-only\"></i>\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.signed_up'|translate }}</span>\n          </li>\n          <li>\n            <span class=\"profile-title\">{{ 'account.complete_text'|translate }}\n                <!--{% if user.registrationToken is null %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.verification'|translate }}</span>\n            <span class=\"text-gray\">{{ 'my_list.confirm'|translate }}</span>\n          </li>\n          <li>\n            <!--{% if user.socialPhotoLink or  user.fileName %}-->\n            <span class=\"profile-title\">{{ 'image_complete_text'|translate }}\n                <i class=\"icon-ok-only\"></i>\n            </span>\n\n            <a routerLink=\"/edit/profile\" >\n              <strong>{{ 'image_complete_text'|translate }}</strong>\n              <i class=\"icon-question-only\"></i>\n            </a>\n\n            <!--{% endif %}-->\n            <span class=\"text-gray\">{{ 'my_list.add_image'|translate }}</span>\n\n          </li>\n          <li>\n            <a routerLink=\"/goal/create\">\n              <strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>\n              <!--{% if user.getUserGoalCount|length > 0 %}-->\n              <i class=\"icon-ok-only\"></i>\n              <!--{% else %}-->\n              <i class=\"icon-question-only\"></i>\n              <!--{% endif %}-->\n            </a>\n\n            <span class=\"text-gray\">{{ 'my_list.want_control'|translate }}</span>\n            <span class=\"text-gray\">{{ 'my_list.follow_link'|translate }}</span>\n          </li>\n        </ol>\n\n      </div>\n\n      <div class=\"col-sm-6\">\n        <ol style=\"position: relative\" start=\"5\">\n          <li>\n            <span class=\"profile-title\">{{ 'deadline.complete_text'|translate }}\n                <!--{% if user.checkDeadLines() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.dream_text'|translate }}</span>\n          </li>\n          <li>\n            <span class=\"profile-title\">{{ 'goal.complete_text'|translate }}\n                <!--{% if user.checkCompletedGoals() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.have_goal'|translate }}</span>\n          </li>\n\n          <li>\n            <span class=\"profile-title\">{{ 'success_story.complete_text'|translate | capitalize}}\n                <!--{% if user.checkSuccessStory() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.complete_goal'|translate }}</span>\n          </li>\n        </ol>\n\n      </div>\n    </div>\n    <!--{% endif %}-->\n\n  </div>\n</div>\n</div>"
+
+/***/ },
+/* 1092 */
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"top-ideas\">\n    <div class=\"bg-white padding round margin-top\" *ngIf=\"goals && goals.length\">\n        <div class=\"row\">\n          <div class=\"col-xs-10\">\n            <a routerLink=\"/ideas/most-popular\" class=\"heading text-gray\">\n              <i [ngClass]=\"{'icon-top-idea': type == categories[0],'featured-icon': type == categories[2],'suggested-icon': type == categories[1]}\"></i>\n              <span class=\"text\">{{ (type == categories[0])?('right_menu.ideas'|translate ): (type == categories[2])? ('featured_ideas'|translate):('right_menu.suggested'|translate) }}</span>\n            </a>\n          </div>\n\n          <div class=\"col-xs-2 text-right\">\n            <a  (click)=\"refreshIdeas()\" class=\"load\" id=\"topIdeasLoad\"></a>\n          </div>\n        </div>\n\n        <hr class=\"hr-margin\"/>\n\n        <div *ngFor=\"let goal of goals\" class=\"row idea-item\">\n            <div class=\"col-sm-6 col-md-12\">\n                <figure>\n                    <app-goal [goal]=\"goal\"></app-goal>\n                    <figcaption class=\"footer-bordered\">\n                        <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n                    </figcaption>\n                </figure>\n            </div>\n        </div>\n\n    </div>\n</div>"
+
+/***/ },
+/* 1093 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Observable_1 = __webpack_require__(2);
+var forkJoin_1 = __webpack_require__(1097);
 Observable_1.Observable.forkJoin = forkJoin_1.forkJoin;
 //# sourceMappingURL=forkJoin.js.map
 
 /***/ },
-
-/***/ 1161:
+/* 1094 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+
 var Observable_1 = __webpack_require__(2);
-var do_1 = __webpack_require__(1165);
+var do_1 = __webpack_require__(1098);
 Observable_1.Observable.prototype.do = do_1._do;
 Observable_1.Observable.prototype._do = do_1._do;
 //# sourceMappingURL=do.js.map
 
 /***/ },
-
-/***/ 1162:
+/* 1095 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+
 var Observable_1 = __webpack_require__(2);
-var finally_1 = __webpack_require__(1166);
+var finally_1 = __webpack_require__(1099);
 Observable_1.Observable.prototype.finally = finally_1._finally;
 Observable_1.Observable.prototype._finally = finally_1._finally;
 //# sourceMappingURL=finally.js.map
 
 /***/ },
-
-/***/ 1163:
+/* 1096 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -13964,9 +18220,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Observable_1 = __webpack_require__(2);
 var EmptyObservable_1 = __webpack_require__(290);
-var isArray_1 = __webpack_require__(104);
-var subscribeToResult_1 = __webpack_require__(105);
-var OuterSubscriber_1 = __webpack_require__(103);
+var isArray_1 = __webpack_require__(106);
+var subscribeToResult_1 = __webpack_require__(91);
+var OuterSubscriber_1 = __webpack_require__(89);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -14070,23 +18326,21 @@ var ForkJoinSubscriber = (function (_super) {
 //# sourceMappingURL=ForkJoinObservable.js.map
 
 /***/ },
-
-/***/ 1164:
+/* 1097 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
-var ForkJoinObservable_1 = __webpack_require__(1163);
+
+var ForkJoinObservable_1 = __webpack_require__(1096);
 exports.forkJoin = ForkJoinObservable_1.ForkJoinObservable.create;
 //# sourceMappingURL=forkJoin.js.map
 
 /***/ },
-
-/***/ 1165:
+/* 1098 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -14200,19 +18454,18 @@ var DoSubscriber = (function (_super) {
 //# sourceMappingURL=do.js.map
 
 /***/ },
-
-/***/ 1166:
+/* 1099 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = __webpack_require__(23);
-var Subscription_1 = __webpack_require__(88);
+var Subscription_1 = __webpack_require__(90);
 /**
  * Returns an Observable that mirrors the source Observable, but will call a specified function when
  * the source terminates on complete or error.
@@ -14250,973 +18503,1197 @@ var FinallySubscriber = (function (_super) {
 //# sourceMappingURL=finally.js.map
 
 /***/ },
-
-/***/ 927:
+/* 1100 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_translate__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile_component__ = __webpack_require__(1084);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__block_activityBlock_module__ = __webpack_require__(931);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_forms__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_material__ = __webpack_require__(1111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__activity_activity_sharing_module__ = __webpack_require__(1003);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular2_infinite_scroll__ = __webpack_require__(460);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular2_infinite_scroll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_angular2_infinite_scroll__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__profile_routing__ = __webpack_require__(1138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_components_module__ = __webpack_require__(458);
-/* harmony export (binding) */ __webpack_require__.d(exports, "ProfileModule", function() { return ProfileModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 
-
-
-
-
-
-
-
-
-
-
-
-var ProfileModule = (function () {
-    function ProfileModule() {
+var core_1 = __webpack_require__(0);
+var circle_manager_1 = __webpack_require__(1074);
+var SebmGoogleMapCircle = (function () {
+    function SebmGoogleMapCircle(_manager) {
+        this._manager = _manager;
+        /**
+         * Indicates whether this Circle handles mouse events. Defaults to true.
+         */
+        this.clickable = true;
+        /**
+         * If set to true, the user can drag this circle over the map. Defaults to false.
+         */
+        this.draggable = false;
+        /**
+         * If set to true, the user can edit this circle by dragging the control points shown at
+         * the center and around the circumference of the circle. Defaults to false.
+         */
+        this.editable = false;
+        /**
+         * The radius in meters on the Earth's surface.
+         */
+        this.radius = 0;
+        /**
+         * The stroke position. Defaults to CENTER.
+         * This property is not supported on Internet Explorer 8 and earlier.
+         */
+        this.strokePosition = 'CENTER';
+        /**
+         * The stroke width in pixels.
+         */
+        this.strokeWeight = 0;
+        /**
+         * Whether this circle is visible on the map. Defaults to true.
+         */
+        this.visible = true;
+        /**
+         * This event is fired when the circle's center is changed.
+         */
+        this.centerChange = new core_1.EventEmitter();
+        /**
+         * This event emitter gets emitted when the user clicks on the circle.
+         */
+        this.circleClick = new core_1.EventEmitter();
+        /**
+         * This event emitter gets emitted when the user clicks on the circle.
+         */
+        this.circleDblClick = new core_1.EventEmitter();
+        /**
+         * This event is repeatedly fired while the user drags the circle.
+         */
+        this.drag = new core_1.EventEmitter();
+        /**
+         * This event is fired when the user stops dragging the circle.
+         */
+        this.dragEnd = new core_1.EventEmitter();
+        /**
+         * This event is fired when the user starts dragging the circle.
+         */
+        this.dragStart = new core_1.EventEmitter();
+        /**
+         * This event is fired when the DOM mousedown event is fired on the circle.
+         */
+        this.mouseDown = new core_1.EventEmitter();
+        /**
+         * This event is fired when the DOM mousemove event is fired on the circle.
+         */
+        this.mouseMove = new core_1.EventEmitter();
+        /**
+         * This event is fired on circle mouseout.
+         */
+        this.mouseOut = new core_1.EventEmitter();
+        /**
+         * This event is fired on circle mouseover.
+         */
+        this.mouseOver = new core_1.EventEmitter();
+        /**
+         * This event is fired when the DOM mouseup event is fired on the circle.
+         */
+        this.mouseUp = new core_1.EventEmitter();
+        /**
+         * This event is fired when the circle's radius is changed.
+         */
+        this.radiusChange = new core_1.EventEmitter();
+        /**
+         * This event is fired when the circle is right-clicked on.
+         */
+        this.rightClick = new core_1.EventEmitter();
+        this._circleAddedToManager = false;
+        this._eventSubscriptions = [];
     }
-    ProfileModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_10__profile_routing__["a" /* ProfileRouting */],
-                __WEBPACK_IMPORTED_MODULE_11__components_components_module__["a" /* ComponentModule */],
-                __WEBPACK_IMPORTED_MODULE_2_ng2_translate__["a" /* TranslateModule */],
-                __WEBPACK_IMPORTED_MODULE_5__block_activityBlock_module__["a" /* ActivityBlockModule */],
-                __WEBPACK_IMPORTED_MODULE_6__angular_forms__["a" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_8__activity_activity_sharing_module__["a" /* ActivitySharingModule */],
-                __WEBPACK_IMPORTED_MODULE_9_angular2_infinite_scroll__["InfiniteScrollModule"],
-                __WEBPACK_IMPORTED_MODULE_7__angular_material__["MaterialModule"].forRoot(),
-            ],
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_3__profile_component__["a" /* ProfileComponent */]
-            ],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_4__project_service__["a" /* ProjectService */]
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ProfileModule);
-    return ProfileModule;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile.module.js.map
-
-/***/ },
-
-/***/ 929:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_index__ = __webpack_require__(1031);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "coerceBooleanProperty", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["coerceBooleanProperty"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "UniqueSelectionDispatcher", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["UniqueSelectionDispatcher"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "DefaultStyleCompatibilityModeModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["DefaultStyleCompatibilityModeModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdRippleModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdRippleModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "OVERLAY_PROVIDERS", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["OVERLAY_PROVIDERS"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "OverlayModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["OverlayModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "applyCssTransform", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["applyCssTransform"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "GestureConfig", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["GestureConfig"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "coerceNumberProperty", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["coerceNumberProperty"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdError", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdError"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "Dir", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["Dir"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdLineSetter", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdLineSetter"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdLine", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdLine"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MdLineModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MdLineModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "PortalHostDirective", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["PortalHostDirective"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "BasePortalHost", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["BasePortalHost"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "ComponentPortal", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["ComponentPortal"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "OverlayState", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["OverlayState"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "Overlay", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["Overlay"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "LiveAnnouncer", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["LiveAnnouncer"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "PortalModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["PortalModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "TemplatePortalDirective", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["TemplatePortalDirective"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "TemplatePortal", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["TemplatePortal"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "RIGHT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["RIGHT_ARROW"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "LEFT_ARROW", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["LEFT_ARROW"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "ENTER", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["ENTER"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "isFakeMousedownFromScreenReader", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["isFakeMousedownFromScreenReader"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "InteractivityChecker", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["InteractivityChecker"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "Platform", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["Platform"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "A11yModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["A11yModule"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "MaterialModule", function() { return __WEBPACK_IMPORTED_MODULE_0__core_index__["MaterialModule"]; });
-
-
-//# sourceMappingURL=core.js.map
-
-
-/***/ },
-
-/***/ 931:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_translate__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(458);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__goal_friends_goal_friends_component__ = __webpack_require__(934);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__leaderboards_leaderboards_component__ = __webpack_require__(935);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__my_list_my_list_component__ = __webpack_require__(936);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__top_ideas_top_ideas_component__ = __webpack_require__(938);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__complete_profile_complete_profile_component__ = __webpack_require__(932);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__profile_header_profile_header_component__ = __webpack_require__(937);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__create_goal_create_goal_component__ = __webpack_require__(933);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivityBlockModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-
-
-
-var ActivityBlockModule = (function () {
-    function ActivityBlockModule() {
-    }
-    ActivityBlockModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_2_ng2_translate__["a" /* TranslateModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* RouterModule */],
-                __WEBPACK_IMPORTED_MODULE_4__components_components_module__["a" /* ComponentModule */]
-            ],
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__goal_friends_goal_friends_component__["a" /* GoalFriendsBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__leaderboards_leaderboards_component__["a" /* LeaderboardsBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__my_list_my_list_component__["a" /* MyListBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__top_ideas_top_ideas_component__["a" /* TopIdeasBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__complete_profile_complete_profile_component__["a" /* CompleteProfileBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__profile_header_profile_header_component__["a" /* ProfileHeaderComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__create_goal_create_goal_component__["a" /* CreateGoalComponent */],
-            ],
-            exports: [__WEBPACK_IMPORTED_MODULE_5__goal_friends_goal_friends_component__["a" /* GoalFriendsBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__leaderboards_leaderboards_component__["a" /* LeaderboardsBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__my_list_my_list_component__["a" /* MyListBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__top_ideas_top_ideas_component__["a" /* TopIdeasBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__complete_profile_complete_profile_component__["a" /* CompleteProfileBlockComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__profile_header_profile_header_component__["a" /* ProfileHeaderComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__create_goal_create_goal_component__["a" /* CreateGoalComponent */],
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ActivityBlockModule);
-    return ActivityBlockModule;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activityBlock.module.js.map
-
-/***/ },
-
-/***/ 932:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__ = __webpack_require__(139);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CompleteProfileBlockComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var CompleteProfileBlockComponent = (function () {
-    function CompleteProfileBlockComponent(_projectService, _cacheService) {
-        this._projectService = _projectService;
-        this._cacheService = _cacheService;
-    }
-    CompleteProfileBlockComponent.prototype.ngOnInit = function () {
-        // let data = this._cacheService.get('complate-profile');
-        // if (data) {
-        //   this.data = data;
-        // } else {
-        // this.getCompateProfileInfo()
-        // }
+    /** @internal */
+    SebmGoogleMapCircle.prototype.ngOnInit = function () {
+        this._manager.addCircle(this);
+        this._circleAddedToManager = true;
+        this._registerEventListeners();
     };
-    CompleteProfileBlockComponent.prototype.getCompateProfileInfo = function () {
-        var _this = this;
-        this._projectService.getCompateProfileInfo()
-            .subscribe(function (data) {
-            _this.data = data;
-            _this._cacheService.set('complate-profile', data);
-        });
-    };
-    CompleteProfileBlockComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'complete-profile-block',
-            template: __webpack_require__(946),
-            styles: [__webpack_require__(939)],
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */],
-                __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]
-            ]
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object])
-    ], CompleteProfileBlockComponent);
-    return CompleteProfileBlockComponent;
-    var _a, _b;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/complete-profile.component.js.map
-
-/***/ },
-
-/***/ 933:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CreateGoalComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var CreateGoalComponent = (function () {
-    function CreateGoalComponent() {
-    }
-    CreateGoalComponent.prototype.ngOnInit = function () {
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', String)
-    ], CreateGoalComponent.prototype, "myProfile", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', String)
-    ], CreateGoalComponent.prototype, "myIdeasCount", void 0);
-    CreateGoalComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'create-goal',
-            template: __webpack_require__(947),
-            styles: [__webpack_require__(940)]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], CreateGoalComponent);
-    return CreateGoalComponent;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/create-goal.component.js.map
-
-/***/ },
-
-/***/ 934:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalFriendsBlockComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var GoalFriendsBlockComponent = (function () {
-    function GoalFriendsBlockComponent(_projectService, _cacheService) {
-        this._projectService = _projectService;
-        this._cacheService = _cacheService;
-    }
-    GoalFriendsBlockComponent.prototype.ngOnInit = function () {
-        var data = this._cacheService.get('goalFriendBox');
-        if (data) {
-            this.users = data[1];
-            this.length = data.length;
-            this.goalReserve();
+    /** @internal */
+    SebmGoogleMapCircle.prototype.ngOnChanges = function (changes) {
+        if (!this._circleAddedToManager) {
+            return;
         }
-        else {
-            this.goalFriends();
+        if (changes['latitude'] || changes['longitude']) {
+            this._manager.setCenter(this);
+        }
+        if (changes['editable']) {
+            this._manager.setEditable(this);
+        }
+        if (changes['draggable']) {
+            this._manager.setDraggable(this);
+        }
+        if (changes['visible']) {
+            this._manager.setVisible(this);
+        }
+        if (changes['radius']) {
+            this._manager.setRadius(this);
+        }
+        this._updateCircleOptionsChanges(changes);
+    };
+    SebmGoogleMapCircle.prototype._updateCircleOptionsChanges = function (changes) {
+        var options = {};
+        var optionKeys = Object.keys(changes).filter(function (k) { return SebmGoogleMapCircle._mapOptions.indexOf(k) !== -1; });
+        optionKeys.forEach(function (k) { options[k] = changes[k].currentValue; });
+        if (optionKeys.length > 0) {
+            this._manager.setOptions(this, options);
         }
     };
-    GoalFriendsBlockComponent.prototype.goalFriends = function () {
+    SebmGoogleMapCircle.prototype._registerEventListeners = function () {
         var _this = this;
-        this._projectService.getGaolFriends()
-            .subscribe(function (data) {
-            _this.users = data[1];
-            _this.length = data.length;
-            _this._cacheService.set('goalFriendBox', data, { maxAge: 2 * 24 * 60 * 60 });
-        }, function (error) { return _this.errorMessage = error; });
-        this.goalReserve();
-    };
-    GoalFriendsBlockComponent.prototype.goalReserve = function () {
-        var _this = this;
-        this._projectService.getGaolFriends()
-            .subscribe(function (data) {
-            _this.reserve = data;
-            for (var _i = 0, _a = data[1]; _i < _a.length; _i++) {
-                var item = _a[_i];
-                var img = void 0;
-                if (item.cached_image) {
-                    img = new Image();
-                    img.src = item.cached_image;
+        var events = new Map();
+        events.set('center_changed', this.centerChange);
+        events.set('click', this.circleClick);
+        events.set('dblclick', this.circleDblClick);
+        events.set('drag', this.drag);
+        events.set('dragend', this.dragEnd);
+        events.set('dragStart', this.dragStart);
+        events.set('mousedown', this.mouseDown);
+        events.set('mousemove', this.mouseMove);
+        events.set('mouseout', this.mouseOut);
+        events.set('mouseover', this.mouseOver);
+        events.set('mouseup', this.mouseUp);
+        events.set('radius_changed', this.radiusChange);
+        events.set('rightclick', this.rightClick);
+        events.forEach(function (eventEmitter, eventName) {
+            _this._eventSubscriptions.push(_this._manager.createEventObservable(eventName, _this).subscribe(function (value) {
+                switch (eventName) {
+                    case 'radius_changed':
+                        _this._manager.getRadius(_this).then(function (radius) { return eventEmitter.emit(radius); });
+                        break;
+                    case 'center_changed':
+                        _this._manager.getCenter(_this).then(function (center) {
+                            return eventEmitter.emit({ lat: center.lat(), lng: center.lng() });
+                        });
+                        break;
+                    default:
+                        eventEmitter.emit({ coords: { lat: value.latLng.lat(), lng: value.latLng.lng() } });
                 }
-            }
-            _this._cacheService.set('goalFriendBox', _this.reserve, { maxAge: 2 * 24 * 60 * 60 });
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    GoalFriendsBlockComponent.prototype.refreshGoalFriends = function () {
-        // angular.element('#popularLoad').css({
-        //   '-webkit-transform': 'rotate('+deg+'deg)',
-        //   '-ms-transform': 'rotate('+deg+'deg)',
-        //   'transform': 'rotate('+deg+'deg)'
-        // });
-        this.users = this.reserve[1];
-        this.length = this.reserve.length;
-        this.goalReserve();
-    };
-    GoalFriendsBlockComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'goal-friends-block',
-            template: __webpack_require__(948),
-            styles: [__webpack_require__(941)],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */],
-                __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
-            ]
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object])
-    ], GoalFriendsBlockComponent);
-    return GoalFriendsBlockComponent;
-    var _a, _b;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-friends.component.js.map
-
-/***/ },
-
-/***/ 935:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return LeaderboardsBlockComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var LeaderboardsBlockComponent = (function () {
-    function LeaderboardsBlockComponent(_projectService) {
-        this._projectService = _projectService;
-        this.index = 0;
-    }
-    LeaderboardsBlockComponent.prototype.ngOnInit = function () {
-        this.users = [];
-        this.getBadges();
-    };
-    LeaderboardsBlockComponent.prototype.getBadges = function () {
-        var _this = this;
-        this._projectService.getBadges()
-            .subscribe(function (data) {
-            _this.badges = data.badges;
-            _this.maxUpdate = data.maxUpdate;
-            _this.min = data.min;
-            _this.topUsers = data.users;
-            _this.normOfTop = +_this.min.innovator + +_this.min.motivator + +_this.min.traveller;
-            _this.initUsers();
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    LeaderboardsBlockComponent.prototype.initUsers = function () {
-        var i = 0;
-        for (var index in this.badges) {
-            this.users[i++] = (this.index < this.badges[index].length) ? this.badges[index][this.index] : this.badges[index][(this.index % this.badges[index].length)];
-        }
-    };
-    ;
-    LeaderboardsBlockComponent.prototype.refreshLeaderboards = function () {
-        if (this.normOfTop > 0) {
-            this.index = (this.index == 9) ? 0 : this.index + 1;
-            this.initUsers();
-        }
-    };
-    LeaderboardsBlockComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'leaderboards-block',
-            template: __webpack_require__(949),
-            styles: [__webpack_require__(942)],
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object])
-    ], LeaderboardsBlockComponent);
-    return LeaderboardsBlockComponent;
-    var _a;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/leaderboards.component.js.map
-
-/***/ },
-
-/***/ 936:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MyListBlockComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var MyListBlockComponent = (function () {
-    function MyListBlockComponent() {
-    }
-    MyListBlockComponent.prototype.ngOnInit = function () {
-    };
-    MyListBlockComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'my-list-block',
-            template: __webpack_require__(950),
-            styles: [__webpack_require__(943)]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MyListBlockComponent);
-    return MyListBlockComponent;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/my-list.component.js.map
-
-/***/ },
-
-/***/ 937:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileHeaderComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var ProfileHeaderComponent = (function () {
-    function ProfileHeaderComponent(_projectService) {
-        this._projectService = _projectService;
-        this.hoverEmitter = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        this.serverPath = '';
-        this.imgPath = '';
-        this.nameOnImage = '';
-        this.listedBy = 1;
-        this.active = 1;
-        this.doneBy = 1;
-        this.isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
-        this.isMobile = (window.innerWidth < 768);
-    }
-    ProfileHeaderComponent.prototype.ngOnInit = function () {
-        this.serverPath = this._projectService.getPath();
-        this.imgPath = this.serverPath + '/bundles/app/images/cover3.jpg';
-    };
-    ProfileHeaderComponent.prototype.toggleFollow = function () {
-        var _this = this;
-        this._projectService.toggleFollow(1).subscribe(function (user) {
-            _this.isFollow = !_this.isFollow;
+            }));
         });
     };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', String)
-    ], ProfileHeaderComponent.prototype, "userInfo", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])('onHover'), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === 'function' && _a) || Object)
-    ], ProfileHeaderComponent.prototype, "hoverEmitter", void 0);
-    ProfileHeaderComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'profile-header',
-            template: __webpack_require__(951),
-            styles: [__webpack_require__(944)],
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
-        }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object])
-    ], ProfileHeaderComponent);
-    return ProfileHeaderComponent;
-    var _a, _b;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile-header.component.js.map
-
-/***/ },
-
-/***/ 938:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return TopIdeasBlockComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var TopIdeasBlockComponent = (function () {
-    function TopIdeasBlockComponent(_projectService, _cacheService) {
-        this._projectService = _projectService;
-        this._cacheService = _cacheService;
-        this.goals = null;
-        this.categories = ['top', 'suggest', 'featured'];
-    }
-    TopIdeasBlockComponent.prototype.ngOnInit = function () {
-        if (this.type == this.categories[2]) {
-            var data = this._cacheService.get('featuredIdea');
-            if (data) {
-                this.goals = data;
-            }
-            else {
-                this.getFeaturedIdeas();
-            }
-        }
-        else {
-            var data = this._cacheService.get('topIdea');
-            if (data) {
-                this.goals = data;
-            }
-            else {
-                this.getTopIdeas();
-            }
-        }
-    };
-    TopIdeasBlockComponent.prototype.getTopIdeas = function () {
-        var _this = this;
-        this._projectService.getTopIdeas()
-            .subscribe(function (goals) {
-            _this.goals = goals;
-            _this._cacheService.set('topIdea', goals, { maxAge: 24 * 60 * 60 });
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    TopIdeasBlockComponent.prototype.getFeaturedIdeas = function () {
-        var _this = this;
-        this._projectService.getFeaturedIdeas()
-            .subscribe(function (goals) {
-            _this.goals = goals;
-            _this._cacheService.set('featuredIdea', goals, { maxAge: 24 * 60 * 60 });
-        }, function (error) { return _this.errorMessage = error; });
-    };
-    TopIdeasBlockComponent.prototype.refreshIdeas = function () {
-        if (this.type == this.categories[2]) {
-            this.getFeaturedIdeas();
-        }
-        else {
-            this.getTopIdeas();
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', String)
-    ], TopIdeasBlockComponent.prototype, "type", void 0);
-    TopIdeasBlockComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'top-ideas-block',
-            template: __webpack_require__(952),
-            styles: [__webpack_require__(945)],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */],
-                __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
-            ],
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object])
-    ], TopIdeasBlockComponent);
-    return TopIdeasBlockComponent;
-    var _a, _b;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/top-ideas.component.js.map
-
-/***/ },
-
-/***/ 939:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.complete-profile {\n  margin-bottom: 10px;\n}\n.complete-profile em {\n  padding: 0 0 5px 15px;\n  display: block;\n  font-size: 14px;\n}\n.complete-profile ol {\n  padding: 10px 35px;\n  background-color: #e6e6e6;\n}\n.complete-profile ol li {\n  color: #7d7d7d;\n  clear: both;\n}\n.complete-profile ol li i {\n  cursor: default;\n}\n.complete-profile ol li a,\n.complete-profile ol li span {\n  color: #666666;\n  font-size: 14px;\n}\n.complete-profile ol li a i,\n.complete-profile ol li span i {\n  margin-left: 25px;\n}\n.complete-profile ol li a i.question-icon,\n.complete-profile ol li span i.question-icon {\n  float: right;\n}\n.complete-profile ol li a i {\n  cursor: pointer;\n}\n.complete-profile ol li a:hover {\n  color: #666666;\n}\n.complete-profile ol li a:hover i {\n  color: #7724f6;\n}\n.complete-profile i {\n  font-size: 25px;\n  vertical-align: middle;\n}\n@media (min-width: 768px) {\n  .complete-profile {\n    margin-bottom: 20px;\n  }\n  .complete-profile em {\n    padding: 0 0 5px 15px;\n    font-size: 16px;\n  }\n  .complete-profile ol {\n    padding: 20px 15px 20px 50px;\n  }\n  .complete-profile ol li a,\n  .complete-profile ol li bdi {\n    font-size: 16px;\n  }\n  .complete-profile ol li a i,\n  .complete-profile ol li bdi i {\n    margin-left: 25px;\n  }\n  .complete-profile i {\n    font-size: 30px;\n  }\n}\n"
-
-/***/ },
-
-/***/ 940:
-/***/ function(module, exports) {
-
-module.exports = ""
-
-/***/ },
-
-/***/ 941:
-/***/ function(module, exports) {
-
-module.exports = ""
-
-/***/ },
-
-/***/ 942:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n#leaderboard-list ul li {\n  margin-bottom: 10px;\n}\n#leaderboard-list ul li:first-child {\n  border-bottom: 1px solid #eeeeee;\n}\n#leaderboard-list ul li ul li {\n  margin-bottom: 0;\n}\n#leaderboard-list ul li ul li:first-child {\n  border-bottom: 0;\n}\n"
-
-/***/ },
-
-/***/ 943:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.horizontal-menu {\n  padding: 0 5px 0 0;\n}\n.horizontal-menu li {\n  display: inline-block;\n  border-right: 1px solid #cccccc;\n  padding: 0 15px 0 10px;\n}\n.horizontal-menu li strong {\n  display: block;\n  color: #666666;\n  font-size: 13px;\n}\n.horizontal-menu li span {\n  display: block;\n  color: #7d7d7d;\n}\n.horizontal-menu li span:last-child {\n  font-size: 18px;\n}\n.horizontal-menu li:last-child {\n  border: 0;\n}\n.horizontal-menu li:hover {\n  background-color: transparent;\n}\n@media (min-width: 768px) {\n  .horizontal-menu {\n    padding: 0 10px 0 0;\n  }\n  .horizontal-menu li strong {\n    font-size: 14px;\n  }\n  .horizontal-menu li span:last-child {\n    font-size: 22px;\n  }\n  .en li {\n    padding: 0 14px 0 10px;\n  }\n  .ru li {\n    padding: 0 9px;\n  }\n}\n"
-
-/***/ },
-
-/***/ 944:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.content-header {\n  position: relative;\n  overflow: hidden;\n}\n.content-header > figure {\n  position: absolute;\n  width: 100%;\n  height: 261px;\n  overflow: hidden;\n}\n.content-header > figure.my-profile {\n  height: 229px;\n}\n.content-header > figure img {\n  width: 100%;\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.content-header .overlay {\n  background: rgba(0, 0, 0, 0.6);\n  height: 270px;\n}\n.content-header .overlay:hover {\n  background: rgba(0, 0, 0, 0.8);\n}\n.content-header a {\n  color: #ffffff;\n}\n.content-header a:hover,\n.content-header a:focus {\n  text-decoration: none;\n}\n.content-header h2 {\n  background-color: #021523;\n  color: #ffffff;\n  padding: 10px 40px;\n  margin: 100px 0 5px;\n}\n.content-header h1 {\n  margin: 25px 0 10px;\n}\n.content-header h1 span {\n  padding: 10px 40px;\n}\n.profile {\n  padding: 10px 0 0 0;\n  background-color: #f4f4f4;\n}\n.profile i.icon-settings {\n  margin-right: -9px;\n}\n.profile .settings-icon {\n  display: inline-block;\n  width: 43px;\n  height: 43px;\n  background: url('../../../assets/images/settings.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .settings-icon:hover {\n  background: url('../../../assets/images/settings_hover.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .close-friends {\n  cursor: pointer;\n  height: 32px;\n  line-height: 32px;\n  background-color: #f4f4f4;\n  border-radius: 6px;\n  -webkit-border-radius: 6px;\n  -moz-border-radius: 6px;\n  -ms-border-radius: 6px;\n  -o-border-radius: 6px;\n  color: #666666;\n  padding: 6px 17px;\n}\n.profile .close-friends i {\n  display: inline-block;\n  width: 16px;\n  height: 14px;\n  margin-right: 5px;\n  vertical-align: middle;\n}\n.profile .close-friends i.follow-icon {\n  background: url('../../../assets/images/follow.svg') no-repeat center center;\n  background-size: 100%;\n}\n.profile .close-friends i.closefriend-icon {\n  background: url('../../../assets/images/closefriend.svg') no-repeat center center;\n  background-size: 100%;\n}\n.profile .close-friends span {\n  display: inline-block;\n  text-transform: uppercase;\n}\n.profile .close-friends:hover {\n  background-color: #ffffff;\n}\n.profile .close-friends:hover i.follow-icon {\n  background: url('../../../assets/images/follow-hover.svg') no-repeat center center;\n  background-size: 100%;\n}\n.profile .close-friends:hover i.closefriend-icon {\n  background: url('../../../assets/images/follow-hover.svg') no-repeat center center;\n  background-size: 100%;\n}\n.profile .mobile-follow {\n  position: absolute;\n  right: 20px;\n  overflow: initial;\n}\n.profile .question-icon-new {\n  display: inline-block;\n  width: 25px;\n  height: 25px;\n  margin: 2px 0 2px 3px;\n  background: url('../../../assets/images/question.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .question-icon-new:hover {\n  background: url('../../../assets/images/question_hover.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .mobile-settings {\n  position: absolute;\n  right: 20px;\n  overflow: initial;\n  display: inline-block;\n  width: 43px;\n  height: 43px;\n  background: url('../../../assets/images/settings_hover.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile figure {\n  background-color: rgba(207, 207, 207, 0.34);\n  text-align: center;\n  position: relative;\n  padding: 10px 0;\n}\n.profile figure div {\n  width: 100px;\n  height: 100px;\n  margin: 0 auto;\n  overflow: hidden;\n}\n.profile figure span.profile-image {\n  display: block;\n  width: 100px;\n  height: 100px;\n  font-size: 45px;\n  font-weight: 600;\n  line-height: 90px;\n  color: #ffffff;\n}\n.profile figure img {\n  height: 100px;\n  width: 100%;\n}\n.profile figure figcaption {\n  margin-top: 11px;\n  background-color: transparent;\n}\n.profile figure figcaption ul {\n  padding-top: 10px;\n}\n.profile figure figcaption h3 {\n  color: #ffffff;\n  font-size: 18px;\n  margin: 0 10px 3px;\n  line-height: normal;\n}\n.profile figure figcaption h3 span {\n  white-space: nowrap;\n  width: 100%;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  display: block;\n}\n.profile figure figcaption li {\n  display: inline-block;\n  border-right: 1px solid #eeeeee;\n  padding: 0 20px;\n}\n.profile figure figcaption li span {\n  display: block;\n  color: #ffffff;\n  font-size: 14px;\n}\n.profile figure figcaption li span:last-child {\n  font-size: 22px;\n}\n.profile figure figcaption li:last-child {\n  border: 0;\n}\n.profile figure figcaption li:hover {\n  background-color: transparent;\n}\n.profile #settings-form figure {\n  background: transparent;\n  padding: 0;\n}\n.profile #settings-form figure .upload {\n  width: 120px;\n  height: 120px;\n  padding: 40px 15px;\n  font-size: 13px;\n}\n.profile #settings-form figure figcaption {\n  position: absolute;\n  top: 0;\n  background: rgba(0, 0, 0, 0.3);\n  width: 100px;\n  height: 100px;\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n  margin: 0;\n  padding: 22px 5px;\n}\n.profile #settings-form figure figcaption label {\n  color: #ffffff !important;\n  text-transform: uppercase;\n  padding: 0 15px;\n  font-size: 14px;\n}\n.profile ol {\n  padding: 20px 20px 0;\n  font-size: 13px;\n}\n.profile ol li {\n  margin-bottom: 5px;\n}\n.profile ol li a {\n  color: #666666;\n  font-size: 13px;\n}\n.profile ol li a:hover i {\n  color: #7724f6;\n}\n.profile ol li .profile-title {\n  color: #666666;\n  font-size: 13px;\n  font-weight: normal;\n}\n.profile ol li span {\n  display: block;\n  font-size: 12px;\n  font-weight: 600;\n}\n.profile ol li i {\n  font-size: 30px;\n  vertical-align: middle;\n}\n.profile ol:last-child {\n  padding: 0 20px 0;\n}\n.profile h1 {\n  margin: 7px 0 5px;\n  font-weight: lighter;\n}\n.profile h1 span {\n  display: inline-block;\n  line-height: normal;\n  padding: 2px 10px;\n  font-size: 25px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  overflow: hidden;\n}\n.profile h1 span.title-smaller,\n.profile figcaption span.title-smaller {\n  font-size: 18px;\n  line-height: normal;\n}\n.profile h1 span.title-smaller span,\n.profile figcaption span.title-smaller span {\n  padding: 5px 10px;\n}\n.profile p {\n  background-color: #021523;\n  color: #ffffff;\n  padding: 2px 10px 3px;\n  display: inline-block;\n  margin-bottom: 5px;\n  font-weight: 600;\n  line-height: normal;\n}\n.profile em {\n  display: block;\n  color: #666666;\n  padding: 10px 0 5px;\n}\n.profile .profile-information {\n  width: 90%;\n  margin: 17px auto 10px;\n}\n.profile .profile-information i {\n  font-size: 30px;\n  cursor: pointer;\n}\n.profile .profile-information a.text-gray {\n  margin-left: 14px;\n  display: block;\n}\n@media (min-width: 768px) {\n  .content-header > figure {\n    height: 260px;\n  }\n  .content-header > figure.my-profile {\n    height: 260px;\n  }\n  .content-header .overlay {\n    height: 260px;\n  }\n  .profile {\n    margin-top: 10px;\n    padding: 20px 0 0 0;\n  }\n  .profile figure {\n    padding: 20px 0 10px;\n  }\n  .profile figure div {\n    width: 120px;\n    height: 120px;\n  }\n  .profile figure span.profile-image {\n    width: 120px;\n    height: 120px;\n    font-size: 44px;\n    line-height: 110px;\n  }\n  .profile figure img {\n    height: 120px;\n  }\n  .profile figure figcaption {\n    margin-top: 11px;\n  }\n  .profile figure figcaption ul {\n    padding-top: 0;\n  }\n  .profile figure figcaption li {\n    padding: 0 8px;\n  }\n  .profile figure figcaption li span {\n    font-size: 13px;\n  }\n  .profile figure figcaption li span:last-child {\n    font-size: 16px;\n  }\n  .profile .close-friends {\n    height: 40px;\n    line-height: 40px;\n    padding: 10px 17px;\n  }\n  .profile .close-friends i {\n    width: 18px;\n    height: 16px;\n  }\n  .profile .settings-icon {\n    margin-right: -10px;\n  }\n  .profile .relative {\n    height: 200px;\n  }\n  .profile .relative .badge-place {\n    position: absolute;\n    bottom: 0;\n  }\n  .profile #settings-form figure figcaption {\n    width: 120px;\n    height: 120px;\n    padding: 30px 15px;\n  }\n  .profile #settings-form figure figcaption label {\n    font-size: 15px;\n  }\n  .profile ol {\n    padding: 30px 30px 20px;\n    font-size: 14px;\n  }\n  .profile ol li {\n    margin-bottom: 10px;\n  }\n  .profile ol li a,\n  .profile ol li .profile-title {\n    font-size: 15px;\n  }\n  .profile ol li span {\n    font-size: 13px;\n  }\n  .profile ol:last-child {\n    padding: 30px 30px 20px;\n  }\n  .profile h1 {\n    margin: 25px 0 5px;\n  }\n  .profile h1 span {\n    font-size: 30px;\n    padding: 3px 15px 5px;\n    white-space: normal;\n    max-height: 87px;\n  }\n  .profile h1 span.title-smaller,\n  .profile figcaption span.title-smaller {\n    font-size: 16px;\n    line-height: 35px;\n  }\n  .profile h1 span.title-smaller span,\n  .profile figcaption span.title-smaller span {\n    padding: 3px 7px 5px;\n  }\n  .profile p {\n    padding: 4px 15px 5px;\n    margin-bottom: 10px;\n    font-size: 17px;\n  }\n  .profile em {\n    color: #ffffff;\n    padding: 0 0 5px;\n  }\n  .profile .profile-information {\n    margin-top: 85px;\n  }\n}\n@media (min-width: 992px) {\n  .content-header > figure {\n    height: 266px;\n  }\n  .content-header > figure.my-profile {\n    height: 266px;\n  }\n  .content-header .overlay {\n    height: 266px;\n  }\n  .profile {\n    margin-top: 10px;\n    padding: 20px 0 0 0;\n  }\n  .profile .settings-icon {\n    margin-right: 0;\n  }\n  .profile figure {\n    padding: 20px 0 14px;\n  }\n  .profile figure div {\n    width: 140px;\n    height: 140px;\n  }\n  .profile figure span.profile-image {\n    width: 140px;\n    height: 140px;\n    font-size: 52px;\n    line-height: 130px;\n  }\n  .profile figure img {\n    height: 140px;\n  }\n  .profile figure figcaption {\n    margin-top: 17px;\n  }\n  .profile figure figcaption li {\n    padding: 0 20px;\n  }\n  .profile figure figcaption li span {\n    font-size: 14px;\n  }\n  .profile figure figcaption li span:last-child {\n    font-size: 18px;\n  }\n  .profile .relative {\n    height: 232px;\n  }\n  .profile #settings-form figure .upload {\n    width: 140px;\n    height: 140px;\n    padding: 47px 15px;\n    font-size: 14px;\n  }\n  .profile #settings-form figure figcaption {\n    width: 140px;\n    height: 140px;\n    padding: 41px 15px;\n  }\n  .profile #settings-form figure figcaption label {\n    font-size: 16px;\n    line-height: 24px;\n    font-weight: normal;\n  }\n  .profile ol {\n    padding: 40px 40px 30px;\n    font-size: 16px;\n  }\n  .profile ol li {\n    margin-bottom: 15px;\n  }\n  .profile ol li a,\n  .profile ol li .profile-title {\n    font-size: 16px;\n  }\n  .profile ol li span {\n    font-size: 14px;\n  }\n  .profile h1 span {\n    font-size: 45px;\n    padding: 0 20px 2px;\n    white-space: nowrap;\n  }\n  .profile h1 span.title-smaller,\n  .profile figcaption span.title-smaller {\n    font-size: 26px;\n    line-height: 51px;\n  }\n  .profile h1 span.title-smaller span,\n  .profile figcaption span.title-smaller span {\n    padding: 7px 20px 14px;\n  }\n  .profile p {\n    padding: 3px 20px 6px;\n    margin-bottom: 15px;\n    font-size: 20px;\n  }\n  .profile .profile-information {\n    margin: 110px auto 0;\n  }\n  .profile .profile-information a.text-gray {\n    margin-left: 30px;\n  }\n}\n@media (min-width: 1200px) {\n  .profile h1 span {\n    font-size: 52px;\n    line-height: 78px;\n  }\n}\n"
-
-/***/ },
-
-/***/ 945:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.top-ideas .idea-item figure {\n  margin-bottom: 15px;\n}\n.featured-icon {\n  display: inline-block;\n  width: 27px;\n  height: 27px;\n  background: url('../../../assets/images/featured.svg') no-repeat center center;\n  margin-right: 5px;\n  vertical-align: middle;\n}\n.suggested-icon {\n  display: inline-block;\n  width: 27px;\n  height: 28px;\n  background: url('../../../assets/images/ideas.svg') no-repeat center center;\n  vertical-align: middle;\n}\n"
-
-/***/ },
-
-/***/ 946:
-/***/ function(module, exports) {
-
-module.exports = "<!--{% if user is defined and user.profileCompletedPercent != 100 %}-->\n<div class=\"complete-profile\" *ngIf=\"percent != 100\">\n\n    <div class=\"bg-white round padding\" >\n        <!--*ngIf=\"{{ user.getCompletedPercent()|round(1, 'floor') }} != 100\"-->\n      <div class=\"row\">\n        <em>{{ 'complete_message'|translate }}</em>\n        <div class=\"col-xs-10\">\n\n          <div class=\"progress\">\n            <div class=\"progress-bar progress-bar-striped\"\n                 role=\"progressbar\">\n                <!--style=\"width: {{ user.getCompletedPercent()|round(1, 'floor') }}%\"-->\n              <!--{% if app.request.locale == 'ru' %}-->\n              {{ 'account.complete'|translate }}\n                <!--{{ user.getCompletedPercent()|round(1, 'floor') }}%-->\n              <!--{% else %}-->\n              <!--{{ user.getCompletedPercent()|round(1, 'floor') }}% -->\n                {{ 'account.complete'|translate }}\n              <!--{% endif %}-->\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"col-xs-2\">\n          <a class=\"text-gray\"\n             (click)=\"completeProfileProperties=!completeProfileProperties\">\n            <i class=\"icon-question-icon \" *ngIf=\"!completeProfileProperties\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n            <i class=\"icon-icon-up \" *ngIf=\"completeProfileProperties\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n          </a>\n        </div>\n      </div>\n\n    </div>\n\n    <ol class=\"slide\" *ngIf=\"completeProfileProperties\">\n      <li>\n            <span>\n                {{ 'security.login.sign_up'|translate }}\n                <i class=\"icon-ok-only\"></i>\n            </span>\n      </li>\n      <li>\n            <span>{{ 'account.complete_text'|translate }}\n                <!--{% if user.registrationToken is null %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n\n      </li>\n      <li>\n        <!--{% if user.socialPhotoLink or  user.fileName %}-->\n                    <span>{{ 'image_complete_text'|translate }}\n                        <i class=\"icon-ok-only\"></i>\n                    </span>\n        <!--{% else %}-->\n\n        <!--<a href=\"{{ path('edit_user_profile') }}\">-->\n          <!--<strong>{{ 'image_complete_text'|translate }}</strong>-->\n          <!--<i class=\"icon-question-only\"></i>-->\n        <!--</a>-->\n        <!--{% endif %}-->\n      </li>\n      <li>\n        <a routerLink=\"/goal/create\"><strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>\n          <!--{% if user.userGoalCount > 0 %}-->\n          <i class=\"icon-ok-only\"></i>\n          <!--{% else %}-->\n          <i class=\"icon-question-only\"></i>\n          <!--{% endif %}-->\n        </a>\n      </li>\n      <li>\n            <span>{{ 'deadline.complete_text'|translate }}\n                <!--{% if user.checkDeadLines() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n      </li>\n      <li>\n            <span>{{ 'goal.complete_text'|translate }}\n                <!--{% if user.checkCompletedGoals() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n      </li>\n\n      <li>\n            <span>{{ 'success_story.complete_text'|translate }}\n                <!--{% if user.checkSuccessStory() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n      </li>\n    </ol>\n</div>\n<!--{% endif %}-->"
-
-/***/ },
-
-/***/ 947:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"right-menu\">\n  <div class=\"padding padding-bottom bg-white round\">\n    <ul class=\"row\">\n      <li class=\"col-xs-7\">\n        <i class=\"icon-creat-icon\"></i>\n        <a routerLink=\"/goal/create\">{{ 'right_menu.create'|translate }}</a>\n      </li>\n      <li class=\"col-xs-5 text-right\">\n        <!--{% if profileUser.id == app.user.id %}-->\n        <a routerLink=\"/goal/my-ideas\" *ngIf=\"myProfile\">{{ 'right_menu.my_ideas'|translate }} {{ myIdeasCount }}</a>\n        <!--{% endif %}-->\n      </li>\n    </ul>\n  </div>\n</div>"
-
-/***/ },
-
-/***/ 948:
-/***/ function(module, exports) {
-
-module.exports = "<div *ngIf=\"users\">\n  <div class=\"bg-white padding round margin-top\">\n\n  <div class=\"row\">\n      <div class=\"col-xs-10\">\n\n        <a routerLink=\"/goal-friends\" class=\"heading text-gray\">\n          <i class=\"goalfrined-icon\"></i>\n          <span class=\"text\">{{ 'goalfriends'|translate }} {{ length}}</span>\n        </a>\n      </div>\n\n      <div class=\"col-xs-2 text-right\">\n        <a (click)=\"refreshGoalFriends()\" class=\"load\" id=\"goalFriendLoad\"></a>\n      </div>\n    </div>\n\n    <hr class=\"hr-margin\"/>\n\n    <ul class=\"list\">\n      <li class=\"clearfix friends-animate\" *ngFor=\"let user of users\">\n        <goal-friend [user]=\"user\"></goal-friend>\n      </li>\n    </ul>\n  </div>\n</div>\n"
-
-/***/ },
-
-/***/ 949:
-/***/ function(module, exports) {
-
-module.exports = "<div id=\"leaderboard-list\" *ngIf=\"normOfTop > 0\">\n\n  <div class=\"bg-white padding round margin-top\">\n    <div class=\"row\">\n      <div class=\"col-xs-10\">\n        <a routerLink=\"/leaderboard\" routerLinkActive=\"active\" class=\"heading text-gray\">\n          <i class=\"icon-suggest-icon\"></i>\n          <span class=\"text\">{{ 'leaderboard.name'|translate }}</span>\n        </a>\n      </div>\n\n      <div class=\"col-xs-2 text-right\">\n        <a (click)=\"refreshLeaderboards($event)\" class=\"load\" id=\"goalFriendLoad\"></a>\n      </div>\n    </div>\n\n    <hr class=\"hr-margin\"/>\n\n    <ul>\n      <li *ngFor=\"let badge of users;let i = index\">\n        <leaderboard [badge]=\"badge\" [index]=\"i\">\n          <!--<leaderboard ></leaderboard>-->\n        </leaderboard>\n      </li>\n    </ul>\n\n  </div>\n</div>\n"
-
-/***/ },
-
-/***/ 950:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"bg-white round padding\">\n\n  <a routerLink=\"/profile\" routerLinkActive=\"active\" class=\"heading text-gray\">\n    <i class=\"mybuucketlist\"></i>\n    {{ 'my_bucketlist'|translate}}\n  </a>\n\n  <hr class=\"hr-margin\"/>\n\n  <ul class=\"horizontal-menu {{ 'lng'| translate}}\" >\n    <li>\n      <a routerLink=\"/profile/active-goals\" routerLinkActive=\"active\">\n        <strong>{{ 'user_goal.active'|translate}}</strong>\n        <span *ngIf=\"true\">1</span>\n      </a>\n    </li>\n\n    <li>\n      <a routerLink=\"/profile\" routerLinkActive=\"active\">\n        <strong>{{ 'block_listed'|translate}}</strong>\n        <span *ngIf=\"true\">2</span>\n      </a>\n    </li>\n\n    <li>\n      <a routerLink=\"/profile/completed-goals\" routerLinkActive=\"active\">\n        <strong>{{ 'block_completed'|translate}}</strong>\n        <span *ngIf=\"true\">3</span>\n      </a>\n    </li>\n  </ul>\n</div>\n\n"
-
-/***/ },
-
-/***/ 951:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"content-header\">\n<figure [class.my-profile]=\"!userInfo || userInfo == 'my'\">\n\n  <span class=\"overlay\"></span>\n  <img src=\"{{ (profileUser && profileUser.getPhotoLink)?profileUser.getPhotoLink: imgPath}}\" alt=\"Profile Cover Photo\" class=\"img-responsive\" />\n\n  <!--{% if profileUser.getPhotoLink %}-->\n                <!--{{ profileUser.getPhotoLink|blImageFilter('user_cover') }}-->\n            <!--{% else %}-->\n                <!--{{ asset(imgPath) }}-->\n            <!--{% endif %}\"-->\n</figure>\n\n<div class=\"profile\">\n  <div class=\"container\">\n\n    <div class=\"row\">\n      <div class=\"col-sm-4\">\n        <figure>\n\n          <a routerLink=\"/edit/profile\" routerLinkActive=\"active\" *ngIf=\"!userInfo || userInfo == 'my'\" class=\"mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon\">settings </a>\n\n          <div>\n            <img src=\"{{ profileUser.getPhotoLink }}\" *ngIf=\"profileUser && profileUser.getPhotoLink\" alt=\"Profile image\" class=\"img-responsive img-circle\"/>\n            <!--{{ profileUser.getPhotoLink|blImageFilter('user_image') }}-->\n            <span class=\"no-image profile-image profile-image1\" *ngIf=\"!profileUser || !profileUser.getPhotoLink\">{{ nameOnImage }}</span>\n          </div>\n\n          <figcaption>\n\n            <h3>\n              <span  *ngIf=\"isMobile\" [class.title-smaller]=\"profileUser && profileUser.showName && profileUser.showName.length > 12\">\n                  <span *ngIf=\"profileUser && profileUser.showName\">{{ profileUser.showName }}</span>\n              </span>\n            </h3>\n\n            <!--{% if profileUser.id != app.user.id %}-->\n            <!--data-ls-follow-manage-->\n\n            <span class=\"close-friends hidden-sm hidden-md hidden-lg\"\n                  *ngIf=\"userInfo && userInfo != 'my'\"\n                  (click)=\"toggleFollow()\"\n                  (mouseleave)=\"hoverEmitter.emit(null)\"\n                  (mousemove)=\"hoverEmitter.emit({ ev:$event, val:(isFollow?'my_bucket_list.un_follow': 'my_bucket_list.follow')})\">\n                  <!--data-ng-init=\"isFollow = {{ app.user.isFollowing(profileUser) }}\"-->\n                  <!--data-ls-user-id=\"{{ profileUser.id }}\"-->\n                  <!--data-ls-is-follow=\"isFollow\">-->\n\n              <i class=\"follow-icon\" *ngIf=\"!isFollow\" title=\"{{ 'my_bucket_list.follow'|translate }}\"></i>\n              <i class=\"closefriend-icon\" *ngIf=\"isFollow\" title=\"{{ 'my_bucket_list.un_follow'|translate }}\"></i>\n              <span *ngIf=\"!isFollow\">{{ 'my_bucket_list.follow' | translate | uppercase }}</span>\n              <span *ngIf=\"isFollow\">{{ 'my_bucket_list.un_follow' | translate | uppercase }}</span>\n            </span>\n            <!--{% endif %}-->\n\n            <ul>\n              <li>\n                <span>{{ 'block_listed'|translate | capitalize }}</span>\n                <span>{{ listedBy }}</span>\n              </li>\n\n              <li>\n                <span>{{ 'user_goal.active'|translate | capitalize }}</span>\n                <span>{{ active }}</span>\n              </li>\n\n              <li>\n                <span>{{ 'block_completed'|translate |capitalize }}</span>\n                <span>{{ doneBy }}</span>\n              </li>\n            </ul>\n          </figcaption>\n        </figure>\n      </div>\n      <div class=\"col-sm-4 hidden-xs relative\">\n\n        <!--{% if profileUser.showName %}-->\n        <h1 *ngIf=\"profileUser && profileUser.showName\">\n          <span class=\"bg-blue\" [class.title-smaller]=\"profileUser.showName.length > 11\"></span>\n          {{ profileUser.showName }}\n        </h1>\n        <!--{% endif %}-->\n\n        <span class=\"close-friends hidden-xs\"\n              *ngIf=\"userInfo && userInfo != 'my'\"\n              (click)=\"toggleFollow()\"\n              (mouseleave)=\"hoverEmitter.emit(null)\"\n              (mousemove)=\"hoverEmitter.emit({ ev:$event, val:(isFollow?'my_bucket_list.un_follow': 'my_bucket_list.follow')})\">\n                  <!--data-ng-init=\"isFollow = {{ app.user.isFollowing(profileUser) }}\"-->\n          <!--data-ls-user-id=\"{{ profileUser.id }}\"-->\n          <!--data-ls-is-follow=\"isFollow\">-->\n\n              <i class=\"follow-icon\" *ngIf=\"!isFollow\" title=\"{{ 'my_bucket_list.follow'|translate }}\"></i>\n              <i class=\"closefriend-icon\" *ngIf=\"isFollow\" title=\"{{ 'my_bucket_list.un_follow'|translate }}\"></i>\n              <span *ngIf=\"!isFollow\">{{ 'my_bucket_list.follow' | translate | uppercase }}</span>\n              <span *ngIf=\"isFollow\">{{ 'my_bucket_list.un_follow' | translate | uppercase }}</span>\n        </span>\n\n        <!--{% set badges = profileUser.getBadges %}-->\n\n        <ul class=\"badge-place\">\n\n          <!--{% set badgeTitles = {-->\n          <!--1 : 'leaderboard.traveler'|translate,-->\n          <!--2 : 'leaderboard.writer'|translate,-->\n          <!--3 : 'leaderboard.innovator'|translate-->\n          <!--} %}-->\n\n          <!--{% for badge in badges %}-->\n\n          <!--{% set score = badgeNormalizer(badge.type, badge.Score) %}-->\n\n          <!--{% if score  > 0 %}-->\n          <li *ngFor=\"let badge of badges\">\n            <i title=\"{{ (badge.type == 1?'leaderboard.traveler': badge.type == 2?'leaderboard.writer':'leaderboard.innovator')|translate }}\" class=\"badge-{{ badge.type }}\"></i>\n             <a routerLink=\"/leaderboard\" routerLinkActive=\"active\">{{ score }}</a>\n            <!--{{ score|round(0, 'ceil')}}-->\n          </li>\n          <!--{% endif %}-->\n\n          <!--{% endfor %}-->\n        </ul>\n      </div>\n\n      <!--{% if profileUser.id == app.user.id %}-->\n      <div class=\"col-sm-4\" [class.bg-white]=\"isMobile\" *ngIf=\"!userInfo || userInfo == 'my'\">\n        <div class=\"text-right hidden-xs\">\n          <a routerLink=\"/edit/profile\" class=\"settings-icon\"></a>\n        </div>\n\n        <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->\n        <div class=\"profile-information\" *ngIf=\"user && user.completedPercent != 100\">\n          <em>{{ 'complete_message'|translate }}</em>\n\n          <div class=\"row no-gutter\">\n            <div class=\"col-xs-10\">\n              <div class=\"progress\">\n                <div class=\"progress-bar progress-bar-striped\"\n                     role=\"progressbar\"\n                     aria-valuenow=\"45\"\n                     aria-valuemin=\"0\"\n                     aria-valuemax=\"100\"\n                     [ngStyle]=\"{'width.%': user.completedPercent| round}\">\n\n                  {{ user.getCompletedPercent|round }}%\n                </div>\n              </div>\n            </div>\n            <div class=\"col-xs-2\">\n              <a class=\"text-gray\" (click)=\"completeProfileMyBucketList=!completeProfileMyBucketList\">\n                <i class=\"question-icon-new\" [hidden]=\"completeProfileMyBucketList || isMobile\"></i>\n                <i class=\"icon-question-icon\" [hidden]=\"completeProfileMyBucketList || !isMobile\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n                <i class=\"icon-icon-up\" *ngIf=\"completeProfileMyBucketList\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n              </a>\n            </div>\n          </div>\n\n        </div>\n        <!--{% endif %}-->\n      </div>\n    </div>\n    <!--{% if app.session.flashBag.has('success') %}-->\n    <!--<div class=\"alert alert-success alert-dismissible \">-->\n      <!--{% for msg in app.session.flashBag.get('success') %}-->\n      <!--{{ msg }}-->\n      <!--<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">-->\n        <!--<span aria-hidden=\"true\">&times;</span>-->\n      <!--</button>-->\n      <!--{% endfor %}-->\n    <!--</div>-->\n    <!--{% endif %}-->\n\n\n    <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->\n    <div class=\"row slide\" *ngIf=\"user && user.completedPercent != 100 && completeProfileMyBucketList\">\n      <!--data-ng-cloak *ngIf=\"completeProfileMyBucketList\" style=\"display: none\"-->\n      <div class=\"col-sm-6\">\n        <ol style=\"position: relative;\">\n          <li>\n            <span class=\"profile-title\">\n                {{ 'security.login.sign_up'|translate }}\n                <i class=\"icon-ok-only\"></i>\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.signed_up'|translate }}</span>\n          </li>\n          <li>\n            <span class=\"profile-title\">{{ 'account.complete_text'|translate }}\n                <!--{% if user.registrationToken is null %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.verification'|translate }}</span>\n            <span class=\"text-gray\">{{ 'my_list.confirm'|translate }}</span>\n          </li>\n          <li>\n            <!--{% if user.socialPhotoLink or  user.fileName %}-->\n            <span class=\"profile-title\">{{ 'image_complete_text'|translate }}\n                <i class=\"icon-ok-only\"></i>\n            </span>\n\n            <a routerLink=\"/edit/profile\" >\n              <strong>{{ 'image_complete_text'|translate }}</strong>\n              <i class=\"icon-question-only\"></i>\n            </a>\n\n            <!--{% endif %}-->\n            <span class=\"text-gray\">{{ 'my_list.add_image'|translate }}</span>\n\n          </li>\n          <li>\n            <a routerLink=\"/goal/create\">\n              <strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>\n              <!--{% if user.getUserGoalCount|length > 0 %}-->\n              <i class=\"icon-ok-only\"></i>\n              <!--{% else %}-->\n              <i class=\"icon-question-only\"></i>\n              <!--{% endif %}-->\n            </a>\n\n            <span class=\"text-gray\">{{ 'my_list.want_control'|translate }}</span>\n            <span class=\"text-gray\">{{ 'my_list.follow_link'|translate }}</span>\n          </li>\n        </ol>\n\n      </div>\n\n      <div class=\"col-sm-6\">\n        <ol style=\"position: relative\" start=\"5\">\n          <li>\n            <span class=\"profile-title\">{{ 'deadline.complete_text'|translate }}\n                <!--{% if user.checkDeadLines() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.dream_text'|translate }}</span>\n          </li>\n          <li>\n            <span class=\"profile-title\">{{ 'goal.complete_text'|translate }}\n                <!--{% if user.checkCompletedGoals() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.have_goal'|translate }}</span>\n          </li>\n\n          <li>\n            <span class=\"profile-title\">{{ 'success_story.complete_text'|translate | capitalize}}\n                <!--{% if user.checkSuccessStory() %}-->\n                    <i class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n            <span class=\"text-gray\">{{ 'my_list.complete_goal'|translate }}</span>\n          </li>\n        </ol>\n\n      </div>\n    </div>\n    <!--{% endif %}-->\n\n  </div>\n</div>\n</div>"
-
-/***/ },
-
-/***/ 952:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"top-ideas\">\n    <div class=\"bg-white padding round margin-top\" *ngIf=\"goals && goals.length\">\n        <div class=\"row\">\n          <div class=\"col-xs-10\">\n            <a routerLink=\"/ideas/most-popular\" class=\"heading text-gray\">\n              <i [ngClass]=\"{'icon-top-idea': type == categories[0],'featured-icon': type == categories[2],'suggested-icon': type == categories[1]}\"></i>\n              <span class=\"text\">{{ (type == categories[0])?('right_menu.ideas'|translate ): (type == categories[2])? ('featured_ideas'|translate):('right_menu.suggested'|translate) }}</span>\n            </a>\n          </div>\n\n          <div class=\"col-xs-2 text-right\">\n            <a  (click)=\"refreshIdeas()\" class=\"load\" id=\"topIdeasLoad\"></a>\n          </div>\n        </div>\n\n        <hr class=\"hr-margin\"/>\n\n        <div *ngFor=\"let goal of goals\" class=\"row idea-item\">\n            <div class=\"col-sm-6 col-md-12\">\n                <figure>\n                    <app-goal [goal]=\"goal\"></app-goal>\n                    <figcaption class=\"footer-bordered\">\n                        <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n                    </figcaption>\n                </figure>\n            </div>\n        </div>\n\n    </div>\n</div>"
-
-/***/ },
-
-/***/ 953:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ exports["a"] = coerceBooleanProperty;
-/** Coerces a data-bound value (typically a string) to a boolean. */
-function coerceBooleanProperty(value) {
-    return value != null && "" + value !== 'false';
-}
-
-//# sourceMappingURL=boolean-property.js.map
-
-
-/***/ },
-
-/***/ 954:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ViewportRuler; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-/**
- * Simple utility for getting the bounds of the browser viewport.
- * @docs-private
- */
-var ViewportRuler = (function () {
-    function ViewportRuler() {
-    }
-    // TODO(jelbourn): cache the document's bounding rect and only update it when the window
-    // is resized (debounced).
-    /** Gets a ClientRect for the viewport's bounds. */
-    ViewportRuler.prototype.getViewportRect = function () {
-        // Use the document element's bounding rect rather than the window scroll properties
-        // (e.g. pageYOffset, scrollY) due to in issue in Chrome and IE where window scroll
-        // properties and client coordinates (boundingClientRect, clientX/Y, etc.) are in different
-        // conceptual viewports. Under most circumstances these viewports are equivalent, but they
-        // can disagree when the page is pinch-zoomed (on devices that support touch).
-        // See https://bugs.chromium.org/p/chromium/issues/detail?id=489206#c4
-        // We use the documentElement instead of the body because, by default (without a css reset)
-        // browsers typically give the document body an 8px margin, which is not included in
-        // getBoundingClientRect().
-        var documentRect = document.documentElement.getBoundingClientRect();
-        var scrollPosition = this.getViewportScrollPosition(documentRect);
-        var height = window.innerHeight;
-        var width = window.innerWidth;
-        return {
-            top: scrollPosition.top,
-            left: scrollPosition.left,
-            bottom: scrollPosition.top + height,
-            right: scrollPosition.left + width,
-            height: height,
-            width: width,
-        };
+    /** @internal */
+    SebmGoogleMapCircle.prototype.ngOnDestroy = function () {
+        this._eventSubscriptions.forEach(function (s) { s.unsubscribe(); });
+        this._eventSubscriptions = null;
+        this._manager.removeCircle(this);
     };
     /**
-     * Gets the (top, left) scroll position of the viewport.
-     * @param documentRect
+     * Gets the LatLngBounds of this Circle.
      */
-    ViewportRuler.prototype.getViewportScrollPosition = function (documentRect) {
-        if (documentRect === void 0) { documentRect = document.documentElement.getBoundingClientRect(); }
-        // The top-left-corner of the viewport is determined by the scroll position of the document
-        // body, normally just (scrollLeft, scrollTop). However, Chrome and Firefox disagree about
-        // whether `document.body` or `document.documentElement` is the scrolled element, so reading
-        // `scrollTop` and `scrollLeft` is inconsistent. However, using the bounding rect of
-        // `document.documentElement` works consistently, where the `top` and `left` values will
-        // equal negative the scroll position.
-        var top = -documentRect.top || document.body.scrollTop || window.scrollY || 0;
-        var left = -documentRect.left || document.body.scrollLeft || window.scrollX || 0;
-        return { top: top, left: left };
-    };
-    ViewportRuler = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
-        __metadata('design:paramtypes', [])
-    ], ViewportRuler);
-    return ViewportRuler;
+    SebmGoogleMapCircle.prototype.getBounds = function () { return this._manager.getBounds(this); };
+    SebmGoogleMapCircle.prototype.getCenter = function () { return this._manager.getCenter(this); };
+    SebmGoogleMapCircle._mapOptions = [
+        'fillColor', 'fillOpacity', 'strokeColor', 'strokeOpacity', 'strokePosition', 'strokeWeight',
+        'visible', 'zIndex'
+    ];
+    SebmGoogleMapCircle.decorators = [
+        { type: core_1.Directive, args: [{
+                    selector: 'sebm-google-map-circle',
+                    inputs: [
+                        'latitude', 'longitude', 'clickable', 'draggable: circleDraggable', 'editable', 'fillColor',
+                        'fillOpacity', 'radius', 'strokeColor', 'strokeOpacity', 'strokePosition', 'strokeWeight',
+                        'visible', 'zIndex'
+                    ],
+                    outputs: [
+                        'centerChange', 'circleClick', 'circleDblClick', 'drag', 'dragEnd', 'dragStart', 'mouseDown',
+                        'mouseMove', 'mouseOut', 'mouseOver', 'mouseUp', 'radiusChange', 'rightClick'
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    SebmGoogleMapCircle.ctorParameters = [
+        { type: circle_manager_1.CircleManager, },
+    ];
+    return SebmGoogleMapCircle;
 }());
-
-//# sourceMappingURL=viewport-ruler.js.map
-
+exports.SebmGoogleMapCircle = SebmGoogleMapCircle;
+//# sourceMappingURL=google-map-circle.js.map
 
 /***/ },
+/* 1101 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 957:
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var marker_manager_1 = __webpack_require__(1018);
+var google_map_info_window_1 = __webpack_require__(1071);
+var markerId = 0;
+/**
+ * SebmGoogleMapMarker renders a map marker inside a {@link SebmGoogleMap}.
+ *
+ * ### Example
+ * ```typescript
+ * import { Component } from 'angular2/core';
+ * import { SebmGoogleMap, SebmGoogleMapMarker } from 'angular2-google-maps/core';
+ *
+ * @Component({
+ *  selector: 'my-map-cmp',
+ *  directives: [SebmGoogleMap, SebmGoogleMapMarker],
+ *  styles: [`
+ *    .sebm-google-map-container {
+ *      height: 300px;
+ *    }
+ * `],
+ *  template: `
+ *    <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+ *      <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [label]="'M'">
+ *      </sebm-google-map-marker>
+ *    </sebm-google-map>
+ *  `
+ * })
+ * ```
+ */
+var SebmGoogleMapMarker = (function () {
+    function SebmGoogleMapMarker(_markerManager) {
+        this._markerManager = _markerManager;
+        /**
+         * If true, the marker can be dragged. Default value is false.
+         */
+        this.draggable = false;
+        /**
+         * If true, the marker is visible
+         */
+        this.visible = true;
+        /**
+         * Whether to automatically open the child info window when the marker is clicked.
+         */
+        this.openInfoWindow = true;
+        /**
+         * The marker's opacity between 0.0 and 1.0.
+         */
+        this.opacity = 1;
+        /**
+         * All markers are displayed on the map in order of their zIndex, with higher values displaying in
+         * front of markers with lower values. By default, markers are displayed according to their
+         * vertical position on screen, with lower markers appearing in front of markers further up the
+         * screen.
+         */
+        this.zIndex = 1;
+        /**
+         * This event emitter gets emitted when the user clicks on the marker.
+         */
+        this.markerClick = new core_1.EventEmitter();
+        /**
+         * This event is fired when the user stops dragging the marker.
+         */
+        this.dragEnd = new core_1.EventEmitter();
+        /**
+         * This event is fired when the user mouses over the marker.
+         */
+        this.mouseOver = new core_1.EventEmitter();
+        /**
+         * This event is fired when the user mouses outside the marker.
+         */
+        this.mouseOut = new core_1.EventEmitter();
+        this._markerAddedToManger = false;
+        this._observableSubscriptions = [];
+        this._id = (markerId++).toString();
+    }
+    /* @internal */
+    SebmGoogleMapMarker.prototype.ngAfterContentInit = function () {
+        if (this.infoWindow != null) {
+            this.infoWindow.hostMarker = this;
+        }
+    };
+    /** @internal */
+    SebmGoogleMapMarker.prototype.ngOnChanges = function (changes) {
+        if (typeof this.latitude !== 'number' || typeof this.longitude !== 'number') {
+            return;
+        }
+        if (!this._markerAddedToManger) {
+            this._markerManager.addMarker(this);
+            this._markerAddedToManger = true;
+            this._addEventListeners();
+            return;
+        }
+        if (changes['latitude'] || changes['longitude']) {
+            this._markerManager.updateMarkerPosition(this);
+        }
+        if (changes['title']) {
+            this._markerManager.updateTitle(this);
+        }
+        if (changes['label']) {
+            this._markerManager.updateLabel(this);
+        }
+        if (changes['draggable']) {
+            this._markerManager.updateDraggable(this);
+        }
+        if (changes['iconUrl']) {
+            this._markerManager.updateIcon(this);
+        }
+        if (changes['opacity']) {
+            this._markerManager.updateOpacity(this);
+        }
+        if (changes['visible']) {
+            this._markerManager.updateVisible(this);
+        }
+        if (changes['zIndex']) {
+            this._markerManager.updateZIndex(this);
+        }
+    };
+    SebmGoogleMapMarker.prototype._addEventListeners = function () {
+        var _this = this;
+        var cs = this._markerManager.createEventObservable('click', this).subscribe(function () {
+            if (_this.openInfoWindow && _this.infoWindow != null) {
+                _this.infoWindow.open();
+            }
+            _this.markerClick.emit(null);
+        });
+        this._observableSubscriptions.push(cs);
+        var ds = this._markerManager.createEventObservable('dragend', this)
+            .subscribe(function (e) {
+            _this.dragEnd.emit({ coords: { lat: e.latLng.lat(), lng: e.latLng.lng() } });
+        });
+        this._observableSubscriptions.push(ds);
+        var mover = this._markerManager.createEventObservable('mouseover', this)
+            .subscribe(function (e) {
+            _this.mouseOver.emit({ coords: { lat: e.latLng.lat(), lng: e.latLng.lng() } });
+        });
+        this._observableSubscriptions.push(mover);
+        var mout = this._markerManager.createEventObservable('mouseout', this)
+            .subscribe(function (e) {
+            _this.mouseOut.emit({ coords: { lat: e.latLng.lat(), lng: e.latLng.lng() } });
+        });
+        this._observableSubscriptions.push(mout);
+    };
+    /** @internal */
+    SebmGoogleMapMarker.prototype.id = function () { return this._id; };
+    /** @internal */
+    SebmGoogleMapMarker.prototype.toString = function () { return 'SebmGoogleMapMarker-' + this._id.toString(); };
+    /** @internal */
+    SebmGoogleMapMarker.prototype.ngOnDestroy = function () {
+        this._markerManager.deleteMarker(this);
+        // unsubscribe all registered observable subscriptions
+        this._observableSubscriptions.forEach(function (s) { return s.unsubscribe(); });
+    };
+    SebmGoogleMapMarker.decorators = [
+        { type: core_1.Directive, args: [{
+                    selector: 'sebm-google-map-marker',
+                    inputs: [
+                        'latitude', 'longitude', 'title', 'label', 'draggable: markerDraggable', 'iconUrl',
+                        'openInfoWindow', 'opacity', 'visible', 'zIndex'
+                    ],
+                    outputs: ['markerClick', 'dragEnd', 'mouseOver', 'mouseOut']
+                },] },
+    ];
+    /** @nocollapse */
+    SebmGoogleMapMarker.ctorParameters = [
+        { type: marker_manager_1.MarkerManager, },
+    ];
+    SebmGoogleMapMarker.propDecorators = {
+        'infoWindow': [{ type: core_1.ContentChild, args: [google_map_info_window_1.SebmGoogleMapInfoWindow,] },],
+    };
+    return SebmGoogleMapMarker;
+}());
+exports.SebmGoogleMapMarker = SebmGoogleMapMarker;
+//# sourceMappingURL=google-map-marker.js.map
+
+/***/ },
+/* 1102 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var polygon_manager_1 = __webpack_require__(1076);
+/**
+ * SebmGoogleMapPolygon renders a polygon on a {@link SebmGoogleMap}
+ *
+ * ### Example
+ * ```typescript
+ * import { Component } from '@angular/core';
+ * import { SebmGoogleMap, SebmGooglePolygon, LatLngLiteral } from 'angular2-maps/core';
+ *
+ * @Component({
+ *  selector: 'my-map-cmp',
+ *  styles: [`
+ *    .semb-map-container {
+ *      height: 300px;
+ *    }
+ * `],
+ *  template: `
+ *    <semb-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+ *      <semb-map-polygon [paths]="paths">
+ *      </semb-map-polygon>
+ *    </semb-map>
+ *  `
+ * })
+ * export class MyMapCmp {
+ *   lat: number = 0;
+ *   lng: number = 0;
+ *   zoom: number = 10;
+ *   paths: Array<LatLngLiteral> = [
+ *     { lat: 0,  lng: 10 },
+ *     { lat: 0,  lng: 20 },
+ *     { lat: 10, lng: 20 },
+ *     { lat: 10, lng: 10 },
+ *     { lat: 0,  lng: 10 }
+ *   ]
+ *   // Nesting paths will create a hole where they overlap;
+ *   nestedPaths: Array<Array<LatLngLiteral>> = [[
+ *     { lat: 0,  lng: 10 },
+ *     { lat: 0,  lng: 20 },
+ *     { lat: 10, lng: 20 },
+ *     { lat: 10, lng: 10 },
+ *     { lat: 0,  lng: 10 }
+ *   ], [
+ *     { lat: 0, lng: 15 },
+ *     { lat: 0, lng: 20 },
+ *     { lat: 5, lng: 20 },
+ *     { lat: 5, lng: 15 },
+ *     { lat: 0, lng: 15 }
+ *   ]]
+ * }
+ * ```
+ */
+var SebmGoogleMapPolygon = (function () {
+    function SebmGoogleMapPolygon(_polygonManager) {
+        this._polygonManager = _polygonManager;
+        /**
+         * Indicates whether this Polygon handles mouse events. Defaults to true.
+         */
+        this.clickable = true;
+        /**
+         * If set to true, the user can drag this shape over the map. The geodesic
+         * property defines the mode of dragging. Defaults to false.
+         */
+        this.draggable = false;
+        /**
+         * If set to true, the user can edit this shape by dragging the control
+         * points shown at the vertices and on each segment. Defaults to false.
+         */
+        this.editable = false;
+        /**
+         * When true, edges of the polygon are interpreted as geodesic and will
+         * follow the curvature of the Earth. When false, edges of the polygon are
+         * rendered as straight lines in screen space. Note that the shape of a
+         * geodesic polygon may appear to change when dragged, as the dimensions
+         * are maintained relative to the surface of the earth. Defaults to false.
+         */
+        this.geodesic = false;
+        /**
+         * The ordered sequence of coordinates that designates a closed loop.
+         * Unlike polylines, a polygon may consist of one or more paths.
+         *  As a result, the paths property may specify one or more arrays of
+         * LatLng coordinates. Paths are closed automatically; do not repeat the
+         * first vertex of the path as the last vertex. Simple polygons may be
+         * defined using a single array of LatLngs. More complex polygons may
+         * specify an array of arrays. Any simple arrays are converted into Arrays.
+         * Inserting or removing LatLngs from the Array will automatically update
+         * the polygon on the map.
+         */
+        this.paths = [];
+        /**
+         * This event is fired when the DOM click event is fired on the Polygon.
+         */
+        this.polyClick = new core_1.EventEmitter();
+        /**
+         * This event is fired when the DOM dblclick event is fired on the Polygon.
+         */
+        this.polyDblClick = new core_1.EventEmitter();
+        /**
+         * This event is repeatedly fired while the user drags the polygon.
+         */
+        this.polyDrag = new core_1.EventEmitter();
+        /**
+         * This event is fired when the user stops dragging the polygon.
+         */
+        this.polyDragEnd = new core_1.EventEmitter();
+        /**
+         * This event is fired when the user starts dragging the polygon.
+         */
+        this.polyDragStart = new core_1.EventEmitter();
+        /**
+         * This event is fired when the DOM mousedown event is fired on the Polygon.
+         */
+        this.polyMouseDown = new core_1.EventEmitter();
+        /**
+         * This event is fired when the DOM mousemove event is fired on the Polygon.
+         */
+        this.polyMouseMove = new core_1.EventEmitter();
+        /**
+         * This event is fired on Polygon mouseout.
+         */
+        this.polyMouseOut = new core_1.EventEmitter();
+        /**
+         * This event is fired on Polygon mouseover.
+         */
+        this.polyMouseOver = new core_1.EventEmitter();
+        /**
+         * This event is fired whe the DOM mouseup event is fired on the Polygon
+         */
+        this.polyMouseUp = new core_1.EventEmitter();
+        /**
+         * This even is fired when the Polygon is right-clicked on.
+         */
+        this.polyRightClick = new core_1.EventEmitter();
+        this._polygonAddedToManager = false;
+        this._subscriptions = [];
+    }
+    /** @internal */
+    SebmGoogleMapPolygon.prototype.ngAfterContentInit = function () {
+        if (!this._polygonAddedToManager) {
+            this._init();
+        }
+    };
+    SebmGoogleMapPolygon.prototype.ngOnChanges = function (changes) {
+        if (!this._polygonAddedToManager) {
+            this._init();
+            return;
+        }
+        this._polygonManager.setPolygonOptions(this, this._updatePolygonOptions(changes));
+    };
+    SebmGoogleMapPolygon.prototype._init = function () {
+        this._polygonManager.addPolygon(this);
+        this._polygonAddedToManager = true;
+        this._addEventListeners();
+    };
+    SebmGoogleMapPolygon.prototype._addEventListeners = function () {
+        var _this = this;
+        var handlers = [
+            { name: 'click', handler: function (ev) { return _this.polyClick.emit(ev); } },
+            { name: 'dbclick', handler: function (ev) { return _this.polyDblClick.emit(ev); } },
+            { name: 'drag', handler: function (ev) { return _this.polyDrag.emit(ev); } },
+            { name: 'dragend', handler: function (ev) { return _this.polyDragEnd.emit(ev); } },
+            { name: 'dragstart', handler: function (ev) { return _this.polyDragStart.emit(ev); } },
+            { name: 'mousedown', handler: function (ev) { return _this.polyMouseDown.emit(ev); } },
+            { name: 'mousemove', handler: function (ev) { return _this.polyMouseMove.emit(ev); } },
+            { name: 'mouseout', handler: function (ev) { return _this.polyMouseOut.emit(ev); } },
+            { name: 'mouseover', handler: function (ev) { return _this.polyMouseOver.emit(ev); } },
+            { name: 'mouseup', handler: function (ev) { return _this.polyMouseUp.emit(ev); } },
+            { name: 'rightclick', handler: function (ev) { return _this.polyRightClick.emit(ev); } },
+        ];
+        handlers.forEach(function (obj) {
+            var os = _this._polygonManager.createEventObservable(obj.name, _this).subscribe(obj.handler);
+            _this._subscriptions.push(os);
+        });
+    };
+    SebmGoogleMapPolygon.prototype._updatePolygonOptions = function (changes) {
+        return Object.keys(changes)
+            .filter(function (k) { return SebmGoogleMapPolygon._polygonOptionsAttributes.indexOf(k) !== -1; })
+            .reduce(function (obj, k) {
+            obj[k] = changes[k].currentValue;
+            return obj;
+        }, {});
+    };
+    /** @internal */
+    SebmGoogleMapPolygon.prototype.id = function () { return this._id; };
+    /** @internal */
+    SebmGoogleMapPolygon.prototype.ngOnDestroy = function () {
+        this._polygonManager.deletePolygon(this);
+        // unsubscribe all registered observable subscriptions
+        this._subscriptions.forEach(function (s) { return s.unsubscribe(); });
+    };
+    SebmGoogleMapPolygon._polygonOptionsAttributes = [
+        'clickable', 'draggable', 'editable', 'fillColor', 'fillOpacity', 'geodesic', 'icon', 'map',
+        'paths', 'strokeColor', 'strokeOpacity', 'strokeWeight', 'visible', 'zIndex', 'draggable',
+        'editable', 'visible'
+    ];
+    SebmGoogleMapPolygon.decorators = [
+        { type: core_1.Directive, args: [{
+                    selector: 'sebm-map-polygon',
+                    inputs: [
+                        'clickable',
+                        'draggable: polyDraggable',
+                        'editable',
+                        'fillColor',
+                        'fillOpacity',
+                        'geodesic',
+                        'paths',
+                        'strokeColor',
+                        'strokeOpacity',
+                        'strokeWeight',
+                        'visible',
+                        'zIndex',
+                    ],
+                    outputs: [
+                        'polyClick', 'polyDblClick', 'polyDrag', 'polyDragEnd', 'polyMouseDown', 'polyMouseMove',
+                        'polyMouseOut', 'polyMouseOver', 'polyMouseUp', 'polyRightClick'
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    SebmGoogleMapPolygon.ctorParameters = [
+        { type: polygon_manager_1.PolygonManager, },
+    ];
+    return SebmGoogleMapPolygon;
+}());
+exports.SebmGoogleMapPolygon = SebmGoogleMapPolygon;
+//# sourceMappingURL=google-map-polygon.js.map
+
+/***/ },
+/* 1103 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var polyline_manager_1 = __webpack_require__(1077);
+var google_map_polyline_point_1 = __webpack_require__(1072);
+var polylineId = 0;
+/**
+ * SebmGoogleMapPolyline renders a polyline on a {@link SebmGoogleMap}
+ *
+ * ### Example
+ * ```typescript
+ * import { Component } from 'angular2/core';
+ * import { SebmGoogleMap, SebmGooglePolyline, SebmGooglePolylinePoint } from
+ * 'angular2-google-maps/core';
+ *
+ * @Component({
+ *  selector: 'my-map-cmp',
+ *  directives: [SebmGoogleMap, SebmGooglePolyline, SebmGooglePolylinePoint],
+ *  styles: [`
+ *    .sebm-google-map-container {
+ *      height: 300px;
+ *    }
+ * `],
+ *  template: `
+ *    <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+ *      <sebm-google-map-polyline>
+ *          <sebm-google-map-polyline-point [latitude]="latA" [longitude]="lngA">
+ *          </sebm-google-map-polyline-point>
+ *          <sebm-google-map-polyline-point [latitude]="latB" [longitude]="lngB">
+ *          </sebm-google-map-polyline-point>
+ *      </sebm-google-map-polyline>
+ *    </sebm-google-map>
+ *  `
+ * })
+ * ```
+ */
+var SebmGoogleMapPolyline = (function () {
+    function SebmGoogleMapPolyline(_polylineManager) {
+        this._polylineManager = _polylineManager;
+        /**
+         * Indicates whether this Polyline handles mouse events. Defaults to true.
+         */
+        this.clickable = true;
+        /**
+         * If set to true, the user can drag this shape over the map. The geodesic property defines the
+         * mode of dragging. Defaults to false.
+         */
+        this.draggable = false;
+        /**
+         * If set to true, the user can edit this shape by dragging the control points shown at the
+         * vertices and on each segment. Defaults to false.
+         */
+        this.editable = false;
+        /**
+         * When true, edges of the polygon are interpreted as geodesic and will follow the curvature of
+         * the Earth. When false, edges of the polygon are rendered as straight lines in screen space.
+         * Note that the shape of a geodesic polygon may appear to change when dragged, as the dimensions
+         * are maintained relative to the surface of the earth. Defaults to false.
+         */
+        this.geodesic = false;
+        /**
+         * Whether this polyline is visible on the map. Defaults to true.
+         */
+        this.visible = true;
+        /**
+         * This event is fired when the DOM click event is fired on the Polyline.
+         */
+        this.lineClick = new core_1.EventEmitter();
+        /**
+         * This event is fired when the DOM dblclick event is fired on the Polyline.
+         */
+        this.lineDblClick = new core_1.EventEmitter();
+        /**
+         * This event is repeatedly fired while the user drags the polyline.
+         */
+        this.lineDrag = new core_1.EventEmitter();
+        /**
+         * This event is fired when the user stops dragging the polyline.
+         */
+        this.lineDragEnd = new core_1.EventEmitter();
+        /**
+         * This event is fired when the user starts dragging the polyline.
+         */
+        this.lineDragStart = new core_1.EventEmitter();
+        /**
+         * This event is fired when the DOM mousedown event is fired on the Polyline.
+         */
+        this.lineMouseDown = new core_1.EventEmitter();
+        /**
+         * This event is fired when the DOM mousemove event is fired on the Polyline.
+         */
+        this.lineMouseMove = new core_1.EventEmitter();
+        /**
+         * This event is fired on Polyline mouseout.
+         */
+        this.lineMouseOut = new core_1.EventEmitter();
+        /**
+         * This event is fired on Polyline mouseover.
+         */
+        this.lineMouseOver = new core_1.EventEmitter();
+        /**
+         * This event is fired whe the DOM mouseup event is fired on the Polyline
+         */
+        this.lineMouseUp = new core_1.EventEmitter();
+        /**
+         * This even is fired when the Polyline is right-clicked on.
+         */
+        this.lineRightClick = new core_1.EventEmitter();
+        this._polylineAddedToManager = false;
+        this._subscriptions = [];
+        this._id = (polylineId++).toString();
+    }
+    /** @internal */
+    SebmGoogleMapPolyline.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        if (this.points.length) {
+            this.points.forEach(function (point) {
+                var s = point.positionChanged.subscribe(function () { _this._polylineManager.updatePolylinePoints(_this); });
+                _this._subscriptions.push(s);
+            });
+        }
+        if (!this._polylineAddedToManager) {
+            this._init();
+        }
+        var s = this.points.changes.subscribe(function () { return _this._polylineManager.updatePolylinePoints(_this); });
+        this._subscriptions.push(s);
+        this._polylineManager.updatePolylinePoints(this);
+    };
+    SebmGoogleMapPolyline.prototype.ngOnChanges = function (changes) {
+        if (!this._polylineAddedToManager) {
+            this._init();
+            return;
+        }
+        var options = {};
+        var optionKeys = Object.keys(changes).filter(function (k) { return SebmGoogleMapPolyline._polylineOptionsAttributes.indexOf(k) !== -1; });
+        optionKeys.forEach(function (k) { return options[k] = changes[k].currentValue; });
+        this._polylineManager.setPolylineOptions(this, options);
+    };
+    SebmGoogleMapPolyline.prototype._init = function () {
+        this._polylineManager.addPolyline(this);
+        this._polylineAddedToManager = true;
+        this._addEventListeners();
+    };
+    SebmGoogleMapPolyline.prototype._addEventListeners = function () {
+        var _this = this;
+        var handlers = [
+            { name: 'click', handler: function (ev) { return _this.lineClick.emit(ev); } },
+            { name: 'dbclick', handler: function (ev) { return _this.lineDblClick.emit(ev); } },
+            { name: 'drag', handler: function (ev) { return _this.lineDrag.emit(ev); } },
+            { name: 'dragend', handler: function (ev) { return _this.lineDragEnd.emit(ev); } },
+            { name: 'dragstart', handler: function (ev) { return _this.lineDragStart.emit(ev); } },
+            { name: 'mousedown', handler: function (ev) { return _this.lineMouseDown.emit(ev); } },
+            { name: 'mousemove', handler: function (ev) { return _this.lineMouseMove.emit(ev); } },
+            { name: 'mouseout', handler: function (ev) { return _this.lineMouseOut.emit(ev); } },
+            { name: 'mouseover', handler: function (ev) { return _this.lineMouseOver.emit(ev); } },
+            { name: 'mouseup', handler: function (ev) { return _this.lineMouseUp.emit(ev); } },
+            { name: 'rightclick', handler: function (ev) { return _this.lineRightClick.emit(ev); } },
+        ];
+        handlers.forEach(function (obj) {
+            var os = _this._polylineManager.createEventObservable(obj.name, _this).subscribe(obj.handler);
+            _this._subscriptions.push(os);
+        });
+    };
+    /** @internal */
+    SebmGoogleMapPolyline.prototype._getPoints = function () {
+        if (this.points) {
+            return this.points.toArray();
+        }
+        return [];
+    };
+    /** @internal */
+    SebmGoogleMapPolyline.prototype.id = function () { return this._id; };
+    /** @internal */
+    SebmGoogleMapPolyline.prototype.ngOnDestroy = function () {
+        this._polylineManager.deletePolyline(this);
+        // unsubscribe all registered observable subscriptions
+        this._subscriptions.forEach(function (s) { return s.unsubscribe(); });
+    };
+    SebmGoogleMapPolyline._polylineOptionsAttributes = [
+        'draggable', 'editable', 'visible', 'geodesic', 'strokeColor', 'strokeOpacity', 'strokeWeight',
+        'zIndex'
+    ];
+    SebmGoogleMapPolyline.decorators = [
+        { type: core_1.Directive, args: [{
+                    selector: 'sebm-google-map-polyline',
+                    inputs: [
+                        'clickable', 'draggable: polylineDraggable', 'editable', 'geodesic', 'strokeColor',
+                        'strokeWeight', 'strokeOpacity', 'visible', 'zIndex'
+                    ],
+                    outputs: [
+                        'lineClick', 'lineDblClick', 'lineDrag', 'lineDragEnd', 'lineMouseDown', 'lineMouseMove',
+                        'lineMouseOut', 'lineMouseOver', 'lineMouseUp', 'lineRightClick'
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    SebmGoogleMapPolyline.ctorParameters = [
+        { type: polyline_manager_1.PolylineManager, },
+    ];
+    SebmGoogleMapPolyline.propDecorators = {
+        'points': [{ type: core_1.ContentChildren, args: [google_map_polyline_point_1.SebmGoogleMapPolylinePoint,] },],
+    };
+    return SebmGoogleMapPolyline;
+}());
+exports.SebmGoogleMapPolyline = SebmGoogleMapPolyline;
+//# sourceMappingURL=google-map-polyline.js.map
+
+/***/ },
+/* 1104 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var google_maps_api_wrapper_1 = __webpack_require__(963);
+var circle_manager_1 = __webpack_require__(1074);
+var info_window_manager_1 = __webpack_require__(1075);
+var marker_manager_1 = __webpack_require__(1018);
+var polygon_manager_1 = __webpack_require__(1076);
+var polyline_manager_1 = __webpack_require__(1077);
+/**
+ * SebMGoogleMap renders a Google Map.
+ * **Important note**: To be able see a map in the browser, you have to define a height for the CSS
+ * class `sebm-google-map-container`.
+ *
+ * ### Example
+ * ```typescript
+ * import { Component } from '@angular/core';
+ * import { SebmGoogleMap } from 'angular2-google-maps/core';
+ *
+ * @Component({
+ *  selector: 'my-map-cmp',
+ *  directives: [SebmGoogleMap],
+ *  styles: [`
+ *    .sebm-google-map-container {
+ *      height: 300px;
+ *    }
+ * `],
+ *  template: `
+ *    <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+ *    </sebm-google-map>
+ *  `
+ * })
+ * ```
+ */
+var SebmGoogleMap = (function () {
+    function SebmGoogleMap(_elem, _mapsWrapper) {
+        this._elem = _elem;
+        this._mapsWrapper = _mapsWrapper;
+        /**
+         * The longitude that defines the center of the map.
+         */
+        this.longitude = 0;
+        /**
+         * The latitude that defines the center of the map.
+         */
+        this.latitude = 0;
+        /**
+         * The zoom level of the map. The default zoom level is 8.
+         */
+        this.zoom = 8;
+        /**
+         * Enables/disables if map is draggable.
+         */
+        this.draggable = true;
+        /**
+         * Enables/disables zoom and center on double click. Enabled by default.
+         */
+        this.disableDoubleClickZoom = false;
+        /**
+         * Enables/disables all default UI of the Google map. Please note: When the map is created, this
+         * value cannot get updated.
+         */
+        this.disableDefaultUI = false;
+        /**
+         * If false, disables scrollwheel zooming on the map. The scrollwheel is enabled by default.
+         */
+        this.scrollwheel = true;
+        /**
+         * If false, prevents the map from being controlled by the keyboard. Keyboard shortcuts are
+         * enabled by default.
+         */
+        this.keyboardShortcuts = true;
+        /**
+         * The enabled/disabled state of the Zoom control.
+         */
+        this.zoomControl = true;
+        /**
+         * Styles to apply to each of the default map types. Note that for Satellite/Hybrid and Terrain
+         * modes, these styles will only apply to labels and geometry.
+         */
+        this.styles = [];
+        /**
+         * When true and the latitude and/or longitude values changes, the Google Maps panTo method is
+         * used to
+         * center the map. See: https://developers.google.com/maps/documentation/javascript/reference#Map
+         */
+        this.usePanning = false;
+        /**
+         * The initial enabled/disabled state of the Street View Pegman control.
+         * This control is part of the default UI, and should be set to false when displaying a map type
+         * on which the Street View road overlay should not appear (e.g. a non-Earth map type).
+         */
+        this.streetViewControl = true;
+        /**
+         * Sets the viewport to contain the given bounds.
+         */
+        this.fitBounds = null;
+        /**
+         * The initial enabled/disabled state of the Scale control. This is disabled by default.
+         */
+        this.scaleControl = false;
+        /**
+         * The initial enabled/disabled state of the Map type control.
+         */
+        this.mapTypeControl = false;
+        this._observableSubscriptions = [];
+        /**
+         * This event emitter gets emitted when the user clicks on the map (but not when they click on a
+         * marker or infoWindow).
+         */
+        this.mapClick = new core_1.EventEmitter();
+        /**
+         * This event emitter gets emitted when the user right-clicks on the map (but not when they click
+         * on a marker or infoWindow).
+         */
+        this.mapRightClick = new core_1.EventEmitter();
+        /**
+         * This event emitter gets emitted when the user double-clicks on the map (but not when they click
+         * on a marker or infoWindow).
+         */
+        this.mapDblClick = new core_1.EventEmitter();
+        /**
+         * This event emitter is fired when the map center changes.
+         */
+        this.centerChange = new core_1.EventEmitter();
+        /**
+         * This event is fired when the viewport bounds have changed.
+         */
+        this.boundsChange = new core_1.EventEmitter();
+        /**
+         * This event is fired when the map becomes idle after panning or zooming.
+         */
+        this.idle = new core_1.EventEmitter();
+        /**
+         * This event is fired when the zoom level has changed.
+         */
+        this.zoomChange = new core_1.EventEmitter();
+    }
+    /** @internal */
+    SebmGoogleMap.prototype.ngOnInit = function () {
+        // todo: this should be solved with a new component and a viewChild decorator
+        var container = this._elem.nativeElement.querySelector('.sebm-google-map-container-inner');
+        this._initMapInstance(container);
+    };
+    SebmGoogleMap.prototype._initMapInstance = function (el) {
+        this._mapsWrapper.createMap(el, {
+            center: { lat: this.latitude || 0, lng: this.longitude || 0 },
+            zoom: this.zoom,
+            disableDefaultUI: this.disableDefaultUI,
+            backgroundColor: this.backgroundColor,
+            draggable: this.draggable,
+            draggableCursor: this.draggableCursor,
+            draggingCursor: this.draggingCursor,
+            keyboardShortcuts: this.keyboardShortcuts,
+            zoomControl: this.zoomControl,
+            styles: this.styles,
+            streetViewControl: this.streetViewControl,
+            scaleControl: this.scaleControl,
+            mapTypeControl: this.mapTypeControl
+        });
+        // register event listeners
+        this._handleMapCenterChange();
+        this._handleMapZoomChange();
+        this._handleMapMouseEvents();
+        this._handleBoundsChange();
+        this._handleIdleEvent();
+    };
+    /** @internal */
+    SebmGoogleMap.prototype.ngOnDestroy = function () {
+        // unsubscribe all registered observable subscriptions
+        this._observableSubscriptions.forEach(function (s) { return s.unsubscribe(); });
+    };
+    /* @internal */
+    SebmGoogleMap.prototype.ngOnChanges = function (changes) {
+        this._updateMapOptionsChanges(changes);
+        this._updatePosition(changes);
+    };
+    SebmGoogleMap.prototype._updateMapOptionsChanges = function (changes) {
+        var options = {};
+        var optionKeys = Object.keys(changes).filter(function (k) { return SebmGoogleMap._mapOptionsAttributes.indexOf(k) !== -1; });
+        optionKeys.forEach(function (k) { options[k] = changes[k].currentValue; });
+        this._mapsWrapper.setMapOptions(options);
+    };
+    /**
+     * Triggers a resize event on the google map instance.
+     * Returns a promise that gets resolved after the event was triggered.
+     */
+    SebmGoogleMap.prototype.triggerResize = function () {
+        var _this = this;
+        // Note: When we would trigger the resize event and show the map in the same turn (which is a
+        // common case for triggering a resize event), then the resize event would not
+        // work (to show the map), so we trigger the event in a timeout.
+        return new Promise(function (resolve) {
+            setTimeout(function () { return _this._mapsWrapper.triggerMapEvent('resize').then(function () { return resolve(); }); });
+        });
+    };
+    SebmGoogleMap.prototype._updatePosition = function (changes) {
+        if (changes['latitude'] == null && changes['longitude'] == null &&
+            changes['fitBounds'] == null) {
+            // no position update needed
+            return;
+        }
+        // we prefer fitBounds in changes
+        if (changes['fitBounds'] && this.fitBounds != null) {
+            this._fitBounds();
+            return;
+        }
+        if (typeof this.latitude !== 'number' || typeof this.longitude !== 'number') {
+            return;
+        }
+        var newCenter = {
+            lat: this.latitude,
+            lng: this.longitude,
+        };
+        if (this.usePanning) {
+            this._mapsWrapper.panTo(newCenter);
+        }
+        else {
+            this._mapsWrapper.setCenter(newCenter);
+        }
+    };
+    SebmGoogleMap.prototype._fitBounds = function () {
+        if (this.usePanning) {
+            this._mapsWrapper.panToBounds(this.fitBounds);
+            return;
+        }
+        this._mapsWrapper.fitBounds(this.fitBounds);
+    };
+    SebmGoogleMap.prototype._handleMapCenterChange = function () {
+        var _this = this;
+        var s = this._mapsWrapper.subscribeToMapEvent('center_changed').subscribe(function () {
+            _this._mapsWrapper.getCenter().then(function (center) {
+                _this.latitude = center.lat();
+                _this.longitude = center.lng();
+                _this.centerChange.emit({ lat: _this.latitude, lng: _this.longitude });
+            });
+        });
+        this._observableSubscriptions.push(s);
+    };
+    SebmGoogleMap.prototype._handleBoundsChange = function () {
+        var _this = this;
+        var s = this._mapsWrapper.subscribeToMapEvent('bounds_changed').subscribe(function () {
+            _this._mapsWrapper.getBounds().then(function (bounds) { _this.boundsChange.emit(bounds); });
+        });
+        this._observableSubscriptions.push(s);
+    };
+    SebmGoogleMap.prototype._handleMapZoomChange = function () {
+        var _this = this;
+        var s = this._mapsWrapper.subscribeToMapEvent('zoom_changed').subscribe(function () {
+            _this._mapsWrapper.getZoom().then(function (z) {
+                _this.zoom = z;
+                _this.zoomChange.emit(z);
+            });
+        });
+        this._observableSubscriptions.push(s);
+    };
+    SebmGoogleMap.prototype._handleIdleEvent = function () {
+        var _this = this;
+        var s = this._mapsWrapper.subscribeToMapEvent('idle').subscribe(function () { _this.idle.emit(void 0); });
+        this._observableSubscriptions.push(s);
+    };
+    SebmGoogleMap.prototype._handleMapMouseEvents = function () {
+        var _this = this;
+        var events = [
+            { name: 'click', emitter: this.mapClick },
+            { name: 'rightclick', emitter: this.mapRightClick },
+        ];
+        events.forEach(function (e) {
+            var s = _this._mapsWrapper.subscribeToMapEvent(e.name).subscribe(function (event) {
+                var value = { coords: { lat: event.latLng.lat(), lng: event.latLng.lng() } };
+                e.emitter.emit(value);
+            });
+            _this._observableSubscriptions.push(s);
+        });
+    };
+    /**
+     * Map option attributes that can change over time
+     */
+    SebmGoogleMap._mapOptionsAttributes = [
+        'disableDoubleClickZoom', 'scrollwheel', 'draggable', 'draggableCursor', 'draggingCursor',
+        'keyboardShortcuts', 'zoomControl', 'styles', 'streetViewControl', 'zoom', 'mapTypeControl'
+    ];
+    SebmGoogleMap.decorators = [
+        { type: core_1.Component, args: [{
+                    selector: 'sebm-google-map',
+                    providers: [
+                        google_maps_api_wrapper_1.GoogleMapsAPIWrapper, marker_manager_1.MarkerManager, info_window_manager_1.InfoWindowManager, circle_manager_1.CircleManager, polyline_manager_1.PolylineManager,
+                        polygon_manager_1.PolygonManager
+                    ],
+                    inputs: [
+                        'longitude', 'latitude', 'zoom', 'draggable: mapDraggable', 'disableDoubleClickZoom',
+                        'disableDefaultUI', 'scrollwheel', 'backgroundColor', 'draggableCursor', 'draggingCursor',
+                        'keyboardShortcuts', 'zoomControl', 'styles', 'usePanning', 'streetViewControl', 'fitBounds',
+                        'scaleControl', 'mapTypeControl'
+                    ],
+                    outputs: [
+                        'mapClick', 'mapRightClick', 'mapDblClick', 'centerChange', 'idle', 'boundsChange', 'zoomChange'
+                    ],
+                    host: { '[class.sebm-google-map-container]': 'true' },
+                    styles: ["\n    .sebm-google-map-container-inner {\n      width: inherit;\n      height: inherit;\n    }\n    .sebm-google-map-content {\n      display:none;\n    }\n  "],
+                    template: "\n    <div class='sebm-google-map-container-inner'></div>\n    <div class='sebm-google-map-content'>\n      <ng-content></ng-content>\n    </div>\n  "
+                },] },
+    ];
+    /** @nocollapse */
+    SebmGoogleMap.ctorParameters = [
+        { type: core_1.ElementRef, },
+        { type: google_maps_api_wrapper_1.GoogleMapsAPIWrapper, },
+    ];
+    return SebmGoogleMap;
+}());
+exports.SebmGoogleMap = SebmGoogleMap;
+//# sourceMappingURL=google-map.js.map
+
+/***/ },
+/* 1105 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var WindowRef = (function () {
+    function WindowRef() {
+    }
+    WindowRef.prototype.getNativeWindow = function () { return window; };
+    return WindowRef;
+}());
+exports.WindowRef = WindowRef;
+var DocumentRef = (function () {
+    function DocumentRef() {
+    }
+    DocumentRef.prototype.getNativeDocument = function () { return document; };
+    return DocumentRef;
+}());
+exports.DocumentRef = DocumentRef;
+exports.BROWSER_GLOBALS_PROVIDERS = [WindowRef, DocumentRef];
+//# sourceMappingURL=browser-globals.js.map
+
+/***/ },
+/* 1106 */
+/***/ function(module, exports) {
+
+module.exports = ".sebm-google-map-container {\n  height: 300px;\n}\n#hide-completed {\n  display: inline-block;\n  margin: 10px 25px 5px 0;\n}\n.controls {\n  margin-top: 10px;\n  border: 1px solid transparent;\n  border-radius: 2px 0 0 2px;\n  box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  height: 32px;\n  outline: none;\n  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n}\n.map-autocomplete div.clearfix {\n  position: absolute;\n  z-index: 1;\n}\n#pac-input {\n  background-color: #fff;\n  font-family: Roboto;\n  font-size: 15px;\n  font-weight: 300;\n  margin-left: 120px;\n  padding: 3px 11px 3px 13px;\n  text-overflow: ellipsis;\n  width: 185px;\n  margin-top: 10px;\n}\n#pac-input:focus {\n  border: 2px solid #4d90fe;\n}\n.pac-container {\n  font-family: Roboto;\n}\n#type-selector {\n  color: #fff;\n  background-color: #4d90fe;\n  padding: 5px 11px 0 11px;\n  margin-top: 10px;\n}\n#type-selector label {\n  font-family: Roboto;\n  font-size: 13px;\n  font-weight: 300;\n  color: #fff;\n  vertical-align: middle;\n}\n"
+
+/***/ },
+/* 1107 */
 /***/ function(module, exports) {
 
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activity.js.map
 
 /***/ },
-
-/***/ 965:
+/* 1108 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MATERIAL_COMPATIBILITY_MODE; });
-/* unused harmony export MAT_ELEMENTS_SELECTOR */
-/* unused harmony export MatPrefixEnforcer */
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DefaultStyleCompatibilityModeModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-var MATERIAL_COMPATIBILITY_MODE = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["OpaqueToken"]('md-compatibiility-mode');
-/** Selector that matches all elements that may have style collisions with material1. */
-var MAT_ELEMENTS_SELECTOR = "\n  mat-autocomplete,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-container,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-ink-bar,\n  mat-input,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-progress-circle,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-toolbar\n";
-/** Directive that enforces that the `mat-` prefix cannot be used. */
-var MatPrefixEnforcer = (function () {
-    function MatPrefixEnforcer(isCompatibilityMode) {
-        if (!isCompatibilityMode) {
-            throw Error('The "mat-" prefix cannot be used out of ng-material v1 compatibility mode.');
-        }
-    }
-    MatPrefixEnforcer = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({ selector: MAT_ELEMENTS_SELECTOR }),
-        __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(MATERIAL_COMPATIBILITY_MODE)), 
-        __metadata('design:paramtypes', [Boolean])
-    ], MatPrefixEnforcer);
-    return MatPrefixEnforcer;
-}());
-/**
- * Module that enforces the default "compatibility mode" settings. When this module is loaded
- * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
- * there are any uses of the `mat-` prefix.
- *
- * Because the point of this directive is to *not* be used, it will be tree-shaken away by
- * optimizers when not in compatibility mode.
- */
-var DefaultStyleCompatibilityModeModule = (function () {
-    function DefaultStyleCompatibilityModeModule() {
-    }
-    DefaultStyleCompatibilityModeModule.forRoot = function () {
-        return {
-            ngModule: DefaultStyleCompatibilityModeModule,
-            providers: [],
-        };
-    };
-    DefaultStyleCompatibilityModeModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            declarations: [MatPrefixEnforcer],
-            exports: [MatPrefixEnforcer],
-            providers: [{
-                    provide: MATERIAL_COMPATIBILITY_MODE, useValue: false,
-                }]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], DefaultStyleCompatibilityModeModule);
-    return DefaultStyleCompatibilityModeModule;
-}());
-
-//# sourceMappingURL=default-mode.js.map
-
-
-/***/ },
-
-/***/ 966:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return UP_ARROW; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return DOWN_ARROW; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "k", function() { return RIGHT_ARROW; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "j", function() { return LEFT_ARROW; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "h", function() { return PAGE_UP; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "i", function() { return PAGE_DOWN; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "e", function() { return HOME; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "f", function() { return END; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ENTER; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return SPACE; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "g", function() { return TAB; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "l", function() { return ESCAPE; });
-/* unused harmony export BACKSPACE */
-/* unused harmony export DELETE */
-// Due to a bug in the ChromeDriver, Angular 2 keyboard events are not triggered by `sendKeys`
-// during E2E tests when using dot notation such as `(keydown.rightArrow)`. To get around this,
-// we are temporarily using a single (keydown) handler.
-// See: https://github.com/angular/angular/issues/9419
-var UP_ARROW = 38;
-var DOWN_ARROW = 40;
-var RIGHT_ARROW = 39;
-var LEFT_ARROW = 37;
-var PAGE_UP = 33;
-var PAGE_DOWN = 34;
-var HOME = 36;
-var END = 35;
-var ENTER = 13;
-var SPACE = 32;
-var TAB = 9;
-var ESCAPE = 27;
-var BACKSPACE = 8;
-var DELETE = 46;
-
-//# sourceMappingURL=keycodes.js.map
-
-
-/***/ },
-
-/***/ 967:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Dir; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return RtlModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__ = __webpack_require__(1073);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__broadcaster__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(74);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AutocomplateMapComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15227,3376 +19704,1766 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-/**
- * Directive to listen for changes of direction of part of the DOM.
- *
- * Applications should use this directive instead of the native attribute so that Material
- * components can listen on changes of direction.
- */
-var Dir = (function () {
-    function Dir() {
-        /** Layout direction of the element. */
-        this._dir = 'ltr';
-        /** Event emitted when the direction changes. */
-        this.dirChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+
+
+
+
+
+var AutocomplateMapComponent = (function () {
+    function AutocomplateMapComponent(_cacheService, mapsAPILoader, ngZone, router, broadcaster) {
+        this._cacheService = _cacheService;
+        this.mapsAPILoader = mapsAPILoader;
+        this.ngZone = ngZone;
+        this.router = router;
+        this.broadcaster = broadcaster;
+        this.activeGoalMarkerIcon1 = "assets/images/Active-icon.png";
+        this.activeGoalMarkerIcon2 = "assets/images/Completed-icon.png";
+        this.passiveMarkerIcon = "assets/images/map-marker-purple.png";
+        this.activeMarkerIcon = "assets/images/map-marker-purple.png";
+        this.notAllowed = true;
     }
-    Object.defineProperty(Dir.prototype, "dir", {
-        /** @docs-private */
-        get: function () {
-            return this._dir;
-        },
-        set: function (v) {
-            var old = this._dir;
-            this._dir = v;
-            if (old != this._dir) {
-                this.dirChange.emit();
+    AutocomplateMapComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        //set google maps defaults
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+        //create search FormControl
+        this.searchControl = new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormControl */]();
+        //set current position
+        this.setCurrentPosition();
+        //load Places Autocomplete
+        this.mapsAPILoader.load().then(function () {
+            _this.autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement, {
+                types: []
+            });
+            _this.bounds = new google.maps.LatLngBounds(null);
+            _this.autocomplete.addListener("place_changed", function () {
+                _this.ngZone.run(function () {
+                    //get the place result
+                    var place = _this.autocomplete.getPlace();
+                    var marker = {
+                        latitude: place.geometry.location.lat(),
+                        longitude: place.geometry.location.lng(),
+                        iconUrl: _this.passiveMarkerIcon,
+                        title: _this.searchElementRef.nativeElement.value
+                    };
+                    _this.broadcaster.broadcast('location_changed', marker);
+                    _this.markers = [marker];
+                    _this.latitude = place.geometry.location.lat();
+                    _this.longitude = place.geometry.location.lng();
+                    _this.bounds.extend({
+                        lat: _this.latitude,
+                        lng: _this.longitude
+                    });
+                    _this.zoom = 10;
+                });
+            });
+        });
+        this.broadcaster.on('getLocation')
+            .subscribe(function (locations) {
+            _this.bounds = new google.maps.LatLngBounds(null);
+            for (var _i = 0, locations_1 = locations; _i < locations_1.length; _i++) {
+                var location = locations_1[_i];
+                _this.bounds.extend(location);
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Dir.prototype, "value", {
-        /** Current layout direction of the element. */
-        get: function () { return this.dir; },
-        set: function (v) { this.dir = v; },
-        enumerable: true,
-        configurable: true
-    });
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('dir'), 
-        __metadata('design:type', String)
-    ], Dir.prototype, "_dir", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
-        __metadata('design:type', Object)
-    ], Dir.prototype, "dirChange", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.dir'), 
-        __metadata('design:type', String)
-    ], Dir.prototype, "dir", null);
-    Dir = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-            selector: '[dir]',
-            // TODO(hansl): maybe `$implicit` isn't the best option here, but for now that's the best we got.
-            exportAs: '$implicit'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], Dir);
-    return Dir;
-}());
-var RtlModule = (function () {
-    function RtlModule() {
-    }
-    RtlModule.forRoot = function () {
-        return {
-            ngModule: RtlModule,
-            providers: []
-        };
-    };
-    RtlModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            exports: [Dir],
-            declarations: [Dir]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], RtlModule);
-    return RtlModule;
-}());
-
-//# sourceMappingURL=dir.js.map
-
-
-/***/ },
-
-/***/ 968:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__portal_errors__ = __webpack_require__(1101);
-/* unused harmony export Portal */
-/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return ComponentPortal; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return TemplatePortal; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return BasePortalHost; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-/**
- * A `Portal` is something that you want to render somewhere else.
- * It can be attach to / detached from a `PortalHost`.
- */
-var Portal = (function () {
-    function Portal() {
-    }
-    /** Attach this portal to a host. */
-    Portal.prototype.attach = function (host) {
-        if (host == null) {
-            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["a" /* NullPortalHostError */]();
-        }
-        if (host.hasAttached()) {
-            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["b" /* PortalAlreadyAttachedError */]();
-        }
-        this._attachedHost = host;
-        return host.attach(this);
-    };
-    /** Detach this portal from its host */
-    Portal.prototype.detach = function () {
-        var host = this._attachedHost;
-        if (host == null) {
-            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["c" /* NoPortalAttachedError */]();
-        }
-        this._attachedHost = null;
-        return host.detach();
-    };
-    Object.defineProperty(Portal.prototype, "isAttached", {
-        /** Whether this portal is attached to a host. */
-        get: function () {
-            return this._attachedHost != null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Sets the PortalHost reference without performing `attach()`. This is used directly by
-     * the PortalHost when it is performing an `attach()` or `detach()`.
-     */
-    Portal.prototype.setAttachedHost = function (host) {
-        this._attachedHost = host;
-    };
-    return Portal;
-}());
-/**
- * A `ComponentPortal` is a portal that instantiates some Component upon attachment.
- */
-var ComponentPortal = (function (_super) {
-    __extends(ComponentPortal, _super);
-    function ComponentPortal(component, viewContainerRef, injector) {
-        if (viewContainerRef === void 0) { viewContainerRef = null; }
-        if (injector === void 0) { injector = null; }
-        _super.call(this);
-        this.component = component;
-        this.viewContainerRef = viewContainerRef;
-        this.injector = injector;
-    }
-    return ComponentPortal;
-}(Portal));
-/**
- * A `TemplatePortal` is a portal that represents some embedded template (TemplateRef).
- */
-var TemplatePortal = (function (_super) {
-    __extends(TemplatePortal, _super);
-    function TemplatePortal(template, viewContainerRef) {
-        _super.call(this);
-        /**
-         * Additional locals for the instantiated embedded view.
-         * These locals can be seen as "exports" for the template, such as how ngFor has
-         * index / event / odd.
-         * See https://angular.io/docs/ts/latest/api/core/EmbeddedViewRef-class.html
-         */
-        this.locals = new Map();
-        this.templateRef = template;
-        this.viewContainerRef = viewContainerRef;
-    }
-    Object.defineProperty(TemplatePortal.prototype, "origin", {
-        get: function () {
-            return this.templateRef.elementRef;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TemplatePortal.prototype.attach = function (host, locals) {
-        this.locals = locals == null ? new Map() : locals;
-        return _super.prototype.attach.call(this, host);
-    };
-    TemplatePortal.prototype.detach = function () {
-        this.locals = new Map();
-        return _super.prototype.detach.call(this);
-    };
-    return TemplatePortal;
-}(Portal));
-/**
- * Partial implementation of PortalHost that only deals with attaching either a
- * ComponentPortal or a TemplatePortal.
- */
-var BasePortalHost = (function () {
-    function BasePortalHost() {
-        /** Whether this host has already been permanently disposed. */
-        this._isDisposed = false;
-    }
-    /** Whether this host has an attached portal. */
-    BasePortalHost.prototype.hasAttached = function () {
-        return this._attachedPortal != null;
-    };
-    BasePortalHost.prototype.attach = function (portal) {
-        if (portal == null) {
-            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["d" /* NullPortalError */]();
-        }
-        if (this.hasAttached()) {
-            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["b" /* PortalAlreadyAttachedError */]();
-        }
-        if (this._isDisposed) {
-            throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["e" /* PortalHostAlreadyDisposedError */]();
-        }
-        if (portal instanceof ComponentPortal) {
-            this._attachedPortal = portal;
-            return this.attachComponentPortal(portal);
-        }
-        else if (portal instanceof TemplatePortal) {
-            this._attachedPortal = portal;
-            return this.attachTemplatePortal(portal);
-        }
-        throw new __WEBPACK_IMPORTED_MODULE_0__portal_errors__["f" /* UnknownPortalTypeError */]();
-    };
-    BasePortalHost.prototype.detach = function () {
-        if (this._attachedPortal) {
-            this._attachedPortal.setAttachedHost(null);
-        }
-        this._attachedPortal = null;
-        if (this._disposeFn != null) {
-            this._disposeFn();
-            this._disposeFn = null;
-        }
-    };
-    BasePortalHost.prototype.dispose = function () {
-        if (this.hasAttached()) {
-            this.detach();
-        }
-        this._isDisposed = true;
-    };
-    BasePortalHost.prototype.setDisposeFn = function (fn) {
-        this._disposeFn = fn;
-    };
-    return BasePortalHost;
-}());
-
-//# sourceMappingURL=portal.js.map
-
-
-/***/ },
-
-/***/ 969:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__ = __webpack_require__(1103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__compatibility_default_mode__ = __webpack_require__(965);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__overlay_position_viewport_ruler__ = __webpack_require__(954);
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MdRipple; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdRippleModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var MdRipple = (function () {
-    function MdRipple(_elementRef, _ngZone, _ruler) {
-        var _this = this;
-        /**
-         * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
-         * will be the distance from the center of the ripple to the furthest corner of the host element's
-         * bounding rectangle.
-         */
-        this.maxRadius = 0;
-        /**
-         * If set, the normal duration of ripple animations is divided by this value. For example,
-         * setting it to 0.5 will cause the animations to take twice as long.
-         */
-        this.speedFactor = 1;
-        // These event handlers are attached to the element that triggers the ripple animations.
-        var eventHandlers = new Map();
-        eventHandlers.set('mousedown', function (event) { return _this._mouseDown(event); });
-        eventHandlers.set('click', function (event) { return _this._click(event); });
-        eventHandlers.set('mouseleave', function (event) { return _this._mouseLeave(event); });
-        this._rippleRenderer = new __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__["a" /* RippleRenderer */](_elementRef, eventHandlers, _ngZone);
-        this._ruler = _ruler;
-    }
-    Object.defineProperty(MdRipple.prototype, "_triggerDeprecated", {
-        /** @deprecated */
-        get: function () { return this.trigger; },
-        set: function (value) { this.trigger = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(MdRipple.prototype, "_centeredDeprecated", {
-        /** @deprecated */
-        get: function () { return this.centered; },
-        set: function (value) { this.centered = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(MdRipple.prototype, "_disabledDeprecated", {
-        /** @deprecated */
-        get: function () { return this.disabled; },
-        set: function (value) { this.disabled = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(MdRipple.prototype, "_maxRadiusDeprecated", {
-        /** @deprecated */
-        get: function () { return this.maxRadius; },
-        set: function (value) { this.maxRadius = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(MdRipple.prototype, "_speedFactorDeprecated", {
-        /** @deprecated */
-        get: function () { return this.speedFactor; },
-        set: function (value) { this.speedFactor = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(MdRipple.prototype, "_colorDeprecated", {
-        /** @deprecated */
-        get: function () { return this.color; },
-        set: function (value) { this.color = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(MdRipple.prototype, "_backgroundColorDeprecated", {
-        /** @deprecated */
-        get: function () { return this.backgroundColor; },
-        set: function (value) { this.backgroundColor = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(MdRipple.prototype, "_focusedDeprecated", {
-        /** @deprecated */
-        get: function () { return this.focused; },
-        set: function (value) { this.focused = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(MdRipple.prototype, "_unboundedDeprecated", {
-        /** @deprecated */
-        get: function () { return this.unbounded; },
-        set: function (value) { this.unbounded = value; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    MdRipple.prototype.ngOnInit = function () {
-        // If no trigger element was explicity set, use the host element
-        if (!this.trigger) {
-            this._rippleRenderer.setTriggerElementToHost();
-        }
-        if (!this.disabled) {
-            this._rippleRenderer.createBackgroundIfNeeded();
-        }
-    };
-    MdRipple.prototype.ngOnDestroy = function () {
-        // Remove event listeners on the trigger element.
-        this._rippleRenderer.clearTriggerElement();
-    };
-    MdRipple.prototype.ngOnChanges = function (changes) {
-        // If the trigger element changed (or is being initially set), add event listeners to it.
-        var changedInputs = Object.keys(changes);
-        if (changedInputs.indexOf('trigger') !== -1) {
-            this._rippleRenderer.setTriggerElement(this.trigger);
-        }
-        if (!this.disabled) {
-            this._rippleRenderer.createBackgroundIfNeeded();
-        }
-    };
-    /**
-     * Responds to the start of a ripple animation trigger by fading the background in.
-     */
-    MdRipple.prototype.start = function () {
-        this._rippleRenderer.createBackgroundIfNeeded();
-        this._rippleRenderer.fadeInRippleBackground(this.backgroundColor);
-    };
-    /**
-     * Responds to the end of a ripple animation trigger by fading the background out, and creating a
-     * foreground ripple that expands from the event location (or from the center of the element if
-     * the "centered" property is set or forceCenter is true).
-     */
-    MdRipple.prototype.end = function (left, top, forceCenter) {
-        var _this = this;
-        if (forceCenter === void 0) { forceCenter = true; }
-        this._rippleRenderer.createForegroundRipple(left, top, this.color, this.centered || forceCenter, this.maxRadius, this.speedFactor, function (ripple, e) { return _this._rippleTransitionEnded(ripple, e); });
-        this._rippleRenderer.fadeOutRippleBackground();
-    };
-    MdRipple.prototype._rippleTransitionEnded = function (ripple, event) {
-        if (event.propertyName === 'opacity') {
-            // If the ripple finished expanding, start fading it out. If it finished fading out,
-            // remove it from the DOM.
-            switch (ripple.state) {
-                case __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__["b" /* ForegroundRippleState */].EXPANDING:
-                    this._rippleRenderer.fadeOutForegroundRipple(ripple.rippleElement);
-                    ripple.state = __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__["b" /* ForegroundRippleState */].FADING_OUT;
-                    break;
-                case __WEBPACK_IMPORTED_MODULE_1__ripple_renderer__["b" /* ForegroundRippleState */].FADING_OUT:
-                    this._rippleRenderer.removeRippleFromDom(ripple.rippleElement);
-                    break;
-            }
-        }
-    };
-    /**
-     * Called when the trigger element receives a mousedown event. Starts the ripple animation by
-     * fading in the background.
-     */
-    MdRipple.prototype._mouseDown = function (event) {
-        if (!this.disabled && event.button === 0) {
-            this.start();
-        }
-    };
-    /**
-     * Called when the trigger element receives a click event. Creates a foreground ripple and
-     * runs its animation.
-     */
-    MdRipple.prototype._click = function (event) {
-        if (!this.disabled && event.button === 0) {
-            // If screen and page positions are all 0, this was probably triggered by a keypress.
-            // In that case, use the center of the bounding rect as the ripple origin.
-            // FIXME: This fails on IE11, which still sets pageX/Y and screenX/Y on keyboard clicks.
-            var isKeyEvent = (event.screenX === 0 && event.screenY === 0 && event.pageX === 0 && event.pageY === 0);
-            this.end(event.pageX - this._ruler.getViewportScrollPosition().left, event.pageY - this._ruler.getViewportScrollPosition().top, isKeyEvent);
-        }
-    };
-    /**
-     * Called when the trigger element receives a mouseleave event. Fades out the background.
-     */
-    MdRipple.prototype._mouseLeave = function (event) {
-        // We can always fade out the background here; It's a no-op if it was already inactive.
-        this._rippleRenderer.fadeOutRippleBackground();
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleTrigger'), 
-        __metadata('design:type', Object)
-    ], MdRipple.prototype, "trigger", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-trigger'), 
-        __metadata('design:type', Object)
-    ], MdRipple.prototype, "_triggerDeprecated", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleCentered'), 
-        __metadata('design:type', Boolean)
-    ], MdRipple.prototype, "centered", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-centered'), 
-        __metadata('design:type', Object)
-    ], MdRipple.prototype, "_centeredDeprecated", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleDisabled'), 
-        __metadata('design:type', Boolean)
-    ], MdRipple.prototype, "disabled", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-disabled'), 
-        __metadata('design:type', Object)
-    ], MdRipple.prototype, "_disabledDeprecated", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleMaxRadius'), 
-        __metadata('design:type', Number)
-    ], MdRipple.prototype, "maxRadius", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-max-radius'), 
-        __metadata('design:type', Object)
-    ], MdRipple.prototype, "_maxRadiusDeprecated", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleSpeedFactor'), 
-        __metadata('design:type', Number)
-    ], MdRipple.prototype, "speedFactor", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-speed-factor'), 
-        __metadata('design:type', Object)
-    ], MdRipple.prototype, "_speedFactorDeprecated", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleColor'), 
-        __metadata('design:type', String)
-    ], MdRipple.prototype, "color", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-color'), 
-        __metadata('design:type', Object)
-    ], MdRipple.prototype, "_colorDeprecated", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleBackgroundColor'), 
-        __metadata('design:type', String)
-    ], MdRipple.prototype, "backgroundColor", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-background-color'), 
-        __metadata('design:type', Object)
-    ], MdRipple.prototype, "_backgroundColorDeprecated", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('class.md-ripple-focused'),
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleFocused'), 
-        __metadata('design:type', Boolean)
-    ], MdRipple.prototype, "focused", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-focused'), 
-        __metadata('design:type', Boolean)
-    ], MdRipple.prototype, "_focusedDeprecated", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('class.md-ripple-unbounded'),
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdRippleUnbounded'), 
-        __metadata('design:type', Boolean)
-    ], MdRipple.prototype, "unbounded", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-ripple-unbounded'), 
-        __metadata('design:type', Boolean)
-    ], MdRipple.prototype, "_unboundedDeprecated", null);
-    MdRipple = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-            selector: '[md-ripple], [mat-ripple]',
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"], __WEBPACK_IMPORTED_MODULE_3__overlay_position_viewport_ruler__["a" /* ViewportRuler */]])
-    ], MdRipple);
-    return MdRipple;
-}());
-var MdRippleModule = (function () {
-    function MdRippleModule() {
-    }
-    MdRippleModule.forRoot = function () {
-        return {
-            ngModule: MdRippleModule,
-            providers: [__WEBPACK_IMPORTED_MODULE_3__overlay_position_viewport_ruler__["a" /* ViewportRuler */]]
-        };
-    };
-    MdRippleModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            imports: [__WEBPACK_IMPORTED_MODULE_2__compatibility_default_mode__["a" /* DefaultStyleCompatibilityModeModule */]],
-            exports: [MdRipple, __WEBPACK_IMPORTED_MODULE_2__compatibility_default_mode__["a" /* DefaultStyleCompatibilityModeModule */]],
-            declarations: [MdRipple],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdRippleModule);
-    return MdRippleModule;
-}());
-
-//# sourceMappingURL=ripple.js.map
-
-
-/***/ },
-
-/***/ 977:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interactivity_checker__ = __webpack_require__(978);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__coercion_boolean_property__ = __webpack_require__(953);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return FocusTrap; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-/**
- * Directive for trapping focus within a region.
- *
- * NOTE: This directive currently uses a very simple (naive) approach to focus trapping.
- * It assumes that the tab order is the same as DOM order, which is not necessarily true.
- * Things like tabIndex > 0, flex `order`, and shadow roots can cause to two to misalign.
- * This will be replaced with a more intelligent solution before the library is considered stable.
- */
-var FocusTrap = (function () {
-    function FocusTrap(_checker, _ngZone) {
-        this._checker = _checker;
-        this._ngZone = _ngZone;
-        this._disabled = false;
-    }
-    Object.defineProperty(FocusTrap.prototype, "disabled", {
-        /** Whether the focus trap is active. */
-        get: function () { return this._disabled; },
-        set: function (val) { this._disabled = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__coercion_boolean_property__["a" /* coerceBooleanProperty */])(val); },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Waits for microtask queue to empty, then focuses the first tabbable element within the focus
-     * trap region.
-     */
-    FocusTrap.prototype.focusFirstTabbableElementWhenReady = function () {
-        var _this = this;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this.focusFirstTabbableElement();
+        });
+        this.broadcaster.on('addGoal')
+            .subscribe(function (data) {
+            // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+            //     var icon = {
+            //         url: this.activeGoalMarkerIcon1,
+            //         scaledSize:new google.maps.Size(35, 50)
+            //     };
+            //     scope.mapMarkers[data].setIcon(icon);
+            // }
+        });
+        this.broadcaster.on('lsJqueryModalClosedSaveGoal')
+            .subscribe(function (userGoal) {
+            // if(!userGoal || !userGoal.status || !scope.mapMarkers[userGoal.goal.id] || !scope.mapMarkers[userGoal.goal.id].map)
+            //         return;
+            //
+            //     var icon = {
+            //         url: scope['activeGoalMarkerIcon'+userGoal.status],
+            //         scaledSize:new google.maps.Size(35, 50)
+            //     };
+            //     scope.mapMarkers[userGoal.goal.id].setIcon(icon);
+        });
+        this.broadcaster.on('doneGoal')
+            .subscribe(function (data) {
+            console.log(data);
+            // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+            //     var icon = {
+            //         url: scope.activeGoalMarkerIcon2,
+            //         scaledSize:new google.maps.Size(35, 50)
+            //     };
+            //     scope.mapMarkers[data].setIcon(icon);
+            // }
         });
     };
-    /**
-     * Waits for microtask queue to empty, then focuses the last tabbable element within the focus
-     * trap region.
-     */
-    FocusTrap.prototype.focusLastTabbableElementWhenReady = function () {
-        var _this = this;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this.focusLastTabbableElement();
+    AutocomplateMapComponent.prototype.setType = function (types) {
+        this.autocomplete.setTypes(types);
+    };
+    AutocomplateMapComponent.prototype.setPosition = function (position) {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        var marker = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            iconUrl: this.passiveMarkerIcon,
+            title: "Your Position"
+        };
+        this.bounds.extend({
+            'latitude': this.latitude,
+            'longitude': this.longitude
         });
+        this.broadcaster.broadcast('location_changed', marker);
+        this.markers = [marker];
+        this.notAllowed = false;
+        this.zoom = 10;
     };
-    /**
-     * Focuses the first tabbable element within the focus trap region.
-     */
-    FocusTrap.prototype.focusFirstTabbableElement = function () {
-        var rootElement = this.trappedContent.nativeElement;
-        var redirectToElement = rootElement.querySelector('[cdk-focus-start]') ||
-            this._getFirstTabbableElement(rootElement);
-        if (redirectToElement) {
-            redirectToElement.focus();
-        }
+    AutocomplateMapComponent.prototype.clickMarker = function (marker) {
+        this.router.navigate(['/goal/' + marker.slug]);
     };
-    /**
-     * Focuses the last tabbable element within the focus trap region.
-     */
-    FocusTrap.prototype.focusLastTabbableElement = function () {
-        var rootElement = this.trappedContent.nativeElement;
-        var focusTargets = rootElement.querySelectorAll('[cdk-focus-end]');
-        var redirectToElement = null;
-        if (focusTargets.length) {
-            redirectToElement = focusTargets[focusTargets.length - 1];
+    AutocomplateMapComponent.prototype.setCurrentPosition = function () {
+        var _this = this;
+        var position = this._cacheService.get('location');
+        if (position && position.coords) {
+            this.setPosition(position);
         }
         else {
-            redirectToElement = this._getLastTabbableElement(rootElement);
-        }
-        if (redirectToElement) {
-            redirectToElement.focus();
-        }
-    };
-    /** Get the first tabbable element from a DOM subtree (inclusive). */
-    FocusTrap.prototype._getFirstTabbableElement = function (root) {
-        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
-            return root;
-        }
-        // Iterate in DOM order.
-        var childCount = root.children.length;
-        for (var i = 0; i < childCount; i++) {
-            var tabbableChild = this._getFirstTabbableElement(root.children[i]);
-            if (tabbableChild) {
-                return tabbableChild;
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    _this.notAllowed = false;
+                    _this.setPosition(position);
+                    _this._cacheService.set('location', position, { maxAge: 3 * 24 * 60 * 60 });
+                });
             }
         }
-        return null;
     };
-    /** Get the last tabbable element from a DOM subtree (inclusive). */
-    FocusTrap.prototype._getLastTabbableElement = function (root) {
-        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
-            return root;
-        }
-        // Iterate in reverse DOM order.
-        for (var i = root.children.length - 1; i >= 0; i--) {
-            var tabbableChild = this._getLastTabbableElement(root.children[i]);
-            if (tabbableChild) {
-                return tabbableChild;
-            }
-        }
-        return null;
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('trappedContent'), 
-        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"])
-    ], FocusTrap.prototype, "trappedContent", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Boolean)
-    ], FocusTrap.prototype, "disabled", null);
-    FocusTrap = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'cdk-focus-trap, focus-trap',
-            template: "<div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusLastTabbableElement()\"></div><div #trappedContent class=\"cdk-focus-trap-content\"><ng-content></ng-content></div><div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusFirstTabbableElement()\"></div>",
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_1__interactivity_checker__["a" /* InteractivityChecker */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
-    ], FocusTrap);
-    return FocusTrap;
-}());
-
-//# sourceMappingURL=focus-trap.js.map
-
-
-/***/ },
-
-/***/ 978:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__platform_platform__ = __webpack_require__(982);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return InteractivityChecker; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * The InteractivityChecker leans heavily on the ally.js accessibility utilities.
- * Methods like `isTabbable` are only covering specific edge-cases for the browsers which are
- * supported.
- */
-/**
- * Utility for checking the interactivity of an element, such as whether is is focusable or
- * tabbable.
- */
-var InteractivityChecker = (function () {
-    function InteractivityChecker(_platform) {
-        this._platform = _platform;
-    }
-    /**
-     * Gets whether an element is disabled.
-     *
-     * @param element Element to be checked.
-     * @returns Whether the element is disabled.
-     */
-    InteractivityChecker.prototype.isDisabled = function (element) {
-        // This does not capture some cases, such as a non-form control with a disabled attribute or
-        // a form control inside of a disabled form, but should capture the most common cases.
-        return element.hasAttribute('disabled');
-    };
-    /**
-     * Gets whether an element is visible for the purposes of interactivity.
-     *
-     * This will capture states like `display: none` and `visibility: hidden`, but not things like
-     * being clipped by an `overflow: hidden` parent or being outside the viewport.
-     *
-     * @returns Whether the element is visible.
-     */
-    InteractivityChecker.prototype.isVisible = function (element) {
-        return hasGeometry(element) && getComputedStyle(element).visibility === 'visible';
-    };
-    /**
-     * Gets whether an element can be reached via Tab key.
-     * Assumes that the element has already been checked with isFocusable.
-     *
-     * @param element Element to be checked.
-     * @returns Whether the element is tabbable.
-     */
-    InteractivityChecker.prototype.isTabbable = function (element) {
-        var frameElement = getWindow(element).frameElement;
-        if (frameElement) {
-            var frameType = frameElement && frameElement.nodeName.toLowerCase();
-            // Frame elements inherit their tabindex onto all child elements.
-            if (getTabIndexValue(frameElement) === -1) {
-                return false;
-            }
-            // Webkit and Blink consider anything inside of an <object> element as non-tabbable.
-            if ((this._platform.BLINK || this._platform.WEBKIT) && frameType === 'object') {
-                return false;
-            }
-            // Webkit and Blink disable tabbing to an element inside of an invisible frame.
-            if ((this._platform.BLINK || this._platform.WEBKIT) && !this.isVisible(frameElement)) {
-                return false;
-            }
-        }
-        var nodeName = element.nodeName.toLowerCase();
-        var tabIndexValue = getTabIndexValue(element);
-        if (element.hasAttribute('contenteditable')) {
-            return tabIndexValue !== -1;
-        }
-        if (nodeName === 'iframe') {
-            // The frames may be tabbable depending on content, but it's not possibly to reliably
-            // investigate the content of the frames.
-            return false;
-        }
-        if (nodeName === 'audio') {
-            if (!element.hasAttribute('controls')) {
-                // By default an <audio> element without the controls enabled is not tabbable.
-                return false;
-            }
-            else if (this._platform.BLINK) {
-                // In Blink <audio controls> elements are always tabbable.
-                return true;
-            }
-        }
-        if (nodeName === 'video') {
-            if (!element.hasAttribute('controls') && this._platform.TRIDENT) {
-                // In Trident a <video> element without the controls enabled is not tabbable.
-                return false;
-            }
-            else if (this._platform.BLINK || this._platform.FIREFOX) {
-                // In Chrome and Firefox <video controls> elements are always tabbable.
-                return true;
-            }
-        }
-        if (nodeName === 'object' && (this._platform.BLINK || this._platform.WEBKIT)) {
-            // In all Blink and WebKit based browsers <object> elements are never tabbable.
-            return false;
-        }
-        // In iOS the browser only considers some specific elements as tabbable.
-        if (this._platform.WEBKIT && this._platform.IOS && !isPotentiallyTabbableIOS(element)) {
-            return false;
-        }
-        return element.tabIndex >= 0;
-    };
-    /**
-     * Gets whether an element can be focused by the user.
-     *
-     * @param element Element to be checked.
-     * @returns Whether the element is focusable.
-     */
-    InteractivityChecker.prototype.isFocusable = function (element) {
-        // Perform checks in order of left to most expensive.
-        // Again, naive approach that does not capture many edge cases and browser quirks.
-        return isPotentiallyFocusable(element) && !this.isDisabled(element) && this.isVisible(element);
-    };
-    InteractivityChecker = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_1__platform_platform__["a" /* Platform */]])
-    ], InteractivityChecker);
-    return InteractivityChecker;
-}());
-/** Checks whether the specified element has any geometry / rectangles. */
-function hasGeometry(element) {
-    // Use logic from jQuery to check for an invisible element.
-    // See https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js#L12
-    return !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
-}
-/** Gets whether an element's  */
-function isNativeFormElement(element) {
-    var nodeName = element.nodeName.toLowerCase();
-    return nodeName === 'input' ||
-        nodeName === 'select' ||
-        nodeName === 'button' ||
-        nodeName === 'textarea';
-}
-/** Gets whether an element is an <input type="hidden">. */
-function isHiddenInput(element) {
-    return isInputElement(element) && element.type == 'hidden';
-}
-/** Gets whether an element is an anchor that has an href attribute. */
-function isAnchorWithHref(element) {
-    return isAnchorElement(element) && element.hasAttribute('href');
-}
-/** Gets whether an element is an input element. */
-function isInputElement(element) {
-    return element.nodeName == 'input';
-}
-/** Gets whether an element is an anchor element. */
-function isAnchorElement(element) {
-    return element.nodeName.toLowerCase() == 'a';
-}
-/** Gets whether an element has a valid tabindex. */
-function hasValidTabIndex(element) {
-    if (!element.hasAttribute('tabindex') || element.tabIndex === undefined) {
-        return false;
-    }
-    var tabIndex = element.getAttribute('tabindex');
-    // IE11 parses tabindex="" as the value "-32768"
-    if (tabIndex == '-32768') {
-        return false;
-    }
-    return !!(tabIndex && !isNaN(parseInt(tabIndex, 10)));
-}
-/**
- * Returns the parsed tabindex from the element attributes instead of returning the
- * evaluated tabindex from the browsers defaults.
- */
-function getTabIndexValue(element) {
-    if (!hasValidTabIndex(element)) {
-        return null;
-    }
-    // See browser issue in Gecko https://bugzilla.mozilla.org/show_bug.cgi?id=1128054
-    var tabIndex = parseInt(element.getAttribute('tabindex'), 10);
-    return isNaN(tabIndex) ? -1 : tabIndex;
-}
-/** Checks whether the specified element is potentially tabbable on iOS */
-function isPotentiallyTabbableIOS(element) {
-    var nodeName = element.nodeName.toLowerCase();
-    var inputType = nodeName === 'input' && element.type;
-    return inputType === 'text'
-        || inputType === 'password'
-        || nodeName === 'select'
-        || nodeName === 'textarea';
-}
-/**
- * Gets whether an element is potentially focusable without taking current visible/disabled state
- * into account.
- */
-function isPotentiallyFocusable(element) {
-    // Inputs are potentially focusable *unless* they're type="hidden".
-    if (isHiddenInput(element)) {
-        return false;
-    }
-    return isNativeFormElement(element) ||
-        isAnchorWithHref(element) ||
-        element.hasAttribute('contenteditable') ||
-        hasValidTabIndex(element);
-}
-/** Gets the parent window of a DOM node with regards of being inside of an iframe. */
-function getWindow(node) {
-    return node.ownerDocument.defaultView || window;
-}
-
-//# sourceMappingURL=interactivity-checker.js.map
-
-
-/***/ },
-
-/***/ 979:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__overlay__ = __webpack_require__(980);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__portal_portal__ = __webpack_require__(968);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__overlay_state__ = __webpack_require__(991);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__position_connected_position__ = __webpack_require__(992);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__ = __webpack_require__(994);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rtl_dir__ = __webpack_require__(967);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__scroll_scrollable__ = __webpack_require__(1100);
-/* unused harmony export OverlayOrigin */
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return ConnectedOverlayDirective; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return OverlayModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-
-
-
-
-
-
-
-/** Default set of positions for the overlay. Follows the behavior of a dropdown. */
-var defaultPositionList = [
-    new __WEBPACK_IMPORTED_MODULE_4__position_connected_position__["b" /* ConnectionPositionPair */]({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
-    new __WEBPACK_IMPORTED_MODULE_4__position_connected_position__["b" /* ConnectionPositionPair */]({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }),
-];
-/**
- * Directive applied to an element to make it usable as an origin for an Overlay using a
- * ConnectedPositionStrategy.
- */
-var OverlayOrigin = (function () {
-    function OverlayOrigin(elementRef) {
-        this.elementRef = elementRef;
-    }
-    OverlayOrigin = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-            selector: '[cdk-overlay-origin], [overlay-origin]',
-            exportAs: 'cdkOverlayOrigin',
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
-    ], OverlayOrigin);
-    return OverlayOrigin;
-}());
-/**
- * Directive to facilitate declarative creation of an Overlay using a ConnectedPositionStrategy.
- */
-var ConnectedOverlayDirective = (function () {
-    // TODO(jelbourn): inputs for size, scroll behavior, animation, etc.
-    function ConnectedOverlayDirective(_overlay, templateRef, viewContainerRef, _dir) {
-        this._overlay = _overlay;
-        this._dir = _dir;
-        this._open = false;
-        this._hasBackdrop = false;
-        this._offsetX = 0;
-        this._offsetY = 0;
-        /** Event emitted when the backdrop is clicked. */
-        this.backdropClick = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        /** Event emitted when the position has changed. */
-        this.positionChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        /** Event emitted when the overlay has been attached. */
-        this.attach = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        /** Event emitted when the overlay has been detached. */
-        this.detach = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        this._templatePortal = new __WEBPACK_IMPORTED_MODULE_2__portal_portal__["a" /* TemplatePortal */](templateRef, viewContainerRef);
-    }
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "offsetX", {
-        /** The offset in pixels for the overlay connection point on the x-axis */
-        get: function () {
-            return this._offsetX;
-        },
-        set: function (offsetX) {
-            this._offsetX = offsetX;
-            if (this._position) {
-                this._position.withOffsetX(offsetX);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "offsetY", {
-        /** The offset in pixels for the overlay connection point on the y-axis */
-        get: function () {
-            return this._offsetY;
-        },
-        set: function (offsetY) {
-            this._offsetY = offsetY;
-            if (this._position) {
-                this._position.withOffsetY(offsetY);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "hasBackdrop", {
-        /** Whether or not the overlay should attach a backdrop. */
-        get: function () {
-            return this._hasBackdrop;
-        },
-        // TODO: move the boolean coercion logic to a shared function in core
-        set: function (value) {
-            this._hasBackdrop = value != null && "" + value !== 'false';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "open", {
-        get: function () {
-            return this._open;
-        },
-        set: function (value) {
-            value ? this._attachOverlay() : this._detachOverlay();
-            this._open = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "overlayRef", {
-        /** The associated overlay reference. */
-        get: function () {
-            return this._overlayRef;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "dir", {
-        /** The element's layout direction. */
-        get: function () {
-            return this._dir ? this._dir.value : 'ltr';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ConnectedOverlayDirective.prototype.ngOnDestroy = function () {
-        this._destroyOverlay();
-    };
-    /** Creates an overlay */
-    ConnectedOverlayDirective.prototype._createOverlay = function () {
-        if (!this.positions || !this.positions.length) {
-            this.positions = defaultPositionList;
-        }
-        this._overlayRef = this._overlay.create(this._buildConfig());
-    };
-    /** Builds the overlay config based on the directive's inputs */
-    ConnectedOverlayDirective.prototype._buildConfig = function () {
-        var overlayConfig = new __WEBPACK_IMPORTED_MODULE_3__overlay_state__["a" /* OverlayState */]();
-        if (this.width || this.width === 0) {
-            overlayConfig.width = this.width;
-        }
-        if (this.height || this.height === 0) {
-            overlayConfig.height = this.height;
-        }
-        if (this.minWidth || this.minWidth === 0) {
-            overlayConfig.minWidth = this.minWidth;
-        }
-        if (this.minHeight || this.minHeight === 0) {
-            overlayConfig.minHeight = this.minHeight;
-        }
-        overlayConfig.hasBackdrop = this.hasBackdrop;
-        if (this.backdropClass) {
-            overlayConfig.backdropClass = this.backdropClass;
-        }
-        this._position = this._createPositionStrategy();
-        overlayConfig.positionStrategy = this._position;
-        overlayConfig.direction = this.dir;
-        return overlayConfig;
-    };
-    /** Returns the position strategy of the overlay to be set on the overlay config */
-    ConnectedOverlayDirective.prototype._createPositionStrategy = function () {
-        var pos = this.positions[0];
-        var originPoint = { originX: pos.originX, originY: pos.originY };
-        var overlayPoint = { overlayX: pos.overlayX, overlayY: pos.overlayY };
-        var strategy = this._overlay.position()
-            .connectedTo(this.origin.elementRef, originPoint, overlayPoint)
-            .withDirection(this.dir)
-            .withOffsetX(this.offsetX)
-            .withOffsetY(this.offsetY);
-        this._handlePositionChanges(strategy);
-        return strategy;
-    };
-    ConnectedOverlayDirective.prototype._handlePositionChanges = function (strategy) {
-        var _this = this;
-        for (var i = 1; i < this.positions.length; i++) {
-            strategy.withFallbackPosition({ originX: this.positions[i].originX, originY: this.positions[i].originY }, { overlayX: this.positions[i].overlayX, overlayY: this.positions[i].overlayY });
-        }
-        this._positionSubscription =
-            strategy.onPositionChange.subscribe(function (pos) { return _this.positionChange.emit(pos); });
-    };
-    /** Attaches the overlay and subscribes to backdrop clicks if backdrop exists */
-    ConnectedOverlayDirective.prototype._attachOverlay = function () {
-        var _this = this;
-        if (!this._overlayRef) {
-            this._createOverlay();
-        }
-        if (!this._overlayRef.hasAttached()) {
-            this._overlayRef.attach(this._templatePortal);
-            this.attach.emit();
-        }
-        if (this.hasBackdrop) {
-            this._backdropSubscription = this._overlayRef.backdropClick().subscribe(function () {
-                _this.backdropClick.emit();
-            });
-        }
-    };
-    /** Detaches the overlay and unsubscribes to backdrop clicks if backdrop exists */
-    ConnectedOverlayDirective.prototype._detachOverlay = function () {
-        if (this._overlayRef) {
-            this._overlayRef.detach();
-            this.detach.emit();
-        }
-        if (this._backdropSubscription) {
-            this._backdropSubscription.unsubscribe();
-            this._backdropSubscription = null;
-        }
-    };
-    /** Destroys the overlay created by this directive. */
-    ConnectedOverlayDirective.prototype._destroyOverlay = function () {
-        if (this._overlayRef) {
-            this._overlayRef.dispose();
-        }
-        if (this._backdropSubscription) {
-            this._backdropSubscription.unsubscribe();
-        }
-        if (this._positionSubscription) {
-            this._positionSubscription.unsubscribe();
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', OverlayOrigin)
-    ], ConnectedOverlayDirective.prototype, "origin", void 0);
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Array)
-    ], ConnectedOverlayDirective.prototype, "positions", void 0);
+    ], AutocomplateMapComponent.prototype, "locations", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])("search"), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
+    ], AutocomplateMapComponent.prototype, "searchElementRef", void 0);
+    AutocomplateMapComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'map-autocomplate',
+            template: __webpack_require__(1115),
+            styles: [__webpack_require__(1106)]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */]) === 'function' && _f) || Object])
+    ], AutocomplateMapComponent);
+    return AutocomplateMapComponent;
+    var _a, _b, _c, _d, _e, _f;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/autocomplate-map.component.js.map
+
+/***/ },
+/* 1109 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__ = __webpack_require__(1073);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__broadcaster__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(74);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MapComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var MapComponent = (function () {
+    function MapComponent(_cacheService, mapsAPILoader, ngZone, router, broadcaster) {
+        this._cacheService = _cacheService;
+        this.mapsAPILoader = mapsAPILoader;
+        this.ngZone = ngZone;
+        this.router = router;
+        this.broadcaster = broadcaster;
+        this.activeGoalMarkerIcon1 = "assets/images/Active-icon.png";
+        this.activeGoalMarkerIcon2 = "assets/images/Completed-icon.png";
+        this.passiveMarkerIcon = "assets/images/map-marker-purple.png";
+        this.activeMarkerIcon = "assets/images/map-marker-purple.png";
+        this.notAllowed = true;
+    }
+    MapComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        //set google maps defaults
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+        //create search FormControl
+        this.searchControl = new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormControl */]();
+        this.broadcaster.on('getLocation')
+            .subscribe(function (locations) {
+            _this.bounds = new google.maps.LatLngBounds(null);
+            for (var _i = 0, locations_1 = locations; _i < locations_1.length; _i++) {
+                var location = locations_1[_i];
+                _this.bounds.extend(location);
+            }
+        });
+        this.broadcaster.on('addGoal')
+            .subscribe(function (data) {
+            // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+            //     var icon = {
+            //         url: this.activeGoalMarkerIcon1,
+            //         scaledSize:new google.maps.Size(35, 50)
+            //     };
+            //     scope.mapMarkers[data].setIcon(icon);
+            // }
+        });
+        this.broadcaster.on('lsJqueryModalClosedSaveGoal')
+            .subscribe(function (userGoal) {
+            // if(!userGoal || !userGoal.status || !scope.mapMarkers[userGoal.goal.id] || !scope.mapMarkers[userGoal.goal.id].map)
+            //         return;
+            //
+            //     var icon = {
+            //         url: scope['activeGoalMarkerIcon'+userGoal.status],
+            //         scaledSize:new google.maps.Size(35, 50)
+            //     };
+            //     scope.mapMarkers[userGoal.goal.id].setIcon(icon);
+        });
+        this.broadcaster.on('doneGoal')
+            .subscribe(function (data) {
+            console.log(data);
+            // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+            //     var icon = {
+            //         url: scope.activeGoalMarkerIcon2,
+            //         scaledSize:new google.maps.Size(35, 50)
+            //     };
+            //     scope.mapMarkers[data].setIcon(icon);
+            // }
+        });
+    };
+    MapComponent.prototype.clickMarker = function (marker) {
+        this.router.navigate(['/goal/' + marker.slug]);
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Array)
+    ], MapComponent.prototype, "locations", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])("search"), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
+    ], MapComponent.prototype, "searchElementRef", void 0);
+    MapComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'map-single',
+            template: __webpack_require__(1116),
+            styles: [__webpack_require__(1106)]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */]) === 'function' && _f) || Object])
+    ], MapComponent);
+    return MapComponent;
+    var _a, _b, _c, _d, _e, _f;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/map.component.js.map
+
+/***/ },
+/* 1110 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__ = __webpack_require__(1073);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__map_component__ = __webpack_require__(1109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__autocomplate_map_component__ = __webpack_require__(1108);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MapModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var MapModule = (function () {
+    function MapModule() {
+    }
+    MapModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__["AgmCoreModule"].forRoot({
+                    apiKey: "AIzaSyBN9sWpmv-6mArNqz_oSStVdpuCTt-lu6g",
+                    libraries: ["places"]
+                }),
+                __WEBPACK_IMPORTED_MODULE_2__angular_common__["CommonModule"],
+                __WEBPACK_IMPORTED_MODULE_3_ng2_translate__["b" /* TranslateModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["d" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* ReactiveFormsModule */],
+            ],
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_6__map_component__["a" /* MapComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__autocomplate_map_component__["a" /* AutocomplateMapComponent */]
+            ],
+            exports: [
+                __WEBPACK_IMPORTED_MODULE_6__map_component__["a" /* MapComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__autocomplate_map_component__["a" /* AutocomplateMapComponent */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MapModule);
+    return MapModule;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/map.module.js.map
+
+/***/ },
+/* 1111 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var core_1 = __webpack_require__(0);
+var google_map_1 = __webpack_require__(1104);
+var google_map_circle_1 = __webpack_require__(1100);
+var google_map_info_window_1 = __webpack_require__(1071);
+var google_map_marker_1 = __webpack_require__(1101);
+var google_map_polygon_1 = __webpack_require__(1102);
+var google_map_polyline_1 = __webpack_require__(1103);
+var google_map_polyline_point_1 = __webpack_require__(1072);
+var lazy_maps_api_loader_1 = __webpack_require__(1078);
+var lazy_maps_api_loader_2 = __webpack_require__(1078);
+var maps_api_loader_1 = __webpack_require__(1019);
+var browser_globals_1 = __webpack_require__(1105);
+/**
+ * @internal
+ */
+function coreDirectives() {
+    return [
+        google_map_1.SebmGoogleMap, google_map_marker_1.SebmGoogleMapMarker, google_map_info_window_1.SebmGoogleMapInfoWindow, google_map_circle_1.SebmGoogleMapCircle,
+        google_map_polygon_1.SebmGoogleMapPolygon, google_map_polyline_1.SebmGoogleMapPolyline, google_map_polyline_point_1.SebmGoogleMapPolylinePoint
+    ];
+}
+exports.coreDirectives = coreDirectives;
+;
+/**
+ * The angular2-google-maps core module. Contains all Directives/Services/Pipes
+ * of the core module. Please use `AgmCoreModule.forRoot()` in your app module.
+ */
+var AgmCoreModule = (function () {
+    function AgmCoreModule() {
+    }
+    /**
+     * Please use this method when you register the module at the root level.
+     */
+    AgmCoreModule.forRoot = function (lazyMapsAPILoaderConfig) {
+        return {
+            ngModule: AgmCoreModule,
+            providers: browser_globals_1.BROWSER_GLOBALS_PROVIDERS.concat([
+                { provide: maps_api_loader_1.MapsAPILoader, useClass: lazy_maps_api_loader_1.LazyMapsAPILoader },
+                { provide: lazy_maps_api_loader_2.LAZY_MAPS_API_CONFIG, useValue: lazyMapsAPILoaderConfig }
+            ]),
+        };
+    };
+    AgmCoreModule.decorators = [
+        { type: core_1.NgModule, args: [{ declarations: coreDirectives(), exports: coreDirectives() },] },
+    ];
+    /** @nocollapse */
+    AgmCoreModule.ctorParameters = [];
+    return AgmCoreModule;
+}());
+exports.AgmCoreModule = AgmCoreModule;
+//# sourceMappingURL=core-module.js.map
+
+/***/ },
+/* 1112 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var google_map_1 = __webpack_require__(1104);
+exports.SebmGoogleMap = google_map_1.SebmGoogleMap;
+var google_map_circle_1 = __webpack_require__(1100);
+exports.SebmGoogleMapCircle = google_map_circle_1.SebmGoogleMapCircle;
+var google_map_info_window_1 = __webpack_require__(1071);
+exports.SebmGoogleMapInfoWindow = google_map_info_window_1.SebmGoogleMapInfoWindow;
+var google_map_marker_1 = __webpack_require__(1101);
+exports.SebmGoogleMapMarker = google_map_marker_1.SebmGoogleMapMarker;
+var google_map_polygon_1 = __webpack_require__(1102);
+exports.SebmGoogleMapPolygon = google_map_polygon_1.SebmGoogleMapPolygon;
+var google_map_polyline_1 = __webpack_require__(1103);
+exports.SebmGoogleMapPolyline = google_map_polyline_1.SebmGoogleMapPolyline;
+var google_map_polyline_point_1 = __webpack_require__(1072);
+exports.SebmGoogleMapPolylinePoint = google_map_polyline_point_1.SebmGoogleMapPolylinePoint;
+//# sourceMappingURL=directives.js.map
+
+/***/ },
+/* 1113 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var google_maps_api_wrapper_1 = __webpack_require__(963);
+exports.GoogleMapsAPIWrapper = google_maps_api_wrapper_1.GoogleMapsAPIWrapper;
+var circle_manager_1 = __webpack_require__(1074);
+exports.CircleManager = circle_manager_1.CircleManager;
+var info_window_manager_1 = __webpack_require__(1075);
+exports.InfoWindowManager = info_window_manager_1.InfoWindowManager;
+var marker_manager_1 = __webpack_require__(1018);
+exports.MarkerManager = marker_manager_1.MarkerManager;
+var polygon_manager_1 = __webpack_require__(1076);
+exports.PolygonManager = polygon_manager_1.PolygonManager;
+var polyline_manager_1 = __webpack_require__(1077);
+exports.PolylineManager = polyline_manager_1.PolylineManager;
+var lazy_maps_api_loader_1 = __webpack_require__(1078);
+exports.GoogleMapsScriptProtocol = lazy_maps_api_loader_1.GoogleMapsScriptProtocol;
+exports.LAZY_MAPS_API_CONFIG = lazy_maps_api_loader_1.LAZY_MAPS_API_CONFIG;
+exports.LazyMapsAPILoader = lazy_maps_api_loader_1.LazyMapsAPILoader;
+var maps_api_loader_1 = __webpack_require__(1019);
+exports.MapsAPILoader = maps_api_loader_1.MapsAPILoader;
+var noop_maps_api_loader_1 = __webpack_require__(1114);
+exports.NoOpMapsAPILoader = noop_maps_api_loader_1.NoOpMapsAPILoader;
+//# sourceMappingURL=services.js.map
+
+/***/ },
+/* 1114 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * When using the NoOpMapsAPILoader, the Google Maps API must be added to the page via a `<script>`
+ * Tag.
+ * It's important that the Google Maps API script gets loaded first on the page.
+ */
+var NoOpMapsAPILoader = (function () {
+    function NoOpMapsAPILoader() {
+    }
+    NoOpMapsAPILoader.prototype.load = function () {
+        if (!window.google || !window.google.maps) {
+            throw new Error('Google Maps API not loaded on page. Make sure window.google.maps is available!');
+        }
+        return Promise.resolve();
+    };
+    ;
+    return NoOpMapsAPILoader;
+}());
+exports.NoOpMapsAPILoader = NoOpMapsAPILoader;
+//# sourceMappingURL=noop-maps-api-loader.js.map
+
+/***/ },
+/* 1115 */
+/***/ function(module, exports) {
+
+module.exports = "<h3 class=\"text-center nearby-title text-dark \" *ngIf=\"notAllowed\" [innerHTML]=\"'ideas_near_by_allow'|translate\" (click)=\"setCurrentPosition()\">\n</h3>\n<div class=\"map-autocomplete\">\n    <div class=\"clearfix\">\n        <input id=\"pac-input\" autocorrect=\"off\" autocapitalize=\"off\" class=\"mapControls pull-left\" type=\"text\"\n               placeholder=\"Enter a location\" #search [formControl]=\"searchControl\">\n\n        <div id=\"type-selector\" class=\"mapControls pull-left\">\n            <input type=\"radio\" name=\"type\" id=\"changetype-all\" checked=\"checked\" (click)=\"setType([])\">\n            <label for=\"changetype-all\">All</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-establishment\" (click)=\"setType(['establishment'])\">\n            <label for=\"changetype-establishment\">Establishments</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-address\" (click)=\"setType(['address'])\">\n            <label for=\"changetype-address\">Addresses</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-geocode\" (click)=\"setType(['geocode'])\">\n            <label for=\"changetype-geocode\">Geocodes</label>\n        </div>\n    </div>\n\n    <sebm-google-map [latitude]=\"latitude\" [longitude]=\"longitude\" [scrollwheel]=\"false\" [zoom]=\"zoom\" [fitBounds]=\"bounds\"\n                     [mapTypeControl]=\"true\">\n        <sebm-google-map-marker *ngFor=\"let marker of markers\"\n            [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n            [iconUrl]=\"marker.iconUrl\">\n            <sebm-google-map-info-window [disableAutoPan]=\"true\">\n                {{ marker.title}}\n            </sebm-google-map-info-window>\n        </sebm-google-map-marker>\n        <sebm-google-map-marker width='30' height='30' *ngFor=\"let marker of locations\"\n            [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n            (mouseOut)=\"marker.isHover = false\" (markerClick)=\"clickMarker(marker)\" (mouseOver)=\"marker.isHover = true\"\n            [iconUrl]=\"(marker.status == 1)?activeGoalMarkerIcon1:(marker.status == 2)?activeGoalMarkerIcon1:passiveMarkerIcon\">\n            <sebm-google-map-info-window [disableAutoPan]=\"true\" [isOpen]=\"marker.isHover\">\n                {{ marker.title}}\n            </sebm-google-map-info-window>\n        </sebm-google-map-marker>\n    </sebm-google-map>\n</div>"
+
+/***/ },
+/* 1116 */
+/***/ function(module, exports) {
+
+module.exports = "<sebm-google-map [latitude]=\"latitude\" [longitude]=\"longitude\" [scrollwheel]=\"false\" [zoom]=\"zoom\" [fitBounds]=\"bounds\"\n                 [mapTypeControl]=\"true\">\n  <sebm-google-map-marker width='30' height='30' *ngFor=\"let marker of locations\"\n                          [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n                          (mouseOut)=\"marker.isHover = false\" (markerClick)=\"clickMarker(marker)\" (mouseOver)=\"marker.isHover = true\"\n                          [iconUrl]=\"(marker.status == 1)?activeGoalMarkerIcon1:(marker.status == 2)?activeGoalMarkerIcon1:passiveMarkerIcon\">\n    <sebm-google-map-info-window [disableAutoPan]=\"true\" [isOpen]=\"marker.isHover\">\n      {{ marker.title}}\n    </sebm-google-map-info-window>\n  </sebm-google-map-marker>\n</sebm-google-map>\n"
+
+/***/ },
+/* 1117 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(458);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular2_useful_swiper__ = __webpack_require__(463);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular2_useful_swiper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angular2_useful_swiper__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__my_activity_component__ = __webpack_require__(1118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__slider_component__ = __webpack_require__(1119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_activity_goal_activity_goal_component__ = __webpack_require__(1121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_activity_goal_footer_activity_goal_footer_component__ = __webpack_require__(1120);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivitySharingModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+var ActivitySharingModule = (function () {
+    function ActivitySharingModule() {
+    }
+    ActivitySharingModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_2__angular_common__["CommonModule"],
+                __WEBPACK_IMPORTED_MODULE_3_ng2_translate__["b" /* TranslateModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["d" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_5__components_components_module__["a" /* ComponentModule */],
+                __WEBPACK_IMPORTED_MODULE_6_angular2_useful_swiper__["SwiperModule"]
+            ],
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_7__my_activity_component__["a" /* MyActivityComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__components_activity_goal_activity_goal_component__["a" /* ActivityGoalComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__components_activity_goal_footer_activity_goal_footer_component__["a" /* ActivityGoalFooterComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__slider_component__["a" /* SliderComponent */]
+            ],
+            exports: [
+                __WEBPACK_IMPORTED_MODULE_7__my_activity_component__["a" /* MyActivityComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__components_activity_goal_activity_goal_component__["a" /* ActivityGoalComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__components_activity_goal_footer_activity_goal_footer_component__["a" /* ActivityGoalFooterComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__slider_component__["a" /* SliderComponent */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ActivitySharingModule);
+    return ActivitySharingModule;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activity-sharing.module.js.map
+
+/***/ },
+/* 1118 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(16);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MyActivityComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var MyActivityComponent = (function () {
+    function MyActivityComponent(_projectService, _cacheService, broadcaster) {
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.broadcaster = broadcaster;
+        this.start = 0;
+        this.count = 9;
+        this.activeIndex = [];
+        this.createComment = [];
+        this.noActivities = false;
+        this.busy = false;
+        this.newActivity = false;
+    }
+    MyActivityComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var data = this._cacheService.get('activities');
+        if (data && !this.single) {
+            this.Activities = data;
+            this.noActivities = (!data || !data.length);
+            this.refreshCache();
+        }
+        else {
+            this.getActivities();
+        }
+        this.broadcaster.on('slide-change')
+            .subscribe(function (data) {
+            _this.activeIndex[data.id] = data.index;
+            _this.Activities[data.number].createComment = false;
+            _this.Activities[data.number].showComment = false;
+        });
+        this.interval = setInterval(function () {
+            if (_this.Activities && !_this.single) {
+                _this._projectService.getActivities(0, _this.count, _this.Activities[0].datetime).subscribe(function (data) {
+                    if (data && data.length != 0) {
+                        _this.newData = data;
+                        _this.newActivity = true;
+                        clearInterval(_this.interval);
+                    }
+                });
+            }
+            else {
+                clearInterval(_this.interval);
+            }
+        }, 120000);
+    };
+    MyActivityComponent.prototype.getActivities = function () {
+        var _this = this;
+        this.busy = true;
+        this._projectService.getActivities(this.start, this.count, this.userId)
+            .subscribe(function (activities) {
+            _this.Activities = activities;
+            _this.noActivities = (!activities || !activities.length);
+            for (var _i = 0, _a = _this.Activities; _i < _a.length; _i++) {
+                var activity = _a[_i];
+                if (activity.goals.length > 2) {
+                    activity.reserveGoals = [activity.goals[0], activity.goals[1]];
+                    _this.optimizeReserveImages(activity.reserveGoals);
+                }
+                else {
+                    activity.reserveGoals = activity.goals;
+                }
+            }
+            _this.start += _this.count;
+            _this.busy = false;
+            _this.setReserve();
+            _this._cacheService.set('activities', _this.Activities);
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    MyActivityComponent.prototype.refreshCache = function () {
+        var _this = this;
+        this.busy = false;
+        this._projectService.getActivities(this.start, this.count, this.userId)
+            .subscribe(function (activities) {
+            _this.Activities = activities;
+            _this.noActivities = (!activities || !activities.length);
+            for (var _i = 0, _a = _this.Activities; _i < _a.length; _i++) {
+                var activity = _a[_i];
+                if (activity.goals.length > 2) {
+                    activity.reserveGoals = [activity.goals[0], activity.goals[1]];
+                    _this.optimizeReserveImages(activity.reserveGoals);
+                }
+                else {
+                    activity.reserveGoals = activity.goals;
+                }
+            }
+            _this.start += _this.count;
+            _this.busy = false;
+            _this.setReserve();
+            if (!_this.single) {
+                _this._cacheService.set('activities', _this.Activities);
+            }
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    MyActivityComponent.prototype.setReserve = function () {
+        var _this = this;
+        this._projectService.getActivities(this.start, this.count, this.userId)
+            .subscribe(function (activities) {
+            _this.reserve = activities;
+            for (var _i = 0, _a = _this.reserve; _i < _a.length; _i++) {
+                var activity = _a[_i];
+                if (activity.goals.length > 2) {
+                    activity.reserveGoals = [activity.goals[0], activity.goals[1]];
+                    _this.optimizeReserveImages(activity.reserveGoals);
+                }
+                else {
+                    activity.reserveGoals = activity.goals;
+                }
+            }
+            _this.start += _this.count;
+            _this.busy = false;
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    MyActivityComponent.prototype.getReserve = function () {
+        this.busy = true;
+        this.Activities = this.Activities.concat(this.reserve);
+        this.setReserve();
+    };
+    MyActivityComponent.prototype.addNew = function () {
+        this.newActivity = false;
+        this.addNewActivity();
+        this.interval = setInterval(this.newActivityFn, 120000);
+    };
+    MyActivityComponent.prototype.newActivityFn = function () {
+        var _this = this;
+        if (this.Activities && !this.single) {
+            this._projectService.getActivities(0, this.count, this.Activities[0].datetime).subscribe(function (data) {
+                if (data && data.length != 0) {
+                    _this.newData = data;
+                    _this.newActivity = true;
+                    clearInterval(_this.interval);
+                }
+            });
+        }
+        else {
+            clearInterval(this.interval);
+        }
+    };
+    MyActivityComponent.prototype.addNewActivity = function () {
+        var itemIds = [];
+        for (var _i = 0, _a = this.newData; _i < _a.length; _i++) {
+            var data = _a[_i];
+            itemIds.push(data.id);
+        }
+        var removingCount = 0, k;
+        // angular.element('#activities').addClass('comingByTop');
+        for (var i = this.newData.length - 1, j = 0; i >= 0; i--, j++) {
+            k = itemIds.indexOf(this.newData[i].id);
+            if (k !== -1) {
+                this.Activities.splice(k + j - removingCount, 1);
+                removingCount++;
+            }
+            this.newData[i].forTop = true;
+            if (this.newData[i].goals.length > 2) {
+                this.newData[i].reserveGoals = [this.newData[i].goals[0], this.newData[i].goals[1]];
+                this.optimizeReserveImages(this.newData[i].reserveGoals);
+            }
+            else {
+                this.newData[i].reserveGoals = this.newData[i].goals;
+            }
+            this.Activities.unshift(this.newData[i]);
+        }
+        // if(angular.isFunction(cb)){
+        //     cb();
+        // }
+        // angular.element('#activities').removeClass('comingByTop');
+    };
+    ;
+    MyActivityComponent.prototype.optimizeReserveImages = function (items) {
+        // for(let activity of this.reserve){
+        for (var _i = 0, items_1 = items; _i < items_1.length; _i++) {
+            var item = items_1[_i];
+            var img = void 0;
+            if (item.cached_image) {
+                img = new Image();
+                img.src = item.cached_image;
+            }
+        }
+        // }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Boolean)
+    ], MyActivityComponent.prototype, "single", void 0);
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Number)
-    ], ConnectedOverlayDirective.prototype, "offsetX", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "offsetY", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "width", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "height", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "minWidth", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "minHeight", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', String)
-    ], ConnectedOverlayDirective.prototype, "backdropClass", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "hasBackdrop", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "open", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "backdropClick", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "positionChange", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "attach", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
-        __metadata('design:type', Object)
-    ], ConnectedOverlayDirective.prototype, "detach", void 0);
-    ConnectedOverlayDirective = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-            selector: '[cdk-connected-overlay], [connected-overlay]',
-            exportAs: 'cdkConnectedOverlay'
-        }),
-        __param(3, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_1__overlay__["a" /* Overlay */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"], __WEBPACK_IMPORTED_MODULE_6__rtl_dir__["a" /* Dir */]])
-    ], ConnectedOverlayDirective);
-    return ConnectedOverlayDirective;
-}());
-var OverlayModule = (function () {
-    function OverlayModule() {
-    }
-    OverlayModule.forRoot = function () {
-        return {
-            ngModule: OverlayModule,
-            providers: __WEBPACK_IMPORTED_MODULE_1__overlay__["b" /* OVERLAY_PROVIDERS */],
-        };
-    };
-    OverlayModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            imports: [__WEBPACK_IMPORTED_MODULE_5__portal_portal_directives__["a" /* PortalModule */]],
-            exports: [ConnectedOverlayDirective, OverlayOrigin, __WEBPACK_IMPORTED_MODULE_7__scroll_scrollable__["a" /* Scrollable */]],
-            declarations: [ConnectedOverlayDirective, OverlayOrigin, __WEBPACK_IMPORTED_MODULE_7__scroll_scrollable__["a" /* Scrollable */]],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], OverlayModule);
-    return OverlayModule;
-}());
-
-//# sourceMappingURL=overlay-directives.js.map
-
-
-/***/ },
-
-/***/ 980:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__overlay_state__ = __webpack_require__(991);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__portal_dom_portal_host__ = __webpack_require__(1037);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__overlay_ref__ = __webpack_require__(1034);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__position_overlay_position_builder__ = __webpack_require__(1099);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__position_viewport_ruler__ = __webpack_require__(954);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__overlay_container__ = __webpack_require__(1033);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__scroll_scroll_dispatcher__ = __webpack_require__(993);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Overlay; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return OVERLAY_PROVIDERS; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-/** Next overlay unique ID. */
-var nextUniqueId = 0;
-/** The default state for newly created overlays. */
-var defaultState = new __WEBPACK_IMPORTED_MODULE_1__overlay_state__["a" /* OverlayState */]();
-/**
- * Service to create Overlays. Overlays are dynamically added pieces of floating UI, meant to be
- * used as a low-level building building block for other components. Dialogs, tooltips, menus,
- * selects, etc. can all be built using overlays. The service should primarily be used by authors
- * of re-usable components rather than developers building end-user applications.
- *
- * An overlay *is* a PortalHost, so any kind of Portal can be loaded into one.
- */
-var Overlay = (function () {
-    function Overlay(_overlayContainer, _componentFactoryResolver, _positionBuilder, _appRef, _injector, _ngZone) {
-        this._overlayContainer = _overlayContainer;
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._positionBuilder = _positionBuilder;
-        this._appRef = _appRef;
-        this._injector = _injector;
-        this._ngZone = _ngZone;
-    }
-    /**
-     * Creates an overlay.
-     * @param state State to apply to the overlay.
-     * @returns Reference to the created overlay.
-     */
-    Overlay.prototype.create = function (state) {
-        if (state === void 0) { state = defaultState; }
-        return this._createOverlayRef(this._createPaneElement(), state);
-    };
-    /**
-     * Returns a position builder that can be used, via fluent API,
-     * to construct and configure a position strategy.
-     */
-    Overlay.prototype.position = function () {
-        return this._positionBuilder;
-    };
-    /**
-     * Creates the DOM element for an overlay and appends it to the overlay container.
-     * @returns Newly-created pane element
-     */
-    Overlay.prototype._createPaneElement = function () {
-        var pane = document.createElement('div');
-        pane.id = "cdk-overlay-" + nextUniqueId++;
-        pane.classList.add('cdk-overlay-pane');
-        this._overlayContainer.getContainerElement().appendChild(pane);
-        return pane;
-    };
-    /**
-     * Create a DomPortalHost into which the overlay content can be loaded.
-     * @param pane The DOM element to turn into a portal host.
-     * @returns A portal host for the given DOM element.
-     */
-    Overlay.prototype._createPortalHost = function (pane) {
-        return new __WEBPACK_IMPORTED_MODULE_2__portal_dom_portal_host__["a" /* DomPortalHost */](pane, this._componentFactoryResolver, this._appRef, this._injector);
-    };
-    /**
-     * Creates an OverlayRef for an overlay in the given DOM element.
-     * @param pane DOM element for the overlay
-     * @param state
-     */
-    Overlay.prototype._createOverlayRef = function (pane, state) {
-        return new __WEBPACK_IMPORTED_MODULE_3__overlay_ref__["a" /* OverlayRef */](this._createPortalHost(pane), pane, state, this._ngZone);
-    };
-    Overlay = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_6__overlay_container__["a" /* OverlayContainer */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"], __WEBPACK_IMPORTED_MODULE_4__position_overlay_position_builder__["a" /* OverlayPositionBuilder */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
-    ], Overlay);
-    return Overlay;
-}());
-/** Providers for Overlay and its related injectables. */
-var OVERLAY_PROVIDERS = [
-    __WEBPACK_IMPORTED_MODULE_5__position_viewport_ruler__["a" /* ViewportRuler */],
-    __WEBPACK_IMPORTED_MODULE_4__position_overlay_position_builder__["a" /* OverlayPositionBuilder */],
-    Overlay,
-    __WEBPACK_IMPORTED_MODULE_6__overlay_container__["a" /* OverlayContainer */],
-    __WEBPACK_IMPORTED_MODULE_7__scroll_scroll_dispatcher__["a" /* ScrollDispatcher */],
-];
-
-//# sourceMappingURL=overlay.js.map
-
-
-/***/ },
-
-/***/ 981:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__platform__ = __webpack_require__(982);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__features__ = __webpack_require__(1036);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PlatformModule; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__platform__["a"]; });
-/* unused harmony namespace reexport */
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var PlatformModule = (function () {
-    function PlatformModule() {
-    }
-    PlatformModule.forRoot = function () {
-        return {
-            ngModule: PlatformModule,
-            providers: [__WEBPACK_IMPORTED_MODULE_1__platform__["a" /* Platform */]],
-        };
-    };
-    PlatformModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({}), 
-        __metadata('design:paramtypes', [])
-    ], PlatformModule);
-    return PlatformModule;
-}());
-
-//# sourceMappingURL=index.js.map
-
-
-/***/ },
-
-/***/ 982:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Platform; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-// Whether the current platform supports the V8 Break Iterator. The V8 check
-// is necessary to detect all Blink based browsers.
-var hasV8BreakIterator = typeof (window) !== 'undefined' ?
-    (window.Intl && window.Intl.v8BreakIterator) :
-    (typeof (Intl) !== 'undefined' && Intl.v8BreakIterator);
-/**
- * Service to detect the current platform by comparing the userAgent strings and
- * checking browser-specific global properties.
- * @docs-private
- */
-var Platform = (function () {
-    function Platform() {
-        /** Layout Engines */
-        this.EDGE = /(edge)/i.test(navigator.userAgent);
-        this.TRIDENT = /(msie|trident)/i.test(navigator.userAgent);
-        // EdgeHTML and Trident mock Blink specific things and need to excluded from this check.
-        this.BLINK = !!(window.chrome || hasV8BreakIterator) && !!CSS && !this.EDGE && !this.TRIDENT;
-        // Webkit is part of the userAgent in EdgeHTML Blink and Trident, so we need to
-        // ensure that Webkit runs standalone and is not use as another engines base.
-        this.WEBKIT = /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
-        /** Browsers and Platform Types */
-        this.IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        // It's difficult to detect the plain Gecko engine, because most of the browsers identify
-        // them self as Gecko-like browsers and modify the userAgent's according to that.
-        // Since we only cover one explicit Firefox case, we can simply check for Firefox
-        // instead of having an unstable check for Gecko.
-        this.FIREFOX = /(firefox|minefield)/i.test(navigator.userAgent);
-        // Trident on mobile adds the android platform to the userAgent to trick detections.
-        this.ANDROID = /android/i.test(navigator.userAgent) && !this.TRIDENT;
-    }
-    Platform = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
-        __metadata('design:paramtypes', [])
-    ], Platform);
-    return Platform;
-}());
-
-//# sourceMappingURL=platform.js.map
-
-
-/***/ },
-
-/***/ 983:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdDialogRef; });
-
-// TODO(jelbourn): resizing
-// TODO(jelbourn): afterOpen and beforeClose
-/**
- * Reference to a dialog opened via the MdDialog service.
- */
-var MdDialogRef = (function () {
-    function MdDialogRef(_overlayRef) {
-        this._overlayRef = _overlayRef;
-        /** Subject for notifying the user that the dialog has finished closing. */
-        this._afterClosed = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
-    }
-    /**
-     * Close the dialog.
-     * @param dialogResult Optional result to return to the dialog opener.
-     */
-    MdDialogRef.prototype.close = function (dialogResult) {
-        this._overlayRef.dispose();
-        this._afterClosed.next(dialogResult);
-        this._afterClosed.complete();
-    };
-    /**
-     * Gets an observable that is notified when the dialog is finished closing.
-     */
-    MdDialogRef.prototype.afterClosed = function () {
-        return this._afterClosed.asObservable();
-    };
-    return MdDialogRef;
-}());
-
-//# sourceMappingURL=dialog-ref.js.map
-
-
-/***/ },
-
-/***/ 984:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdMenuItem; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-/**
- * This directive is intended to be used inside an md-menu tag.
- * It exists mostly to set the role attribute.
- */
-var MdMenuItem = (function () {
-    function MdMenuItem(_renderer, _elementRef) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-    }
-    MdMenuItem.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
-    };
-    Object.defineProperty(MdMenuItem.prototype, "disabled", {
-        // this is necessary to support anchors
-        /** Whether the menu item is disabled. */
-        get: function () { return this._disabled; },
-        set: function (value) {
-            this._disabled = (value === false || value === undefined) ? null : true;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdMenuItem.prototype, "isAriaDisabled", {
-        /** Sets the aria-disabled property on the menu item. */
-        get: function () { return String(!!this.disabled); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdMenuItem.prototype, "_tabindex", {
-        get: function () { return this.disabled ? '-1' : '0'; },
-        enumerable: true,
-        configurable: true
-    });
-    MdMenuItem.prototype._getHostElement = function () {
-        return this._elementRef.nativeElement;
-    };
-    MdMenuItem.prototype._checkDisabled = function (event) {
-        if (this.disabled) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.disabled'),
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Boolean)
-    ], MdMenuItem.prototype, "disabled", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.aria-disabled'), 
-        __metadata('design:type', String)
-    ], MdMenuItem.prototype, "isAriaDisabled", null);
-    MdMenuItem = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: '[md-menu-item], [mat-menu-item]',
-            host: {
-                'role': 'menuitem',
-                '(click)': '_checkDisabled($event)',
-                '[attr.tabindex]': '_tabindex'
-            },
-            template: "<ng-content></ng-content><div class=\"md-menu-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"></div>",
-            exportAs: 'mdMenuItem'
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
-    ], MdMenuItem);
-    return MdMenuItem;
-}());
-
-//# sourceMappingURL=menu-item.js.map
-
-
-/***/ },
-
-/***/ 985:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdInkBar; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-/** The ink-bar is used to display and animate the line underneath the current active tab label. */
-var MdInkBar = (function () {
-    function MdInkBar(_renderer, _elementRef) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-    }
-    /**
-     * Calculates the styles from the provided element in order to align the ink-bar to that element.
-     * Shows the ink bar if previously set as hidden.
-     * @param element
-     */
-    MdInkBar.prototype.alignToElement = function (element) {
-        this.show();
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'left', this._getLeftPosition(element));
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'width', this._getElementWidth(element));
-    };
-    /** Shows the ink bar. */
-    MdInkBar.prototype.show = function () {
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'visibility', 'visible');
-    };
-    /** Hides the ink bar. */
-    MdInkBar.prototype.hide = function () {
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
-    };
-    /**
-     * Generates the pixel distance from the left based on the provided element in string format.
-     * @param element
-     */
-    MdInkBar.prototype._getLeftPosition = function (element) {
-        return element ? element.offsetLeft + 'px' : '0';
-    };
-    /**
-     * Generates the pixel width from the provided element in string format.
-     * @param element
-     */
-    MdInkBar.prototype._getElementWidth = function (element) {
-        return element ? element.offsetWidth + 'px' : '0';
-    };
-    MdInkBar = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-            selector: 'md-ink-bar, mat-ink-bar',
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
-    ], MdInkBar);
-    return MdInkBar;
-}());
-
-//# sourceMappingURL=ink-bar.js.map
-
-
-/***/ },
-
-/***/ 986:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__focus_trap__ = __webpack_require__(977);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__live_announcer__ = __webpack_require__(988);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interactivity_checker__ = __webpack_require__(978);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__platform_index__ = __webpack_require__(981);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return A11Y_PROVIDERS; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return A11yModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var A11Y_PROVIDERS = [__WEBPACK_IMPORTED_MODULE_2__live_announcer__["a" /* LiveAnnouncer */], __WEBPACK_IMPORTED_MODULE_3__interactivity_checker__["a" /* InteractivityChecker */]];
-var A11yModule = (function () {
-    function A11yModule() {
-    }
-    A11yModule.forRoot = function () {
-        return {
-            ngModule: A11yModule,
+    ], MyActivityComponent.prototype, "userId", void 0);
+    MyActivityComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'my-activity',
+            template: __webpack_require__(1125),
+            styles: [__webpack_require__(1122)],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_5__platform_index__["a" /* PlatformModule */].forRoot().providers,
-                A11Y_PROVIDERS,
+                __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */],
+                __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
             ],
-        };
-    };
-    A11yModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            imports: [__WEBPACK_IMPORTED_MODULE_4__angular_common__["CommonModule"], __WEBPACK_IMPORTED_MODULE_5__platform_index__["a" /* PlatformModule */]],
-            declarations: [__WEBPACK_IMPORTED_MODULE_1__focus_trap__["a" /* FocusTrap */]],
-            exports: [__WEBPACK_IMPORTED_MODULE_1__focus_trap__["a" /* FocusTrap */]],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
-        __metadata('design:paramtypes', [])
-    ], A11yModule);
-    return A11yModule;
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _c) || Object])
+    ], MyActivityComponent);
+    return MyActivityComponent;
+    var _a, _b, _c;
 }());
-
-//# sourceMappingURL=index.js.map
-
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/my-activity.component.js.map
 
 /***/ },
-
-/***/ 987:
+/* 1119 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(1030);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ListKeyManager; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_activity__ = __webpack_require__(1107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_activity___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_activity__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(47);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SliderComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 
-/**
- * This class manages keyboard events for selectable lists. If you pass it a query list
- * of focusable items, it will focus the correct item when arrow events occur.
- */
-var ListKeyManager = (function () {
-    function ListKeyManager(_items) {
-        this._items = _items;
-        this._tabOut = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
-        this._wrap = false;
+
+var SliderComponent = (function () {
+    function SliderComponent(broadcaster) {
+        var _this = this;
+        this.broadcaster = broadcaster;
+        this.activeIndex = 1;
+        this.config = {
+            observer: true,
+            observeParents: true,
+            autoHeight: true,
+            onSlideNextStart: function (ev) {
+                _this.activeIndex++;
+                _this.broadcaster.broadcast('slide-change', { id: _this.activity.id, index: _this.activeIndex, number: _this.index });
+                // scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex++;
+                // scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
+                // scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
+                _this.loadImage();
+                // scope.$parent.$apply();
+                // $timeout(function () {
+                ev.update(true);
+                // }, 100)
+            },
+            onSlidePrevStart: function (ev) {
+                _this.activeIndex--;
+                _this.broadcaster.broadcast('slide-change', { id: _this.activity.id, index: _this.activeIndex, number: _this.index });
+                // scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
+                // scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
+                // scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex--;
+                // scope.$parent.$apply();
+            },
+            // loop: true,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 30
+        };
     }
-    /**
-     * Turns on focus wrapping mode, which ensures that the focus will wrap to
-     * the other end of list when there are no more items in the given direction.
-     *
-     * @returns The ListKeyManager that the method was called on.
-     */
-    ListKeyManager.prototype.withFocusWrap = function () {
-        this._wrap = true;
-        return this;
+    SliderComponent.prototype.ngOnInit = function () {
     };
-    /**
-     * Sets the focus of the list to the item at the index specified.
-     *
-     * @param index The index of the item to be focused.
-     */
-    ListKeyManager.prototype.setFocus = function (index) {
-        this._focusedItemIndex = index;
-        this._items.toArray()[index].focus();
-    };
-    /**
-     * Sets the focus depending on the key event passed in.
-     * @param event Keyboard event to be used for determining which element to focus.
-     */
-    ListKeyManager.prototype.onKeydown = function (event) {
-        switch (event.keyCode) {
-            case __WEBPACK_IMPORTED_MODULE_0__core__["DOWN_ARROW"]:
-                this.focusNextItem();
-                break;
-            case __WEBPACK_IMPORTED_MODULE_0__core__["UP_ARROW"]:
-                this.focusPreviousItem();
-                break;
-            case __WEBPACK_IMPORTED_MODULE_0__core__["HOME"]:
-                this.focusFirstItem();
-                break;
-            case __WEBPACK_IMPORTED_MODULE_0__core__["END"]:
-                this.focusLastItem();
-                break;
-            case __WEBPACK_IMPORTED_MODULE_0__core__["TAB"]:
-                // Note that we shouldn't prevent the default action on tab.
-                this._tabOut.next(null);
-                return;
-            default:
-                return;
+    SliderComponent.prototype.loadImage = function () {
+        if (!this.reserveGoals[this.activeIndex] && this.activity.goals[this.activeIndex]) {
+            this.reserveGoals.push(this.activity.goals[this.activeIndex]);
         }
-        event.preventDefault();
     };
-    /** Focuses the first enabled item in the list. */
-    ListKeyManager.prototype.focusFirstItem = function () {
-        this._setFocusByIndex(0, 1);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Array)
+    ], SliderComponent.prototype, "reserveGoals", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__interface_activity__["Activity"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__interface_activity__["Activity"]) === 'function' && _a) || Object)
+    ], SliderComponent.prototype, "activity", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Number)
+    ], SliderComponent.prototype, "index", void 0);
+    SliderComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'my-slider',
+            template: __webpack_require__(1126)
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object])
+    ], SliderComponent);
+    return SliderComponent;
+    var _a, _b;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/slider.component.js.map
+
+/***/ },
+/* 1120 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interface_goal__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__interface_goal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface_activity__ = __webpack_require__(1107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface_activity___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__interface_activity__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivityGoalFooterComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ActivityGoalFooterComponent = (function () {
+    function ActivityGoalFooterComponent(broadcaster, ProjectService) {
+        this.broadcaster = broadcaster;
+        this.ProjectService = ProjectService;
+    }
+    ActivityGoalFooterComponent.prototype.ngOnInit = function () {
     };
-    /** Focuses the last enabled item in the list. */
-    ListKeyManager.prototype.focusLastItem = function () {
-        this._setFocusByIndex(this._items.length - 1, -1);
-    };
-    /** Focuses the next enabled item in the list. */
-    ListKeyManager.prototype.focusNextItem = function () {
-        this._setFocusByDelta(1);
-    };
-    /** Focuses a previous enabled item in the list. */
-    ListKeyManager.prototype.focusPreviousItem = function () {
-        this._setFocusByDelta(-1);
-    };
-    Object.defineProperty(ListKeyManager.prototype, "focusedItemIndex", {
-        /** Returns the index of the currently focused item. */
-        get: function () {
-            return this._focusedItemIndex;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Allows setting of the focusedItemIndex without focusing the item.
-     * @param index The new focusedItemIndex.
-     */
-    ListKeyManager.prototype.updateFocusedItemIndex = function (index) {
-        this._focusedItemIndex = index;
-    };
-    Object.defineProperty(ListKeyManager.prototype, "tabOut", {
-        /**
-         * Observable that emits any time the TAB key is pressed, so components can react
-         * when focus is shifted off of the list.
-         */
-        get: function () {
-            return this._tabOut.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * This method sets focus to the correct item, given a list of items and the delta
-     * between the currently focused item and the new item to be focused. It will calculate
-     * the proper focus differently depending on whether wrap mode is turned on.
-     */
-    ListKeyManager.prototype._setFocusByDelta = function (delta, items) {
-        if (items === void 0) { items = this._items.toArray(); }
-        this._wrap ? this._setWrapModeFocus(delta, items)
-            : this._setDefaultModeFocus(delta, items);
-    };
-    /**
-     * Sets the focus properly given "wrap" mode. In other words, it will continue to move
-     * down the list until it finds an item that is not disabled, and it will wrap if it
-     * encounters either end of the list.
-     */
-    ListKeyManager.prototype._setWrapModeFocus = function (delta, items) {
-        // when focus would leave menu, wrap to beginning or end
-        this._focusedItemIndex =
-            (this._focusedItemIndex + delta + items.length) % items.length;
-        // skip all disabled menu items recursively until an active one is reached
-        if (items[this._focusedItemIndex].disabled) {
-            this._setWrapModeFocus(delta, items);
+    ActivityGoalFooterComponent.prototype.addGoal = function (id) {
+        var _this = this;
+        var key = localStorage.getItem('apiKey');
+        if (!key) {
+            this.broadcaster.broadcast('openLogin', 'some message');
         }
         else {
-            items[this._focusedItemIndex].focus();
-        }
-    };
-    /**
-     * Sets the focus properly given the default mode. In other words, it will
-     * continue to move down the list until it finds an item that is not disabled. If
-     * it encounters either end of the list, it will stop and not wrap.
-     */
-    ListKeyManager.prototype._setDefaultModeFocus = function (delta, items) {
-        this._setFocusByIndex(this._focusedItemIndex + delta, delta, items);
-    };
-    /**
-     * Sets the focus to the first enabled item starting at the index specified. If the
-     * item is disabled, it will move in the fallbackDelta direction until it either
-     * finds an enabled item or encounters the end of the list.
-     */
-    ListKeyManager.prototype._setFocusByIndex = function (index, fallbackDelta, items) {
-        if (items === void 0) { items = this._items.toArray(); }
-        if (!items[index]) {
-            return;
-        }
-        while (items[index].disabled) {
-            index += fallbackDelta;
-            if (!items[index]) {
-                return;
-            }
-        }
-        this.setFocus(index);
-    };
-    return ListKeyManager;
-}());
-
-//# sourceMappingURL=list-key-manager.js.map
-
-
-/***/ },
-
-/***/ 988:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* unused harmony export LIVE_ANNOUNCER_ELEMENT_TOKEN */
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return LiveAnnouncer; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-var LIVE_ANNOUNCER_ELEMENT_TOKEN = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["OpaqueToken"]('liveAnnouncerElement');
-var LiveAnnouncer = (function () {
-    function LiveAnnouncer(elementToken) {
-        // We inject the live element as `any` because the constructor signature cannot reference
-        // browser globals (HTMLElement) on non-browser environments, since having a class decorator
-        // causes TypeScript to preserve the constructor signature types.
-        this._liveElement = elementToken || this._createLiveElement();
-    }
-    /**
-     * Announces a message to screenreaders.
-     * @param message Message to be announced to the screenreader
-     * @param politeness The politeness of the announcer element
-     */
-    LiveAnnouncer.prototype.announce = function (message, politeness) {
-        var _this = this;
-        if (politeness === void 0) { politeness = 'polite'; }
-        this._liveElement.textContent = '';
-        // TODO: ensure changing the politeness works on all environments we support.
-        this._liveElement.setAttribute('aria-live', politeness);
-        // This 100ms timeout is necessary for some browser + screen-reader combinations:
-        // - Both JAWS and NVDA over IE11 will not announce anything without a non-zero timeout.
-        // - With Chrome and IE11 with NVDA or JAWS, a repeated (identical) message won't be read a
-        //   second time without clearing and then using a non-zero delay.
-        // (using JAWS 17 at time of this writing).
-        setTimeout(function () { return _this._liveElement.textContent = message; }, 100);
-    };
-    /** Removes the aria-live element from the DOM. */
-    LiveAnnouncer.prototype._removeLiveElement = function () {
-        if (this._liveElement && this._liveElement.parentNode) {
-            this._liveElement.parentNode.removeChild(this._liveElement);
-        }
-    };
-    LiveAnnouncer.prototype._createLiveElement = function () {
-        var liveEl = document.createElement('div');
-        liveEl.classList.add('cdk-visually-hidden');
-        liveEl.setAttribute('aria-atomic', 'true');
-        liveEl.setAttribute('aria-live', 'polite');
-        document.body.appendChild(liveEl);
-        return liveEl;
-    };
-    LiveAnnouncer = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()),
-        __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(LIVE_ANNOUNCER_ELEMENT_TOKEN)), 
-        __metadata('design:paramtypes', [Object])
-    ], LiveAnnouncer);
-    return LiveAnnouncer;
-}());
-
-//# sourceMappingURL=live-announcer.js.map
-
-
-/***/ },
-
-/***/ 989:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdError; });
-// TODO(kara): Revisit why error messages are not being properly set.
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * Wrapper around Error that sets the error message.
- * @docs-private
- */
-var MdError = (function (_super) {
-    __extends(MdError, _super);
-    function MdError(value) {
-        _super.call(this);
-        this.message = value;
-    }
-    return MdError;
-}(Error));
-
-//# sourceMappingURL=error.js.map
-
-
-/***/ },
-
-/***/ 990:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* unused harmony export ObserveContent */
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ObserveContentModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-/**
- * Directive that triggers a callback whenever the content of
- * its associated element has changed.
- */
-var ObserveContent = (function () {
-    function ObserveContent(_elementRef) {
-        this._elementRef = _elementRef;
-        /** Event emitted for each change in the element's content. */
-        this.event = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-    }
-    ObserveContent.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        this._observer = new MutationObserver(function (mutations) { return mutations.forEach(function () { return _this.event.emit(); }); });
-        this._observer.observe(this._elementRef.nativeElement, {
-            characterData: true,
-            childList: true,
-            subtree: true
-        });
-    };
-    ObserveContent.prototype.ngOnDestroy = function () {
-        if (this._observer) {
-            this._observer.disconnect();
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])('cdkObserveContent'), 
-        __metadata('design:type', Object)
-    ], ObserveContent.prototype, "event", void 0);
-    ObserveContent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-            selector: '[cdkObserveContent]'
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
-    ], ObserveContent);
-    return ObserveContent;
-}());
-var ObserveContentModule = (function () {
-    function ObserveContentModule() {
-    }
-    ObserveContentModule.forRoot = function () {
-        return {
-            ngModule: ObserveContentModule,
-            providers: []
-        };
-    };
-    ObserveContentModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            exports: [ObserveContent],
-            declarations: [ObserveContent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ObserveContentModule);
-    return ObserveContentModule;
-}());
-
-//# sourceMappingURL=observe-content.js.map
-
-
-/***/ },
-
-/***/ 991:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return OverlayState; });
-/**
- * OverlayState is a bag of values for either the initial configuration or current state of an
- * overlay.
- */
-var OverlayState = (function () {
-    function OverlayState() {
-        /** Whether the overlay has a backdrop. */
-        this.hasBackdrop = false;
-        /** Custom class to add to the backdrop **/
-        this.backdropClass = 'cdk-overlay-dark-backdrop';
-        /** The direction of the text in the overlay panel. */
-        this.direction = 'ltr';
-    }
-    return OverlayState;
-}());
-
-//# sourceMappingURL=overlay-state.js.map
-
-
-/***/ },
-
-/***/ 992:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return ConnectionPositionPair; });
-/* unused harmony export ScrollableViewProperties */
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ConnectedOverlayPositionChange; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-/** The points of the origin element and the overlay element to connect. */
-var ConnectionPositionPair = (function () {
-    function ConnectionPositionPair(origin, overlay) {
-        this.originX = origin.originX;
-        this.originY = origin.originY;
-        this.overlayX = overlay.overlayX;
-        this.overlayY = overlay.overlayY;
-    }
-    return ConnectionPositionPair;
-}());
-/**
- * Set of properties regarding the position of the origin and overlay relative to the viewport
- * with respect to the containing Scrollable elements.
- *
- * The overlay and origin are clipped if any part of their bounding client rectangle exceeds the
- * bounds of any one of the strategy's Scrollable's bounding client rectangle.
- *
- * The overlay and origin are outside view if there is no overlap between their bounding client
- * rectangle and any one of the strategy's Scrollable's bounding client rectangle.
- *
- *       -----------                    -----------
- *       | outside |                    | clipped |
- *       |  view   |              --------------------------
- *       |         |              |     |         |        |
- *       ----------               |     -----------        |
- *  --------------------------    |                        |
- *  |                        |    |      Scrollable        |
- *  |                        |    |                        |
- *  |                        |     --------------------------
- *  |      Scrollable        |
- *  |                        |
- *  --------------------------
- */
-var ScrollableViewProperties = (function () {
-    function ScrollableViewProperties() {
-    }
-    return ScrollableViewProperties;
-}());
-/** The change event emitted by the strategy when a fallback position is used. */
-var ConnectedOverlayPositionChange = (function () {
-    function ConnectedOverlayPositionChange(connectionPair, scrollableViewProperties) {
-        this.connectionPair = connectionPair;
-        this.scrollableViewProperties = scrollableViewProperties;
-    }
-    ConnectedOverlayPositionChange = __decorate([
-        __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()), 
-        __metadata('design:paramtypes', [ConnectionPositionPair, ScrollableViewProperties])
-    ], ConnectedOverlayPositionChange);
-    return ConnectedOverlayPositionChange;
-}());
-
-//# sourceMappingURL=connected-position.js.map
-
-
-/***/ },
-
-/***/ 993:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent__ = __webpack_require__(461);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ScrollDispatcher; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/**
- * Service contained all registered Scrollable references and emits an event when any one of the
- * Scrollable references emit a scrolled event.
- */
-var ScrollDispatcher = (function () {
-    function ScrollDispatcher() {
-        var _this = this;
-        /** Subject for notifying that a registered scrollable reference element has been scrolled. */
-        this._scrolled = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
-        /**
-         * Map of all the scrollable references that are registered with the service and their
-         * scroll event subscriptions.
-         */
-        this.scrollableReferences = new Map();
-        // By default, notify a scroll event when the document is scrolled or the window is resized.
-        __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].fromEvent(window.document, 'scroll').subscribe(function () { return _this._notify(); });
-        __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].fromEvent(window, 'resize').subscribe(function () { return _this._notify(); });
-    }
-    /**
-     * Registers a Scrollable with the service and listens for its scrolled events. When the
-     * scrollable is scrolled, the service emits the event in its scrolled observable.
-     *
-     * @param scrollable Scrollable instance to be registered.
-     */
-    ScrollDispatcher.prototype.register = function (scrollable) {
-        var _this = this;
-        var scrollSubscription = scrollable.elementScrolled().subscribe(function () { return _this._notify(); });
-        this.scrollableReferences.set(scrollable, scrollSubscription);
-    };
-    /**
-     * Deregisters a Scrollable reference and unsubscribes from its scroll event observable.
-     *
-     * @param scrollable Scrollable instance to be deregistered.
-     */
-    ScrollDispatcher.prototype.deregister = function (scrollable) {
-        this.scrollableReferences.get(scrollable).unsubscribe();
-        this.scrollableReferences.delete(scrollable);
-    };
-    /**
-     * Returns an observable that emits an event whenever any of the registered Scrollable
-     * references (or window, document, or body) fire a scrolled event.
-     */
-    ScrollDispatcher.prototype.scrolled = function () {
-        // TODO: Add an event limiter that includes throttle with the leading and trailing events.
-        return this._scrolled.asObservable();
-    };
-    /** Returns all registered Scrollables that contain the provided element. */
-    ScrollDispatcher.prototype.getScrollContainers = function (elementRef) {
-        var _this = this;
-        var scrollingContainers = [];
-        this.scrollableReferences.forEach(function (subscription, scrollable) {
-            if (_this.scrollableContainsElement(scrollable, elementRef)) {
-                scrollingContainers.push(scrollable);
-            }
-        });
-        return scrollingContainers;
-    };
-    /** Returns true if the element is contained within the provided Scrollable. */
-    ScrollDispatcher.prototype.scrollableContainsElement = function (scrollable, elementRef) {
-        var element = elementRef.nativeElement;
-        var scrollableElement = scrollable.getElementRef().nativeElement;
-        // Traverse through the element parents until we reach null, checking if any of the elements
-        // are the scrollable's element.
-        do {
-            if (element == scrollableElement) {
-                return true;
-            }
-        } while (element = element.parentElement);
-    };
-    /** Sends a notification that a scroll event has been fired. */
-    ScrollDispatcher.prototype._notify = function () {
-        this._scrolled.next();
-    };
-    ScrollDispatcher = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
-        __metadata('design:paramtypes', [])
-    ], ScrollDispatcher);
-    return ScrollDispatcher;
-}());
-
-//# sourceMappingURL=scroll-dispatcher.js.map
-
-
-/***/ },
-
-/***/ 994:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__portal__ = __webpack_require__(968);
-/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return TemplatePortalDirective; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return PortalHostDirective; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PortalModule; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,
- * the directive instance itself can be attached to a host, enabling declarative use of portals.
- *
- * Usage:
- * <template portal #greeting>
- *   <p> Hello {{name}} </p>
- * </template>
- */
-var TemplatePortalDirective = (function (_super) {
-    __extends(TemplatePortalDirective, _super);
-    function TemplatePortalDirective(templateRef, viewContainerRef) {
-        _super.call(this, templateRef, viewContainerRef);
-    }
-    TemplatePortalDirective = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-            selector: '[cdk-portal], [portal]',
-            exportAs: 'cdkPortal',
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]])
-    ], TemplatePortalDirective);
-    return TemplatePortalDirective;
-}(__WEBPACK_IMPORTED_MODULE_1__portal__["a" /* TemplatePortal */]));
-/**
- * Directive version of a PortalHost. Because the directive *is* a PortalHost, portals can be
- * directly attached to it, enabling declarative use.
- *
- * Usage:
- * <template [cdkPortalHost]="greeting"></template>
- */
-var PortalHostDirective = (function (_super) {
-    __extends(PortalHostDirective, _super);
-    function PortalHostDirective(_componentFactoryResolver, _viewContainerRef) {
-        _super.call(this);
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._viewContainerRef = _viewContainerRef;
-    }
-    Object.defineProperty(PortalHostDirective.prototype, "_deprecatedPortal", {
-        /** @deprecated */
-        get: function () { return this.portal; },
-        set: function (v) { this.portal = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(PortalHostDirective.prototype, "portal", {
-        /** Portal associated with the Portal host. */
-        get: function () {
-            return this._portal;
-        },
-        set: function (p) {
-            if (p) {
-                this._replaceAttachedPortal(p);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    PortalHostDirective.prototype.ngOnDestroy = function () {
-        this.dispose();
-    };
-    /**
-     * Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver.
-     *
-     * @param portal Portal to be attached to the portal host.
-     */
-    PortalHostDirective.prototype.attachComponentPortal = function (portal) {
-        portal.setAttachedHost(this);
-        // If the portal specifies an origin, use that as the logical location of the component
-        // in the application tree. Otherwise use the location of this PortalHost.
-        var viewContainerRef = portal.viewContainerRef != null ?
-            portal.viewContainerRef :
-            this._viewContainerRef;
-        var componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
-        var ref = viewContainerRef.createComponent(componentFactory, viewContainerRef.length, portal.injector || viewContainerRef.parentInjector);
-        this.setDisposeFn(function () { return ref.destroy(); });
-        return ref;
-    };
-    /**
-     * Attach the given TemplatePortal to this PortlHost as an embedded View.
-     * @param portal Portal to be attached.
-     */
-    PortalHostDirective.prototype.attachTemplatePortal = function (portal) {
-        var _this = this;
-        portal.setAttachedHost(this);
-        this._viewContainerRef.createEmbeddedView(portal.templateRef);
-        this.setDisposeFn(function () { return _this._viewContainerRef.clear(); });
-        // TODO(jelbourn): return locals from view
-        return new Map();
-    };
-    /** Detaches the currently attached Portal (if there is one) and attaches the given Portal. */
-    PortalHostDirective.prototype._replaceAttachedPortal = function (p) {
-        if (this.hasAttached()) {
-            this.detach();
-        }
-        if (p) {
-            this.attach(p);
-            this._portal = p;
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('portalHost'), 
-        __metadata('design:type', Object)
-    ], PortalHostDirective.prototype, "_deprecatedPortal", null);
-    PortalHostDirective = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-            selector: '[cdkPortalHost], [portalHost]',
-            inputs: ['portal: cdkPortalHost']
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]])
-    ], PortalHostDirective);
-    return PortalHostDirective;
-}(__WEBPACK_IMPORTED_MODULE_1__portal__["b" /* BasePortalHost */]));
-var PortalModule = (function () {
-    function PortalModule() {
-    }
-    PortalModule.forRoot = function () {
-        return {
-            ngModule: PortalModule,
-            providers: []
-        };
-    };
-    PortalModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            exports: [TemplatePortalDirective, PortalHostDirective],
-            declarations: [TemplatePortalDirective, PortalHostDirective],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], PortalModule);
-    return PortalModule;
-}());
-
-//# sourceMappingURL=portal-directives.js.map
-
-
-/***/ },
-
-/***/ 995:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dialog_errors__ = __webpack_require__(1104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_focus_trap__ = __webpack_require__(977);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__ = __webpack_require__(1086);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_first__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdDialogContainer; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-/**
- * Internal component that wraps user-provided dialog content.
- * @docs-private
- */
-var MdDialogContainer = (function (_super) {
-    __extends(MdDialogContainer, _super);
-    function MdDialogContainer(_ngZone) {
-        _super.call(this);
-        this._ngZone = _ngZone;
-        /** Element that was focused before the dialog was opened. Save this to restore upon close. */
-        this._elementFocusedBeforeDialogWasOpened = null;
-    }
-    /**
-     * Attach a portal as content to this dialog container.
-     * @param portal Portal to be attached as the dialog content.
-     */
-    MdDialogContainer.prototype.attachComponentPortal = function (portal) {
-        var _this = this;
-        if (this._portalHost.hasAttached()) {
-            throw new __WEBPACK_IMPORTED_MODULE_2__dialog_errors__["a" /* MdDialogContentAlreadyAttachedError */]();
-        }
-        var attachResult = this._portalHost.attachComponentPortal(portal);
-        // If were to attempt to focus immediately, then the content of the dialog would not yet be
-        // ready in instances where change detection has to run first. To deal with this, we simply
-        // wait for the microtask queue to be empty.
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this._elementFocusedBeforeDialogWasOpened = document.activeElement;
-            _this._focusTrap.focusFirstTabbableElement();
-        });
-        return attachResult;
-    };
-    /** @docs-private */
-    MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
-        throw Error('Not yet implemented');
-    };
-    /**
-     * Handles the user pressing the Escape key.
-     * @docs-private
-     */
-    MdDialogContainer.prototype.handleEscapeKey = function () {
-        if (!this.dialogConfig.disableClose) {
-            this.dialogRef.close();
-        }
-    };
-    MdDialogContainer.prototype.ngOnDestroy = function () {
-        var _this = this;
-        // When the dialog is destroyed, return focus to the element that originally had it before
-        // the dialog was opened. Wait for the DOM to finish settling before changing the focus so
-        // that it doesn't end up back on the <body>.
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this._elementFocusedBeforeDialogWasOpened.focus();
-        });
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1__core__["PortalHostDirective"]), 
-        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_1__core__["PortalHostDirective"])
-    ], MdDialogContainer.prototype, "_portalHost", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_3__core_a11y_focus_trap__["a" /* FocusTrap */]), 
-        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_3__core_a11y_focus_trap__["a" /* FocusTrap */])
-    ], MdDialogContainer.prototype, "_focusTrap", void 0);
-    MdDialogContainer = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'md-dialog-container, mat-dialog-container',
-            template: "<cdk-focus-trap><template cdkPortalHost></template></cdk-focus-trap>",
-            styles: ["md-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){md-dialog-container{outline:solid 1px}}[mat-dialog-content],[md-dialog-content],mat-dialog-content,md-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto}[mat-dialog-title],[md-dialog-title]{font-size:20px;font-weight:700;margin:0 0 20px;display:block}[mat-dialog-actions],[md-dialog-actions],mat-dialog-actions,md-dialog-actions{padding:12px 0;display:block}[mat-dialog-actions]:last-child,[md-dialog-actions]:last-child,mat-dialog-actions:last-child,md-dialog-actions:last-child{margin-bottom:-24px}"],
-            host: {
-                'class': 'md-dialog-container',
-                '[attr.role]': 'dialogConfig?.role',
-                '(keydown.escape)': 'handleEscapeKey()',
-            },
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
-    ], MdDialogContainer);
-    return MdDialogContainer;
-}(__WEBPACK_IMPORTED_MODULE_1__core__["BasePortalHost"]));
-
-//# sourceMappingURL=dialog-container.js.map
-
-
-/***/ },
-
-/***/ 996:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(929);
-/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return MdGridListColsError; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdGridTileTooWideError; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return MdGridListBadRatioError; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-/**
- * Exception thrown when cols property is missing from grid-list
- * @docs-private
- */
-var MdGridListColsError = (function (_super) {
-    __extends(MdGridListColsError, _super);
-    function MdGridListColsError() {
-        _super.call(this, "md-grid-list: must pass in number of columns. Example: <md-grid-list cols=\"3\">");
-    }
-    return MdGridListColsError;
-}(__WEBPACK_IMPORTED_MODULE_0__core__["MdError"]));
-/**
- * Exception thrown when a tile's colspan is longer than the number of cols in list
- * @docs-private
- */
-var MdGridTileTooWideError = (function (_super) {
-    __extends(MdGridTileTooWideError, _super);
-    function MdGridTileTooWideError(cols, listLength) {
-        _super.call(this, "md-grid-list: tile with colspan " + cols + " is wider than grid with cols=\"" + listLength + "\".");
-    }
-    return MdGridTileTooWideError;
-}(__WEBPACK_IMPORTED_MODULE_0__core__["MdError"]));
-/**
- * Exception thrown when an invalid ratio is passed in as a rowHeight
- * @docs-private
- */
-var MdGridListBadRatioError = (function (_super) {
-    __extends(MdGridListBadRatioError, _super);
-    function MdGridListBadRatioError(value) {
-        _super.call(this, "md-grid-list: invalid ratio given for row-height: \"" + value + "\"");
-    }
-    return MdGridListBadRatioError;
-}(__WEBPACK_IMPORTED_MODULE_0__core__["MdError"]));
-
-//# sourceMappingURL=grid-list-errors.js.map
-
-
-/***/ },
-
-/***/ 997:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_errors__ = __webpack_require__(1055);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menu_item__ = __webpack_require__(984);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_a11y_list_key_manager__ = __webpack_require__(987);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__menu_animations__ = __webpack_require__(1054);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdMenu; });
-// TODO(kara): prevent-close functionality
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-
-
-
-
-var MdMenu = (function () {
-    function MdMenu(posX, posY) {
-        /** Config object to be passed into the menu's ngClass */
-        this._classList = {};
-        /** Position of the menu in the X axis. */
-        this.positionX = 'after';
-        /** Position of the menu in the Y axis. */
-        this.positionY = 'below';
-        /** Event emitted when the menu is closed. */
-        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        if (posX) {
-            this._setPositionX(posX);
-        }
-        if (posY) {
-            this._setPositionY(posY);
-        }
-        this.setPositionClasses(this.positionX, this.positionY);
-    }
-    MdMenu.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        this._keyManager = new __WEBPACK_IMPORTED_MODULE_3__core_a11y_list_key_manager__["a" /* ListKeyManager */](this.items).withFocusWrap();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () {
-            _this._emitCloseEvent();
-        });
-    };
-    MdMenu.prototype.ngOnDestroy = function () {
-        this._tabSubscription.unsubscribe();
-    };
-    Object.defineProperty(MdMenu.prototype, "classList", {
-        /**
-         * This method takes classes set on the host md-menu element and applies them on the
-         * menu template that displays in the overlay container.  Otherwise, it's difficult
-         * to style the containing menu from outside the component.
-         * @param classes list of class names
-         */
-        set: function (classes) {
-            this._classList = classes.split(' ').reduce(function (obj, className) {
-                obj[className] = true;
-                return obj;
-            }, {});
-            this.setPositionClasses(this.positionX, this.positionY);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Focus the first item in the menu. This method is used by the menu trigger
-     * to focus the first item when the menu is opened by the ENTER key.
-     */
-    MdMenu.prototype.focusFirstItem = function () {
-        this._keyManager.focusFirstItem();
-    };
-    /**
-     * This emits a close event to which the trigger is subscribed. When emitted, the
-     * trigger will close the menu.
-     */
-    MdMenu.prototype._emitCloseEvent = function () {
-        this.close.emit();
-    };
-    MdMenu.prototype._setPositionX = function (pos) {
-        if (pos !== 'before' && pos !== 'after') {
-            throw new __WEBPACK_IMPORTED_MODULE_1__menu_errors__["a" /* MdMenuInvalidPositionX */]();
-        }
-        this.positionX = pos;
-    };
-    MdMenu.prototype._setPositionY = function (pos) {
-        if (pos !== 'above' && pos !== 'below') {
-            throw new __WEBPACK_IMPORTED_MODULE_1__menu_errors__["b" /* MdMenuInvalidPositionY */]();
-        }
-        this.positionY = pos;
-    };
-    /**
-     * It's necessary to set position-based classes to ensure the menu panel animation
-     * folds out from the correct direction.
-     */
-    MdMenu.prototype.setPositionClasses = function (posX, posY) {
-        this._classList['md-menu-before'] = posX == 'before';
-        this._classList['md-menu-after'] = posX == 'after';
-        this._classList['md-menu-above'] = posY == 'above';
-        this._classList['md-menu-below'] = posY == 'below';
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"]), 
-        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"])
-    ], MdMenu.prototype, "templateRef", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ContentChildren"])(__WEBPACK_IMPORTED_MODULE_2__menu_item__["a" /* MdMenuItem */]), 
-        __metadata('design:type', __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"])
-    ], MdMenu.prototype, "items", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('class'), 
-        __metadata('design:type', String), 
-        __metadata('design:paramtypes', [String])
-    ], MdMenu.prototype, "classList", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
-        __metadata('design:type', Object)
-    ], MdMenu.prototype, "close", void 0);
-    MdMenu = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'md-menu, mat-menu',
-            host: { 'role': 'menu' },
-            template: "<template><div class=\"md-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_keyManager.onKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\"><div class=\"md-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></template>",
-            styles: [".md-menu-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh + 48px)}.md-menu-panel.md-menu-after.md-menu-below{transform-origin:left top}.md-menu-panel.md-menu-after.md-menu-above{transform-origin:left bottom}.md-menu-panel.md-menu-before.md-menu-below{transform-origin:right top}.md-menu-panel.md-menu-before.md-menu-above{transform-origin:right bottom}[dir=rtl] .md-menu-panel.md-menu-after.md-menu-below{transform-origin:right top}[dir=rtl] .md-menu-panel.md-menu-after.md-menu-above{transform-origin:right bottom}[dir=rtl] .md-menu-panel.md-menu-before.md-menu-below{transform-origin:left top}[dir=rtl] .md-menu-panel.md-menu-before.md-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.md-menu-panel{outline:solid 1px}}.md-menu-content{padding-top:8px;padding-bottom:8px}[md-menu-item]{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;border:none;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;display:flex;flex-direction:row;align-items:center;height:48px;padding:0 16px;font-size:16px;font-family:Roboto,\"Helvetica Neue\",sans-serif;text-align:start;text-decoration:none;position:relative}[md-menu-item][disabled]{cursor:default}[md-menu-item] md-icon{margin-right:16px}[dir=rtl] [md-menu-item] md-icon{margin-left:16px}button[md-menu-item]{width:100%}.md-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
-            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
-            animations: [
-                __WEBPACK_IMPORTED_MODULE_4__menu_animations__["a" /* transformMenu */],
-                __WEBPACK_IMPORTED_MODULE_4__menu_animations__["b" /* fadeInItems */]
-            ],
-            exportAs: 'mdMenu'
-        }),
-        __param(0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Attribute"])('x-position')),
-        __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Attribute"])('y-position')), 
-        __metadata('design:paramtypes', [String, String])
-    ], MdMenu);
-    return MdMenu;
-}());
-
-//# sourceMappingURL=menu-directive.js.map
-
-
-/***/ },
-
-/***/ 998:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_errors__ = __webpack_require__(1055);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(929);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdMenuTrigger; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-
-
-/**
- * This directive is intended to be used in conjunction with an md-menu tag.  It is
- * responsible for toggling the display of the provided menu instance.
- */
-var MdMenuTrigger = (function () {
-    function MdMenuTrigger(_overlay, _element, _viewContainerRef, _renderer, _dir) {
-        this._overlay = _overlay;
-        this._element = _element;
-        this._viewContainerRef = _viewContainerRef;
-        this._renderer = _renderer;
-        this._dir = _dir;
-        this._menuOpen = false;
-        // tracking input type is necessary so it's possible to only auto-focus
-        // the first item of the list when the menu is opened via the keyboard
-        this._openedByMouse = false;
-        /** Event emitted when the associated menu is opened. */
-        this.onMenuOpen = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        /** Event emitted when the associated menu is closed. */
-        this.onMenuClose = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-    }
-    Object.defineProperty(MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", {
-        /** @deprecated */
-        get: function () { return this.menu; },
-        set: function (v) { this.menu = v; },
-        enumerable: true,
-        configurable: true
-    });
-    MdMenuTrigger.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        this._checkMenu();
-        this.menu.close.subscribe(function () { return _this.closeMenu(); });
-    };
-    MdMenuTrigger.prototype.ngOnDestroy = function () { this.destroyMenu(); };
-    Object.defineProperty(MdMenuTrigger.prototype, "menuOpen", {
-        /** Whether the menu is open. */
-        get: function () { return this._menuOpen; },
-        enumerable: true,
-        configurable: true
-    });
-    /** Toggles the menu between the open and closed states. */
-    MdMenuTrigger.prototype.toggleMenu = function () {
-        return this._menuOpen ? this.closeMenu() : this.openMenu();
-    };
-    /** Opens the menu. */
-    MdMenuTrigger.prototype.openMenu = function () {
-        if (!this._menuOpen) {
-            this._createOverlay();
-            this._overlayRef.attach(this._portal);
-            this._subscribeToBackdrop();
-            this._initMenu();
-        }
-    };
-    /** Closes the menu. */
-    MdMenuTrigger.prototype.closeMenu = function () {
-        if (this._overlayRef) {
-            this._overlayRef.detach();
-            this._backdropSubscription.unsubscribe();
-            this._resetMenu();
-        }
-    };
-    /** Removes the menu from the DOM. */
-    MdMenuTrigger.prototype.destroyMenu = function () {
-        if (this._overlayRef) {
-            this._overlayRef.dispose();
-            this._overlayRef = null;
-            this._cleanUpSubscriptions();
-        }
-    };
-    /** Focuses the menu trigger. */
-    MdMenuTrigger.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._element.nativeElement, 'focus');
-    };
-    Object.defineProperty(MdMenuTrigger.prototype, "dir", {
-        /** The text direction of the containing app. */
-        get: function () {
-            return this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * This method ensures that the menu closes when the overlay backdrop is clicked.
-     * We do not use first() here because doing so would not catch clicks from within
-     * the menu, and it would fail to unsubscribe properly. Instead, we unsubscribe
-     * explicitly when the menu is closed or destroyed.
-     */
-    MdMenuTrigger.prototype._subscribeToBackdrop = function () {
-        var _this = this;
-        this._backdropSubscription = this._overlayRef.backdropClick().subscribe(function () {
-            _this.closeMenu();
-        });
-    };
-    /**
-     * This method sets the menu state to open and focuses the first item if
-     * the menu was opened via the keyboard.
-     */
-    MdMenuTrigger.prototype._initMenu = function () {
-        this._setIsMenuOpen(true);
-        // Should only set focus if opened via the keyboard, so keyboard users can
-        // can easily navigate menu items. According to spec, mouse users should not
-        // see the focus style.
-        if (!this._openedByMouse) {
-            this.menu.focusFirstItem();
-        }
-    };
-    ;
-    /**
-     * This method resets the menu when it's closed, most importantly restoring
-     * focus to the menu trigger if the menu was opened via the keyboard.
-     */
-    MdMenuTrigger.prototype._resetMenu = function () {
-        this._setIsMenuOpen(false);
-        // Focus only needs to be reset to the host element if the menu was opened
-        // by the keyboard and manually shifted to the first menu item.
-        if (!this._openedByMouse) {
-            this.focus();
-        }
-        this._openedByMouse = false;
-    };
-    // set state rather than toggle to support triggers sharing a menu
-    MdMenuTrigger.prototype._setIsMenuOpen = function (isOpen) {
-        this._menuOpen = isOpen;
-        this._menuOpen ? this.onMenuOpen.emit() : this.onMenuClose.emit();
-    };
-    /**
-     *  This method checks that a valid instance of MdMenu has been passed into
-     *  mdMenuTriggerFor. If not, an exception is thrown.
-     */
-    MdMenuTrigger.prototype._checkMenu = function () {
-        if (!this.menu) {
-            throw new __WEBPACK_IMPORTED_MODULE_1__menu_errors__["c" /* MdMenuMissingError */]();
-        }
-    };
-    /**
-     *  This method creates the overlay from the provided menu's template and saves its
-     *  OverlayRef so that it can be attached to the DOM when openMenu is called.
-     */
-    MdMenuTrigger.prototype._createOverlay = function () {
-        if (!this._overlayRef) {
-            this._portal = new __WEBPACK_IMPORTED_MODULE_2__core__["TemplatePortal"](this.menu.templateRef, this._viewContainerRef);
-            var config = this._getOverlayConfig();
-            this._subscribeToPositions(config.positionStrategy);
-            this._overlayRef = this._overlay.create(config);
-        }
-    };
-    /**
-     * This method builds the configuration object needed to create the overlay, the OverlayState.
-     * @returns OverlayState
-     */
-    MdMenuTrigger.prototype._getOverlayConfig = function () {
-        var overlayState = new __WEBPACK_IMPORTED_MODULE_2__core__["OverlayState"]();
-        overlayState.positionStrategy = this._getPosition()
-            .withDirection(this.dir);
-        overlayState.hasBackdrop = true;
-        overlayState.backdropClass = 'cdk-overlay-transparent-backdrop';
-        overlayState.direction = this.dir;
-        return overlayState;
-    };
-    /**
-     * Listens to changes in the position of the overlay and sets the correct classes
-     * on the menu based on the new position. This ensures the animation origin is always
-     * correct, even if a fallback position is used for the overlay.
-     */
-    MdMenuTrigger.prototype._subscribeToPositions = function (position) {
-        var _this = this;
-        this._positionSubscription = position.onPositionChange.subscribe(function (change) {
-            var posX = change.connectionPair.originX === 'start' ? 'after' : 'before';
-            var posY = change.connectionPair.originY === 'top' ? 'below' : 'above';
-            _this.menu.setPositionClasses(posX, posY);
-        });
-    };
-    /**
-     * This method builds the position strategy for the overlay, so the menu is properly connected
-     * to the trigger.
-     * @returns ConnectedPositionStrategy
-     */
-    MdMenuTrigger.prototype._getPosition = function () {
-        var _a = this.menu.positionX === 'before' ? ['end', 'start'] : ['start', 'end'], posX = _a[0], fallbackX = _a[1];
-        var _b = this.menu.positionY === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], posY = _b[0], fallbackY = _b[1];
-        return this._overlay.position()
-            .connectedTo(this._element, { originX: posX, originY: posY }, { overlayX: posX, overlayY: posY })
-            .withFallbackPosition({ originX: fallbackX, originY: posY }, { overlayX: fallbackX, overlayY: posY })
-            .withFallbackPosition({ originX: posX, originY: fallbackY }, { overlayX: posX, overlayY: fallbackY })
-            .withFallbackPosition({ originX: fallbackX, originY: fallbackY }, { overlayX: fallbackX, overlayY: fallbackY });
-    };
-    MdMenuTrigger.prototype._cleanUpSubscriptions = function () {
-        if (this._backdropSubscription) {
-            this._backdropSubscription.unsubscribe();
-        }
-        if (this._positionSubscription) {
-            this._positionSubscription.unsubscribe();
-        }
-    };
-    MdMenuTrigger.prototype._handleMousedown = function (event) {
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__core__["isFakeMousedownFromScreenReader"])(event)) {
-            this._openedByMouse = true;
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('md-menu-trigger-for'), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('mdMenuTriggerFor'), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "menu", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "onMenuOpen", void 0);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "onMenuClose", void 0);
-    MdMenuTrigger = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
-            selector: '[md-menu-trigger-for], [mat-menu-trigger-for], [mdMenuTriggerFor]',
-            host: {
-                'aria-haspopup': 'true',
-                '(mousedown)': '_handleMousedown($event)',
-                '(click)': 'toggleMenu()',
-            },
-            exportAs: 'mdMenuTrigger'
-        }),
-        __param(4, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"])()), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_2__core__["Overlay"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"], __WEBPACK_IMPORTED_MODULE_2__core__["Dir"]])
-    ], MdMenuTrigger);
-    return MdMenuTrigger;
-}());
-
-//# sourceMappingURL=menu-trigger.js.map
-
-
-/***/ },
-
-/***/ 999:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core__ = __webpack_require__(929);
-/* unused harmony export MdProgressSpinner */
-/* unused harmony export MdSpinner */
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MdProgressSpinnerModule; });
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-// TODO(josephperrott): Benchpress tests.
-/** A single degree in radians. */
-var DEGREE_IN_RADIANS = Math.PI / 180;
-/** Duration of the indeterminate animation. */
-var DURATION_INDETERMINATE = 667;
-/** Duration of the indeterminate animation. */
-var DURATION_DETERMINATE = 225;
-/** Start animation value of the indeterminate animation */
-var startIndeterminate = 3;
-/** End animation value of the indeterminate animation */
-var endIndeterminate = 80;
-/* Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden. */
-var MAX_ANGLE = 359.99 / 100;
-/**
- * <md-progress-spinner> component.
- */
-var MdProgressSpinner = (function () {
-    function MdProgressSpinner(_changeDetectorRef, _ngZone, _elementRef) {
-        this._changeDetectorRef = _changeDetectorRef;
-        this._ngZone = _ngZone;
-        this._elementRef = _elementRef;
-        /** The id of the last requested animation. */
-        this._lastAnimationId = 0;
-        this._mode = 'determinate';
-        this.color = 'primary';
-    }
-    Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMin", {
-        /**
-         * Values for aria max and min are only defined as numbers when in a determinate mode.  We do this
-         * because voiceover does not report the progress indicator as indeterminate if the aria min
-         * and/or max value are number values.
-         */
-        get: function () {
-            return this.mode == 'determinate' ? 0 : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMax", {
-        get: function () {
-            return this.mode == 'determinate' ? 100 : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdProgressSpinner.prototype, "interdeterminateInterval", {
-        /** @docs-private */
-        get: function () {
-            return this._interdeterminateInterval;
-        },
-        /** @docs-private */
-        set: function (interval) {
-            clearInterval(this._interdeterminateInterval);
-            this._interdeterminateInterval = interval;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Clean up any animations that were running.
-     */
-    MdProgressSpinner.prototype.ngOnDestroy = function () {
-        this._cleanupIndeterminateAnimation();
-    };
-    Object.defineProperty(MdProgressSpinner.prototype, "value", {
-        get: function () {
-            if (this.mode == 'determinate') {
-                return this._value;
-            }
-        },
-        set: function (v) {
-            if (v != null && this.mode == 'determinate') {
-                var newValue = clamp(v);
-                this._animateCircle((this.value || 0), newValue, linearEase, DURATION_DETERMINATE, 0);
-                this._value = newValue;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdProgressSpinner.prototype, "mode", {
-        /**
-         * Mode of the progress circle
-         *
-         * Input must be one of the values from ProgressMode, defaults to 'determinate'.
-         * mode is bound to the host as the attribute host.
-         */
-        get: function () {
-            return this._mode;
-        },
-        set: function (m) {
-            if (m == 'indeterminate') {
-                this._startIndeterminateAnimation();
-            }
-            else {
-                this._cleanupIndeterminateAnimation();
-            }
-            this._mode = m;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Animates the circle from one percentage value to another.
-     *
-     * @param animateFrom The percentage of the circle filled starting the animation.
-     * @param animateTo The percentage of the circle filled ending the animation.
-     * @param ease The easing function to manage the pace of change in the animation.
-     * @param duration The length of time to show the animation, in milliseconds.
-     * @param rotation The starting angle of the circle fill, with 0° represented at the top center
-     *    of the circle.
-     */
-    MdProgressSpinner.prototype._animateCircle = function (animateFrom, animateTo, ease, duration, rotation) {
-        var _this = this;
-        var id = ++this._lastAnimationId;
-        var startTime = Date.now();
-        var changeInValue = animateTo - animateFrom;
-        // No need to animate it if the values are the same
-        if (animateTo === animateFrom) {
-            this._renderArc(animateTo, rotation);
-        }
-        else {
-            var animation_1 = function () {
-                var elapsedTime = Math.max(0, Math.min(Date.now() - startTime, duration));
-                _this._renderArc(ease(elapsedTime, animateFrom, changeInValue, duration), rotation);
-                // Prevent overlapping animations by checking if a new animation has been called for and
-                // if the animation has lasted longer than the animation duration.
-                if (id === _this._lastAnimationId && elapsedTime < duration) {
-                    requestAnimationFrame(animation_1);
-                }
-            };
-            // Run the animation outside of Angular's zone, in order to avoid
-            // hitting ZoneJS and change detection on each frame.
-            this._ngZone.runOutsideAngular(animation_1);
-        }
-    };
-    /**
-     * Starts the indeterminate animation interval, if it is not already running.
-     */
-    MdProgressSpinner.prototype._startIndeterminateAnimation = function () {
-        var _this = this;
-        var rotationStartPoint = 0;
-        var start = startIndeterminate;
-        var end = endIndeterminate;
-        var duration = DURATION_INDETERMINATE;
-        var animate = function () {
-            _this._animateCircle(start, end, materialEase, duration, rotationStartPoint);
-            // Prevent rotation from reaching Number.MAX_SAFE_INTEGER.
-            rotationStartPoint = (rotationStartPoint + end) % 100;
-            var temp = start;
-            start = -end;
-            end = -temp;
-        };
-        if (!this.interdeterminateInterval) {
-            this._ngZone.runOutsideAngular(function () {
-                _this.interdeterminateInterval = setInterval(animate, duration + 50, 0, false);
-                animate();
+            this.ProjectService.getUserGoal(id).subscribe(function (data) {
+                _this.broadcaster.broadcast('addModal', data);
             });
         }
     };
-    /**
-     * Removes interval, ending the animation.
-     */
-    MdProgressSpinner.prototype._cleanupIndeterminateAnimation = function () {
-        this.interdeterminateInterval = null;
+    ActivityGoalFooterComponent.prototype.completeGoal = function (id) {
+        var _this = this;
+        var key = localStorage.getItem('apiKey');
+        if (!key) {
+            this.broadcaster.broadcast('openLogin', 'message');
+        }
+        else {
+            this.ProjectService.setDoneUserGoal(id).subscribe(function () {
+                _this.ProjectService.getStory(id).subscribe(function (data) {
+                    _this.broadcaster.broadcast('doneModal', data);
+                });
+            });
+        }
     };
-    /**
-     * Renders the arc onto the SVG element. Proxies `getArc` while setting the proper
-     * DOM attribute on the `<path>`.
-     */
-    MdProgressSpinner.prototype._renderArc = function (currentValue, rotation) {
-        // Caches the path reference so it doesn't have to be looked up every time.
-        var path = this._path = this._path || this._elementRef.nativeElement.querySelector('path');
-        // Ensure that the path was found. This may not be the case if the
-        // animation function fires too early.
-        if (path) {
-            path.setAttribute('d', getSvgArc(currentValue, rotation));
+    ActivityGoalFooterComponent.prototype.showComment = function (activity, goal) {
+        if (activity) {
+            activity.createComment = true;
+            // $timeout(function () {
+            activity.showComment = !activity.showComment;
+        }
+        else {
+            goal.createComment = true;
+            // $timeout(function () {
+            goal.showComment = !goal.showComment;
         }
     };
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.aria-valuenow'), 
-        __metadata('design:type', Object)
-    ], MdProgressSpinner.prototype, "value", null);
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostBinding"])('attr.mode'),
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Object)
-    ], MdProgressSpinner.prototype, "mode", null);
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__interface_goal__["Goal"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__interface_goal__["Goal"]) === 'function' && _a) || Object)
+    ], ActivityGoalFooterComponent.prototype, "goal", void 0);
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', Object)
-    ], MdProgressSpinner.prototype, "color", void 0);
-    MdProgressSpinner = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'md-progress-spinner, mat-progress-spinner, md-progress-circle, mat-progress-circle',
-            host: {
-                'role': 'progressbar',
-                '[attr.aria-valuemin]': '_ariaValueMin',
-                '[attr.aria-valuemax]': '_ariaValueMax',
-                '[class.md-primary]': 'color == "primary"',
-                '[class.md-accent]': 'color == "accent"',
-                '[class.md-warn]': 'color == "warn"',
-            },
-            template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
-            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
-            changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectionStrategy"].OnPush,
+        __metadata('design:type', (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__interface_activity__["Activity"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__interface_activity__["Activity"]) === 'function' && _b) || Object)
+    ], ActivityGoalFooterComponent.prototype, "activity", void 0);
+    ActivityGoalFooterComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'activity-goal-footer',
+            template: __webpack_require__(1127),
+            styles: [__webpack_require__(1123)]
         }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]])
-    ], MdProgressSpinner);
-    return MdProgressSpinner;
+        __metadata('design:paramtypes', [(typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _d) || Object])
+    ], ActivityGoalFooterComponent);
+    return ActivityGoalFooterComponent;
+    var _a, _b, _c, _d;
 }());
-/**
- * <md-spinner> component.
- *
- * This is a component definition to be used as a convenience reference to create an
- * indeterminate <md-progress-spinner> instance.
- */
-var MdSpinner = (function (_super) {
-    __extends(MdSpinner, _super);
-    function MdSpinner(changeDetectorRef, elementRef, ngZone) {
-        _super.call(this, changeDetectorRef, ngZone, elementRef);
-        this.mode = 'indeterminate';
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activity-goal-footer.component.js.map
+
+/***/ },
+/* 1121 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_activity__ = __webpack_require__(1107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_activity___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_activity__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivityGoalComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ActivityGoalComponent = (function () {
+    function ActivityGoalComponent() {
     }
-    MdSpinner.prototype.ngOnDestroy = function () {
-        // The `ngOnDestroy` from `MdProgressSpinner` should be called explicitly, because
-        // in certain cases Angular won't call it (e.g. when using AoT and in unit tests).
-        _super.prototype.ngOnDestroy.call(this);
+    ActivityGoalComponent.prototype.ngOnInit = function () {
     };
-    MdSpinner = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({selector: 'md-spinner, mat-spinner',
-            host: {
-                'role': 'progressbar',
-                'mode': 'indeterminate',
-            },
-            template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
-            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
-        }), 
-        __metadata('design:paramtypes', [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
-    ], MdSpinner);
-    return MdSpinner;
-}(MdProgressSpinner));
-/**
- * Module functions.
- */
-/** Clamps a value to be between 0 and 100. */
-function clamp(v) {
-    return Math.max(0, Math.min(100, v));
-}
-/**
- * Converts Polar coordinates to Cartesian.
- */
-function polarToCartesian(radius, pathRadius, angleInDegrees) {
-    var angleInRadians = (angleInDegrees - 90) * DEGREE_IN_RADIANS;
-    return (radius + (pathRadius * Math.cos(angleInRadians))) +
-        ',' + (radius + (pathRadius * Math.sin(angleInRadians)));
-}
-/**
- * Easing function for linear animation.
- */
-function linearEase(currentTime, startValue, changeInValue, duration) {
-    return changeInValue * currentTime / duration + startValue;
-}
-/**
- * Easing function to match material design indeterminate animation.
- */
-function materialEase(currentTime, startValue, changeInValue, duration) {
-    var time = currentTime / duration;
-    var timeCubed = Math.pow(time, 3);
-    var timeQuad = Math.pow(time, 4);
-    var timeQuint = Math.pow(time, 5);
-    return startValue + changeInValue * ((6 * timeQuint) + (-15 * timeQuad) + (10 * timeCubed));
-}
-/**
- * Determines the path value to define the arc.  Converting percentage values to to polar
- * coordinates on the circle, and then to cartesian coordinates in the viewport.
- *
- * @param currentValue The current percentage value of the progress circle, the percentage of the
- *    circle to fill.
- * @param rotation The starting point of the circle with 0 being the 0 degree point.
- * @return A string for an SVG path representing a circle filled from the starting point to the
- *    percentage value provided.
- */
-function getSvgArc(currentValue, rotation) {
-    var startPoint = rotation || 0;
-    var radius = 50;
-    var pathRadius = 40;
-    var startAngle = startPoint * MAX_ANGLE;
-    var endAngle = currentValue * MAX_ANGLE;
-    var start = polarToCartesian(radius, pathRadius, startAngle);
-    var end = polarToCartesian(radius, pathRadius, endAngle + startAngle);
-    var arcSweep = endAngle < 0 ? 0 : 1;
-    var largeArcFlag;
-    if (endAngle < 0) {
-        largeArcFlag = endAngle >= -180 ? 0 : 1;
-    }
-    else {
-        largeArcFlag = endAngle <= 180 ? 0 : 1;
-    }
-    return "M" + start + "A" + pathRadius + "," + pathRadius + " 0 " + largeArcFlag + "," + arcSweep + " " + end;
-}
-var MdProgressSpinnerModule = (function () {
-    function MdProgressSpinnerModule() {
-    }
-    MdProgressSpinnerModule.forRoot = function () {
-        return {
-            ngModule: MdProgressSpinnerModule,
-            providers: []
-        };
-    };
-    MdProgressSpinnerModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            imports: [__WEBPACK_IMPORTED_MODULE_1__core__["DefaultStyleCompatibilityModeModule"]],
-            exports: [MdProgressSpinner, MdSpinner, __WEBPACK_IMPORTED_MODULE_1__core__["DefaultStyleCompatibilityModeModule"]],
-            declarations: [MdProgressSpinner, MdSpinner],
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__interface_activity__["Activity"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__interface_activity__["Activity"]) === 'function' && _a) || Object)
+    ], ActivityGoalComponent.prototype, "activity", void 0);
+    ActivityGoalComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'activity-goal',
+            template: __webpack_require__(1128),
+            styles: [__webpack_require__(1124)]
         }), 
         __metadata('design:paramtypes', [])
-    ], MdProgressSpinnerModule);
-    return MdProgressSpinnerModule;
+    ], ActivityGoalComponent);
+    return ActivityGoalComponent;
+    var _a;
 }());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activity-goal.component.js.map
 
-//# sourceMappingURL=progress-spinner.js.map
+/***/ },
+/* 1122 */
+/***/ function(module, exports) {
 
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n#activities .idea-item figure {\n  margin-bottom: 0;\n}\n#activities .image {\n  margin: 0 10px 0 0;\n  float: left;\n}\n#activities .image a {\n  height: auto;\n}\n#activities .image img {\n  width: 40px;\n  height: 40px;\n  margin: 0 auto;\n  border: 2px solid #cecece;\n}\n#activities .image .no-image {\n  height: 40px;\n  width: 40px;\n  line-height: 35px;\n  color: #ffffff;\n}\n#activities p {\n  font-size: 12px;\n  color: #999999;\n}\n#activities h4 {\n  font-size: 14px;\n  font-weight: 600;\n  padding: 5px 0 2px 0;\n  margin: 0;\n}\n#activities h4 a {\n  font-size: 14px;\n  padding-bottom: 2px;\n  display: inline-block;\n}\n#activities h4 span {\n  display: block;\n}\n#activities .goals-animate .swiper-button-next,\n#activities .goals-animate .swiper-button-prev {\n  top: 42%;\n}\n#activities .goals-animate .swiper-pagination {\n  text-align: right;\n  position: absolute;\n  right: 3px;\n  top: 36px;\n  width: 100px;\n  height: 25px;\n  font-size: 14px;\n  left: auto;\n}\n#activities .goals-animate .swiper-pagination .swiper-pagination-bullet {\n  margin: 0 5px;\n}\n#activities .goals-animate p {\n  padding-bottom: 0;\n}\n#activities .goals-animate .idea-item figure.rounded-corners {\n  border-radius: 4px;\n  -moz-border-radius-topleft: 4px;\n  -moz-border-radius-topright: 4px;\n  -moz-border-radius-bottomleft: 0;\n  -moz-border-radius-bottomright: 0;\n  -webkit-border-top-left-radius: 4px;\n  -webkit-border-top-right-radius: 4px;\n  -webkit-border-bottom-left-radius: 0;\n  -webkit-border-bottom-right-radius: 0;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n@media (min-width: 768px) {\n  #activities .image {\n    margin: 0 15px 0 0;\n    float: left;\n  }\n  #activities .image a {\n    height: auto;\n  }\n  #activities .image img {\n    width: 50px;\n    height: 50px;\n    margin: 0 auto;\n    border: 2px solid #cecece;\n  }\n  #activities .image .no-image {\n    height: 50px;\n    width: 50px;\n    line-height: 45px;\n  }\n  #activities p {\n    font-size: 13px;\n  }\n  #activities h4 {\n    font-size: 16px;\n    padding: 9px 0 2px 0;\n  }\n  #activities h4 a {\n    font-size: 16px;\n    padding: 0 10px 0 0;\n  }\n  #activities h4 span {\n    display: inline-block;\n  }\n  #activities .goals-animate .swiper-pagination {\n    top: 6px;\n    font-size: 16px;\n  }\n  #activities .goals-animate p {\n    padding-bottom: 0;\n  }\n}\n"
+
+/***/ },
+/* 1123 */
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\nfigcaption {\n  background-color: #ffffff;\n}\nfigcaption ul li {\n  height: 35px;\n  line-height: 31px;\n}\nfigcaption ul li a:hover,\nfigcaption ul li a:focus {\n  text-decoration: none;\n}\nfigcaption ul li i {\n  font-size: 25px;\n  vertical-align: middle;\n}\nfigcaption ul li i.comment-icon {\n  vertical-align: middle;\n  display: inline-block;\n  background: url('../../../assets/images/comment-icon.svg') no-repeat center center;\n  width: 21px;\n  height: 20px;\n  margin: 0;\n}\nfigcaption ul li i.icon-green-ok,\nfigcaption ul li .icon-green-plus {\n  font-size: 36px;\n  vertical-align: middle;\n}\nfigcaption ul li:hover {\n  background-color: #7724f6;\n  color: #fff;\n}\nfigcaption ul li:hover a .text {\n  color: #ffffff;\n}\nfigcaption ul li .text {\n  font-size: 12px;\n}\nfigcaption ul li:last-child {\n  text-align: left;\n  padding-left: 1px;\n}\nfigcaption ul .transparent .text {\n  color: #a4a4a4;\n}\nfigcaption ul .transparent:hover {\n  background-color: transparent;\n}\nfigcaption ul .transparent:hover a,\nfigcaption ul .transparent:hover .text {\n  color: #a4a4a4;\n}\n@media (min-width: 768px) {\n  figcaption ul li {\n    height: 50px;\n    line-height: 45px;\n  }\n  figcaption ul li i.icon-green-ok,\n  figcaption ul li .icon-green-plus {\n    font-size: 49px;\n  }\n  figcaption ul li i {\n    font-size: 30px;\n  }\n  figcaption ul li i.comment-icon {\n    width: 30px;\n    height: 24px;\n    margin: 3px 1px 0 -17px;\n  }\n  figcaption ul li .text {\n    font-size: 14px;\n  }\n  figcaption ul li:last-child {\n    text-align: center;\n  }\n}\n@media (min-width: 992px) {\n  figcaption ul li:hover {\n    background-color: #7724F6;\n    color: #ffffff;\n  }\n  figcaption ul li:focus,\n  figcaption ul li:active {\n    background-color: #6108EA;\n  }\n  figcaption ul li:focus a,\n  figcaption ul li:active a {\n    color: #ffffff;\n  }\n}\n"
+
+/***/ },
+/* 1124 */
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.goal-item-image {\n  display: block;\n  height: 230px;\n}\n"
+
+/***/ },
+/* 1125 */
+/***/ function(module, exports) {
+
+module.exports = "<div id=\"activities\">\n     <!--{% if single  and activity is defined and userId is defined%}-->\n     <!--data-ls-count=\"10\"-->\n     <!--data-ls-user=\"{{ userId }}\"-->\n     <!--{% endif %}>-->\n\n    <!--{% if not single%}-->\n    <!--data-ng-init=\"activityPage = true\"-->\n    <div class=\"new-activity\" *ngIf=\"newActivity && !single\">\n        <a (click)=\"addNew()\">{{ 'new_activity'|translate }}</a>\n    </div>\n    <h3 class=\"text-dark-gray \" *ngIf=\"noActivities && !single\" id=\"non-activity\" >{{ 'active.not_have'|translate }}\n        <a routerLink=\"/ideas\" class=\"text-purple\">adding</a>\n    </h3>\n    <!--{% else %}-->\n        <!--<span class=\"empty-text  text-center\" *ngIf=\"Activities.noItem && !Activities.items.length && single\" id=\"non-activity\" >-->\n            <!--{{ 'activity_empty'|translate }}-->\n        <!--</span>-->\n    <!--{% endif %}-->\n\n    <!--data-ng-init=\"activity.activeIndex = 1\"-->\n    <div class=\"goals-animate\" [class.comingByTop]=\"activity && activity.forTop\"\n         *ngFor=\"let activity of Activities;let i = index\">\n        <!--Activities -> Activities.items-->\n\n        <div *ngIf=\"activity.comment || activity.success_story\">\n            <activity-goal [activity]=\"activity\"></activity-goal>\n        </div>\n\n        <div [ngClass]=\"{'line': activity.comment || activity.success_story}\"></div>\n\n        <div class=\"bg-white\" [ngClass]=\"{'rounded-corners-bottom': activity.comment || activity.success_story, 'round': !activity.comment && !activity.success_story}\">\n            <div class=\"padding\" [ngClass]=\"{'padding-no': !activity.comment && !activity.success_story}\">\n                <div class=\"clearfix relative\">\n\n                    <figure class=\"image img-circle\">\n\n                        <!--{% set className = \"user-no\" ~ random(4) %}-->\n\n                        <img *ngIf=\"activity.user.cached_image\" src=\"{{ activity.user.cached_image }}\" alt=\"{{ activity.user.filename }}\" class=\"img-circle img-responsive\">\n                        <p *ngIf=\"!activity.user.cached_image\" class=\"no-image user-no3\">\n                            {{ activity.user.first_name |slice:0:1 |uppercase }} {{ activity.user.last_name |slice:0:1 |uppercase }}\n                        </p>\n                    </figure>\n\n                    <div class=\"pull-left text-gray\">\n                        <h4>\n\n                            <a routerLink=\"profile/{{ activity.user.u_id }}\" class=\"text-dark-gray\">\n                                {{ activity.user.first_name }} {{ activity.user.last_name }}\n                                <i class=\"leaderboard-small\" *ngIf=\"haveTop && inArray(activity.user.id)\"></i>\n                            </a>\n\n                            <span class=\"text-gray\" *ngIf=\"activity.action == 0 \">\n                                <span *ngIf=\"activity.goals.length < 2\">{{ 'goal.create'|translate }}</span>\n                                <span *ngIf=\"activity.goals.length > 1\">{{ 'goal.create_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>\n                            </span>\n\n                             <span class=\"text-gray\" *ngIf=\"activity.action == 1\">\n                                <span *ngIf=\"activity.goals.length < 2\">{{ 'goal.add'|translate }}</span>\n                                <span *ngIf=\"activity.goals.length > 1\">{{ 'goal.add_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>\n                             </span>\n\n                             <span class=\"text-gray\" *ngIf=\"activity.action == 2\">\n                                <span *ngIf=\"activity.goals.length < 2\">{{ 'goal.complete'|translate }}</span>\n                                <span *ngIf=\"activity.goals.length > 1\">{{ 'goal.complete_goals'|translate }} {{ activity.goals.length }} {{ 'goal.goals'|translate }}</span>\n                             </span>\n\n                             <span class=\"text-gray\" *ngIf=\"activity.action == 3\">\n                                {{ 'goal.success_story'|translate }}\n                             </span>\n\n                             <span class=\"text-gray\" *ngIf=\"activity.action == 4\">\n                                {{ 'goal.comment'|translate }}\n                             </span>\n\n                        </h4>\n\n                        <p>{{ activity.datetime | date:'dd MMMM,  yyyy' }} at {{ activity.datetime | date:'HH:mm' }}</p>\n\n                    </div>\n                    <div class=\"pull-right\" *ngIf=\"activity.goals.length > 1\">\n                        <div class=\"swiper-pagination text-dark-grey\">{{ (activeIndex && activeIndex[activity.id])?activeIndex[activity.id]:1 }} / {{ activity.goals.length }}</div>\n                    </div>\n                    <div class=\"text-right pull-right\"\n                          *ngIf=\"activity.success_story\">\n                        <!--data-ng-init=\"$parent.count[ activity.success_story.id ] = activity.success_story.voters_count;-->\n                        <!--$parent.vote[activity.success_story.id] = isVoting(activity.success_story.is_vote, activity.success_story)\"-->\n                        <!--<span class=\"text-purple \" *ngIf=\"count[ activity.success_story.id ] < 1\">0</span>-->\n                        <!--<a data-ls-goal-users-->\n                           <!--class=\"text-purple \"-->\n                           <!--*ngIf=\"$parent.count[ activity.success_story.id ] > 0\"-->\n                           <!--href=\"javascript:void(0)\"-->\n                           <!--data-ls-item-id=\"{{ activity.success_story.id }}\"-->\n                           <!--data-ls-count=\"{{ $parent.count[ activity.success_story.id ] }}\"-->\n                           <!--data-ls-category=\"3\">{{ $parent.count[ activity.success_story.id ] }}</a>-->\n                        <goal-users [story]=\"activity.success_story\" [type]=\"3\" [user]=\"activity.user\"></goal-users>\n                    </div>\n                </div>\n\n                <div class=\"comment-place \" *ngIf=\"activity.comment\">\n                    <span class=\"arrow-up\"></span>\n                    {{ activity.comment.comment_body }}\n                </div>\n\n                <div class=\"comment-place \" *ngIf=\"activity.success_story\">\n                    <span class=\"arrow-up\"></span>\n                    {{ activity.success_story.story }}\n                </div>\n\n            </div>\n\n            <my-slider *ngIf=\"!activity.comment && !activity.success_story\" [reserveGoals]=\"activity.reserveGoals\" [activity]=\"activity\" [index]=\"i\"></my-slider>\n\n            <div [ngClass]=\"{'line': activity.createComment && activity.showComment}\"></div>\n            <app-comment *ngIf=\"activity.createComment\" [hidden]=\"!activity.showComment\"\n                         [data]=\"{id: activity.reserveGoals[((activeIndex && activeIndex[activity.id])?(activeIndex[activity.id] - 1):0)].id, slug:activity.reserveGoals[((activeIndex && activeIndex[activity.id])?(activeIndex[activity.id] - 1):0)].slug,inner:false}\">\n            </app-comment>\n            <!--<div data-ls-comment-manage-->\n                 <!--class=\"padding slide \"-->\n                 <!--*ngIf=\"activity.createComment\"-->\n                 <!--*ngIf=\"activity.showComment\"-->\n                 <!--data-ls-goal-id=\"{{ activity.reserveGoals[activity.activeIndex - 1].id }}\"-->\n                 <!--data-ls-slug=\"{{ activity.reserveGoals[activity.activeIndex - 1].slug }}\"-->\n                 <!--data-ls-reply=\"{{ 'reply'|translate }}\"-->\n                 <!--data-ls-replied=\"{{ 'replied'|translate }}\"-->\n                 <!--data-ls-logged=\"true\"-->\n                 <!--data-ls-report-title=\"{{ 'report.title'|translate }}\"-->\n                 <!--data-ls-title=\"{{ 'comments'|translate }}\"-->\n                 <!--data-ls-user-image=\"{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}-->\n                <!--{% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}-->\n                <!--{{ nameOnImage  |uppercase}}{% endif %}\">-->\n            <!--</div>-->\n        </div>\n        <br/>\n    </div>\n    <!--*ngIf=\"!single\"-->\n    <div class=\"navigation text-center\">\n        <a *ngIf=\"!busy && reserve && reserve.length > 0\"\n           (click)='getReserve()'\n           class=\"show-more \">\n            <!--ActivitiesName -> Activities.name-->\n            <span></span>\n            <span></span>\n            <span></span>\n        </a>\n    </div>\n\n</div>"
+
+/***/ },
+/* 1126 */
+/***/ function(module, exports) {
+
+module.exports = "<swiper [config]=\"config\" class=\"activity-slider swiper-container\">\n    <div class=\"idea-item swiper-wrapper goals-animate\">\n        <div class=\"swiper-slide\" *ngFor=\"let goal of reserveGoals\">\n\n            <figure class=\"rounded-corners-bottom\">\n\n                <h3>\n                    <a *ngIf=\"goal.publish\" routerLink=\"goal/{{ goal.slug }}\">{{ goal.title }}</a>\n                    <a *ngIf=\"!goal.publish\">{{ goal.title }}</a>\n                </h3>\n\n                <a *ngIf=\"goal.publish\" routerLink=\"goal/{{ goal.slug }}\"\n                   class=\"goalTitle\">\n                    <span class=\"overlay\"></span>\n                    <img src=\"{{ goal.cached_image }}\"\n                         alt=\"{{ goal.title }}\"\n                         *ngIf=\"goal.cached_image\"/>\n                </a>\n                <a *ngIf=\"!goal.publish\"\n                   class=\"goalTitle\">\n                    <span class=\"overlay\"></span>\n                    <img src=\"{{ goal.cached_image }}\"\n                         alt=\"{{ goal.title }}\"\n                         *ngIf=\"goal.cached_image\"/>\n                </a>\n\n                <div class=\"absolute\" *ngIf=\"goal.stats.listedBy\">\n                    <ul>\n                        <li>\n                            <goal-users [goal]=\"goal\" type=\"1\"></goal-users>\n                        </li>\n                        <li>\n                            <goal-users [goal]=\"goal\" type=\"2\"></goal-users>\n                        </li>\n                    </ul>\n                </div>\n\n                <figcaption>\n                    <activity-goal-footer [goal]=\"goal\" [activity]=\"activity\"></activity-goal-footer>\n                </figcaption>\n            </figure>\n        </div>\n    </div>\n\n    <div *ngIf=\"activity && activity.goals.length > 1\">\n        <!-- Add Arrows -->\n        <div class=\"swiper-button-next swiper-button-white\"></div>\n        <div class=\"swiper-button-prev swiper-button-white\"></div>\n    </div>\n</swiper>\n"
+
+/***/ },
+/* 1127 */
+/***/ function(module, exports) {
+
+module.exports = "<figcaption>\n    <ul class=\"row news-footer no-gutter \" *ngIf=\"goal.publish\">\n\n      <li class=\"col-xs-4\" [ngClass]=\"{transparent: (goal.is_my_goal && goal.is_my_goal !== 0) }\">\n        <a *ngIf=\"!goal.is_my_goal\"\n           (click)=\"addGoal(goal.id)\">\n          <i class=\"icon-plus-icon\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n          <span class=\"text\">{{ 'add'|translate | capitalize }} </span>\n        </a>\n\n        <span *ngIf=\"goal.is_my_goal && goal.is_my_goal !== 0\">\n                <i class=\"icon-green-plus\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>\n                <span class=\"text\">{{ 'added'|translate | capitalize }} </span>\n        </span>\n      </li>\n        <!--data-ng-init=\"success[ goal.id ] = false\"-->\n      <li class=\"col-xs-4\" [ngClass]=\"{transparent: (goal.is_my_goal && goal.is_my_goal === 2 )}\">\n        <span *ngIf=\"!goal.is_my_goal || goal.is_my_goal !== 2\">\n                <a (click)=\"completeGoal(goal.id)\">\n                     <i class=\"icon-ok-icon\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n                     <span class=\"text\">{{ 'done'|translate | capitalize }}</span>\n                 </a>\n            </span>\n\n        <span *ngIf=\"goal.is_my_goal && goal.is_my_goal === 2 \" id=\"success{{ goal.id }}\">\n             <i class=\"icon-green-ok\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n            <span class=\"text\">{{ 'completed'|translate | capitalize }}</span>\n        </span>\n      </li>\n\n      <li class=\"col-xs-4\" (click)=\"showComment(activity, goal)\" [ngClass]=\"{'bg-purple': (activity.showComment || goal.showComment)}\">\n        <a>\n          <i class=\"comment-icon\"></i>\n          <span class=\"text\" [ngClass]=\"{'text-white': (activity.showComment || goal.showComment)}\">{{ 'comments'|translate | capitalize }}</span>\n        </a>\n      </li>\n\n    </ul>\n    <ul *ngIf=\"!goal.publish\" class=\"row\">\n      <li class=\"col-xs-12 transparent\">\n        <i title=\"{{ 'my_bucket_list.private'|translate }}\"  class=\"icon-lock-white text-gray\"></i>\n        <span class=\"text text-gray\">{{ 'user_goal.private' | translate | capitalize}}</span>\n      </li>\n    </ul>\n</figcaption>\n"
+
+/***/ },
+/* 1128 */
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"row\">\n  <div class=\"col-sm-12 idea-item\">\n    <figure *ngFor=\"let goal of activity.reserveGoals\" class=\"rounded-corners\">\n      <i class=\"icon-lock-white\" *ngIf=\"!goal.status\"></i>\n\n      <!--<a [href]=\"goal.publish? 'goal/' + goal.slug : '#'\"-->\n         <!--class=\"goalTitle goal-item-image\">-->\n        <!--<span class=\"overlay\"></span>-->\n        <!--<h3>{{ goal.title }}</h3>-->\n        <!--<img *ngIf=\"goal.cached_image\" src=\"{{ goal.cached_image }}\" alt=\"{{ goal.title }}\"/>-->\n\n        <!--<div class=\"absolute\" *ngIf=\"goal.stats.listedBy && goal.stats.doneBy\">-->\n          <!--<ul>-->\n            <!--<li>-->\n              <!--<goal-users [goal]=\"goal\" type=\"1\"></goal-users>-->\n            <!--</li>-->\n            <!--<li>-->\n              <!--<goal-users [goal]=\"goal\" type=\"2\"></goal-users>-->\n            <!--</li>-->\n          <!--</ul>-->\n        <!--</div>-->\n\n      <!--</a>-->\n\n      <app-goal [goal]=\"goal\"></app-goal>\n\n      <activity-goal-footer [goal]=\"goal\" [activity]=\"activity\"></activity-goal-footer>\n\n    </figure>\n  </div>\n</div>\n"
+
+/***/ },
+/* 1129 */,
+/* 1130 */,
+/* 1131 */,
+/* 1132 */,
+/* 1133 */,
+/* 1134 */,
+/* 1135 */,
+/* 1136 */,
+/* 1137 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__project_service__ = __webpack_require__(16);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ProfileComponent = (function () {
+    function ProfileComponent(route, _projectService, _cacheService, broadcaster, router, renderer) {
+        var _this = this;
+        this.route = route;
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.broadcaster = broadcaster;
+        this.router = router;
+        this.renderer = renderer;
+        this.categories = ['all', 'active', 'completed'];
+        this.id = 1;
+        this.filterVisibility = false;
+        this.myProfile = false;
+        this.isDream = false;
+        this.notUrgentImportant = false;
+        this.notUrgentNotImportant = false;
+        this.urgentNotImportant = false;
+        this.urgentImportant = false;
+        this.eventId = 0;
+        this.isHover = false;
+        this.busy = false;
+        this.noGoals = false;
+        this.noItem = false;
+        this.hoveredText = '';
+        this.serverPath = '';
+        this.isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
+        this.isMobile = (window.innerWidth < 768);
+        this.start = 0;
+        this.count = 10;
+        this.locations = [];
+        this.locationsIds = [];
+        router.events.subscribe(function (val) {
+            if (_this.eventId != val.id && val instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* NavigationEnd */]) {
+                _this.eventId = val.id;
+                _this.start = 0;
+                _this.locationsIds = [];
+                _this.locations = [];
+                _this.uId = _this.route.snapshot.params['uId'] ? _this.route.snapshot.params['uId'] : 'my';
+                _this.myProfile = _this.uId == 'my';
+                _this.type = _this.route.snapshot.params['type'] ? _this.route.snapshot.params['type'] : _this.myProfile ? 'all' : 'activity';
+                _this.goals = null;
+                _this.noItem = false;
+                _this.userGoals = null;
+                _this.reserveGoals = null;
+                _this.reserveUserGoals = null;
+                _this.getData();
+            }
+        });
+    }
+    ProfileComponent.prototype.ngOnInit = function () {
+        this.serverPath = this._projectService.getPath();
+    };
+    ProfileComponent.prototype.getData = function () {
+        this.start = 0;
+        this.noItem = false;
+        var index = this.categories.indexOf(this.type);
+        if (index != -1) {
+            this.getGoals(index);
+        }
+        else {
+            switch (this.type) {
+                case 'common':
+                    // this.busy = true;
+                    this.busy = false;
+                    this.getCommon();
+                    break;
+                case 'activity':
+                    this.busy = true;
+                    // $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
+                    // $scope.Activities.nextActivity();
+                    // $scope.$emit('lsGoActivity');
+                    break;
+                case 'owned':
+                    this.busy = false;
+                    this.getOwned();
+                    break;
+            }
+        }
+    };
+    ProfileComponent.prototype.getReserve = function () {
+        this.userGoals = this.userGoals.concat(this.reserveUserGoals);
+        this.calculateLocations(this.reserveUserGoals);
+        var index = this.categories.indexOf(this.type);
+        if (index != -1) {
+            this.getGoalsReserve(index);
+        }
+        else {
+            switch (this.type) {
+                case 'common':
+                    this.getCommonReserve();
+                    break;
+                case 'owned':
+                    this.getOwnedReserve();
+                    break;
+            }
+        }
+    };
+    ProfileComponent.prototype.getGoals = function (condition) {
+        var _this = this;
+        var c = condition;
+        this._projectService.profileGoals(condition, this.count, this.start, this.isDream, this.notUrgentImportant, this.notUrgentNotImportant, this.urgentImportant, this.urgentNotImportant, ((this.type == 'all') ? '' : (this.type + '-goals')), ((this.myProfile) ? 0 : this.id))
+            .subscribe(function (data) {
+            _this.noItem = !data.user_goals.length;
+            _this.userGoals = data.user_goals;
+            _this.calculateLocations(_this.userGoals);
+            _this.start += _this.count;
+            _this.getGoalsReserve(c);
+        });
+    };
+    ProfileComponent.prototype.getGoalsReserve = function (condition) {
+        var _this = this;
+        this._projectService.profileGoals(condition, this.count, this.start, this.isDream, this.notUrgentImportant, this.notUrgentNotImportant, this.urgentImportant, this.urgentNotImportant, ((this.type == 'all') ? '' : (this.type + '-goals')), ((this.myProfile) ? 0 : this.id))
+            .subscribe(function (data) {
+            _this.reserveUserGoals = data.user_goals;
+            _this.optimiseImages();
+            _this.start += _this.count;
+            _this.busy = false;
+        });
+    };
+    ProfileComponent.prototype.getOwned = function () {
+        var _this = this;
+        this._projectService.ownedGoals(this.id, this.count, this.start)
+            .subscribe(function (data) {
+            _this.noItem = !data.goals.length;
+            _this.userGoals = data.goals;
+            _this.calculateLocations(_this.userGoals);
+            _this.start += _this.count;
+            _this.getOwnedReserve();
+        });
+    };
+    ProfileComponent.prototype.getOwnedReserve = function () {
+        var _this = this;
+        this._projectService.ownedGoals(this.id, this.count, this.start)
+            .subscribe(function (data) {
+            _this.reserveUserGoals = data.goals;
+            _this.optimiseImages();
+            _this.start += _this.count;
+            _this.busy = false;
+        });
+    };
+    ProfileComponent.prototype.getCommon = function () {
+        var _this = this;
+        this._projectService.commonGoals(this.id, this.count, this.start)
+            .subscribe(function (data) {
+            _this.noItem = !data.goals.length;
+            _this.goals = data.goals;
+            _this.calculateLocations(_this.goals);
+            _this.start += _this.count;
+            _this.getCommonReserve();
+        });
+    };
+    ProfileComponent.prototype.getCommonReserve = function () {
+        var _this = this;
+        this._projectService.commonGoals(this.id, this.count, this.start)
+            .subscribe(function (data) {
+            _this.reserveGoals = data.goals;
+            _this.optimiseImages(true);
+            _this.start += _this.count;
+            _this.busy = false;
+        });
+    };
+    ProfileComponent.prototype.onScroll = function () {
+        if (this.busy || !this.reserveUserGoals || !this.reserveUserGoals.length)
+            return;
+        this.busy = true;
+        this.getReserve();
+    };
+    ProfileComponent.prototype.optimiseImages = function (isGoal) {
+        if (isGoal) {
+            for (var _i = 0, _a = this.reserveGoals; _i < _a.length; _i++) {
+                var item = _a[_i];
+                var img = void 0;
+                if (item.cached_image) {
+                    img = new Image();
+                    img.src = this.serverPath + item.cached_image;
+                }
+            }
+        }
+        else {
+            for (var _b = 0, _c = this.reserveUserGoals; _b < _c.length; _b++) {
+                var item = _c[_b];
+                var img = void 0;
+                if (item.goal.cached_image) {
+                    img = new Image();
+                    img.src = this.serverPath + item.goal.cached_image;
+                }
+            }
+        }
+    };
+    ProfileComponent.prototype.calculateLocations = function (items) {
+        for (var _i = 0, items_1 = items; _i < items_1.length; _i++) {
+            var data = items_1[_i];
+            var item = data.goal ? data.goal : data;
+            var location = {
+                id: 0,
+                latitude: 0,
+                lat: 0,
+                longitude: 0,
+                lng: 0,
+                slug: '',
+                title: '',
+                status: 0,
+                isHover: false,
+            };
+            if (item.location && this.locationsIds.indexOf(item.id) == -1) {
+                location.id = item.id;
+                this.locationsIds.push(location.id);
+                location.latitude = item.location.latitude;
+                location.lat = item.location.latitude;
+                location.longitude = item.location.longitude;
+                location.lng = item.location.longitude;
+                location.title = item.title;
+                location.slug = item.slug;
+                location.status = item.is_my_goal;
+                this.locations.push(location);
+            }
+        }
+        this.broadcaster.broadcast('getLocation', this.locations);
+    };
+    ProfileComponent.prototype.hideJoin = function (event) {
+        if (event && event.val) {
+            this.hoveredText = event.val;
+            this.isHover = true;
+            var left = +event.ev.pageX - 60;
+            var top = event.ev.pageY - 60;
+            this.renderer.setElementStyle(this.tooltipElementRef.nativeElement, 'left', left + 'px');
+            this.renderer.setElementStyle(this.tooltipElementRef.nativeElement, 'top', top + 'px');
+        }
+        else {
+            this.hoveredText = '';
+            this.isHover = false;
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])("tooltip"), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
+    ], ProfileComponent.prototype, "tooltipElementRef", void 0);
+    ProfileComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-profile',
+            template: __webpack_require__(1179),
+            styles: [__webpack_require__(1163)]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]) === 'function' && _g) || Object])
+    ], ProfileComponent);
+    return ProfileComponent;
+    var _a, _b, _c, _d, _e, _f, _g;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile.component.js.map
+
+/***/ },
+/* 1138 */,
+/* 1139 */,
+/* 1140 */,
+/* 1141 */,
+/* 1142 */,
+/* 1143 */,
+/* 1144 */,
+/* 1145 */,
+/* 1146 */,
+/* 1147 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CalendarAllYearComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CalendarAllYearComponent = (function () {
+    function CalendarAllYearComponent() {
+        this.colArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    }
+    CalendarAllYearComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], CalendarAllYearComponent.prototype, "currentYear", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Number)
+    ], CalendarAllYearComponent.prototype, "myYears", void 0);
+    CalendarAllYearComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'calendar-all-year',
+            template: __webpack_require__(1175),
+            styles: [__webpack_require__(1159)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], CalendarAllYearComponent);
+    return CalendarAllYearComponent;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/calendar-all-year.component.js.map
+
+/***/ },
+/* 1148 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CalendarMonthComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CalendarMonthComponent = (function () {
+    function CalendarMonthComponent() {
+        this.trArray = [0, 1, 2, 3, 4, 5];
+        this.tdArray = [0, 1, 2, 3, 4, 5, 6];
+    }
+    CalendarMonthComponent.prototype.ngOnInit = function () { };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], CalendarMonthComponent.prototype, "myDays", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], CalendarMonthComponent.prototype, "days", void 0);
+    CalendarMonthComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'calendar-month',
+            template: __webpack_require__(1176),
+            styles: [__webpack_require__(1160)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], CalendarMonthComponent);
+    return CalendarMonthComponent;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/calendar-month.component.js.map
+
+/***/ },
+/* 1149 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CalendarYearComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CalendarYearComponent = (function () {
+    function CalendarYearComponent() {
+        this.colArray = [0, 1];
+        this.trArray = [0, 1, 2, 3];
+        this.tdArray = [0, 1, 2];
+    }
+    CalendarYearComponent.prototype.ngOnInit = function () {
+    };
+    CalendarYearComponent.prototype.dateByFormat = function (year, month, day) {
+        return new Date(year, month, day);
+        // moment(year + '-' +((month > 9)?month:'0'+month)+'-'+((day > 9)?day:'0'+day));
+        // return format?date.format(format):date;
+    };
+    ;
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], CalendarYearComponent.prototype, "myYAMonths", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Number)
+    ], CalendarYearComponent.prototype, "currentYear", void 0);
+    CalendarYearComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'calendar-year',
+            template: __webpack_require__(1177),
+            styles: [__webpack_require__(1161)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], CalendarYearComponent);
+    return CalendarYearComponent;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/calendar-year.component.js.map
+
+/***/ },
+/* 1150 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CalendarComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CalendarComponent = (function () {
+    function CalendarComponent(_projectService) {
+        this._projectService = _projectService;
+        this.now = new Date();
+        this.type = 'month';
+        this.days = [];
+        this.myYears = [];
+        this.myYAMonths = [];
+        this.myDays = [];
+        this.currentDay = this.now.getDate();
+        this.currentMonth = this.now.getMonth();
+        this.currentYear = this.now.getFullYear();
+        this.initDate = function () {
+            var _this = this;
+            for (var i = 1; i < 43; i++) {
+                this.days[i] = { day: i };
+            }
+            this.weekDay = this.dateByFormat(this.currentYear, this.currentMonth, 1).getDay();
+            this.dayDifferent = (-this.weekDay);
+            this.prevMonthDay = this.getDaysInMonth((this.currentMonth == 0) ? 11 : this.currentMonth - 1, (this.currentMonth == 0) ? this.currentYear - 1 : this.currentYear);
+            this.currentMonthDay = this.getDaysInMonth(this.currentMonth, this.currentYear);
+            this.days.forEach(function (v, k) {
+                _this.days[k].day = (k + _this.dayDifferent > 0) ? ((k + _this.dayDifferent <= _this.currentMonthDay) ? (k + _this.dayDifferent) : (k + _this.dayDifferent - _this.currentMonthDay)) : (k + _this.dayDifferent + _this.prevMonthDay);
+                _this.days[k].status = (k + _this.dayDifferent > 0 && k + _this.dayDifferent <= _this.currentMonthDay) ? 'active' : 'inActive';
+                _this.days[k].year = (_this.days[k].status == 'active') ? _this.currentYear : ((k + _this.dayDifferent > _this.currentMonthDay && _this.currentMonth == 11) ? (+_this.currentYear + 1) : (k + _this.dayDifferent <= 0 && _this.currentMonth == 0) ? _this.currentYear - 1 : _this.currentYear);
+                _this.days[k].month = (_this.days[k].status == 'active') ? _this.currentMonth : (k + _this.dayDifferent > _this.currentMonthDay) ? (_this.currentMonth == 11) ? 0 : (+_this.currentMonth + 1) : (k + _this.dayDifferent <= 0) ? (_this.currentMonth == 0) ? 11 : (_this.currentMonth - 1) : _this.currentMonth;
+            });
+            this.noShowLast = (this.days[42].day != 42 && this.days[42].day >= 7);
+        };
+    }
+    CalendarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.initDate();
+        this._projectService.getCalendarData()
+            .subscribe(function (data) {
+            _this.initData(data);
+        });
+    };
+    CalendarComponent.prototype.dateByFormat = function (year, month, day) {
+        return new Date(year, month, day);
+        // moment(year + '-' +((month > 9)?month:'0'+month)+'-'+((day > 9)?day:'0'+day));
+        // return format?date.format(format):date;
+    };
+    ;
+    CalendarComponent.prototype.getDaysInMonth = function (m, y) {
+        return m === 2 ? y & 3 || !(y % 25) && y & 15 ? 28 : 29 : 30 + (m + (m >> 3) & 1);
+    };
+    ;
+    CalendarComponent.prototype.arrayBySize = function (size) {
+        return new Array(size);
+    };
+    ;
+    CalendarComponent.prototype.initData = function (data) {
+        for (var k in data) {
+            var y = new Date(k).getFullYear(), m = new Date(k).getMonth(), d = new Date(k).getDate();
+            this.myYears[y] = this.myYears[y] ? this.myYears[y] : { complete: 0, deadline: 0, current: 0 };
+            this.myYAMonths[y] = this.myYAMonths[y] ? this.myYAMonths[y] : [];
+            this.myYAMonths[y][m] = this.myYAMonths[y][m] ? this.myYAMonths[y][m] : { complete: 0, deadline: 0, current: 0 };
+            this.myDays[y] = this.myDays[y] ? this.myDays[y] : [];
+            this.myDays[y][m] = this.myDays[y][m] ? this.myDays[y][m] : [];
+            this.myDays[y][m][d] = this.myDays[y][m][d] ? this.myDays[y][m][d] : { complete: 0, deadline: 0, current: 0 };
+            if (data[k].completion) {
+                this.myYears[y].complete = this.myYears[y].complete ? (this.myYears[y].complete + data[k].completion) : (data[k].completion);
+                this.myYAMonths[y][m].complete = this.myYAMonths[y][m].complete ? (this.myYAMonths[y][m].complete + data[k].completion) : (data[k].completion);
+                this.myDays[y][m][d].complete = this.myDays[y][m][d].complete ? (this.myDays[y][m][d].complete + data[k].completion) : (data[k].completion);
+            }
+            if (data[k].active) {
+                if (this.compareDates(k) === -1) {
+                    this.myYears[y].deadline = this.myYears[y].deadline ? (this.myYears[y].deadline + data[k].active) : (data[k].active);
+                    this.myYAMonths[y][m].deadline = this.myYAMonths[y][m].deadline ? (this.myYAMonths[y][m].deadline + data[k].active) : (data[k].active);
+                    this.myDays[y][m][d].deadline = this.myDays[y][m][d].deadline ? (this.myDays[y][m][d].deadline + data[k].active) : (data[k].active);
+                }
+                else {
+                    this.myYears[y].current = this.myYears[y].current ? (this.myYears[y].current + data[k].active) : (data[k].active);
+                    this.myYAMonths[y][m].current = this.myYAMonths[y][m].current ? (this.myYAMonths[y][m].current + data[k].active) : (data[k].active);
+                    this.myDays[y][m][d].current = this.myDays[y][m][d].current ? (this.myDays[y][m][d].current + data[k].active) : (data[k].active);
+                }
+            }
+        }
+        ;
+    };
+    ;
+    CalendarComponent.prototype.prev = function () {
+        switch (this.type) {
+            case 'month':
+                if (this.currentMonth == 0) {
+                    if (this.currentYear <= 1966)
+                        return;
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                }
+                else {
+                    this.currentMonth--;
+                }
+                this.initDate();
+                break;
+            case 'year':
+                if (this.currentYear <= 1966)
+                    return;
+                this.currentYear -= 2;
+                this.initDate();
+                break;
+            case 'all':
+                if (this.currentYear <= 1966)
+                    return;
+                this.currentYear -= 12;
+                this.initDate();
+                break;
+        }
+    };
+    ;
+    CalendarComponent.prototype.next = function () {
+        switch (this.type) {
+            case 'month':
+                if (this.currentMonth == 11) {
+                    if (this.currentYear >= (this.now.getFullYear() + 50))
+                        return;
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                }
+                else {
+                    this.currentMonth++;
+                }
+                this.initDate();
+                break;
+            case 'year':
+                if (this.currentYear >= (this.now.getFullYear() + 50))
+                    return;
+                this.currentYear -= -2;
+                this.initDate();
+                break;
+            case 'all':
+                if (this.currentYear >= (this.now.getFullYear() + 50))
+                    return;
+                this.currentYear -= -12;
+                this.initDate();
+                break;
+        }
+    };
+    ;
+    CalendarComponent.prototype.compareDates = function (date1, date2) {
+        if (!date1) {
+            return null;
+        }
+        var d1 = new Date(date1);
+        var d2 = date2 ? new Date(date2) : new Date();
+        if (d1 < d2) {
+            return -1;
+        }
+        else if (d1 === d2) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    };
+    ;
+    CalendarComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'calendar',
+            template: __webpack_require__(1178),
+            styles: [__webpack_require__(1162)],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object])
+    ], CalendarComponent);
+    return CalendarComponent;
+    var _a;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/calendar.component.js.map
+
+/***/ },
+/* 1151 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profile_component__ = __webpack_require__(1137);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileRouting; });
+
+
+// import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
+var ProfileRoutes = [
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__profile_component__["a" /* ProfileComponent */] },
+    { path: ':uId', component: __WEBPACK_IMPORTED_MODULE_1__profile_component__["a" /* ProfileComponent */] },
+    { path: ':uId/:type', component: __WEBPACK_IMPORTED_MODULE_1__profile_component__["a" /* ProfileComponent */] }
+];
+var ProfileRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["d" /* RouterModule */].forChild(ProfileRoutes);
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile-routing.js.map
+
+/***/ },
+/* 1152 */,
+/* 1153 */,
+/* 1154 */,
+/* 1155 */,
+/* 1156 */,
+/* 1157 */,
+/* 1158 */,
+/* 1159 */
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+/* 1160 */
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+/* 1161 */
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+/* 1162 */
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.calendar-place {\n  width: 100%;\n  background-color: #f4f4f4;\n  padding: 15px 0 5px;\n}\n.calendar-place section {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.calendar-place .groupX {\n  font-size: 14px;\n  line-height: 21px;\n  text-transform: uppercase;\n  margin: 0 0 20px;\n  padding: 2px 15px 2px 15px;\n  color: #666666;\n  background-color: #ffffff;\n  border: 1px solid #dcdcdc;\n  font-weight: 400;\n  min-width: 70px;\n}\n.calendar-place .md-button.left {\n  border-radius: 10px 0 0 10px;\n}\n.calendar-place .md-button.middle {\n  border-radius: 0;\n  border-left: 1px solid #dcdcdc;\n  border-right: 1px solid #dcdcdc;\n}\n.calendar-place .md-button.right {\n  border-radius: 0 10px 10px 0;\n}\n.calendar-place .md-button {\n  line-height: 18px;\n  min-height: 18px;\n}\n.calendar-place .md-button:not([disabled]):hover,\n.calendar-place .md-active {\n  background-color: #cecece;\n  color: #666666;\n  -webkit-transition: 0.3s;\n  transition: 0.3s;\n}\n.calendar-place .md-button:not([disabled]):focus {\n  background-color: #cecece;\n  color: #666666;\n}\n.calendar-place h3,\n.calendar-place caption {\n  margin-top: 0;\n  font-size: 22px;\n  color: #333333;\n  font-weight: 700;\n}\n.calendar-place caption {\n  background-color: #ffffff;\n}\n.calendar-place .calendar-tooltip {\n  position: absolute;\n  background-color: #ffffff;\n  color: #333333;\n  border: 1px solid #b0b0b0;\n  min-width: 150px;\n  height: 34px;\n  line-height: normal;\n  padding: 5px 10px;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  -ms-border-radius: 4px;\n  -o-border-radius: 4px;\n}\n.calendar-place .calendar-tooltip tip-arrow {\n  border-bottom-color: #b0b0b0;\n  border-top-color: #b0b0b0;\n}\n.calendar-place .arrow-up {\n  width: 0;\n  height: 0;\n  border-left: 7px solid transparent;\n  border-right: 7px solid transparent;\n  border-bottom: 7px solid #b0b0b0;\n}\n.calendar-place .icon-arrow-left,\n.calendar-place .icon-arrow-right {\n  font-size: 30px;\n  color: #999999;\n}\n.calendar-place .icon-arrow-left:hover,\n.calendar-place .icon-arrow-right:hover {\n  text-decoration: none;\n}\n.calendar-place .month-calendar th,\n.calendar-place .month-calendar td {\n  width: 45px;\n}\n.calendar-place .month-calendar span.goal-count {\n  display: block;\n  margin: 0 auto 5px;\n}\n.calendar-place .year-calendar th,\n.calendar-place .year-calendar td {\n  width: 95px;\n  height: 60px;\n}\n.calendar-place sup {\n  font-size: 12px;\n  font-weight: 700;\n}\n.calendar-place .lifetime {\n  height: 70px;\n  border: 1px solid #b0b0b0;\n  padding: 11px;\n  margin: 0 0 10px 0;\n  position: relative;\n  border-radius: 6px;\n  -webkit-border-radius: 6px;\n  -moz-border-radius: 6px;\n  -ms-border-radius: 6px;\n  -o-border-radius: 6px;\n}\n.calendar-place .lifetime span.text-grey-dark {\n  display: block;\n  text-align: right;\n}\n.calendar-place .absolute {\n  text-align: left;\n  bottom: 1px;\n}\n.calendar-place .table-bordered th {\n  text-align: center;\n}\n.calendar-place .table-bordered th,\n.calendar-place .table-bordered td {\n  border: 1px solid #b0b0b0;\n  font-size: 12px;\n  font-weight: 700;\n}\n.calendar-place .table-bordered th span:not(.goal-count),\n.calendar-place .table-bordered td span:not(.goal-count) {\n  display: block;\n  text-align: right;\n}\n.calendar-place .table-bordered td {\n  padding: 14px 11px;\n  position: relative;\n}\n.calendar-place .table-bordered thead:first-child tr:first-child th {\n  border-top: 1px solid #b0b0b0;\n}\n.calendar-place .table-bordered tbody,\n.calendar-place .table-bordered thead {\n  background-color: #ffffff;\n}\n.calendar-place span.goal-count {\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n  text-align: center;\n  color: #ffffff;\n  display: inline-block;\n  vertical-align: middle;\n  margin: 0 5px 5px;\n  cursor: pointer;\n}\n@media (min-width: 768px) {\n  .calendar-place {\n    padding: 43px 0 10px;\n  }\n  .calendar-place h3.year {\n    padding-left: 15px;\n  }\n  .calendar-place .table-bordered th,\n  .calendar-place .table-bordered td {\n    width: 102px;\n  }\n  .calendar-place .lifetime {\n    height: 90px;\n    margin: 0 0 30px 0;\n  }\n  .calendar-place .month-calendar td {\n    height: 55px;\n  }\n  .calendar-place .month-calendar span.goal-count {\n    display: inline-block;\n    margin: 0 5px 0 0;\n  }\n  .calendar-place .year-calendar th,\n  .calendar-place .year-calendar td {\n    width: 115px;\n    height: 75px;\n  }\n  .calendar-place .absolute {\n    bottom: 8px;\n  }\n  .calendar-place caption {\n    background-color: transparent;\n  }\n  .calendar-place span.goal-count {\n    margin: 0 5px 0 0;\n  }\n}\n@media (min-width: 992px) {\n  .calendar-place h3.year {\n    padding-left: 49px;\n  }\n  .calendar-place a:focus {\n    text-decoration: none;\n  }\n  .calendar-place .table-bordered th,\n  .calendar-place .table-bordered td {\n    width: 162px;\n  }\n  .calendar-place .year-calendar th,\n  .calendar-place .year-calendar td {\n    width: 182px;\n    height: 90px;\n  }\n  .calendar-place span.goal-count {\n    width: 25px;\n    height: 25px;\n    line-height: 24px;\n    margin: 0 15px 0 0;\n  }\n}\n"
+
+/***/ },
+/* 1163 */
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+/* 1164 */,
+/* 1165 */,
+/* 1166 */,
+/* 1167 */,
+/* 1168 */,
+/* 1169 */,
+/* 1170 */,
+/* 1171 */,
+/* 1172 */,
+/* 1173 */,
+/* 1174 */,
+/* 1175 */
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"col-xs-6 col-sm-3 col-md-2\" *ngFor=\"let item of colArray\">\n  <div class=\"lifetime bg-white\">\n        <span class=\"text-grey-dark\">\n           <sup>Year {{ +currentYear + +item }}</sup>\n        </span>\n\n        <span class=\"absolute\" *ngIf=\"currentYear && myYears && myYears[ +currentYear + i ]\">\n            <span class=\"goal-count bg-green\" [mdTooltip]=\"myYears[+currentYear + i ].complete +' '+ (myYears[+currentYear + i].complete > 1?('my_bucket_list.calendar.theCompleted'|translate ):('my_bucket_list.calendar.completed'|translate))\"\n                  *ngIf=\"myYears[ +currentYear + i ].complete > 0\">\n                {{ myYears[ currentYear + i].complete }}\n            </span>\n            <span class=\"goal-count bg-gradinet\" [mdTooltip]=\"myYears[+currentYear + i ].deadline +' '+ (myYears[+currentYear + i].deadline > 1?('my_bucket_list.calendar.deadlines'|translate ):('my_bucket_list.calendar.deadline'|translate))\"\n                  *ngIf=\"myYears[ +currentYear + i ].deadline > 0\">\n                {{ myYears[ +currentYear + i].deadline }}\n            </span>\n            <span class=\"goal-count bg-purple\" *ngIf=\"myYears[ +currentYear + i].current > 0\"\n                  [mdTooltip]=\"myYears[+currentYear + i ].current +' '+ (myYears[+currentYear + i].current > 1?('my_bucket_list.calendar.actives'|translate ):('my_bucket_list.calendar.active'|translate))\">\n                {{ myYears[ +currentYear + i].current }}\n            </span>\n        </span>\n  </div>\n</div>"
+
+/***/ },
+/* 1176 */
+/***/ function(module, exports) {
+
+module.exports = "<table class=\"table table-bordered month-calendar\">\n  <thead>\n  <tr>\n    <th>Sun</th>\n    <th>Mon</th>\n    <th>Tue</th>\n    <th>Wed</th>\n    <th>Thu</th>\n    <th>Fri</th>\n    <th>Sat</th>\n  </tr>\n  </thead>\n\n  <tbody>\n      <tr [hidden]=\"(i == 5 && noShowLast)\" *ngFor=\"let i of trArray\">\n        <td *ngFor=\"let j of tdArray\">\n            <span *ngIf=\"days\" [ngClass]=\"{'text-gray': (days[(7 * i + j + 1)].status == 'inActive'), 'text-gray-dark': (days[(7 * i + j + 1)].status == 'active')}\">\n                <sup>\n                    {{ days[7 * i + j + 1].day }}\n                </sup>\n            </span>\n\n            <span [ngClass]=\"{'absolute': !isMobile}\" *ngIf=\"days && myDays && days[7 * i + j + 1] && myDays[days[7 * i + j + 1].year] && myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month] && myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day]\">\n                <span class=\"goal-count bg-green\" *ngIf=\"myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete > 0\"\n                      [mdTooltip]=\"myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete + ' ' + (myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete > 1?('my_bucket_list.calendar.theCompleted'|translate ):('my_bucket_list.calendar.completed'|translate))\">\n                    {{ myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].complete }}\n                </span>\n                <span class=\"goal-count bg-gradinet\" *ngIf=\"myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline > 0\"\n                      [mdTooltip]=\"myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline + ' ' + (myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline > 1?('my_bucket_list.calendar.deadlines'|translate ):('my_bucket_list.calendar.deadline'|translate))\">\n                    {{ myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].deadline }}\n                </span>\n                <span class=\"goal-count bg-purple\" *ngIf=\"myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current > 0\"\n                      [mdTooltip]=\"myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current + ' ' + (myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current > 1?('my_bucket_list.calendar.actives'|translate ):('my_bucket_list.calendar.active'|translate))\">\n                    {{myDays[days[7 * i + j + 1].year][days[7 * i + j + 1].month][days[7 * i + j + 1].day].current }}\n                </span>\n            </span>\n        </td>\n      </tr>\n  </tbody>\n</table>"
+
+/***/ },
+/* 1177 */
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"col-sm-6\" *ngFor=\"let i of colArray\">\n  <div class=\"table-responsive\">\n    <table class=\"table table-bordered year-calendar\">\n      <caption class=\"text-center\">\n          {{ +currentYear + i }}\n      </caption>\n      <tbody>\n          <tr *ngFor=\"let j of trArray\">\n            <td *ngFor=\"let k of tdArray\">\n                <span>\n                    <sup>\n                        {{ dateByFormat(currentYear, 3 * j + k, 1)| date :'MMM' }}\n                    </sup>\n                </span>\n                <span class=\"absolute\" *ngIf=\"myYAMonths && myYAMonths[+currentYear + i ] && myYAMonths[+currentYear + i ][3 * j + k + 1]\">\n                    <span class=\"goal-count bg-green\"\n                          *ngIf=\"myYAMonths[+currentYear + i ][3 * j + k + 1] && myYAMonths[+currentYear + i ][3 * j + k + 1].complete > 0\"\n                          [mdTooltip]=\"myYAMonths[+currentYear + i ][3 * j + k + 1].complete + ' ' + (myYAMonths[+currentYear + i ][3 * j + k + 1].complete > 1?('my_bucket_list.calendar.theCompleted'|translate):('my_bucket_list.calendar.completed'|translate))\">\n                          {{ myYAMonths[+currentYear + i][3 * j + k + 1].complete }}\n                    </span>\n                    <span class=\"goal-count bg-gradinet\"  *ngIf=\"myYAMonths[+currentYear + i ][3 * j + k + 1].deadline > 0\"\n                          [mdTooltip]=\"myYAMonths[+currentYear + i ][3 * j + k + 1].deadline + ' ' + (myYAMonths[+currentYear + i ][3 * j + k + 1].deadline > 1?('my_bucket_list.calendar.deadlines'|translate):('my_bucket_list.calendar.deadline'|translate))\">\n                        {{ myYAMonths[+currentYear + i][3 * j + k + 1].deadline }}\n                    </span>\n                    <span class=\"goal-count bg-purple\"\n                          *ngIf=\"myYAMonths[+currentYear + i ][3 * j + k + 1].current > 0\"\n                          [mdTooltip]=\"myYAMonths[+currentYear + i ][3 * j + k + 1].current + ' ' + (myYAMonths[+currentYear + i ][3 * j + k + 1].current > 1?('my_bucket_list.calendar.actives'|translate):('my_bucket_list.calendar.active'|translate))\">\n                        {{ myYAMonths[+currentYear + i][3 * j + k + 1].current }}\n                    </span>\n                </span>\n            </td>\n          </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n"
+
+/***/ },
+/* 1178 */
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"calendar-place\">\n\n  <div class=\"container\">\n\n    <div class=\"row\">\n      <div class=\"col-sm-5\">\n        <section>\n          <button md-button class=\"groupX left\" [ngClass]=\"{'md-active': type == 'month'}\" (click)=\"type = 'month'\">Month</button>\n          <button md-button class=\"groupX middle\" [ngClass]=\"{'md-active': type == 'year'}\" (click)=\"type = 'year'\">Year</button>\n          <button md-button class=\"groupX right\" [ngClass]=\"{'md-active': type == 'all'}\" (click)=\"type = 'all'\">All</button>\n        </section>\n      </div>\n      <div class=\"col-xs-9 col-sm-4\">\n        <h3 *ngIf=\"type == 'month'\">\n          {{ dateByFormat(currentYear, currentMonth, 1)| date :'MMMM yyyy' }}\n        </h3>\n        <h3 class=\"year\" *ngIf=\"type == 'year'\">Years</h3>\n        <h3 *ngIf=\"type == 'all'\">Lifetime</h3>\n      </div>\n      <div class=\"col-xs-3 col-sm-3 text-right\">\n\n        <a (click)=\"prev()\">\n          <i class=\"icon-arrow-left\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n        </a>\n\n        <a (click)=\"next()\">\n          <i class=\"icon-arrow-right\"></i>\n        </a>\n\n      </div>\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-sm-12\">\n        <div class=\"table-responsive\" *ngIf=\"type == 'month'\">\n          <calendar-month [myDays]=\"myDays\" [days]=\"days\"></calendar-month>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"row\" *ngIf=\"type == 'year'\">\n      <calendar-year [myYAMonths]=\"myYAMonths\" [currentYear]=\"currentYear\"></calendar-year>\n    </div>\n\n    <div class=\"row\" *ngIf=\"type == 'all'\">\n      <calendar-all-year [currentYear]=\"currentYear\" [myYears]=\"myYears\"></calendar-all-year>\n    </div>\n\n  </div>\n  <div class=\"calendar-tooltip ng-hide\"\n       *ngIf=\"isHover\">\n    <span class=\"arrow-up\"></span>\n    {{hoveredText}}\n  </div>\n</div>"
+
+/***/ },
+/* 1179 */
+/***/ function(module, exports) {
+
+module.exports = "<profile-header (onHover)=\"hideJoin($event)\" [userInfo]=\"uId\"></profile-header>\n\n<!--{% block content_container %}-->\n<!--{% set myProfile = true %}-->\n<!--{% set my_router_params =  app.request.query.all %}-->\n<!--{% set routeName = 'user_profile_single' %}-->\n<!--{% if profileUser.id != app.user.id %}-->\n<!--{% set myProfile = false %}-->\n<!--{% set routeName = 'user_profile' %}-->\n<!--{% endif %}-->\n<div class=\"bucketlist\">\n    <!--data-ng-init=\"-->\n    <!--profile.status = '{{ (status or myProfile )? status: activity}}';-->\n    <!--profile.condition = '{{ status? (status == 'completed-goals')? 2: 1: 0}}';-->\n    <!--profile.isDream = '{{ app.request.get('d')? 'true': 'false' }}';-->\n    <!--profile.f_1 = '{{ app.request.get('f_1')? 'true': 'false'}}';-->\n    <!--profile.f_2 = '{{ app.request.get('f_2')? 'true': 'false' }}';-->\n    <!--profile.f_3 = '{{ app.request.get('f_3')? 'true': 'false' }}';-->\n    <!--profile.f_4 = '{{ app.request.get('f_4')? 'true': 'false' }}';-->\n    <!--profile.userId = '{{ profileUser.id }}';-->\n    <!--activeGoals = '{{ profileUser.getStats.active }}';-->\n    <!--{% if not myProfile %}ProfileItems.busy = true;{% endif %}-->\n    <!--\"-->\n    <div class=\"container\">\n        <div class=\"row\">\n            <ul class=\"menu\">\n                <li [ngClass]=\"{'active': type == 'activity' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/activity\">\n                        {{ 'menu.activity'|translate }}\n                    </a>\n                </li>\n\n                <li [ngClass]=\"{'active': type == 'all' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/all\">\n                        {{ (myProfile?'menu.bucket':'right_menu.show')|translate }}\n                    </a>\n                </li>\n                <li [ngClass]=\"{'active': type == 'active' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/active\">\n                        {{ 'menu.active'|translate }}\n                    </a>\n                </li>\n                <li [ngClass]=\"{'active': type == 'completed' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/completed\">\n                        {{ 'menu.completed'|translate}}\n                    </a>\n                </li>\n                <li [ngClass]=\"{'active': type == 'common' }\" *ngIf=\"!myProfile\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my'}}/common\">\n                        {{ 'menu.common'|translate}}\n                    </a>\n                </li>\n\n                <li [ngClass]=\"{'active': type == 'owned' }\">\n                    <a routerLink=\"/profile/{{ uId?uId:'my' }}/owned\">\n                        {{ 'menu.owned'|translate}}\n                    </a>\n                </li>\n\n                <li class=\"pull-right\">\n                    <a *ngIf=\"myProfile\" class=\"calendar\" [ngClass]=\"{'calendar-active': showCalendar}\" (click)=\"showCalendar = !showCalendar;showMap = false\">\n                        <img src=\"assets/images/calendar-icon.svg\" class=\"svg\"/>\n                    </a>\n\n                    <a [ngClass]=\"{'map-marker-active': showMap}\"\n                       (click)=\"showMap=!showMap;showCalendar = false\">\n                        <img src=\"assets/images/map-icon.svg\" class=\"svg\"/>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    </div>\n\n    <div class=\"slide map-marker accordion\"  *ngIf=\"showMap\">\n        <map-single [locations]=\"locations\"></map-single>\n         <!--style=\"width: 100%; height: 300px\">-->\n    </div>\n\n    <hr/>\n    <calendar *ngIf=\"showCalendar\"></calendar>\n\n    <!--{% if myProfile %}-->\n\n    <div class=\"container slide\" *ngIf=\"myProfile && type != 'activity'\">\n        <div class=\"row\">\n\n            <div class=\"col-sm-12\">\n                <form class=\"form-inline\" action=\"#\">\n                    <!--{# dream filter #}-->\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (isDream == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"isDream\" (change)=\"getData()\"></md-checkbox>\n                        <!--<input [(ngModel)]=\"isDream\" type=\"checkbox\" name=\"d\" data-ng-true-value=\"'true'\"-->\n                               <!--data-ng-false-value=\"'false'\">-->\n                        {{ 'filter.dream'|translate}}\n                    </label>\n\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (urgentImportant == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"urgentImportant\" (change)=\"getData()\"></md-checkbox>\n                        {{ 'filter.import_urgent'|translate}}\n                    </label>\n\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (urgentNotImportant == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"urgentNotImportant\" (change)=\"getData()\"></md-checkbox>\n                        {{ 'filter.not_import_urgent'|translate}}\n                    </label>\n\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (notUrgentImportant == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"notUrgentImportant\" (change)=\"getData()\"></md-checkbox>\n                        {{ 'filter.import_not_urgent'|translate}}\n                    </label>\n\n                    <label class=\"checkbox-inline\" [ngClass]=\"{'checked-label': (notUrgentNotImportant == true)}\">\n                        <md-checkbox class=\"example-margin\" name=\"dream\" [(ngModel)]=\"notUrgentNotImportant\" (change)=\"getData()\"></md-checkbox>\n                        {{ 'filter.not_import_not_urgent'|translate}}\n                    </label>\n                </form>\n            </div>\n\n        </div>\n    </div>\n    <!--{% endif %}-->\n</div>\n\n<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"col-md-8\">\n            <div id=\"news-feed\" class=\"user-activities\" *ngIf=\"type == 'activity'\">\n                <my-activity [single]=\"true\" [userId]=\"id\"></my-activity>\n            </div>\n\n            <div [class.goals-information]=\"myProfile\" [class.user-goals]=\"!myProfile\"\n                 *ngIf=\"type != 'activity'\"\n                 infinite-scroll\n                 [infiniteScrollDistance]=\"1\"\n                 [infiniteScrollThrottle]=\"500\"\n                 (scrolled)=\"onScroll()\">\n                <!--data-infinite-scroll='ProfileItems.nextPage(profile)'-->\n                <!--data-infinite-scroll-disabled='ProfileItems.noItem || ProfileItems.busy'-->\n                <div *ngIf=\"userGoals && userGoals.length\">\n                    <!--{% if myProfile %}-->\n                    <!--*ngIf=\"$parent.userGoalIds[$index] != 'removed'\"-->\n                    <!--data-ng-init=\"goal = userGoal.goal; status = userGoal.status;$parent.userGoalIds[$index] = userGoal.id\"-->\n                    <div *ngIf=\"myProfile\">\n                        <!--class goal{{goal.id}}-->\n                        <div [ngClass]=\"{'active-idea': ((userGoal.status != 2) && userGoal.do_date)}\"\n                             class=\"row goals-animate\"\n                             *ngFor=\"let userGoal of userGoals;let i = index\">\n                            <profile-goal [userGoal]=\"userGoal\" [last]=\"i == userGoals.length - 1\" [first]=\"i == 0\"></profile-goal>\n                        </div>\n                    </div>\n                    <!--{% else%}-->\n                    <div *ngIf=\"!myProfile\">\n                        <div class=\"row goals-animate\"\n                             *ngFor=\"let userGoal of userGoals\">\n                            <div class=\"col-sm-12\">\n                                <div class=\"bg-white round\">\n                                    <div class=\"idea-item\">\n\n                                        <figure>\n                                            <app-goal [goal]=\"userGoal.goal? userGoal.goal:userGoal\"></app-goal>\n\n                                            <activity-goal-footer [goal]=\"userGoal.goal? userGoal.goal: userGoal\"></activity-goal-footer>\n                                        </figure>\n                                    </div>\n\n                                    <div [ngClass]=\"{'line': (userGoal.createComment && userGoal.showComment) || (userGoal.goal && userGoal.goal.createComment && userGoal.goal.showComment)}\"></div>\n\n                                    <app-comment *ngIf=\"userGoal.createComment || (userGoal.goal && userGoal.goal.createComment)\" [hidden]=\"!userGoal.showComment && (!userGoal.goal || !userGoal.goal.showComment)\"\n                                                 [data]=\"{id: (userGoal && userGoal.goal && userGoal.goal.id)?userGoal.goal.id:userGoal.id, slug:(userGoal && userGoal.goal && userGoal.goal.slug)?userGoal.goal.slug:userGoal.slug,inner:false}\">\n                                    </app-comment>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\n                    <!--{% endif %}-->\n                </div>\n\n            <p class=\"empty-text text-center\"\n               *ngIf=\"(!userGoals || !userGoals.length) && noItem\">\n                <!--data-ng-init=\"link = (activeGoals? '{{ path('user_profile_single', {'status': active }) }}': '{{ path('goals_list') }}')\"-->\n                <!--{% if myProfile %}-->\n                                <span *ngIf=\"myProfile && isDream == 'true'\">\n                                    {{ 'dream'|translate}}\n                                </span>\n                                <span *ngIf=\"(myProfile && !isDream) && (notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant)\">\n                                    {{ 'my_bucket_list.filter'|translate}}\n                                </span>\n                                <span *ngIf=\"myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'completed'\">\n                                    {{ 'my_bucket_list.complete'|translate}} <a data-ng-href=\"[[ link ]]\" class=\"text-purple\">{{ 'my_bucket_list.some_goal'|translate}}</a>\n                                </span>\n                                <span *ngIf=\"myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'active'\">\n                                    {{ 'my_bucket_list.need_goal'|translate}} <a routerLink=\"/goal/create\" class=\"text-purple\">{{ 'my_bucket_list.add_some'|translate}}</a>\n                                </span>\n                                <span *ngIf=\"myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'all'\">\n                                    {{ 'my_bucket_list.doing_here'|translate}} <a routerLink=\"/goal/create\" class=\"text-purple\">{{ 'my_bucket_list.add_goal'|translate}}</a>\n                                </span>\n                <!--{% else %}-->\n                                <span *ngIf=\"!myProfile\">\n                                    {{ 'profile_empty'|translate}}\n                                </span>\n                <!--{% endif %}-->\n            </p>\n        </div>\n        </div>\n\n        <div class=\"col-md-4\" >\n            <create-goal [myProfile]=\"myProfile\"></create-goal>\n            <top-ideas-block [type]=\"'suggest'\"></top-ideas-block>\n            <!--{%  include \"AppBundle:Blocks:popularGoals.html.twig\" with {'user': user, 'count': 1, 'isProfile': true}  %}-->\n            <top-ideas-block [type]=\"'featured'\"></top-ideas-block>\n        </div>\n    </div>\n</div>\n<!--{% endblock %}-->\n\n<div class=\"list-tooltip\"\n     [hidden]=\"!isHover\" #tooltip>\n    <span class=\"arrow-up\"></span>\n    {{ hoveredText |translate}}\n</div>"
 
 /***/ }
-
-});
+]));
 //# sourceMappingURL=0.bundle.map
