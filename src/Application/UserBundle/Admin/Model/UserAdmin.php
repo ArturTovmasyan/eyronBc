@@ -25,6 +25,14 @@ class UserAdmin extends AbstractAdmin
     public    $usersCount       = 0;
 
     /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('sendMessage', 'send-message');
+    }
+
+    /**
      * @param string $name
      * @return mixed|null|string
      */
