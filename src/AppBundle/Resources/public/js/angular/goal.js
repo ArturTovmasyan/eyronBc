@@ -484,6 +484,7 @@ angular.module('goal', ['Interpolation',
 
         $scope.successStoryShow = [];
         $scope.goal = {};
+        $scope.showingStoriesCount = 20;
         $scope.successStoryImageKeys = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
@@ -668,9 +669,9 @@ angular.module('goal', ['Interpolation',
 
            var startIndex = $scope.successStoryActiveIndex;
             
-            if($scope.storyLength > 4){
-                $scope.successStoryActiveIndex += 5;
-                $scope.storyLength -= 5;
+            if($scope.storyLength > $scope.showingStoriesCount - 1){
+                $scope.successStoryActiveIndex += $scope.showingStoriesCount;
+                $scope.storyLength -= $scope.showingStoriesCount;
             }
             else {
                 $scope.successStoryActiveIndex += $scope.storyLength;

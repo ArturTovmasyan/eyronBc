@@ -257,7 +257,7 @@
                 <ul class="row no-gutter">
                   <li class="col-xs-9 col-sm-5">
                     {{ 'done_by'|translate | uppercase }}
-                    <p class="text-purple">{{ goal.stats.doneBy }}</p>
+                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.doneBy }}</p>
                   </li>
                   <li class="col-xs-3 col-sm-7">
                     <ul class="users">
@@ -298,7 +298,7 @@
                 <ul class="row no-gutter">
                   <li class="col-xs-9 col-sm-5">
                     {{ 'listed_by'|translate | uppercase }}
-                    <p class="text-purple">{{ goal.stats.listedBy }}</p>
+                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.listedBy }}</p>
                   </li>
                   <li class="col-xs-3 col-sm-7">
                     <ul class="users">
@@ -511,7 +511,7 @@
                     </div>
 
                     <div class=" col-xs-3 text-right" >
-                      <span class="text-purple " *ngIf="count[story.id] < 1">0</span>
+                      <!--<span class="text-purple " *ngIf="count[story.id] < 1">0</span>-->
                       <!--<a data-ls-goal-users-->
                          <!--class="text-purple "-->
                          <!--*ngIf="count[{{ story.id }}] > 0"-->
@@ -531,7 +531,7 @@
                     <!--<div class="story-remove" data-ls-text="{{ 'success_story.delete_confirm'|trans }}" data-ls-confirm="removeStory({{ story.id }})"><span class="report">{{ 'btn_delete'|trans }}</span></div>-->
                     <!--{% endif %}-->
 
-                    <div class="border-left">
+                    <div class="border-left" *ngIf="story">
                       <div class="row">
                         <div class="col-xs-12">
                           <p>{{ story.story }} </p>

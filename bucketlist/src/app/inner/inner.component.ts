@@ -7,7 +7,7 @@ import {Goal} from '../interface/goal';
 @Component({
   selector: 'app-inner',
   templateUrl: './inner.component.html',
-  styleUrls: ['./inner.component.css'],
+  styleUrls: ['./inner.component.less'],
   providers: [ProjectService]
 })
 export class InnerComponent implements OnInit {
@@ -32,8 +32,14 @@ export class InnerComponent implements OnInit {
   getProject(slug:string) {
     this._projectService.getGoal(slug)
         .subscribe(
-            goal => this.goal = goal,
+            goal => {
+              this.goal = goal;
+              // console.log(this.goal);
+            },
             error => this.errorMessage = <any>error);
   }
 
+  isLate(){
+
+  }
 }

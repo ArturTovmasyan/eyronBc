@@ -96,6 +96,11 @@ class NewFeedRepository extends EntityRepository
         $filters = $this->getEntityManager()->getFilters();
         if (is_null($singleUserId)) {
             if ($filters->isEnabled('visibility_filter')) {
+                $filter = $filters->getFilter('visibility_filter');
+                if ($filter->hasParameter('userId')){
+                    $filterParameterUserId = $filter->getParameter('userId');
+                }
+
                 $filters->disable('visibility_filter');
             }
         }
@@ -115,6 +120,11 @@ class NewFeedRepository extends EntityRepository
 
         if (is_null($singleUserId)) {
             $filters->enable('visibility_filter');
+            if (isset($filterParameterUserId)){
+                $filter = $filters->getFilter('visibility_filter');
+                $filterParameterUserId = (int) str_replace('\\', "",str_replace('\'', "", str_replace('"', "", $filterParameterUserId)));
+                $filter->setParameter('userId', $filterParameterUserId);
+            }
         }
 
         return $this->getEntityManager()

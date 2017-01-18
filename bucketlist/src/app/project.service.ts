@@ -23,18 +23,18 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class ProjectService {
 
-     private baseOrigin = environment.production?'http://stage.bucketlist127.com':'http://bucketlist.loc';
+    private baseOrigin = environment.production?'http://stage.bucketlist127.com':'http://bucketlist.loc';
     //private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
     private appUser:User;
 
-     private envprefix = environment.production?'/':'/app_dev.php/';
+    private envprefix = environment.production?'/':'/app_dev.php/';
     //private envprefix = '/';
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private base2Url = this.baseOrigin + this.envprefix + 'api/v2.0/' ;
-    private goalUrl = '';  // URL to web API
+    private goalUrl =  this.baseUrl + 'goal/by-slug';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
     private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
 
@@ -56,12 +56,12 @@ export class ProjectService {
     private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
     private featuredIdeasUrl = this.baseUrl + 'goal/featured'; //URL to get featured iteas
-    private badgesUrl = this.baseUrl + 'badges'; 
+    private badgesUrl = this.baseUrl + 'badges';
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
-    private notificationUrl = this.baseUrl + 'notifications';
     private notificationAllReadUrl = this.baseUrl + 'notification';
-    private getCompateProfileUrl = this.baseUrl + 'goal/categories';
+    private notificationUrl = this.baseUrl + 'notifications/0/10';
+    private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
 
@@ -85,7 +85,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param loginData
      * @returns {any}
      */
@@ -94,7 +94,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param type
      * @param token
      * @param secret
@@ -107,15 +107,15 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @returns {Observable<R>}
      */
     getPath(){
         return this.baseOrigin;
     }
-    
+
     /**
-     * 
+     *
      * @returns {Observable<R>}
      */
     getMyUser(){
@@ -146,7 +146,7 @@ export class ProjectService {
             .map((r:Response) => r.json() as Activity[])
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @param goalId
@@ -181,7 +181,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param id
      * @returns {Observable<R>}
      */
@@ -192,7 +192,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param id
      * @returns {Observable<R>}
      */
@@ -201,9 +201,9 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
-    
+
     /**
-     * 
+     *
      */
     getUser():Observable<User> {
         return this.http.get(this.userUrl, {headers: this.headers})
@@ -212,7 +212,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param uId
      * @returns {Observable<R>}
      */
@@ -222,12 +222,12 @@ export class ProjectService {
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);
     }
-    
+
     /**
-     * 
+     *
      */
-    getCompateProfileInfo():Observable<any> {
-        return this.http.get(this.getCompateProfileUrl, {headers: this.headers})
+    getCompleteProfileUrl():Observable<any> {
+        return this.http.get(this.completeProfileUrl, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
@@ -261,7 +261,7 @@ export class ProjectService {
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<T>}
@@ -271,7 +271,7 @@ export class ProjectService {
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<T>}
@@ -281,7 +281,7 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<T>}
@@ -305,7 +305,7 @@ export class ProjectService {
      */
     deleteNotifications(id: number):Observable<any>{
         return this.http.delete(this.notificationUrl + '/' + id,{headers: this.headers})
-           .catch(this.handleError);
+            .catch(this.handleError);
     }
     /**
      *
@@ -348,8 +348,8 @@ export class ProjectService {
         return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&category=' + category)
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
-    } 
-    
+    }
+
     /**
      *
      * @returns {Observable<R>}
@@ -361,7 +361,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param goalId
      * @returns {Observable<R>}
      */
@@ -370,7 +370,7 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<R>}
@@ -381,7 +381,7 @@ export class ProjectService {
             .map((r:Response) => r.json() as Story[])
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<R>}
@@ -436,11 +436,11 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
-     /**
+    /**
      *
      */
     putComment(id:number, body:any, commentId?:number):Observable<Comment> {
-         let comment = commentId? ('/'+ commentId): '';
+        let comment = commentId? ('/'+ commentId): '';
         return this.http.put(this.putCommentUrl + id + comment, {'commentBody': body}, {headers: this.headers})
             .map((r:Response) => r.json() as Comment)
             .catch(this.handleError);
@@ -482,10 +482,10 @@ export class ProjectService {
             .map((r:Response) => r.json() as User[])
             .catch(this.handleError);
     }
-    
+
     //profile page requests
     /**
-     * 
+     *
      * @param id
      * @returns {Observable<R>}
      */
@@ -496,7 +496,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @returns {Observable<R>}
      */
     getCalendarData():Observable<any> {
@@ -531,7 +531,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param id
      * @param count
      * @param first
