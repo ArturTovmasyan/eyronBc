@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
       'lastName': ['', [Validators.required]],
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'passwordFirst': ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]],
-      'passwordSecond' : ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]]
+      'passwordSecond' : ['', [Validators.required, Validators.minLength(6),ValidationService.passwordValidator]]
     });
   }
 

@@ -10,7 +10,6 @@
           <div class="form-group row">
             <div class="col-sm-4 col-sm-offset-4">
 
-              <!--{{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}-->
               <input type="file" formControlName="file" id="file" name="file" class="upload" >
               <control-messages [control]="registerData.controls.file"></control-messages>
 
@@ -20,46 +19,44 @@
             </div>
 
             <div class="hide">
-              <!--{{ form_widget(form.file, {'attr': {'onchange': "showUploadedImage(this)" } }) }}-->
               <input type="file" name="file" class="upload" (change)="showUploadedImage(this)">
             </div>
           </div>
 
-          <!--<div class="error-message">{{ form_errors(form.file) }}</div>-->
-
           <div class="form-group row no-padding">
+
             <div class="col-sm-6">
-              <!--{{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}-->
-              <input type="text" formControlName="firstName" id="firstName" name="firstName" class="form-control" placeholder= "{{ 'form.firstName'|translate }}">
+              <input type="text" formControlName="firstName" name="firstName" class="form-control" placeholder= "{{ 'form.firstName'|translate }}">
               <control-messages [control]="registerData.controls.firstName"></control-messages>
-              <!--<div class="error-message">{{ form_errors(form.firstName) }}</div>-->
             </div>
 
             <div class="col-sm-6">
-              <!--{{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}-->
               <input type="text" formControlName="lastName" id="lastName" name="lastName" class="form-control"  placeholder= "{{ 'form.lastName'|translate }}">
               <control-messages [control]="registerData.controls.lastName"></control-messages>
-              <!--<div class="error-message">{{ form_errors(form.lastName) }}</div>-->
             </div>
           </div>
 
           <div class="form-group row">
+
             <div class="col-sm-12">
-              <input type="email" formControlName="email" id="email"  name="email" class="form-control"  placeholder= "{{ 'form.email'|translate }}">
+              <input type="email" formControlName="email" name="email" class="form-control"  placeholder= "{{ 'form.email'|translate }}">
               <control-messages [control]="registerData.controls.email"></control-messages>
             </div>
 
           </div>
 
           <div class="form-group row no-padding">
+
             <div class="col-sm-6">
               <input type="password" formControlName="passwordFirst" id="passwordFirst" name="passwordFirst" class="form-control"  placeholder= "{{ 'form.password'|translate }}">
               <control-messages [control]="registerData.controls.passwordFirst"></control-messages>
             </div>
+
             <div class="col-sm-6">
               <input type="password" formControlName="passwordSecond" id="passwordSecond" name="passwordSecond" class="form-control" placeholder="{{ 'form.re_password'|translate }}">
-              <control-messages [control]="registerData.controls.passwordSecond"></control-messages>
+              <control-messages [control]="registerData.controls.passwordSecond" [confirmPassword]="registerData.controls.passwordFirst"></control-messages>
             </div>
+
           </div>
           <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
@@ -89,8 +86,8 @@
                   September
                 </md-option>
               </md-select>
-
             </div>
+
             <div class="col-sm-4 date">
 
               <md-select placeholder="Day">
@@ -106,6 +103,7 @@
               <!--<a href="{{ (menu.children|first).uri }}" class="text-purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>-->
             </p>
           </div>
+
           <button type="submit" name="register"  [disabled]="!registerData.valid" class="btn btn-purple" (click)="sendRegisterData(registerData)">{{ 'security.login.sign_up'|translate }}</button>
 
         </form>
