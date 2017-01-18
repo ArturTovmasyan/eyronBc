@@ -3,37 +3,49 @@
 <!--{% block content_container %}-->
 <profile-header (onHover)="hideJoin($event)" [userInfo]="'my'"></profile-header>
 <div class="bucketlist settings-menu">
-  <div class="container">
-    <div class="row">
-      <ul class="menu">
-        <li [ngClass]="{'active':slug != 'drafts'}" >
-          <!--{% if slug != "drafts" %} class="active" {% endif %}-->
-          <a  routerLink="/goal/my-ideas">{{ 'right_menu.private'|translate }}</a>
-          <!--{{ 'right_menu.private'|translate }}-->
-        </li>
-        <li [ngClass]="{'active':slug == 'drafts'}">
-          <!--{% if slug == "drafts" %} class="active" {% endif %}-->
-          <a  routerLink="/goal/my-ideas/draft">{{ 'right_menu.draft'|translate }}</a>
-          <!--{{ 'right_menu.draft'|translate }}-->
-        </li>
-      </ul>
+    <div class="container">
+        <div class="row">
+            <nav md-tab-nav-bar>
+                <a md-tab-link
+                   routerLink="/goal/my-ideas/private"
+                   [active]="slug == 'private'">
+                    {{ 'right_menu.private'|translate }}
+                </a>
+                <a md-tab-link
+                   routerLink="/goal/my-ideas/draft"
+                   [active]="slug == 'drafts'">
+                    {{ 'right_menu.draft'|translate }}
+                </a>
+            </nav>
+            <!--<ul class="menu">-->
+            <!--<li [ngClass]="{'active':slug != 'drafts'}" >-->
+            <!--&lt;!&ndash;{% if slug != "drafts" %} class="active" {% endif %}&ndash;&gt;-->
+            <!--<a  routerLink="/goal/my-ideas">{{ 'right_menu.private'|translate }}</a>-->
+            <!--&lt;!&ndash;{{ 'right_menu.private'|translate }}&ndash;&gt;-->
+            <!--</li>-->
+            <!--<li [ngClass]="{'active':slug == 'drafts'}">-->
+            <!--&lt;!&ndash;{% if slug == "drafts" %} class="active" {% endif %}&ndash;&gt;-->
+            <!--<a  routerLink="/goal/my-ideas/draft">{{ 'right_menu.draft'|translate }}</a>-->
+            <!--&lt;!&ndash;{{ 'right_menu.draft'|translate }}&ndash;&gt;-->
+            <!--</li>-->
+            <!--</ul>-->
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="container">
-  <!--{% if goals.getTotalItemCount > 0 %}-->
+    <!--{% if goals.getTotalItemCount > 0 %}-->
 
-  <div class="row drafts idea-item">
-    <!--{% for goal in goals %}-->
-    <div class="col-sm-6 col-md-4">
-      <figure class="relative">
-        <h3>
-          <a href=""></a>
-          <!--{% if slug == "drafts" %}-->
-          <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}">{{ goal.title }}-->
-        </h3>
-        <!--{% set image = goal.getListPhoto %}-->
+    <div class="row drafts idea-item">
+        <!--{% for goal in goals %}-->
+        <div class="col-sm-6 col-md-4">
+            <figure class="relative">
+                <h3>
+                    <a href=""></a>
+                    <!--{% if slug == "drafts" %}-->
+                    <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}">{{ goal.title }}-->
+                </h3>
+                <!--{% set image = goal.getListPhoto %}-->
 
         <a href="">
         <!--{% if slug == "drafts" %}-->
@@ -47,22 +59,20 @@
         </figcaption>
       </figure>
     </div>
-    <!--{% endfor %}-->
-  </div>
-  <!--{% elseif slug == "drafts" %}-->
-  <p class="empty-text text-center">
-    <!--{{ 'goal.empty_draft'|translate }}-->
-  </p>
-  <!--{% else%}-->
-  <p class="empty-text text-center">
-    <!--{{ 'goal.empty_private_ideas'|translate }}-->
-  </p>
-  <!--{% endif %}-->
+    <!--{% elseif slug == "drafts" %}-->
+    <p class="empty-text text-center">
+        <!--{{ 'goal.empty_draft'|translate }}-->
+    </p>
+    <!--{% else%}-->
+    <p class="empty-text text-center">
+        <!--{{ 'goal.empty_private_ideas'|translate }}-->
+    </p>
+    <!--{% endif %}-->
 
-  <!--{# display navigation #}-->
-  <div class="navigation">
-    <!--{{ knp_pagination_render(goals) }}-->
-  </div>
+    <!--{# display navigation #}-->
+    <div class="navigation">
+        <!--{{ knp_pagination_render(goals) }}-->
+    </div>
 
 </div>
 

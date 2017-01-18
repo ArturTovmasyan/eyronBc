@@ -134,12 +134,12 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param start
      * @param count
      * @param userId
      * @param time
-     * @returns {Observable<R>}
+     * @returns {any}
      */
     getActivities(start:number, count:number, userId:number, time?:any):Observable<Activity[]> {
         return this.http.get(this.activityUrl + start + '/' + count + (userId?('/'+userId):'') +(time?('?time=' + time):''), {headers: this.headers})
@@ -355,7 +355,7 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     getIdeaGoals(start:number, count:number, search:string = '',category:string = ''):Observable<Goal[]> {
-        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&cateegory=' + category)
+        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&category=' + category)
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     } 

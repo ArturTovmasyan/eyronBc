@@ -12,6 +12,24 @@ export class GoalCreateComponent implements OnInit {
   public start: number = 0;
   public count: number = 3;
   public writeTimeout: any;
+  public languages: any[] = [
+     {
+        value:'en',
+        name: 'English'
+     },
+     {
+        value:'ru',
+        name: 'Russian'
+     },
+     {
+        value:'fr',
+        name: 'French'
+     },
+     {
+        value:'nl',
+        name: 'Dutch'
+     }
+  ];
   public goals: Goal[];
   constructor(
       private _projectService: ProjectService
