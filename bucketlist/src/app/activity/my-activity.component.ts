@@ -53,7 +53,7 @@ export class MyActivityComponent implements OnInit {
 
         this.interval = setInterval(() => {
             if(this.Activities && !this.single){
-                this._projectService.getActivities(0, this.count, this.Activities[0].datetime).subscribe(
+                this._projectService.getActivities(0, this.count, this.userId, this.Activities[0].datetime).subscribe(
                     data => {
                         if(data && data.length != 0){
                             this.newData = data;
@@ -150,7 +150,7 @@ export class MyActivityComponent implements OnInit {
 
     newActivityFn() {
         if(this.Activities && !this.single){
-            this._projectService.getActivities(0, this.count, this.Activities[0].datetime).subscribe(
+            this._projectService.getActivities(0, this.count, this.userId, this.Activities[0].datetime).subscribe(
             data => {
                  if(data && data.length != 0){
                         this.newData = data;
