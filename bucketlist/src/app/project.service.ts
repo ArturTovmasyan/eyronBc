@@ -34,7 +34,7 @@ export class ProjectService {
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private base2Url = this.baseOrigin + this.envprefix + 'api/v2.0/' ;
-    private goalUrl = '';  // URL to web API
+    private goalUrl =  this.baseUrl + 'goal/by-slug';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
     private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
 
@@ -60,7 +60,7 @@ export class ProjectService {
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
     private notificationUrl = this.baseUrl + 'notifications/0/10';
-    private getCompateProfileUrl = this.baseUrl + 'goal/categories';
+    private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
 
@@ -225,8 +225,8 @@ export class ProjectService {
     /**
      * 
      */
-    getCompateProfileInfo():Observable<any> {
-        return this.http.get(this.getCompateProfileUrl, {headers: this.headers})
+    getCompleteProfileUrl():Observable<any> {
+        return this.http.get(this.completeProfileUrl, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }

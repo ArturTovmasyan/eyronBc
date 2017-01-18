@@ -32,8 +32,10 @@ export class InnerComponent implements OnInit {
   getProject(slug:string) {
     this._projectService.getGoal(slug)
         .subscribe(
-            goal => this.goal = goal,
+            goal => {
+              this.goal = goal;
+              // console.log(this.goal);
+            },
             error => this.errorMessage = <any>error);
   }
-
 }

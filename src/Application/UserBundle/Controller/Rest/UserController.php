@@ -547,18 +547,23 @@ class UserController extends FOSRestController
      *         401="Access allowed only for registered users"
      *     },
      * )
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "completed_profile"})
      * @Rest\Get("/user/{uid}", name="get_user", defaults={"uid" = null}, options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
+     * @param $uid
+     * @return array
      */
     public function getAction(Request $request, $uid = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
         //get current user
         $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+
         // get drafts
         $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
+
         //check if not logged in user
         if(!is_object($currentUser)) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
@@ -569,6 +574,7 @@ class UserController extends FOSRestController
         $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($currentUser->getId(), false);
 
         $currentUser->setStats($states);
+
         return $currentUser;
     }
 

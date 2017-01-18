@@ -645,12 +645,17 @@ class GoalRepository extends EntityRepository
      */
     public function findBySlugWithTinyRelations($slug)
     {
+        //check if slug is array
+        if(is_array($slug)) {
+            $slug = $slug['slug'];
+        }
+
         return $this->getEntityManager()
             ->createQuery("SELECT g, i
                            FROM AppBundle:Goal g
                            LEFT JOIN g.images i
                            WHERE g.slug = :slug")
-            ->setParameter('slug', $slug['slug'])
+            ->setParameter('slug', $slug)
             ->getOneOrNullResult();
     }
 

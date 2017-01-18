@@ -91,7 +91,6 @@ export class PageComponent implements OnInit {
                 .subscribe(
                     () => {
                         this.isSend = true;
-                        // this.form.reset();
                     }
                 );
         }
