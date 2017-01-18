@@ -508,6 +508,8 @@ class GoalController extends FOSRestController
         //get goal by slug
         $goal = $em->getRepository('AppBundle:Goal')->findBySlugWithTinyRelations($slug);
 
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+
         //check if goal not exist
         if(!$goal) {
             return new JsonResponse("Goal by $slug not found", Response::HTTP_NOT_FOUND);
