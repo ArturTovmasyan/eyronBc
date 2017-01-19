@@ -11,6 +11,9 @@
 }
 .text-muted {
   font-size: 12px;
+  line-height: 18px;
+  display: inline-flex;
+  white-space: normal;
 }
 md-slide-toggle {
   height: auto;
