@@ -9,21 +9,21 @@
 
   <ul class="horizontal-menu {{ 'lng'| translate}}" >
     <li>
-      <a routerLink="/profile/active-goals" routerLinkActive="active">
+      <a routerLink="/profile/my/active" routerLinkActive="active">
         <strong>{{ 'user_goal.active'|translate}}</strong>
         <span *ngIf="true">1</span>
       </a>
     </li>
 
     <li>
-      <a routerLink="/profile" routerLinkActive="active">
+      <a routerLink="/profile/my" routerLinkActive="active">
         <strong>{{ 'block_listed'|translate}}</strong>
         <span *ngIf="true">2</span>
       </a>
     </li>
 
     <li>
-      <a routerLink="/profile/completed-goals" routerLinkActive="active">
+      <a routerLink="/profile/my/completed" routerLinkActive="active">
         <strong>{{ 'block_completed'|translate}}</strong>
         <span *ngIf="true">3</span>
       </a>

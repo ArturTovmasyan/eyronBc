@@ -8,12 +8,12 @@
             <nav md-tab-nav-bar>
                 <a md-tab-link
                    routerLink="/goal/my-ideas/private"
-                   [active]="slug == 'private'">
+                   [active]="type == 'private'">
                     {{ 'right_menu.private'|translate }}
                 </a>
                 <a md-tab-link
-                   routerLink="/goal/my-ideas/draft"
-                   [active]="slug == 'drafts'">
+                   routerLink="/goal/my-ideas/drafts"
+                   [active]="type == 'drafts'">
                     {{ 'right_menu.draft'|translate }}
                 </a>
             </nav>
@@ -36,46 +36,50 @@
 <div class="container">
     <!--{% if goals.getTotalItemCount > 0 %}-->
 
-    <div class="row drafts idea-item">
+    <div  class="row drafts idea-item"
+          infinite-scroll
+          [infiniteScrollDistance]="1"
+          [infiniteScrollThrottle]="500"
+          (scrolled)="onScroll()">
         <!--{% for goal in goals %}-->
-        <div class="col-sm-6 col-md-4">
+        <div class="col-sm-6 col-md-4" *ngFor="let goal of goals">
             <figure class="relative">
                 <h3>
-                    <a href=""></a>
+                    <a href="">{{ goal.title }}</a>
                     <!--{% if slug == "drafts" %}-->
-                    <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}">{{ goal.title }}-->
-                </h3>
-                <!--{% set image = goal.getListPhoto %}-->
+                    <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}">
 
-        <a href="">
-        <!--{% if slug == "drafts" %}-->
-        <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}"-->
-        <span class="overlay"></span>
-        <!--{% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}-->
-        </a>
-        <figcaption>
-          <draft-footer></draft-footer>
-          <!--{%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}-->
-        </figcaption>
-      </figure>
-    </div>
+                <!--{% set image = goal.getListPhoto %}-->
+                </h3>
+                <a href="">
+                <!--{% if slug == "drafts" %}-->
+                <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}"-->
+                    <span class="overlay"></span>
+                <!--{% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}-->
+                </a>
+                <figcaption>
+                  <draft-footer></draft-footer>
+                  <!--{%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}-->
+                </figcaption>
+            </figure>
+        </div>
     <!--{% elseif slug == "drafts" %}-->
-    <p class="empty-text text-center">
+        <p class="empty-text text-center">
         <!--{{ 'goal.empty_draft'|translate }}-->
-    </p>
+        </p>
     <!--{% else%}-->
-    <p class="empty-text text-center">
-        <!--{{ 'goal.empty_private_ideas'|translate }}-->
-    </p>
+        <p class="empty-text text-center">
+            <!--{{ 'goal.empty_private_ideas'|translate }}-->
+        </p>
     <!--{% endif %}-->
 
     <!--{# display navigation #}-->
-    <div class="navigation">
-        <!--{{ knp_pagination_render(goals) }}-->
+        <div class="navigation">
+            <!--{{ knp_pagination_render(goals) }}-->
+        </div>
+
     </div>
-
 </div>
-
 <!--{% endblock %}-->
 
 <!--{%- block title -%}-->
