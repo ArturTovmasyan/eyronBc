@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule, Http } from '@angular/http';
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
@@ -10,6 +10,7 @@ import {DndModule} from 'ng2-dnd';
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { MaterialModule } from '@angular/material';
+import { ValidationService } from './validation.service';
 
 import { AngularFireModule } from 'angularfire2';
 import { AuthProviders } from 'angularfire2';
@@ -85,6 +86,7 @@ export function createTranslateLoader(http: Http) {
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     ComponentModule,
     InfiniteScrollModule,
     HttpModule,
@@ -105,7 +107,8 @@ export function createTranslateLoader(http: Http) {
   ],
   providers: [
     ProjectService,
-    AuthGuard
+    AuthGuard,
+    ValidationService
   ],
   bootstrap: [AppComponent]
 })
