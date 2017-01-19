@@ -59,8 +59,8 @@ export class ProjectService {
     private badgesUrl = this.baseUrl + 'badges';
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
+    private notificationUrl = this.baseUrl + 'notifications';
     private notificationAllReadUrl = this.baseUrl + 'notification';
-    private notificationUrl = this.baseUrl + 'notifications/0/10';
     private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
@@ -307,6 +307,16 @@ export class ProjectService {
         return this.http.delete(this.notificationUrl + '/' + id,{headers: this.headers})
             .catch(this.handleError);
     }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    deleteDrafts(id: number):Observable<any>{
+        return this.http.delete(this.ideasUrl + id + '/drafts',{headers: this.headers})
+            .catch(this.handleError);
+    }
+
     /**
      *
      * @returns {Observable<T>}
@@ -345,7 +355,7 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     getIdeaGoals(start:number, count:number, search:string = '',category:string = ''):Observable<Goal[]> {
-        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&category=' + category)
+        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&category=' + ((category && category != 'discover')?category:''))
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     }
@@ -446,6 +456,8 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
+
+
     //modal requests
     /**
      *
@@ -482,6 +494,9 @@ export class ProjectService {
             .map((r:Response) => r.json() as User[])
             .catch(this.handleError);
     }
+
+
+
 
     //profile page requests
     /**
@@ -554,6 +569,10 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
+
+
+
+
     /**
      *
      * @param error

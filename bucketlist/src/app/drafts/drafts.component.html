@@ -47,18 +47,17 @@
                 </h3>
                 <!--{% set image = goal.getListPhoto %}-->
 
-                <a href="">
-                    <!--{% if slug == "drafts" %}-->
-                    <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}"-->
-                    <span class="overlay"></span>
-                    <!--{% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}-->
-                </a>
-                <figcaption>
-                    <!--{%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}-->
-                </figcaption>
-            </figure>
-        </div>
-        <!--{% endfor %}-->
+        <a href="">
+        <!--{% if slug == "drafts" %}-->
+        <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}"-->
+        <span class="overlay"></span>
+        <!--{% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}-->
+        </a>
+        <figcaption>
+          <draft-footer></draft-footer>
+          <!--{%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}-->
+        </figcaption>
+      </figure>
     </div>
     <!--{% elseif slug == "drafts" %}-->
     <p class="empty-text text-center">
