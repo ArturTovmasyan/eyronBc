@@ -43,7 +43,7 @@ export class DoneComponent implements OnInit {
   }
 
   filesUpdated(files) {
-    console.log("Store state updated! Current state: ", files)
+    // console.log("Store state updated! Current state: ", files)
   }
 
   beforeRequest(xhr){
