@@ -76,11 +76,11 @@
             <div id="main-slider" class="swiper-container">
               <!-- Slides Container -->
               <!--{% if images| length > 1 %} class="swiper-wrapper" {% endif %}-->
-              <div>
+              <div style="height: 435px">
                 <!--{% for key, image in images %}-->
 
                 <!--{% if image.downloadLink|length > 0 %}-->
-                <div class="overlay swiper-slide">
+                <div class="overlay swiper-slide" style="height: 435px">
                   <!--<a href="{{ image.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-main" data-title="{{ goal.title }}">-->
                     <!--<img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}style="height: 100%;" {% endif %}/>-->
                   <!--</a>-->
@@ -152,7 +152,33 @@
                     <!--&lt;!&ndash;</span>&ndash;&gt;-->
                 <!--</li>-->
               <!--</ul>-->
-              <app-goal-footer [goal]="goal"></app-goal-footer>
+
+              <ul class="row goal-links">
+
+                <li class="col-xs-3 clone">
+                  <a>
+                    <img src="assets/images/clone-icon.svg" width="25" height="25"/>
+                    <span class="text">{{ 'clone'|translate }}</span>
+                  </a>
+                </li>
+
+                <li class="col-xs-3">
+                  <a>
+                    <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                    <span class="text">{{ 'added'|translate}}</span>
+                  </a>
+                </li>
+
+                <li class="col-xs-6">
+                  <a>
+                    <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                    <span class="text">{{ 'done'|translate | capitalize}}</span>
+                  </a>
+                </li>
+
+              </ul>
+
+              <!--<app-goal-footer [goal]="goal"></app-goal-footer>-->
               <!--{% if goal and goal.isMyGoal == 1 or goal.isMyGoal == 2 %}-->
               <!--data-ng-init="goalId = {{ goal.id }}"-->
               <ul class="goal-icons">
@@ -257,7 +283,7 @@
                 <ul class="row no-gutter">
                   <li class="col-xs-9 col-sm-5">
                     {{ 'done_by'|translate | uppercase }}
-                    <p class="text-purple">{{ goal.stats.doneBy }}</p>
+                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.doneBy }}</p>
                   </li>
                   <li class="col-xs-3 col-sm-7">
                     <ul class="users">
@@ -282,11 +308,11 @@
                         <!--{% if goal.stats.doneBy == 0 %}-->
                         <!--<i></i>-->
                         <!--{% else %}-->
-                        <!--<a data-ls-goal-users-->
+                        <a data-ls-goal-users>
                            <!---->
                            <!--data-ls-count="{{ goal.stats.doneBy }}"-->
                            <!--data-ls-goal-id="{{ goal.id }}">-->
-                        <!--</a>-->
+                        </a>
                         <!--{% endif %}-->
                       </li>
                     </ul>
@@ -298,7 +324,7 @@
                 <ul class="row no-gutter">
                   <li class="col-xs-9 col-sm-5">
                     {{ 'listed_by'|translate | uppercase }}
-                    <p class="text-purple">{{ goal.stats.listedBy }}</p>
+                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.listedBy }}</p>
                   </li>
                   <li class="col-xs-3 col-sm-7">
                     <ul class="users">
@@ -322,11 +348,12 @@
                         <!--{% if goal.stats.listedBy == 0 %}-->
                         <!--<i></i>-->
                         <!--{% else %}-->
-                        <!--<a data-ls-goal-users-->
+                        <a data-ls-goal-users>
                            <!---->
                            <!--data-ls-goal-id="{{ goal.id }}"-->
                            <!--data-ls-count="{{ goal.stats.listedBy }}"-->
-                           <!--data-ls-category="1"></a>-->
+                           <!--data-ls-category="1">-->
+                        </a>
                         <!--{% endif %}-->
                       </li>
                     </ul>
@@ -511,7 +538,7 @@
                     </div>
 
                     <div class=" col-xs-3 text-right" >
-                      <span class="text-purple " *ngIf="count[story.id] < 1">0</span>
+                      <!--<span class="text-purple " *ngIf="count[story.id] < 1">0</span>-->
                       <!--<a data-ls-goal-users-->
                          <!--class="text-purple "-->
                          <!--*ngIf="count[{{ story.id }}] > 0"-->
@@ -531,7 +558,7 @@
                     <!--<div class="story-remove" data-ls-text="{{ 'success_story.delete_confirm'|trans }}" data-ls-confirm="removeStory({{ story.id }})"><span class="report">{{ 'btn_delete'|trans }}</span></div>-->
                     <!--{% endif %}-->
 
-                    <div class="border-left">
+                    <div class="border-left" *ngIf="story">
                       <div class="row">
                         <div class="col-xs-12">
                           <p>{{ story.story }} </p>
