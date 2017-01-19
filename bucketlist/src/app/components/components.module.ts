@@ -14,7 +14,7 @@ import { RoundPipe } from '../pipes/round.pipe';
 import { UserComponent } from './user/user.component';
 import { CommentComponent } from './comment/comment.component';
 import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
-import { ControlMessagesComponent } from './control-messages/control-messages.component';
+// import { ControlMessagesComponent } from './control-messages/control-messages.component';
 
 
 @NgModule({
@@ -35,7 +35,7 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
-    ControlMessagesComponent
+    // ControlMessagesComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -47,7 +47,7 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
-    ControlMessagesComponent
+    // ControlMessagesComponent
   ]
 })
 export class ComponentModule { }

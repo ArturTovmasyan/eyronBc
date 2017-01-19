@@ -10,7 +10,7 @@
           <div class="form-group row">
             <div class="col-sm-4 col-sm-offset-4">
 
-              <input type="file" formControlName="file" id="file" name="file" class="upload" >
+              <input type="file" formControlName="file" name="file" class="upload" >
               <control-messages [control]="registerData.controls.file"></control-messages>
 
               <div class="registration-image">
@@ -100,11 +100,11 @@
 
           <div class="form-group row">
             <p class="text-gray">{{ 'registration.agreement'|translate }}
-              <!--<a href="{{ (menu.children|first).uri }}" class="text-purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>-->
+              <a href="http://stage2.bucketlist127.com/page/terms-of-service-privacy-policy" class="text-purple">{{ 'registration.privacy_policy'|translate }}</a>
             </p>
           </div>
 
-          <button type="submit" name="register"  [disabled]="!registerData.valid" class="btn btn-purple" (click)="sendRegisterData(registerData)">{{ 'security.login.sign_up'|translate }}</button>
+          <button type="submit" name="register" [disabled]="!registerData.valid" class="btn btn-purple" (click)="sendRegisterData(registerData)">{{ 'security.login.sign_up'|translate }}</button>
 
         </form>
       </div>
