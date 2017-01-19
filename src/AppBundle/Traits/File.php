@@ -19,6 +19,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 trait File
 {
+//*     minWidth = 770,
+//*     minHeight = 540,
     /**
      * @Assert\Image(
      *     groups={"Registration", "Profile", "Default", "Register"},
@@ -38,8 +40,6 @@ trait File
      *
      * @Assert\Image(
      *     groups={"goal", "success_story"},
-     *     minWidth = 770,
-     *     minHeight = 540,
      *     maxSize="16000000",
      *     mimeTypes = {
      *         "image/png",

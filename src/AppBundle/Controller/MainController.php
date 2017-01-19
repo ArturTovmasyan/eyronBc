@@ -276,7 +276,7 @@ class MainController extends Controller
     /**
      * This function is view all statistic
      *
-     * @Route("/moderator/statistic", name="statistic")
+     * @Route("/admin/statistic", name="statistic")
      * @Template()
      * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
      */
