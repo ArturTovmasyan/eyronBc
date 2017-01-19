@@ -15,6 +15,7 @@ import { UserComponent } from './user/user.component';
 import { CommentComponent } from './comment/comment.component';
 import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
 import { ControlMessagesComponent } from './control-messages/control-messages.component';
+import { SeeAlsoComponent } from './see-also/see-also.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    SeeAlsoComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -47,7 +49,8 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    SeeAlsoComponent
   ]
 })
 export class ComponentModule { }

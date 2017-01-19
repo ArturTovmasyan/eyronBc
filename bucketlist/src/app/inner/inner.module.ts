@@ -6,6 +6,7 @@ import { MapModule } from '../tools/map/map.module';
 import { ProjectService } from '../project.service';
 import {TranslateModule} from 'ng2-translate';
 
+
 import { InnerRouting } from './inner-routing';
 
 @NgModule({
