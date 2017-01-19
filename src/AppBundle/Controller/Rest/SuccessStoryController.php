@@ -170,7 +170,7 @@ class SuccessStoryController extends FOSRestController
         }
 
         $validator = $this->get('validator');
-        $error = $validator->validate($storyImage, null, null);
+        $error = $validator->validate($storyImage, null, 'success_story');
 
         if (count($error) > 0) {
             return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);

@@ -5,11 +5,11 @@
             <figure class="rounded-corners-bottom">
 
                 <h3>
-                    <a *ngIf="goal.publish" routerLink="goal/{{ goal.slug }}">{{ goal.title }}</a>
+                    <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}">{{ goal.title }}</a>
                     <a *ngIf="!goal.publish">{{ goal.title }}</a>
                 </h3>
 
-                <a *ngIf="goal.publish" routerLink="goal/{{ goal.slug }}"
+                <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}"
                    class="goalTitle">
                     <span class="overlay"></span>
                     <img src="{{ goal.cached_image }}"

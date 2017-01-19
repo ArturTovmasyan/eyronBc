@@ -12,7 +12,9 @@ use AppBundle\Entity\UserGoal;
 use AppBundle\Form\MergeGoalType;
 use Application\CommentBundle\Entity\Thread;
 use Doctrine\Common\Collections\ArrayCollection;
+use FOS\RestBundle\Controller\Annotations\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -436,4 +438,48 @@ class CRUDController extends Controller
         return $result;
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param Request $request
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
+     */
+    public function sendMessageAction(Request $request)
+    {
+        //get url parameters in request
+        $userId = $request->query->get('userId');
+        $deviceId = $request->query->get('deviceId');
+        $mobileOS = $request->query->get('mobileOS');
+
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get put notification service
+        $sendNoteService = $this->container->get('bl_put_notification_service');
+
+        //get user by id
+        $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
+
+        $data = [];
+
+        // get referer
+//        $referer = $request->server->get('HTTP_REFERER');
+
+        // generate url
+//        $url =
+//            $referer ?
+//                $referer :
+//                $this->generateUrl('homepage');
+
+        //check if user haven`t any goals
+        if ($user) {
+            $data = $sendNoteService->sendTestMassage($user, $deviceId, $mobileOS);
+            $this->addFlash('success', 'You sand Test Message successfully');
+        }else {
+            $this->addFlash('error', 'User Not Found');
+        }
+
+        $data[$deviceId] = true;
+
+        return  $this->redirectToRoute('admin-user_show', ['id' => $userId, 'data' => $data]);
+    }
 }

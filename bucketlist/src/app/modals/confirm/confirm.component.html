@@ -1,0 +1,27 @@
+<div id="draft-delete">
+  <div class="modal-content">
+    <!--<div class="modal-header">-->
+    <!--<button type="button" class="close" aria-label="Close" data-ng-click="$hide()">-->
+    <!--<span aria-hidden="true">&times;</span>-->
+    <!--</button>-->
+
+    <!--<h4 class="modal-title" style="text-align: center"> {{ lsModalTitle ? lsModalTitle:'Confirm' }}</h4>-->
+    <!--</div>-->
+    <div class="modal-body text-center">
+      <h5 *ngIf="!lsText">{{'confirm_msg' | translate}}</h5>
+      <h5 *ngIf="lsText">{{ lsText }}</h5>
+      <!--<a href="javascript:void(0)" data-ng-click="yes();$hide()" class="btn btn-danger">Delete</a>-->
+      <!--<a href="javascript:void(0)" data-ng-click="$hide()" class="btn btn-success">Cancel</a>-->
+    </div>
+    <div class="modal-footer">
+      <a (click)="dialogRef.close('yes')" class="btn btn-danger">{{'delete' | translate}}</a>
+      <a (click)="dialogRef.close('no')" class="btn btn-success">{{'cancel' | translate}}</a>
+    </div>
+  </div>
+</div>
+<!--<h1 md-dialog-title>Would you like to order pizza?</h1>-->
+
+<!--<md-dialog-actions>-->
+  <!--<button (click)="dialogRef.close('yes')">Yes</button>-->
+  <!--<button md-dialog-close>No</button>-->
+<!--</md-dialog-actions>-->
