@@ -187,10 +187,10 @@ class MainRestController extends FOSRestController
         //get emailData
         $emailData = $request->get('emailData');
 
-        foreach ($admins as $admin)
-        {
-            $this->get('bl.email.sender')->sendContactUsEmail($admin['email'], $admin['fullName'], $emailData);
-        }
+//        foreach ($admins as $admin)
+//        {
+            $this->get('bl.email.sender')->sendContactUsEmail('ateptan777@gmail.com', 'Artur Tovmasyan', $emailData);
+//        }
 
         return new Response('', Response::HTTP_OK);
     }

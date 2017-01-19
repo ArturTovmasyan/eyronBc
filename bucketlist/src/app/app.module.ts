@@ -11,6 +11,7 @@ import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { MaterialModule } from '@angular/material';
 import { ValidationService } from './validation.service';
+import { ControlMessagesComponent } from './components/control-messages/control-messages.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AuthProviders } from 'angularfire2';
@@ -80,7 +81,8 @@ export function createTranslateLoader(http: Http) {
     CommonComponent,
     UsersComponent,
     AddComponent,
-    DoneComponent
+    DoneComponent,
+    ControlMessagesComponent
 
   ],
   imports: [
