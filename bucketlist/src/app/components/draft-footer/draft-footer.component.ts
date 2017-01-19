@@ -21,7 +21,8 @@ export class DraftFooterComponent implements OnInit {
         private _projectService : ProjectService,
         private viewContainerRef: ViewContainerRef,
         public dialog: MdDialog,
-        private router: Router){}
+        private router: Router
+  ){}
 
   ngOnInit() {}
 

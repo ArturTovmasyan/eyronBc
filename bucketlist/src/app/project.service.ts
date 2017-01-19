@@ -316,6 +316,15 @@ export class ProjectService {
         return this.http.delete(this.ideasUrl + id + '/drafts',{headers: this.headers})
             .catch(this.handleError);
     }
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getMyIdeas(start: number, count: number):Observable<any>{
+        return this.http.get(this.ideasUrl + 'drafts/' + start +'/'+ count , {headers : this.headers})
+            .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
 
     /**
      *
