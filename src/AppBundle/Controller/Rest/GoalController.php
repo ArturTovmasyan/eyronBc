@@ -515,6 +515,17 @@ class GoalController extends FOSRestController
             return new JsonResponse("Goal by $slug not found", Response::HTTP_NOT_FOUND);
         }
 
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        
+        if($goal->getImagePath()) {
+            $goal->setCachedImage($liipManager->getBrowserPath($goal->getImagePath(), 'goal_bg'));
+        }
+
+        if($goal->getImages()){
+            foreach ($goal->getImages() as $image){
+                $image->setMobileImagePath($liipManager->getBrowserPath($image->getImagePath(), 'goal_bg'));
+            }
+        }
         //check access
         $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
 

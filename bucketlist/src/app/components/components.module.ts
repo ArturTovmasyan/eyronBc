@@ -9,12 +9,15 @@ import {GoalFooterComponent} from './goal-footer/goal-footer.component';
 import {GoalComponent} from './goal/goal.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {GoalFriendComponent} from './goal-friend/goal-friend.component';
-import { CapitalizePipe } from '../pipes/capitalize.pipe';
-import { RoundPipe } from '../pipes/round.pipe';
 import { UserComponent } from './user/user.component';
 import { CommentComponent } from './comment/comment.component';
 import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
-// import { ControlMessagesComponent } from './control-messages/control-messages.component';
+import { ControlMessagesComponent } from './control-messages/control-messages.component';
+
+import { CapitalizePipe } from '../pipes/capitalize.pipe';
+import { RoundPipe } from '../pipes/round.pipe';
+import { RemoveTagPipe } from '../pipes/removeTag.pipe';
+import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 
 
 @NgModule({
@@ -32,10 +35,12 @@ import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
     GoalFriendComponent,
     CapitalizePipe,
     RoundPipe,
+    RemoveTagPipe,
+    MarkdownToHtmlPipe,
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
-    // ControlMessagesComponent
+    ControlMessagesComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -47,7 +52,9 @@ import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
-    // ControlMessagesComponent
+    RemoveTagPipe,
+    MarkdownToHtmlPipe,
+    ControlMessagesComponent
   ]
 })
 export class ComponentModule { }

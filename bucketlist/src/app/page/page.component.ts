@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { ValidationService } from 'app/validation.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -11,7 +9,6 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
     templateUrl: './page.component.html',
     styleUrls: ['./page.component.less']
 })
-
 export class PageComponent implements OnInit {
   
   public eventId: number = 0;
@@ -21,15 +18,14 @@ export class PageComponent implements OnInit {
   public description: any ;
   public data: any;
   public locale: string = 'en';
-  public show: boolean = false;
-  public emailData:any;
+  error:string;
+  emailData;
 
   constructor(
       private route: ActivatedRoute,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
-      private router:Router,
-      private formBuilder: FormBuilder
+      private router:Router
   ) {
     router.events.subscribe((val) => {
       if(this.eventId != val.id && val instanceof NavigationEnd){
@@ -38,19 +34,22 @@ export class PageComponent implements OnInit {
 
           if(this.name == 'contact-us') {
               this.isSend = false;
-              // this.emailData = {};
+              this.emailData.fullName = '';
+              this.emailData.email = '';
+              this.emailData.subject = '';
+              this.emailData.message = '';
           }
 
         this.getPage(this.name, this.locale);
       }
     });
 
-      this.emailData = this.formBuilder.group({
-          'fullName': ['', Validators.required],
-          'email': ['', [Validators.required, ValidationService.emailValidator]],
-          'subject': ['', [Validators.required]],
-          'message': ['', [Validators.required]],
-      });
+    this.emailData = {
+        fullName: '',
+        email: '',
+        subject: '',
+        message: '',
+    }
   }
 
   ngOnInit() {
@@ -67,17 +66,35 @@ export class PageComponent implements OnInit {
               });
   }
 
+  checkFormValue() {
+
+      if(this.emailData.fullName.length > 0 &&
+          this.emailData.email.length > 0 &&
+          this.emailData.subject.length > 0 &&
+          this.emailData.message.length > 0) {
+          return true;
+      }
+      return false;
+  }
+
     sendEmail(emailData) {
 
-      this.show = true;
+        if(this.checkFormValue()) {
 
-        this._projectService.sendEmail(emailData)
-            .subscribe(
-                () => {
-                    this.isSend = true;
-                    this.emailData.reset();
-                    this.show = false;
-                }
-            );
+            this.emailData.fullName = emailData.fullName;
+            this.emailData.email = emailData.email;
+            this.emailData.subject = emailData.subject;
+            this.emailData.message = emailData.message;
+
+            this._projectService.sendEmail(this.emailData)
+                .subscribe(
+                    () => {
+                        this.isSend = true;
+                    }
+                );
+        }
+        else{
+            return false;
+        }
     }
 }
