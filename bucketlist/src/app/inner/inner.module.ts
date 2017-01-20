@@ -8,6 +8,7 @@ import {TranslateModule} from 'ng2-translate';
 import { SwiperModule } from 'angular2-useful-swiper';
 
 import { InnerRouting } from './inner-routing';
+import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { InnerRouting } from './inner-routing';
     SwiperModule
   ],
   declarations: [
-    InnerComponent
+    InnerComponent,
+    InnerStoriesComponent
   ],
   providers: [
     ProjectService
