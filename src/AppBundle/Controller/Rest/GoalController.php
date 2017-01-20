@@ -494,7 +494,7 @@ class GoalController extends FOSRestController
      *  },
      * )
      *
-     * @Rest\View(serializerGroups={"goal", "goal_image", "image", "goal_author", "tiny_user", "userGoal",
+     * @Rest\View(serializerGroups={"goal", "tiny_goal", "goal_image", "image", "goal_author", "tiny_user", "userGoal",
      *                              "goal_successStory", "successStory", "successStory_user", "successStory_storyImage",
      *                              "successStory_user", "tiny_user", "storyImage", "comment", "comment_author", "comment_children"})
      * @param $slug string
