@@ -17,6 +17,7 @@
   <!--{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}-->
   <figure class="goal-image">
     <span class="overlay"></span>
+    <img src="{{ (goal && goal.cached_image)?goal.cached_image: imgPath}}" alt="Profile Cover Photo" class="img-responsive" />
     <!--<img src="-->
         <!--{% if cover %}-->
              <!--{{ cover|blImageFilter('goal_bg') }}-->
@@ -26,9 +27,6 @@
          <!--alt="{{ goal.title }}" />-->
   </figure>
   <div class="container">
-    <!--data-infinite-scroll='Ideas.nextPage("{{ env_prefix }}/api/v1.0/goals/{first}/{count}")'-->
-    <!--data-infinite-scroll-disabled='Ideas.request >= 1'-->
-    <!--data-infinite-scroll-distance='2'-->
   </div>
   <!--data-ng-init="goal.public= {% if goal.status %} true {% else %} false {% endif %} "-->
   <div class="goal-content">
@@ -38,18 +36,16 @@
         <div class="col-md-7">
           <div class="quote">
 
-            <div class="ticker">
-              <!--{% if aphorisms %}-->
+            <div class="ticker" *ngIf="aphorisms">
               <i class="icon-quote-left"></i>
               <i class="icon-quote-right"></i>
-              <!--<ul class="aphorism" data-delay-add-class data-delay="12000">-->
-                <!--{% for aphorism in aphorisms %}-->
-                <!--<li>{{ aphorism.content|length > 230 ? aphorism.content|slice(0, 230)|removeTag ~ '...' : aphorism.content|removeTag }}-->
-                  <!--<span class="text-right">{{ aphorism.author }}</span>-->
-                <!--</li>-->
-                <!--{% endfor %}-->
-              <!--</ul>-->
-              <!--{% endif %}-->
+              <ul class="aphorism">
+                <!--data-delay-add-class data-delay="12000"-->
+                <li *ngFor="let aphorism of aphorisms">
+                  <!--{{ aphorism.content.length > 230 ? (aphorism.content|slice(0, 230)|removeTag + '...' ): (aphorism.content|removeTag) }}-->
+                  <span class="text-right">{{ aphorism.author }}</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -57,12 +53,10 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <!--{% if author and not author.isAdmin %}-->
-          <p class="goal-author">
-            <!--<a href="{{ path('user_profile',  {'user': author.uId})}}" class="text-gray bg-blue">{{ 'by' ~ " " ~ author.showName }} </a>-->
+          <p class="goal-author" *ngIf="goal.author && goal.author.is_admin">
+            <a routerLink="/profile/{{ goal.author.u_id }}" class="text-gray bg-blue">{{ 'by' + " " + goal.author.show_name }} </a>
           </p>
-          <!--{% endif %}-->
-          <h2 class="goal-inner-title {% if goal.title|length > 40 %}title-smaller{% endif %}">{{ goal.title }}</h2>
+          <h2 class="goal-inner-title" [class.title-smaller]="goal.title.length > 40">{{ goal.title }}</h2>
         </div>
       </div>
 
@@ -73,83 +67,82 @@
 
             <!--{% set images = goal.images %}-->
             <!--{% if images and images | length %}-->
-            <div id="main-slider" class="swiper-container">
+            <swiper [config]="config" id="main-slider" class="swiper-container" *ngIf="goal.images">
               <!-- Slides Container -->
-              <!--{% if images| length > 1 %} class="swiper-wrapper" {% endif %}-->
-              <div style="height: 435px">
+              <!--{% if images| length > 1 %} class="" {% endif %}-->
+              <div style="height: 435px" [class.swiper-wrapper]="goal.images.length > 1">
                 <!--{% for key, image in images %}-->
 
-                <!--{% if image.downloadLink|length > 0 %}-->
-                <div class="overlay swiper-slide" style="height: 435px">
-                  <!--<a href="{{ image.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-main" data-title="{{ goal.title }}">-->
-                    <!--<img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}style="height: 100%;" {% endif %}/>-->
-                  <!--</a>-->
+                <div class="overlay swiper-slide" style="height: 435px" *ngFor="let image of goal.images">
+                  <a class="swipebox-main">
+                    <!--data-title="{{ goal.title }}"-->
+                    <!--href="{{ image.downloadLink|blImageFilter('slide_max_size') }}"-->
+                    <img class="img-responsive" src="{{ image.image_path }}" alt="{{ goal.title }}" [class.fullHeight]="image.image_size['height'] < 435"/>
+                    <!--{% if image.imageSize["height"] < 435 %}style="height: 100%;" fullHeight = height 100% {% endif %}-->
+                  </a>
                 </div>
-                <!--{% endif %}-->
                 <!--{% endfor %}-->
               </div>
 
-              <!--{% if images| length > 1 %}-->
-              <!-- Add Pagination -->
-              <!--<div class="swiper-pagination swiper-pagination-white"></div>-->
-              <!--&lt;!&ndash; Add Arrows &ndash;&gt;-->
-              <!--<div class="swiper-button-next swiper-button-white"></div>-->
-              <!--<div class="swiper-button-prev swiper-button-white"></div>-->
-              <!--{% endif %}-->
-            </div>
-            <!--{% else%}-->
-            <!--<figure class="goal-preview" id="main-slider">-->
-              <!--<img class="img-responsive" src="{{ asset(imgPath)}}" alt="view goal img" style="height: 100%;"/>-->
-            <!--</figure>-->
-            <!--{% endif %}-->
+               <!--Add Pagination -->
+              <div class="swiper-pagination swiper-pagination-white" *ngIf="goal.images.length > 1"></div>
+              <!-- Add Arrows -->
+              <div class="swiper-button-next swiper-button-white" *ngIf="goal.images.length > 1"></div>
+              <div class="swiper-button-prev swiper-button-white" *ngIf="goal.images.length > 1"></div>
+            </swiper>
+
+            <figure class="goal-preview" id="main-slider" *ngIf="!goal.images">
+              <img class="img-responsive" src="{{ imgPath }}" alt="view goal img" style="height: 100%;"/>
+            </figure>
+
           </div>
           <!--data-ng-init="success[ {{ goal.id }} ] = {% if goal.isMyGoal == 2 %} true {% else %} false {% endif %}"-->
           <div class="col-md-4">
             <!--{% if page == inner %}-->
-            <div class="goal-information">
+            <div class="goal-information" *ngIf="type == 'inner'">
               <!--data-ng-init="added = true"-->
               <!--<ul class="row goal-links">-->
-                <!--&lt;!&ndash;{% set xs = 6 %}&ndash;&gt;-->
-                <!--&lt;!&ndash;{% if is_granted('ROLE_SUPER_ADMIN', app.user) %}&ndash;&gt;-->
-                <!--&lt;!&ndash;{% set xs = 3 %}&ndash;&gt;-->
-                <!--&lt;!&ndash;<li class="col-xs-3 clone">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">&ndash;&gt;-->
-                    <!--&lt;!&ndash;{#<span class="glyphicon glyphicon-copy "></span>#}&ndash;&gt;-->
-                    <!--&lt;!&ndash;<img src="{{ asset('bundles/app/images/clone-icon.svg') }}" width="25" height="25"/>{{ 'clone'|trans }}&ndash;&gt;-->
-                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->
+                <!--{% set xs = 6 %}-->
+                <!--{% if is_granted('ROLE_SUPER_ADMIN', app.user) %}-->
+                <!--{% set xs = 3 %}-->
+                <!--<li class="col-xs-3 clone">-->
+                  <!--<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">-->
+                    <!--{#<span class="glyphicon glyphicon-copy "></span>#}-->
+                    <!--<img src="{{ asset('bundles/app/images/clone-icon.svg') }}" width="25" height="25"/>{{ 'clone'|trans }}-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--{% endif %}-->
 
-                <!--&lt;!&ndash;<li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || success[ {{ goal.id }} ]}" {% endif %}>&ndash;&gt;-->
-                  <!--&lt;!&ndash;{% if goal.isMyGoal == 0 %}&ndash;&gt;-->
-                  <!--&lt;!&ndash;data-ng-init="added = false" *ngIf="!added"&ndash;&gt;-->
-                  <!--&lt;!&ndash;<a data-ls-goal-manage&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ls-goal-id="{{ goal.id }}"&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ng-click="added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<span class="text">{{ 'add'|trans | upper}}</span>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--<li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || success[ {{ goal.id }} ]}" {% endif %}>-->
+                  <!--{% if goal.isMyGoal == 0 %}-->
+                  <!--data-ng-init="added = false" *ngIf="!added"-->
+                  <!--<a data-ls-goal-manage-->
+                     <!--data-ls-goal-id="{{ goal.id }}"-->
+                     <!--data-ng-click="added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">-->
+                    <!--<i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
+                    <!--<span class="text">{{ 'add'|trans | upper}}</span>-->
+                  <!--</a>-->
                     <!--<span class="" *ngIf="goal.isMyGoal || added">-->
                         <!--<i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>-->
-                        <!--&lt;!&ndash;<span class="text">{{ 'added'|trans | upper}}</span>&ndash;&gt;-->
+                        <!--<span class="text">{{ 'added'|trans | upper}}</span>-->
                     <!--</span>-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                <!--</li>-->
 
-                <!--&lt;!&ndash;{% if goal.isMyGoal == 2 %}transparent{% endif %}&ndash;&gt;-->
-                <!--&lt;!&ndash;{% if goal.isMyGoal != 2 %}data-ng-class="{transparent: success[ {{ goal.id }} ]}"{% endif %}&ndash;&gt;-->
+                <!--{% if goal.isMyGoal == 2 %}transparent{% endif %}-->
+                <!--{% if goal.isMyGoal != 2 %}data-ng-class="{transparent: success[ {{ goal.id }} ]}"{% endif %}-->
                 <!--<li class="col-xs-6 ">-->
-                  <!--&lt;!&ndash;<a *ngIf="!success[ {{ goal.id }} ]"&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ls-user-goal-manage&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ls-goal-id="{{ goal.id }}"&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ng-click="success[ {{ goal.id }} ] = true; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<span class="text">{{ 'done'|trans | upper }}</span>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                  <!--<a *ngIf="!success[ {{ goal.id }} ]"-->
+                     <!--data-ls-user-goal-manage-->
+                     <!--data-ls-goal-id="{{ goal.id }}"-->
+                     <!--data-ng-click="success[ {{ goal.id }} ] = true; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">-->
+                    <!--<i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>-->
+                    <!--<span class="text">{{ 'done'|trans | upper }}</span>-->
+                  <!--</a>-->
 
-                    <!--&lt;!&ndash;<span class="" *ngIf="success[ goal.id ]">&ndash;&gt;-->
-                         <!--&lt;!&ndash;<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>&ndash;&gt;-->
-                         <!--&lt;!&ndash;<span class="text">{{ 'completed'|trans | upper}}</span>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                    <!--<span class="" *ngIf="success[ goal.id ]">-->
+                         <!--<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
+                         <!--<span class="text">{{ 'completed'|trans | upper}}</span>-->
+                    <!--</span>-->
                 <!--</li>-->
               <!--</ul>-->
 
@@ -178,46 +171,40 @@
 
               </ul>
 
-              <!--<app-goal-footer [goal]="goal"></app-goal-footer>-->
-              <!--{% if goal and goal.isMyGoal == 1 or goal.isMyGoal == 2 %}-->
-              <!--data-ng-init="goalId = {{ goal.id }}"-->
-              <ul class="goal-icons">
-                <!--{% if author and author.id == userId %}-->
+              <ul class="goal-icons" *ngIf="goal.is_my_goal == 1 || goal.is_my_goal == 2">
                 <!--data-ng-init="isAuthor=true"-->
-                <li>
+                <li *ngIf="goal.author && appUser && goal.author.id == appUser.id">
                   <!--<a href="{{ path('add_goal') }}?id={{ goal.id }}&slug=Public">-->
-                    <!--<i title="{{ 'my_bucket_list.edit'|trans }}" class="icon-pencil"></i>-->
+                    <i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>
                   <!--</a>-->
                 </li>
-                <!--{% endif %}-->
 
                 <li class="bordered-list">
                   <!--<a data-ls-type="manage"-->
                      <!--data-ls-goal-id="{{  goal.id }}"-->
                      <!--data-ls-goal-manage-->
                      <!--class="text-gray manage-modal">-->
-                    <!--<i class="icon-manage"></i>-->
+                    <i class="icon-manage"></i>
                   <!--</a>-->
                 </li>
 
                 <li class="bordered-list">
                   <div class="check_status">
-                    <!--<a *ngIf="!success[ goal.id ]"-->
-                       <!--data-ng-click="success[ goal.id ] = true"-->
-                       <!--data-ls-goal-id="{{ goal.id }}"-->
-                       <!--data-ls-user-goal-manage-->
-                       <!--id="done{{ goal.id }}"-->
-                       <!--class="">-->
-                      <!--<i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>-->
-                    <!--</a>-->
-                    <!--<a  *ngIf="success[ {{ goal.id }} ]"-->
-                        <!--data-ls-user-goal-manage-->
-                        <!--data-ls-type="manage"-->
-                        <!--data-ls-goal-id="{{ goal.id }}"-->
-                        <!--class="successtory "-->
-                        <!--id="success{{ goal.id }}">-->
-                      <!--<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
-                    <!--</a>-->
+                    <a *ngIf="goal.is_my_goal != 2">
+                      <!--data-ng-click="success[ goal.id ] = true"-->
+                      <!--data-ls-goal-id="{{ goal.id }}"-->
+                      <!--data-ls-user-goal-manage-->
+                      <!--id="done{{ goal.id }}"-->
+                      <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                    </a>
+                    <a  *ngIf="goal.is_my_goal == 2">
+                      <!--data-ls-user-goal-manage-->
+                      <!--data-ls-type="manage"-->
+                      <!--data-ls-goal-id="{{ goal.id }}"-->
+                      <!--class="successtory "-->
+                      <!--id="success{{ goal.id }}"-->
+                      <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                    </a>
                   </div>
                 </li>
 
@@ -240,11 +227,10 @@
                   <i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>
                 </li>
 
-                <li *ngIf="!goal.public">
+                <li *ngIf="!goal.status">
                   <i title="{{ 'my_bucket_list.private'|translate }}"  class="icon-lock-white"></i>
                 </li>
               </ul>
-              <!--{% endif %}-->
 
               <!--{% if goal.lat is not null and goal.lng is not null %}-->
               <!--<div *ngIf="isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">-->
@@ -274,11 +260,11 @@
 
         <!--{% if page != view %}-->
 
-        <div class="row bg-white">
+        <div class="row bg-white" *ngIf="type != 'view'">
 
           <div class="col-md-8">
             <!--{% if page == inner %}-->
-            <ul class="users-lists row">
+            <ul class="users-lists row" *ngIf="type == 'inner'">
               <li class="col-xs-6">
                 <ul class="row no-gutter">
                   <li class="col-xs-9 col-sm-5">
@@ -292,28 +278,25 @@
                       <!--{% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}-->
                       <!--{% set className = "user-no" ~ random(4) %}-->
                       <li [style.right]="80 + (i + 1)*20" *ngFor="let user of doneByUsers;let i = index" class="hidden-xs">
-                        <!--{% if doneByUser.getPhotoLink  %}-->
-                        <figure>
-                          <!--<img src="{{ doneByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ doneByUser.firstName }}">-->
+
+                        <figure *ngIf="user.cached_image">
+                          <img src="{{ user.cached_image }}" class="img-circle img-responsive" alt="{{ user.first_name }}">
                         </figure>
-                        <!--{% else %}-->
-                        <!--<p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>-->
-                        <!--{% endif %}-->
+
+                        <p *ngIf="!user.cached_image" class="no-image user-no4">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
 
                       </li>
                       <!--{% set left = left + 20 %}-->
                       <!--{% endfor %}-->
 
                       <li class="users-arrow">
-                        <!--{% if goal.stats.doneBy == 0 %}-->
-                        <!--<i></i>-->
-                        <!--{% else %}-->
-                        <a data-ls-goal-users>
-                           <!---->
+                        <i *ngIf="goal.stats.doneBy == 0"></i>
+
+                        <a *ngIf="goal.stats.doneBy">
+                           <!--data-ls-goal-users-->
                            <!--data-ls-count="{{ goal.stats.doneBy }}"-->
                            <!--data-ls-goal-id="{{ goal.id }}">-->
                         </a>
-                        <!--{% endif %}-->
                       </li>
                     </ul>
                   </li>
@@ -334,27 +317,23 @@
                       <!--{% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}-->
                       <!--{% set className = "user-no" ~ random(4) %}-->
                       <li [style.right]="80 + (i + 1)*20" *ngFor="let user of listedByUsers;let i = index" class="hidden-xs">
-                        <!--{% if listedByUser.getPhotoLink  %}-->
-                        <figure>
-                          <!--<img src="{{ listedByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ listedByUser.firstName }}">-->
+                        <figure *ngIf="user.cached_image">
+                          <img src="{{ user.cached_image }}" class="img-circle img-responsive" alt="{{ user.first_name }}">
                         </figure>
-                        <!--{% else %}-->
-                        <!--<p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>-->
-                        <!--{% endif %}-->
+
+                        <p *ngIf="!user.cached_image" class="no-image user-no4">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
+
                       </li>
                       <!--{% set left = left + 20 %}-->
                       <!--{% endfor %}-->
                       <li class="users-arrow">
-                        <!--{% if goal.stats.listedBy == 0 %}-->
-                        <!--<i></i>-->
-                        <!--{% else %}-->
-                        <a data-ls-goal-users>
-                           <!---->
-                           <!--data-ls-goal-id="{{ goal.id }}"-->
-                           <!--data-ls-count="{{ goal.stats.listedBy }}"-->
-                           <!--data-ls-category="1">-->
+                        <i *ngIf="goal.stats.doneBy == 0"></i>
+
+                        <a *ngIf="goal.stats.doneBy">
+                          <!--data-ls-goal-id="{{ goal.id }}"-->
+                          <!--data-ls-count="{{ goal.stats.listedBy }}"-->
+                          <!--data-ls-category="1">-->
                         </a>
-                        <!--{% endif %}-->
                       </li>
                     </ul>
                   </li>
@@ -397,7 +376,7 @@
                     <!--</div>-->
                   </div>
                   <div class="col-xs-8 col-sm-9 col-md-9">
-                    <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{ goal.title }}" class="twitter-hashtag-button" data-related="BucketList127" data-url="{{ SchemeAndHttpHost + goal.shareLink }}" data-dnt="true">Tweet #BucketList127</a>-->
+                    <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{ goal.title }}" class="twitter-hashtag-button" data-related="BucketList127" data-url="{{ serverPath + goal.share_link }}" data-dnt="true">Tweet #BucketList127</a>-->
                     <!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>-->
                   </div>
                 </div>
@@ -421,7 +400,7 @@
             <div class="inner">
               <hr/>
               <!--{% if goal.description and not goal.description == '' %}-->
-              <!--<div class="text-dark-grey goal-info">{{ goal.description|removeTag|markdown }}</div>-->
+              <div class="text-dark-grey goal-info" *ngIf="goal.description && goal.description != ''" [innerHTML]="goal.description|removeTag|MarkdownToHtml"></div>
 
               <!--{% endif %}-->
 

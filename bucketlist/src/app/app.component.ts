@@ -65,7 +65,6 @@ export class AppComponent implements OnInit  {
     if(data){
         this.menus = data[0];
         this.privacyMenu = data[1];
-
     }else {
         this.getBottomMenu();
     }
@@ -157,8 +156,6 @@ export class AppComponent implements OnInit  {
         .subscribe(
             menus => {
               this.menus = menus;
-
-                console.log(menus);
 
               for(let index in this.menus){
                 if (this.menus[index].isTerm) {

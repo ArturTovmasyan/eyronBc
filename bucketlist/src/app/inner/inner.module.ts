@@ -5,6 +5,7 @@ import { ComponentModule } from '../components/components.module';
 import { MapModule } from '../tools/map/map.module';
 import { ProjectService } from '../project.service';
 import {TranslateModule} from 'ng2-translate';
+import { SwiperModule } from 'angular2-useful-swiper';
 
 import { InnerRouting } from './inner-routing';
 
@@ -14,7 +15,8 @@ import { InnerRouting } from './inner-routing';
     InnerRouting,
     ComponentModule,
     MapModule,
-    TranslateModule
+    TranslateModule,
+    SwiperModule
   ],
   declarations: [
     InnerComponent

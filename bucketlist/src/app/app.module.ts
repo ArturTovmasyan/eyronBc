@@ -4,14 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import { SelectModule} from 'ng2-select/ng2-select';
 import { DndModule} from 'ng2-dnd';
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { MaterialModule } from '@angular/material';
 import { ValidationService } from './validation.service';
-import { ControlMessagesComponent } from './components/control-messages/control-messages.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AuthProviders } from 'angularfire2';
@@ -74,15 +72,13 @@ export function createTranslateLoader(http: Http) {
     ResettingRequestComponent,
 
     PageComponent,
-    MarkdownToHtmlPipe,
     ReportComponent,
 
     ReportComponent,
     CommonComponent,
     UsersComponent,
     AddComponent,
-    DoneComponent,
-    ControlMessagesComponent
+    DoneComponent
 
   ],
   imports: [
