@@ -526,6 +526,20 @@ class GoalController extends FOSRestController
                 $image->setMobileImagePath($liipManager->getBrowserPath($image->getImagePath(), 'goal_bg'));
             }
         }
+//todo optimized
+        if($goal->getSuccessStories()){
+            foreach ($goal->getSuccessStories() as $story){
+                if($story->getUser()->getImagePath()){
+                    $story->getUser()->setCachedImage($liipManager->getBrowserPath($story->getUser()->getImagePath(), 'user_icon'));
+                }
+
+                if($story->getFiles()){
+                    foreach ($story->getFiles() as $file){
+                        $file->setMobileImagePath($liipManager->getBrowserPath($file->getImagePath(), 'goal_list_small'));
+                    }
+                }
+            }
+        }
         //check access
         $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
 

@@ -20,10 +20,10 @@ export class InnerComponent implements OnInit {
   public serverPath:string = '';
   public type:string = 'inner';
   public imgPath:string = '';
-  public storiesCount:number = 20;
   public aphorisms:any[];
   public stories:Story[];
   public appUser:User;
+
   public config: Object = {
     pagination: '.swiper-pagination',
     paginationClickable: true,
@@ -69,7 +69,7 @@ export class InnerComponent implements OnInit {
     this.serverPath = this._projectService.getPath();
     this.imgPath = this.serverPath + '/bundles/app/images/cover2.jpg';
     this.route.params.forEach((params:Params) => {
-      let goalSlug = params['slug'];
+      let goalSlug = params['slug'];console.log(params);
 
       // load data
       this.getProject(goalSlug);
