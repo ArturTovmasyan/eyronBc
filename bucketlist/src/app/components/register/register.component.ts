@@ -16,14 +16,18 @@ export class RegisterComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder)
     {
-        // this.registerData = {
-        //   file: '',
-        //   firstName: '',
-        //   lastName: '',
-        //   email: '',
-        //   passwordFirst: '',
-        //   passwordSecond: '',
-        // };
+        this.registerData = this.formBuilder.group({
+            'file': ['', null],
+            'firstName': ['', [Validators.required]],
+            'lastName': ['', [Validators.required]],
+            'email': ['', [Validators.required, ValidationService.emailValidator]],
+            'passwordFirst': ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]],
+            'passwordSecond' : ['', [Validators.required, Validators.minLength(6),ValidationService.passwordValidator]],
+            'month' : ['', null]
+        });
+    }
+
+    ngOnInit() {
 
         this.arrayMonth = [
             // 'form.birth_date_month',
@@ -43,19 +47,6 @@ export class RegisterComponent implements OnInit {
 
         this.createDays(31);
         this.createYears(1917, 2017);
-
-        this.registerData = this.formBuilder.group({
-            'file': ['', null],
-            'firstName': ['', [Validators.required]],
-            'lastName': ['', [Validators.required]],
-            'email': ['', [Validators.required, ValidationService.emailValidator]],
-            'passwordFirst': ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]],
-            'passwordSecond' : ['', [Validators.required, Validators.minLength(6),ValidationService.passwordValidator]],
-            'month' : ['', null]
-        });
-    }
-
-    ngOnInit() {
     }
 
     createDays(number) {
