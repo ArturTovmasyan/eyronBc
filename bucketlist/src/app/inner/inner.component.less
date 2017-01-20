@@ -507,6 +507,84 @@
   }
 }
 
+.inner-content{
+
+  .overlay{
+    &:hover{
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .twitter-hashtag-button{
+    margin:7px 0;
+  }
+
+  .fb-like{
+    margin: 8px 0 0 0;
+    display:inline-block;
+  }
+  .addthis_counter a.atc_s{
+    width:113px !important;
+    height:31px !important;
+    background: url('../images/share-new.png') no-repeat center center !important;
+    background-size: 100% !important;
+    &:hover{
+      background: url('../images/share-purple.png') no-repeat center center !important;
+      background-size: 100% !important;
+    }
+  }
+
+  .addthis_counter.addthis_pill_style a.atc_s{
+    font-size: 0;
+  }
+
+  .addthis_counter{
+    .addthis_button_expanded{
+      margin-top: 7px !important;
+    }
+  }
+
+  .addthis_native_toolbox{
+    padding: 0 15px 0 0;
+  }
+
+  #main-slider{
+    position: relative;
+    top: 0;
+    left: 0;
+    height:190px;
+
+    img{
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .swiper-slide{
+      height:190px;
+    }
+
+    .swiper-button-prev{
+      left:25px;
+    }
+    .swiper-button-next{
+      right:20px;
+    }
+  }
+
+  .goal-preview{
+    height:190px;
+    overflow: hidden;
+    img{
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+}
+
+.fullHeight{
+  height: 100%;
+}
+
 @media (min-width: @screen-sm) {
   .inner-container{
 
@@ -737,6 +815,40 @@
 
     }
   }
+
+  .inner-content{
+    overflow: hidden;
+    .fb-like{
+      margin: 13px 0 0 20px;
+    }
+
+    .twitter-hashtag-button{
+      margin:13px 0 0;
+    }
+
+    .addthis_native_toolbox{
+      text-align: right;
+      margin:2px 0 0;
+    }
+
+    .addthis_counter{
+      .addthis_button_expanded{
+        margin-top: 10px !important;
+      }
+    }
+
+    #main-slider{
+      height:414px;
+
+      .swiper-slide{
+        height:414px;
+      }
+    }
+    .goal-preview{
+      height:414px;
+    }
+  }
+
 }
 
 @media (min-width: @screen-md) {
@@ -848,6 +960,34 @@
       padding: 20px 0 0;
     }
   }
+
+  .inner-content{
+    .fb-like{
+      margin: 9px 0 0 40px;
+    }
+    .addthis_native_toolbox{
+      padding-right: 0;
+    }
+
+    .twitter-hashtag-button{
+      margin: 9px 17px 0;
+    }
+
+    #main-slider{
+      height:435px;
+
+      .swiper-slide{
+        height:435px;
+      }
+
+      .swiper-button-next{
+        right:10px;
+      }
+    }
+    .goal-preview{
+      height:435px;
+    }
+  }
 }
 
 @media (min-width: @screen-lg) {
@@ -876,6 +1016,12 @@
     width: 374px;
     p{
       font-size:20px;
+    }
+  }
+
+  .inner-content{
+    .twitter-hashtag-button{
+      margin: 9px 10px 0;
     }
   }
 }

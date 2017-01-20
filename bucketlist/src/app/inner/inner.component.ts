@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../project.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -11,7 +11,8 @@ import {Story} from '../interface/story';
   selector: 'app-inner',
   templateUrl: './inner.component.html',
   styleUrls: ['./inner.component.less'],
-  providers: [ProjectService]
+  providers: [ProjectService],
+  encapsulation: ViewEncapsulation.None
 })
 export class InnerComponent implements OnInit {
   public goal:Goal = null;
