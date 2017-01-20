@@ -52,9 +52,9 @@
 
             <swiper [config]="config" id="main-slider" class="swiper-container" *ngIf="goal.images">
               <!-- Slides Container -->
-              <div style="height: 435px" [class.swiper-wrapper]="goal.images.length > 1">
+              <div [class.swiper-wrapper]="goal.images.length > 1">
 
-                <div class="overlay swiper-slide" style="height: 435px" *ngFor="let image of goal.images">
+                <div class="overlay swiper-slide" *ngFor="let image of goal.images">
                   <a class="swipebox-main">
                     <!--data-title="{{ goal.title }}"-->
                     <!--href="{{ image.downloadLink|blImageFilter('slide_max_size') }}"-->
