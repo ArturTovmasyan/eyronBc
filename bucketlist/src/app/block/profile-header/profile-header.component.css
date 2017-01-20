@@ -373,6 +373,19 @@
 .bucketlist ul .active a {
   color: #7724f6;
 }
+.bucketlist nav {
+  border-bottom: 0;
+}
+.bucketlist nav a {
+  font-size: 13px;
+  opacity: 1;
+  color: #666666;
+}
+.bucketlist nav a:hover,
+.bucketlist nav a:focus {
+  text-decoration: none;
+  color: #7724f6;
+}
 .bucketlist hr {
   margin: -2px 0 0;
 }
@@ -406,6 +419,11 @@
 }
 .settings-menu ul.menu li:last-child.active:hover {
   border-bottom: 1px solid #7724f6;
+}
+.md-slide-toggle-content {
+  padding-left: 15px;
+  min-width: 245px;
+  max-width: 300px;
 }
 @media (min-width: 768px) {
   .content-header > figure {
@@ -552,6 +570,12 @@
     width: 35px;
     height: 30px;
   }
+  .bucketlist nav a {
+    height: auto;
+    padding: 15px;
+    font-size: 18px;
+    line-height: 26px;
+  }
   .bucketlist .map-marker-new {
     width: 25px;
     height: 33px;
@@ -578,6 +602,9 @@
   }
   .settings-menu ul.menu li:last-child.active {
     padding: 15px;
+  }
+  .md-slide-toggle-content {
+    max-width: 600px;
   }
 }
 @media (min-width: 992px) {
@@ -704,6 +731,11 @@
   }
   .bucketlist ul li:last-child {
     padding: 2px 15px 4px;
+  }
+  .bucketlist nav a {
+    padding: 25px 15px;
+    font-size: 22px;
+    line-height: 33px;
   }
   .bucketlist hr {
     margin: -2px 0 0;

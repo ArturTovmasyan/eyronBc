@@ -9,7 +9,7 @@ import { ValidationService } from '../../validation.service';
 
 export class ControlMessagesComponent {
   @Input() control: FormControl;
-  @Input() confirmPassword: FormControl;
+  @Input() confirmPassword: any;
   constructor() { }
 
   get errorMessage() {

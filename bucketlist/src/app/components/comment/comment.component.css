@@ -83,7 +83,7 @@
 }
 .comment-place {
   display: block;
-  padding: 10px 10px 0;
+  padding: 10px;
   background-color: #f4f4f4;
   font-size: 17px;
   position: relative;
@@ -142,6 +142,11 @@
   color: #666666;
   cursor: pointer;
 }
+.comment-place span.arrow-up {
+  position: absolute;
+  top: -8px;
+  left: 14px;
+}
 .comment-place .swiper-container-free-mode .swiper-wrapper {
   margin: 20px auto;
 }
@@ -159,6 +164,7 @@
 .comment-information span.report {
   color: #666666;
   font-size: 14px;
+  cursor: pointer;
 }
 @media (min-width: 768px) {
   .comments-column .leave-comment {
@@ -170,7 +176,7 @@
     font-size: 14px;
   }
   .comment-place {
-    padding: 15px 10px 5px;
+    padding: 15px 15px 20px;
     margin-bottom: 10px;
   }
   .comment-place figure.user-image {
@@ -184,10 +190,6 @@
   }
 }
 @media (min-width: 992px) {
-  .comment-place {
-    padding: 20px 15px 30px;
-    margin-bottom: 20px;
-  }
   .comment-place figure.user-image {
     margin: 0 20px 15px 0;
   }
