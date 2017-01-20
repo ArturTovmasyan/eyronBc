@@ -13,6 +13,7 @@ import { UserComponent } from './user/user.component';
 import { CommentComponent } from './comment/comment.component';
 import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
 import { ControlMessagesComponent } from './control-messages/control-messages.component';
+import { SeeAlsoComponent } from './see-also/see-also.component';
 
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
@@ -42,7 +43,8 @@ import { EmbedVideoComponent } from './embed-video/embed-video.component';
     CommentComponent,
     ProfileGoalComponent,
     ControlMessagesComponent,
-    EmbedVideoComponent
+    EmbedVideoComponent,
+    SeeAlsoComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -57,7 +59,8 @@ import { EmbedVideoComponent } from './embed-video/embed-video.component';
     RemoveTagPipe,
     MarkdownToHtmlPipe,
     ControlMessagesComponent,
-    EmbedVideoComponent
+    EmbedVideoComponent,
+    SeeAlsoComponent
   ]
 })
 export class ComponentModule { }

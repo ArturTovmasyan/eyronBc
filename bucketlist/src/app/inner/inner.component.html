@@ -52,7 +52,7 @@
 
             <swiper [config]="config" id="main-slider" class="swiper-container" *ngIf="goal.images">
               <!-- Slides Container -->
-              <div style="height: 435px" [class.swiper-wrapper]="goal.images.length > 1">
+              <div style="height: 435px" class="swiper-wrapper">
 
                 <div class="overlay swiper-slide" style="height: 435px" *ngFor="let image of goal.images">
                   <a class="swipebox-main">
@@ -203,21 +203,20 @@
               </ul>
 
               <!--{% if goal.lat is not null and goal.lng is not null %}-->
-              <!--<div *ngIf="isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">-->
-                <!--<div class="map-marker" *ngIf="location"-->
+              <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && isDesktop">
+                <!--data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]"-->
+                <!--<div *ngIf="location"-->
                      <!--data-simple-map-marker-->
                      <!--data-zoom="14"-->
                      <!--data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"-->
                      <!--data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"-->
                      <!--data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
                      <!--data-markers="location"-->
-
                      <!--style="width: 99.8%; height: 120px">-->
                 <!--</div>-->
-              <!--</div>-->
-              <!--{% else %}-->
-              <hr />
-              <!--{% endif %}-->
+                <map-single style="width: 99.8%; height: 120px" [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]" class="map-marker"></map-single>
+              </div>
+              <hr *ngIf="!goal.location"/>
 
 
               <!--<div id="affiliate-right" class="right-menu-scroll bg-white" *ngIf="isDesktop">-->
@@ -311,7 +310,7 @@
               </li>
             </ul>
             <!--{% if goal.lat is not null and goal.lng is not null %}-->
-            <!--<div *ngIf="!isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">-->
+            <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && !isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">
               <!--<div class="map-marker" *ngIf="location"-->
                    <!--data-simple-map-marker-->
                    <!--data-zoom="14"-->
@@ -322,7 +321,8 @@
 
                    <!--style="width: 99.8%; height: 215px">-->
               <!--</div>-->
-            <!--</div>-->
+              <map-single style="width: 99.8%; height: 215px" [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]" class="map-marker"></map-single>
+            </div>
             <!--<div id="affiliate-right-mobile" class="right-menu-scroll bg-white" *ngIf="!isDesktop">-->
               <!--<adds-affiliate class="affiliate-right-mobile" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
             <!--</div>-->
@@ -417,23 +417,5 @@
 
   </div>
 
-  <div class="bg-grey">
-    <div class="container" id="random_goals">
-
-      <h2 class="text-center text-dark">{{ 'goal.see_also'|translate }}</h2>
-
-      <div class="row">
-        <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
-          <div class="row idea-item ">
-            <div class="col-md-4 goals-animate" *ngFor="let goal of items">
-              <figure>
-                <app-goal [goal]="goal"></app-goal>
-                <app-goal-footer [goal]="goal"></app-goal-footer>
-              </figure>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <see-also></see-also>
 </div>

@@ -20,6 +20,7 @@ export class InnerComponent implements OnInit {
   public type:string = 'inner';
   public imgPath:string = '';
   public aphorisms:any[];
+  public isDesktop:boolean = (screen.width >= 992  && window.innerWidth >= 992);
   public stories:Story[];
   public appUser:User;
 
@@ -68,7 +69,10 @@ export class InnerComponent implements OnInit {
     this.serverPath = this._projectService.getPath();
     this.imgPath = this.serverPath + '/bundles/app/images/cover2.jpg';
     this.route.params.forEach((params:Params) => {
-      let goalSlug = params['slug'];console.log(params);
+      let goalSlug = params['slug'];
+      if(params['id']){
+        this.type = 'view'
+      }
 
       // load data
       this.getProject(goalSlug);
