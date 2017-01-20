@@ -70,6 +70,27 @@ export class RegisterComponent implements OnInit {
         }
     }
 
+    showUploadedImage(input){
+
+//     if (input.files && input.files[0]) {
+//         let reader = new FileReader();
+//
+//         reader.onload = function (e) {
+//             $('.uploaded-image').show();
+//             $('.uploaded-image')
+//                 .attr('src', e.target.result);
+//             $('.upload').hide();
+//         };
+//
+//         reader.readAsDataURL(input.files[0]);
+//     }
+// }
+//
+//     $(document).ready(function(){
+//     $('select').niceSelect();
+        console.log(input);
+  }
+
     /**
      *
      * @param registerData

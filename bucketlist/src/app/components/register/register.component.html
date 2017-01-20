@@ -10,16 +10,18 @@
           <div class="form-group row">
             <div class="col-sm-4 col-sm-offset-4">
 
-              <input type="file" formControlName="file" name="file" class="upload" >
-              <control-messages [control]="registerData.controls.file"></control-messages>
+              <label class="upload" for="file">Upload a photo</label>
 
               <div class="registration-image">
                 <img src="#" class="uploaded-image" alt="User Image" style="display: none">
               </div>
+
+              <control-messages [control]="registerData.controls.file"></control-messages>
+
             </div>
 
             <div class="hide">
-              <input type="file" name="file" class="upload" (change)="showUploadedImage(this)">
+              <input type="file" id="file" formControlName="file" name="file" (change)="showUploadedImage(this)">
             </div>
           </div>
 
@@ -121,4 +123,5 @@
     </div>
   </div>
 </div>
+
 
