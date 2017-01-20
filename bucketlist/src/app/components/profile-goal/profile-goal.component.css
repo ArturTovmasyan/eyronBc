@@ -231,7 +231,7 @@
   display: inline-block;
   width: 30px;
   height: 30px;
-  background: url('../images/edit-note.svg') no-repeat center center;
+  background: url('../../../assets/images/edit-note.svg') no-repeat center center;
   background-size: 100%;
 }
 .goals-information .information .icon-success,
@@ -249,13 +249,13 @@
 }
 .goals-information .information a:hover .edit-note,
 .goals-information .information a:focus .edit-note {
-  background: url('../images/note-hover.svg') no-repeat center center;
+  background: url('../../../assets/images/note-hover.svg') no-repeat center center;
 }
 .goals-information .information .btn-transparent {
   padding: 0 15px 0 5px;
 }
 .goals-information .information .btn-transparent:hover .done-icon {
-  background: url('../images/images.png') no-repeat -380px -513px;
+  background: url('../../../assets/images/images.png') no-repeat 8px -19px;
 }
 .goals-information .information .successtory:hover {
   background: transparent;

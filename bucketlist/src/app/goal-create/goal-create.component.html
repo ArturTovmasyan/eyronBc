@@ -214,9 +214,8 @@
                                     </button>
                                 </div>
 
-
-                                <p class="text-gray">
-                                    {{ 'goal.description_title'| translate }}
+                                <p class="text-gray" [innerHTML] = "'goal.description_title' | translate">
+                                    <!--{{ 'goal.description_title'| translate }}-->
                                 </p>
                                 <!--{{ form_widget(form.hashTags, {'attr': { "value" : "[[ tags ]]" } }) }}-->
 
