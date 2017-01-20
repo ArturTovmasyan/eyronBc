@@ -310,7 +310,7 @@
               </li>
             </ul>
             <!--{% if goal.lat is not null and goal.lng is not null %}-->
-            <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && !isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">
+            <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && !isDesktop">
               <!--<div class="map-marker" *ngIf="location"-->
                    <!--data-simple-map-marker-->
                    <!--data-zoom="14"-->
