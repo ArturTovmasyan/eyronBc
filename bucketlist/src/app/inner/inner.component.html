@@ -1,13 +1,5 @@
 <!--{% set inner = constant("AppBundle\\Entity\\Goal::INNER") %}-->
 <!--{% set view = constant("AppBundle\\Entity\\Goal::VIEW") %}-->
-<!--{% set user = app.user %}-->
-<!--{% set storiesCount = 5 %}-->
-<!--{% set author = goal.author %}-->
-<!--{% if user.id is defined %}-->
-<!--{% set userId = user.id %}-->
-<!--{% else %}-->
-<!--{% set userId = 0 %}-->
-<!--{% endif %}-->
 
 <!--<div id="fb-root"></div>-->
 <!--class {% if not aphorisms %} no-quote {% if not author or author.isAdmin %} no-author{% endif %} {% endif %}-->
@@ -18,13 +10,6 @@
   <figure class="goal-image">
     <span class="overlay"></span>
     <img src="{{ (goal && goal.cached_image)?goal.cached_image: imgPath}}" alt="Profile Cover Photo" class="img-responsive" />
-    <!--<img src="-->
-        <!--{% if cover %}-->
-             <!--{{ cover|blImageFilter('goal_bg') }}-->
-        <!--{% else %}-->
-             <!--{{ asset(imgPath)}}-->
-        <!--{% endif %}"-->
-         <!--alt="{{ goal.title }}" />-->
   </figure>
   <div class="container">
   </div>
@@ -327,9 +312,9 @@
                       <!--{% set left = left + 20 %}-->
                       <!--{% endfor %}-->
                       <li class="users-arrow">
-                        <i *ngIf="goal.stats.doneBy == 0"></i>
+                        <i *ngIf="goal.stats.listedBy == 0"></i>
 
-                        <a *ngIf="goal.stats.doneBy">
+                        <a *ngIf="goal.stats.listedBy">
                           <!--data-ls-goal-id="{{ goal.id }}"-->
                           <!--data-ls-count="{{ goal.stats.listedBy }}"-->
                           <!--data-ls-category="1">-->
@@ -360,7 +345,7 @@
           <div class="col-md-4 hidden-xs"></div>
         </div>
 
-        <div class="row padding-top bg-white">
+        <div class="row padding-top bg-white" *ngIf="type != 'view'">
 
           <div class="col-md-8">
             <div class="row">
@@ -399,7 +384,6 @@
 
             <div class="inner">
               <hr/>
-              <!--{% if goal.description and not goal.description == '' %}-->
               <div class="text-dark-grey goal-info" *ngIf="goal.description && goal.description != ''" [innerHTML]="goal.description|removeTag|MarkdownToHtml"></div>
 
               <!--{% endif %}-->
@@ -409,40 +393,35 @@
 
               <!--{% if goal.videoLink|length == 1 %}-->
               <!--{% set v = goal.videoLink[0] %}-->
-              <div class="row">
+              <div class="row" *ngIf="goal.video_link && goal.video_link.length == 1">
                 <div class="col-sm-12">
-                  <!--<embed-video-->
-                          <!--data-ng-init="mainSliderVideo='{{ v }}'"-->
-                          <!--data-ng-href="[[ ::mainSliderVideo ]]"-->
-                          <!--height="360px"-->
-                          <!--width="100%">-->
-                  <!--</embed-video>-->
+                  <embed-video [href]="goal.video_link[0]"
+                          height="360px"
+                          width="100%">
+                    <!--data-ng-init="mainSliderVideo='{{ v }}'"-->
+                  </embed-video>
                 </div>
               </div>
               <!--{% else %}-->
-              <div class="row">
-                <div id="main-slider-video" class="swiper-container" style="position: relative; top: 0; left: 0">
+              <div class="row" *ngIf="goal.video_link && goal.video_link.length != 1">
+                <swiper [config]="videoConfig" id="main-slider-video" class="swiper-container" style="position: relative; top: 0; left: 0">
                   <!-- Slides Container -->
                   <div class="swiper-wrapper">
-                    <!--{% for k, video in goal.videoLink %}-->
-                    <!--{% if video %}-->
-                    <div class="swiper-slide">
-                      <!--<embed-video u="image"-->
-                                   <!--width="100%"-->
-                                   <!--height="300px"-->
-                                   <!--data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"-->
-                                   <!--data-ng-href="[[ ::mainSliderVideo[{{ k }}] ]]">-->
-                      <!--</embed-video>-->
+                    <div class="swiper-slide" *ngFor="let video of goal.video_link;let k = index">
+                      <embed-video width="100%"
+                                   height="300px"
+                                   [href]="video">
+                        <!--u="image"-->
+                        <!--data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"-->
+                      </embed-video>
                     </div>
-                    <!--{% endif %}-->
-                    <!--{% endfor %}-->
                   </div>
 
                   <div class="swiper-pagination swiper-pagination-white"></div>
                   <!-- Add Arrows -->
                   <div class="swiper-button-next swiper-button-white"></div>
                   <div class="swiper-button-prev swiper-button-white"></div>
-                </div>
+                </swiper>
               </div>
               <!--{% endif %}-->
               <!--{% endif %}-->
@@ -453,7 +432,7 @@
               <!--{% set stories = goal.getSuccessStories %}-->
 
               <!--{% if stories|length > 0 %}-->
-              <div class="story-count">
+              <div class="story-count" *ngIf="stories && stories.length > 0">
                 <div class="row">
                   <div class="col-xs-12">
                     <a name="success_story"></a>
@@ -646,21 +625,9 @@
                     </div>
                   </div>
 
-                  <!--<div data-ls-comment-manage-->
-                       <!--data-ls-goal-id="{{ goal.id }}"-->
-                       <!--data-ls-slug="{{ goal.slug }}"-->
-                       <!--data-ls-inner="true"-->
-                       <!--data-ls-reply="{{ 'reply'|trans }}"-->
-                       <!--data-ls-replied="{{ 'replied'|trans }}"-->
-                       <!--data-ls-logged="{% if app.user %}true{% else %}false{% endif %}"-->
-                       <!--data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"-->
-                       <!--data-ls-title="{{ 'comments'|trans }}"-->
-                       <!--{% if app.user %}-->
-                       <!--data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}-->
-                                            <!--{% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}-->
-                                            <!--{{ nameOnImage  |upper}}{% endif %}"-->
-                       <!--{% endif %}>-->
-                  <!--</div>-->
+                  <app-comment [data]="{id: goal.id, slug:goal.slug,inner:true}">
+                  </app-comment>
+
                 </div>
 
               </div>

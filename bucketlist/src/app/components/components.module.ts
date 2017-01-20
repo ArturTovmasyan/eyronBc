@@ -18,6 +18,7 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
 import { RemoveTagPipe } from '../pipes/removeTag.pipe';
 import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
+import { EmbedVideoComponent } from './embed-video/embed-video.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    EmbedVideoComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -54,7 +56,8 @@ import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
     ProfileGoalComponent,
     RemoveTagPipe,
     MarkdownToHtmlPipe,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    EmbedVideoComponent
   ]
 })
 export class ComponentModule { }
