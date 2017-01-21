@@ -5,7 +5,7 @@
 
       <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 
-        <form action="#" method="POST" [formGroup]="registerData" (ngSubmit)="sendRegisterData(registerData.value)" class="form-horizontal text-center">
+        <form action="#" method="POST" [formGroup]="registerData" (ngSubmit)="createUser(registerData.value)" class="form-horizontal text-center">
           <!--{{ path('fos_user_registration_register') }}-->
           <div class="form-group row">
             <div class="col-sm-4 col-sm-offset-4">
@@ -22,7 +22,6 @@
 
             <div class="hide">
               <input type="file" id="file" formControlName="file" name="file" (change)="showUploadedImage(this)">
-              <!--<app-upload></app-upload>-->
             </div>
             <div>
             </div>
@@ -108,7 +107,7 @@
             </p>
           </div>
 
-          <button type="submit" name="register" [disabled]="!registerData.valid" class="btn btn-purple" (click)="sendRegisterData(registerData)">{{ 'security.login.sign_up'|translate }}</button>
+          <button type="submit" name="register" [disabled]="!registerData.valid" class="btn btn-purple">{{ 'security.login.sign_up'|translate }}</button>
 
         </form>
       </div>

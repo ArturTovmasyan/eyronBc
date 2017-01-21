@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
-import { Ng2UploaderModule } from 'ng2-uploader';
 
 import {GoalUsersComponent} from './goal-users/goal-users.component';
 import {GoalFooterComponent} from './goal-footer/goal-footer.component';
@@ -21,7 +20,6 @@ import { RoundPipe } from '../pipes/round.pipe';
 import { RemoveTagPipe } from '../pipes/removeTag.pipe';
 import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
-import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 @NgModule({
@@ -29,8 +27,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     CommonModule,
     TranslateModule,
     RouterModule,
-    FormsModule,
-    Ng2UploaderModule
+    FormsModule
   ],
   declarations: [
     GoalUsersComponent,
@@ -47,8 +44,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     ProfileGoalComponent,
     ControlMessagesComponent,
     EmbedVideoComponent,
-    SeeAlsoComponent,
-    FileUploadComponent
+    SeeAlsoComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -64,8 +60,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     MarkdownToHtmlPipe,
     ControlMessagesComponent,
     EmbedVideoComponent,
-    SeeAlsoComponent,
-    FileUploadComponent
+    SeeAlsoComponent
   ]
 })
 export class ComponentModule { }

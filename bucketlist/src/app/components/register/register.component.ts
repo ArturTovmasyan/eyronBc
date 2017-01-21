@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ValidationService } from 'app/validation.service';
+import {ProjectService} from 'app/project.service';
 
 @Component({
     selector: 'app-register',
@@ -9,12 +10,14 @@ import { ValidationService } from 'app/validation.service';
 })
 export class RegisterComponent implements OnInit {
 
-    registerData:any;
+    registerData:any = {};
     arrayMonth:string[] = [];
     arrayDay:number[] = [];
     arrayYear:number[] = [];
+    errorMessage:any;
 
-    constructor(private formBuilder: FormBuilder)
+
+    constructor(private _projectService: ProjectService, private formBuilder: FormBuilder)
     {
         this.registerData = this.formBuilder.group({
             'file': ['', null],
@@ -78,15 +81,18 @@ export class RegisterComponent implements OnInit {
 //
 //     $(document).ready(function(){
 //     $('select').niceSelect();
-        console.log(input);
+//         console.log(input);
   }
 
     /**
      *
      * @param registerData
      */
-    sendRegisterData(registerData)
-    {
-        // console.log(registerData.month);
+    createUser(registerData:any) {
+        this._projectService.putUser(registerData)
+            .subscribe(
+                () => {
+                },
+                error => this.errorMessage = <any>error);
     }
 }

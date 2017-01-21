@@ -37,6 +37,7 @@ export class ProjectService {
     private goalUrl =  this.baseUrl + 'goal/by-slug';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
     private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
+    private registrationUrl  = this.baseUrl + 'users';  // URL to web API
 
     //modals
     private reportUrl = this.baseUrl + 'report';
@@ -465,7 +466,17 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
-
+    /**
+     *
+     * @param regData
+     * @returns {Observable<R>}
+     */
+    putUser(regData:any):Observable<any> {
+        console.log(regData);
+        return this.http.post(this.registrationUrl, regData)
+            .map((r:Response) => r)
+            .catch(this.handleError);
+    }
 
     //modal requests
     /**
