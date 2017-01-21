@@ -524,7 +524,7 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     toggleFollow(id:number):Observable<any> {
-        return this.http.post(this.followToggleUrl + id + this.followToggleUrl2, {headers: this.headers})
+        return this.http.post(this.followToggleUrl + id + this.followToggleUrl2, {}, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
