@@ -183,20 +183,6 @@
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
 }
-.inner-container .inner .comment-place {
-  padding: 10px 19px 0;
-}
-.inner-container .inner .comment-place span.text-purple {
-  vertical-align: top;
-  padding: 2px 0 0;
-  display: inline-block;
-}
-.inner-container .inner .comment-place .border-left {
-  margin: -26px 0 15px 5px;
-}
-.inner-container .inner .comment-place .border-left p {
-  padding-left: 28px;
-}
 .inner-container h4 {
   padding-top: 10px;
   color: #666666;
@@ -417,6 +403,65 @@
   background: url('../../assets/images/listed-arrow-purple.png') no-repeat center center;
   background-size: 100% ;
 }
+.inner-content .overlay:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+.inner-content .twitter-hashtag-button {
+  margin: 7px 0;
+}
+.inner-content .fb-like {
+  margin: 8px 0 0 0;
+  display: inline-block;
+}
+.inner-content .addthis_counter a.atc_s {
+  width: 113px !important;
+  height: 31px !important;
+  background: url('../images/share-new.png') no-repeat center center !important;
+  background-size: 100% !important;
+}
+.inner-content .addthis_counter a.atc_s:hover {
+  background: url('../images/share-purple.png') no-repeat center center !important;
+  background-size: 100% !important;
+}
+.inner-content .addthis_counter.addthis_pill_style a.atc_s {
+  font-size: 0;
+}
+.inner-content .addthis_counter .addthis_button_expanded {
+  margin-top: 7px !important;
+}
+.inner-content .addthis_native_toolbox {
+  padding: 0 15px 0 0;
+}
+.inner-content #main-slider {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 190px;
+}
+.inner-content #main-slider img {
+  margin: 0 auto;
+  width: 100%;
+}
+.inner-content #main-slider .swiper-slide {
+  height: 190px;
+}
+.inner-content #main-slider .swiper-button-prev {
+  left: 25px;
+}
+.inner-content #main-slider .swiper-button-next {
+  right: 20px;
+}
+.inner-content .goal-preview {
+  height: 190px;
+  overflow: hidden;
+}
+.inner-content .goal-preview img {
+  margin: 0 auto;
+  width: 100%;
+}
+.fullHeight {
+  height: 100%;
+}
 @media (min-width: 768px) {
   .inner-container hr {
     margin: 10px 0;
@@ -509,12 +554,6 @@
   .inner-container .inner .goal-info h6 {
     font-size: 14px;
   }
-  .inner-container .inner .comment-place {
-    padding: 15px 25px 5px;
-  }
-  .inner-container .inner .comment-place span.text-purple {
-    vertical-align: middle;
-  }
   .inner-container h4 {
     padding-top: 20px;
     font-size: 16px;
@@ -593,6 +632,31 @@
     width: 37px;
     height: 37px;
   }
+  .inner-content {
+    overflow: hidden;
+  }
+  .inner-content .fb-like {
+    margin: 13px 0 0 20px;
+  }
+  .inner-content .twitter-hashtag-button {
+    margin: 13px 0 0;
+  }
+  .inner-content .addthis_native_toolbox {
+    text-align: right;
+    margin: 2px 0 0;
+  }
+  .inner-content .addthis_counter .addthis_button_expanded {
+    margin-top: 10px !important;
+  }
+  .inner-content #main-slider {
+    height: 414px;
+  }
+  .inner-content #main-slider .swiper-slide {
+    height: 414px;
+  }
+  .inner-content .goal-preview {
+    height: 414px;
+  }
 }
 @media (min-width: 992px) {
   .inner-container hr {
@@ -632,12 +696,6 @@
   .inner-container .inner {
     padding: 0 15px 10px 54px;
   }
-  .inner-container .inner .comment-place {
-    padding: 20px 30px 30px;
-  }
-  .inner-container .inner .comment-place .border-left p {
-    padding-left: 38px;
-  }
   .inner-container h4 {
     padding-top: 40px;
     font-size: 18px;
@@ -667,6 +725,27 @@
   .users-lists ul {
     padding: 20px 0 0;
   }
+  .inner-content .fb-like {
+    margin: 9px 0 0 40px;
+  }
+  .inner-content .addthis_native_toolbox {
+    padding-right: 0;
+  }
+  .inner-content .twitter-hashtag-button {
+    margin: 9px 17px 0;
+  }
+  .inner-content #main-slider {
+    height: 435px;
+  }
+  .inner-content #main-slider .swiper-slide {
+    height: 435px;
+  }
+  .inner-content #main-slider .swiper-button-next {
+    right: 10px;
+  }
+  .inner-content .goal-preview {
+    height: 435px;
+  }
 }
 @media (min-width: 1200px) {
   .goal-links li a {
@@ -688,5 +767,8 @@
   }
   .goal-information p {
     font-size: 20px;
+  }
+  .inner-content .twitter-hashtag-button {
+    margin: 9px 10px 0;
   }
 }

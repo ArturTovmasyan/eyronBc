@@ -163,6 +163,14 @@ class UserController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
 
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
         $data = $request->request->all();
 
         $user = new User();
@@ -204,7 +212,7 @@ class UserController extends FOSRestController
         $em->persist($user);
         $em->flush();
 
-        $response = $this->loginAction($user, array('user'));
+        $response = $this->loginAction($user, ['user']);
 
         return $response;
     }

@@ -45,6 +45,7 @@
             <div class="col-sm-12">
               <input type="email" formControlName="email" name="email" class="form-control"  placeholder= "{{ 'form.email'|translate }}">
               <control-messages [control]="registerData.controls.email"></control-messages>
+              <span *ngIf="errorMessage" style="text-align: center;color: red">{{ errorMessage }}</span>
             </div>
 
           </div>
@@ -52,13 +53,13 @@
           <div class="form-group row no-padding">
 
             <div class="col-sm-6">
-              <input type="password" formControlName="passwordFirst" id="passwordFirst" name="passwordFirst" class="form-control"  placeholder= "{{ 'form.password'|translate }}">
-              <control-messages [control]="registerData.controls.passwordFirst"></control-messages>
+              <input type="password" formControlName="password" id="password" name="password" class="form-control"  placeholder= "{{ 'form.password'|translate }}">
+              <control-messages [control]="registerData.controls.password"></control-messages>
             </div>
 
             <div class="col-sm-6">
-              <input type="password" formControlName="passwordSecond" id="passwordSecond" name="passwordSecond" class="form-control" placeholder="{{ 'form.re_password'|translate }}">
-              <control-messages [control]="registerData.controls.passwordSecond" [confirmPassword]="registerData.controls.passwordFirst"></control-messages>
+              <input type="password" formControlName="plainPassword" id="plainPassword" name="plainPassword" class="form-control" placeholder="{{ 'form.re_password'|translate }}">
+              <control-messages [control]="registerData.controls.plainPassword" [confirmPassword]="registerData.controls.password"></control-messages>
             </div>
 
           </div>

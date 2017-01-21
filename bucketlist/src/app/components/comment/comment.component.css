@@ -166,6 +166,13 @@
   font-size: 14px;
   cursor: pointer;
 }
+.comment-icon {
+  vertical-align: middle;
+  display: inline-block;
+  width: 30px;
+  height: 24px;
+  background: url('../../../assets/images/comment-icon.svg') no-repeat center center;
+}
 @media (min-width: 768px) {
   .comments-column .leave-comment {
     width: 90%;
