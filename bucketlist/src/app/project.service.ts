@@ -478,7 +478,6 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
-    //modal requests
     /**
      *
      */
