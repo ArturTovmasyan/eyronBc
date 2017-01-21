@@ -50,12 +50,14 @@ export class MapComponent implements OnInit {
 
     this.mapsAPILoader.load().then(() => {
       this.bounds = new google.maps.LatLngBounds(null);
-      if(this.locations && this.locations.length == 1){
-        this.bounds.extend({
-          lat: this.locations[0].latitude,
-          lng: this.locations[0].longitude
-        });
-        this.zoom = 14;
+      if(this.locations){
+        for(let location of this.locations){
+          this.bounds.extend({
+            lat: location.latitude,
+            lng: location.longitude
+          });
+        }
+
       }
     });
 
