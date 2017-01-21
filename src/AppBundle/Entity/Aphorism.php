@@ -9,9 +9,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\AphorismRepository")
@@ -28,12 +29,14 @@ class Aphorism
 
     /**
      * @ORM\Column(name="content", type="string")
+     * @Groups({"aphorism"})
      */
     protected $content;
 
 
     /**
      * @ORM\Column(name="author", type="string", nullable=true, length=40)
+     * @Groups({"aphorism"})
      */
     protected $author;
 

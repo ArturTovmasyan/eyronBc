@@ -494,7 +494,7 @@ class GoalController extends FOSRestController
      *  },
      * )
      *
-     * @Rest\View(serializerGroups={"goal", "tiny_goal", "goal_image", "image", "goal_author", "tiny_user", "userGoal",
+     * @Rest\View(serializerGroups={"goal", "tiny_goal", "aphorism", "goal_image", "image", "goal_author", "tiny_user", "userGoal",
      *                              "goal_successStory", "successStory", "successStory_user", "successStory_storyImage",
      *                              "successStory_user", "tiny_user", "storyImage", "comment", "comment_author", "comment_children"})
      * @param $slug string
@@ -540,10 +540,21 @@ class GoalController extends FOSRestController
                 }
             }
         }
+
+        // get aphorism by goal
+        $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
+
+        $doneByUsers   = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 0, 3);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, null, 0, 3 );
         //check access
         $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
 
-        return $goal;
+        return array(
+            'goal' => $goal,
+            'aphorisms' => $aphorisms,
+            'doneByUsers' => $doneByUsers,
+            'listedByUsers' =>$listedByUsers,
+        );
     }
 
     /**

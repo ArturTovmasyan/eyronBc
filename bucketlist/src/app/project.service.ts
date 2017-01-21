@@ -127,9 +127,9 @@ export class ProjectService {
      * @param slug
      * @returns {Observable<R>}
      */
-    getGoal(slug:string):Observable<Goal> {
+    getGoal(slug:string):Observable<any> {
         return this.http.get(this.goalUrl + '/' + slug)
-            .map((r:Response) => r.json() as Goal)
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 

@@ -2,8 +2,7 @@
 <!--{% set view = constant("AppBundle\\Entity\\Goal::VIEW") %}-->
 
 <!--<div id="fb-root"></div>-->
-<!--class {% if not aphorisms %} no-quote {% if not author or author.isAdmin %} no-author{% endif %} {% endif %}-->
-<div class="inner-container" *ngIf="goal">
+<div class="inner-container" *ngIf="goal" [ngClass]="{'no-quote': !aphorisms, 'no-author': (!goal.author || goal.author.is_admin)}">
   <!--{% set cover = goal.getCoverPhotoDownloadLink %}-->
   <!--{% set goalInner = true %}-->
   <!--{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}-->
@@ -26,8 +25,8 @@
               <i class="icon-quote-right"></i>
               <ul class="aphorism">
                 <!--data-delay-add-class data-delay="12000"-->
-                <li *ngFor="let aphorism of aphorisms">
-                  <!--{{ aphorism.content.length > 230 ? (aphorism.content|slice(0, 230)|removeTag + '...' ): (aphorism.content|removeTag) }}-->
+                <li *ngFor="let aphorism of aphorisms; let i = index" [class.active]="i == aphorismIndex">
+                  {{ aphorism.content.length > 230 ?(((aphorism.content|slice:0:230)|removeTag) + '...' ):(aphorism.content | removeTag) }}
                   <span class="text-right">{{ aphorism.author }}</span>
                 </li>
               </ul>
@@ -261,10 +260,7 @@
                       <li class="users-arrow">
                         <i *ngIf="goal.stats.doneBy == 0"></i>
 
-                        <a *ngIf="goal.stats.doneBy">
-                           <!--data-ls-goal-users-->
-                           <!--data-ls-count="{{ goal.stats.doneBy }}"-->
-                           <!--data-ls-goal-id="{{ goal.id }}">-->
+                        <a *ngIf="goal.stats.doneBy" (click)="openUsersModal(goal.id, goal.stats.listedBy, 2)">
                         </a>
                       </li>
                     </ul>
@@ -298,10 +294,7 @@
                       <li class="users-arrow">
                         <i *ngIf="goal.stats.listedBy == 0"></i>
 
-                        <a *ngIf="goal.stats.listedBy">
-                          <!--data-ls-goal-id="{{ goal.id }}"-->
-                          <!--data-ls-count="{{ goal.stats.listedBy }}"-->
-                          <!--data-ls-category="1">-->
+                        <a *ngIf="goal.stats.listedBy" (click)="openUsersModal(goal.id, goal.stats.listedBy, 1)">
                         </a>
                       </li>
                     </ul>
