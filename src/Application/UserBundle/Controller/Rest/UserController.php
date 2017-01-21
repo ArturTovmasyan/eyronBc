@@ -558,9 +558,10 @@ class UserController extends FOSRestController
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        //get current user
-        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+        $liipManager = $this->get('liip_imagine.cache.manager');
 
+        //get current user
+        $currentUser = $uid?$em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId'=>$uid)) :$this->get('security.token_storage')->getToken()->getUser();
         // get drafts
         $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
 
@@ -574,6 +575,10 @@ class UserController extends FOSRestController
         $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($currentUser->getId(), false);
 
         $currentUser->setStats($states);
+
+        if($currentUser->getImagePath()){
+            $currentUser->setCachedImage($liipManager->getBrowserPath($currentUser->getImagePath(), 'user_image'));
+        }
 
         return $currentUser;
     }

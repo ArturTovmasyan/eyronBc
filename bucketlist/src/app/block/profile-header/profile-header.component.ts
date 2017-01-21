@@ -59,6 +59,7 @@ export class ProfileHeaderComponent implements OnInit {
           .subscribe(
               user => {
                 this.profileUser = user;
+                this.broadcaster.broadcast('pageUser', this.profileUser);
                 this.active = this.profileUser.stats.active;
                 this.listedBy = this.profileUser.stats.listedBy;
                 this.doneBy = this.profileUser.stats.doneBy;
