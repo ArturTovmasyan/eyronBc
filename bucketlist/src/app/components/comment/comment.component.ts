@@ -125,6 +125,7 @@ export class CommentComponent implements OnInit {
               this.commentBody = '';
                 this.busy = false;
                 data.visible = true;
+                data.reply = true;
                 this.comments.push(data);
             });
         // CommentManager.add({param1:(id), path: ('comments')}, {'commentBody': this.commentBody},function (data) {

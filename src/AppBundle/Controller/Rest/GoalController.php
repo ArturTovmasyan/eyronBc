@@ -494,7 +494,7 @@ class GoalController extends FOSRestController
      *  },
      * )
      *
-     * @Rest\View(serializerGroups={"goal", "goal_image", "image", "goal_author", "tiny_user", "userGoal",
+     * @Rest\View(serializerGroups={"goal", "tiny_goal", "goal_image", "image", "goal_author", "tiny_user", "userGoal",
      *                              "goal_successStory", "successStory", "successStory_user", "successStory_storyImage",
      *                              "successStory_user", "tiny_user", "storyImage", "comment", "comment_author", "comment_children"})
      * @param $slug string
@@ -524,6 +524,20 @@ class GoalController extends FOSRestController
         if($goal->getImages()){
             foreach ($goal->getImages() as $image){
                 $image->setMobileImagePath($liipManager->getBrowserPath($image->getImagePath(), 'goal_bg'));
+            }
+        }
+//todo optimized
+        if($goal->getSuccessStories()){
+            foreach ($goal->getSuccessStories() as $story){
+                if($story->getUser()->getImagePath()){
+                    $story->getUser()->setCachedImage($liipManager->getBrowserPath($story->getUser()->getImagePath(), 'user_icon'));
+                }
+
+                if($story->getFiles()){
+                    foreach ($story->getFiles() as $file){
+                        $file->setMobileImagePath($liipManager->getBrowserPath($file->getImagePath(), 'goal_list_small'));
+                    }
+                }
             }
         }
         //check access

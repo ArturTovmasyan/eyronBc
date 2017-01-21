@@ -5,6 +5,7 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import {Goal} from '../interface/goal';
 import {User} from '../interface/user';
+import {Story} from '../interface/story';
 
 @Component({
   selector: 'app-inner',
@@ -19,12 +20,23 @@ export class InnerComponent implements OnInit {
   public type:string = 'inner';
   public imgPath:string = '';
   public aphorisms:any[];
+  public isDesktop:boolean = (screen.width >= 992  && window.innerWidth >= 992);
+  public stories:Story[];
   public appUser:User;
-  config: Object = {
+
+  public config: Object = {
     pagination: '.swiper-pagination',
     paginationClickable: true,
     autoHeight: true,
     loop: true,
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    spaceBetween: 30,
+    autoplay: 3000
+  };
+  public videoConfig: Object = {
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
     spaceBetween: 30,
@@ -53,10 +65,14 @@ export class InnerComponent implements OnInit {
     }
     //todo get aforisms by rest
     //todo get doneByUsers by rest
+    //todo get listedByUsers by rest
     this.serverPath = this._projectService.getPath();
     this.imgPath = this.serverPath + '/bundles/app/images/cover2.jpg';
     this.route.params.forEach((params:Params) => {
       let goalSlug = params['slug'];
+      if(params['id']){
+        this.type = 'view'
+      }
 
       // load data
       this.getProject(goalSlug);
@@ -72,6 +88,9 @@ export class InnerComponent implements OnInit {
         .subscribe(
             goal => {
               this.goal = goal;console.log(goal);
+              if(goal){
+                this.stories = goal.success_stories;
+              }
             },
             error => this.errorMessage = <any>error);
   }

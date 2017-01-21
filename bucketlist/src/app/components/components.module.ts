@@ -13,11 +13,13 @@ import { UserComponent } from './user/user.component';
 import { CommentComponent } from './comment/comment.component';
 import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
 import { ControlMessagesComponent } from './control-messages/control-messages.component';
+import { SeeAlsoComponent } from './see-also/see-also.component';
 
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
 import { RemoveTagPipe } from '../pipes/removeTag.pipe';
 import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
+import { EmbedVideoComponent } from './embed-video/embed-video.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    EmbedVideoComponent,
+    SeeAlsoComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -54,7 +58,9 @@ import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
     ProfileGoalComponent,
     RemoveTagPipe,
     MarkdownToHtmlPipe,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    EmbedVideoComponent,
+    SeeAlsoComponent
   ]
 })
 export class ComponentModule { }

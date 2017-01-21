@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import { AddComponent} from './modals/add/add.component';
 import {TranslateService} from 'ng2-translate';
 import {Broadcaster} from './tools/broadcaster';
 import {ProjectService} from './project.service';
@@ -35,7 +37,7 @@ export class AppComponent implements OnInit  {
     public reportModal:boolean = false;
     public commonModal:boolean = false;
     public usersModal:boolean = false;
-    public addModal:boolean = false;
+    // public addModal:boolean = false;
     public doneModal:boolean = false;
     public commonId:number = 0;
     public reportData:any;
@@ -48,7 +50,9 @@ export class AppComponent implements OnInit  {
       private broadcaster: Broadcaster,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
-      private router: Router
+      private router: Router,
+      private viewContainerRef: ViewContainerRef,
+      public dialog: MdDialog
   ) { }
 
   ngOnInit() {
@@ -121,7 +125,15 @@ export class AppComponent implements OnInit  {
       this.broadcaster.on<any>('addModal')
           .subscribe(data => {
               this.addData = data;
-              this.addModal = true;
+              let dialogRef: MdDialogRef<AddComponent>;
+              let config = new MdDialogConfig();
+              config.viewContainerRef = this.viewContainerRef;
+              dialogRef = this.dialog.open(AddComponent, config);
+              dialogRef.componentInstance.data = data;
+              dialogRef.afterClosed().subscribe(result => {
+                  
+              });
+              // this.addModal = true;
           });
 
       this.broadcaster.on<any>('doneModal')
@@ -178,9 +190,9 @@ export class AppComponent implements OnInit  {
             case 'users':
                 this.usersModal = false;
                 break;
-            case 'add':
-                this.addModal = false;
-                break;
+            // case 'add':
+            //     this.addModal = false;
+            //     break;
             case 'done':
                 this.doneModal = false;
                 break;

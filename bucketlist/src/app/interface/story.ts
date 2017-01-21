@@ -8,6 +8,7 @@ export interface Story {
     file?: any,
     story: string,
     videos?: any,
+    show?: boolean,
     voters_count?: number,
     is_vote?:boolean
 }
