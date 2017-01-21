@@ -121,15 +121,15 @@
   margin: 0 auto;
 }
 #signin .social li .facebook {
-  background: url('assets/images/facebook.png') no-repeat center center;
+  background: url('../../assets/images/facebook.png') no-repeat center center;
   background-size: 100%;
 }
 #signin .social li .twitter {
-  background: url('assets/images/twitter.png') no-repeat center center;
+  background: url('../../assets/images/twitter.png') no-repeat center center;
   background-size: 100%;
 }
 #signin .social li .google {
-  background: url('assets/images/google.png') no-repeat center center;
+  background: url('../../assets/images/google.png') no-repeat center center;
   background-size: 100%;
 }
 @media (min-width: 768px) {

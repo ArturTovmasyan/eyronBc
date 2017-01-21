@@ -10,10 +10,30 @@
   background: url('../../../assets/images/like-active.png') no-repeat center center;
   background-size: 100%;
 }
+span {
+  font-size: 12px;
+  color: #999999;
+}
+span.text-purple {
+  vertical-align: top;
+  padding: 2px 0 0;
+  display: inline-block;
+}
 @media (min-width: 768px) {
   .like-icon {
     height: 31px;
     width: 59px;
     margin: 0 0 0 12px;
+  }
+  span {
+    font-size: 12px;
+  }
+  span.text-purple {
+    vertical-align: middle;
+  }
+}
+@media (min-width: 768px) {
+  span.text-purple {
+    font-size: 14px;
   }
 }

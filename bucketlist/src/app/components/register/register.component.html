@@ -45,6 +45,7 @@
             <div class="col-sm-12">
               <input type="email" formControlName="email" name="email" class="form-control"  placeholder= "{{ 'form.email'|translate }}">
               <control-messages [control]="registerData.controls.email"></control-messages>
+              <span *ngIf="errorMessage" style="text-align: center;color: red">{{ errorMessage }}</span>
             </div>
 
           </div>

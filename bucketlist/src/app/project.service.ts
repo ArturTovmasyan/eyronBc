@@ -472,10 +472,8 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     putUser(regData:any):Observable<any> {
-        console.log(regData);
         return this.http.post(this.registrationUrl, regData)
-            .map((r:Response) => r)
-            .catch(this.handleError);
+            .map((r:Response) => r.json())
     }
 
     /**
@@ -588,8 +586,6 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
-
-
 
 
     /**
