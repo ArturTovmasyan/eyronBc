@@ -1,0 +1,33 @@
+<div class="right-menu overall-progress">
+  <div *ngIf="overall > 0"
+       class="slide padding margin-top padding-bottom bg-white round">
+    <div>
+      <ul class="row">
+        <li class="col-xs-7">
+          <i class="overall-icon"></i>
+          <span>{{ "overall.progress" | translate }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <hr/>
+
+    <p>
+      <span class="text-gray">{{ "achievment" | translate }}</span>
+      <span class="text-dark-gray">{{ overall }}%</span>
+    </p>
+
+    <div class="bg-grey">
+      <div *ngIf="overall == 100" class="bg-purple"></div>
+      <div *ngIf="overall > 100" class="excellent-progress"></div>
+      <div *ngIf="overall < 100" class="falling-progress"></div>
+    </div>
+
+    <small class="text-gray" *ngIf="overall == 100">{{ "overall.good" | translate }}</small>
+
+    <small class="text-gray" *ngIf="overall > 100">{{ "overall.excellent" | translate }}</small>
+
+    <small class="text-gray" *ngIf="overall < 100">{{ "overall.falling" | translate }}</small>
+
+  </div>
+</div>

@@ -16,6 +16,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarAllYearComponent } from './calendar-all-year/calendar-all-year.component';
 import { CalendarMonthComponent } from './calendar-month/calendar-month.component';
 import { CalendarYearComponent } from './calendar-year/calendar-year.component';
+import { OverallComponent } from '../block/overall/overall.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { CalendarYearComponent } from './calendar-year/calendar-year.component';
     CalendarComponent,
     CalendarAllYearComponent,
     CalendarMonthComponent,
-    CalendarYearComponent
+    CalendarYearComponent,
+    OverallComponent,
   ],
   providers: [
     ProjectService

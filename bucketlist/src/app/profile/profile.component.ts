@@ -49,6 +49,8 @@ export class ProfileComponent implements OnInit {
   // public reserveGoals: Goal[];
   public userGoals: any[];
   public reserveUserGoals: any[];
+  
+  public overall:number;
 
   constructor(
       private route: ActivatedRoute,
@@ -85,6 +87,23 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.serverPath = this._projectService.getPath();
 
+    // $rootScope.$on('removeUserGoal', function () {
+    //   UserGoalDataManager.overall($scope.currentPage, function (data) {
+    //     $scope.overallProgress = data.progress;
+    //   });
+    // });
+
+    // $scope.$on('doneGoal', function(){
+    //   UserGoalDataManager.overall($scope.currentPage, function (data) {
+    //     $scope.overallProgress = data.progress;
+    //   });
+    // });
+    // $rootScope.$on('lsJqueryModalClosedSaveGoal', function () {
+    //   UserGoalDataManager.overall($scope.currentPage, function (data) {
+    //     $scope.overallProgress = data.progress;
+    //   });
+    // });    
+    
     this.broadcaster.on<User>('pageUser')
         .subscribe(user => {
           this.id = user.id;
@@ -101,6 +120,9 @@ export class ProfileComponent implements OnInit {
     let index = this.categories.indexOf(this.type);
     if(index != -1){
       this.getGoals(index);
+      if(this.uId == 'my'){
+        this.getOverall(index);
+      }
     } else {
       switch (this.type){
         case 'common':
@@ -110,6 +132,7 @@ export class ProfileComponent implements OnInit {
           break;
         case 'activity':
           this.busy = true;
+          this.overall = 0;
           // $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
           // $scope.Activities.nextActivity();
           // $scope.$emit('lsGoActivity');
@@ -117,6 +140,9 @@ export class ProfileComponent implements OnInit {
         case 'owned':
           this.busy = false;
           this.getOwned();
+            if(this.uId == 'my'){
+              this.getOverall(null,true);
+            }
           break;
       }
     }
@@ -273,6 +299,16 @@ export class ProfileComponent implements OnInit {
       }
     }
     this.broadcaster.broadcast('getLocation', this.locations);
+  }
+
+  getOverall(condition,owned?){
+    this._projectService.getOverall(
+        condition, this.count, this.start, this.isDream, this.notUrgentImportant, this.notUrgentNotImportant,
+        this.urgentImportant, this.urgentNotImportant, ((this.type == 'all')?'': (this.type + '-goals')),((this.myProfile)?0:this.id),owned)
+        .subscribe(
+            data => {
+              this.overall = data.progress;
+            });
   }
 
   hideJoin(event){

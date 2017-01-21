@@ -68,6 +68,7 @@ export class ProjectService {
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
+    private overallUrl = this.baseUrl + 'user/overall?';
     private followToggleUrl = this.baseUrl + 'users/';
     private followToggleUrl2 = '/toggles/followings';
     private calendarUrl = this.baseUrl + 'usergoal/calendar/data';
@@ -560,6 +561,34 @@ export class ProjectService {
             '&count=' + count + '&first=' + first + '&isDream=' + isDream + '&notUrgentImportant=' + notUrgentImportant +
             '&notUrgentNotImportant=' + notUrgentNotImportant + '&urgentImportant=' + urgentImportant +
             '&status=' + status + '&urgentNotImportant=' + urgentNotImportant + '&userId=' + userId, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param condition
+     * @param count
+     * @param first
+     * @param isDream
+     * @param notUrgentImportant
+     * @param notUrgentNotImportant
+     * @param urgentImportant
+     * @param urgentNotImportant
+     * @param status
+     * @param userId
+     * @param owned
+     * @returns {Observable<R>}
+     */
+    getOverall(condition:number, count:number, first:number, isDream:boolean,
+             notUrgentImportant:boolean, notUrgentNotImportant:boolean,
+             urgentImportant:boolean, urgentNotImportant:boolean, status:string, 
+             userId?:number, owned?:boolean):Observable<any> {
+        let path = owned?('owned=true'):('condition=' + condition +
+        '&count=' + count + '&first=' + first + '&isDream=' + isDream + '&notUrgentImportant=' + notUrgentImportant +
+        '&notUrgentNotImportant=' + notUrgentNotImportant + '&urgentImportant=' + urgentImportant +
+        '&status=' + status + '&urgentNotImportant=' + urgentNotImportant + '&userId=' + userId);
+        return this.http.get(this.overallUrl + path, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
