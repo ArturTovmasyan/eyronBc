@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { Router } from '@angular/router';
+import {MdDialog, MdDialogRef} from '@angular/material';
+
 
 import { Goal } from '../../interface/goal';
 
@@ -12,8 +14,8 @@ import { Goal } from '../../interface/goal';
   encapsulation: ViewEncapsulation.None
 })
 export class CommonComponent implements OnInit {
-  @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
-  @Input() id: number;
+  // @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
+  public id: number;
   public goals:Goal[];
   public reserve:Goal[];
   public start:number = 0;
@@ -21,13 +23,18 @@ export class CommonComponent implements OnInit {
   public busy:boolean = false;
   public serverPath:string = '';
 
-  constructor(private ProjectService: ProjectService, private router: Router) { }
+  constructor(private ProjectService: ProjectService, 
+              private router: Router,
+              public dialogRef: MdDialogRef<CommonComponent>
+  ) { }
 
   ngOnInit() {
     this.serverPath = this.ProjectService.getPath();
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
-      this.modalHideEmitter.emit(null);
+      this.dialogRef.close();
+
+      // this.modalHideEmitter.emit(null);
     } else {
       if(this.id){
         this.ProjectService.getCommons(this.id, this.start, this.count).subscribe(

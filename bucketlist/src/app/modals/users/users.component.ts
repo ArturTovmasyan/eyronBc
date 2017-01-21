@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input , ViewEncapsulation,} from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { Router } from '@angular/router';
+import {MdDialog, MdDialogRef} from '@angular/material';
+
 
 import { User } from '../../interface/user';
 
@@ -12,8 +14,8 @@ import { User } from '../../interface/user';
   encapsulation: ViewEncapsulation.None
 })
 export class UsersComponent implements OnInit {
-  @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
-  @Input() data: any;
+  // @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
+  public data: any;
 
   public users:User[];
   public reserve:User[];
@@ -22,13 +24,16 @@ export class UsersComponent implements OnInit {
   public count: number = 10;
   public serverPath:string = '';
 
-  constructor(private _projectService: ProjectService, private router: Router) { }
+  constructor(private _projectService: ProjectService,
+              private router: Router,
+              public dialogRef: MdDialogRef<UsersComponent>
+  ) { }
 
   ngOnInit() {
     this.serverPath = this._projectService.getPath();
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
-      this.modalHideEmitter.emit(null);
+      // this.modalHideEmitter.emit(null);
     } else {
       if(this.data && this.data.itemId && this.data.category){
         this.getUsers();
@@ -42,7 +47,7 @@ export class UsersComponent implements OnInit {
             users => {
               this.users = users;
               if(!users.length){
-                this.modalHideEmitter.emit(null);
+                // this.modalHideEmitter.emit(null);
               }
               this.start += this.count;
               this.setReserve();

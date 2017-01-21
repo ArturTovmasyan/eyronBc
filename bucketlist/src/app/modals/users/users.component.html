@@ -3,7 +3,7 @@
         <h3 *ngIf="data.category == 1"  >{{ 'home_listed_by'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
         <h3 *ngIf="data.category == 2"  >{{ 'home_complete'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
         <h3 *ngIf="data.category == 3"  >{{ 'home_voters'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
-        <a class="close-icon" (click)="modalHideEmitter.emit(null)"></a>
+        <a class="close-icon" (click)="dialogRef.close()"></a>
     </div>
 
     <div class="users-content"

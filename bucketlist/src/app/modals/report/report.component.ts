@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { Router } from '@angular/router';
+import {MdDialog, MdDialogRef} from '@angular/material';
+
 
 
 @Component({
@@ -9,17 +11,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./report.component.less']
 })
 export class ReportComponent implements OnInit {
-  @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
-  @Input() data: any;
+  // @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
+  public data: any;
   public isReported:boolean = false;
   public reportText:string;
   public reportOption:any;
-  constructor(private ProjectService: ProjectService, private router: Router) { }
+  constructor(private ProjectService: ProjectService,
+              private router: Router,
+              private dialogRef: MdDialogRef<ReportComponent>
+  ) { }
 
   ngOnInit() {
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
-      this.modalHideEmitter.emit(null);
+      this.dialogRef.close();
+
+      // this.modalHideEmitter.emit(null);
     } else {
       if(this.data && this.data.contentId){
         this.ProjectService.getReport(this.data).subscribe(
@@ -43,7 +50,7 @@ export class ReportComponent implements OnInit {
         data => {
           this.isReported = true;
           setTimeout(() => {
-            this.modalHideEmitter.emit(null);
+            // this.modalHideEmitter.emit(null);
           },1500);
     })
   }
