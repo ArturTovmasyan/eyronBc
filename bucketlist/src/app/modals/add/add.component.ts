@@ -88,7 +88,6 @@ export class AddComponent implements OnInit {
   }
   
   add(addForm){
-    console.log('submit');
     event.preventDefault();
   };
 

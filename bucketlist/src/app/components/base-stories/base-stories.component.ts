@@ -34,7 +34,7 @@ export class BaseStoriesComponent implements OnInit {
 
   ngOnInit() {
     let data = this._cacheService.get('baseStories');
-    if (data) {console.log(data);
+    if (data) {
       this.stories = data;
     } else {
       this.getBaseStories()

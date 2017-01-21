@@ -91,7 +91,7 @@ export class InnerComponent implements OnInit {
   getProject(slug:string) {
     this._projectService.getGoal(slug)
         .subscribe(
-            data => {console.log(data);
+            data => {
               this.goal = data.goal;
               this.aphorisms = data.aphorisms;
               this.listedByUsers = Object.keys(data.listedByUsers).map(function(key) {

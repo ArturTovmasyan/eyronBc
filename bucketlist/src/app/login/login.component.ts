@@ -79,7 +79,7 @@ export class LoginComponent {
     loginSocial(index:number){
         switch (index) {
             case TWITTER:
-                this.twitterLogin().then((socialUser:any) => {console.log(socialUser);
+                this.twitterLogin().then((socialUser:any) => {
                     if(socialUser.twitter && socialUser.twitter.accessToken){
                         this.setData('twitter', socialUser.twitter.accessToken, socialUser.twitter.secret);
                     }
