@@ -34,7 +34,7 @@ export class CommentComponent implements OnInit {
 
   ngOnInit() {
     if(!localStorage.getItem('apiKey')){
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
     } else {
       this.appUser = this._projectService.getMyUser();
       if(!this.appUser){
