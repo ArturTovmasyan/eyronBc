@@ -10,7 +10,8 @@ import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { MaterialModule } from '@angular/material';
 import { ValidationService } from './validation.service';
-import {Broadcaster} from './tools/broadcaster';
+import { Broadcaster} from './tools/broadcaster';
+import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { AngularFireModule } from 'angularfire2';
 import { AuthProviders } from 'angularfire2';
@@ -105,13 +106,18 @@ export function createTranslateLoader(http: Http) {
     })
   ],
   entryComponents: [
-    AddComponent
+    AddComponent,
+    DoneComponent,
+    UsersComponent,
+    CommonComponent,
+    ReportComponent
   ],
   providers: [
     ProjectService,
     AuthGuard,
     Broadcaster,
-    ValidationService
+    ValidationService,
+    CacheService
   ],
   bootstrap: [AppComponent]
 })

@@ -288,25 +288,25 @@
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
 
-        <div *ngIf="reportModal">
-            <report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>
-        </div>
+        <!--<div *ngIf="reportModal">-->
+            <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
+        <!--</div>-->
 
-        <div *ngIf="commonModal">
-            <common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>
-        </div>
+        <!--<div *ngIf="commonModal">-->
+            <!--<common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>-->
+        <!--</div>-->
 
-        <div *ngIf="usersModal">
-            <users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>
-        </div>
+        <!--<div *ngIf="usersModal">-->
+            <!--<users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>-->
+        <!--</div>-->
 
         <!--<div *ngIf="addModal">-->
             <!--<add-modal (changeModal)="hideModal('add')" [data]="addData" class="modal-block"></add-modal>-->
         <!--</div>-->
 
-        <div *ngIf="doneModal">
-            <done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>
-        </div>
+        <!--<div *ngIf="doneModal">-->
+            <!--<done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>-->
+        <!--</div>-->
 
         <router-outlet></router-outlet>
     </div>

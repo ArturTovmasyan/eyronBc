@@ -1,4 +1,4 @@
-<div class="overflow my-modal goal-modal">
+<div class=" my-modal goal-modal">
     <div *ngIf="newAdded" class="email">{{ "message_on_top_of_the_page" | translate | uppercase }}</div>
     <div class="modal-top">
         <figure *ngIf="userGoal && userGoal.goal.cached_image">
@@ -193,7 +193,7 @@
 
             <div class="text-center modal-bottom">
                 <a  (click)="save()" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</a>
-                <a  (click)="modalHideEmitter.emit(null)" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|translate }}</a>
+                <a  (click)="dialogRef.close()" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|translate }}</a>
             </div>
 
         </form>
