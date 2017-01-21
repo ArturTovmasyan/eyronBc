@@ -448,7 +448,7 @@ class GoalController extends FOSRestController
      *                              "successStory_user", "tiny_user", "storyImage", "comment", "comment_author", "comment_children"})
      *
      * @param $id
-     * @return Goal|null|object|Response
+     * @return Goal|null|object|Response|array
      */
     public function getAction($id)
     {
@@ -480,6 +480,81 @@ class GoalController extends FOSRestController
             'goal'     => $goal,
             'comments' => $goalComments
         ];
+    }
+
+    /**
+     * @Rest\Get("/goal/by-slug/{slug}", name="get_goal_goal_by_slug", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get goal by slug",
+     *  statusCodes={
+     *         200="Returned when goal was found",
+     *         404="Returned when goal was not found",
+     *  },
+     * )
+     *
+     * @Rest\View(serializerGroups={"goal", "tiny_goal", "aphorism", "goal_image", "image", "goal_author", "tiny_user", "userGoal",
+     *                              "goal_successStory", "successStory", "successStory_user", "successStory_storyImage",
+     *                              "successStory_user", "tiny_user", "storyImage", "comment", "comment_author", "comment_children"})
+     * @param $slug string
+     * @return JsonResponse|array
+     */
+    public function getGoalBySlugAction($slug)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get goal by slug
+        $goal = $em->getRepository('AppBundle:Goal')->findBySlugWithTinyRelations($slug);
+
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+
+        //check if goal not exist
+        if(!$goal) {
+            return new JsonResponse("Goal by $slug not found", Response::HTTP_NOT_FOUND);
+        }
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        
+        if($goal->getImagePath()) {
+            $goal->setCachedImage($liipManager->getBrowserPath($goal->getImagePath(), 'goal_bg'));
+        }
+
+        if($goal->getImages()){
+            foreach ($goal->getImages() as $image){
+                $image->setMobileImagePath($liipManager->getBrowserPath($image->getImagePath(), 'goal_bg'));
+            }
+        }
+//todo optimized
+        if($goal->getSuccessStories()){
+            foreach ($goal->getSuccessStories() as $story){
+                if($story->getUser()->getImagePath()){
+                    $story->getUser()->setCachedImage($liipManager->getBrowserPath($story->getUser()->getImagePath(), 'user_icon'));
+                }
+
+                if($story->getFiles()){
+                    foreach ($story->getFiles() as $file){
+                        $file->setMobileImagePath($liipManager->getBrowserPath($file->getImagePath(), 'goal_list_small'));
+                    }
+                }
+            }
+        }
+
+        // get aphorism by goal
+        $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
+
+        $doneByUsers   = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 0, 3);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, null, 0, 3 );
+        //check access
+        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
+
+        return array(
+            'goal' => $goal,
+            'aphorisms' => $aphorisms,
+            'doneByUsers' => $doneByUsers,
+            'listedByUsers' =>$listedByUsers,
+        );
     }
 
     /**

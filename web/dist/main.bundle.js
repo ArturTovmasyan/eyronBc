@@ -1,20 +1,98 @@
 webpackJsonp([10,13],{
 
-/***/ 16:
+/***/ 1000:
+/***/ function(module, exports) {
+
+module.exports = "<!--<p>-->\n  <!--resetting-request works!-->\n<!--</p>-->\n<div class=\"container\">\n  <div  class=\"signup notice\">\n    <div>\n      <div class=\"row\">\n        <div class=\"col-sm-6 col-sm-offset-3\">\n          <h1 class=\"text-center\">{{ 'resetting.request.reset'|translate }}</h1>\n\n          <h4 class=\"text-center text-gray\">{{ 'resetting.request.reset_text'|translate }}</h4>\n          <!--action=\"{{ path('fos_user_resetting_send_email') }}\"-->\n          <form  method=\"POST\" class=\"fos_user_resetting_request form-horizontal\">\n            <div class=\"form-group\">\n              <!--{% if invalid_username is defined %}-->\n              <p class=\"error-message text-center\">{{ 'resetting.request.invalid_username'|translate }}</p>\n              <!--{% endif %}-->\n              <input type=\"email\" oninvalid=\"EmailValidation(this)\" oninput=\"EmailValidation(this)\" class=\"form-control\" id=\"username\" name=\"username\" required=\"required\"  placeholder=\"{{ 'resetting.request.username'|translate }}\"/>\n            </div>\n            <div class=\"form-group text-right\">\n              <input type=\"submit\" class=\"btn btn-purple\" value=\"{{ 'resetting.request.submit'|translate }}\" />\n            </div>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+
+/***/ },
+
+/***/ 1001:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"users-list round clearfix\">\n  <a style=\"display:block;\" class=\"text-gray\">\n    <div class=\"row no-gutter\">\n      <div class=\"col-xs-3\" routerLink=\"/profile/{{ user.u_id }}\">\n        <figure class=\"image-goalfrinds img-circle \">\n          <img *ngIf=\"user.image_path\" src=\"{{ serverPath + user.image_path }}\" alt=\"{{ user.first_name }}\" class=\"img-circle img-responsive\" />\n          <!--{% set className = \"user-no\" ~ random(4) %}-->\n          <p *ngIf=\"!user.image_path\" class=\"no-image user-no2\">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>\n        </figure>\n      </div>\n\n      <div class=\"col-xs-9 text-left\">\n        <div class=\"text-gray\">\n          <h4 class=\"text-dark-gray\" routerLink=\"/profile/{{ user.u_id }}\">\n            {{ user.first_name }} {{ user.last_name }}\n          </h4>\n          <span class=\"text-gray\">{{ 'listed_by'|translate }}\n            {{ user.stats.listedBy }}\n          </span> |\n          <span class=\"text-gray\">{{ 'completed'|translate }}\n            {{ user.stats.doneBy }}\n          </span><br />\n          <a class=\"text-gray\"\n             [hidden]=\"user.common_goals_count == 0\" (click)=\"openCommons(user.id)\">\n            {{ 'menu.common'|translate }}\n\n            <!--data-ls-user=\"[[ ::user.id ]]\"-->\n            {{ user.common_goals_count }}\n          </a>\n        </div>\n      </div>\n    </div>\n  </a>\n</div>\n"
+
+/***/ },
+
+/***/ 1002:
+/***/ function(module, exports) {
+
+module.exports = "<div id=\"homepage\">\n\n    <div class=\"homepage text-center\">\n        <div class=\"container\">\n            <h1 [innerHTML]=\"'homepage_title' | translate\"></h1>\n\n            <div class=\"row\">\n                <div class=\"col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2\">\n                    <h4 class=\"text-white\">\n                        {{ 'homepage_description' | translate}}\n                    </h4>\n                </div>\n            </div>\n            <div></div>\n\n            <ul class=\"apps clearfix\">\n                <li>\n                    <a href=\"https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819\" class=\"app-store\" target=\"_blank\">\n                        <img src=\"assets/images/appstore.png\" alt=\"Appstore\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n                <li>\n                    <a href=\"https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist\" class=\"google-play\" target=\"_blank\">\n                        <img src=\"assets/images/googleplay.png\" alt=\"Googleplay\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n            </ul>\n\n        </div>\n    </div>\n\n    <div class=\"absolute text-center hidden-xs hidden-sm hidden-md hidden-lg\">\n        <a href=\"javascript:void(0)\" data-target-selector=\"#scroll-button\" data-ls-scroll-to >\n            <i class=\"icon-scroll-down\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n        </a>\n    </div>\n\n</div>\n\n<app-discover-goal></app-discover-goal>\n<app-base-stories></app-base-stories>"
+
+/***/ },
+
+/***/ 1003:
+/***/ function(module, exports) {
+
+module.exports = "<div id=\"login-page\">\n<div id=\"signin\">\n    <h2>Join</h2>\n    <a class=\"close-icon\" (click)=\"joinHide($event)\"></a>\n    <form enctype=\"multipart/form-data\" method=\"post\" id=\"login-form\" (ngSubmit)=\"login(loginForm)\" #loginForm=\"ngForm\">\n        <!--<input type=\"hidden\" name=\"_csrf_token\" value=\"[[ csrfToken ]] \"/>-->\n        <div class=\"form-group\">\n            <input type=\"email\" [(ngModel)]=\"loginForm.username\" class=\"form-control\" id=\"username\" name=\"_username\" required=\"required\" placeholder=\"Email\" required>\n        </div>\n        <div class=\"form-group\">\n            <input type=\"password\" [(ngModel)]=\"loginForm.password\" class=\"form-control\" id=\"password\" placeholder=\"Password\" name=\"_password\" required=\"required\" required>\n        </div>\n\n        <div class=\"error-message\" *ngIf=\"error\">\n            {{ error }}\n        </div>\n\n        <a routerLink=\"/resetting/request\" (click)=\"joinHide()\" class=\"text-dark-gray\">Forgot password?</a>\n\n        <div class=\"form-group\">\n            <button name=\"submit\" class=\"btn btn-purple\" [disabled]=\"!loginForm.form.valid\">SIGN IN</button>\n        </div>\n    </form>\n\n    <a routerLink=\"/register\" (click)=\"joinHide()\" class=\"sign-up\">\n        <span class=\"icon-user\"></span>SIGN UP\n    </a>\n\n    <h4>CONNECT WITH</h4>\n\n    <ul class=\"social\">\n        <meta charset=\"UTF-8\">\n        <div>\n            <li><a class=\"facebook\" (click)=\"loginSocial(3);\"></a></li>\n            <li><a class=\"google\" (click)=\"loginSocial(4);\"></a></li>\n            <li><a class=\"twitter\" (click)=\"loginSocial(2);\"></a></li>\n        </div>\n    </ul>\n</div>\n<!--<div id=\"shadow\"></div>-->\n</div>"
+
+/***/ },
+
+/***/ 1004:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"my-modal goal-modal\">\n    <div class=\"goal-container\">\n        <div *ngIf=\"newAdded\" class=\"email\">\n            {{ \"goal.create_goal\" | translate }}\n            <span *ngIf=\"!newCreated\"> {{ \"addedU\" | translate }}</span>\n            <span *ngIf=\"newCreated\"> {{ \"admin.label.name.createdU\" | translate }}</span>\n        </div>\n\n        <div class=\"modal-top\">\n            <figure *ngIf=\"userGoal &&userGoal.goal.cached_image\">\n                <img *ngIf=\"userGoal && userGoal.goal.cached_image\" src=\"{{ userGoal.goal.cached_image}}\"\n                     alt=\"{{ userGoal.goal.title }}\" class=\"img-responsive\"/>\n            </figure>\n\n            <span class=\"overlay\"></span>\n\n            <div *ngIf=\"userGoal\">\n                <h2>\n                    <span [ngClass]=\"{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}\">{{ userGoal.goal.title }}</span>\n                </h2>\n                <!--{% if app.user %}-->\n                <p *ngIf=\"userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id \">\n                    {{ userGoal.goal.author.show_name }}\n                </p>\n                <!--{% endif %}-->\n                <ul>\n                    <li>\n                        <a >\n                            {{ 'block_listed'|translate | capitalize }}\n                            <span>{{ userGoal.goal.stats.listedBy | number }}</span>\n                            <i class=\"icon-user-small\"></i>\n                        </a>\n                    </li>\n                    <li>\n                        <a >\n                            {{ 'block_completed'|translate | capitalize }}\n                            <span>{{ userGoal.goal.stats.doneBy | number }}</span>\n                            <i class=\"icon-user-small\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n        <!--{% set arrayMonth = {-->\n        <!--0:'form.birth_date_month'|translate,-->\n        <!--1:'form.month_january'|translate,-->\n        <!--2:'form.month_february'|translate,-->\n        <!--3:'form.month_march'|translate,-->\n        <!--4:'form.month_april'|translate,-->\n        <!--5:'form.month_may'|translate,-->\n        <!--6:'form.month_june'|translate,-->\n        <!--7:'form.month_july'|translate,-->\n        <!--8:'form.month_august'|translate,-->\n        <!--9:'form.month_september'|translate,-->\n        <!--10:'form.month_october'|translate,-->\n        <!--11:'form.month_november'|translate,-->\n        <!--12:'form.month_december'|translate } %}-->\n\n        <!--data-ng-init=\"myMonths={{ arrayMonth |json_encode() }}; redirectPath='{{ path('user_profile') }}'\"-->\n        <form class=\"form-horizontal\" method=\"post\" #addForm=\"ngForm\" (ngSubmit)=\"add(addForm)\">\n            <div class=\"goal-add bg-white\">\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n\n                        <!--{# edit goal status #}-->\n                        <!--data-ng-init=\"defaultYear = '{{ 'form.birth_date_year'|translate }}';-->\n                        <!--defaultDay = '{{ 'form.birth_date_day'|translate }}';-->\n                        <!--defaultMonth = '{{ 'form.birth_date_month'|translate }}'\"-->\n                        <div class=\"clearfix \" *ngIf=\"userGoal.id\">\n                            <div class=\"no-marginb\">\n\n                                <h3 class=\"text-left\">\n                                    {{ \"goal.status\"|translate }}\n                                </h3>\n\n                                <p>{{ \"goal.in_proces\"|translate }}</p>\n\n                                <!--data-ng-init=\"complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)\"-->\n                                <div class=\"clearfix purple-checkbox\">\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': complete.switch == 0}\">\n                                            <span class=\"md-off\"></span>\n                                            <span class=\"md-on\"></span>\n                                        </span>\n\n                                        <input name=\"active\" type=\"radio\" [value]=\"0\" [(ngModel)]=\"complete.switch\" style=\"display: none\">\n\n                                        <span class=\"my-md-label\">\n                                            <span class=\"ng-scope\">{{ \"user_goal.active\"|translate }}</span>\n                                        </span>\n\n                                    </label>\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\"  [ngClass]=\"{'my-md-checked': complete.switch == 1}\">\n                                            <span class=\"md-off\"></span>\n                                            <span class=\"md-on\"></span>\n                                        </span>\n\n                                        <input name=\"active\" type=\"radio\" [value]=\"1\"  [(ngModel)]=\"complete.switch\" style=\"display: none\">\n\n                                        <span class=\"my-md-label\">\n                                            <span class=\"ng-scope\">{{ \"user_goal.completed\"|translate }}</span>\n                                        </span>\n\n                                    </label>\n\n                                </div>\n\n                            </div>\n\n                        </div>\n                    </div>\n                </div>\n\n                <hr/>\n\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n                        <h3 [ngClass]=\"{'text-purple': !(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1}\"\n                            *ngIf=\"!(complete.switch == 1) || userGoal.do_date\">\n                            {{ \"goal.deadline\"|translate }}\n                            <i *ngIf=\"!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1\"\n                               class=\"icon-info text-purple\"></i>\n\n                            <span class=\"text-purple \"\n                                  *ngIf=\"complete.switch == 1 && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)\">: {{ momentDateFormat(firefox_do_date, 'DD MMM YYYY') }}</span>\n                            <span class=\"text-purple \"\n                                  *ngIf=\"complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)\">: {{ momentDateFormat(firefox_do_date, 'YYYY') }}</span>\n                            <span class=\"text-purple \"\n                                  *ngIf=\"complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)\">: {{ momentDateFormat(firefox_do_date, 'MMM YYYY') }}</span>\n                        </h3>\n\n                        <p class=\"text-gray text-left\"\n                           *ngIf=\"!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1\">\n                            {{ \"goal.missed_deadline\"|translate }}\n                        </p>\n\n                        <p [hidden]=\"userGoal.do_date || userGoal.completion_date || complete.switch == 1\"\n                           class=\"text-left\">\n                            {{ \"dream\"|translate }}\n                        </p>\n\n                        <h3 *ngIf=\"complete.switch == 1\">{{ \"completed\"|translate }}</h3>\n\n                        <div class=\"row\">\n\n                            <div class=\"col-sm-4 date \" *ngIf=\"complete.switch != 1\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"years\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'year')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_year'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.year\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_year'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"y in years\">-->\n                                        <!--<span data-ng-bind=\"y\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                            <div class=\"col-sm-4 \" *ngIf=\"complete.switch == 1\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"completeYears\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'year')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_year'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.year\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_year'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"y in completeYears\">-->\n                                        <!--<span data-ng-bind=\"y\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n\n                            <div class=\"col-sm-4 date \" *ngIf=\"complete.switch == 1\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"months\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'month')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_month'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.month\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_month'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"m in months\">-->\n                                        <!--<span data-ng-bind=\"m\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                            <div class=\"col-sm-4 date \" *ngIf=\"!(complete.switch == 1)\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"months\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'month')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_month'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.month\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_month'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"m in months\">-->\n                                        <!--<span data-ng-bind=\"m\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                            <div class=\"col-sm-4 date \" *ngIf=\"complete.switch == 1\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"days\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'day')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_day'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.day\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_day'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"day in days\">-->\n                                        <!--<span data-ng-bind=\"day\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                            <div class=\"col-sm-4 date \" *ngIf=\"!(complete.switch == 1)\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"days\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'day')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_day'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.day\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_day'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"day in days\">-->\n                                        <!--<span data-ng-bind=\"day\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                        </div>\n\n                        <h3 *ngIf=\"userGoal.goal.location\">Location</h3>\n\n                        <div class=\"form-group row\" *ngIf=\"userGoal && userGoal.goal.location\">\n                            <div class=\"col-sm-12\">\n                                <div class=\"location\">\n                                    <i class=\"icon-location-icon\"></i>\n                                    <input type=\"text\"\n                                           name=\"address\"\n                                           disabled\n                                           [(ngModel)]=\"userGoal.goal.location.address\"\n                                           class=\"form-control place-autocomplete\"\n                                           placeholder=\"{{ 'goal.location_ex'|translate }}\"/>\n                                </div>\n                            </div>\n                        </div>\n\n                        <div class=\"form-group row\">\n                            <div class=\"col-xs-12\">\n                                <h3>{{ 'goal.priority'|translate }}</h3>\n                                <h6>{{ \"goal.deside\"|translate }}</h6>\n\n                                <div class=\"priority purple-checkbox\">\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': userGoal.urgent}\">\n                                            <span class=\"my-md-icon\"></span>\n                                            <input name=\"urgent\" type=\"checkbox\" [(ngModel)]=\"userGoal.urgent\" style=\"display: none\">\n                                        </span>\n\n                                        <span class=\"my-md-label\">\n                                            <span class=\"ng-scope\">{{ 'goal.urgent'|translate }}</span>\n                                        </span>\n\n                                    </label>\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': userGoal.important}\">\n                                            <div class=\"my-md-icon\"></div>\n                                            <input name=\"important\" type=\"checkbox\" [(ngModel)]=\"userGoal.important\" style=\"display: none\">\n                                        </span>\n\n                                        <span class=\"my-md-label\">\n                                            <span class=\"ng-scope\">{{ 'goal.important'|translate }}</span>\n                                        </span>\n                                    </label>\n\n                                </div>\n\n                            </div>\n                        </div>\n\n                        <h3 class=\"no-marginb\">{{ 'my_bucket_list.notes'|translate }}</h3>\n\n                        <p>\n                            <i class=\"icon-pencil\"></i>\n                            {{ 'goal.take_note'|translate }}\n                        </p>\n\n                        <div class=\"form-group row\">\n                            <div class=\"col-xs-12\">\n\n                                <textarea class=\"form-control\"\n                                          name=\"note\"\n                                          [(ngModel)]=\"userGoal.note\"\n                                          rows=\"3\"\n                                          placeholder=\"{{ 'goal.note_p'|translate }}\"></textarea>\n                            </div>\n                        </div>\n\n                        <h3 class=\"no-marginb\">{{ \"tasks\"|translate }}</h3>\n\n                        <p>\n                            <i title=\"Notes\" class=\"icon-step-list\"></i>\n                            {{ \"goal.complete_step\"|translate }}\n                        </p>\n\n                        <div class=\"progress \" *ngIf=\"!(complete.switch == 1)\">\n                            <!--<div class=\"progress-bar progress-bar-striped\"-->\n                                 <!--role=\"progressbar\"-->\n                                 <!--aria-valuenow=\"45\"-->\n                                 <!--aria-valuemin=\"0\"-->\n                                 <!--aria-valuemax=\"100\"-->\n                                 <!--[ngStyle]=\"width:{{ getCompleted(userGoal) | number }}%\">-->\n                                <!--{{ getCompleted(userGoal) | number }}% Complete-->\n                            <!--</div>-->\n                        </div>\n\n                        <div dnd-sortable-container [sortableData]=\"userGoal.formatted_steps\">\n                            <!--data-dnd-list=\"userGoal.formatted_steps\"-->\n                            <!--data-dnd-disable-if=\"complete.switch == 1\"-->\n                            <!--data-dnd-dragover=\"dragoverCallback(event, index, external, type)\"-->\n                            <!--data-dnd-drop=\"dropCallback(event, index, item, external, type, '')\"-->\n                            <div class=\"form-group row\"\n                                 *ngFor=\"let step of userGoal.formatted_steps; let i = index\"\n                                 dnd-sortable\n                                 [sortableIndex]=\"i\"\n                                 [hidden]=\"!((!step.switch || !myStep[k]) && !(!step.text && complete.switch == 1))\"\n                                 [ngClass]=\"{'noselect': !step.text}\">\n                                <!--data-ng-init=\"myStep[k] = step.switch\"-->\n                                <!--data-dnd-draggable=\"step\"-->\n                                <!--data-dnd-disable-if=\"!step.text || step.switch\"-->\n                                <!--data-dnd-moved=\"moveElement($index)\"-->\n                                <!--data-dnd-effect-allowed=\"move\"-->\n                                <!--data-dnd-selected=\"models.selected = step\"-->\n                                <!--class 'selected': models.selected === step,-->\n\n                                <div class=\"col-xs-2 col-sm-1 task-checkbox purple-checkbox\">\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': step.switch}\">\n                                            <span class=\"my-md-icon\"></span>\n                                            <!--id=\"myonoffswitch{{k}}\"-->\n                                            <input id=\"myonoffswitch{{ i }}\" type=\"checkbox\" aria-label=\"steps\"\n                                                   name=\"{% if app.environment !='test' %}switch[ {{k}} ]{% endif %}\"\n                                                   [(ngModel)]=\"step.switch\"\n                                                   style=\"display: none\" />\n                                            <!--(change)=\"myStep[k] = false\"-->\n                                                   <!--data-ng-disabled=\"complete.switch == 1 || !step.text\"-->\n                                        </span>\n\n                                    </label>\n\n                                </div>\n\n                                <div class=\"col-xs-10 col-sm-11\">\n                                    <div class=\"to-do-list\">\n\n                                        <input type=\"text\"\n                                               class=\"form-control\"\n                                               [ngClass]=\"{'market-step': step.switch}\"\n                                               [(ngModel)]=\"step.text\"\n                                               name=\"stepText{{i}}\"\n                                               placeholder=\"{{ 'goal.add_step'|translate }}\">\n                                        <!--name=\"stepText[ {{ k }} ]\"-->\n                                        <!--data-step-->\n                                        <!--data-key=\"k\"-->\n                                        <!--data-array=\"userGoal.formatted_steps\"-->\n                                        <!--data-ng-disabled=\"complete.switch == 1 || step.switch\"-->\n                                    </div>\n                                </div>\n\n                            </div>\n\n                            <p (click)=\"completedStepsShow = !completedStepsShow\"\n                               *ngIf=\"completedStepCount\" class=\"text-purple\">\n                                <span *ngIf=\"!completedStepsShow\">{{ \"show\" |translate }}</span>\n                                <span *ngIf=\"completedStepsShow\">{{ \"hide\" |translate }}</span> {{ completedStepCount}} {{ \"completed\" |translate }}\n                            </p>\n\n                            <div class=\"form-group row\"\n                                 *ngFor=\"let step of userGoal.formatted_steps; let k = index\"\n                                 [hidden]=\"!completedStepsShow || !step.switch\">\n\n                                <div class=\"col-xs-2 col-sm-1 task-checkbox purple-checkbox\">\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container my-md-checked\">\n                                            <span class=\"my-md-icon\"></span>\n                                            <input id=\"myonoffswitch{{ k }}\" type=\"checkbox\" aria-label=\"steps\"\n                                                   name=\"switch{{ k }}\"\n                                                   [(ngModel)]=\"step.switch\"\n                                                   style=\"display: none\" />\n                                            <!--data-ng-disabled=\"complete.switch == 1 || !step.text\"-->\n                                        </span>\n\n                                    </label>\n                                </div>\n\n                                <div class=\"col-xs-10 col-sm-11\">\n                                    <div class=\"to-do-list\">\n                                        <input type=\"text\"\n                                               class=\"form-control\"\n                                               [(ngModel)]=\"step.text\"\n                                               name=\"stepText{{ k }}\"\n                                               placeholder=\"{{ 'goal.add_step'|translate }}\">\n                                        <!--data-step-->\n                                        <!--data-key=\"k\"-->\n                                        <!--data-array=\"userGoal.formatted_steps\"-->\n                                        <!--data-ng-disabled=\"complete.switch == 1\"-->\n                                    </div>\n                                </div>\n\n                            </div>\n\n                            <div class=\"dndPlaceholder form-group row\"></div>\n\n                        </div>\n\n\n                    </div>\n                </div>\n\n                <hr/>\n\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n                        <div class=\"no-marginb\">\n\n                            <h3 class=\"text-left no-marginb\">\n                                {{ \"goal.visibility\"|translate }}\n                            </h3>\n\n                            <p class=\"text-gray\">\n                                <i class=\"icon-eye-icon \" *ngIf=\"userGoal.is_visible\"></i>\n                                <i class=\"icon-eye \" [hidden]=\"userGoal.is_visible\"></i>\n                                <span>{{ \"goal.visible_text\"|translate }}</span>\n                            </p>\n\n                            <div class=\"clearfix purple-checkbox\" id=\"goal-is-visible\">\n                                <!--[(ngModel)]=\"userGoal.is_visible\"-->\n                                <label class=\"relative\">\n                                    <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': userGoal.is_visible == true}\">\n                                        <span class=\"md-off\"></span>\n                                        <span class=\"md-on\"></span>\n                                    </span>\n\n                                    <input name=\"visible\" type=\"radio\" [(ngModel)]=\"userGoal.is_visible\" [value]=\"true\" style=\"display: none\">\n\n                                    <span class=\"my-md-label\">\n                                        <span class=\"ng-scope\">{{ \"goal.visible\"|translate }}</span>\n                                    </span>\n\n                                </label>\n\n                                <label class=\"relative\">\n                                    <span class=\"my-md-container\"  [ngClass]=\"{'my-md-checked': userGoal.is_visible == false}\">\n                                        <span class=\"md-off\"></span>\n                                        <span class=\"md-on\"></span>\n                                    </span>\n\n                                    <input name=\"visible\" type=\"radio\" [value]=\"false\" [(ngModel)]=\"userGoal.is_visible\" style=\"display: none\">\n\n                                    <span class=\"my-md-label\">\n                                        <span class=\"ng-scope\">{{ \"my_bucket_list.invisible\"|translate }}</span>\n                                    </span>\n\n                                </label>\n                            </div>\n\n                        </div>\n                    </div>\n                </div>\n\n\n                <!--{% if app.user %}-->\n                <hr/>\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n                        <div *ngIf=\"userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false\">\n                            <p class=\"text-gray clearfix private-space\">\n                                <strong class=\"text-dark-gray\">\n                                    <i class=\"icon-lock-white\"></i>\n                                    <span>{{ 'user_goal.private' |translate }}</span>\n                                </strong>\n                                <span class=\"text-left\">{{ 'goal.private_text'|translate }}</span>\n                            </p>\n                        </div>\n                    </div>\n                </div>\n                <!--{% endif %}-->\n\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n\n                        <p class=\"text-center error-message\" *ngIf=\"invalidYear\">\n                            {{ 'success_story.error_day_in_month1'|translate }} {{dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}\n                        </p>\n\n                        <p class=\"text-center error-message\"\n                           *ngIf=\"uncompletedYear\">{{ 'success_story.error_uncomplete_year'|translate }}\n                        </p>\n                    </div>\n                </div>\n\n                <div class=\"modal-bottom\">\n                    <div class=\"row\">\n                        <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n                            <a  (click)=\"save()\"\n                               class=\"btn btn-purple usergoal-save\">{{ \"btn_save\"|translate }}</a>\n                            <a  (click)=\"modalHideEmitter.emit(null)\" id=\"cancel\"\n                               class=\"btn btn-transparent\">{{ 'btn_cancel'|translate }}</a>\n                            <a  (click)=\"showDetails = ! showDetails\"\n                               class=\"btn btn-transparent\">\n                                <span>{{ 'forget'|translate | uppercase}}</span>\n                            </a>\n                        </div>\n                    </div>\n                </div>\n\n                <div *ngIf=\"showDetails\">\n                    <div class=\"delete-message\">\n                        <div>\n                            <h3 [innerHTML]=\"'delete_message'|translate|uppercase\"></h3>\n                            <a  (click)=\"removeUserGoal(userGoal.id)\"\n                               class=\"btn btn-transparent\">{{ 'btn_delete'|translate| uppercase}}</a>\n                            <a (click)=\"showDetails=!showDetails\"\n                               class=\"btn btn-purple\">{{ 'btn_cancel'|translate| uppercase}}</a>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n    </div>\n</div>\n\n"
+
+/***/ },
+
+/***/ 1005:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"bg-grey my-modal\" id=\"common-modal\">\n    <div class=\"bg-white\" *ngIf=\"goals && goals.length\">\n        <h3 class=\"text-left\">{{ 'menu.common'|translate }} {{ goals.length }} Goals</h3>\n        <a  (click)=\"modalHideEmitter.emit(null)\" class=\"close-icon\"></a>\n    </div>\n\n    <div class=\"common-content\"\n         infinite-scroll\n         [infiniteScrollDistance]=\"1\"\n         [infiniteScrollThrottle]=\"500\"\n         (scrolled)=\"onScroll()\">\n        <div [hidden]=\"!goals || !goals.length\"\n             class=\" row\"\n             *ngFor=\"let goal of goals\">\n\n            <div class=\"col-sm-12\">\n                <div class=\"idea-item\">\n                    <figure>\n                        <app-goal [goal]=\"goal\"></app-goal>\n                        <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n                    </figure>\n                </div>\n            </div>\n\n        </div>\n        <div *ngIf=\"!goals || !goals.length\" >\n            <p>{{ 'no_common'| translate  }}</p>\n        </div>\n    </div>\n</div>"
+
+/***/ },
+
+/***/ 1006:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"overflow my-modal goal-modal\">\n    <div *ngIf=\"newAdded\" class=\"email\">{{ \"message_on_top_of_the_page\" | translate | uppercase }}</div>\n    <div class=\"modal-top\">\n        <figure *ngIf=\"userGoal && userGoal.goal.cached_image\">\n            <img *ngIf=\"userGoal && userGoal.goal.cached_image\" src=\"{{ userGoal.goal.cached_image }}\" alt=\"{{ userGoal.goal.title }}\" class=\"img-responsive\"/>\n        </figure>\n\n        <span class=\"overlay\"></span>\n\n        <div>\n            <h2 [ngClass]=\"{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author || !userGoal.goal.author.show_name}\">\n                <span>{{ userGoal.goal.title }}</span>\n            </h2>\n            <!--{% if app.user %}-->\n            <p *ngIf=\"userGoal && userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id \">\n                {{ userGoal.goal.author.show_name }}\n            </p>\n            <!--{% endif %}-->\n            <ul>\n                <li>\n                    <a >\n                        {{ 'block_listed'|translate | capitalize }}\n                        <span>{{ userGoal.goal.stats.listedBy | number }}</span>\n                        <i class=\"icon-user-small\"></i>\n                    </a>\n                </li>\n                <li>\n                    <a >\n                        {{ 'block_completed'|translate | capitalize }}\n                        <span>{{ userGoal.goal.stats.doneBy | number }}</span>\n                        <i class=\"icon-user-small\"></i>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    </div>\n    <div id=\"fb-root\"></div>\n    <div class=\"row bg-grey\">\n        <div class=\"col-xs-10 col-xs-offset-1\">\n            <div class=\"row\">\n                <div class=\"col-sm-8\">\n                    <h2 class=\"text-grey-dark\">{{ 'share_title'|translate }}</h2>\n                </div>\n                <div class=\"col-sm-4\" >\n                    <!--<div fb-share class=\"fb-share-button\"-->\n                         <!--data-fb-name=\"userGoal.goal.slug\"-->\n                         <!--data-fb-link=\"goalLink\"-->\n                         <!--data-fb-caption=\"BUCKETLIST127.COM\"-->\n                         <!--data-fb-picture=\"userGoal.goal.cached_image\"-->\n                         <!--data-fb-message=\"{{ 'facebook_post_text'|trans }}\"-->\n                         <!--data-fb-description=\"userGoal.goal.description\">-->\n                    <!--</div>-->\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <!--{% set arrayMonth = {-->\n    <!--0:'form.birth_date_month'|trans({}, 'FOSUserBundle'),-->\n    <!--1:'form.month_january'|trans({}, 'FOSUserBundle'),-->\n    <!--2:'form.month_february'|trans({}, 'FOSUserBundle'),-->\n    <!--3:'form.month_march'|trans({}, 'FOSUserBundle'),-->\n    <!--4:'form.month_april'|trans({}, 'FOSUserBundle'),-->\n    <!--5:'form.month_may'|trans({}, 'FOSUserBundle'),-->\n    <!--6:'form.month_june'|trans({}, 'FOSUserBundle'),-->\n    <!--7:'form.month_july'|trans({}, 'FOSUserBundle'),-->\n    <!--8:'form.month_august'|trans({}, 'FOSUserBundle'),-->\n    <!--9:'form.month_september'|trans({}, 'FOSUserBundle'),-->\n    <!--10:'form.month_october'|trans({}, 'FOSUserBundle'),-->\n    <!--11:'form.month_november'|trans({}, 'FOSUserBundle'),-->\n    <!--12:'form.month_december'|trans({}, 'FOSUserBundle') }-->\n    <!--%}-->\n    <!--data-ng-init=\"myMonths={{ arrayMonth |json_encode()}}\"-->\n    <div class=\"bg-white\">\n\n        <div *ngIf=\"newAdded\">\n            <div class=\"row\">\n                <div class=\"col-xs-10 col-xs-offset-1\">\n\n                    <h3 class=\"story-title text-grey-dark\">{{ \"success_story.completion_date\"|translate }}</h3>\n\n                    <p class=\"complete-text\">{{ \"success_story.complete_edit_text\"|translate }}</p>\n\n                    <div class=\"form-group row\">\n                        <div class=\"col-sm-4 date\">\n                             <!--data-ng-init=\"defaultYear = '{{ 'form.birth_date_year'|translate  }}';-->\n                                            <!--defaultDay = '{{ 'form.birth_date_day'|translate }}';-->\n                                            <!--defaultMonth = '{{ 'form.birth_date_month'|translate }}'\">-->\n                            <!--<ui-select search-enabled=\"false\" data-ng-model=\"$parent.year\" skip-focusser=\"true\">-->\n                                <!--<ui-select-match placeholder=\"{{ 'form.birth_date_year'|translate }}\">-->\n                                    <!--<span>{{ $select.selected }}</span>-->\n                                <!--</ui-select-match>-->\n\n                                <!--<ui-select-choices repeat=\"y in years\">-->\n                                    <!--<span data-ng-bind=\"y\"></span>-->\n                                <!--</ui-select-choices>-->\n                            <!--</ui-select>-->\n                        </div>\n\n                        <div class=\"col-sm-4 date\">\n                            <!--<ui-select search-enabled=\"false\" data-ng-model=\"$parent.month\" skip-focusser=\"true\">-->\n                                <!--<ui-select-match placeholder=\"{{ 'form.birth_date_month'|translate }}\">-->\n                                    <!--<span>{{ $select.selected }}</span>-->\n                                <!--</ui-select-match>-->\n\n                                <!--<ui-select-choices repeat=\"m in months\">-->\n                                    <!--<span data-ng-bind=\"m\"></span>-->\n                                <!--</ui-select-choices>-->\n                            <!--</ui-select>-->\n                        </div>\n                        <div class=\"col-sm-4 date\">\n\n                            <!--<ui-select search-enabled=\"false\" data-ng-model=\"$parent.day\" skip-focusser=\"true\">-->\n                                <!--<ui-select-match placeholder=\"{{ 'form.birth_date_day'|translate }}\">-->\n                                    <!--<span>{{ $select.selected }}</span>-->\n                                <!--</ui-select-match>-->\n\n                                <!--<ui-select-choices repeat=\"day in days\">-->\n                                    <!--<span data-ng-bind=\"day\"></span>-->\n                                <!--</ui-select-choices>-->\n                            <!--</ui-select>-->\n                        </div>\n                    </div>\n\n                </div>\n            </div>\n\n            <hr/>\n        </div>\n\n        <div class=\"row\">\n            <div class=\"col-xs-10 col-xs-offset-1\">\n                <h3 class=\"story-title text-grey-dark\">{{ 'success_story.title'|translate }}</h3>\n            </div>\n        </div>\n\n        <!--{#{{ form_errors(form) }}#}-->\n\n        <form id=\"goal-done-form\" action=\"#\" enctype=\"multipart/form-data\">\n            <div class=\"row\">\n                <div class=\"col-xs-10 col-xs-offset-1\">\n                    <div class=\"form-group row\">\n                        <div class=\"col-sm-12\">\n                            <textarea required=\"required\" name=\"story\" [(ngModel)]=\"story\" class=\"form-control\" placeholder=\"{{ 'success_story.add'|translate }}\" rows=\"4\"></textarea>\n                        </div>\n                    </div>\n\n                    <!--<fileDroppa-->\n                            <!--[url]=\"serverPath + '/api/v1.0/success-story/add-images'\"-->\n                            <!--[autoUpload]=\"false\"-->\n                            <!--[showFilesList]=\"true\"-->\n                            <!--[beforeRequest]=\"beforeRequest\"-->\n                            <!--[beforeFileUpload]=\"beforeFileUpload\"-->\n                            <!--[beforeAddFile]=\"beforeAddFile\"-->\n                            <!--(filesUpdated)=\"filesUpdated($event)\"-->\n                            <!--(fileUploaded)=\"fileUploaded($event)\">-->\n                        <!--<div class=\"text-center\">-->\n                            <!--<div class=\"dropzone\" id=\"goalDropzone\">-->\n                                <!--<div class=\"dz-message\">-->\n                                    <!--<div class=\"row\">-->\n                                        <!--<div class=\"col-sm-12\">-->\n\n                                            <!--<h3 class=\"text-dark-gray\">-->\n                                                <!--<i class=\"icon-cloud\"></i>{{ 'drag_drop'|translate  }}-->\n                                            <!--</h3>-->\n                                        <!--</div>-->\n                                    <!--</div>-->\n\n                                    <!--<p [innerHTML]=\"'upload'|translate\"></p>-->\n                                <!--</div>-->\n                            <!--</div>-->\n                        <!--</div>-->\n                    <!--</fileDroppa>-->\n\n\n                    <!--{#{{ form_widget(form.files, {'attr': { \"value\" : \"{{ files }}\" } }) }}#}-->\n\n                    <div class=\"form-group\">\n                        <label class=\"text-grey-dark story-title\">Video</label>\n                        <!--<video-link data-ng-repeat=\"(k, video) in userGoal.videos_array\"-->\n                                    <!--data-key=\"k\"-->\n                                    <!--data-limit=\"3\"-->\n                                    <!--data-link=\"video.link\"-->\n                                    <!--data-array=\"userGoal.videos_array\">-->\n                        <!--</video-link>-->\n                    </div>\n                    <p class=\"text-center error-message\" *ngIf=\"noStory\">{{ 'success_story.error_widht_file'|translate }}</p>\n                    <p class=\"text-center error-message\" *ngIf=\"invalidYear\">{{ 'success_story.error_day_in_month1'|translate }} {{ dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}</p>\n                    <p class=\"text-center error-message\" *ngIf=\"uncompletedYear\">{{ 'success_story.error_uncomplete_year'|translate }}</p>\n\n                </div>\n            </div>\n\n            <div class=\"text-center modal-bottom\">\n                <a  (click)=\"save()\" class=\"btn btn-purple button-lg\">{{ 'btn_save'|translate }}</a>\n                <a  (click)=\"modalHideEmitter.emit(null)\" id=\"cancel\" class=\"btn btn-transparent button-lg\">{{ 'btn_cancel'|translate }}</a>\n            </div>\n\n        </form>\n    </div>\n</div>"
+
+/***/ },
+
+/***/ 1007:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"bg-grey my-modal\" id=\"report-modal\">\n\n    <div class=\"bg-white\">\n        <h3 *ngIf=\"!isReported\">{{ 'report.title'|translate }}</h3>\n\n        <h3 class=\" text-center\" *ngIf=\"isReported\">{{ 'report.thanks'|translate }}</h3>\n\n        <a class=\"close-icon\" (click)=\"modalHideEmitter.emit(null)\" *ngIf=\"!isReported\"></a>\n    </div>\n\n    <div class=\"report-content\">\n\n        <form class=\"form-horizontal\" *ngIf=\"!isReported\">\n\n            <div class=\"radio\">\n                <label>\n                    <input type=\"radio\" [(ngModel)]=\"reportOption\" name=\"optionsRadios\" id=\"optionsRadios1\" [value]=\"2\" checked>\n                    {{ 'report.spam'|translate }}\n                </label>\n            </div>\n\n            <div class=\"radio\">\n                <label>\n                    <input type=\"radio\" [(ngModel)]=\"reportOption\" name=\"optionsRadios\" id=\"optionsRadios2\" [value]=\"3\">\n                    {{ 'report.opinion'|translate }}\n                </label>\n            </div>\n\n            <textarea class=\"form-control\" rows=\"3\" name=\"reportText\" [(ngModel)]='reportText' placeholder=\"{{ 'report.other'|translate }}\"></textarea>\n\n        </form>\n\n        <p *ngIf=\"isReported\" class=\"text-center \">{{ 'report.message'|translate }}</p>\n\n    </div>\n\n    <div class=\"bg-white padding text-center\" *ngIf=\"!isReported\">\n        <button name=\"submit\" (click)=\"report()\" class=\"btn btn-purple\" [ngClass]=\"{'purple-transparent': !(reportOption || reportText)}\">{{ 'submit'|translate | uppercase }}</button>\n    </div>\n\n</div>"
+
+/***/ },
+
+/***/ 1008:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"bg-grey my-modal\" id=\"goal-users-modal\">\n    <div class=\"bg-white relative text-left\" *ngIf=\"users && users.length && data.category\">\n        <h3 *ngIf=\"data.category == 1\"  >{{ 'home_listed_by'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>\n        <h3 *ngIf=\"data.category == 2\"  >{{ 'home_complete'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>\n        <h3 *ngIf=\"data.category == 3\"  >{{ 'home_voters'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>\n        <a class=\"close-icon\" (click)=\"modalHideEmitter.emit(null)\"></a>\n    </div>\n\n    <div class=\"users-content\"\n         infinite-scroll\n         [infiniteScrollDistance]=\"1\"\n         [infiniteScrollThrottle]=\"500\"\n         (scrolled)=\"onScroll()\">\n        <div [hidden]=\"!users || !users.length\"\n             class=\"row\"\n             *ngFor=\"let user of users\">\n\n            <div class=\"col-xs-12\">\n                <app-user [user]=\"user\"></app-user>\n            </div>\n\n        </div>\n    </div>\n</div>"
+
+/***/ },
+
+/***/ 1009:
+/***/ function(module, exports) {
+
+module.exports = "<div *ngIf=\"name == 'contact-us'\">\n  <div class=\"container\" *ngIf=\"!isSend\">\n    <div  class=\"signup\">\n      <div class=\"row\">\n        <h1 class=\"text-center\">{{ title }}</h1>\n\n        <span style=\"text-align: center\" [innerHTML] = description></span>\n\n        <div class=\"col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3\">\n          <form method=\"post\" [formGroup]=\"emailData\" id=\"contact-us-form\" (submit)=\"sendEmail(emailData.value)\" action=\"#\">\n\n            <div class=\"form-group row\">\n              <div class=\"col-sm-12\">\n                <input name=\"fullName\" formControlName=\"fullName\" type=\"text\" class=\"form-control\" placeholder=\"Full Name\">\n                <control-messages [control]=\"emailData.controls.fullName\"></control-messages>\n              </div>\n            </div>\n\n            <div class=\"form-group row\">\n              <div class=\"col-sm-12\">\n                <input name=\"email\" type=\"email\" formControlName=\"email\" class=\"form-control\" placeholder=\"Email\">\n                <control-messages [control]=\"emailData.controls.email\"></control-messages>\n              </div>\n            </div>\n\n            <div class=\"form-group row\">\n              <div class=\"col-sm-12\">\n                <input name=\"subject\" type=\"text\" formControlName=\"subject\" class=\"form-control\" placeholder=\"Subject\">\n                <control-messages [control]=\"emailData.controls.subject\"></control-messages>\n              </div>\n            </div>\n\n            <div class=\"form-group row\">\n              <div class=\"col-sm-12\">\n                <textarea name=\"message\" formControlName=\"message\" class=\"form-control\" placeholder=\"Message\" rows=\"5\"></textarea>\n                <control-messages [control]=\"emailData.controls.message\"></control-messages>\n              </div>\n            </div>\n\n            <div class=\"form-group row text-center padding-top\">\n              <button name=\"send\" type=\"submit\" [disabled]=\"!emailData.valid\" class=\"btn btn-purple\">Send</button>\n            </div>\n          </form>\n\n          <div *ngIf=\"show\" style=\"position: absolute;top:20%;left: 42%\">\n            <md-progress-spinner mode=\"indeterminate\"></md-progress-spinner>\n          </div>\n\n        </div>\n\n      </div>\n    </div>\n  </div>\n  <div class=\"container\" *ngIf=\"isSend\">\n    <div  class=\"signup notice\">\n      <div>\n        <div class=\"row\">\n          <div class=\"col-sm-12 text-center\">\n            <h1 class=\"text-center\">{{ 'page.contacr_us.message_title'|translate }}</h1>\n            <h4 class=\"text-center text-gray\">{{ 'page.contacr_us.message_content'|translate }}</h4>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"container standart-pages\" *ngIf=\"name != 'contact-us'\">\n  <div class=\"row\">\n    <h1 class=\"text-center\"> {{ title }} </h1>\n    <div class=\"col-sm-8 col-sm-offset-2\" [innerHTML] = description>\n    </div>\n  </div>\n</div>\n"
+
+/***/ },
+
+/***/ 1059:
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(549);
+
+
+/***/ },
+
+/***/ 19:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__ = __webpack_require__(463);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__ = __webpack_require__(529);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__environments_environment__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__environments_environment__ = __webpack_require__(474);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProjectService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,12 +119,12 @@ var ProjectService = (function () {
         this.broadcaster = broadcaster;
         this.baseOrigin = __WEBPACK_IMPORTED_MODULE_7__environments_environment__["a" /* environment */].production ? 'http://stage.bucketlist127.com' : 'http://bucketlist.loc';
         //private baseOrigin = 'http://stage.bucketlist127.com';
-        this.headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Headers */]();
+        this.headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]();
         this.envprefix = __WEBPACK_IMPORTED_MODULE_7__environments_environment__["a" /* environment */].production ? '/' : '/app_dev.php/';
         //private envprefix = '/';
         this.baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/';
         this.base2Url = this.baseOrigin + this.envprefix + 'api/v2.0/';
-        this.goalUrl = ''; // URL to web API
+        this.goalUrl = this.baseUrl + 'goal/by-slug'; // URL to web API
         this.userUrl = this.baseUrl + 'user'; // URL to web API
         this.socialLoginUrl = this.baseUrl + 'users/social-login/'; // URL to web API
         //modals
@@ -69,13 +147,16 @@ var ProjectService = (function () {
         this.badgesUrl = this.baseUrl + 'badges';
         this.bottomMenuUrl = this.baseUrl + 'bottom/menu';
         this.categoriesUrl = this.baseUrl + 'goal/categories';
-        this.notificationUrl = this.baseUrl + 'notifications/0/10';
-        this.getCompateProfileUrl = this.baseUrl + 'goal/categories';
-        this.PageUrl = this.baseUrl + 'page';
+        this.notificationUrl = this.baseUrl + 'notifications';
+        this.notificationAllReadUrl = this.baseUrl + 'notification';
+        this.completeProfileUrl = this.baseUrl + 'user';
+        this.PageUrl = this.baseUrl + 'pages/';
+        this.sendEmailUrl = this.baseUrl + 'contact/send-email';
         //profile page urls
         this.profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
         this.followToggleUrl = this.baseUrl + 'users/';
         this.followToggleUrl2 = '/toggles/followings';
+        this.calendarUrl = this.baseUrl + 'usergoal/calendar/data';
         this.nearByUrl = this.baseUrl + 'goals/nearby/';
         this.resetNearByUrl = this.baseUrl + 'usergoals/';
         this.getCommentsUrl = this.baseUrl + 'comments/goal_';
@@ -136,7 +217,7 @@ var ProjectService = (function () {
      * @param count
      * @param userId
      * @param time
-     * @returns {Observable<R>}
+     * @returns {any}
      */
     ProjectService.prototype.getActivities = function (start, count, userId, time) {
         return this.http.get(this.activityUrl + start + '/' + count + (userId ? ('/' + userId) : '') + (time ? ('?time=' + time) : ''), { headers: this.headers })
@@ -203,9 +284,20 @@ var ProjectService = (function () {
     };
     /**
      *
+     * @param uId
+     * @returns {Observable<R>}
      */
-    ProjectService.prototype.getCompateProfileInfo = function () {
-        return this.http.get(this.getCompateProfileUrl, { headers: this.headers })
+    ProjectService.prototype.getUserByUId = function (uId) {
+        var end = uId == 'my' ? '' : ('/' + uId);
+        return this.http.get(this.userUrl + end, { headers: this.headers })
+            .map(function (r) { return r.json(); })
+            .catch(this.handleError);
+    };
+    /**
+     *
+     */
+    ProjectService.prototype.getCompleteProfileUrl = function () {
+        return this.http.get(this.completeProfileUrl, { headers: this.headers })
             .map(function (r) { return r.json(); })
             .catch(this.handleError);
     };
@@ -258,9 +350,50 @@ var ProjectService = (function () {
      *
      * @returns {Observable<T>}
      */
-    ProjectService.prototype.getNotifications = function () {
-        return this.http.get(this.notificationUrl, { headers: this.headers })
+    ProjectService.prototype.getNotifications = function (start, end) {
+        return this.http.get(this.notificationUrl + '/' + start + '/' + end, { headers: this.headers })
             .map(function (r) { return r.json(); })
+            .catch(this.handleError);
+    };
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    ProjectService.prototype.readAllNotifications = function () {
+        return this.http.get(this.notificationAllReadUrl + '/all/read', { headers: this.headers })
+            .catch(this.handleError);
+    };
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    ProjectService.prototype.deleteNotifications = function (id) {
+        return this.http.delete(this.notificationUrl + '/' + id, { headers: this.headers })
+            .catch(this.handleError);
+    };
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    ProjectService.prototype.deleteDrafts = function (id) {
+        return this.http.delete(this.ideasUrl + id + '/drafts', { headers: this.headers })
+            .catch(this.handleError);
+    };
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    ProjectService.prototype.getMyIdeas = function (start, count) {
+        return this.http.get(this.ideasUrl + 'drafts/' + start + '/' + count, { headers: this.headers })
+            .map(function (r) { return r.json(); })
+            .catch(this.handleError);
+    };
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    ProjectService.prototype.readSigle = function (id) {
+        return this.http.get(this.notificationUrl + '/' + id + '/read', { headers: this.headers })
             .catch(this.handleError);
     };
     /**
@@ -292,7 +425,7 @@ var ProjectService = (function () {
     ProjectService.prototype.getIdeaGoals = function (start, count, search, category) {
         if (search === void 0) { search = ''; }
         if (category === void 0) { category = ''; }
-        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&cateegory=' + category)
+        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&category=' + ((category && category != 'discover') ? category : ''))
             .map(function (r) { return r.json(); })
             .catch(this.handleError);
     };
@@ -344,11 +477,22 @@ var ProjectService = (function () {
     };
     /**
      *
+     * @param slug
+     * @param locale
      * @returns {Observable<R>}
      */
-    ProjectService.prototype.getPage = function () {
-        return this.http.get(this.PageUrl)
+    ProjectService.prototype.getPage = function (slug, locale) {
+        return this.http.get(this.PageUrl + slug + '/' + locale)
             .map(function (r) { return r.json(); })
+            .catch(this.handleError);
+    };
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    ProjectService.prototype.sendEmail = function (emailData) {
+        return this.http.post(this.sendEmailUrl, { 'emailData': emailData })
+            .map(function (r) { return r; })
             .catch(this.handleError);
     };
     /**
@@ -360,8 +504,8 @@ var ProjectService = (function () {
             .catch(this.handleError);
     };
     /**
-    *
-    */
+     *
+     */
     ProjectService.prototype.putComment = function (id, body, commentId) {
         var comment = commentId ? ('/' + commentId) : '';
         return this.http.put(this.putCommentUrl + id + comment, { 'commentBody': body }, { headers: this.headers })
@@ -410,6 +554,15 @@ var ProjectService = (function () {
      */
     ProjectService.prototype.toggleFollow = function (id) {
         return this.http.post(this.followToggleUrl + id + this.followToggleUrl2, { headers: this.headers })
+            .map(function (r) { return r.json(); })
+            .catch(this.handleError);
+    };
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    ProjectService.prototype.getCalendarData = function () {
+        return this.http.get(this.calendarUrl, { headers: this.headers })
             .map(function (r) { return r.json(); })
             .catch(this.handleError);
     };
@@ -479,7 +632,7 @@ var ProjectService = (function () {
     };
     ProjectService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _c) || Object])
     ], ProjectService);
     return ProjectService;
     var _a, _b, _c;
@@ -488,30 +641,72 @@ var ProjectService = (function () {
 
 /***/ },
 
-/***/ 199:
+/***/ 217:
 /***/ function(module, exports) {
 
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal.js.map
 
 /***/ },
 
-/***/ 253:
+/***/ 288:
 /***/ function(module, exports) {
 
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/user.js.map
 
 /***/ },
 
-/***/ 379:
+/***/ 289:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ValidationService; });
+var ValidationService = (function () {
+    function ValidationService() {
+    }
+    ValidationService.getValidatorErrorMessage = function (validatorName, validatorValue) {
+        var config = {
+            'required': 'Required',
+            'invalidEmailAddress': 'Invalid email address',
+            'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
+            'minlength': "Minimum length " + (validatorValue ? validatorValue.requiredLength : 0),
+            'invalidConfirmPassword': 'Invalid confirm password'
+        };
+        return config[validatorName];
+    };
+    ValidationService.emailValidator = function (control) {
+        if (control.value && control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+            return null;
+        }
+        else {
+            return { 'invalidEmailAddress': true };
+        }
+    };
+    ValidationService.passwordValidator = function (control) {
+        // {6,100}           - Assert password is between 6 and 100 characters
+        // (?=.*[0-9])       - Assert a string has at least one number
+        if (control.value && control.value.match(/^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
+            return null;
+        }
+        else {
+            return { 'invalidPassword': true };
+        }
+    };
+    return ValidationService;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/validation.service.js.map
+
+/***/ },
+
+/***/ 468:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_translate__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_translate__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(78);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -555,6 +750,7 @@ var AppComponent = (function () {
             { display: 'English', value: 'en' },
             { display: 'Russian', value: 'ru' }
         ];
+        this._cacheService.set('supportedLanguages', this.supportedLanguages, { maxAge: 3 * 24 * 60 * 60 });
         var data = this._cacheService.get('footerMenu');
         if (data) {
             this.menus = data[0];
@@ -568,12 +764,14 @@ var AppComponent = (function () {
             this._projectService.getUser()
                 .subscribe(function (user) {
                 _this.appUser = user;
+                _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
                 _this.broadcaster.broadcast('getUser', user);
             }, function (error) { return localStorage.removeItem('apiKey'); });
         }
         this.broadcaster.on('login')
             .subscribe(function (user) {
             _this.appUser = user;
+            _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
             _this.broadcaster.broadcast('getUser', user);
         });
         this.broadcaster.on('logout')
@@ -662,15 +860,15 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-root',
-            template: __webpack_require__(854),
-            styles: [__webpack_require__(832)],
+            template: __webpack_require__(987),
+            styles: [__webpack_require__(966)],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */],
                 __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */],
                 __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]
             ]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_translate__["b" /* TranslateService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_translate__["b" /* TranslateService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */]) === 'function' && _e) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_translate__["d" /* TranslateService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_translate__["d" /* TranslateService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */]) === 'function' && _e) || Object])
     ], AppComponent);
     return AppComponent;
     var _a, _b, _c, _d, _e;
@@ -679,12 +877,12 @@ var AppComponent = (function () {
 
 /***/ },
 
-/***/ 380:
+/***/ 469:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AuthGuard; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -718,11 +916,13 @@ var AuthGuard = (function () {
 
 /***/ },
 
-/***/ 381:
+/***/ 470:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_app_validation_service__ = __webpack_require__(289);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return RegisterComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -734,26 +934,75 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var RegisterComponent = (function () {
-    function RegisterComponent() {
+    function RegisterComponent(formBuilder) {
+        // this.registerData = {
+        //   file: '',
+        //   firstName: '',
+        //   lastName: '',
+        //   email: '',
+        //   passwordFirst: '',
+        //   passwordSecond: '',
+        // };
+        this.formBuilder = formBuilder;
+        this.arrayDay = [];
+        this.arrayMonth = [
+            // 'form.birth_date_month',
+            'form.month_january',
+            'form.month_february',
+            'form.month_march',
+            'form.month_april',
+            'form.month_may',
+            'form.month_june',
+            'form.month_july',
+            'form.month_august',
+            'form.month_september',
+            'form.month_october',
+            'form.month_november',
+            'form.month_december'
+        ];
+        this.createDays(31);
+        this.registerData = this.formBuilder.group({
+            'file': ['', null],
+            'firstName': ['', [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required]],
+            'lastName': ['', [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required]],
+            'email': ['', [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2_app_validation_service__["a" /* ValidationService */].emailValidator]],
+            'passwordFirst': ['', [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].minLength(6), __WEBPACK_IMPORTED_MODULE_2_app_validation_service__["a" /* ValidationService */].passwordValidator]],
+            'passwordSecond': ['', [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].minLength(6), __WEBPACK_IMPORTED_MODULE_2_app_validation_service__["a" /* ValidationService */].passwordValidator]]
+        });
     }
     RegisterComponent.prototype.ngOnInit = function () {
+    };
+    RegisterComponent.prototype.createDays = function (number) {
+        for (var i = 1; i <= number; i++) {
+            this.arrayDay.push(i);
+        }
+    };
+    /**
+     *
+     * @param registerData
+     */
+    RegisterComponent.prototype.sendRegisterData = function (registerData) {
+        console.log(registerData);
     };
     RegisterComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-register',
-            template: __webpack_require__(865),
-            styles: [__webpack_require__(843)]
+            template: __webpack_require__(999),
+            styles: [__webpack_require__(976)]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["g" /* FormBuilder */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["g" /* FormBuilder */]) === 'function' && _a) || Object])
     ], RegisterComponent);
     return RegisterComponent;
+    var _a;
 }());
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/register.component.js.map
 
 /***/ },
 
-/***/ 382:
+/***/ 471:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -777,8 +1026,8 @@ var ResettingRequestComponent = (function () {
     ResettingRequestComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-resetting-request',
-            template: __webpack_require__(866),
-            styles: [__webpack_require__(844)]
+            template: __webpack_require__(1000),
+            styles: [__webpack_require__(977)]
         }), 
         __metadata('design:paramtypes', [])
     ], ResettingRequestComponent);
@@ -788,12 +1037,12 @@ var ResettingRequestComponent = (function () {
 
 /***/ },
 
-/***/ 383:
+/***/ 472:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DashboardComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -818,8 +1067,8 @@ var DashboardComponent = (function () {
     DashboardComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-dashboard',
-            template: __webpack_require__(868),
-            styles: [__webpack_require__(853)]
+            template: __webpack_require__(1002),
+            styles: [__webpack_require__(986)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _a) || Object])
     ], DashboardComponent);
@@ -830,14 +1079,14 @@ var DashboardComponent = (function () {
 
 /***/ },
 
-/***/ 384:
+/***/ 473:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__ = __webpack_require__(78);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PageComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -861,34 +1110,71 @@ var PageComponent = (function () {
         this.router = router;
         this.eventId = 0;
         this.isSend = false;
+        this.locale = 'en';
         router.events.subscribe(function (val) {
-            if (_this.eventId != val.id && val instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* NavigationEnd */]) {
+            if (_this.eventId != val.id && val instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* NavigationEnd */]) {
                 _this.eventId = val.id;
                 _this.name = _this.route.snapshot.params['name'] ? _this.route.snapshot.params['name'] : 'how-it-works';
+                if (_this.name == 'contact-us') {
+                    _this.isSend = false;
+                    _this.emailData.fullName = '';
+                    _this.emailData.email = '';
+                    _this.emailData.subject = '';
+                    _this.emailData.message = '';
+                }
+                _this.getPage(_this.name, _this.locale);
             }
         });
+        this.emailData = {
+            fullName: '',
+            email: '',
+            subject: '',
+            message: '',
+        };
     }
     PageComponent.prototype.ngOnInit = function () {
     };
-    PageComponent.prototype.getPage = function () {
+    PageComponent.prototype.getPage = function (name, locale) {
         var _this = this;
-        this._projectService.getPage()
+        this._projectService.getPage(name, locale)
             .subscribe(function (data) {
-            _this.data = data;
-            _this.description = data.description;
-            _this.title = data.title;
-            if (data.isSend) {
-                _this.isSend = data.isSend;
-            }
+            _this.data = data[0];
+            _this.description = _this.data.description;
+            _this.title = _this.data.title;
         });
+    };
+    PageComponent.prototype.checkFormValue = function () {
+        if (this.emailData.fullName.length > 0 &&
+            this.emailData.email.length > 0 &&
+            this.emailData.subject.length > 0 &&
+            this.emailData.message.length > 0) {
+            return true;
+        }
+        return false;
+    };
+    PageComponent.prototype.sendEmail = function (emailData) {
+        var _this = this;
+        if (this.checkFormValue()) {
+            this.emailData.fullName = emailData.fullName;
+            this.emailData.email = emailData.email;
+            this.emailData.subject = emailData.subject;
+            this.emailData.message = emailData.message;
+            this._projectService.sendEmail(this.emailData)
+                .subscribe(function () {
+                _this.isSend = true;
+            });
+        }
+        else {
+            return false;
+        }
     };
     PageComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page',
-            template: __webpack_require__(875),
-            styles: [__webpack_require__(852)]
+            template: __webpack_require__(1009),
+            styles: [__webpack_require__(985)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _d) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _d) || Object])
     ], PageComponent);
     return PageComponent;
     var _a, _b, _c, _d;
@@ -897,7 +1183,7 @@ var PageComponent = (function () {
 
 /***/ },
 
-/***/ 385:
+/***/ 474:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -913,49 +1199,81 @@ var environment = {
 
 /***/ },
 
-/***/ 455:
+/***/ 51:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter__ = __webpack_require__(316);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Broadcaster; });
+
+
+
+var Broadcaster = (function () {
+    function Broadcaster() {
+        this._eventBus = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
+    }
+    Broadcaster.prototype.broadcast = function (key, data) {
+        this._eventBus.next({ key: key, data: data });
+    };
+    Broadcaster.prototype.on = function (key) {
+        return this._eventBus.asObservable()
+            .filter(function (event) { return event.key === key; })
+            .map(function (event) { return event.data; });
+    };
+    return Broadcaster;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/broadcaster.js.map
+
+/***/ },
+
+/***/ 548:
 /***/ function(module, exports, __webpack_require__) {
 
 var map = {
 	"./activity/activity.module": [
-		919,
+		1061,
 		1
 	],
 	"./drafts/drafts.module": [
-		920,
-		7
+		1062,
+		2
 	],
 	"./goal-create/goal-create.module": [
-		921,
+		1063,
 		9
 	],
 	"./goalfriends/goalfriends.module": [
-		922,
-		6
+		1064,
+		7
 	],
 	"./ideas/ideas.module": [
-		923,
-		3
+		1065,
+		4
 	],
 	"./inner/inner.module": [
-		924,
-		2
+		1066,
+		3
 	],
 	"./leaderboard/leaderboard.module": [
-		925,
+		1067,
 		8
 	],
 	"./notification/notification.module": [
-		926,
-		5
+		1068,
+		6
 	],
 	"./profile/profile.module": [
-		927,
+		1069,
 		0
 	],
 	"./settings/settings.module": [
-		928,
-		4
+		1070,
+		5
 	]
 };
 function webpackAsyncContext(req) {
@@ -969,21 +1287,21 @@ webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
 module.exports = webpackAsyncContext;
-webpackAsyncContext.id = 455;
+webpackAsyncContext.id = 548;
 
 
 /***/ },
 
-/***/ 456:
+/***/ 549:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(604);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__polyfills_ts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(549);
+Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(739);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(682);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(385);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(593);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(474);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(727);
 
 
 
@@ -997,25 +1315,29 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 /***/ },
 
-/***/ 458:
+/***/ 551:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__goal_users_goal_users_component__ = __webpack_require__(587);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__goal_footer_goal_footer_component__ = __webpack_require__(585);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__goal_goal_component__ = __webpack_require__(588);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__leaderboard_leaderboard_component__ = __webpack_require__(590);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__goal_friend_goal_friend_component__ = __webpack_require__(586);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pipes_capitalize_pipe__ = __webpack_require__(602);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pipes_round_pipe__ = __webpack_require__(603);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__user_user_component__ = __webpack_require__(592);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__comment_comment_component__ = __webpack_require__(583);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__profile_goal_profile_goal_component__ = __webpack_require__(591);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__goal_users_goal_users_component__ = __webpack_require__(721);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__goal_footer_goal_footer_component__ = __webpack_require__(719);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__goal_goal_component__ = __webpack_require__(722);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__leaderboard_leaderboard_component__ = __webpack_require__(724);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__goal_friend_goal_friend_component__ = __webpack_require__(720);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__user_user_component__ = __webpack_require__(726);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__comment_comment_component__ = __webpack_require__(716);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__profile_goal_profile_goal_component__ = __webpack_require__(725);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__control_messages_control_messages_component__ = __webpack_require__(717);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pipes_capitalize_pipe__ = __webpack_require__(736);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pipes_round_pipe__ = __webpack_require__(738);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pipes_removeTag_pipe__ = __webpack_require__(737);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_markdown_to_html_pipe__ = __webpack_require__(944);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_markdown_to_html_pipe___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17_markdown_to_html_pipe__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ComponentModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1041,6 +1363,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 var ComponentModule = (function () {
     function ComponentModule() {
     }
@@ -1048,8 +1373,8 @@ var ComponentModule = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_2__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_3_ng2_translate__["a" /* TranslateModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_3_ng2_translate__["b" /* TranslateModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["d" /* RouterModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormsModule */]
             ],
             declarations: [
@@ -1058,22 +1383,28 @@ var ComponentModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_6__goal_footer_goal_footer_component__["a" /* GoalFooterComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__leaderboard_leaderboard_component__["a" /* LeaderboardComponent */],
                 __WEBPACK_IMPORTED_MODULE_9__goal_friend_goal_friend_component__["a" /* GoalFriendComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__pipes_capitalize_pipe__["a" /* CapitalizePipe */],
-                __WEBPACK_IMPORTED_MODULE_11__pipes_round_pipe__["a" /* RoundPipe */],
-                __WEBPACK_IMPORTED_MODULE_12__user_user_component__["a" /* UserComponent */],
-                __WEBPACK_IMPORTED_MODULE_13__comment_comment_component__["a" /* CommentComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__profile_goal_profile_goal_component__["a" /* ProfileGoalComponent */]
+                __WEBPACK_IMPORTED_MODULE_14__pipes_capitalize_pipe__["a" /* CapitalizePipe */],
+                __WEBPACK_IMPORTED_MODULE_15__pipes_round_pipe__["a" /* RoundPipe */],
+                __WEBPACK_IMPORTED_MODULE_16__pipes_removeTag_pipe__["a" /* RemoveTagPipe */],
+                __WEBPACK_IMPORTED_MODULE_17_markdown_to_html_pipe__["MarkdownToHtmlPipe"],
+                __WEBPACK_IMPORTED_MODULE_10__user_user_component__["a" /* UserComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__comment_comment_component__["a" /* CommentComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__profile_goal_profile_goal_component__["a" /* ProfileGoalComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__control_messages_control_messages_component__["a" /* ControlMessagesComponent */]
             ],
             exports: [__WEBPACK_IMPORTED_MODULE_5__goal_users_goal_users_component__["a" /* GoalUsersComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__goal_goal_component__["a" /* GoalComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__goal_footer_goal_footer_component__["a" /* GoalFooterComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__leaderboard_leaderboard_component__["a" /* LeaderboardComponent */],
                 __WEBPACK_IMPORTED_MODULE_9__goal_friend_goal_friend_component__["a" /* GoalFriendComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__pipes_capitalize_pipe__["a" /* CapitalizePipe */],
-                __WEBPACK_IMPORTED_MODULE_11__pipes_round_pipe__["a" /* RoundPipe */],
-                __WEBPACK_IMPORTED_MODULE_12__user_user_component__["a" /* UserComponent */],
-                __WEBPACK_IMPORTED_MODULE_13__comment_comment_component__["a" /* CommentComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__profile_goal_profile_goal_component__["a" /* ProfileGoalComponent */]
+                __WEBPACK_IMPORTED_MODULE_14__pipes_capitalize_pipe__["a" /* CapitalizePipe */],
+                __WEBPACK_IMPORTED_MODULE_15__pipes_round_pipe__["a" /* RoundPipe */],
+                __WEBPACK_IMPORTED_MODULE_10__user_user_component__["a" /* UserComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__comment_comment_component__["a" /* CommentComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__profile_goal_profile_goal_component__["a" /* ProfileGoalComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__pipes_removeTag_pipe__["a" /* RemoveTagPipe */],
+                __WEBPACK_IMPORTED_MODULE_17_markdown_to_html_pipe__["MarkdownToHtmlPipe"],
+                __WEBPACK_IMPORTED_MODULE_13__control_messages_control_messages_component__["a" /* ControlMessagesComponent */]
             ]
         }), 
         __metadata('design:paramtypes', [])
@@ -1084,48 +1415,23 @@ var ComponentModule = (function () {
 
 /***/ },
 
-/***/ 47:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 555:
+/***/ function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Broadcaster; });
-
-
-
-var Broadcaster = (function () {
-    function Broadcaster() {
-        this._eventBus = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Subject__["Subject"]();
-    }
-    Broadcaster.prototype.broadcast = function (key, data) {
-        this._eventBus.next({ key: key, data: data });
-    };
-    Broadcaster.prototype.on = function (key) {
-        return this._eventBus.asObservable()
-            .filter(function (event) { return event.key === key; })
-            .map(function (event) { return event.data; });
-    };
-    return Broadcaster;
-}());
-//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/broadcaster.js.map
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.comments-column figure {\n  width: 40px;\n  height: 40px;\n  margin: 0 10px 15px 0;\n  overflow: hidden;\n}\n.comments-column figure img {\n  height: 40px;\n  border: 2px solid #cecece;\n}\n.comments-column figure p {\n  width: 40px;\n  height: 40px;\n  line-height: 35px;\n  color: #ffffff;\n}\n.comments-column .leave-comment {\n  width: 77%;\n  margin: 0 0 0 5px;\n}\n.fos_comment_comment_authorname,\n.fos_comment_comment_new_form {\n  position: relative;\n  background-color: #f4f4f4;\n  display: block;\n  margin-bottom: 15px;\n}\n.fos_comment_comment_authorname i,\n.fos_comment_comment_new_form i {\n  position: absolute;\n}\n.fos_comment_comment_authorname i.arrow-left,\n.fos_comment_comment_new_form i.arrow-left {\n  left: -8px;\n  top: 5px;\n}\n.fos_comment_comment_authorname textarea,\n.fos_comment_comment_new_form textarea {\n  height: auto !important;\n  background-color: #f4f4f4;\n  border: 0;\n  box-shadow: none;\n}\n.fos_comment_comment_authorname p,\n.fos_comment_comment_new_form p {\n  margin: 0 ;\n  padding: 0 !important;\n  font-weight: 600;\n  color: #666666;\n  white-space: normal;\n  text-align: justify;\n}\n.fos_comment_comment_authorname p:last-child,\n.fos_comment_comment_new_form p:last-child {\n  font-weight: normal;\n}\n.fos_comment_comment_authorname span,\n.fos_comment_comment_new_form span {\n  color: #999999;\n  font-size: 13px;\n}\n.fos_comment_comment_authorname {\n  padding: 15px 15px 20px;\n}\n.fos_comment_comment_authorname i.arrow-up {\n  top: -9px;\n}\n.fos_comment_comment_new_form {\n  padding: 0;\n}\n.reply {\n  display: inline-block;\n  padding: 1px 15px 10px;\n  cursor: pointer;\n}\n.comment-place {\n  display: block;\n  padding: 10px;\n  background-color: #f4f4f4;\n  font-size: 17px;\n  position: relative;\n  margin: 0 0 9px;\n  color: #4a4a4a;\n  white-space: normal;\n  word-break: break-word;\n}\n.comment-place a {\n  cursor: pointer;\n}\n.comment-place figure {\n  margin-top: 10px;\n}\n.comment-place figure img {\n  width: 100%;\n}\n.comment-place figure.user-image {\n  margin: 0 10px 8px 0;\n  background-color: transparent;\n  width: 40px;\n  height: 40px;\n}\n.comment-place figure.user-image img,\n.comment-place figure.user-image span {\n  height: 40px;\n  width: 40px;\n  border: 2px solid #cecece;\n  line-height: 34px;\n}\n.comment-place figure.user-image span {\n  display: inline-block;\n}\n.comment-place p {\n  padding: 0;\n  font-size: 13px;\n  color: #666666;\n  margin: 0;\n  white-space: normal;\n  word-break: break-word;\n}\n.comment-place p:first-child {\n  font-weight: 600;\n}\n.comment-place p:last-child {\n  padding: 0 0 5px 0;\n  text-align: justify;\n  font-weight: normal;\n}\n.comment-place span {\n  font-size: 12px;\n  color: #999999;\n}\n.comment-place span.report {\n  font-size: 14px;\n  color: #666666;\n  cursor: pointer;\n}\n.comment-place span.arrow-up {\n  position: absolute;\n  top: -8px;\n  left: 14px;\n}\n.comment-place .swiper-container-free-mode .swiper-wrapper {\n  margin: 20px auto;\n}\n.comment-information p {\n  margin: 0;\n  padding: 0 !important;\n  font-weight: 600;\n  color: #666666;\n  white-space: normal;\n}\n.comment-information span {\n  color: #999999;\n  font-size: 13px;\n}\n.comment-information span.report {\n  color: #666666;\n  font-size: 14px;\n  cursor: pointer;\n}\n@media (min-width: 768px) {\n  .comments-column .leave-comment {\n    width: 90%;\n    margin: 0 0 0 10px;\n  }\n  .comments-column .report {\n    color: #666666;\n    font-size: 14px;\n  }\n  .comment-place {\n    padding: 15px 15px 20px;\n    margin-bottom: 10px;\n  }\n  .comment-place figure.user-image {\n    margin: 0 10px 15px 0;\n  }\n  .comment-place span {\n    font-size: 12px;\n  }\n  .comment-place p {\n    font-size: 14px;\n  }\n}\n@media (min-width: 992px) {\n  .comment-place figure.user-image {\n    margin: 0 20px 15px 0;\n  }\n  .comment-place span {\n    font-size: 13px;\n  }\n  .comment-place span.text-purple {\n    font-size: 14px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 580:
+/***/ 713:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboard_dashboard_component__ = __webpack_require__(383);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_register_register_component__ = __webpack_require__(381);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_resetting_request_resetting_request_component__ = __webpack_require__(382);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_auth_guard__ = __webpack_require__(380);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__page_page_component__ = __webpack_require__(384);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dashboard_dashboard_component__ = __webpack_require__(472);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_register_register_component__ = __webpack_require__(470);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_resetting_request_resetting_request_component__ = __webpack_require__(471);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_auth_guard__ = __webpack_require__(469);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__page_page_component__ = __webpack_require__(473);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return appRouting; });
 
 
@@ -1150,51 +1456,52 @@ var appRoutes = [
     { path: 'ideas', loadChildren: './ideas/ideas.module#IdeasModule' },
     { path: '', component: __WEBPACK_IMPORTED_MODULE_1__dashboard_dashboard_component__["a" /* DashboardComponent */] }
 ];
-var appRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forRoot(appRoutes);
+var appRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["d" /* RouterModule */].forRoot(appRoutes);
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/app-routing.js.map
 
 /***/ },
 
-/***/ 581:
+/***/ 714:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_translate__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_infinite_scroll__ = __webpack_require__(460);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_translate__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_infinite_scroll__ = __webpack_require__(553);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_infinite_scroll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular2_infinite_scroll__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_markdown_to_html_pipe__ = __webpack_require__(810);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_markdown_to_html_pipe___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_markdown_to_html_pipe__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ng2_select_ng2_select__ = __webpack_require__(816);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ng2_select_ng2_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_ng2_select_ng2_select__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng2_dnd__ = __webpack_require__(812);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular2_perfect_scrollbar__ = __webpack_require__(606);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular2_perfect_scrollbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_angular2_perfect_scrollbar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angularfire2__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angular2_useful_swiper__ = __webpack_require__(459);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angular2_useful_swiper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_angular2_useful_swiper__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_component__ = __webpack_require__(379);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__common_auth_guard__ = __webpack_require__(380);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__app_routing__ = __webpack_require__(580);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__dashboard_dashboard_component__ = __webpack_require__(383);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_register_register_component__ = __webpack_require__(381);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__login_login_component__ = __webpack_require__(596);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_discover_goal_discover_goal_component__ = __webpack_require__(584);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_base_stories_base_stories_component__ = __webpack_require__(582);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_home_footer_home_footer_component__ = __webpack_require__(589);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_components_module__ = __webpack_require__(458);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_resetting_request_resetting_request_component__ = __webpack_require__(382);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__page_page_component__ = __webpack_require__(384);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__modals_report_report_component__ = __webpack_require__(600);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__modals_common_common_component__ = __webpack_require__(598);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__modals_users_users_component__ = __webpack_require__(601);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__modals_add_add_component__ = __webpack_require__(597);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__modals_done_done_component__ = __webpack_require__(599);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_select_ng2_select__ = __webpack_require__(950);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_select_ng2_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_ng2_select_ng2_select__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ng2_dnd__ = __webpack_require__(946);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angular2_perfect_scrollbar__ = __webpack_require__(741);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angular2_perfect_scrollbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_angular2_perfect_scrollbar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_material__ = __webpack_require__(552);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__validation_service__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angularfire2__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_angular2_useful_swiper__ = __webpack_require__(554);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_angular2_useful_swiper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_angular2_useful_swiper__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__app_component__ = __webpack_require__(468);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__common_auth_guard__ = __webpack_require__(469);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__app_routing__ = __webpack_require__(713);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__dashboard_dashboard_component__ = __webpack_require__(472);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_register_register_component__ = __webpack_require__(470);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__login_login_component__ = __webpack_require__(730);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_discover_goal_discover_goal_component__ = __webpack_require__(718);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_base_stories_base_stories_component__ = __webpack_require__(715);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_home_footer_home_footer_component__ = __webpack_require__(723);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_components_module__ = __webpack_require__(551);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_resetting_request_resetting_request_component__ = __webpack_require__(471);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__page_page_component__ = __webpack_require__(473);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__modals_report_report_component__ = __webpack_require__(734);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__modals_common_common_component__ = __webpack_require__(732);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__modals_users_users_component__ = __webpack_require__(735);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__modals_add_add_component__ = __webpack_require__(731);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__modals_done_done_component__ = __webpack_require__(733);
 /* unused harmony export firebaseConfig */
+/* unused harmony export createTranslateLoader */
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1205,6 +1512,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1232,8 +1540,8 @@ var firebaseConfig = {
     messagingSenderId: "264286375978"
 };
 var myFirebaseAuthConfig = {
-    provider: __WEBPACK_IMPORTED_MODULE_10_angularfire2__["a" /* AuthProviders */].Google,
-    method: __WEBPACK_IMPORTED_MODULE_10_angularfire2__["b" /* AuthMethods */].Popup
+    provider: __WEBPACK_IMPORTED_MODULE_11_angularfire2__["a" /* AuthProviders */].Google,
+    method: __WEBPACK_IMPORTED_MODULE_11_angularfire2__["b" /* AuthMethods */].Popup
 };
 
 
@@ -1253,50 +1561,59 @@ var myFirebaseAuthConfig = {
 
 
 
+function createTranslateLoader(http) {
+    return new __WEBPACK_IMPORTED_MODULE_4_ng2_translate__["a" /* TranslateStaticLoader */](http, './assets/i18n', '.json');
+}
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_12__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_16__dashboard_dashboard_component__["a" /* DashboardComponent */],
-                __WEBPACK_IMPORTED_MODULE_19__components_discover_goal_discover_goal_component__["a" /* DiscoverGoalComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__components_base_stories_base_stories_component__["a" /* BaseStoriesComponent */],
-                __WEBPACK_IMPORTED_MODULE_21__components_home_footer_home_footer_component__["a" /* HomeFooterComponent */],
-                __WEBPACK_IMPORTED_MODULE_18__login_login_component__["a" /* LoginComponent */],
-                __WEBPACK_IMPORTED_MODULE_17__components_register_register_component__["a" /* RegisterComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__components_resetting_request_resetting_request_component__["a" /* ResettingRequestComponent */],
-                __WEBPACK_IMPORTED_MODULE_24__page_page_component__["a" /* PageComponent */],
-                __WEBPACK_IMPORTED_MODULE_6_markdown_to_html_pipe__["MarkdownToHtmlPipe"],
-                __WEBPACK_IMPORTED_MODULE_25__modals_report_report_component__["a" /* ReportComponent */],
-                __WEBPACK_IMPORTED_MODULE_25__modals_report_report_component__["a" /* ReportComponent */],
-                __WEBPACK_IMPORTED_MODULE_26__modals_common_common_component__["a" /* CommonComponent */],
-                __WEBPACK_IMPORTED_MODULE_27__modals_users_users_component__["a" /* UsersComponent */],
-                __WEBPACK_IMPORTED_MODULE_28__modals_add_add_component__["a" /* AddComponent */],
-                __WEBPACK_IMPORTED_MODULE_29__modals_done_done_component__["a" /* DoneComponent */]
+                __WEBPACK_IMPORTED_MODULE_13__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_17__dashboard_dashboard_component__["a" /* DashboardComponent */],
+                __WEBPACK_IMPORTED_MODULE_20__components_discover_goal_discover_goal_component__["a" /* DiscoverGoalComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__components_base_stories_base_stories_component__["a" /* BaseStoriesComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__components_home_footer_home_footer_component__["a" /* HomeFooterComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__login_login_component__["a" /* LoginComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__components_register_register_component__["a" /* RegisterComponent */],
+                __WEBPACK_IMPORTED_MODULE_24__components_resetting_request_resetting_request_component__["a" /* ResettingRequestComponent */],
+                __WEBPACK_IMPORTED_MODULE_25__page_page_component__["a" /* PageComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__modals_report_report_component__["a" /* ReportComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__modals_report_report_component__["a" /* ReportComponent */],
+                __WEBPACK_IMPORTED_MODULE_27__modals_common_common_component__["a" /* CommonComponent */],
+                __WEBPACK_IMPORTED_MODULE_28__modals_users_users_component__["a" /* UsersComponent */],
+                __WEBPACK_IMPORTED_MODULE_29__modals_add_add_component__["a" /* AddComponent */],
+                __WEBPACK_IMPORTED_MODULE_30__modals_done_done_component__["a" /* DoneComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["BrowserModule"],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_22__components_components_module__["a" /* ComponentModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* ReactiveFormsModule */],
+                __WEBPACK_IMPORTED_MODULE_23__components_components_module__["a" /* ComponentModule */],
                 __WEBPACK_IMPORTED_MODULE_5_angular2_infinite_scroll__["InfiniteScrollModule"],
-                __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_http__["d" /* JsonpModule */],
-                __WEBPACK_IMPORTED_MODULE_14__app_routing__["a" /* appRouting */],
-                __WEBPACK_IMPORTED_MODULE_7_ng2_select_ng2_select__["SelectModule"],
-                __WEBPACK_IMPORTED_MODULE_11_angular2_useful_swiper__["SwiperModule"],
+                __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* JsonpModule */],
+                __WEBPACK_IMPORTED_MODULE_15__app_routing__["a" /* appRouting */],
+                __WEBPACK_IMPORTED_MODULE_6_ng2_select_ng2_select__["SelectModule"],
+                __WEBPACK_IMPORTED_MODULE_12_angular2_useful_swiper__["SwiperModule"],
                 // FileDroppa,
-                __WEBPACK_IMPORTED_MODULE_10_angularfire2__["d" /* AngularFireModule */].initializeApp(firebaseConfig, myFirebaseAuthConfig),
-                __WEBPACK_IMPORTED_MODULE_9_angular2_perfect_scrollbar__["PerfectScrollbarModule"].forRoot(PERFECT_SCROLLBAR_CONFIG),
-                __WEBPACK_IMPORTED_MODULE_8_ng2_dnd__["a" /* DndModule */].forRoot(),
-                __WEBPACK_IMPORTED_MODULE_4_ng2_translate__["a" /* TranslateModule */].forRoot()
+                __WEBPACK_IMPORTED_MODULE_11_angularfire2__["c" /* AngularFireModule */].initializeApp(firebaseConfig, myFirebaseAuthConfig),
+                __WEBPACK_IMPORTED_MODULE_8_angular2_perfect_scrollbar__["PerfectScrollbarModule"].forRoot(PERFECT_SCROLLBAR_CONFIG),
+                __WEBPACK_IMPORTED_MODULE_7_ng2_dnd__["a" /* DndModule */].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_9__angular_material__["MaterialModule"].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_4_ng2_translate__["b" /* TranslateModule */].forRoot({
+                    provide: __WEBPACK_IMPORTED_MODULE_4_ng2_translate__["c" /* TranslateLoader */],
+                    useFactory: (createTranslateLoader),
+                    deps: [__WEBPACK_IMPORTED_MODULE_3__angular_http__["c" /* Http */]]
+                })
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_15__project_service__["a" /* ProjectService */],
-                __WEBPACK_IMPORTED_MODULE_13__common_auth_guard__["a" /* AuthGuard */]
+                __WEBPACK_IMPORTED_MODULE_16__project_service__["a" /* ProjectService */],
+                __WEBPACK_IMPORTED_MODULE_14__common_auth_guard__["a" /* AuthGuard */],
+                __WEBPACK_IMPORTED_MODULE_10__validation_service__["a" /* ValidationService */]
             ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_12__app_component__["a" /* AppComponent */]]
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_13__app_component__["a" /* AppComponent */]]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);
@@ -1306,14 +1623,14 @@ var AppModule = (function () {
 
 /***/ },
 
-/***/ 582:
+/***/ 715:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__ = __webpack_require__(51);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return BaseStoriesComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1366,8 +1683,8 @@ var BaseStoriesComponent = (function () {
     BaseStoriesComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-base-stories',
-            template: __webpack_require__(855),
-            styles: [__webpack_require__(833)],
+            template: __webpack_require__(988),
+            styles: [__webpack_require__(967)],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */],
                 __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
@@ -1382,14 +1699,15 @@ var BaseStoriesComponent = (function () {
 
 /***/ },
 
-/***/ 583:
+/***/ 716:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__ = __webpack_require__(78);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CommentComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1404,10 +1722,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var CommentComponent = (function () {
-    function CommentComponent(broadcaster, _projectService, router) {
+    function CommentComponent(broadcaster, _projectService, _cacheService, router) {
         this.broadcaster = broadcaster;
         this._projectService = _projectService;
+        this._cacheService = _cacheService;
         this.router = router;
         this.serverPath = '';
         this.isInner = false;
@@ -1441,11 +1761,15 @@ var CommentComponent = (function () {
         else {
             this.appUser = this._projectService.getMyUser();
             if (!this.appUser) {
-                this._projectService.getUser()
-                    .subscribe(function (user) {
-                    _this.appUser = user;
-                    _this.broadcaster.broadcast('getUser', user);
-                });
+                this.appUser = this._cacheService.get('user_');
+                if (!this.appUser) {
+                    this._projectService.getUser()
+                        .subscribe(function (user) {
+                        _this.appUser = user;
+                        _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+                        _this.broadcaster.broadcast('getUser', user);
+                    });
+                }
             }
             if (this.data && this.data.slug) {
                 this._projectService.getComments(this.data.slug).subscribe(function (comments) {
@@ -1514,25 +1838,87 @@ var CommentComponent = (function () {
     CommentComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-comment',
-            template: __webpack_require__(856),
-            styles: [__webpack_require__(834)]
+            template: __webpack_require__(989),
+            styles: [__webpack_require__(555)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]) === 'function' && _d) || Object])
     ], CommentComponent);
     return CommentComponent;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/comment.component.js.map
 
 /***/ },
 
-/***/ 584:
+/***/ 717:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__validation_service__ = __webpack_require__(289);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ControlMessagesComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var ControlMessagesComponent = (function () {
+    function ControlMessagesComponent() {
+    }
+    Object.defineProperty(ControlMessagesComponent.prototype, "errorMessage", {
+        get: function () {
+            for (var propertyName in this.control.errors) {
+                if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
+                    return __WEBPACK_IMPORTED_MODULE_2__validation_service__["a" /* ValidationService */].getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+                }
+            }
+            if (this.confirmPassword) {
+                if (this.confirmPassword.value != this.control.value && this.control.touched) {
+                    return __WEBPACK_IMPORTED_MODULE_2__validation_service__["a" /* ValidationService */].getValidatorErrorMessage('invalidConfirmPassword');
+                }
+            }
+            return null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* FormControl */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* FormControl */]) === 'function' && _a) || Object)
+    ], ControlMessagesComponent.prototype, "control", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', Object)
+    ], ControlMessagesComponent.prototype, "confirmPassword", void 0);
+    ControlMessagesComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'control-messages',
+            template: __webpack_require__(990)
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ControlMessagesComponent);
+    return ControlMessagesComponent;
+    var _a;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/control-messages.component.js.map
+
+/***/ },
+
+/***/ 718:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(19);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DiscoverGoalComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1572,8 +1958,8 @@ var DiscoverGoalComponent = (function () {
     DiscoverGoalComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-discover-goal',
-            template: __webpack_require__(857),
-            styles: [__webpack_require__(835)],
+            template: __webpack_require__(991),
+            styles: [__webpack_require__(968)],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */],
                 __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
@@ -1588,15 +1974,15 @@ var DiscoverGoalComponent = (function () {
 
 /***/ },
 
-/***/ 585:
+/***/ 719:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal__ = __webpack_require__(217);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_goal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(19);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalFooterComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1651,8 +2037,8 @@ var GoalFooterComponent = (function () {
     GoalFooterComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-goal-footer',
-            template: __webpack_require__(858),
-            styles: [__webpack_require__(836)]
+            template: __webpack_require__(992),
+            styles: [__webpack_require__(969)]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object])
     ], GoalFooterComponent);
@@ -1663,12 +2049,12 @@ var GoalFooterComponent = (function () {
 
 /***/ },
 
-/***/ 586:
+/***/ 720:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_user__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_user__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_user___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_user__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalFriendComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1695,8 +2081,8 @@ var GoalFriendComponent = (function () {
     GoalFriendComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'goal-friend',
-            template: __webpack_require__(859),
-            styles: [__webpack_require__(837)],
+            template: __webpack_require__(993),
+            styles: [__webpack_require__(970)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
         __metadata('design:paramtypes', [])
@@ -1708,19 +2094,20 @@ var GoalFriendComponent = (function () {
 
 /***/ },
 
-/***/ 587:
+/***/ 721:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interface_goal__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__interface_goal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface_story__ = __webpack_require__(594);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface_story___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__interface_story__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__interface_user__ = __webpack_require__(253);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__interface_user___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__interface_user__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface_goal__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__interface_goal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__interface_story__ = __webpack_require__(728);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__interface_story___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__interface_story__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__interface_user__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__interface_user___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__interface_user__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalUsersComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1737,9 +2124,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var GoalUsersComponent = (function () {
-    function GoalUsersComponent(_projectService, broadcaster) {
+    function GoalUsersComponent(_projectService, _cacheService, broadcaster) {
         this._projectService = _projectService;
+        this._cacheService = _cacheService;
         this.broadcaster = broadcaster;
     }
     GoalUsersComponent.prototype.ngOnInit = function () {
@@ -1751,11 +2140,15 @@ var GoalUsersComponent = (function () {
         if (localStorage.getItem('apiKey')) {
             this.appUser = this._projectService.getMyUser();
             if (!this.appUser) {
-                this._projectService.getUser()
-                    .subscribe(function (user) {
-                    _this.appUser = user;
-                    _this.broadcaster.broadcast('getUser', user);
-                });
+                this.appUser = this._cacheService.get('user_');
+                if (!this.appUser) {
+                    this._projectService.getUser()
+                        .subscribe(function (user) {
+                        _this.appUser = user;
+                        _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+                        _this.broadcaster.broadcast('getUser', user);
+                    });
+                }
             }
         }
     };
@@ -1792,15 +2185,15 @@ var GoalUsersComponent = (function () {
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__interface_goal__["Goal"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__interface_goal__["Goal"]) === 'function' && _a) || Object)
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__interface_goal__["Goal"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__interface_goal__["Goal"]) === 'function' && _a) || Object)
     ], GoalUsersComponent.prototype, "goal", void 0);
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__interface_story__["Story"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__interface_story__["Story"]) === 'function' && _b) || Object)
+        __metadata('design:type', (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__interface_story__["Story"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__interface_story__["Story"]) === 'function' && _b) || Object)
     ], GoalUsersComponent.prototype, "story", void 0);
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
-        __metadata('design:type', (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__interface_user__["User"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__interface_user__["User"]) === 'function' && _c) || Object)
+        __metadata('design:type', (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__interface_user__["User"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_6__interface_user__["User"]) === 'function' && _c) || Object)
     ], GoalUsersComponent.prototype, "user", void 0);
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
@@ -1809,26 +2202,26 @@ var GoalUsersComponent = (function () {
     GoalUsersComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'goal-users',
-            template: __webpack_require__(860),
-            styles: [__webpack_require__(838)]
+            template: __webpack_require__(994),
+            styles: [__webpack_require__(971)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _e) || Object])
+        __metadata('design:paramtypes', [(typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _f) || Object])
     ], GoalUsersComponent);
     return GoalUsersComponent;
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f;
 }());
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-users.component.js.map
 
 /***/ },
 
-/***/ 588:
+/***/ 722:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal__ = __webpack_require__(217);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_goal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_goal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(19);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1878,8 +2271,8 @@ var GoalComponent = (function () {
     GoalComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-goal',
-            template: __webpack_require__(861),
-            styles: [__webpack_require__(839)],
+            template: __webpack_require__(995),
+            styles: [__webpack_require__(972)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
         __metadata('design:paramtypes', [(typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object])
@@ -1891,7 +2284,7 @@ var GoalComponent = (function () {
 
 /***/ },
 
-/***/ 589:
+/***/ 723:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1907,12 +2300,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+// import { Router } from '@angular/router';
 var HomeFooterComponent = (function () {
     function HomeFooterComponent() {
     }
     HomeFooterComponent.prototype.ngOnChanges = function () {
         if (this.privacyMenu && this.privacyMenu.isTerm) {
-            this.url = this.privacyMenu.url;
+            this.slug = this.privacyMenu.slug;
             this.name = this.privacyMenu.name;
         }
     };
@@ -1923,8 +2317,8 @@ var HomeFooterComponent = (function () {
     HomeFooterComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'home-footer',
-            template: __webpack_require__(862),
-            styles: [__webpack_require__(840)]
+            template: __webpack_require__(996),
+            styles: [__webpack_require__(973)]
         }), 
         __metadata('design:paramtypes', [])
     ], HomeFooterComponent);
@@ -1934,7 +2328,7 @@ var HomeFooterComponent = (function () {
 
 /***/ },
 
-/***/ 590:
+/***/ 724:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1978,8 +2372,8 @@ var LeaderboardComponent = (function () {
     LeaderboardComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'leaderboard',
-            template: __webpack_require__(863),
-            styles: [__webpack_require__(841)],
+            template: __webpack_require__(997),
+            styles: [__webpack_require__(974)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
         __metadata('design:paramtypes', [])
@@ -1990,15 +2384,16 @@ var LeaderboardComponent = (function () {
 
 /***/ },
 
-/***/ 591:
+/***/ 725:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_userGoal__ = __webpack_require__(595);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_userGoal__ = __webpack_require__(729);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface_userGoal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__interface_userGoal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tools_broadcaster__ = __webpack_require__(51);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileGoalComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2013,9 +2408,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ProfileGoalComponent = (function () {
-    function ProfileGoalComponent(broadcaster, _projectService) {
+    function ProfileGoalComponent(broadcaster, _cacheService, _projectService) {
         this.broadcaster = broadcaster;
+        this._cacheService = _cacheService;
         this._projectService = _projectService;
         this.change = 0;
         this.isMobile = (window.innerWidth < 768);
@@ -2025,11 +2422,15 @@ var ProfileGoalComponent = (function () {
         if (localStorage.getItem('apiKey')) {
             this.appUser = this._projectService.getMyUser();
             if (!this.appUser) {
-                this._projectService.getUser()
-                    .subscribe(function (user) {
-                    _this.appUser = user;
-                    _this.broadcaster.broadcast('getUser', user);
-                });
+                this.appUser = this._cacheService.get('user_');
+                if (!this.appUser) {
+                    this._projectService.getUser()
+                        .subscribe(function (user) {
+                        _this.appUser = user;
+                        _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+                        _this.broadcaster.broadcast('getUser', user);
+                    });
+                }
             }
         }
         else {
@@ -2072,27 +2473,27 @@ var ProfileGoalComponent = (function () {
     ProfileGoalComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'profile-goal',
-            template: __webpack_require__(864),
-            styles: [__webpack_require__(842)],
+            template: __webpack_require__(998),
+            styles: [__webpack_require__(975)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _d) || Object])
     ], ProfileGoalComponent);
     return ProfileGoalComponent;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile-goal.component.js.map
 
 /***/ },
 
-/***/ 592:
+/***/ 726:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interface_user__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interface_user__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interface_user___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__interface_user__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return UserComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2132,8 +2533,8 @@ var UserComponent = (function () {
     UserComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-user',
-            template: __webpack_require__(867),
-            styles: [__webpack_require__(845)],
+            template: __webpack_require__(1001),
+            styles: [__webpack_require__(978)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object])
@@ -2145,13 +2546,13 @@ var UserComponent = (function () {
 
 /***/ },
 
-/***/ 593:
+/***/ 727:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(379);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(581);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(468);
 /* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(714);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__app_module__["a"]; });
 
 
@@ -2159,29 +2560,29 @@ var UserComponent = (function () {
 
 /***/ },
 
-/***/ 594:
+/***/ 728:
 /***/ function(module, exports) {
 
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/story.js.map
 
 /***/ },
 
-/***/ 595:
+/***/ 729:
 /***/ function(module, exports) {
 
 //# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/userGoal.js.map
 
 /***/ },
 
-/***/ 596:
+/***/ 730:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2__ = __webpack_require__(108);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return LoginComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2262,12 +2663,10 @@ var LoginComponent = (function () {
             case FACEBOOK:
                 this.facebookLogin().then(function (socialUser) {
                     if (socialUser.facebook && socialUser.facebook.accessToken) {
-                        console.log(socialUser.facebook.accessToken);
                         _this.setData('facebook', socialUser.facebook.accessToken);
                     }
                 }).catch(function (error) {
                     if (error.credential && error.credential.accessToken) {
-                        console.log(error.credential.accessToken);
                         _this.setData('facebook', error.credential.accessToken);
                     }
                     _this.errorHandler(error);
@@ -2336,11 +2735,11 @@ var LoginComponent = (function () {
     LoginComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'my-login',
-            template: __webpack_require__(869),
-            styles: [__webpack_require__(846)],
+            template: __webpack_require__(1003),
+            styles: [__webpack_require__(979)],
             providers: [__WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]]
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4_angularfire2__["c" /* AngularFire */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4_angularfire2__["c" /* AngularFire */]) === 'function' && _e) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4_angularfire2__["d" /* AngularFire */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4_angularfire2__["d" /* AngularFire */]) === 'function' && _e) || Object])
     ], LoginComponent);
     return LoginComponent;
     var _a, _b, _c, _d, _e;
@@ -2349,13 +2748,13 @@ var LoginComponent = (function () {
 
 /***/ },
 
-/***/ 597:
+/***/ 731:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AddComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2402,13 +2801,13 @@ var AddComponent = (function () {
         configurable: true
     });
     AddComponent.prototype.selected = function (value) {
-        console.log('Selected value is: ', value);
+        // console.log('Selected value is: ', value);
     };
     AddComponent.prototype.removed = function (value) {
-        console.log('Removed value is: ', value);
+        // console.log('Removed value is: ', value);
     };
     AddComponent.prototype.typed = function (value) {
-        console.log('New search input: ', value);
+        // console.log('New search input: ', value);
     };
     AddComponent.prototype.refreshValue = function (value, type) {
         this.value = value;
@@ -2488,8 +2887,8 @@ var AddComponent = (function () {
     AddComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'add-modal',
-            template: __webpack_require__(870),
-            styles: [__webpack_require__(847)],
+            template: __webpack_require__(1004),
+            styles: [__webpack_require__(980)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
@@ -2501,13 +2900,13 @@ var AddComponent = (function () {
 
 /***/ },
 
-/***/ 598:
+/***/ 732:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CommonComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2586,8 +2985,8 @@ var CommonComponent = (function () {
     CommonComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'common-modal',
-            template: __webpack_require__(871),
-            styles: [__webpack_require__(848)],
+            template: __webpack_require__(1005),
+            styles: [__webpack_require__(981)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
@@ -2599,13 +2998,13 @@ var CommonComponent = (function () {
 
 /***/ },
 
-/***/ 599:
+/***/ 733:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DoneComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2650,7 +3049,7 @@ var DoneComponent = (function () {
         success || console.log("not uploaded - very bad", response, file);
     };
     DoneComponent.prototype.filesUpdated = function (files) {
-        console.log("Store state updated! Current state: ", files);
+        // console.log("Store state updated! Current state: ", files)
     };
     DoneComponent.prototype.beforeRequest = function (xhr) {
         xhr.setRequestHeader('apikey', localStorage.getItem('apiKey'));
@@ -2666,8 +3065,8 @@ var DoneComponent = (function () {
     DoneComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'done-modal',
-            template: __webpack_require__(872),
-            styles: [__webpack_require__(849)],
+            template: __webpack_require__(1006),
+            styles: [__webpack_require__(982)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
@@ -2679,13 +3078,13 @@ var DoneComponent = (function () {
 
 /***/ },
 
-/***/ 600:
+/***/ 734:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ReportComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2747,8 +3146,8 @@ var ReportComponent = (function () {
     ReportComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'report-modal',
-            template: __webpack_require__(873),
-            styles: [__webpack_require__(850)]
+            template: __webpack_require__(1007),
+            styles: [__webpack_require__(983)]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
     ], ReportComponent);
@@ -2759,13 +3158,13 @@ var ReportComponent = (function () {
 
 /***/ },
 
-/***/ 601:
+/***/ 735:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(26);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return UsersComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2851,8 +3250,8 @@ var UsersComponent = (function () {
     UsersComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'users-modal',
-            template: __webpack_require__(874),
-            styles: [__webpack_require__(851)],
+            template: __webpack_require__(1008),
+            styles: [__webpack_require__(984)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
@@ -2864,7 +3263,7 @@ var UsersComponent = (function () {
 
 /***/ },
 
-/***/ 602:
+/***/ 736:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2900,7 +3299,41 @@ var CapitalizePipe = (function () {
 
 /***/ },
 
-/***/ 603:
+/***/ 737:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return RemoveTagPipe; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var RemoveTagPipe = (function () {
+    function RemoveTagPipe() {
+    }
+    RemoveTagPipe.prototype.transform = function (value, args) {
+        if (!value)
+            return value;
+        return value.replace('/#([^\s#])/', '$1');
+    };
+    RemoveTagPipe = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({ name: 'removeTag' }), 
+        __metadata('design:paramtypes', [])
+    ], RemoveTagPipe);
+    return RemoveTagPipe;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/removeTag.pipe.js.map
+
+/***/ },
+
+/***/ 738:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2932,41 +3365,41 @@ var RoundPipe = (function () {
 
 /***/ },
 
-/***/ 604:
+/***/ 739:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(632);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(767);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(625);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(760);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(621);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(756);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(627);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(762);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(626);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(761);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(624);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(759);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(623);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(758);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(631);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(766);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(620);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(755);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(619);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(754);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(629);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(764);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(622);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(757);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(630);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(765);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(628);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(763);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(633);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(768);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(916);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(1058);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -2988,321 +3421,243 @@ var RoundPipe = (function () {
 
 /***/ },
 
-/***/ 832:
+/***/ 966:
 /***/ function(module, exports) {
 
 module.exports = ".user-menu {\n  position: absolute;\n}\n"
 
 /***/ },
 
-/***/ 833:
+/***/ 967:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 834:
-/***/ function(module, exports) {
-
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.comments-column figure {\n  width: 40px;\n  height: 40px;\n  margin: 0 10px 15px 0;\n  overflow: hidden;\n}\n.comments-column figure img {\n  height: 40px;\n  border: 2px solid #cecece;\n}\n.comments-column figure p {\n  width: 40px;\n  height: 40px;\n  line-height: 35px;\n  color: #ffffff;\n}\n.comments-column .leave-comment {\n  width: 77%;\n  margin: 0 0 0 5px;\n}\n.fos_comment_comment_authorname,\n.fos_comment_comment_new_form {\n  position: relative;\n  background-color: #f4f4f4;\n  display: block;\n  margin-bottom: 15px;\n}\n.fos_comment_comment_authorname i,\n.fos_comment_comment_new_form i {\n  position: absolute;\n}\n.fos_comment_comment_authorname i.arrow-left,\n.fos_comment_comment_new_form i.arrow-left {\n  left: -8px;\n  top: 5px;\n}\n.fos_comment_comment_authorname textarea,\n.fos_comment_comment_new_form textarea {\n  height: auto !important;\n  background-color: #f4f4f4;\n  border: 0;\n  box-shadow: none;\n}\n.fos_comment_comment_authorname p,\n.fos_comment_comment_new_form p {\n  margin: 0 ;\n  padding: 0 !important;\n  font-weight: 600;\n  color: #666666;\n  white-space: normal;\n  text-align: justify;\n}\n.fos_comment_comment_authorname p:last-child,\n.fos_comment_comment_new_form p:last-child {\n  font-weight: normal;\n}\n.fos_comment_comment_authorname span,\n.fos_comment_comment_new_form span {\n  color: #999999;\n  font-size: 13px;\n}\n.fos_comment_comment_authorname {\n  padding: 15px 15px 20px;\n}\n.fos_comment_comment_authorname i.arrow-up {\n  top: -9px;\n}\n.fos_comment_comment_new_form {\n  padding: 0;\n}\n.reply {\n  display: inline-block;\n  padding: 1px 15px 10px;\n  cursor: pointer;\n}\n.comment-place {\n  display: block;\n  padding: 10px 10px 0;\n  background-color: #f4f4f4;\n  font-size: 17px;\n  position: relative;\n  margin: 0 0 9px;\n  color: #4a4a4a;\n  white-space: normal;\n  word-break: break-word;\n}\n.comment-place a {\n  cursor: pointer;\n}\n.comment-place figure {\n  margin-top: 10px;\n}\n.comment-place figure img {\n  width: 100%;\n}\n.comment-place figure.user-image {\n  margin: 0 10px 8px 0;\n  background-color: transparent;\n  width: 40px;\n  height: 40px;\n}\n.comment-place figure.user-image img,\n.comment-place figure.user-image span {\n  height: 40px;\n  width: 40px;\n  border: 2px solid #cecece;\n  line-height: 34px;\n}\n.comment-place figure.user-image span {\n  display: inline-block;\n}\n.comment-place p {\n  padding: 0;\n  font-size: 13px;\n  color: #666666;\n  margin: 0;\n  white-space: normal;\n  word-break: break-word;\n}\n.comment-place p:first-child {\n  font-weight: 600;\n}\n.comment-place p:last-child {\n  padding: 0 0 5px 0;\n  text-align: justify;\n  font-weight: normal;\n}\n.comment-place span {\n  font-size: 12px;\n  color: #999999;\n}\n.comment-place span.report {\n  font-size: 14px;\n  color: #666666;\n  cursor: pointer;\n}\n.comment-place .swiper-container-free-mode .swiper-wrapper {\n  margin: 20px auto;\n}\n.comment-information p {\n  margin: 0;\n  padding: 0 !important;\n  font-weight: 600;\n  color: #666666;\n  white-space: normal;\n}\n.comment-information span {\n  color: #999999;\n  font-size: 13px;\n}\n.comment-information span.report {\n  color: #666666;\n  font-size: 14px;\n}\n@media (min-width: 768px) {\n  .comments-column .leave-comment {\n    width: 90%;\n    margin: 0 0 0 10px;\n  }\n  .comments-column .report {\n    color: #666666;\n    font-size: 14px;\n  }\n  .comment-place {\n    padding: 15px 10px 5px;\n    margin-bottom: 10px;\n  }\n  .comment-place figure.user-image {\n    margin: 0 10px 15px 0;\n  }\n  .comment-place span {\n    font-size: 12px;\n  }\n  .comment-place p {\n    font-size: 14px;\n  }\n}\n@media (min-width: 992px) {\n  .comment-place {\n    padding: 20px 15px 30px;\n    margin-bottom: 20px;\n  }\n  .comment-place figure.user-image {\n    margin: 0 20px 15px 0;\n  }\n  .comment-place span {\n    font-size: 13px;\n  }\n  .comment-place span.text-purple {\n    font-size: 14px;\n  }\n}\n"
-
-/***/ },
-
-/***/ 835:
+/***/ 968:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 836:
+/***/ 969:
 /***/ function(module, exports) {
 
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\nfigcaption {\n  background-color: #ffffff;\n}\nfigcaption ul li {\n  height: 35px;\n  line-height: 31px;\n}\nfigcaption ul li a:hover,\nfigcaption ul li a:focus {\n  text-decoration: none;\n}\nfigcaption ul li i {\n  font-size: 25px;\n  vertical-align: middle;\n}\nfigcaption ul li i.icon-green-ok,\nfigcaption ul li .icon-green-plus {\n  font-size: 36px;\n  vertical-align: middle;\n}\nfigcaption ul li:hover {\n  background-color: #7724f6;\n  color: #fff;\n}\nfigcaption ul li:hover a .text {\n  color: #ffffff;\n}\nfigcaption ul li .text {\n  font-size: 12px;\n}\nfigcaption ul li:last-child {\n  text-align: left;\n}\nfigcaption ul .transparent .text {\n  color: #a4a4a4;\n}\nfigcaption ul .transparent:hover {\n  background-color: transparent;\n}\nfigcaption ul .transparent:hover a,\nfigcaption ul .transparent:hover .text {\n  color: #a4a4a4;\n}\n@media (min-width: 768px) {\n  figcaption ul li {\n    height: 50px;\n    line-height: 45px;\n  }\n  figcaption ul li i.icon-green-ok,\n  figcaption ul li .icon-green-plus {\n    font-size: 49px;\n  }\n  figcaption ul li i {\n    font-size: 30px;\n  }\n  figcaption ul li .text {\n    font-size: 14px;\n  }\n  figcaption ul li:last-child {\n    text-align: center;\n  }\n}\n@media (min-width: 992px) {\n  figcaption ul li:hover {\n    background-color: #7724F6;\n    color: #ffffff;\n  }\n  figcaption ul li:focus,\n  figcaption ul li:active {\n    background-color: #6108EA;\n  }\n  figcaption ul li:focus a,\n  figcaption ul li:active a {\n    color: #ffffff;\n  }\n}\n"
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\nfigcaption {\n  background-color: #ffffff;\n}\nfigcaption ul li {\n  height: 35px;\n  line-height: 31px;\n}\nfigcaption ul li a:hover,\nfigcaption ul li a:focus {\n  text-decoration: none;\n}\nfigcaption ul li i {\n  font-size: 25px;\n  vertical-align: middle;\n}\nfigcaption ul li i.icon-green-ok,\nfigcaption ul li .icon-green-plus {\n  font-size: 36px;\n  vertical-align: middle;\n}\nfigcaption ul li:hover {\n  background-color: #7724f6;\n  color: #fff;\n}\nfigcaption ul li:hover a .text {\n  color: #ffffff;\n}\nfigcaption ul li .text {\n  font-size: 12px;\n}\nfigcaption ul .transparent .text {\n  color: #a4a4a4;\n}\nfigcaption ul .transparent:hover {\n  background-color: transparent;\n}\nfigcaption ul .transparent:hover a,\nfigcaption ul .transparent:hover .text {\n  color: #a4a4a4;\n}\n@media (min-width: 768px) {\n  figcaption ul li {\n    height: 50px;\n    line-height: 45px;\n  }\n  figcaption ul li i.icon-green-ok,\n  figcaption ul li .icon-green-plus {\n    font-size: 49px;\n  }\n  figcaption ul li i {\n    font-size: 30px;\n  }\n  figcaption ul li .text {\n    font-size: 14px;\n  }\n  figcaption ul li:last-child {\n    text-align: center;\n  }\n}\n@media (min-width: 992px) {\n  figcaption ul li:hover {\n    background-color: #7724F6;\n    color: #ffffff;\n  }\n  figcaption ul li:focus,\n  figcaption ul li:active {\n    background-color: #6108EA;\n  }\n  figcaption ul li:focus a,\n  figcaption ul li:active a {\n    color: #ffffff;\n  }\n}\n"
 
 /***/ },
 
-/***/ 837:
+/***/ 970:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.list {\n  padding-left: 0;\n}\n.list li {\n  border-bottom: 1px solid #eeeeee;\n  margin-bottom: 7px;\n  padding-bottom: 7px;\n}\n.list li:last-child {\n  border-bottom: 0;\n  margin-bottom: 0;\n  padding-bottom: 0;\n}\n.list li figure {\n  margin: 0 10px 0;\n}\n.list li .image {\n  float: left;\n}\n.list li h4 {\n  padding: 5px 0 2px 0;\n  margin: 3px 0 0;\n  font-size: 14px;\n  font-weight: 600;\n}\n.list li h4 span {\n  display: inline-block;\n}\n.list li a {\n  font-size: 13px;\n}\n@media (min-width: 768px) {\n  .list li {\n    margin-bottom: 10px;\n    padding-bottom: 10px;\n  }\n  .list li figure {\n    margin: 0 20px 0 0;\n  }\n  .list li h4 {\n    font-size: 16px;\n  }\n  .list li a {\n    font-size: 13px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 838:
+/***/ 971:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.like-active {\n  background: url('../../../assets/images/like-active.png') no-repeat center center;\n  background-size: 100%;\n}\n@media (min-width: 768px) {\n  .like-icon {\n    height: 31px;\n    width: 59px;\n    margin: 0 0 0 12px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 839:
+/***/ 972:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.ideas-result {\n  padding-top: 20px;\n}\n.idea-item .goal-item-image {\n  display: block;\n  height: 230px;\n}\n.idea-item .height .goal-item-image {\n  height: 540px;\n}\n.idea-item .height .goal-item-image .overlay {\n  height: 540px;\n}\n.idea-item .nearby-distance {\n  position: absolute;\n  overflow: initial;\n  width: 30px;\n  z-index: 10;\n  top: 19px;\n  right: 50px;\n}\n.idea-item .nearby-distance i {\n  width: 25px;\n  height: 25px;\n  display: inline-block;\n  background: url('../../../assets/images/nearby-directions.svg') no-repeat center center;\n}\n.idea-item .nearby-distance span {\n  display: block;\n  color: #E3E3E3;\n}\n.idea-item .nearby-distance:hover i {\n  background: url('../../../assets/images/nearby-directions-hover.svg') no-repeat 0 0;\n  background-size: 100%;\n}\n.idea-item .nearby-distance:hover span {\n  color: #ffffff;\n}\n.idea-item .hide-nearby {\n  cursor: pointer;\n  position: absolute;\n  width: 25px;\n  height: 25px;\n  right: 15px;\n  top: 20px;\n  background: url('../../../assets/images/hide-nearby.svg') no-repeat 0 0;\n  background-size: 100%;\n  z-index: 10;\n}\n.idea-item .hide-nearby:hover {\n  background: url('../../../assets/images/hide-nearby-hover.svg') no-repeat 0 0;\n  background-size: 100%;\n}\n.idea-item figure {\n  background: transparent;\n  overflow: hidden;\n  position: relative;\n  margin-bottom: 15px;\n  text-align: center;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  -ms-border-radius: 5px;\n  -o-border-radius: 5px;\n}\n.idea-item figure > a:not(.nearby-distance) {\n  height: 230px;\n}\n.idea-item figure > a.height {\n  height: 540px;\n}\n.idea-item figure > a.height .overlay {\n  height: 540px;\n}\n.idea-item figure h3 {\n  position: absolute;\n  width: 100%;\n  color: #ffffff;\n  font-size: 20px;\n  font-weight: 700;\n  padding: 0 25px;\n  text-align: left;\n  line-height: normal;\n  z-index: 1;\n  margin-top: 13px;\n}\n.idea-item figure h3 a {\n  color: #ffffff;\n  cursor: pointer;\n}\n.idea-item figure h3 a:hover {\n  color: #ffffff;\n}\n.idea-item figure h3.nearby {\n  width: 80%;\n  padding: 0 0 0 25px;\n}\n.idea-item figure i {\n  color: #ffffff;\n}\n.idea-item figure .absolute {\n  bottom: 25px;\n}\n.idea-item figure .absolute ul li a,\n.idea-item figure .absolute ul li span {\n  font-size: 12px;\n  color: #ffffff;\n}\n@media (min-width: 768px) {\n  .ideas-result {\n    padding-top: 65px;\n  }\n  .idea-item figure {\n    text-align: left;\n    margin-bottom: 32px;\n  }\n  .idea-item figure h3 {\n    font-size: 24px;\n    padding: 0 25px;\n    line-height: 30px;\n    margin-top: 15px;\n  }\n  .idea-item figure .absolute {\n    bottom: 40px;\n  }\n  .idea-item figure .absolute ul li {\n    padding-left: 20px;\n  }\n  .idea-item figure .absolute ul li a,\n  .idea-item figure .absolute ul li span {\n    color: #ffffff;\n    font-size: 14px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 840:
+/***/ 973:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 841:
+/***/ 974:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.leaderboard-list {\n  padding: 3px 0 7px 0;\n}\n.leaderboard-list li {\n  display: inline-block;\n  vertical-align: middle;\n  margin-right: 5px;\n  font-size: 14px;\n}\n.leaderboard-list li figure,\n.leaderboard-list li p {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n  line-height: 45px;\n}\n.leaderboard-list li:last-child {\n  float: right;\n  margin: 13px 0 0;\n}\n.leaderboard-list li a:hover {\n  color: #7724f6 !important;\n}\n.leaderboard-list li a:focus {\n  text-decoration: none;\n}\n@media (min-width: 768px) {\n  .leaderboard-list li {\n    font-size: 16px;\n    margin-right: 7px;\n  }\n  .leaderboard-list li:last-child {\n    margin: 13px 0 0;\n  }\n}\n"
 
 /***/ },
 
-/***/ 842:
+/***/ 975:
 /***/ function(module, exports) {
 
-module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.date-left > p {\n  margin-bottom: 0;\n}\n.date-left > div.img-circle {\n  border: 2px solid #c2c2c2;\n  background: white;\n  padding: 8px 10px;\n  font-size: 32px;\n  line-height: 40px;\n  text-align: center;\n  position: absolute;\n  top: -1px;\n  left: 6px;\n  width: 60px;\n  height: 60px;\n}\n.date-left > div.img-circle:hover {\n  color: #7724F6;\n  border: 2px solid #7724F6;\n}\n.date-left .img-circle {\n  color: #999999;\n}\n.date-left .dreaming {\n  display: block;\n  position: relative;\n  left: -46px;\n  top: -24px;\n}\n.date-left .dreaming:hover {\n  color: #7724F6;\n}\n.date-left .dreaming-mobile {\n  display: block;\n  padding: 10px 16px 10px 20px;\n  position: relative;\n  left: -40px;\n  top: -36px;\n}\n.date-left .dreaming-mobile i {\n  font-size: 75px;\n}\n.date-left .data-mobile div:first-child {\n  height: 50px;\n  border-left: 1px solid #c2c2c2;\n  position: absolute;\n  left: 49%;\n}\n.date-left .data-mobile div:last-child {\n  height: 50px;\n  position: absolute;\n  width: 100%;\n  text-align: center;\n}\n.date-left .data-mobile div:last-child p {\n  background: #ffffff;\n  color: #7724F6;\n  display: inline-block;\n  border: 1px solid #c2c2c2;\n  border-radius: 15px;\n  -webkit-border-radius: 15px;\n  -moz-border-radius: 15px;\n  -ms-border-radius: 15px;\n  -o-border-radius: 15px;\n  font-size: 11px;\n  line-height: 17px;\n  padding: 2px 15px 3px 15px;\n  margin: 13px 5px 0 0;\n}\n.date-left .elipse {\n  height: 50px;\n}\n.date-left .elipse div {\n  border: 1px solid #c2c2c2;\n  background: white;\n  padding: 2px 15px 3px 15px;\n  position: absolute;\n  left: 44%;\n  top: 26%;\n  font-size: 11px;\n  line-height: 17px;\n  border-radius: 15px;\n  -webkit-border-radius: 15px;\n  -moz-border-radius: 15px;\n  -ms-border-radius: 15px;\n  -o-border-radius: 15px;\n}\n.date-left span {\n  width: 10px;\n  height: 115px;\n  display: block;\n  position: absolute;\n  margin-top: 65px;\n  margin-left: -5px;\n  background: #f4f4f4;\n}\n.date-left span.space {\n  margin: 0 auto;\n  z-index: 10;\n  height: 13px;\n  left: 48%;\n}\n.goals-information {\n  margin-bottom: 10px;\n}\n.goals-information .bg-white {\n  overflow: hidden;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  -ms-border-radius: 5px;\n  -o-border-radius: 5px;\n}\n.goals-information figure {\n  height: 180px;\n  overflow: hidden;\n  position: relative;\n}\n.goals-information figure .addthis_native_toolbox {\n  position: absolute;\n  right: 0;\n  top: 5px;\n  z-index: 10;\n}\n.goals-information figure a {\n  text-align: center;\n}\n.goals-information figure img {\n  width: 100%;\n  height: 180px;\n}\n.goals-information figure figcaption {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  padding: 10px 15px;\n  background: transparent;\n}\n.goals-information figure figcaption a,\n.goals-information figure figcaption span.text-white {\n  color: #ffffff;\n  font-size: 12px;\n}\n.goals-information figure figcaption a:hover span,\n.goals-information figure figcaption span.text-white:hover span {\n  text-decoration: underline;\n}\n.goals-information .overlay {\n  height: 180px;\n}\n.goals-information .active-idea .img-circle {\n  color: #7724F6;\n  border: 2px solid #7724F6;\n}\n.goals-information .active-idea .information h3 a {\n  color: #021523;\n}\n.goals-information .right-block {\n  margin-top: 10px;\n}\n.goals-information .right-block figure .addthis_native_toolbox {\n  position: static;\n}\n.goals-information .right-block figure figcaption {\n  padding: 0 5px;\n  background-color: transparent;\n}\n.goals-information .information .text-gray span {\n  vertical-align: middle;\n}\n.goals-information .information .addthis_native_toolbox {\n  float: right !important;\n}\n.goals-information .information p {\n  margin: 0 0 0 10px;\n}\n.goals-information .information .progress {\n  padding: 4px;\n  height: 25px;\n  background: #f4f4f4;\n}\n.goals-information .information h3 {\n  font-size: 16px;\n  line-height: 20px;\n  margin: 5px 0 5px 10px;\n  white-space: normal;\n}\n.goals-information .information .addthis_native_toolbox {\n  margin-top: 15px;\n}\n.goals-information .information p {\n  color: #7a7a7a;\n}\n.goals-information .information i {\n  font-size: 30px;\n  color: #a3a3a3;\n  vertical-align: middle;\n}\n.goals-information .information .icon-eye {\n  width: 32px;\n  font-size: 40px;\n  margin: -3px 0 0 -5px;\n  display: block;\n}\n.goals-information .information .edit-note {\n  display: inline-block;\n  width: 30px;\n  height: 30px;\n  background: url('../images/edit-note.svg') no-repeat center center;\n  background-size: 100%;\n}\n.goals-information .information .icon-success,\n.goals-information .information .icon-done-icon {\n  font-size: 30px;\n  vertical-align: middle;\n}\n.goals-information .information a:hover,\n.goals-information .information a:focus {\n  text-decoration: none;\n}\n.goals-information .information a:hover .icon-manage,\n.goals-information .information a:focus .icon-manage {\n  color: #5e1dc3;\n}\n.goals-information .information a:hover .edit-note,\n.goals-information .information a:focus .edit-note {\n  background: url('../images/note-hover.svg') no-repeat center center;\n}\n.goals-information .information .btn-transparent {\n  padding: 0 15px 0 5px;\n}\n.goals-information .information .btn-transparent:hover .done-icon {\n  background: url('../images/images.png') no-repeat -380px -513px;\n}\n.goals-information .information .successtory:hover {\n  background: transparent;\n  color: #999999;\n}\n.goals-information .information ul {\n  padding: 0 0 0 5px;\n  margin-bottom: 0;\n}\n.goals-information .information ul li {\n  float: left;\n  margin-right: 1px;\n  height: 30px;\n  overflow: hidden;\n}\n.goals-information .information ul li span {\n  color: #666666;\n}\n.goals-information .information ul.progress-section {\n  padding: 0 0 0 10px;\n}\n.goals-information .information ul.progress-section li:nth-child(2) {\n  width: 140px;\n  margin-right: 10px;\n}\n.goals-information .information .green-bg {\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n}\n.icon-user-small {\n  margin-left: -10px;\n}\n@media (min-width: 768px) {\n  .date-left {\n    border-left: 1px solid #c2c2c2;\n    height: 180px;\n    margin-left: 20px;\n  }\n  .date-left > div:nth-child(1) {\n    border: 2px solid #c2c2c2;\n    background: white;\n    padding: 8px 10px;\n    font-size: 32px;\n    line-height: 40px;\n    text-align: center;\n    position: absolute;\n    top: -1px;\n    left: 6px;\n    width: 60px;\n    height: 60px;\n  }\n  .date-left > div:nth-child(1):hover {\n    color: #7724F6;\n    border: 2px solid #7724F6;\n  }\n  .date-left .elipse {\n    border-top: 1px solid #c2c2c2;\n    height: 175px;\n    margin-top: 30px;\n  }\n  .date-left .elipse div {\n    padding: 2px 15px 3px 15px;\n    left: -4%;\n    top: 40%;\n  }\n  .date-left .elipse div.only-year {\n    margin: 0 0 0 12px;\n  }\n  .date-left span {\n    width: 10px;\n    height: 115px;\n    display: block;\n    position: absolute;\n    margin-top: 65px;\n    margin-left: -5px;\n    background: #f4f4f4;\n  }\n  .goals-information figure img {\n    width: auto;\n  }\n  .goals-information figure figcaption {\n    padding: 10px 15px 5px;\n  }\n  .goals-information figure figcaption a,\n  .goals-information figure figcaption span.text-white {\n    font-size: 13px;\n  }\n  .goals-information .information h3 {\n    margin: 10px 0 0;\n    height: 75px;\n    overflow: hidden;\n    font-size: 18px;\n    line-height: 23px;\n  }\n  .goals-information .information ul {\n    height: 30px;\n    padding: 0;\n  }\n  .goals-information .information ul.progress-section {\n    padding: 0 0 0 5px;\n  }\n  .goals-information .information li a:hover .icon-pencil {\n    color: #7724F6;\n  }\n  .goals-information .information .addthis_native_toolbox {\n    margin-top: 10px;\n  }\n  .goals-information .information i {\n    font-size: 30px;\n  }\n  .goals-information .information .icon-eye {\n    width: 32px;\n    font-size: 40px;\n    margin: -3px 0 0 -5px;\n    display: block;\n  }\n  .goals-information .information .btn-transparent {\n    padding: 0 15px 0 5px;\n  }\n  .goals-information .right-block {\n    margin-top: 0;\n  }\n}\n@media (min-width: 992px) {\n  .date-left .elipse div {\n    left: -4%;\n  }\n  .date-left .elipse div.only-year {\n    margin: 0 0 0 12px;\n  }\n}\n"
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.date-left > p {\n  margin-bottom: 0;\n}\n.date-left > div.img-circle {\n  border: 2px solid #c2c2c2;\n  background: white;\n  padding: 8px 10px;\n  font-size: 32px;\n  line-height: 40px;\n  text-align: center;\n  position: absolute;\n  top: -1px;\n  left: 6px;\n  width: 60px;\n  height: 60px;\n}\n.date-left > div.img-circle:hover {\n  color: #7724F6;\n  border: 2px solid #7724F6;\n}\n.date-left .img-circle {\n  color: #999999;\n}\n.date-left .dreaming {\n  display: block;\n  position: relative;\n  left: -46px;\n  top: -24px;\n}\n.date-left .dreaming:hover {\n  color: #7724F6;\n}\n.date-left .dreaming-mobile {\n  display: block;\n  padding: 10px 16px 10px 20px;\n  position: relative;\n  left: -40px;\n  top: -36px;\n}\n.date-left .dreaming-mobile i {\n  font-size: 75px;\n}\n.date-left .data-mobile div:first-child {\n  height: 50px;\n  border-left: 1px solid #c2c2c2;\n  position: absolute;\n  left: 49%;\n}\n.date-left .data-mobile div:last-child {\n  height: 50px;\n  position: absolute;\n  width: 100%;\n  text-align: center;\n}\n.date-left .data-mobile div:last-child p {\n  background: #ffffff;\n  color: #7724F6;\n  display: inline-block;\n  border: 1px solid #c2c2c2;\n  border-radius: 15px;\n  -webkit-border-radius: 15px;\n  -moz-border-radius: 15px;\n  -ms-border-radius: 15px;\n  -o-border-radius: 15px;\n  font-size: 11px;\n  line-height: 17px;\n  padding: 2px 15px 3px 15px;\n  margin: 13px 5px 0 0;\n}\n.date-left .elipse {\n  height: 50px;\n}\n.date-left .elipse div {\n  border: 1px solid #c2c2c2;\n  background: white;\n  padding: 2px 15px 3px 15px;\n  position: absolute;\n  left: 44%;\n  top: 26%;\n  font-size: 11px;\n  line-height: 17px;\n  border-radius: 15px;\n  -webkit-border-radius: 15px;\n  -moz-border-radius: 15px;\n  -ms-border-radius: 15px;\n  -o-border-radius: 15px;\n}\n.date-left span {\n  width: 10px;\n  height: 115px;\n  display: block;\n  position: absolute;\n  margin-top: 65px;\n  margin-left: -5px;\n  background: #f4f4f4;\n}\n.date-left span.space {\n  margin: 0 auto;\n  z-index: 10;\n  height: 13px;\n  left: 48%;\n}\n.goals-information {\n  margin-bottom: 10px;\n}\n.goals-information .bg-white {\n  overflow: hidden;\n  border-radius: 5px;\n  -webkit-border-radius: 5px;\n  -moz-border-radius: 5px;\n  -ms-border-radius: 5px;\n  -o-border-radius: 5px;\n}\n.goals-information figure {\n  height: 180px;\n  overflow: hidden;\n  position: relative;\n  border-radius: 4px;\n  -moz-border-radius-topleft: 4px;\n  -moz-border-radius-topright: 4px;\n  -moz-border-radius-bottomleft: 0;\n  -moz-border-radius-bottomright: 0;\n  -webkit-border-top-left-radius: 4px;\n  -webkit-border-top-right-radius: 4px;\n  -webkit-border-bottom-left-radius: 0;\n  -webkit-border-bottom-right-radius: 0;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.goals-information figure .addthis_native_toolbox {\n  position: absolute;\n  right: 0;\n  top: 5px;\n  z-index: 10;\n}\n.goals-information figure a {\n  text-align: center;\n}\n.goals-information figure img {\n  width: 100%;\n  height: 180px;\n}\n.goals-information figure figcaption {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  padding: 10px 15px;\n  background: transparent;\n}\n.goals-information figure figcaption a,\n.goals-information figure figcaption span.text-white {\n  color: #ffffff;\n  font-size: 12px;\n}\n.goals-information figure figcaption a:hover span,\n.goals-information figure figcaption span.text-white:hover span {\n  text-decoration: underline;\n}\n.goals-information figure figcaption a:last-child,\n.goals-information figure figcaption span.text-white:last-child {\n  padding-left: 15px;\n}\n.goals-information .overlay {\n  height: 180px;\n}\n.goals-information .active-idea .img-circle {\n  color: #7724F6;\n  border: 2px solid #7724F6;\n}\n.goals-information .active-idea .information h3 a {\n  color: #021523;\n}\n.goals-information .right-block {\n  margin-top: 10px;\n}\n.goals-information .right-block figure .addthis_native_toolbox {\n  position: static;\n}\n.goals-information .right-block figure figcaption {\n  padding: 0 5px;\n  background-color: transparent;\n}\n.goals-information .information .text-gray span {\n  vertical-align: middle;\n}\n.goals-information .information .addthis_native_toolbox {\n  float: right !important;\n}\n.goals-information .information p {\n  margin: 0 0 0 10px;\n}\n.goals-information .information .progress {\n  padding: 4px;\n  height: 25px;\n  background: #f4f4f4;\n}\n.goals-information .information h3 {\n  font-size: 16px;\n  line-height: 20px;\n  margin: 5px 0 5px 10px;\n  white-space: normal;\n}\n.goals-information .information .addthis_native_toolbox {\n  margin-top: 15px;\n}\n.goals-information .information p {\n  color: #7a7a7a;\n}\n.goals-information .information i {\n  font-size: 30px;\n  color: #a3a3a3;\n  vertical-align: middle;\n}\n.goals-information .information .icon-eye {\n  width: 32px;\n  font-size: 40px;\n  margin: -3px 0 0 -5px;\n  display: block;\n}\n.goals-information .information .edit-note {\n  display: inline-block;\n  width: 30px;\n  height: 30px;\n  background: url('../../../assets/images/edit-note.svg') no-repeat center center;\n  background-size: 100%;\n}\n.goals-information .information .icon-success,\n.goals-information .information .icon-done-icon {\n  font-size: 30px;\n  vertical-align: middle;\n}\n.goals-information .information a:hover,\n.goals-information .information a:focus {\n  text-decoration: none;\n}\n.goals-information .information a:hover .icon-manage,\n.goals-information .information a:focus .icon-manage {\n  color: #5e1dc3;\n}\n.goals-information .information a:hover .edit-note,\n.goals-information .information a:focus .edit-note {\n  background: url('../../../assets/images/note-hover.svg') no-repeat center center;\n}\n.goals-information .information .btn-transparent {\n  padding: 0 15px 0 5px;\n}\n.goals-information .information .btn-transparent:hover .done-icon {\n  background: url('../../../assets/images/images.png') no-repeat 8px -19px;\n}\n.goals-information .information .successtory:hover {\n  background: transparent;\n  color: #999999;\n}\n.goals-information .information ul {\n  padding: 0 0 0 5px;\n  margin-bottom: 0;\n}\n.goals-information .information ul li {\n  float: left;\n  margin-right: 1px;\n  height: 30px;\n  overflow: hidden;\n}\n.goals-information .information ul li span {\n  color: #666666;\n}\n.goals-information .information ul.progress-section {\n  padding: 0 0 0 10px;\n}\n.goals-information .information ul.progress-section li:nth-child(2) {\n  width: 140px;\n  margin-right: 10px;\n}\n.goals-information .information .green-bg {\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n}\n.icon-user-small {\n  margin-left: -10px;\n}\n@media (min-width: 768px) {\n  .date-left {\n    border-left: 1px solid #c2c2c2;\n    height: 180px;\n    margin-left: 20px;\n  }\n  .date-left > div:nth-child(1) {\n    border: 2px solid #c2c2c2;\n    background: white;\n    padding: 8px 10px;\n    font-size: 32px;\n    line-height: 40px;\n    text-align: center;\n    position: absolute;\n    top: -1px;\n    left: 6px;\n    width: 60px;\n    height: 60px;\n  }\n  .date-left > div:nth-child(1):hover {\n    color: #7724F6;\n    border: 2px solid #7724F6;\n  }\n  .date-left .elipse {\n    border-top: 1px solid #c2c2c2;\n    height: 175px;\n    margin-top: 30px;\n  }\n  .date-left .elipse div {\n    padding: 2px 15px 3px 15px;\n    left: -4%;\n    top: 40%;\n  }\n  .date-left .elipse div.only-year {\n    margin: 0 0 0 12px;\n  }\n  .date-left span {\n    width: 10px;\n    height: 115px;\n    display: block;\n    position: absolute;\n    margin-top: 65px;\n    margin-left: -5px;\n    background: #f4f4f4;\n  }\n  .goals-information figure {\n    border-radius: 0;\n    -moz-border-radius-topleft: 0;\n    -moz-border-radius-topright: 0;\n    -moz-border-radius-bottomleft: 0;\n    -moz-border-radius-bottomright: 0;\n    -webkit-border-top-left-radius: 0;\n    -webkit-border-top-right-radius: 0;\n    -webkit-border-bottom-left-radius: 0;\n    -webkit-border-bottom-right-radius: 0;\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n    border-bottom-left-radius: 0;\n    border-bottom-right-radius: 0;\n  }\n  .goals-information figure img {\n    width: auto;\n  }\n  .goals-information figure figcaption {\n    padding: 10px 15px 5px;\n  }\n  .goals-information figure figcaption a,\n  .goals-information figure figcaption span.text-white {\n    font-size: 13px;\n  }\n  .goals-information .information h3 {\n    margin: 10px 0 0;\n    height: 75px;\n    overflow: hidden;\n    font-size: 18px;\n    line-height: 23px;\n  }\n  .goals-information .information ul {\n    height: 30px;\n    padding: 0;\n  }\n  .goals-information .information ul.progress-section {\n    padding: 0 0 0 5px;\n  }\n  .goals-information .information li a:hover .icon-pencil {\n    color: #7724F6;\n  }\n  .goals-information .information .addthis_native_toolbox {\n    margin-top: 10px;\n  }\n  .goals-information .information i {\n    font-size: 30px;\n  }\n  .goals-information .information .icon-eye {\n    width: 32px;\n    font-size: 40px;\n    margin: -3px 0 0 -5px;\n    display: block;\n  }\n  .goals-information .information .btn-transparent {\n    padding: 0 15px 0 5px;\n  }\n  .goals-information .right-block {\n    margin-top: 0;\n  }\n}\n@media (min-width: 992px) {\n  .date-left .elipse div {\n    left: -4%;\n  }\n  .date-left .elipse div.only-year {\n    margin: 0 0 0 12px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 843:
-/***/ function(module, exports) {
-
-module.exports = ""
-
-/***/ },
-
-/***/ 844:
+/***/ 976:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 845:
+/***/ 977:
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+
+/***/ 978:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.users-list {\n  background-color: #ffffff;\n  padding: 15px 10px 15px 15px;\n  margin-bottom: 10px;\n}\n.users-list h4 {\n  padding: 3px 0 1px 0;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  margin: 0;\n  white-space: nowrap;\n  font-size: 14px;\n  font-weight: 600;\n}\n.users-list figure,\n.users-list .no-image {\n  height: 45px;\n  width: 45px;\n  margin: 0 auto;\n  line-height: 40px;\n}\n.users-list figure img,\n.users-list .no-image img {\n  border: 2px solid #cecece;\n  width: 45px;\n  height: 45px;\n}\n.users-list span {\n  font-size: 13px;\n}\n@media (min-width: 768px) {\n  .users-list {\n    padding: 20px 10px 20px 20px;\n    margin-bottom: 15px;\n    min-height: 101px;\n  }\n  .users-list h4 {\n    font-size: 16px;\n  }\n  .users-list figure,\n  .users-list .no-image {\n    height: 60px;\n    width: 60px;\n    line-height: 55px;\n  }\n  .users-list figure img,\n  .users-list .no-image img {\n    width: 60px;\n    height: 60px;\n  }\n  .users-list figure p,\n  .users-list .no-image p {\n    font-size: 14px;\n  }\n}\n@media (min-width: 992px) {\n  .users-list {\n    padding: 20px 25px;\n    margin-bottom: 25px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 846:
+/***/ 979:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n#login-page {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 10000;\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n  box-sizing: border-box;\n  background-color: #000;\n  background-color: rgba(0, 0, 0, 0.75);\n  text-align: center;\n  -webkit-animation-duration: .9s;\n  animation-duration: .9s;\n  -webkit-animation-timing-function: ease-in-out;\n  animation-timing-function: ease-in-out;\n  -webkit-animation-fill-mode: backwards;\n  animation-fill-mode: backwards;\n}\n#signin {\n  text-align: center;\n  background-color: #f4f4f4;\n  padding: 30px;\n  width: 280px;\n  margin: 0 auto;\n  position: relative;\n  border-radius: 14px;\n  -webkit-border-radius: 14px;\n  -moz-border-radius: 14px;\n  -ms-border-radius: 14px;\n  -o-border-radius: 14px;\n}\n#signin h2 {\n  padding: 0;\n  margin: 0 0 20px;\n  font-size: 32px;\n  color: #021523;\n}\n#signin a {\n  display: block;\n  padding: 10px 0;\n  color: #333333;\n  font-size: 14px;\n}\n#signin a:hover {\n  background-color: transparent;\n}\n#signin a span {\n  padding-right: 5px;\n}\n#signin form .form-group {\n  margin-bottom: 10px;\n}\n#signin form .form-group input {\n  color: #999999;\n}\n#signin form .form-group input:active,\n#signin form .form-group input:hover {\n  border: 1px solid #7724F6;\n}\n#signin form a {\n  padding: 12px 0 16px 0;\n  border: 0;\n  font-weight: 500;\n}\n#signin form a:hover {\n  text-decoration: underline;\n}\n#signin form .btn-purple {\n  font-weight: bold;\n  width: 152px;\n  margin: 0 auto;\n}\n#signin form .error-message {\n  font-size: 14px;\n  font-weight: 500;\n}\n#signin .sign-up {\n  padding: 12px 0 10px;\n  color: #666666;\n  font-size: 16px;\n  font-weight: 500;\n}\n#signin .sign-up span {\n  display: inline-block;\n  height: 29px;\n  vertical-align: middle;\n  font-size: 28px;\n}\n#signin h4 {\n  color: #021523;\n  font-size: 21px;\n  padding: 20px 0 10px;\n  margin: 0;\n  font-weight: 500;\n}\n#signin .social {\n  padding-left: 0;\n  margin-bottom: 0;\n}\n#signin .social li {\n  margin-top: 10px;\n  border-left: 0;\n}\n#signin .social li a {\n  padding: 0;\n  display: block;\n  height: 34px;\n  border: 0;\n  width: 157px;\n  margin: 0 auto;\n}\n#signin .social li .facebook {\n  background: url('assets/images/facebook.png') no-repeat center center;\n  background-size: 100%;\n}\n#signin .social li .twitter {\n  background: url('assets/images/twitter.png') no-repeat center center;\n  background-size: 100%;\n}\n#signin .social li .google {\n  background: url('assets/images/google.png') no-repeat center center;\n  background-size: 100%;\n}\n@media (min-width: 768px) {\n  #signin {\n    width: 330px;\n    margin: 10% auto;\n  }\n}\n@media (min-width: 992px) {\n  #signin {\n    overflow: hidden;\n  }\n  #signin .text-danger {\n    margin-bottom: 10px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 847:
+/***/ 980:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.modal-bottom {\n  background-color: #f0f0f0;\n  text-align: center;\n  padding: 12px 0 10px;\n}\n.goal-modal {\n  width: 280px;\n  margin: 0 auto;\n  text-align: left;\n  border-radius: 6px;\n  -webkit-border-radius: 6px;\n  -moz-border-radius: 6px;\n  -ms-border-radius: 6px;\n  -o-border-radius: 6px;\n}\n.goal-modal i {\n  font-size: 30px;\n  margin-right: 10px;\n  display: inline-block;\n  vertical-align: middle;\n  color: #a3a3a3;\n}\n.goal-modal .location {\n  position: relative;\n  z-index: inherit;\n}\n.goal-modal .location i {\n  position: absolute;\n  top: 2px;\n  margin-right: 0;\n  left: 5px;\n}\n.goal-modal hr {\n  margin: 5px 0;\n}\n.modal-top {\n  position: relative;\n  overflow: hidden;\n}\n.modal-top div {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n}\n.modal-top h2 {\n  color: #fff;\n  margin: 10px 0 5px 10px;\n  font-size: 18px;\n  white-space: normal;\n  word-wrap: break-word;\n  line-height: 28px;\n  height: 30px;\n  width: 260px;\n  overflow: hidden;\n  padding: 0;\n}\n.modal-top h2 span {\n  background-color: #021523;\n  display: inline-block;\n  padding: 0 5px 5px;\n}\n.modal-top ul {\n  padding: 0 0 0 15px;\n}\n.modal-top ul li {\n  display: inline-block;\n}\n.modal-top a {\n  color: #fff;\n  font-size: 12px;\n}\n.modal-top figure {\n  position: absolute;\n  width: 100%;\n}\n.modal-top .overlay {\n  height: 260px;\n  background: rgba(0, 0, 0, 0.28);\n}\n.goal-add {\n  background-color: #ffffff;\n  padding: 10px 10px 0;\n  margin-bottom: 50px;\n}\n.goal-add h3 {\n  font-size: 17px;\n  margin-top: 5px;\n}\n.goal-add h4 {\n  font-size: 14px;\n  color: #3d3d3d;\n}\n.goal-add h4.text-dark-gray {\n  color: #666666;\n}\n.goal-add h6 {\n  font-size: 14px;\n  color: #a2a2a2;\n  margin: 0;\n}\n.goal-add p {\n  color: #a2a2a2;\n  margin-bottom: 2px;\n}\n.goal-add label.text-purple {\n  font-size: 18px;\n}\n.goal-add label.relative {\n  margin-right: 12px;\n}\n.goal-add .task-checkbox {\n  margin: 7px 0;\n}\n.goal-add form {\n  padding-bottom: 10px;\n}\n.goal-add form button.button-lg {\n  padding: 6px 15px;\n}\n.goal-add p {\n  font-size: 12px;\n}\n.goal-add label.onoffswitch-label {\n  border: 1px solid #cccccc;\n}\n.goal-add .onoffswitch .onoffswitch-switch {\n  border: 1px solid #cccccc;\n}\n.goal-add .modal-bottom button,\n.goal-add .modal-bottom a {\n  padding: 8px 15px;\n  color: #666666;\n  font-size: 12px;\n  text-transform: uppercase;\n  margin-right: 3px;\n  font-weight: bold;\n}\n.goal-add .modal-bottom button.forget,\n.goal-add .modal-bottom a.forget {\n  padding: 5px 10px 5px 5px;\n}\n.goal-add .modal-bottom button:hover,\n.goal-add .modal-bottom a:hover,\n.goal-add .modal-bottom button:focus,\n.goal-add .modal-bottom a:focus,\n.goal-add .modal-bottom button.btn-purple,\n.goal-add .modal-bottom a.btn-purple {\n  color: #ffffff;\n}\n.priority {\n  padding-top: 10px;\n}\n.title-smaller {\n  font-size: 12px;\n  line-height: 28px;\n  height: 30px;\n  width: 260px;\n  overflow: hidden;\n}\n@media (min-width: 768px) {\n  .goal-modal {\n    width: 530px;\n  }\n  .goal-modal i {\n    margin-right: 0;\n  }\n  .goal-modal hr {\n    margin: 15px 0;\n  }\n  .goal-add {\n    padding: 0;\n    margin-bottom: 78px;\n  }\n  .goal-add textarea {\n    resize: none;\n  }\n  .goal-add .private-space {\n    padding: 15px 0 6px;\n  }\n  .goal-add h3 {\n    font-size: 24px;\n    margin-top: 20px;\n  }\n  .goal-add h3 i {\n    margin-top: -5px;\n  }\n  .goal-add h4 {\n    font-size: 18px;\n  }\n  .goal-add p {\n    font-size: 14px;\n    margin-bottom: 10px;\n  }\n  .goal-add label {\n    font-size: 18px;\n    padding-top: 3px !important;\n    font-weight: normal;\n  }\n  .goal-add label.onoffswitch-label {\n    padding-top: 0 !important;\n  }\n  .goal-add .modal-bottom button,\n  .goal-add .modal-bottom a {\n    padding: 10px 45px;\n    font-size: 14px;\n    margin-right: 5px;\n  }\n  .goal-add .modal-bottom button.forget,\n  .goal-add .modal-bottom a.forget {\n    padding: 6px 15px 6px 10px;\n  }\n  .modal-top {\n    height: 260px;\n  }\n  .modal-top h2 {\n    width: auto;\n    height: auto;\n    margin: 0 0 5px 0;\n    font-size: 25px;\n    line-height: 38px;\n  }\n  .modal-top h2 span {\n    padding: 10px 30px;\n    font-size: 32px;\n  }\n  .modal-top .title-top {\n    margin: 150px 30px 5px 30px;\n  }\n  .modal-top ul {\n    padding: 0 0 0 35px;\n  }\n  .modal-top ul li {\n    margin-right: 15px;\n  }\n  .modal-top a {\n    font-size: 16px;\n  }\n  .modal-bottom {\n    padding: 20px 0 ;\n  }\n  .priority {\n    padding-top: 15px;\n  }\n  .title-smaller {\n    width: auto;\n    height: auto;\n    font-size: 18px;\n    line-height: 23px;\n  }\n}\n@media (min-width: 992px) {\n  .goal-modal h2 {\n    font-size: 27px;\n    line-height: 41px;\n  }\n  .goal-add {\n    padding-bottom: 3px;\n  }\n  .goal-add label.text-purple {\n    font-size: 24px;\n    vertical-align: middle;\n  }\n  .goal-add label.text-purple span {\n    font-size: 24px;\n  }\n  .goal-add .private-space {\n    padding: 30px 0 21px;\n  }\n  .goal-add strong {\n    display: inline-block;\n  }\n  .goal-add h4 {\n    font-size: 20px;\n    line-height: 24px;\n  }\n  .goal-add h5 {\n    padding-left: 0 !important;\n    font-size: 18px;\n    color: #666666 !important;\n  }\n  .goal-add .modal-bottom button,\n  .goal-add .modal-bottom a {\n    width: 135px;\n    padding: 10px 0;\n    font-size: 15px;\n    margin-right: 5px;\n    text-align: center;\n  }\n}\n"
 
 /***/ },
 
-/***/ 848:
+/***/ 981:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n#common-modal {\n  width: 280px;\n  margin: 0 auto;\n}\n#common-modal h3 {\n  margin: 0;\n  padding: 20px 10px;\n  font-size: 18px;\n  color: #021523;\n}\n#common-modal .common-content {\n  padding: 15px 15px 5px;\n  border-top: 1px solid #ccc;\n}\n#common-modal .common-content .idea-item h3 {\n  margin: 0;\n  font-size: 18px;\n  padding: 10px;\n  color: #021523;\n}\n#common-modal .common-content .idea-item .goal-item-image,\n#common-modal .common-content .idea-item .overlay {\n  height: 130px;\n  overflow: hidden;\n}\n@media (min-width: 768px) {\n  #common-modal {\n    width: 390px;\n  }\n  #common-modal h3 {\n    padding: 20px;\n    font-size: 22px;\n  }\n  #common-modal .common-content {\n    padding: 20px 20px 0;\n  }\n  #common-modal .common-content .idea-item h3 {\n    padding: 20px;\n    font-size: 22px;\n  }\n  #common-modal .common-content .idea-item .goal-item-image,\n  #common-modal .common-content .idea-item .overlay {\n    height: 180px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 849:
+/***/ 982:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.modal-bottom {\n  background-color: #f0f0f0;\n  text-align: center;\n  padding: 12px 0 10px;\n}\n.goal-modal {\n  width: 280px;\n  margin: 0 auto;\n  text-align: left;\n  border-radius: 6px;\n  -webkit-border-radius: 6px;\n  -moz-border-radius: 6px;\n  -ms-border-radius: 6px;\n  -o-border-radius: 6px;\n}\n.goal-modal .fb-share-button {\n  width: 93px;\n  height: 33px;\n  background: url('../../../assets/images/fb-share.svg') no-repeat center center;\n  margin: 10px 0;\n  cursor: pointer;\n}\n.goal-modal i {\n  font-size: 30px;\n  margin-right: 10px;\n  display: inline-block;\n  vertical-align: middle;\n  color: #a3a3a3;\n}\n.goal-modal .location {\n  position: relative;\n  z-index: inherit;\n}\n.goal-modal .location i {\n  position: absolute;\n  top: 2px;\n  margin-right: 0;\n  left: 5px;\n}\n.goal-modal hr {\n  margin: 5px 0;\n}\n.goal-modal h2 {\n  font-size: 20px;\n  margin-top: 10px;\n  font-weight: 400;\n}\n.modal-top {\n  position: relative;\n  overflow: hidden;\n}\n.modal-top i {\n  color: #ffffff;\n}\n.modal-top div {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n}\n.modal-top h2 {\n  color: #fff;\n  margin: 10px 0 5px 10px;\n  font-size: 18px;\n  white-space: normal;\n  word-wrap: break-word;\n  line-height: 28px;\n  height: 30px;\n  width: 260px;\n  overflow: hidden;\n  padding: 0;\n}\n.modal-top h2 span {\n  background-color: #021523;\n  display: inline-block;\n  padding: 0 5px 5px;\n}\n.modal-top ul {\n  padding: 0 0 0 15px;\n}\n.modal-top ul li {\n  display: inline-block;\n}\n.modal-top a {\n  color: #fff;\n  font-size: 12px;\n}\n.modal-top figure {\n  position: absolute;\n  width: 100%;\n}\n.modal-top .overlay {\n  height: 260px;\n  background: rgba(0, 0, 0, 0.28);\n}\n.priority {\n  padding-top: 10px;\n}\n.title-smaller {\n  font-size: 12px;\n  line-height: 28px;\n  height: 30px;\n  width: 260px;\n  overflow: hidden;\n}\n@media (min-width: 768px) {\n  .goal-modal {\n    width: 530px;\n  }\n  .goal-modal i {\n    margin-right: 0;\n  }\n  .goal-modal hr {\n    margin: 15px 0;\n  }\n  .goal-modal h2 {\n    font-size: 24px;\n    padding: 11px 0;\n    margin: 10px 0;\n  }\n  .goal-modal .fb-share-button {\n    float: right;\n    margin: 18px 0 15px;\n  }\n  .modal-top {\n    height: 260px;\n  }\n  .modal-top h2 {\n    width: auto;\n    height: auto;\n    margin: 0 0 5px 0;\n    font-size: 25px;\n    line-height: 38px;\n  }\n  .modal-top h2 span {\n    padding: 10px 30px;\n    font-size: 32px;\n  }\n  .modal-top .title-top {\n    margin: 150px 30px 5px 30px;\n  }\n  .modal-top ul {\n    padding: 0 0 0 35px;\n  }\n  .modal-top ul li {\n    margin-right: 15px;\n  }\n  .modal-top a {\n    font-size: 16px;\n  }\n  .modal-bottom {\n    padding: 20px 0 ;\n  }\n  .priority {\n    padding-top: 15px;\n  }\n  .title-smaller {\n    width: auto;\n    height: auto;\n    font-size: 18px;\n    line-height: 23px;\n  }\n}\n@media (min-width: 992px) {\n  .goal-modal h2 {\n    font-size: 27px;\n    line-height: 41px;\n  }\n  .goal-modal h2.text-grey-dark {\n    font-size: 24px;\n    padding: 11px 0;\n    margin: 10px 0;\n  }\n  .goal-modal .fb-share-button {\n    margin: 16px 0 14px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 850:
+/***/ 983:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n#report-modal {\n  text-align: left;\n  padding: 0;\n  width: 280px;\n  margin: 0 auto;\n  top: 10%;\n}\n#report-modal h3 {\n  margin: 0;\n  padding: 20px 10px;\n  font-size: 18px;\n  color: #021523;\n}\n#report-modal .report-content {\n  border-top: 1px solid #cccccc;\n  padding: 10px;\n}\n#report-modal .report-content textarea {\n  padding: 10px;\n  margin: 10px 0;\n  font-weight: 600;\n}\n#report-modal .report-content label,\n#report-modal .report-content textarea,\n#report-modal .report-content p {\n  color: #333333;\n  font-weight: 600;\n}\n#report-modal .purple-transparent {\n  background-color: rgba(97, 8, 234, 0.31);\n}\n#report-modal .padding {\n  padding: 10px;\n}\n@media (min-width: 768px) {\n  #report-modal {\n    width: 390px;\n  }\n  #report-modal h3 {\n    padding: 20px;\n    font-size: 22px;\n  }\n  #report-modal .report-content {\n    padding: 20px;\n  }\n  #report-modal .report-content i {\n    margin-right: 0;\n  }\n  #report-modal .padding {\n    padding: 20px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 851:
+/***/ 984:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n#goal-users-modal {\n  width: 280px;\n  margin: 0 auto;\n}\n#goal-users-modal h3 {\n  margin: 0;\n  padding: 20px 10px;\n  font-size: 18px;\n  color: #021523;\n}\n#goal-users-modal .users-content {\n  padding: 15px 15px 5px;\n  border-top: 1px solid #ccc;\n}\n#goal-users-modal .users-content h4 strong {\n  font-size: 14px;\n}\n#goal-users-modal .users-content h4 span {\n  font-size: 12px;\n}\n@media (min-width: 768px) {\n  #goal-users-modal {\n    width: 390px;\n  }\n  #goal-users-modal h3 {\n    padding: 20px;\n    font-size: 22px;\n  }\n  #goal-users-modal .users-content {\n    padding: 20px 20px 0;\n  }\n  #goal-users-modal .users-content h4 strong {\n    font-size: 16px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 852:
+/***/ 985:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 853:
+/***/ 986:
 /***/ function(module, exports) {
 
 module.exports = ""
 
 /***/ },
 
-/***/ 854:
+/***/ 987:
 /***/ function(module, exports) {
 
-module.exports = "<div id=\"mainframe\">\n    <div id=\"wrap\">\n        <div [class.bg-transparent]=\"isMobile && joinToggle1\"></div>\n        <header>\n            <nav class=\"navbar navbar-default navbar-fixed-top\">\n                <div id=\"line\"></div>\n                <div class=\"container\" id=\"main-nav\">\n                    <!--<div class=\"navbar-header navbar-mobile\">-->\n                        <!--{% if is_mobile() and not is_tablet() %}-->\n                        <!--{% if user %}-->\n                        <!--<ul class=\"nav navbar-nav  hidden-sm hidden-md hidden-lg\">-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiActivity.html.twig',  {'route': app.request.get('_route')} ) }}&ndash;&gt;-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons ideas-icon\"></i>-->\n                        <!--<span class=\"hidden-xs hidden-sm\">ideas</span>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li *ngIf=\"!joinToggle11\">-->\n                        <!--<a routerLink=\"/profile\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons mybucketlist-icon\"></i>-->\n                        <!--<span class=\"hidden-xs hidden-sm\">my_bucketlist</span>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li id=\"notification\">-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Blocks:notification.html.twig') }}&ndash;&gt;-->\n                        <!--</li>-->\n                        <!--<li>-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiUser.html.twig') }}&ndash;&gt;-->\n                        <!--</li>-->\n                        <!--</ul>-->\n\n                        <!--<ul class=\"hidden-sm hidden-md hidden-lg user-mobile-menu clearfix\" *ngIf=\"!joinToggle11\">-->\n                        <!--<li class=\"clearfix\">-->\n                        <!--<a class=\"navbar-brand\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                        <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n                        <!--<a href=\"javascript:void(0)\" (click)=\"joinToggle11 = !joinToggle11\" class=\"text-right\"><i class=\"icon-remove-email\"></i> </a>-->\n                        <!--</li>-->\n\n                        <!--&lt;!&ndash;{% if app.user and app.user.activity %}&ndash;&gt;-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/activity\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons activity-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'activity'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->\n\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/leaderboard\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icon-suggest-icon\"></i>-->\n                        <!--&lt;!&ndash;<span class=\"text\">{{ 'leaderboard.name'|trans | capitalize }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/friends\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"menu-goalfrinds\"></i>-->\n                        <!--&lt;!&ndash;<span class=\"text\">{{ 'goalfriends'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons ideas-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'ideas'| trans | capitalize }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons mybucketlist-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'my_bucketlist'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/goal-add\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons add-goal\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'create_goal'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/settings\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons settings-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'settings'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a>-->\n                        <!--<i class=\"icons logout\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'logout'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--</ul>-->\n                        <!--&lt;!&ndash;{% else %}&ndash;&gt;-->\n                        <!--<div class=\"clearfix hidden-sm hidden-md hidden-lg\">-->\n                        <!--<a class=\"navbar-brand hidden-sm hidden-md hidden-lg\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                        <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n\n                        <!--<ul class=\"pull-right\">-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\" class=\"hidden-sm hidden-md hidden-lg \">-->\n                        <!--<i class=\"icon-ideas-icon\"></i>-->\n                        <!--<i class=\"ideas-icon\"></i>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li>-->\n                        <!--<a href=\"javascript:void(0)\"-->\n                        <!--style=\"display: none\"-->\n                        <!--class=\"sign-in-popover pull-right\">-->\n                        <!--<i class=\"icon-join-icon\"></i>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--</ul>-->\n\n                        <!--</div>-->\n                        <!--{% endif %}-->\n                        <!--{% endif %}-->\n\n                        <!--<a class=\"navbar-brand hidden-xs\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                            <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n                    <!--</div>-->\n\n                    <!--{% if not is_mobile() or is_tablet() %}-->\n\n                    <div id=\"navbar\" class=\"clearfix\">\n\n                        <a class=\"navbar-brand\" [class.hidden-xs]=\"appUser\" routerLink=\"/\" routerLinkActive=\"active\">\n                            <img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>\n                        </a>\n\n                        <ul class=\"nav navbar-nav pull-left\" *ngIf=\"!isMobile || !joinToggle1\">\n\n                            <li *ngIf=\"appUser\">\n                                <a routerLink=\"/activity\" routerLinkActive=\"active\">\n                                    <i class=\"icons activity-icon\"></i>\n                                    <span class=\"hidden-xs hidden-sm\">{{ 'activity'|translate | uppercase }}</span>\n                                </a>\n                            </li>\n\n                            <li>\n                                <a routerLink=\"/ideas\" routerLinkActive=\"active\">\n                                    <i class=\"icons ideas-icon\"></i>\n                                    <span class=\"hidden-xs hidden-sm\">{{ 'ideas'|translate | uppercase }}</span>\n                                </a>\n                            </li>\n\n                            <li *ngIf=\"appUser\">\n                                <a routerLink=\"/profile\" routerLinkActive=\"active\">\n                                    <i class=\"icons mybucketlist-icon\"></i>\n                                    <span class=\"hidden-xs hidden-sm\">{{ 'my_bucketlist'|translate | uppercase}}</span>\n                                </a>\n                            </li>\n                        </ul>\n\n\n                        <ul class=\"nav navbar-nav navbar-right\">\n                            <li id=\"notification\" *ngIf=\"appUser && (!isMobile || !joinToggle1)\">\n                                <div>\n                                    <a routerLink=\"/notifications\" class=\"relative notify\">\n                                        <i class=\"bell\"></i>\n                                        <sup *ngIf=\"newNotCount\">{{ newNotCount }}</sup>\n                                    </a>\n                                </div>\n                            </li>\n                            <li *ngIf=\"appUser\" [class.block]=\"isMobile && joinToggle1\">\n                                <!--{% if app.user %}-->\n                                <!--{% set user = app.user %}-->\n                                <!--{% set lastName = appUser.lastName %}-->\n                                <!--{% set firstName = appUser.firstName %}-->\n                                <!--{% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}-->\n                                <!--{% set className = \"user-no\" ~ random(4) %}-->\n                                <!--data-animation=\"am-fade-and-scale\"-->\n                                <!--data-content='{{ include(\"AppBundle:Blocks:user.widget.html.twig\") }}'-->\n\n\n                                <a class=\"user user-popover clearfix\"\n                                   (click)=\"joinToggle1 = !joinToggle1\"\n                                   [ngClass]=\"{'join-class': joinToggle1}\">\n                                    <figure class=\"img-circle\" *ngIf=\"appUser.image_path && (!isMobile || !joinToggle1)\">\n                                        <!--'user_icon'-->\n                                        <img src=\"{{ serverPath + appUser.image_path }}\" alt=\"{{ appUser.filename }}\" class=\"img-responsive\">\n                                    </figure>\n                                    <p *ngIf=\"!appUser.image_path && (!isMobile || !joinToggle1)\" class=\"no-image user-no2\">{{ appUser.first_name|slice:0:1| uppercase }}{{ appUser.last_name|slice:0:1 | uppercase}}</p>\n\n                                    <span class=\"name hidden-xs\">{{ appUser.first_name|slice:0: 8 }} {{ appUser.first_name && appUser.first_name.length > 8 ? '...' : '' }}\n                                        <br class=\"hidden-xs\"/>\n                                    </span>\n                                    <a class=\"navbar-brand\" routerLink=\"/\" routerLinkActive=\"active\" *ngIf=\"isMobile && joinToggle1\">\n                                        <img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>\n                                    </a>\n\n                                    <!--{% if not isMobile() %}-->\n                                    <i class=\"menu-hamburger hidden-xs\" *ngIf=\"!joinToggle1\"></i>\n                                    <i [ngClass]=\"{'menu-remove': !isMobile, 'icon-remove-email': isMobile}\" *ngIf=\"joinToggle1\"></i>\n                                    <!--{% endif %}-->\n                                </a>\n                                <ul class=\"user-menu\" *ngIf=\"joinToggle1\">\n\n                                    <!--{% if app.user and app.user.activity %}-->\n                                    <li>\n                                        <a routerLink=\"/activity\" (click)=\"joinToggle1 = false\">\n                                            <i  class=\"icons activity-icon\"></i>\n                                            <span>{{ 'activity'|translate }}</span>\n                                        </a>\n                                    </li>\n                                    <!--{% endif %}-->\n\n                                    <li>\n                                        <a routerLink=\"/leaderboard\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"icon-suggest-icon\"></i>\n                                            <span class=\"text\">{{ 'leaderboard.name'|translate | capitalize}}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/goal-friends\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"menu-goalfrinds\"></i>\n                                            <span class=\"text\">{{ 'goalfriends'|translate }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/ideas\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"icons ideas-icon\"></i>\n                                            <span>{{ 'ideas'|translate | capitalize }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/profile\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"icons mybucketlist-icon\"></i>\n                                            <span>{{ 'my_bucketlist'|translate }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/goal/create\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"icons add-goal\"></i>\n                                            <span>{{ 'create_goal'|translate }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/edit/profile\" (click)=\"joinToggle1 = false\">\n                                        <i class=\"icons settings-icon\"></i>\n                                        <span>{{ 'settings'|translate }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a (click)=\"logout();joinToggle1 = false\">\n                                        <i class=\"icons logout\"></i>\n                                        <span>{{ 'logout'|translate }}</span>\n                                        </a>\n                                    </li>\n                                </ul>\n                                <!--when mobile menu-->\n                                <!--<a (click)=\"joinToggle1 = !joinToggle1;\" class=\" mobile-user hidden-sm hidden-md hidden-lg\" *ngIf=\"!joinToggle1\">-->\n                                    <!--<figure class=\"img-circle\" *ngIf=\"appUser.image_path\">-->\n                                        <!--&lt;!&ndash;'user_icon'&ndash;&gt;-->\n                                        <!--<img src=\"{{ serverPath + appUser.image_path }}\" alt=\"{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}\" class=\"img-responsive img-circle\" height=\"40\">-->\n                                    <!--</figure>-->\n                                    <!--<p class=\"no-image user-no1\" *ngIf=\"!appUser.image_path\">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>-->\n                                <!--</a>-->\n                            </li>\n                            <li *ngIf=\"!appUser\">\n                                <a (click)=\"joinShow = !joinShow\"\n                                   class=\"sign-in-popover\">\n                                    <i class=\"icons join-icon\"></i>\n                                    <span class=\"hidden-xs\">{{ 'join'|translate }}</span>\n                                </a>\n                            </li>\n                        </ul>\n                    </div>\n                    <!--{% endif %}-->\n                </div>\n            </nav>\n        </header>\n        <div *ngIf=\"joinShow\">\n            <my-login (changeJoin)=\"hideJoin($event)\"></my-login>\n        </div>\n\n        <div *ngIf=\"reportModal\">\n            <report-modal (changeModal)=\"hideModal('report')\" [data]=\"reportData\" class=\"modal-block\"></report-modal>\n        </div>\n\n        <div *ngIf=\"commonModal\">\n            <common-modal (changeModal)=\"hideModal('common')\" [id]=\"commonId\" class=\"modal-block\"></common-modal>\n        </div>\n\n        <div *ngIf=\"usersModal\">\n            <users-modal (changeModal)=\"hideModal('users')\" [data]=\"usersData\" class=\"modal-block\"></users-modal>\n        </div>\n\n        <div *ngIf=\"addModal\">\n            <add-modal (changeModal)=\"hideModal('add')\" [data]=\"addData\" class=\"modal-block\"></add-modal>\n        </div>\n\n        <div *ngIf=\"doneModal\">\n            <done-modal (changeModal)=\"hideModal('done')\" [data]=\"doneData\" class=\"modal-block\"></done-modal>\n        </div>\n\n        <router-outlet></router-outlet>\n    </div>\n    <footer>\n        <div class=\"container\">\n\n            <ul class=\"apps clearfix\">\n                <li>\n                    <a href=\"https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819\" class=\"app-store\" target=\"_blank\">\n                        <img src=\"assets/images/appstore.png\" alt=\"Appstore\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n                <li>\n                    <a href=\"https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist\" class=\"google-play\" target=\"_blank\">\n                        <img src=\"assets/images/googleplay.png\" alt=\"Googleplay\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n            </ul>\n\n            <ul class=\"social\">\n                <li>\n                    <a href=\"https://www.facebook.com/bucketlist127com/\" target=\"_blank\" class=\"facebook-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.instagram.com/bucketlist127/\" target=\"_blank\" class=\"instagram-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.twitter.com/bucketlist127\" target=\"_blank\" class=\"twitter-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.pinterest.com/bucketlist127/\" target=\"_blank\" class=\"pinterest-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://plus.google.com/+Bucketlist127com\" target=\"_blank\" class=\"gplus-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g\" target=\"_blank\" class=\"youtube-icon\"></a>\n                </li>\n\n            </ul>\n\n            <!--Bottom menu-->\n            <ul>\n                <li class=\"first\" *ngFor=\"let menu of menus; let i = index, let f = first, let l = last\" [hidden]=\"menu.isTerm\" [class.first]=\"f\" [class.last]=\"l\" >\n                    <a *ngIf=\"menu.slug\" routerLink=\"page/{{ menu.slug}}\">{{ menu.name }}</a>\n                    <a *ngIf=\"!menu.slug\" href=\"{{ menu.url }}\">{{ menu.name }}</a>\n                </li>\n            </ul>\n\n        </div>\n\n        <div class=\"footer-bottom\">\n            <home-footer [privacyMenu]=\"privacyMenu\"></home-footer>\n        </div>\n\n    </footer>\n</div>\n\n<!--<nav>-->\n<!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">Ideas</a>-->\n<!--<a routerLink=\"/\" routerLinkActive=\"active\">Home</a>-->\n<!--<a routerLink=\"/activity\" routerLinkActive=\"active\">Activity</a>-->\n<!--<a routerLink=\"/profile\" routerLinkActive=\"active\">MY List</a>-->\n<!--<a routerLink=\"/goal/create\" routerLinkActive=\"active\">Goal Create</a>-->\n<!--<a routerLink=\"/notifications\" routerLinkActive=\"active\">notifications</a>-->\n<!--<a routerLink=\"/leaderboard\" routerLinkActive=\"active\">leaderboard</a>-->\n<!--<a routerLink=\"/goal-friends\" routerLinkActive=\"active\">goal-friends</a>-->\n<!--<a routerLink=\"/goal/my-ideas\" routerLinkActive=\"active\">Drafts</a>-->\n<!--<a routerLink=\"/edit/:type\" routerLinkActive=\"active\">settings</a>-->\n<!--<a routerLink=\"/goal/:slug\" routerLinkActive=\"active\">Goal Inner</a>-->\n<!--</nav>-->\n\n"
+module.exports = "<div id=\"mainframe\">\n    <div id=\"wrap\">\n        <div [class.bg-transparent]=\"isMobile && joinToggle1\"></div>\n        <header>\n            <nav class=\"navbar navbar-default navbar-fixed-top\">\n                <div id=\"line\"></div>\n                <div class=\"container\" id=\"main-nav\">\n                    <!--<div class=\"navbar-header navbar-mobile\">-->\n                        <!--{% if is_mobile() and not is_tablet() %}-->\n                        <!--{% if user %}-->\n                        <!--<ul class=\"nav navbar-nav  hidden-sm hidden-md hidden-lg\">-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiActivity.html.twig',  {'route': app.request.get('_route')} ) }}&ndash;&gt;-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons ideas-icon\"></i>-->\n                        <!--<span class=\"hidden-xs hidden-sm\">ideas</span>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li *ngIf=\"!joinToggle11\">-->\n                        <!--<a routerLink=\"/profile\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons mybucketlist-icon\"></i>-->\n                        <!--<span class=\"hidden-xs hidden-sm\">my_bucketlist</span>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li id=\"notification\">-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Blocks:notification.html.twig') }}&ndash;&gt;-->\n                        <!--</li>-->\n                        <!--<li>-->\n                        <!--&lt;!&ndash;{{ include('AppBundle:Main:esiUser.html.twig') }}&ndash;&gt;-->\n                        <!--</li>-->\n                        <!--</ul>-->\n\n                        <!--<ul class=\"hidden-sm hidden-md hidden-lg user-mobile-menu clearfix\" *ngIf=\"!joinToggle11\">-->\n                        <!--<li class=\"clearfix\">-->\n                        <!--<a class=\"navbar-brand\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                        <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n                        <!--<a href=\"javascript:void(0)\" (click)=\"joinToggle11 = !joinToggle11\" class=\"text-right\"><i class=\"icon-remove-email\"></i> </a>-->\n                        <!--</li>-->\n\n                        <!--&lt;!&ndash;{% if app.user and app.user.activity %}&ndash;&gt;-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/activity\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons activity-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'activity'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->\n\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/leaderboard\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icon-suggest-icon\"></i>-->\n                        <!--&lt;!&ndash;<span class=\"text\">{{ 'leaderboard.name'|trans | capitalize }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/friends\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"menu-goalfrinds\"></i>-->\n                        <!--&lt;!&ndash;<span class=\"text\">{{ 'goalfriends'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons ideas-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'ideas'| trans | capitalize }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons mybucketlist-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'my_bucketlist'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/goal-add\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons add-goal\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'create_goal'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a routerLink=\"/settings\" routerLinkActive=\"active\">-->\n                        <!--<i class=\"icons settings-icon\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'settings'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n\n                        <!--<li>-->\n                        <!--<a>-->\n                        <!--<i class=\"icons logout\"></i>-->\n                        <!--&lt;!&ndash;<span>{{ 'logout'|trans }}</span>&ndash;&gt;-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--</ul>-->\n                        <!--&lt;!&ndash;{% else %}&ndash;&gt;-->\n                        <!--<div class=\"clearfix hidden-sm hidden-md hidden-lg\">-->\n                        <!--<a class=\"navbar-brand hidden-sm hidden-md hidden-lg\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                        <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n\n                        <!--<ul class=\"pull-right\">-->\n                        <!--<li>-->\n                        <!--<a routerLink=\"/ideas\" routerLinkActive=\"active\" class=\"hidden-sm hidden-md hidden-lg \">-->\n                        <!--<i class=\"icon-ideas-icon\"></i>-->\n                        <!--<i class=\"ideas-icon\"></i>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--<li>-->\n                        <!--<a href=\"javascript:void(0)\"-->\n                        <!--style=\"display: none\"-->\n                        <!--class=\"sign-in-popover pull-right\">-->\n                        <!--<i class=\"icon-join-icon\"></i>-->\n                        <!--</a>-->\n                        <!--</li>-->\n                        <!--</ul>-->\n\n                        <!--</div>-->\n                        <!--{% endif %}-->\n                        <!--{% endif %}-->\n\n                        <!--<a class=\"navbar-brand hidden-xs\" routerLink=\"/dashboard\" routerLinkActive=\"active\">-->\n                            <!--<img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>-->\n                        <!--</a>-->\n                    <!--</div>-->\n\n                    <!--{% if not is_mobile() or is_tablet() %}-->\n\n                    <div id=\"navbar\" class=\"clearfix\">\n\n                        <a class=\"navbar-brand\" [class.hidden-xs]=\"appUser\" routerLink=\"/\" routerLinkActive=\"active\">\n                            <img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>\n                        </a>\n\n                        <ul class=\"nav navbar-nav pull-left\" *ngIf=\"!isMobile || !joinToggle1\">\n\n                            <li *ngIf=\"appUser\">\n                                <a routerLink=\"/activity\" routerLinkActive=\"active\">\n                                    <i class=\"icons activity-icon\"></i>\n                                    <span class=\"hidden-xs hidden-sm\">{{ 'activity'|translate | uppercase }}</span>\n                                </a>\n                            </li>\n\n                            <li>\n                                <a routerLink=\"/ideas\" routerLinkActive=\"active\">\n                                    <i class=\"icons ideas-icon\"></i>\n                                    <span class=\"hidden-xs hidden-sm\">{{ 'ideas'|translate | uppercase }}</span>\n                                </a>\n                            </li>\n\n                            <li *ngIf=\"appUser\">\n                                <a routerLink=\"/profile\" routerLinkActive=\"active\">\n                                    <i class=\"icons mybucketlist-icon\"></i>\n                                    <span class=\"hidden-xs hidden-sm\">{{ 'my_bucketlist'|translate | uppercase}}</span>\n                                </a>\n                            </li>\n                        </ul>\n\n\n                        <ul class=\"nav navbar-nav navbar-right\">\n                            <li id=\"notification\" *ngIf=\"appUser && (!isMobile || !joinToggle1)\">\n                                <div>\n                                    <a routerLink=\"/notifications\" class=\"relative notify\">\n                                        <i class=\"bell\"></i>\n                                        <sup *ngIf=\"newNotCount\">{{ newNotCount }}</sup>\n                                    </a>\n                                </div>\n                            </li>\n                            <li *ngIf=\"appUser\" [class.block]=\"isMobile && joinToggle1\">\n                                <!--{% if app.user %}-->\n                                <!--{% set user = app.user %}-->\n                                <!--{% set lastName = appUser.lastName %}-->\n                                <!--{% set firstName = appUser.firstName %}-->\n                                <!--{% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}-->\n                                <!--{% set className = \"user-no\" ~ random(4) %}-->\n                                <!--data-animation=\"am-fade-and-scale\"-->\n                                <!--data-content='{{ include(\"AppBundle:Blocks:user.widget.html.twig\") }}'-->\n\n\n                                <a class=\"user user-popover clearfix\"\n                                   (click)=\"joinToggle1 = !joinToggle1\"\n                                   [ngClass]=\"{'join-class': joinToggle1}\">\n                                    <figure class=\"img-circle\" *ngIf=\"appUser.image_path && (!isMobile || !joinToggle1)\">\n                                        <!--'user_icon'-->\n                                        <img src=\"{{ serverPath + appUser.image_path }}\" alt=\"{{ appUser.filename }}\" class=\"img-responsive\">\n                                    </figure>\n                                    <p *ngIf=\"!appUser.image_path && (!isMobile || !joinToggle1)\" class=\"no-image user-no2\">{{ appUser.first_name|slice:0:1| uppercase }}{{ appUser.last_name|slice:0:1 | uppercase}}</p>\n\n                                    <span class=\"name hidden-xs\">{{ appUser.first_name|slice:0: 8 }} {{ appUser.first_name && appUser.first_name.length > 8 ? '...' : '' }}\n                                        <br class=\"hidden-xs\"/>\n                                    </span>\n                                    <a class=\"navbar-brand\" routerLink=\"/\" routerLinkActive=\"active\" *ngIf=\"isMobile && joinToggle1\">\n                                        <img src=\"assets/images/logo.png\" alt=\"Bucket List 127\" class=\"img-responsive\"/>\n                                    </a>\n\n                                    <!--{% if not isMobile() %}-->\n                                    <i class=\"menu-hamburger hidden-xs\" *ngIf=\"!joinToggle1\"></i>\n                                    <i [ngClass]=\"{'menu-remove': !isMobile, 'icon-remove-email': isMobile}\" *ngIf=\"joinToggle1\"></i>\n                                    <!--{% endif %}-->\n                                </a>\n                                <ul class=\"user-menu\" *ngIf=\"joinToggle1\">\n\n                                    <!--{% if app.user and app.user.activity %}-->\n                                    <li>\n                                        <a routerLink=\"/activity\" (click)=\"joinToggle1 = false\">\n                                            <i  class=\"icons activity-icon\"></i>\n                                            <span>{{ 'activity'|translate }}</span>\n                                        </a>\n                                    </li>\n                                    <!--{% endif %}-->\n\n                                    <li>\n                                        <a routerLink=\"/leaderboard\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"icon-suggest-icon\"></i>\n                                            <span class=\"text\">{{ 'leaderboard.name'|translate | capitalize}}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/goal-friends\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"menu-goalfrinds\"></i>\n                                            <span class=\"text\">{{ 'goalfriends'|translate }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/ideas\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"icons ideas-icon\"></i>\n                                            <span>{{ 'ideas'|translate | capitalize }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/profile\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"icons mybucketlist-icon\"></i>\n                                            <span>{{ 'my_bucketlist'|translate }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/goal/create\" (click)=\"joinToggle1 = false\">\n                                            <i class=\"icons add-goal\"></i>\n                                            <span>{{ 'create_goal'|translate }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a routerLink=\"/edit/profile\" (click)=\"joinToggle1 = false\">\n                                        <i class=\"icons settings-icon\"></i>\n                                        <span>{{ 'settings'|translate }}</span>\n                                        </a>\n                                    </li>\n\n                                    <li>\n                                        <a (click)=\"logout();joinToggle1 = false\">\n                                        <i class=\"icons logout\"></i>\n                                        <span>{{ 'logout'|translate }}</span>\n                                        </a>\n                                    </li>\n                                </ul>\n                                <!--when mobile menu-->\n                                <!--<a (click)=\"joinToggle1 = !joinToggle1;\" class=\" mobile-user hidden-sm hidden-md hidden-lg\" *ngIf=\"!joinToggle1\">-->\n                                    <!--<figure class=\"img-circle\" *ngIf=\"appUser.image_path\">-->\n                                        <!--&lt;!&ndash;'user_icon'&ndash;&gt;-->\n                                        <!--<img src=\"{{ serverPath + appUser.image_path }}\" alt=\"{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}\" class=\"img-responsive img-circle\" height=\"40\">-->\n                                    <!--</figure>-->\n                                    <!--<p class=\"no-image user-no1\" *ngIf=\"!appUser.image_path\">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>-->\n                                <!--</a>-->\n                            </li>\n                            <li *ngIf=\"!appUser\">\n                                <a (click)=\"joinShow = !joinShow\"\n                                   class=\"sign-in-popover\">\n                                    <i class=\"icons join-icon\"></i>\n                                    <span class=\"hidden-xs\">{{ 'join'|translate }}</span>\n                                </a>\n                            </li>\n                        </ul>\n                    </div>\n                    <!--{% endif %}-->\n                </div>\n            </nav>\n        </header>\n        <div *ngIf=\"joinShow\">\n            <my-login (changeJoin)=\"hideJoin($event)\"></my-login>\n        </div>\n\n        <div *ngIf=\"reportModal\">\n            <report-modal (changeModal)=\"hideModal('report')\" [data]=\"reportData\" class=\"modal-block\"></report-modal>\n        </div>\n\n        <div *ngIf=\"commonModal\">\n            <common-modal (changeModal)=\"hideModal('common')\" [id]=\"commonId\" class=\"modal-block\"></common-modal>\n        </div>\n\n        <div *ngIf=\"usersModal\">\n            <users-modal (changeModal)=\"hideModal('users')\" [data]=\"usersData\" class=\"modal-block\"></users-modal>\n        </div>\n\n        <div *ngIf=\"addModal\">\n            <add-modal (changeModal)=\"hideModal('add')\" [data]=\"addData\" class=\"modal-block\"></add-modal>\n        </div>\n\n        <div *ngIf=\"doneModal\">\n            <done-modal (changeModal)=\"hideModal('done')\" [data]=\"doneData\" class=\"modal-block\"></done-modal>\n        </div>\n\n        <router-outlet></router-outlet>\n    </div>\n    <footer>\n        <div class=\"container\">\n\n            <ul class=\"apps clearfix\">\n                <li>\n                    <a href=\"https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819\" class=\"app-store\" target=\"_blank\">\n                        <img src=\"assets/images/appstore.png\" alt=\"Appstore\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n                <li>\n                    <a href=\"https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist\" class=\"google-play\" target=\"_blank\">\n                        <img src=\"assets/images/googleplay.png\" alt=\"Googleplay\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n            </ul>\n\n            <ul class=\"social\">\n                <li>\n                    <a href=\"https://www.facebook.com/bucketlist127com/\" target=\"_blank\" class=\"facebook-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.instagram.com/bucketlist127/\" target=\"_blank\" class=\"instagram-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.twitter.com/bucketlist127\" target=\"_blank\" class=\"twitter-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.pinterest.com/bucketlist127/\" target=\"_blank\" class=\"pinterest-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://plus.google.com/+Bucketlist127com\" target=\"_blank\" class=\"gplus-icon\"></a>\n                </li>\n\n                <li>\n                    <a href=\"https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g\" target=\"_blank\" class=\"youtube-icon\"></a>\n                </li>\n\n            </ul>\n\n            <!--Bottom menu-->\n            <ul>\n                <li class=\"first\" *ngFor=\"let menu of menus; let i = index, let f = first, let l = last\" [hidden]=\"menu.isTerm\" [class.first]=\"f\" [class.last]=\"l\" >\n                    <a *ngIf=\"menu.slug\" routerLink=\"/page/{{ menu.slug}}\">{{ menu.name }}</a>\n                    <a *ngIf=\"!menu.slug\" href=\"{{ menu.url }}\">{{ menu.name }}</a>\n                </li>\n            </ul>\n\n        </div>\n\n        <div class=\"footer-bottom\">\n            <home-footer [privacyMenu]=\"privacyMenu\"></home-footer>\n        </div>\n\n    </footer>\n</div>\n\n<!--<nav>-->\n<!--<a routerLink=\"/ideas\" routerLinkActive=\"active\">Ideas</a>-->\n<!--<a routerLink=\"/\" routerLinkActive=\"active\">Home</a>-->\n<!--<a routerLink=\"/activity\" routerLinkActive=\"active\">Activity</a>-->\n<!--<a routerLink=\"/profile\" routerLinkActive=\"active\">MY List</a>-->\n<!--<a routerLink=\"/goal/create\" routerLinkActive=\"active\">Goal Create</a>-->\n<!--<a routerLink=\"/notifications\" routerLinkActive=\"active\">notifications</a>-->\n<!--<a routerLink=\"/leaderboard\" routerLinkActive=\"active\">leaderboard</a>-->\n<!--<a routerLink=\"/goal-friends\" routerLinkActive=\"active\">goal-friends</a>-->\n<!--<a routerLink=\"/goal/my-ideas\" routerLinkActive=\"active\">Drafts</a>-->\n<!--<a routerLink=\"/edit/:type\" routerLinkActive=\"active\">settings</a>-->\n<!--<a routerLink=\"/goal/:slug\" routerLinkActive=\"active\">Goal Inner</a>-->\n<!--</nav>-->\n\n"
 
 /***/ },
 
-/***/ 855:
+/***/ 988:
 /***/ function(module, exports) {
 
 module.exports = "<div id=\"story-slider-homepage\">\n\n  <div class=\"container\">\n\n    <h2 class=\"text-center text-dark\">{{ 'homepage_success_story'| translate }}</h2>\n\n    <div class=\"row\">\n\n      <div class=\"col-sm-12\">\n        <!--<my-component>-->\n          <swiper [config]=\"config\" class=\"swiper-container\" id=\"story-slider-homepage-container\">\n            <div class=\"swiper-wrapper\">\n              <div *ngFor=\"let story of stories; let i = index; trackBy: trackByFn\" class=\"swiper-slide comment-place story-fade-in\">\n                <!--data-ng-init=\"count[{{ story.id }}] = {{ story.voters_count }}\">-->\n\n                <div class=\"row no-gutter\">\n                  <div class=\"col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2\">\n                    <div class=\"bg-white\" >\n\n                      <div class=\"row padding\">\n\n                        <div class=\"col-xs-9\">\n\n                          <div class=\"clearfix\">\n\n                            <div class=\"pull-left\">\n                              <a href=\"#\" (click)=\"openSignInPopover()\">\n\n                                <figure class=\"user-image\">\n                                  <!--blImageFilter('user_icon')-->\n                                  <img *ngIf=\"story.user.cached_image\" src=\"{{ story.user.cached_image }}\"\n                                       class=\"img-circle img-responsive\"\n                                       alt=\"{{ story.user.first_name }}\">\n                                  <span *ngIf=\"!story.user.cached_image\" class=\"no-image text-white user-no4\">{{ story.user.first_name|slice:0:1 |uppercase}}{{ story.user.last_name|slice:0:1 |uppercase}}</span>\n                                </figure>\n                              </a>\n                            </div>\n\n                            <div class=\"pull-left success-story-user\" *ngIf=\"story.user\">\n                              <p class=\"user-name\">\n                                <a href=\"#\" (click)=\"openSignInPopover()\" class=\"text-dark-gray\">{{ story.user.show_name }}</a>\n                              </p>\n                              <span class=\"text-gray\">\n                                  {{ story.created| date:'dd MMMM,  yyyy' }} at {{ story.created| date:'HH:mm' }}\n                              </span>\n                            </div>\n                          </div>\n\n                        </div>\n\n                        <div class=\"col-xs-3 text-right\">\n                          <span class=\"text-purple\">{{ story.voters_count }}</span>\n                          <a (click)=\"openSignInPopover(story.id)\">\n                            <i class=\"like-icon\"></i>\n                          </a>\n                        </div>\n\n                      </div>\n\n                      <div class=\"border-left\">\n                        <div class=\"row\">\n                          <div class=\"col-xs-12\">\n                            <!--data-ng-scrollbars data-ng-scrollbars-config=\"scroller_config\" data-ng-scrollbars-update=\"updateScrollbar\"-->\n                            <perfect-scrollbar class=\"success-scroll\" [config]=\"config\">\n                              <div class=\"content\">\n                                <p>{{ story.story }}</p>\n\n                                <!--file.downloadLink|blImageFilter('slide_max_size')-->\n                                <a *ngFor=\"let file of story.files; let k = index; trackBy: trackByFn\" href=\"{{ file.downloadLinkMaxSize }}\"\n                                   class=\"swipebox-{{ i }}\" [hidden]=\"k > 0\">\n                                  <i class=\"photo-icon\"></i>\n                                  <!--('story_homepage_small')-->\n                                  <img src=\"{{ file.getDownloadLink }}\"\n                                       alt=\"{{ file.fileName }}\" height=\"83\" width=\"106\"/>\n                                </a>\n\n                                <!--{#<span  data-ng-init=\"storySliderVideo[{{ key }}]='{{ v }}'\"></span>#}-->\n                                <a *ngFor=\"let video of story.videos; let key = index; trackBy: trackByFn\" class=\"swipebox-video-{{ key }}\" href=\"{{ video }}\">\n                                  <i class=\"video-icon\" [hidden]=\"key > 0\"></i>\n                                  <!--<embed-video-->\n                                  <!--href=\"{{ video ]]\"-->\n                                  <!--height=\"83\" width=\"106\">-->\n                                  <!--</embed-video >-->\n                                </a>\n                              </div>\n                            </perfect-scrollbar>\n\n                          </div>\n                        </div>\n                      </div>\n\n                      <div class=\"idea-item\" *ngIf=\"story.goal\">\n                        <figure class=\"rounded-corners\">\n                          <i class=\"icon-lock-white\"></i>\n                          <app-goal [goal]=\"story.goal\"></app-goal>\n                        </figure>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <!-- Add Pagination -->\n            <div class=\"swiper-pagination\"></div>\n            <!-- Add Arrows -->\n            <div class=\"swiper-button-next swiper-button-next-home-story\"></div>\n            <div class=\"swiper-button-prev swiper-button-prev-home-story\"></div>\n          </swiper>\n      </div>\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-sm-12 text-center\">\n        <a href=\"#\" (click)=\"openSignInPopover()\" class=\"btn btn-purple\">{{ 'join_now'| translate | uppercase}}</a>\n      </div>\n    </div>\n\n  </div>\n\n</div>"
 
 /***/ },
 
-/***/ 856:
+/***/ 989:
 /***/ function(module, exports) {
 
 module.exports = "<div class=\"story-count \"  *ngIf=\"isInner\">\n  <div class=\"row\">\n    <div class=\"col-xs-12\">\n      <a name=\"comments\"></a>\n      <h4>\n        <i class=\"comment-icon\"></i>\n        {{ 'comments'|translate }}\n      </h4>\n    </div>\n  </div>\n  <hr/>\n</div>\n\n<div class=\"comments-column padding\">\n\n\n  <div *ngFor=\"let comment of comments; let i = index\"\n       [hidden]=\"!comments || !comment.visible\"\n       class=\"comment-information\">\n    <!--data-ng-init=\"comment.visible = ($index > comments.length - commentsDefaultCount - 1)\"-->\n\n    <div class=\"clearfix\">\n      <figure class=\"pull-left\">\n        <img *ngIf=\"comment.author.image_path\" src=\"{{ serverPath + comment.author.image_path }}\"\n             alt=\"{{ comment.author.first_name }}\" class=\"img-circle img-responsive\"/>\n\n        <p *ngIf=\"!comment.author.image_path\" class=\"no-image user-no1 text-white\">\n          {{ (comment.author.first_name |\n          slice:0:1 | uppercase) + (comment.author.last_name | slice:0:1 | uppercase) }}\n        </p>\n      </figure>\n\n      <div class=\"pull-left\">\n        <p class=\"text-dark-gray\">{{ comment.author.show_name }}</p>\n        <span class=\"convert-to-local\">{{ comment.created_at| date:'dd MMMM,  yyyy' }} at {{ comment.created_at| date:'HH:mm' }}</span>\n          <span (click)=\"report(0, comment.id)\"\n                *ngIf=\"appUser && comment.author.id != appUser.id\"\n                class=\"report\">{{ 'report.title'|translate }}</span>\n      </div>\n    </div>\n\n    <div>\n      <span class=\"fos_comment_comment_authorname\">\n          <i class=\"arrow-up\"></i>\n          <p>{{ comment.comment_body }}</p>\n      </span>\n\n      <div class=\"border-left\">\n        <div class=\"row\">\n          <div class=\"col-xs-11 col-xs-offset-1\">\n            <div *ngFor=\"let child of comment.children\"\n                 [hidden]=\"!comment.children\">\n              <!--|| !child.visible-->\n              <!--data-ng-init=\"child.visible = ($index > comment.children.length - 3)\"-->\n              <div class=\"clearfix\">\n                <figure class=\"pull-left\">\n                  <img *ngIf=\"child.author.image_path\" src=\"{{ serverPath + child.author.image_path }}\"\n                       alt=\"{{ child.author.first_name }}\" class=\"img-circle img-responsive\"/>\n                  <p *ngIf=\"!child.author.image_path\" class=\"no-image user-no1\">{{ (child.author.first_name |\n                    slice:0:1 | uppercase) + (child.author.last_name | slice:0:1 | uppercase) }}</p>\n                </figure>\n\n                <div class=\"pull-left\">\n                  <p class=\"text-dark-gray\">{{ child.author.show_name }} <span class=\"text-dark-gray\">{{ 'replied'|translate }}</span></p>\n                  <span class=\"convert-to-local \">{{ comment.created_at| date:'dd MMMM,  yyyy' }} at {{ comment.created_at| date:'HH:mm' }}</span>\n                    <span (click)=\"report(0,comment.id)\"\n                          *ngIf=\"appUser && child.author.id != appUser.id\"\n                          class=\"report\">{{ 'report.title'|translate }}</span>\n                </div>\n              </div>\n\n              <div>\n                 <span class=\"fos_comment_comment_authorname\">\n                    <i class=\"arrow-up\"></i>\n                    <p>\n                      {{ child.comment_body  }}\n                    </p>\n                </span>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-xs-11 col-xs-offset-1\">\n          <a (click)=\"comment.reply = false\"\n             *ngIf=\"comment.reply && appUser\"\n             class=\"text-dark-grey reply\">\n            <!--data-ng-init=\"comment.reply = true\"-->\n            {{ 'reply'|translate }}\n          </a>\n          <div class=\"clearfix \" *ngIf=\"!comment.reply\">\n\n            <figure class=\"pull-left\">\n              <img *ngIf=\" appUser.image_path\" src=\"{{ serverPath + appUser.image_path}}\"\n                   class=\"img-circle img-responsive\"/>\n              <p *ngIf=\"!appUser.image_path\" class=\"no-image user-no1\">{{ appUser.first_name|slice:0:1 |uppercase}}{{ appUser.last_name|slice:0:1 |uppercase}}</p>\n            </figure>\n\n            <div class=\"pull-left leave-comment\">\n              <form class=\"fos_comment_comment_new_form\" action=\"\" method=\"POST\">\n                <i class=\"arrow-left\"></i>\n                <div class=\"fos_comment_form_errors\"></div>\n                    <textarea name=\"replyBody\"\n                        [(ngModel)]=\"comment.replyBody\"\n                        (keypress)=\"writeReply($event, comment)\"\n                        class=\"form-control\"\n                        placeholder=\"{{'reply_comment'|translate}}\">\n                    </textarea>\n              </form>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"row \" *ngIf=\"isInner\">\n    <div class=\"col-xs-12\">\n      <div class=\"text-right \" *ngIf=\"comments && commentsLength > 0\">\n        <a class=\"view-more-comments text-purple\"\n           (click)=\"showMoreComment()\">\n          Show More +<span>{{ commentsLength }}</span>\n        </a>\n      </div>\n    </div>\n  </div>\n\n\n  <div class=\"clearfix \" *ngIf=\"appUser\">\n\n    <figure class=\"pull-left\">\n      <img *ngIf=\" appUser.image_path\" src=\"{{ serverPath + appUser.image_path}}\"\n           class=\"img-circle img-responsive\"/>\n      <p *ngIf=\"!appUser.image_path\" class=\"no-image user-no1\">{{ appUser.first_name|slice:0:1 |uppercase}}{{ appUser.last_name|slice:0:1 |uppercase}}</p>\n    </figure>\n\n    <div class=\"pull-left leave-comment\">\n      <form class=\"fos_comment_comment_new_form\" action=\"\" method=\"POST\">\n        <i class=\"arrow-left\"></i>\n        <div class=\"fos_comment_form_errors\"></div>\n            <textarea name=\"commentBody\"\n              [(ngModel)]=\"commentBody\"\n              (keypress)=\"writeComment($event)\"\n              class=\"form-control\"\n              placeholder=\"{{'leave_comment'|translate}}\">\n            </textarea>\n      </form>\n    </div>\n  </div>\n\n</div>"
 
 /***/ },
 
-/***/ 857:
+/***/ 990:
+/***/ function(module, exports) {
+
+module.exports = "<div *ngIf=\"errorMessage !== null\"><span style=\"color: red\">{{errorMessage}}</span> </div>"
+
+/***/ },
+
+/***/ 991:
 /***/ function(module, exports) {
 
 module.exports = "<div id=\"scroll-button\"></div>\n<div id=\"homepage-ideas\" class=\"ideas-list\">\n  <div class=\"container\">\n    <h2 class=\"text-center text-dark\">{{ 'homepage_list_title' |translate }}</h2>\n    <div class=\"row\">\n      <div class=\"col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0\">\n        <div class=\"row idea-item\">\n\n          <div class=\"col-md-4\">\n            <div class=\"row\" *ngFor=\"let goal of goals | slice:0:2\">\n              <div class=\"col-sm-12\">\n                <!--goal_list_small-->\n                <div class=\"row idea-item\">\n                  <div class=\"col-sm-12\">\n                    <figure>\n                      <app-goal [goal]=\"goal\"></app-goal>\n                      <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n                    </figure>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4\">\n            <!--goal_list_vertical-->\n            <div class=\"row idea-item\" *ngFor=\"let goal of goals | slice:2:3\">\n              <div class=\"col-sm-12\">\n                <figure>\n                  <app-goal [goal]=\"goal\" class=\"height\"></app-goal>\n                  <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n                </figure>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col-md-4\">\n            <div class=\"row\" *ngFor=\"let goal of goals | slice:3:5\">\n              <div class=\"col-sm-12\">\n                <!--goal_list_small-->\n                <div class=\"row idea-item\">\n                  <div class=\"col-sm-12\">\n                    <figure>\n                      <app-goal [goal]=\"goal\"></app-goal>\n                      <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n                    </figure>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n\n        </div>\n\n        <div class=\"row idea-item\">\n          <!--{% for goal in goals|slice(5, 2)  %}-->\n\n          <div *ngFor=\"let goal of goals | slice:5:7;let f = first\" class=\"col-md-{{ f ?  8 : 4 }}\">\n            <div class=\"row idea-item\">\n              <div class=\"col-sm-12\">\n                <figure>\n                  <app-goal [goal]=\"goal\"></app-goal>\n                  <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n                </figure>\n              </div>\n            </div>\n            <!--goal_list_horizontal:goal_list_small-->\n          </div>\n\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col-sm-12 text-center\">\n            <a routerLink=\"/ideas\" class=\"btn btn-purple\">{{ 'btn_discover_more' | translate }}</a>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
 
-/***/ 858:
+/***/ 992:
 /***/ function(module, exports) {
 
 module.exports = "<!--{% if app.user.id is defined %}-->\n<!--{% set userId = app.user.id %}-->\n<!--{% else %}-->\n<!--{% set userId = 0 %}-->\n<!--{% endif %}-->\n<figcaption>\n    <ul class=\"row no-gutter\">\n        <!--{% if goal is defined and goalInner is not defined %} -->\n        <!--data-ng-init=\"completed=true;goal.is_my_goal={{ goal.isMyGoal|default(0) }};goal.id={{ goal.id }}\" -->\n        <!--{% endif %}>-->\n\n      <li class=\"col-xs-6\" [class.transparent]=\"goal.is_my_goal && goal.is_my_goal !== 0\">\n        <a *ngIf=\"!goal.is_my_goal\"\n         (click)=\"addGoal(goal.id)\">\n          <i class=\"icon-plus-icon\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n          <span class=\"text\">{{ 'add'|translate | capitalize }} </span>\n        </a>\n\n        <span *ngIf=\"goal.is_my_goal && goal.is_my_goal !== 0\">\n            <i class=\"icon-green-plus\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>\n            <span class=\"text\">{{ 'added'|translate | capitalize }} </span>\n        </span>\n      </li>\n\n      <li class=\"col-xs-6\" [class.transparent]=\"goal.is_my_goal && goal.is_my_goal === 2\">\n          <!--data-ng-init=\"success[ goal.id ] = false\">-->\n            <span *ngIf=\"!goal.is_my_goal || goal.is_my_goal !== 2\">\n                <a (click)=\"completeGoal(goal.id)\">\n                     <i class=\"icon-ok-icon\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n                     <span class=\"text\">{{ 'done'|translate | capitalize }}</span>\n                 </a>\n            </span>\n\n            <span *ngIf=\"goal.is_my_goal && goal.is_my_goal === 2 \" id=\"success{{ goal.id }}\">\n                 <i class=\"icon-green-ok\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>\n                <span class=\"text\">{{ 'completed'|translate | capitalize }}</span>\n            </span>\n\n      </li>\n    </ul>\n</figcaption>"
 
 /***/ },
 
-/***/ 859:
+/***/ 993:
 /***/ function(module, exports) {
 
 module.exports = "<a routerLink=\"/profile/{{ user.uid }}\">\n\n  <figure class=\"image img-circle\">\n    <img *ngIf=\"user.cached_image.length != 2\" src=\"{{ user.cached_image }}\" alt=\"\" class=\"img-circle img-responsive\"/>\n    <p *ngIf=\"user.cached_image.length == 2\" class=\"no-image user-no4\">{{ user.cached_image | uppercase }}</p>\n  </figure>\n\n  <div class=\"pull-left text-gray\">\n    <h4 class=\"text-dark-gray\">\n      <span class=\"ng-hide text-dark-gray\" title=\"{{ name }}\">\n          {{ name.length < 31 ? name: (name|slice:0:26  + '...')}}\n      </span>\n      <!--<i class=\"leaderboard-small\" *ngIf=\"haveTop && inArray(user.id)\"></i>-->\n    </h4>\n\n    <span class=\"text-gray\">{{ 'listed_by'|translate }} <span>{{ user.stats.listedBy }}</span></span> |\n    <span class=\"text-gray\">{{ 'completed'|translate }} <span>{{ user.stats.doneBy}}</span></span>\n  </div>\n</a>"
 
 /***/ },
 
-/***/ 860:
+/***/ 994:
 /***/ function(module, exports) {
 
 module.exports = "<a *ngIf=\"type == 1\" (click)=\"openUsersModal(goal.id, goal.stats.listedBy, type)\">\n  <span>\n      {{ 'home_listed_by' | translate }}\n      {{ goal.stats.listedBy }}\n  </span>\n  <i class=\"icon-user-small\"></i>\n</a>\n<a *ngIf=\"type == 2\" (click)=\"openUsersModal(goal.id, goal.stats.doneBy, type)\">\n  <span>\n      {{ 'home_complete' | translate }}\n      {{ goal.stats.doneBy }}\n  </span>\n  <i class=\"icon-user-small\"></i>\n</a>\n<a *ngIf=\"type == 3\" (click)=\"openUsersModal(story.id, story.count, type)\">\n  <span class=\"text-purple\">\n      {{ voters_count }}\n  </span>\n    <i [ngClass]=\"{'like-active': is_vote,'user-story': isMy()}\"\n       (click)=\"manageVote(story.id)\" *ngIf=\"story\"\n       class=\"like-icon\"></i>\n</a>"
 
 /***/ },
 
-/***/ 861:
+/***/ 995:
 /***/ function(module, exports) {
 
 module.exports = "<!--<div class=\"row idea-item\">-->\n  <!--<div class=\"col-sm-12\">-->\n    <!--<figure>-->\n\n      <span class=\"hide-nearby\"\n            *ngIf=\"type == 'nearby' && !hideDisableNearBy && isLoggedIn\"\n            (click)=\"notInterest()\"\n            (mouseleave)=\"hoverEmitter.emit(null)\"\n            (mousemove)=\"hoverEmitter.emit({\n            ev:$event,\n            val:'hide_nearby'})\">\n      </span>\n\n      <h3 [ngClass]=\"{'nearby': (type== 'nearby' && goal.location && goal.distance > 0)}\">\n          <a *ngIf=\"goal.publish\" routerLink=\"/goal/{{ goal.slug }}\">{{ goal.title }}</a>\n          <a *ngIf=\"!goal.publish\">{{ goal.title }}</a>\n      </h3>\n\n      <!--<a routerLink=\"/goal/{{ goal.slug }}\" class=\"goal-item-image\">-->\n        <!--<span class=\"overlay\"></span>-->\n        <!--<img src=\"{{ goal.cached_image }}\" *ngIf=\"goal.cached_image\" alt=\"{{ goal.title }}\"/>-->\n      <!--</a>-->\n\n        <a *ngIf=\"goal.publish\" routerLink=\"/goal/{{ goal.slug }}\"\n           class=\"goalTitle goal-item-image\">\n            <span class=\"overlay\"></span>\n            <img src=\"{{ goal.cached_image }}\"\n                 alt=\"{{ goal.title }}\"\n                 *ngIf=\"goal.cached_image\"/>\n        </a>\n        <a *ngIf=\"!goal.publish\"\n           class=\"goalTitle goal-item-image\">\n            <span class=\"overlay\"></span>\n            <img src=\"{{ goal.cached_image }}\"\n                 alt=\"{{ goal.title }}\"\n                 *ngIf=\"goal.cached_image\"/>\n        </a>\n\n      <a class=\"nearby-distance\"\n         target=\"_blank\"\n         *ngIf=\"type == 'nearby' && goal.location && userLocation && goal.distance > 0\"\n         href=\"https://www.google.com/maps/dir/{{ goal.location.latitude}},{{ goal.location.longitude}}/{{ userLocation.latitude }},{{ userLocation.longitude }}/\"\n         (mouseleave)=\"hoverEmitter.emit(null)\"\n         (mousemove)=\"hoverEmitter.emit({\n            ev:$event,\n            val:'goal.get_direction'})\">\n      <i></i>\n      <!--<span class=\"text-center\" *ngIf=\"goal.distance > 10\">{{ goal.distance | number: 0 }} km</span>-->\n      <span class=\"text-center\">{{ goal.distance | number:'1.0-3' }} km</span>\n      </a>\n\n      <div class=\"absolute\" >\n        <ul>\n          <li>\n            <goal-users [goal]=\"goal\" type=\"1\"></goal-users>\n          </li>\n          <li>\n            <goal-users [goal]=\"goal\" type=\"2\"></goal-users>\n          </li>\n        </ul>\n      </div>\n\n\n    <!--</figure>-->\n  <!--</div>-->\n<!--</div>-->"
 
 /***/ },
 
-/***/ 862:
+/***/ 996:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"footer-bottom\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-xs-5\">\n        <small>&copy; {{ 'copyright'|translate | uppercase }}</small>\n      </div>\n      <div class=\"col-xs-7\">\n        <ul>\n          <li class=\"first last\">\n            <a href=\"{{ url }}\">{{ name }}</a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"footer-bottom\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-xs-5\">\n        <small>&copy; {{ 'copyright'|translate | uppercase }}</small>\n      </div>\n      <div class=\"col-xs-7\">\n        <ul>\n          <li class=\"first last\">\n            <a routerLink=\"page/{{ slug }}\" >{{ name }}</a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ },
 
-/***/ 863:
+/***/ 997:
 /***/ function(module, exports) {
 
 module.exports = "<ul class=\"badge-place leaderboard-list goals-animate\" *ngIf=\"user\">\n  <li class=\"text-gray\">\n    <i class=\"badge-{{ index + 1 }}\"></i>\n  </li>\n\n  <li>\n    <figure class=\"img-circle\">\n      <!--{% set className = \"user-no\" ~ random(4) %}-->\n      <img *ngIf=\"user.cached_image\" src=\"{{ user.cached_image }}\" alt=\"user image\" class=\"img-circle\"/>\n      <p *ngIf=\"!user.cached_image\" class=\"no-image text-white user-no1\">\n        {{ user.first_name  | slice:0:1 | uppercase }}\n        {{ user.last_name | slice:0:1 | uppercase }}\n      </p>\n    </figure>\n  </li>\n\n  <li>\n    <a routerLink=\"/profile/{{ user.u_id }}\"  class=\"text-dark-gray\">{{ getFullName(user) }} </a>\n  </li>\n\n  <li class=\"text-gray\">{{ score }}</li>\n</ul>"
 
 /***/ },
 
-/***/ 864:
+/***/ 998:
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"col-sm-2\"  [ngClass]=\"{'no-left' : isMobile, 'no-right': !isMobile}\">\n  <div class=\"date-left\">\n    <!--data-ng-init=\"-->\n    <!--change[[ goal.id}} = 0;-->\n    <!--doDate[[ goal.id }} = null;-->\n    <!--dateStatus[goal.id] = userGoal.date_status;-->\n    <!--goalDate[ goal.id ] = ((userGoal.do_date && status != 2)? userGoal.do_date: (userGoal.completion_date? userGoal.completion_date: 'dreaming'))\"-->\n    <p *ngIf=\"isMobile && first\" >\n      <span class=\"hidden-sm hidden-mg hidden-lg space\"></span>\n    </p>\n\n    <div class=\"img-circle hidden-xs \"  *ngIf=\"goalDate != 'dreaming' && dateStatus == 1\">\n      {{ goalDate | date:'dd' }}\n    </div>\n\n    <div class=\"img-circle hidden-xs \"  *ngIf=\"goalDate != 'dreaming' && dateStatus != 1\">\n      --\n    </div>\n\n    <div class=\"img-circle hidden-xs \"  *ngIf=\"goalDate == 'dreaming'\">\n      <i class=\"dreaming\">\n        <i class=\"icon-dreaming\"></i>\n      </i>\n    </div>\n\n    <!--{#todo mobile is crush#}-->\n    <div class=\"data-mobile \" *ngIf=\"isMobile\">\n      <div></div>\n      <div >\n        <p *ngIf=\"goalDate != 'dreaming' && dateStatus == 1\" >{{ goalDate| date:'dd MMMM yyyy' }}</p>\n        <p *ngIf=\"goalDate != 'dreaming' && dateStatus == 2\">{{ goalDate| date:'yyyy' }}</p>\n        <p *ngIf=\"goalDate != 'dreaming' && dateStatus == 3\">{{ goalDate| date:'MMMM yyyy' }}</p>\n        <p *ngIf=\"goalDate == 'dreaming'\">\n          <i class=\"dreaming-mobile\">\n            <i class=\"icon-dreaming text-purple\"></i>\n          </i>\n        </p>\n      </div>\n    </div>\n\n    <span class=\"hidden-xs\" *ngIf=\"last\"></span>\n\n    <div class=\"elipse\" >\n\n      <div  *ngIf=\"!isMobile && goalDate != 'dreaming' && dateStatus != 2\" class=\"text-gray \">\n        {{ goalDate | date:'MMM, yyyy' }}\n      </div>\n      <div  *ngIf=\"!isMobile && goalDate != 'dreaming' && dateStatus == 2\" class=\"text-gray  only-year\">\n        {{ goalDate | date:'yyyy' }}\n      </div>\n\n      <div  *ngIf=\"!isMobile && goalDate == 'dreaming' \" class=\"text-gray \">\n        {{ 'dreaming'|translate}}\n      </div>\n\n    </div>\n  </div>\n</div>\n<div class=\"col-sm-10\" [ngClass]=\"{'bg-white no-left': !isMobile}\">\n  <div class=\"row\">\n    <div class=\"col-sm-6\" [class.no-right]=\"!isMobile\">\n      <figure>\n        <!--data-ng-init=\"innerPath = (goal.publish || (goal.author && goal.author.id == '{{ user.id }}'))? '{{ env_prefix  }}/goal/' + goal.slug: '#'\"-->\n\n        <!--<div class=\"addthis_native_toolbox\" data-url=\"{{ app.request.host }}{{ env_prefix  }}/goal/{{ goal.slug }}\"></div>-->\n\n\n        <a *ngIf=\"goal && (goal.publish || (goal.author && goal.author.id == appUser.id))\" routerLink=\"/goal/{{ goal.slug }}\">\n          <span class=\"overlay\"></span>\n          <img *ngIf=\"goal && goal.cached_image\" src=\"{{ goal.cached_image }}\" alt=\"{{ goal.title }}\" />\n        </a>\n        <a *ngIf=\"goal && (!goal.publish && (!goal.author || goal.author.id != appUser.id))\" href=\"#\">\n          <span class=\"overlay\"></span>\n          <img *ngIf=\"goal && goal.cached_image\" src=\"{{ goal.cached_image }}\" alt=\"{{ goal.title }}\" />\n        </a>\n\n\n        <figcaption>\n          <div class=\"row\" *ngIf=\"goal\">\n            <div class=\"col-xs-5\">\n              <goal-users [goal]=\"goal\" type=\"1\"></goal-users>\n            </div>\n            <div class=\"col-xs-7\">\n              <goal-users [goal]=\"goal\" type=\"2\"></goal-users>\n            </div>\n          </div>\n        </figcaption>\n      </figure>\n    </div>\n    <div class=\"col-sm-6\">\n      <article class=\"information\" [class.bg-white]=\"isMobile\">\n        <div class=\"row\">\n          <div class=\"col-sm-12\">\n            <h3>\n              <a *ngIf=\"goal && (goal.publish || (goal.author && goal.author.id == appUser.id))\" routerLink=\"/goal/{{ goal.slug }}\" class=\"text-dark-gray\">\n                <strong>{{ goal.title }}</strong>\n              </a>\n              <a *ngIf=\"goal && (!goal.publish && (!goal.author || goal.author.id != appUser.id))\" href=\"#\" class=\"text-dark-gray\">\n                <strong>{{ goal.title }}</strong>\n              </a>\n            </h3>\n          </div>\n        </div>\n\n        <ul class=\"clearfix\">\n\n          <!--{# Missed deadline #}-->\n          <li *ngIf=\"isLate(userGoal.do_date) && !success\">\n            <!--*ngIf=\"isLate(userGoal.do_date) && !success\"-->\n            <i title=\"{{ 'my_bucket_list.missed_deadline'|translate}}\"  class=\"icon-info text-purple\"></i>\n          </li>\n\n          <li *ngIf=\"goal && !goal.publish && goal.author && goal.author.id == appUser.id\">\n            <a routerLink=\"/goal/create/{{goal.id}}/Public\">\n              <i title=\"{{ 'my_bucket_list.edit'|translate}}\" class=\"icon-pencil\"></i>\n            </a>\n          </li>\n\n          <li>\n            <a class=\"text-gray manage-modal\">\n              <!--data-ls-type=\"manage\"-->\n              <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n              <!--data-ls-goal-manage-->\n              <i *ngIf=\"userGoal.note\" title=\"{{ 'my_bucket_list.notes'|translate}}\" class=\"svg edit-note\"></i>\n            </a>\n          </li>\n\n          <!--{# invisible #}-->\n          <li *ngIf=\"!userGoal.is_visible\">\n            <i title=\"{{ 'my_bucket_list.invisible'|translate}}\" class=\"icon-eye\"></i>\n          </li>\n\n          <li *ngIf=\"goal && goal.author && goal.author.id == appUser.id && goal.status == 'false'\">\n            <i title=\"{{ 'my_bucket_list.private'|translate}}\"  class=\"icon-lock-white\"></i>\n          </li>\n\n        </ul>\n\n        <ul class=\"progress-section clearfix\">\n\n          <li *ngIf=\"userGoal && !isEmpty(userGoal.steps)\">\n            <i title=\"{{ 'my_bucket_list.notes'|translate}}\"  class=\"icon-step-list\"></i>\n          </li>\n\n          <li *ngIf=\"userGoal && !isEmpty(userGoal.steps)\">\n            <div class=\"progress\">\n              <div class=\"progress-bar progress-bar-striped\"\n                   role=\"progressbar\"\n                   aria-valuenow=\"45\"\n                   aria-valuemin=\"0\"\n                   aria-valuemax=\"100\"\n                   [ngStyle]=\"{'width.%': userGoal.completed| round}\">\n                {{ userGoal.completed| round }}%\n              </div>\n            </div>\n          </li>\n        </ul>\n\n        <div class=\"row\">\n          <div class=\"col-xs-5\">\n            <a class=\"text-gray manage-modal\">\n              <!--data-ls-type=\"manage\"-->\n              <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n              <!--data-ls-goal-manage-->\n              <i class=\"icon-manage\"></i>\n              <span>{{ 'manage'|translate| capitalize }}</span>\n            </a>\n\n          </div>\n\n          <div class=\"col-xs-7 text-right\">\n            <!--data-ng-init=\"goalStatus = (status == '{{ constant(\"AppBundle\\\\Entity\\\\UserGoalCOMPLETED\")---2--- }}')\"-->\n            <!--data-ng-init=\"success[ goal.id ] = goalStatus\"-->\n          <div class=\"check_status\">\n            <a *ngIf=\"!success\"\n               (click)=\"success = true\" class=\"btn btn-transparent \">\n               <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n               <!--data-ls-user-goal-manage-->\n              <!--id=\"done{{ goal.id }}\"-->\n              <i class=\"icon done-icon\"></i>\n              {{ 'done'|translate| capitalize }}\n            </a>\n            <a  *ngIf=\"success\" class=\"btn btn-transparent successtory \">\n                <!--data-ls-user-goal-manage-->\n                <!--data-ls-type=\"manage\"-->\n\n                <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n                <!--id=\"success{{ goal.id }}\">-->\n              <i class=\"icon ok-icon-green\"></i>\n              {{ 'successtory'|translate| capitalize }}\n            </a>\n          </div>\n        </div>\n\n    </div>\n      </article>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"col-sm-2\"  [ngClass]=\"{'no-left' : isMobile, 'no-right': !isMobile}\">\n  <div class=\"date-left\">\n    <!--data-ng-init=\"-->\n    <!--change[[ goal.id}} = 0;-->\n    <!--doDate[[ goal.id }} = null;-->\n    <!--dateStatus[goal.id] = userGoal.date_status;-->\n    <!--goalDate[ goal.id ] = ((userGoal.do_date && status != 2)? userGoal.do_date: (userGoal.completion_date? userGoal.completion_date: 'dreaming'))\"-->\n    <p *ngIf=\"isMobile && first\" >\n      <span class=\"hidden-sm hidden-mg hidden-lg space\"></span>\n    </p>\n\n    <div class=\"img-circle hidden-xs \"  *ngIf=\"goalDate != 'dreaming' && dateStatus == 1\">\n      {{ goalDate | date:'dd' }}\n    </div>\n\n    <div class=\"img-circle hidden-xs \"  *ngIf=\"goalDate != 'dreaming' && dateStatus != 1\">\n      --\n    </div>\n\n    <div class=\"img-circle hidden-xs \"  *ngIf=\"goalDate == 'dreaming'\">\n      <i class=\"dreaming\">\n        <i class=\"icon-dreaming\"></i>\n      </i>\n    </div>\n\n    <!--{#todo mobile is crush#}-->\n    <div class=\"data-mobile \" *ngIf=\"isMobile\">\n      <div></div>\n      <div >\n        <p *ngIf=\"goalDate != 'dreaming' && dateStatus == 1\" >{{ goalDate| date:'dd MMMM yyyy' }}</p>\n        <p *ngIf=\"goalDate != 'dreaming' && dateStatus == 2\">{{ goalDate| date:'yyyy' }}</p>\n        <p *ngIf=\"goalDate != 'dreaming' && dateStatus == 3\">{{ goalDate| date:'MMMM yyyy' }}</p>\n        <p *ngIf=\"goalDate == 'dreaming'\">\n          <i class=\"dreaming-mobile\">\n            <i class=\"icon-dreaming text-purple\"></i>\n          </i>\n        </p>\n      </div>\n    </div>\n\n    <span class=\"hidden-xs\" *ngIf=\"last\"></span>\n\n    <div class=\"elipse\" >\n\n      <div  *ngIf=\"!isMobile && goalDate != 'dreaming' && dateStatus != 2\" class=\"text-gray \">\n        {{ goalDate | date:'MMM, yyyy' }}\n      </div>\n      <div  *ngIf=\"!isMobile && goalDate != 'dreaming' && dateStatus == 2\" class=\"text-gray  only-year\">\n        {{ goalDate | date:'yyyy' }}\n      </div>\n\n      <div  *ngIf=\"!isMobile && goalDate == 'dreaming' \" class=\"text-gray \">\n        {{ 'dreaming'|translate}}\n      </div>\n\n    </div>\n  </div>\n</div>\n<div class=\"col-sm-10\" [ngClass]=\"{'bg-white no-left': !isMobile}\">\n  <div class=\"row\">\n    <div class=\"col-sm-6\" [class.no-right]=\"!isMobile\">\n      <figure>\n        <!--data-ng-init=\"innerPath = (goal.publish || (goal.author && goal.author.id == '{{ user.id }}'))? '{{ env_prefix  }}/goal/' + goal.slug: '#'\"-->\n\n        <!--<div class=\"addthis_native_toolbox\" data-url=\"{{ app.request.host }}{{ env_prefix  }}/goal/{{ goal.slug }}\"></div>-->\n\n\n        <a *ngIf=\"goal && (goal.publish || (goal.author && goal.author.id == appUser.id))\" routerLink=\"/goal/{{ goal.slug }}\">\n          <span class=\"overlay\"></span>\n          <img *ngIf=\"goal && goal.cached_image\" src=\"{{ goal.cached_image }}\" alt=\"{{ goal.title }}\" />\n        </a>\n        <a *ngIf=\"goal && (!goal.publish && (!goal.author || goal.author.id != appUser.id))\" href=\"#\">\n          <span class=\"overlay\"></span>\n          <img *ngIf=\"goal && goal.cached_image\" src=\"{{ goal.cached_image }}\" alt=\"{{ goal.title }}\" />\n        </a>\n\n\n        <figcaption>\n          <div class=\"row no-gutter\" *ngIf=\"goal\">\n            <div class=\"col-xs-5\">\n              <goal-users [goal]=\"goal\" type=\"1\"></goal-users>\n            </div>\n            <div class=\"col-xs-7\">\n              <goal-users [goal]=\"goal\" type=\"2\"></goal-users>\n            </div>\n          </div>\n        </figcaption>\n      </figure>\n    </div>\n    <div class=\"col-sm-6\">\n      <article class=\"information\" [class.bg-white]=\"isMobile\">\n        <div class=\"row\">\n          <div class=\"col-sm-12\">\n            <h3>\n              <a *ngIf=\"goal && (goal.publish || (goal.author && goal.author.id == appUser.id))\" routerLink=\"/goal/{{ goal.slug }}\" class=\"text-dark-gray\">\n                <strong>{{ goal.title }}</strong>\n              </a>\n              <a *ngIf=\"goal && (!goal.publish && (!goal.author || goal.author.id != appUser.id))\" href=\"#\" class=\"text-dark-gray\">\n                <strong>{{ goal.title }}</strong>\n              </a>\n            </h3>\n          </div>\n        </div>\n\n        <ul class=\"clearfix\">\n\n          <!--{# Missed deadline #}-->\n          <li *ngIf=\"isLate(userGoal.do_date) && !success\">\n            <!--*ngIf=\"isLate(userGoal.do_date) && !success\"-->\n            <i title=\"{{ 'my_bucket_list.missed_deadline'|translate}}\"  class=\"icon-info text-purple\"></i>\n          </li>\n\n          <li *ngIf=\"goal && !goal.publish && goal.author && goal.author.id == appUser.id\">\n            <a routerLink=\"/goal/create/{{goal.id}}/Public\">\n              <i title=\"{{ 'my_bucket_list.edit'|translate}}\" class=\"icon-pencil\"></i>\n            </a>\n          </li>\n\n          <li>\n            <a class=\"text-gray manage-modal\">\n              <!--data-ls-type=\"manage\"-->\n              <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n              <!--data-ls-goal-manage-->\n              <i *ngIf=\"userGoal.note\" title=\"{{ 'my_bucket_list.notes'|translate}}\" class=\"svg edit-note\"></i>\n            </a>\n          </li>\n\n          <!--{# invisible #}-->\n          <li *ngIf=\"!userGoal.is_visible\">\n            <i title=\"{{ 'my_bucket_list.invisible'|translate}}\" class=\"icon-eye\"></i>\n          </li>\n\n          <li *ngIf=\"goal && goal.author && goal.author.id == appUser.id && goal.status == 'false'\">\n            <i title=\"{{ 'my_bucket_list.private'|translate}}\"  class=\"icon-lock-white\"></i>\n          </li>\n\n        </ul>\n\n        <ul class=\"progress-section clearfix\">\n\n          <li *ngIf=\"userGoal && !isEmpty(userGoal.steps)\">\n            <i title=\"{{ 'my_bucket_list.notes'|translate}}\"  class=\"icon-step-list\"></i>\n          </li>\n\n          <li *ngIf=\"userGoal && !isEmpty(userGoal.steps)\">\n            <div class=\"progress\">\n              <div class=\"progress-bar progress-bar-striped\"\n                   role=\"progressbar\"\n                   aria-valuenow=\"45\"\n                   aria-valuemin=\"0\"\n                   aria-valuemax=\"100\"\n                   [ngStyle]=\"{'width.%': userGoal.completed| round}\">\n                {{ userGoal.completed| round }}%\n              </div>\n            </div>\n          </li>\n        </ul>\n\n        <div class=\"row\">\n          <div class=\"col-xs-5\">\n            <a class=\"text-gray manage-modal\">\n              <!--data-ls-type=\"manage\"-->\n              <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n              <!--data-ls-goal-manage-->\n              <i class=\"icon-manage\"></i>\n              <span>{{ 'manage'|translate| capitalize }}</span>\n            </a>\n\n          </div>\n\n          <div class=\"col-xs-7 text-right\">\n            <!--data-ng-init=\"goalStatus = (status == '{{ constant(\"AppBundle\\\\Entity\\\\UserGoalCOMPLETED\")---2--- }}')\"-->\n            <!--data-ng-init=\"success[ goal.id ] = goalStatus\"-->\n          <div class=\"check_status\">\n            <a *ngIf=\"!success\"\n               (click)=\"success = true\" class=\"btn btn-transparent \">\n               <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n               <!--data-ls-user-goal-manage-->\n              <!--id=\"done{{ goal.id }}\"-->\n              <i class=\"icon done-icon\"></i>\n              {{ 'done'|translate| capitalize }}\n            </a>\n            <a  *ngIf=\"success\" class=\"btn btn-transparent successtory \">\n                <!--data-ls-user-goal-manage-->\n                <!--data-ls-type=\"manage\"-->\n\n                <!--data-ls-goal-id=\"{{ goal.id }}\"-->\n                <!--id=\"success{{ goal.id }}\">-->\n              <i class=\"icon ok-icon-green\"></i>\n              {{ 'successtory'|translate| capitalize }}\n            </a>\n          </div>\n        </div>\n\n    </div>\n      </article>\n    </div>\n  </div>\n</div>"
 
 /***/ },
 
-/***/ 865:
+/***/ 999:
 /***/ function(module, exports) {
 
-module.exports = "<p>\n  register works!\n</p>\n"
-
-/***/ },
-
-/***/ 866:
-/***/ function(module, exports) {
-
-module.exports = "<!--<p>-->\n  <!--resetting-request works!-->\n<!--</p>-->\n<div class=\"container\">\n  <div  class=\"signup notice\">\n    <div>\n      <div class=\"row\">\n        <div class=\"col-sm-6 col-sm-offset-3\">\n          <h1 class=\"text-center\">{{ 'resetting.request.reset'|translate }}</h1>\n\n          <h4 class=\"text-center text-gray\">{{ 'resetting.request.reset_text'|translate }}</h4>\n          <!--action=\"{{ path('fos_user_resetting_send_email') }}\"-->\n          <form  method=\"POST\" class=\"fos_user_resetting_request form-horizontal\">\n            <div class=\"form-group\">\n              <!--{% if invalid_username is defined %}-->\n              <p class=\"error-message text-center\">{{ 'resetting.request.invalid_username'|translate }}</p>\n              <!--{% endif %}-->\n              <input type=\"email\" oninvalid=\"EmailValidation(this)\" oninput=\"EmailValidation(this)\" class=\"form-control\" id=\"username\" name=\"username\" required=\"required\"  placeholder=\"{{ 'resetting.request.username'|translate }}\"/>\n            </div>\n            <div class=\"form-group text-right\">\n              <input type=\"submit\" class=\"btn btn-purple\" value=\"{{ 'resetting.request.submit'|translate }}\" />\n            </div>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
-
-/***/ },
-
-/***/ 867:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"users-list round clearfix\">\n  <a style=\"display:block;\" class=\"text-gray\">\n    <div class=\"row no-gutter\">\n      <div class=\"col-xs-3\" routerLink=\"/profile/{{ user.u_id }}\">\n        <figure class=\"image-goalfrinds img-circle \">\n          <img *ngIf=\"user.image_path\" src=\"{{ serverPath + user.image_path }}\" alt=\"{{ user.first_name }}\" class=\"img-circle img-responsive\" />\n          <!--{% set className = \"user-no\" ~ random(4) %}-->\n          <p *ngIf=\"!user.image_path\" class=\"no-image user-no2\">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>\n        </figure>\n      </div>\n\n      <div class=\"col-xs-9 text-left\">\n        <div class=\"text-gray\">\n          <h4 class=\"text-dark-gray\" routerLink=\"/profile/{{ user.u_id }}\">\n            {{ user.first_name }} {{ user.last_name }}\n          </h4>\n          <span class=\"text-gray\">{{ 'listed_by'|translate }}\n            {{ user.stats.listedBy }}\n          </span> |\n          <span class=\"text-gray\">{{ 'completed'|translate }}\n            {{ user.stats.doneBy }}\n          </span><br />\n          <a class=\"text-gray\"\n             [hidden]=\"user.common_goals_count == 0\" (click)=\"openCommons(user.id)\">\n            {{ 'menu.common'|translate }}\n\n            <!--data-ls-user=\"[[ ::user.id ]]\"-->\n            {{ user.common_goals_count }}\n          </a>\n        </div>\n      </div>\n    </div>\n  </a>\n</div>\n"
-
-/***/ },
-
-/***/ 868:
-/***/ function(module, exports) {
-
-module.exports = "<div id=\"homepage\">\n\n    <div class=\"homepage text-center\">\n        <div class=\"container\">\n            <h1 [innerHTML]=\"'homepage_title' | translate\"></h1>\n\n            <div class=\"row\">\n                <div class=\"col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2\">\n                    <h4 class=\"text-white\">\n                        {{ 'homepage_description' | translate}}\n                    </h4>\n                </div>\n            </div>\n            <div></div>\n\n            <ul class=\"apps clearfix\">\n                <li>\n                    <a href=\"https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819\" class=\"app-store\" target=\"_blank\">\n                        <img src=\"assets/images/appstore.png\" alt=\"Appstore\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n                <li>\n                    <a href=\"https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist\" class=\"google-play\" target=\"_blank\">\n                        <img src=\"assets/images/googleplay.png\" alt=\"Googleplay\" class=\"img-responsive\"/>\n                    </a>\n                </li>\n            </ul>\n\n        </div>\n    </div>\n\n    <div class=\"absolute text-center hidden-xs hidden-sm hidden-md hidden-lg\">\n        <a href=\"javascript:void(0)\" data-target-selector=\"#scroll-button\" data-ls-scroll-to >\n            <i class=\"icon-scroll-down\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n        </a>\n    </div>\n\n</div>\n\n<app-discover-goal></app-discover-goal>\n<app-base-stories></app-base-stories>"
-
-/***/ },
-
-/***/ 869:
-/***/ function(module, exports) {
-
-module.exports = "<div id=\"login-page\">\n<div id=\"signin\">\n    <h2>Join</h2>\n    <a class=\"close-icon\" (click)=\"joinHide($event)\"></a>\n    <form enctype=\"multipart/form-data\" method=\"post\" id=\"login-form\" (ngSubmit)=\"login(loginForm)\" #loginForm=\"ngForm\">\n        <!--<input type=\"hidden\" name=\"_csrf_token\" value=\"[[ csrfToken ]] \"/>-->\n        <div class=\"form-group\">\n            <input type=\"email\" [(ngModel)]=\"loginForm.username\" class=\"form-control\" id=\"username\" name=\"_username\" required=\"required\" placeholder=\"Email\" required>\n        </div>\n        <div class=\"form-group\">\n            <input type=\"password\" [(ngModel)]=\"loginForm.password\" class=\"form-control\" id=\"password\" placeholder=\"Password\" name=\"_password\" required=\"required\" required>\n        </div>\n\n        <div class=\"error-message\" *ngIf=\"error\">\n            {{ error }}\n        </div>\n\n        <a routerLink=\"/resetting/request\" (click)=\"joinHide()\" class=\"text-dark-gray\">Forgot password?</a>\n\n        <div class=\"form-group\">\n            <button name=\"submit\" class=\"btn btn-purple\" [disabled]=\"!loginForm.form.valid\">SIGN IN</button>\n        </div>\n    </form>\n\n    <a routerLink=\"/register\" (click)=\"joinHide()\" class=\"sign-up\">\n        <span class=\"icon-user\"></span>SIGN UP\n    </a>\n\n    <h4>CONNECT WITH</h4>\n\n    <ul class=\"social\">\n        <meta charset=\"UTF-8\">\n        <div>\n            <li><a class=\"facebook\" (click)=\"loginSocial(3);\"></a></li>\n            <li><a class=\"google\" (click)=\"loginSocial(4);\"></a></li>\n            <li><a class=\"twitter\" (click)=\"loginSocial(2);\"></a></li>\n        </div>\n    </ul>\n</div>\n<!--<div id=\"shadow\"></div>-->\n</div>"
-
-/***/ },
-
-/***/ 870:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"my-modal goal-modal\">\n    <div class=\"goal-container\">\n        <div *ngIf=\"newAdded\" class=\"email\">\n            {{ \"goal.create_goal\" | translate }}\n            <span *ngIf=\"!newCreated\"> {{ \"addedU\" | translate }}</span>\n            <span *ngIf=\"newCreated\"> {{ \"admin.label.name.createdU\" | translate }}</span>\n        </div>\n\n        <div class=\"modal-top\">\n            <figure *ngIf=\"userGoal &&userGoal.goal.cached_image\">\n                <img *ngIf=\"userGoal && userGoal.goal.cached_image\" src=\"{{ userGoal.goal.cached_image}}\"\n                     alt=\"{{ userGoal.goal.title }}\" class=\"img-responsive\"/>\n            </figure>\n\n            <span class=\"overlay\"></span>\n\n            <div *ngIf=\"userGoal\">\n                <h2>\n                    <span [ngClass]=\"{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}\">{{ userGoal.goal.title }}</span>\n                </h2>\n                <!--{% if app.user %}-->\n                <p *ngIf=\"userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id \">\n                    {{ userGoal.goal.author.show_name }}\n                </p>\n                <!--{% endif %}-->\n                <ul>\n                    <li>\n                        <a >\n                            {{ 'block_listed'|translate | capitalize }}\n                            <span>{{ userGoal.goal.stats.listedBy | number }}</span>\n                            <i class=\"icon-user-small\"></i>\n                        </a>\n                    </li>\n                    <li>\n                        <a >\n                            {{ 'block_completed'|translate | capitalize }}\n                            <span>{{ userGoal.goal.stats.doneBy | number }}</span>\n                            <i class=\"icon-user-small\"></i>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n        <!--{% set arrayMonth = {-->\n        <!--0:'form.birth_date_month'|translate,-->\n        <!--1:'form.month_january'|translate,-->\n        <!--2:'form.month_february'|translate,-->\n        <!--3:'form.month_march'|translate,-->\n        <!--4:'form.month_april'|translate,-->\n        <!--5:'form.month_may'|translate,-->\n        <!--6:'form.month_june'|translate,-->\n        <!--7:'form.month_july'|translate,-->\n        <!--8:'form.month_august'|translate,-->\n        <!--9:'form.month_september'|translate,-->\n        <!--10:'form.month_october'|translate,-->\n        <!--11:'form.month_november'|translate,-->\n        <!--12:'form.month_december'|translate } %}-->\n\n        <!--data-ng-init=\"myMonths={{ arrayMonth |json_encode() }}; redirectPath='{{ path('user_profile') }}'\"-->\n        <form class=\"form-horizontal\" method=\"post\" #addForm=\"ngForm\" (ngSubmit)=\"add(addForm)\">\n            <div class=\"goal-add bg-white\">\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n\n                        <!--{# edit goal status #}-->\n                        <!--data-ng-init=\"defaultYear = '{{ 'form.birth_date_year'|translate }}';-->\n                        <!--defaultDay = '{{ 'form.birth_date_day'|translate }}';-->\n                        <!--defaultMonth = '{{ 'form.birth_date_month'|translate }}'\"-->\n                        <div class=\"clearfix \" *ngIf=\"userGoal.id\">\n                            <div class=\"no-marginb\">\n\n                                <h3 class=\"text-left\">\n                                    {{ \"goal.status\"|translate }}\n                                </h3>\n\n                                <p>{{ \"goal.in_proces\"|translate }}</p>\n\n                                <!--data-ng-init=\"complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)\"-->\n                                <div class=\"clearfix purple-checkbox\">\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': complete.switch == 0}\">\n                                            <span class=\"md-off\"></span>\n                                            <span class=\"md-on\"></span>\n                                        </span>\n\n                                        <input name=\"active\" type=\"radio\" [value]=\"0\" [(ngModel)]=\"complete.switch\" style=\"display: none\">\n\n                                        <span class=\"my-md-label\">\n                                            <span class=\"ng-scope\">{{ \"user_goal.active\"|translate }}</span>\n                                        </span>\n\n                                    </label>\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\"  [ngClass]=\"{'my-md-checked': complete.switch == 1}\">\n                                            <span class=\"md-off\"></span>\n                                            <span class=\"md-on\"></span>\n                                        </span>\n\n                                        <input name=\"active\" type=\"radio\" [value]=\"1\"  [(ngModel)]=\"complete.switch\" style=\"display: none\">\n\n                                        <span class=\"my-md-label\">\n                                            <span class=\"ng-scope\">{{ \"user_goal.completed\"|translate }}</span>\n                                        </span>\n\n                                    </label>\n\n                                </div>\n\n                            </div>\n\n                        </div>\n                    </div>\n                </div>\n\n                <hr/>\n\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n                        <h3 [ngClass]=\"{'text-purple': !(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1}\"\n                            *ngIf=\"!(complete.switch == 1) || userGoal.do_date\">\n                            {{ \"goal.deadline\"|translate }}\n                            <i *ngIf=\"!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1\"\n                               class=\"icon-info text-purple\"></i>\n\n                            <span class=\"text-purple \"\n                                  *ngIf=\"complete.switch == 1 && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)\">: {{ momentDateFormat(firefox_do_date, 'DD MMM YYYY') }}</span>\n                            <span class=\"text-purple \"\n                                  *ngIf=\"complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)\">: {{ momentDateFormat(firefox_do_date, 'YYYY') }}</span>\n                            <span class=\"text-purple \"\n                                  *ngIf=\"complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)\">: {{ momentDateFormat(firefox_do_date, 'MMM YYYY') }}</span>\n                        </h3>\n\n                        <p class=\"text-gray text-left\"\n                           *ngIf=\"!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1\">\n                            {{ \"goal.missed_deadline\"|translate }}\n                        </p>\n\n                        <p [hidden]=\"userGoal.do_date || userGoal.completion_date || complete.switch == 1\"\n                           class=\"text-left\">\n                            {{ \"dream\"|translate }}\n                        </p>\n\n                        <h3 *ngIf=\"complete.switch == 1\">{{ \"completed\"|translate }}</h3>\n\n                        <div class=\"row\">\n\n                            <div class=\"col-sm-4 date \" *ngIf=\"complete.switch != 1\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"years\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'year')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_year'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.year\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_year'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"y in years\">-->\n                                        <!--<span data-ng-bind=\"y\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                            <div class=\"col-sm-4 \" *ngIf=\"complete.switch == 1\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"completeYears\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'year')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_year'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.year\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_year'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"y in completeYears\">-->\n                                        <!--<span data-ng-bind=\"y\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n\n                            <div class=\"col-sm-4 date \" *ngIf=\"complete.switch == 1\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"months\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'month')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_month'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.month\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_month'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"m in months\">-->\n                                        <!--<span data-ng-bind=\"m\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                            <div class=\"col-sm-4 date \" *ngIf=\"!(complete.switch == 1)\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"months\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'month')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_month'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.month\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_month'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"m in months\">-->\n                                        <!--<span data-ng-bind=\"m\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                            <div class=\"col-sm-4 date \" *ngIf=\"complete.switch == 1\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"days\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'day')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_day'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.day\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_day'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"day in days\">-->\n                                        <!--<span data-ng-bind=\"day\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                            <div class=\"col-sm-4 date \" *ngIf=\"!(complete.switch == 1)\">\n                                <ng-select [allowClear]=\"true\"\n                                           [items]=\"days\"\n                                           [disabled]=\"disabled\"\n                                           (data)=\"refreshValue($event, 'day')\"\n                                           (selected)=\"selected($event)\"\n                                           (removed)=\"removed($event)\"\n                                           (typed)=\"typed($event)\"\n                                           placeholder=\"{{ 'form.birth_date_day'|translate }}\">\n                                </ng-select>\n                                <!--<ui-select search-enabled=\"false\" [(ngModel)]=\"$parent.day\" skip-focusser=\"true\">-->\n                                    <!--<ui-select-match-->\n                                            <!--placeholder=\"{{ 'form.birth_date_day'|translate }}\">-->\n                                        <!--<span>{{ $select.selected }}</span>-->\n                                    <!--</ui-select-match>-->\n\n                                    <!--<ui-select-choices repeat=\"day in days\">-->\n                                        <!--<span data-ng-bind=\"day\"></span>-->\n                                    <!--</ui-select-choices>-->\n                                <!--</ui-select>-->\n                            </div>\n                        </div>\n\n                        <h3 *ngIf=\"userGoal.goal.location\">Location</h3>\n\n                        <div class=\"form-group row\" *ngIf=\"userGoal && userGoal.goal.location\">\n                            <div class=\"col-sm-12\">\n                                <div class=\"location\">\n                                    <i class=\"icon-location-icon\"></i>\n                                    <input type=\"text\"\n                                           name=\"address\"\n                                           disabled\n                                           [(ngModel)]=\"userGoal.goal.location.address\"\n                                           class=\"form-control place-autocomplete\"\n                                           placeholder=\"{{ 'goal.location_ex'|translate }}\"/>\n                                </div>\n                            </div>\n                        </div>\n\n                        <div class=\"form-group row\">\n                            <div class=\"col-xs-12\">\n                                <h3>{{ 'goal.priority'|translate }}</h3>\n                                <h6>{{ \"goal.deside\"|translate }}</h6>\n\n                                <div class=\"priority purple-checkbox\">\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': userGoal.urgent}\">\n                                            <span class=\"my-md-icon\"></span>\n                                            <input name=\"urgent\" type=\"checkbox\" [(ngModel)]=\"userGoal.urgent\" style=\"display: none\">\n                                        </span>\n\n                                        <span class=\"my-md-label\">\n                                            <span class=\"ng-scope\">{{ 'goal.urgent'|translate }}</span>\n                                        </span>\n\n                                    </label>\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': userGoal.important}\">\n                                            <div class=\"my-md-icon\"></div>\n                                            <input name=\"important\" type=\"checkbox\" [(ngModel)]=\"userGoal.important\" style=\"display: none\">\n                                        </span>\n\n                                        <span class=\"my-md-label\">\n                                            <span class=\"ng-scope\">{{ 'goal.important'|translate }}</span>\n                                        </span>\n                                    </label>\n\n                                </div>\n\n                            </div>\n                        </div>\n\n                        <h3 class=\"no-marginb\">{{ 'my_bucket_list.notes'|translate }}</h3>\n\n                        <p>\n                            <i class=\"icon-pencil\"></i>\n                            {{ 'goal.take_note'|translate }}\n                        </p>\n\n                        <div class=\"form-group row\">\n                            <div class=\"col-xs-12\">\n\n                                <textarea class=\"form-control\"\n                                          name=\"note\"\n                                          [(ngModel)]=\"userGoal.note\"\n                                          rows=\"3\"\n                                          placeholder=\"{{ 'goal.note_p'|translate }}\"></textarea>\n                            </div>\n                        </div>\n\n                        <h3 class=\"no-marginb\">{{ \"tasks\"|translate }}</h3>\n\n                        <p>\n                            <i title=\"Notes\" class=\"icon-step-list\"></i>\n                            {{ \"goal.complete_step\"|translate }}\n                        </p>\n\n                        <div class=\"progress \" *ngIf=\"!(complete.switch == 1)\">\n                            <!--<div class=\"progress-bar progress-bar-striped\"-->\n                                 <!--role=\"progressbar\"-->\n                                 <!--aria-valuenow=\"45\"-->\n                                 <!--aria-valuemin=\"0\"-->\n                                 <!--aria-valuemax=\"100\"-->\n                                 <!--[ngStyle]=\"width:{{ getCompleted(userGoal) | number }}%\">-->\n                                <!--{{ getCompleted(userGoal) | number }}% Complete-->\n                            <!--</div>-->\n                        </div>\n\n                        <div dnd-sortable-container [sortableData]=\"userGoal.formatted_steps\">\n                            <!--data-dnd-list=\"userGoal.formatted_steps\"-->\n                            <!--data-dnd-disable-if=\"complete.switch == 1\"-->\n                            <!--data-dnd-dragover=\"dragoverCallback(event, index, external, type)\"-->\n                            <!--data-dnd-drop=\"dropCallback(event, index, item, external, type, '')\"-->\n                            <div class=\"form-group row\"\n                                 *ngFor=\"let step of userGoal.formatted_steps; let i = index\"\n                                 dnd-sortable\n                                 [sortableIndex]=\"i\"\n                                 [hidden]=\"!((!step.switch || !myStep[k]) && !(!step.text && complete.switch == 1))\"\n                                 [ngClass]=\"{'noselect': !step.text}\">\n                                <!--data-ng-init=\"myStep[k] = step.switch\"-->\n                                <!--data-dnd-draggable=\"step\"-->\n                                <!--data-dnd-disable-if=\"!step.text || step.switch\"-->\n                                <!--data-dnd-moved=\"moveElement($index)\"-->\n                                <!--data-dnd-effect-allowed=\"move\"-->\n                                <!--data-dnd-selected=\"models.selected = step\"-->\n                                <!--class 'selected': models.selected === step,-->\n\n                                <div class=\"col-xs-2 col-sm-1 task-checkbox purple-checkbox\">\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': step.switch}\">\n                                            <span class=\"my-md-icon\"></span>\n                                            <!--id=\"myonoffswitch{{k}}\"-->\n                                            <input id=\"myonoffswitch{{ i }}\" type=\"checkbox\" aria-label=\"steps\"\n                                                   name=\"{% if app.environment !='test' %}switch[ {{k}} ]{% endif %}\"\n                                                   [(ngModel)]=\"step.switch\"\n                                                   style=\"display: none\" />\n                                            <!--(change)=\"myStep[k] = false\"-->\n                                                   <!--data-ng-disabled=\"complete.switch == 1 || !step.text\"-->\n                                        </span>\n\n                                    </label>\n\n                                </div>\n\n                                <div class=\"col-xs-10 col-sm-11\">\n                                    <div class=\"to-do-list\">\n\n                                        <input type=\"text\"\n                                               class=\"form-control\"\n                                               [ngClass]=\"{'market-step': step.switch}\"\n                                               [(ngModel)]=\"step.text\"\n                                               name=\"stepText{{i}}\"\n                                               placeholder=\"{{ 'goal.add_step'|translate }}\">\n                                        <!--name=\"stepText[ {{ k }} ]\"-->\n                                        <!--data-step-->\n                                        <!--data-key=\"k\"-->\n                                        <!--data-array=\"userGoal.formatted_steps\"-->\n                                        <!--data-ng-disabled=\"complete.switch == 1 || step.switch\"-->\n                                    </div>\n                                </div>\n\n                            </div>\n\n                            <p (click)=\"completedStepsShow = !completedStepsShow\"\n                               *ngIf=\"completedStepCount\" class=\"text-purple\">\n                                <span *ngIf=\"!completedStepsShow\">{{ \"show\" |translate }}</span>\n                                <span *ngIf=\"completedStepsShow\">{{ \"hide\" |translate }}</span> {{ completedStepCount}} {{ \"completed\" |translate }}\n                            </p>\n\n                            <div class=\"form-group row\"\n                                 *ngFor=\"let step of userGoal.formatted_steps; let k = index\"\n                                 [hidden]=\"!completedStepsShow || !step.switch\">\n\n                                <div class=\"col-xs-2 col-sm-1 task-checkbox purple-checkbox\">\n\n                                    <label class=\"relative\">\n                                        <span class=\"my-md-container my-md-checked\">\n                                            <span class=\"my-md-icon\"></span>\n                                            <input id=\"myonoffswitch{{ k }}\" type=\"checkbox\" aria-label=\"steps\"\n                                                   name=\"switch{{ k }}\"\n                                                   [(ngModel)]=\"step.switch\"\n                                                   style=\"display: none\" />\n                                            <!--data-ng-disabled=\"complete.switch == 1 || !step.text\"-->\n                                        </span>\n\n                                    </label>\n                                </div>\n\n                                <div class=\"col-xs-10 col-sm-11\">\n                                    <div class=\"to-do-list\">\n                                        <input type=\"text\"\n                                               class=\"form-control\"\n                                               [(ngModel)]=\"step.text\"\n                                               name=\"stepText{{ k }}\"\n                                               placeholder=\"{{ 'goal.add_step'|translate }}\">\n                                        <!--data-step-->\n                                        <!--data-key=\"k\"-->\n                                        <!--data-array=\"userGoal.formatted_steps\"-->\n                                        <!--data-ng-disabled=\"complete.switch == 1\"-->\n                                    </div>\n                                </div>\n\n                            </div>\n\n                            <div class=\"dndPlaceholder form-group row\"></div>\n\n                        </div>\n\n\n                    </div>\n                </div>\n\n                <hr/>\n\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n                        <div class=\"no-marginb\">\n\n                            <h3 class=\"text-left no-marginb\">\n                                {{ \"goal.visibility\"|translate }}\n                            </h3>\n\n                            <p class=\"text-gray\">\n                                <i class=\"icon-eye-icon \" *ngIf=\"userGoal.is_visible\"></i>\n                                <i class=\"icon-eye \" [hidden]=\"userGoal.is_visible\"></i>\n                                <span>{{ \"goal.visible_text\"|translate }}</span>\n                            </p>\n\n                            <div class=\"clearfix purple-checkbox\" id=\"goal-is-visible\">\n                                <!--[(ngModel)]=\"userGoal.is_visible\"-->\n                                <label class=\"relative\">\n                                    <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': userGoal.is_visible == true}\">\n                                        <span class=\"md-off\"></span>\n                                        <span class=\"md-on\"></span>\n                                    </span>\n\n                                    <input name=\"visible\" type=\"radio\" [(ngModel)]=\"userGoal.is_visible\" [value]=\"true\" style=\"display: none\">\n\n                                    <span class=\"my-md-label\">\n                                        <span class=\"ng-scope\">{{ \"goal.visible\"|translate }}</span>\n                                    </span>\n\n                                </label>\n\n                                <label class=\"relative\">\n                                    <span class=\"my-md-container\"  [ngClass]=\"{'my-md-checked': userGoal.is_visible == false}\">\n                                        <span class=\"md-off\"></span>\n                                        <span class=\"md-on\"></span>\n                                    </span>\n\n                                    <input name=\"visible\" type=\"radio\" [value]=\"false\" [(ngModel)]=\"userGoal.is_visible\" style=\"display: none\">\n\n                                    <span class=\"my-md-label\">\n                                        <span class=\"ng-scope\">{{ \"my_bucket_list.invisible\"|translate }}</span>\n                                    </span>\n\n                                </label>\n                            </div>\n\n                        </div>\n                    </div>\n                </div>\n\n\n                <!--{% if app.user %}-->\n                <hr/>\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n                        <div *ngIf=\"userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false\">\n                            <p class=\"text-gray clearfix private-space\">\n                                <strong class=\"text-dark-gray\">\n                                    <i class=\"icon-lock-white\"></i>\n                                    <span>{{ 'user_goal.private' |translate }}</span>\n                                </strong>\n                                <span class=\"text-left\">{{ 'goal.private_text'|translate }}</span>\n                            </p>\n                        </div>\n                    </div>\n                </div>\n                <!--{% endif %}-->\n\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n\n                        <p class=\"text-center error-message\" *ngIf=\"invalidYear\">\n                            {{ 'success_story.error_day_in_month1'|translate }} {{dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}\n                        </p>\n\n                        <p class=\"text-center error-message\"\n                           *ngIf=\"uncompletedYear\">{{ 'success_story.error_uncomplete_year'|translate }}\n                        </p>\n                    </div>\n                </div>\n\n                <div class=\"modal-bottom\">\n                    <div class=\"row\">\n                        <div class=\"col-xs-12 col-sm-10 col-sm-offset-1\">\n                            <a  (click)=\"save()\"\n                               class=\"btn btn-purple usergoal-save\">{{ \"btn_save\"|translate }}</a>\n                            <a  (click)=\"modalHideEmitter.emit(null)\" id=\"cancel\"\n                               class=\"btn btn-transparent\">{{ 'btn_cancel'|translate }}</a>\n                            <a  (click)=\"showDetails = ! showDetails\"\n                               class=\"btn btn-transparent\">\n                                <span>{{ 'forget'|translate | uppercase}}</span>\n                            </a>\n                        </div>\n                    </div>\n                </div>\n\n                <div *ngIf=\"showDetails\">\n                    <div class=\"delete-message\">\n                        <div>\n                            <h3 [innerHTML]=\"'delete_message'|translate|uppercase\"></h3>\n                            <a  (click)=\"removeUserGoal(userGoal.id)\"\n                               class=\"btn btn-transparent\">{{ 'btn_delete'|translate| uppercase}}</a>\n                            <a (click)=\"showDetails=!showDetails\"\n                               class=\"btn btn-purple\">{{ 'btn_cancel'|translate| uppercase}}</a>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n    </div>\n</div>\n\n"
-
-/***/ },
-
-/***/ 871:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"bg-grey my-modal\" id=\"common-modal\">\n    <div class=\"bg-white\" *ngIf=\"goals && goals.length\">\n        <h3>{{ 'menu.common'|translate }} {{ goals.length }} Goals</h3>\n        <a  (click)=\"modalHideEmitter.emit(null)\" class=\"close-icon\"></a>\n    </div>\n\n    <div class=\"common-content\"\n         infinite-scroll\n         [infiniteScrollDistance]=\"1\"\n         [infiniteScrollThrottle]=\"500\"\n         (scrolled)=\"onScroll()\">\n        <div [hidden]=\"!goals || !goals.length\"\n             class=\" row\"\n             *ngFor=\"let goal of goals\">\n\n            <div class=\"col-sm-12\">\n                <div class=\"idea-item\">\n                    <figure>\n                        <app-goal [goal]=\"goal\"></app-goal>\n                        <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n                    </figure>\n                </div>\n            </div>\n\n        </div>\n        <div *ngIf=\"!goals || !goals.length\" >\n            <p>{{ 'no_common'| translate  }}</p>\n        </div>\n    </div>\n</div>"
-
-/***/ },
-
-/***/ 872:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"overflow my-modal goal-modal\">\n    <div *ngIf=\"newAdded\" class=\"email\">{{ \"message_on_top_of_the_page\" | translate | uppercase }}</div>\n    <div class=\"modal-top\">\n        <figure *ngIf=\"userGoal && userGoal.goal.cached_image\">\n            <img *ngIf=\"userGoal && userGoal.goal.cached_image\" src=\"{{ userGoal.goal.cached_image }}\" alt=\"{{ userGoal.goal.title }}\" class=\"img-responsive\"/>\n        </figure>\n\n        <span class=\"overlay\"></span>\n\n        <div>\n            <h2 [ngClass]=\"{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author || !userGoal.goal.author.show_name}\">\n                <span>{{ userGoal.goal.title }}</span>\n            </h2>\n            <!--{% if app.user %}-->\n            <p *ngIf=\"userGoal && userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id \">\n                {{ userGoal.goal.author.show_name }}\n            </p>\n            <!--{% endif %}-->\n            <ul>\n                <li>\n                    <a >\n                        {{ 'block_listed'|translate | capitalize }}\n                        <span>{{ userGoal.goal.stats.listedBy | number }}</span>\n                        <i class=\"icon-user-small\"></i>\n                    </a>\n                </li>\n                <li>\n                    <a >\n                        {{ 'block_completed'|translate | capitalize }}\n                        <span>{{ userGoal.goal.stats.doneBy | number }}</span>\n                        <i class=\"icon-user-small\"></i>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    </div>\n    <div id=\"fb-root\"></div>\n    <div class=\"row bg-grey\">\n        <div class=\"col-xs-10 col-xs-offset-1\">\n            <div class=\"row\">\n                <div class=\"col-sm-8\">\n                    <h2 class=\"text-grey-dark\">{{ 'share_title'|translate }}</h2>\n                </div>\n                <div class=\"col-sm-4\" >\n                    <!--<div fb-share class=\"fb-share-button\"-->\n                         <!--data-fb-name=\"userGoal.goal.slug\"-->\n                         <!--data-fb-link=\"goalLink\"-->\n                         <!--data-fb-caption=\"BUCKETLIST127.COM\"-->\n                         <!--data-fb-picture=\"userGoal.goal.cached_image\"-->\n                         <!--data-fb-message=\"{{ 'facebook_post_text'|trans }}\"-->\n                         <!--data-fb-description=\"userGoal.goal.description\">-->\n                    <!--</div>-->\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <!--{% set arrayMonth = {-->\n    <!--0:'form.birth_date_month'|trans({}, 'FOSUserBundle'),-->\n    <!--1:'form.month_january'|trans({}, 'FOSUserBundle'),-->\n    <!--2:'form.month_february'|trans({}, 'FOSUserBundle'),-->\n    <!--3:'form.month_march'|trans({}, 'FOSUserBundle'),-->\n    <!--4:'form.month_april'|trans({}, 'FOSUserBundle'),-->\n    <!--5:'form.month_may'|trans({}, 'FOSUserBundle'),-->\n    <!--6:'form.month_june'|trans({}, 'FOSUserBundle'),-->\n    <!--7:'form.month_july'|trans({}, 'FOSUserBundle'),-->\n    <!--8:'form.month_august'|trans({}, 'FOSUserBundle'),-->\n    <!--9:'form.month_september'|trans({}, 'FOSUserBundle'),-->\n    <!--10:'form.month_october'|trans({}, 'FOSUserBundle'),-->\n    <!--11:'form.month_november'|trans({}, 'FOSUserBundle'),-->\n    <!--12:'form.month_december'|trans({}, 'FOSUserBundle') }-->\n    <!--%}-->\n    <!--data-ng-init=\"myMonths={{ arrayMonth |json_encode()}}\"-->\n    <div class=\"bg-white\">\n\n        <div *ngIf=\"newAdded\">\n            <div class=\"row\">\n                <div class=\"col-xs-10 col-xs-offset-1\">\n\n                    <h3 class=\"story-title text-grey-dark\">{{ \"success_story.completion_date\"|translate }}</h3>\n\n                    <p class=\"complete-text\">{{ \"success_story.complete_edit_text\"|translate }}</p>\n\n                    <div class=\"form-group row\">\n                        <div class=\"col-sm-4 date\">\n                             <!--data-ng-init=\"defaultYear = '{{ 'form.birth_date_year'|translate  }}';-->\n                                            <!--defaultDay = '{{ 'form.birth_date_day'|translate }}';-->\n                                            <!--defaultMonth = '{{ 'form.birth_date_month'|translate }}'\">-->\n                            <!--<ui-select search-enabled=\"false\" data-ng-model=\"$parent.year\" skip-focusser=\"true\">-->\n                                <!--<ui-select-match placeholder=\"{{ 'form.birth_date_year'|translate }}\">-->\n                                    <!--<span>{{ $select.selected }}</span>-->\n                                <!--</ui-select-match>-->\n\n                                <!--<ui-select-choices repeat=\"y in years\">-->\n                                    <!--<span data-ng-bind=\"y\"></span>-->\n                                <!--</ui-select-choices>-->\n                            <!--</ui-select>-->\n                        </div>\n\n                        <div class=\"col-sm-4 date\">\n                            <!--<ui-select search-enabled=\"false\" data-ng-model=\"$parent.month\" skip-focusser=\"true\">-->\n                                <!--<ui-select-match placeholder=\"{{ 'form.birth_date_month'|translate }}\">-->\n                                    <!--<span>{{ $select.selected }}</span>-->\n                                <!--</ui-select-match>-->\n\n                                <!--<ui-select-choices repeat=\"m in months\">-->\n                                    <!--<span data-ng-bind=\"m\"></span>-->\n                                <!--</ui-select-choices>-->\n                            <!--</ui-select>-->\n                        </div>\n                        <div class=\"col-sm-4 date\">\n\n                            <!--<ui-select search-enabled=\"false\" data-ng-model=\"$parent.day\" skip-focusser=\"true\">-->\n                                <!--<ui-select-match placeholder=\"{{ 'form.birth_date_day'|translate }}\">-->\n                                    <!--<span>{{ $select.selected }}</span>-->\n                                <!--</ui-select-match>-->\n\n                                <!--<ui-select-choices repeat=\"day in days\">-->\n                                    <!--<span data-ng-bind=\"day\"></span>-->\n                                <!--</ui-select-choices>-->\n                            <!--</ui-select>-->\n                        </div>\n                    </div>\n\n                </div>\n            </div>\n\n            <hr/>\n        </div>\n\n        <div class=\"row\">\n            <div class=\"col-xs-10 col-xs-offset-1\">\n                <h3 class=\"story-title text-grey-dark\">{{ 'success_story.title'|translate }}</h3>\n            </div>\n        </div>\n\n        <!--{#{{ form_errors(form) }}#}-->\n\n        <form id=\"goal-done-form\" action=\"#\" enctype=\"multipart/form-data\">\n            <div class=\"row\">\n                <div class=\"col-xs-10 col-xs-offset-1\">\n                    <div class=\"form-group row\">\n                        <div class=\"col-sm-12\">\n                            <textarea required=\"required\" name=\"story\" [(ngModel)]=\"story\" class=\"form-control\" placeholder=\"{{ 'success_story.add'|translate }}\" rows=\"4\"></textarea>\n                        </div>\n                    </div>\n\n                    <!--<fileDroppa-->\n                            <!--[url]=\"serverPath + '/api/v1.0/success-story/add-images'\"-->\n                            <!--[autoUpload]=\"false\"-->\n                            <!--[showFilesList]=\"true\"-->\n                            <!--[beforeRequest]=\"beforeRequest\"-->\n                            <!--[beforeFileUpload]=\"beforeFileUpload\"-->\n                            <!--[beforeAddFile]=\"beforeAddFile\"-->\n                            <!--(filesUpdated)=\"filesUpdated($event)\"-->\n                            <!--(fileUploaded)=\"fileUploaded($event)\">-->\n                        <!--<div class=\"text-center\">-->\n                            <!--<div class=\"dropzone\" id=\"goalDropzone\">-->\n                                <!--<div class=\"dz-message\">-->\n                                    <!--<div class=\"row\">-->\n                                        <!--<div class=\"col-sm-12\">-->\n\n                                            <!--<h3 class=\"text-dark-gray\">-->\n                                                <!--<i class=\"icon-cloud\"></i>{{ 'drag_drop'|translate  }}-->\n                                            <!--</h3>-->\n                                        <!--</div>-->\n                                    <!--</div>-->\n\n                                    <!--<p [innerHTML]=\"'upload'|translate\"></p>-->\n                                <!--</div>-->\n                            <!--</div>-->\n                        <!--</div>-->\n                    <!--</fileDroppa>-->\n\n\n                    <!--{#{{ form_widget(form.files, {'attr': { \"value\" : \"{{ files }}\" } }) }}#}-->\n\n                    <div class=\"form-group\">\n                        <label class=\"text-grey-dark story-title\">Video</label>\n                        <!--<video-link data-ng-repeat=\"(k, video) in userGoal.videos_array\"-->\n                                    <!--data-key=\"k\"-->\n                                    <!--data-limit=\"3\"-->\n                                    <!--data-link=\"video.link\"-->\n                                    <!--data-array=\"userGoal.videos_array\">-->\n                        <!--</video-link>-->\n                    </div>\n                    <p class=\"text-center error-message\" *ngIf=\"noStory\">{{ 'success_story.error_widht_file'|translate }}</p>\n                    <p class=\"text-center error-message\" *ngIf=\"invalidYear\">{{ 'success_story.error_day_in_month1'|translate }} {{ dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}</p>\n                    <p class=\"text-center error-message\" *ngIf=\"uncompletedYear\">{{ 'success_story.error_uncomplete_year'|translate }}</p>\n\n                </div>\n            </div>\n\n            <div class=\"text-center modal-bottom\">\n                <a  (click)=\"save()\" class=\"btn btn-purple button-lg\">{{ 'btn_save'|translate }}</a>\n                <a  (click)=\"modalHideEmitter.emit(null)\" id=\"cancel\" class=\"btn btn-transparent button-lg\">{{ 'btn_cancel'|translate }}</a>\n            </div>\n\n        </form>\n    </div>\n</div>"
-
-/***/ },
-
-/***/ 873:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"bg-grey my-modal\" id=\"report-modal\">\n\n    <div class=\"bg-white\">\n        <h3 *ngIf=\"!isReported\">{{ 'report.title'|translate }}</h3>\n\n        <h3 class=\" text-center\" *ngIf=\"isReported\">{{ 'report.thanks'|translate }}</h3>\n\n        <a class=\"close-icon\" (click)=\"modalHideEmitter.emit(null)\" *ngIf=\"!isReported\"></a>\n    </div>\n\n    <div class=\"report-content\">\n\n        <form class=\"form-horizontal\" *ngIf=\"!isReported\">\n\n            <div class=\"radio\">\n                <label>\n                    <input type=\"radio\" [(ngModel)]=\"reportOption\" name=\"optionsRadios\" id=\"optionsRadios1\" [value]=\"2\" checked>\n                    {{ 'report.spam'|translate }}\n                </label>\n            </div>\n\n            <div class=\"radio\">\n                <label>\n                    <input type=\"radio\" [(ngModel)]=\"reportOption\" name=\"optionsRadios\" id=\"optionsRadios2\" [value]=\"3\">\n                    {{ 'report.opinion'|translate }}\n                </label>\n            </div>\n\n            <textarea class=\"form-control\" rows=\"3\" name=\"reportText\" [(ngModel)]='reportText' placeholder=\"{{ 'report.other'|translate }}\"></textarea>\n\n        </form>\n\n        <p *ngIf=\"isReported\" class=\"text-center \">{{ 'report.message'|translate }}</p>\n\n    </div>\n\n    <div class=\"bg-white padding text-center\" *ngIf=\"!isReported\">\n        <button name=\"submit\" (click)=\"report()\" class=\"btn btn-purple\" [ngClass]=\"{'purple-transparent': !(reportOption || reportText)}\">{{ 'submit'|translate | uppercase }}</button>\n    </div>\n\n</div>"
-
-/***/ },
-
-/***/ 874:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"bg-grey my-modal\" id=\"goal-users-modal\">\n    <div class=\"bg-white relative text-left\" *ngIf=\"users && users.length && data.category\">\n        <h3 *ngIf=\"data.category == 1\"  >{{ 'home_listed_by'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>\n        <h3 *ngIf=\"data.category == 2\"  >{{ 'home_complete'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>\n        <h3 *ngIf=\"data.category == 3\"  >{{ 'home_voters'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>\n        <a class=\"close-icon\" (click)=\"modalHideEmitter.emit(null)\"></a>\n    </div>\n\n    <div class=\"users-content\"\n         infinite-scroll\n         [infiniteScrollDistance]=\"1\"\n         [infiniteScrollThrottle]=\"500\"\n         (scrolled)=\"onScroll()\">\n        <div [hidden]=\"!users || !users.length\"\n             class=\"row\"\n             *ngFor=\"let user of users\">\n\n            <div class=\"col-xs-12\">\n                <app-user [user]=\"user\"></app-user>\n            </div>\n\n        </div>\n    </div>\n</div>"
-
-/***/ },
-
-/***/ 875:
-/***/ function(module, exports) {
-
-module.exports = "\n<div *ngIf=\"name == 'contact-us'\">\n  <div class=\"container\" *ngIf=\"!isSend\">\n    <div  class=\"signup\">\n      <div class=\" row\">\n        <h1 class=\"text-center\">{{ title }}</h1>\n        <!--{{ description|markdown }}-->\n        <div class=\"col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3\">\n          <!--{{ form_start(form) }}-->\n          <div class=\"form-group row\">\n            <div class=\"col-sm-12\">\n              <!--{{ form_widget(form.fullName , {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.full_name' } }) }}-->\n            </div>\n            <!--<div class=\"error-message\">{{ form_errors(form.fullName) }}</div>-->\n          </div>\n\n          <div class=\"form-group row\">\n            <div class=\"col-sm-12\">\n              <!--{{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.email' } }) }}-->\n            </div>\n            <!--<div class=\"error-message\">{{ form_errors(form.email) }}</div>-->\n\n          </div>\n\n          <div class=\"form-group row\">\n            <div class=\"col-sm-12\">\n              <!--{{ form_widget(form.subject, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.subject' } }) }}-->\n            </div>\n            <!--<div class=\"error-message\">{{ form_errors(form.subject) }}</div>-->\n          </div>\n\n          <div class=\"form-group row\">\n            <div class=\"col-sm-12\">\n              <!--{{ form_widget(form.message, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.message' } }) }}-->\n            </div>\n            <!--<div class=\"error-message\">{{ form_errors(form.message) }}</div>-->\n          </div>\n\n          <div class=\"form-group row text-center padding-top\">\n            <!--{{ form_widget(form.send, {'attr': {'class' : 'btn btn-purple', 'placeholder': 'page.contacr_us.form.send' } }) }}-->\n          </div>\n          <!--{{ form_end(form) }}-->\n        </div>\n\n      </div>\n    </div>\n  </div>\n  <div class=\"container\" *ngIf=\"isSend\">\n    <div  class=\"signup notice\">\n      <div>\n        <div class=\"row\">\n          <div class=\"col-sm-12 text-center\">\n            <h1 class=\"text-center\">{{ 'page.contacr_us.message_title'|translate }}</h1>\n            <h4 class=\"text-center text-gray\">{{ 'page.contacr_us.message_content'|translate }}</h4>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"container standart-pages\" *ngIf=\"name != 'contact-us'\">\n  <div class=\"row\">\n    <div class=\"col-sm-8 col-sm-offset-2\">\n      <h1 class=\"text-center\"> {{ title }} </h1>\n\n      <!--{{ description|markdown }}-->\n    </div>\n  </div>\n</div>\n<!--{% endif %}-->"
-
-/***/ },
-
-/***/ 917:
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(456);
-
+module.exports = "<div class=\"container\">\n  <div  class=\"signup\">\n    <div class=\"row\">\n      <h1 class=\"text-center\">{{ 'registration.sign_up_title'|translate }}</h1>\n\n      <div class=\"col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3\">\n\n        <form action=\"#\" method=\"POST\" [formGroup]=\"registerData\" (ngSubmit)=\"sendRegisterData(registerData.value)\" class=\"form-horizontal text-center\">\n          <!--{{ path('fos_user_registration_register') }}-->\n          <div class=\"form-group row\">\n            <div class=\"col-sm-4 col-sm-offset-4\">\n\n              <input type=\"file\" formControlName=\"file\" name=\"file\" class=\"upload\" >\n              <control-messages [control]=\"registerData.controls.file\"></control-messages>\n\n              <div class=\"registration-image\">\n                <img src=\"#\" class=\"uploaded-image\" alt=\"User Image\" style=\"display: none\">\n              </div>\n            </div>\n\n            <div class=\"hide\">\n              <input type=\"file\" name=\"file\" class=\"upload\" (change)=\"showUploadedImage(this)\">\n            </div>\n          </div>\n\n          <div class=\"form-group row no-padding\">\n\n            <div class=\"col-sm-6\">\n              <input type=\"text\" formControlName=\"firstName\" name=\"firstName\" class=\"form-control\" placeholder= \"{{ 'form.firstName'|translate }}\">\n              <control-messages [control]=\"registerData.controls.firstName\"></control-messages>\n            </div>\n\n            <div class=\"col-sm-6\">\n              <input type=\"text\" formControlName=\"lastName\" id=\"lastName\" name=\"lastName\" class=\"form-control\"  placeholder= \"{{ 'form.lastName'|translate }}\">\n              <control-messages [control]=\"registerData.controls.lastName\"></control-messages>\n            </div>\n          </div>\n\n          <div class=\"form-group row\">\n\n            <div class=\"col-sm-12\">\n              <input type=\"email\" formControlName=\"email\" name=\"email\" class=\"form-control\"  placeholder= \"{{ 'form.email'|translate }}\">\n              <control-messages [control]=\"registerData.controls.email\"></control-messages>\n            </div>\n\n          </div>\n\n          <div class=\"form-group row no-padding\">\n\n            <div class=\"col-sm-6\">\n              <input type=\"password\" formControlName=\"passwordFirst\" id=\"passwordFirst\" name=\"passwordFirst\" class=\"form-control\"  placeholder= \"{{ 'form.password'|translate }}\">\n              <control-messages [control]=\"registerData.controls.passwordFirst\"></control-messages>\n            </div>\n\n            <div class=\"col-sm-6\">\n              <input type=\"password\" formControlName=\"passwordSecond\" id=\"passwordSecond\" name=\"passwordSecond\" class=\"form-control\" placeholder=\"{{ 'form.re_password'|translate }}\">\n              <control-messages [control]=\"registerData.controls.passwordSecond\" [confirmPassword]=\"registerData.controls.passwordFirst\"></control-messages>\n            </div>\n\n          </div>\n          <div class=\"row\">\n            <div class=\"col-sm-10 col-sm-offset-1\">\n              <p class=\"text-gray\">\n              {{ 'password.validation'|translate }}\n              </p>\n            </div>\n          </div>\n\n          <p class=\"text-dark-gray\">{{ 'form.date_of_birth'|translate }}</p>\n\n          <!--drop down date part-->\n          <div class=\"form-group row\">\n\n            <div class=\"col-sm-4 date\">\n              <md-select placeholder=\"Year\">\n                <md-option *ngFor=\"\" [value]=\"\">\n                  2013\n                </md-option>\n              </md-select>\n            </div>\n\n            <div class=\"col-sm-4 date\">\n\n              <md-select placeholder=\"Month\">\n                <md-option *ngFor=\"let month of arrayMonth; let i=index\" [value]=\"i\">\n                  {{ month|translate }}\n                </md-option>\n              </md-select>\n            </div>\n\n            <div class=\"col-sm-4 date\">\n\n              <md-select placeholder=\"Day\">\n                <md-option *ngFor=\"let day of arrayDay\" [value]=\"day\">\n                  {{ day }}\n                </md-option>\n              </md-select>\n            </div>\n          </div>\n\n          <div class=\"form-group row\">\n            <p class=\"text-gray\">{{ 'registration.agreement'|translate }}\n              <a href=\"http://stage2.bucketlist127.com/page/terms-of-service-privacy-policy\" class=\"text-purple\">{{ 'registration.privacy_policy'|translate }}</a>\n            </p>\n          </div>\n\n          <button type=\"submit\" name=\"register\" [disabled]=\"!registerData.valid\" class=\"btn btn-purple\" (click)=\"sendRegisterData(registerData)\">{{ 'security.login.sign_up'|translate }}</button>\n\n        </form>\n      </div>\n\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n        <p class=\"text-center margin-top text-gray\">{{ 'registration.have_account'|translate }}\n          <a href=\"javascript:void(0)\" data-ng-click=\"openSignInPopover()\" class=\"text-purple\">\n            {{ 'registration.sign_in_btn'|translate | capitalize}}\n          </a>\n        </p>\n      </div>\n    </div>\n  </div>\n</div>\n\n"
 
 /***/ }
 
-},[917]);
+},[1059]);
 //# sourceMappingURL=main.bundle.map

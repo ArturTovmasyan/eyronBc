@@ -1,4 +1,5 @@
 import { Component, OnChanges, Input } from '@angular/core';
+// import { Router } from '@angular/router';
 
 @Component({
   selector: 'home-footer',
@@ -8,14 +9,14 @@ import { Component, OnChanges, Input } from '@angular/core';
 
 export class HomeFooterComponent implements OnChanges {
   @Input() privacyMenu;
-  url:string;
+  slug:string;
   name:string;
 
   constructor() { }
 
   ngOnChanges() {
     if(this.privacyMenu && this.privacyMenu.isTerm){
-      this.url = this.privacyMenu.url;
+      this.slug = this.privacyMenu.slug;
       this.name = this.privacyMenu.name;
     }
   }

@@ -206,8 +206,8 @@
 
         <div class="col-md-4" >
             <create-goal [myProfile]="myProfile"></create-goal>
+            <overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>
             <top-ideas-block [type]="'suggest'"></top-ideas-block>
-            <!--{%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 1, 'isProfile': true}  %}-->
             <top-ideas-block [type]="'featured'"></top-ideas-block>
         </div>
     </div>

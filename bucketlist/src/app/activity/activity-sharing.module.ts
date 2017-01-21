@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {TranslateModule} from 'ng2-translate';
+import { TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
 import { ComponentModule } from '../components/components.module';
 import { SwiperModule } from 'angular2-useful-swiper';

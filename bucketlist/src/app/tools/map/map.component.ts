@@ -17,10 +17,10 @@ export class MapComponent implements OnInit {
   @Input() locations: Location[];
   public latitude: number;
   public longitude: number;
-  public activeGoalMarkerIcon1: string = "assets/images/Active-icon.png";
-  public activeGoalMarkerIcon2: string = "assets/images/Completed-icon.png";
-  public passiveMarkerIcon: string = "assets/images/map-marker-purple.png";
-  public activeMarkerIcon: string = "assets/images/map-marker-purple.png";
+  public activeGoalMarkerIcon1: string = "assets/images/active-icon.svg";
+  public activeGoalMarkerIcon2: string = "assets/images/completed-icon.svg";
+  public passiveMarkerIcon: string = "assets/images/map-marker-purple.svg";
+  public activeMarkerIcon: string = "assets/images/map-marker-purple.svg";
   public searchControl: FormControl;
   public zoom: number;
   public notAllowed: boolean = true;
@@ -47,6 +47,19 @@ export class MapComponent implements OnInit {
 
     //create search FormControl
     this.searchControl = new FormControl();
+
+    this.mapsAPILoader.load().then(() => {
+      this.bounds = new google.maps.LatLngBounds(null);
+      if(this.locations){
+        for(let location of this.locations){
+          this.bounds.extend({
+            lat: location.latitude,
+            lng: location.longitude
+          });
+        }
+
+      }
+    });
 
     this.broadcaster.on<Location[]>('getLocation')
         .subscribe(locations => {

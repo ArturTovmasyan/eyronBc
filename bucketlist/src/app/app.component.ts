@@ -1,9 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {TranslateService} from 'ng2-translate';
-import {Broadcaster} from './tools/broadcaster';
-import {ProjectService} from './project.service';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import { AddComponent} from './modals/add/add.component';
+import { DoneComponent} from './modals/done/done.component';
+import { UsersComponent} from './modals/users/users.component';
+import { CommonComponent} from './modals/common/common.component';
+import { ReportComponent} from './modals/report/report.component';
+import { TranslateService} from 'ng2-translate';
+import { Broadcaster} from './tools/broadcaster';
+import { ProjectService} from './project.service';
 import { Router } from '@angular/router';
-import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import {User} from './interface/user';
 
@@ -33,10 +39,10 @@ export class AppComponent implements OnInit  {
     
   //  modal
     public reportModal:boolean = false;
-    public commonModal:boolean = false;
-    public usersModal:boolean = false;
-    public addModal:boolean = false;
-    public doneModal:boolean = false;
+    // public commonModal:boolean = false;
+    // public usersModal:boolean = false;
+    // public addModal:boolean = false;
+    // public doneModal:boolean = false;
     public commonId:number = 0;
     public reportData:any;
     public usersData:any;
@@ -48,7 +54,9 @@ export class AppComponent implements OnInit  {
       private broadcaster: Broadcaster,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
-      private router: Router
+      private router: Router,
+      private viewContainerRef: ViewContainerRef,
+      public dialog: MdDialog
   ) { }
 
   ngOnInit() {
@@ -65,7 +73,6 @@ export class AppComponent implements OnInit  {
     if(data){
         this.menus = data[0];
         this.privacyMenu = data[1];
-        
     }else {
         this.getBottomMenu();
     }
@@ -104,31 +111,77 @@ export class AppComponent implements OnInit  {
       this.broadcaster.on<number>('commonModal')
           .subscribe(id => {
               this.commonId = id;
-              this.commonModal = true;
+              let dialogRef: MdDialogRef<CommonComponent>;
+              let config = new MdDialogConfig();
+              config.height = '600px';
+              config.viewContainerRef = this.viewContainerRef;
+              dialogRef = this.dialog.open(CommonComponent, config);
+              dialogRef.componentInstance.id = id;
+              dialogRef.afterClosed().subscribe(result => {
+
+              });
+              // this.commonModal = true;
           });
       
       this.broadcaster.on<any>('reportModal')
           .subscribe(data => {
               this.reportData = data;
+              let dialogRef: MdDialogRef<ReportComponent>;
+              let config = new MdDialogConfig();
+              config.height = '600px';
+              config.viewContainerRef = this.viewContainerRef;
+              dialogRef = this.dialog.open(ReportComponent, config);
+              dialogRef.componentInstance.data = data;
+              dialogRef.afterClosed().subscribe(result => {
+
+              });
               this.reportModal = true;
           });
       
       this.broadcaster.on<any>('usersModal')
           .subscribe(data => {
               this.usersData = data;
-              this.usersModal = true;
+              let dialogRef: MdDialogRef<UsersComponent>;
+              let config = new MdDialogConfig();
+              config.height = '600px';
+              config.viewContainerRef = this.viewContainerRef;
+              dialogRef = this.dialog.open(UsersComponent, config);
+              dialogRef.componentInstance.data = data;
+              dialogRef.afterClosed().subscribe(result => {
+
+              });
+              // this.usersModal = true;
           });
       
       this.broadcaster.on<any>('addModal')
           .subscribe(data => {
               this.addData = data;
-              this.addModal = true;
+              let dialogRef: MdDialogRef<AddComponent>;
+              let config = new MdDialogConfig();
+              config.viewContainerRef = this.viewContainerRef;
+              config.height = '600px';
+              dialogRef = this.dialog.open(AddComponent, config);
+              dialogRef.componentInstance.data = data;
+              dialogRef.afterClosed().subscribe(result => {
+                  
+              });
+              // this.addModal = true;
           });
 
       this.broadcaster.on<any>('doneModal')
           .subscribe(data => {
               this.doneData = data;
-              this.doneModal = true;
+              this.addData = data;
+              let dialogRef: MdDialogRef<DoneComponent>;
+              let config = new MdDialogConfig();
+              config.height = '600px';
+              config.viewContainerRef = this.viewContainerRef;
+              dialogRef = this.dialog.open(DoneComponent, config);
+              dialogRef.componentInstance.data = data;
+              dialogRef.afterClosed().subscribe(result => {
+
+              });
+              // this.doneModal = true;
           });
       
   }
@@ -168,23 +221,23 @@ export class AppComponent implements OnInit  {
             error => this.errorMessage = <any>error);
   }
 
-  hideModal(name:string){
-        switch(name){
-            case 'report':
-                this.reportModal = false;
-                break;
-            case 'common':
-                this.commonModal = false;
-                break;
-            case 'users':
-                this.usersModal = false;
-                break;
-            case 'add':
-                this.addModal = false;
-                break;
-            case 'done':
-                this.doneModal = false;
-                break;
-        }
-  }
+  // hideModal(name:string){
+  //       switch(name){
+  //           case 'report':
+  //               this.reportModal = false;
+  //               break;
+            // case 'common':
+            //     this.commonModal = false;
+            //     break;
+            // case 'users':
+                // this.usersModal = false;
+                // break;
+            // case 'add':
+            //     this.addModal = false;
+            //     break;
+            // case 'done':
+            //     this.doneModal = false;
+            //     break;
+        // }
+  // }
 }

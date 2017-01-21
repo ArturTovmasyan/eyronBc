@@ -140,9 +140,13 @@ class DoctrineListener
                 }
                 
                 if($token && ($user = $token->getUser()) && is_object($user)){
-                    $entity->setIsFollow($user->isFollowing($entity));
+                    $followings = $user->getFollowingIds();
+                    if($followings){
+                        $entity->setIsFollow(in_array($entity->getId(), $followings));
+                    } else {
+                        $entity->setIsFollow(false);
+                    }
                 }
-                
             }
         }
 

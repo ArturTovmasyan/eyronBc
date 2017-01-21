@@ -1,0 +1,259 @@
+/* radius functions */
+.blur {
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.buttons {
+  margin: 0 0 5px 0;
+}
+.buttons button,
+.buttons a {
+  display: inline-block;
+  padding: 4px 7px;
+  margin-left: 1px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.buttons button span,
+.buttons a span {
+  line-height: 20px;
+}
+.buttons button i.icon-arrow-right,
+.buttons a i.icon-arrow-right,
+.buttons button i.icon-arrow-left,
+.buttons a i.icon-arrow-left {
+  font-size: 20px;
+  vertical-align: middle;
+}
+.buttons button:first-child,
+.buttons a:first-child {
+  border: 1px solid #e3e3e3;
+  color: #999999;
+}
+.buttons button:hover,
+.buttons a:hover {
+  background-color: #5e1dc3;
+  color: #ffffff;
+  box-shadow: none;
+}
+.buttons button:active,
+.buttons a:active,
+.buttons button:focus,
+.buttons a:focus,
+.buttons button:visited,
+.buttons a:visited {
+  box-shadow: none;
+  outline: 0;
+  background-color: #4f3576;
+}
+.buttons .btn-transparent {
+  padding: 4px 6px 4px 7px;
+}
+.buttons .icon-right {
+  margin-left: 15px;
+}
+.suggest-input {
+  padding: 21px 0 0 16px;
+}
+.goals {
+  padding-bottom: 20px;
+  margin: 15px 0 0;
+}
+.goals .margin-top {
+  margin-top: 5px;
+}
+.goals a .icon-arrow-right,
+.goals a .icon-arrow-left,
+.goals a i.icon-remove-video-link {
+  display: inline-block;
+  color: #999999;
+  font-size: 20px;
+  margin-top: 3px;
+  line-height: 45px;
+}
+.goals a i.icon-remove-video-link {
+  margin-right: 15px;
+}
+.goals a:hover {
+  text-decoration: none;
+}
+.goals h3 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: normal;
+  margin-top: 10px;
+  padding: 0 2px 0 14px;
+}
+.goals .title {
+  border: 0;
+  border-bottom: 1px solid  #e6e6e6;
+  font-size: 12px;
+  border-radius: 0;
+  box-shadow: none;
+  color: #333333;
+}
+.goals .form-group p {
+  font-size: 12px;
+  text-align: justify;
+}
+.goals .form-group .relative {
+  margin-bottom: 5px;
+}
+.goals .tags {
+  margin: 10px 0;
+  white-space: normal;
+}
+.goals .tags button {
+  padding: 5px 25px;
+  margin: 0 10px 5px 0;
+  white-space: normal;
+  word-break: break-word;
+  text-align: left;
+}
+.goals textarea {
+  resize: none;
+}
+.goals figure {
+  margin: 0 0 20px 0;
+}
+.goals .remove-icon {
+  position: absolute;
+  right: 3px;
+  top: 2px;
+  background-color: #ffffff;
+  padding: 0 0 0 3px;
+}
+.goals .remove-icon .icon-remove-video-link {
+  font-size: 25px;
+}
+.goals .remove-icon:hover,
+.goals .remove-icon :focus {
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .buttons {
+    margin: 22px 0 20px;
+  }
+  .buttons button,
+  .buttons a {
+    margin-bottom: 0;
+    padding: 5px 15px;
+    margin-left: 5px;
+    font-size: 12px;
+  }
+  .buttons button span,
+  .buttons a span {
+    line-height: 27px;
+  }
+  .buttons button i.icon-arrow-right,
+  .buttons a i.icon-arrow-right,
+  .buttons button i.icon-arrow-left,
+  .buttons a i.icon-arrow-left {
+    font-size: 25px;
+  }
+  .buttons .btn-transparent {
+    padding: 4px 15px;
+  }
+  .suggest-input {
+    padding: 22px 0 0 22px;
+  }
+  .goals {
+    margin: 30px 0;
+  }
+  .goals .margin-top {
+    margin-top: 15px;
+  }
+  .goals a .icon-arrow-right,
+  .goals a .icon-arrow-left,
+  .goals a i.icon-remove-video-link {
+    font-size: 30px;
+    margin-top: 13px;
+  }
+  .goals a i.icon-remove-video-link {
+    font-size: 40px;
+  }
+  .goals .title {
+    margin-top: 10px;
+    font-size: 45px;
+    height: 73px;
+    line-height: 65px;
+    padding: 5px 0 10px;
+  }
+  .goals h3.title {
+    margin-top: 0;
+    padding: 17px 40px;
+    font-size: 25px;
+    line-height: 35px;
+    height: auto;
+  }
+  .goals h3 {
+    margin-top: 20px;
+    font-size: 25px;
+    padding: 0 2px 0 15px;
+  }
+  .goals .form-group p {
+    font-size: 13px;
+  }
+  .goals .relative {
+    margin-bottom: 5px;
+  }
+  .goals .remove-icon {
+    right: 10px;
+  }
+}
+@media (min-width: 992px) {
+  .buttons {
+    margin: 40px 0;
+  }
+  .buttons button,
+  .buttons a {
+    padding: 6px 25px;
+    margin-left: 12px;
+    font-size: 12px;
+  }
+  .buttons .btn-transparent {
+    padding: 5px 25px;
+  }
+  .suggest-input {
+    padding: 35px 0 0 22px;
+  }
+  .goals .margin-top {
+    margin-top: 30px;
+  }
+  .goals .form-group p {
+    font-size: 14px;
+  }
+  .goals a .icon-arrow-right,
+  .goals a .icon-arrow-left,
+  .goals a i.icon-remove-video-link {
+    margin-top: 30px;
+  }
+  .goals a i.icon-remove-video-link {
+    margin-right: 0;
+  }
+  .goals .title {
+    margin-top: 15px;
+    font-size: 52px;
+    height: 83px;
+    padding: 5px 0 11px 0;
+  }
+  .goals h3 {
+    margin-top: 31px;
+    padding: 0;
+  }
+  .goals h3.title {
+    padding: 17px 40px;
+    font-size: 25px;
+    line-height: 35px;
+    height: auto;
+  }
+  .goals .relative {
+    margin-bottom: 5px;
+  }
+  .goals .remove-icon .icon-remove-video-link {
+    font-size: 27px;
+  }
+}

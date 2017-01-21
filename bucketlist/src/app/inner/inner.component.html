@@ -1,34 +1,16 @@
 <!--{% set inner = constant("AppBundle\\Entity\\Goal::INNER") %}-->
 <!--{% set view = constant("AppBundle\\Entity\\Goal::VIEW") %}-->
-<!--{% set user = app.user %}-->
-<!--{% set storiesCount = 5 %}-->
-<!--{% set author = goal.author %}-->
-<!--{% if user.id is defined %}-->
-<!--{% set userId = user.id %}-->
-<!--{% else %}-->
-<!--{% set userId = 0 %}-->
-<!--{% endif %}-->
 
 <!--<div id="fb-root"></div>-->
-<!--class {% if not aphorisms %} no-quote {% if not author or author.isAdmin %} no-author{% endif %} {% endif %}-->
-<div class="inner-container" *ngIf="goal">
+<div class="inner-container" *ngIf="goal" [ngClass]="{'no-quote': !aphorisms, 'no-author': (!goal.author || goal.author.is_admin)}">
   <!--{% set cover = goal.getCoverPhotoDownloadLink %}-->
   <!--{% set goalInner = true %}-->
   <!--{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.jpg' %}-->
   <figure class="goal-image">
     <span class="overlay"></span>
-    <!--<img src="-->
-        <!--{% if cover %}-->
-             <!--{{ cover|blImageFilter('goal_bg') }}-->
-        <!--{% else %}-->
-             <!--{{ asset(imgPath)}}-->
-        <!--{% endif %}"-->
-         <!--alt="{{ goal.title }}" />-->
+    <img src="{{ (goal && goal.cached_image)?goal.cached_image: imgPath}}" alt="Profile Cover Photo" class="img-responsive" />
   </figure>
   <div class="container">
-    <!--data-infinite-scroll='Ideas.nextPage("{{ env_prefix }}/api/v1.0/goals/{first}/{count}")'-->
-    <!--data-infinite-scroll-disabled='Ideas.request >= 1'-->
-    <!--data-infinite-scroll-distance='2'-->
   </div>
   <!--data-ng-init="goal.public= {% if goal.status %} true {% else %} false {% endif %} "-->
   <div class="goal-content">
@@ -38,18 +20,16 @@
         <div class="col-md-7">
           <div class="quote">
 
-            <div class="ticker">
-              <!--{% if aphorisms %}-->
+            <div class="ticker" *ngIf="aphorisms">
               <i class="icon-quote-left"></i>
               <i class="icon-quote-right"></i>
-              <!--<ul class="aphorism" data-delay-add-class data-delay="12000">-->
-                <!--{% for aphorism in aphorisms %}-->
-                <!--<li>{{ aphorism.content|length > 230 ? aphorism.content|slice(0, 230)|removeTag ~ '...' : aphorism.content|removeTag }}-->
-                  <!--<span class="text-right">{{ aphorism.author }}</span>-->
-                <!--</li>-->
-                <!--{% endfor %}-->
-              <!--</ul>-->
-              <!--{% endif %}-->
+              <ul class="aphorism">
+                <!--data-delay-add-class data-delay="12000"-->
+                <li *ngFor="let aphorism of aphorisms; let i = index" [class.active]="i == aphorismIndex">
+                  {{ aphorism.content.length > 230 ?(((aphorism.content|slice:0:230)|removeTag) + '...' ):(aphorism.content | removeTag) }}
+                  <span class="text-right">{{ aphorism.author }}</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -57,12 +37,10 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <!--{% if author and not author.isAdmin %}-->
-          <p class="goal-author">
-            <!--<a href="{{ path('user_profile',  {'user': author.uId})}}" class="text-gray bg-blue">{{ 'by' ~ " " ~ author.showName }} </a>-->
+          <p class="goal-author" *ngIf="goal.author && goal.author.is_admin">
+            <a routerLink="/profile/{{ goal.author.u_id }}" class="text-gray bg-blue">{{ 'by' + " " + goal.author.show_name }} </a>
           </p>
-          <!--{% endif %}-->
-          <h2 class="goal-inner-title {% if goal.title|length > 40 %}title-smaller{% endif %}">{{ goal.title }}</h2>
+          <h2 class="goal-inner-title" [class.title-smaller]="goal.title.length > 40">{{ goal.title }}</h2>
         </div>
       </div>
 
@@ -71,127 +49,131 @@
         <div class="row no-gutter">
           <div class="col-md-8">
 
-            <!--{% set images = goal.images %}-->
-            <!--{% if images and images | length %}-->
-            <div id="main-slider" class="swiper-container">
+            <swiper [config]="config" id="main-slider" class="swiper-container" *ngIf="goal.images">
               <!-- Slides Container -->
-              <!--{% if images| length > 1 %} class="swiper-wrapper" {% endif %}-->
-              <div>
-                <!--{% for key, image in images %}-->
+              <div style="height: 435px" class="swiper-wrapper">
 
-                <!--{% if image.downloadLink|length > 0 %}-->
-                <div class="overlay swiper-slide">
-                  <!--<a href="{{ image.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-main" data-title="{{ goal.title }}">-->
-                    <!--<img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}style="height: 100%;" {% endif %}/>-->
-                  <!--</a>-->
+                <div class="swiper-slide" style="height: 435px" *ngFor="let image of goal.images">
+                  <a class="swipebox-main">
+                    <!--data-title="{{ goal.title }}"-->
+                    <!--href="{{ image.downloadLink|blImageFilter('slide_max_size') }}"-->
+                    <img class="img-responsive" src="{{ image.image_path }}" alt="{{ goal.title }}" [class.fullHeight]="image.image_size['height'] < 435"/>
+                    <!--{% if image.imageSize["height"] < 435 %}style="height: 100%;" fullHeight = height 100% {% endif %}-->
+                  </a>
                 </div>
-                <!--{% endif %}-->
-                <!--{% endfor %}-->
               </div>
 
-              <!--{% if images| length > 1 %}-->
-              <!-- Add Pagination -->
-              <!--<div class="swiper-pagination swiper-pagination-white"></div>-->
-              <!--&lt;!&ndash; Add Arrows &ndash;&gt;-->
-              <!--<div class="swiper-button-next swiper-button-white"></div>-->
-              <!--<div class="swiper-button-prev swiper-button-white"></div>-->
-              <!--{% endif %}-->
-            </div>
-            <!--{% else%}-->
-            <!--<figure class="goal-preview" id="main-slider">-->
-              <!--<img class="img-responsive" src="{{ asset(imgPath)}}" alt="view goal img" style="height: 100%;"/>-->
-            <!--</figure>-->
-            <!--{% endif %}-->
+               <!--Add Pagination -->
+              <div class="swiper-pagination swiper-pagination-white" *ngIf="goal.images.length > 1"></div>
+              <!-- Add Arrows -->
+              <div class="swiper-button-next swiper-button-white" *ngIf="goal.images.length > 1"></div>
+              <div class="swiper-button-prev swiper-button-white" *ngIf="goal.images.length > 1"></div>
+            </swiper>
+
+            <figure class="goal-preview" id="main-slider" *ngIf="!goal.images">
+              <img class="img-responsive" src="{{ imgPath }}" alt="view goal img" style="height: 100%;"/>
+            </figure>
+
           </div>
           <!--data-ng-init="success[ {{ goal.id }} ] = {% if goal.isMyGoal == 2 %} true {% else %} false {% endif %}"-->
           <div class="col-md-4">
             <!--{% if page == inner %}-->
-            <div class="goal-information">
+            <div class="goal-information" *ngIf="type == 'inner'">
               <!--data-ng-init="added = true"-->
-              <!--<ul class="row goal-links">-->
-                <!--&lt;!&ndash;{% set xs = 6 %}&ndash;&gt;-->
-                <!--&lt;!&ndash;{% if is_granted('ROLE_SUPER_ADMIN', app.user) %}&ndash;&gt;-->
-                <!--&lt;!&ndash;{% set xs = 3 %}&ndash;&gt;-->
-                <!--&lt;!&ndash;<li class="col-xs-3 clone">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">&ndash;&gt;-->
-                    <!--&lt;!&ndash;{#<span class="glyphicon glyphicon-copy "></span>#}&ndash;&gt;-->
-                    <!--&lt;!&ndash;<img src="{{ asset('bundles/app/images/clone-icon.svg') }}" width="25" height="25"/>{{ 'clone'|trans }}&ndash;&gt;-->
-                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                <!--&lt;!&ndash;{% endif %}&ndash;&gt;-->
 
-                <!--&lt;!&ndash;<li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || success[ {{ goal.id }} ]}" {% endif %}>&ndash;&gt;-->
-                  <!--&lt;!&ndash;{% if goal.isMyGoal == 0 %}&ndash;&gt;-->
-                  <!--&lt;!&ndash;data-ng-init="added = false" *ngIf="!added"&ndash;&gt;-->
-                  <!--&lt;!&ndash;<a data-ls-goal-manage&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ls-goal-id="{{ goal.id }}"&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ng-click="added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<span class="text">{{ 'add'|trans | upper}}</span>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--<li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || success[ {{ goal.id }} ]}" {% endif %}>-->
+                  <!--{% if goal.isMyGoal == 0 %}-->
+                  <!--data-ng-init="added = false" *ngIf="!added"-->
+                  <!--<a data-ls-goal-manage-->
+                     <!--data-ls-goal-id="{{ goal.id }}"-->
+                     <!--data-ng-click="added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">-->
+                    <!--<i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
+                    <!--<span class="text">{{ 'add'|trans | upper}}</span>-->
+                  <!--</a>-->
                     <!--<span class="" *ngIf="goal.isMyGoal || added">-->
                         <!--<i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>-->
-                        <!--&lt;!&ndash;<span class="text">{{ 'added'|trans | upper}}</span>&ndash;&gt;-->
+                        <!--<span class="text">{{ 'added'|trans | upper}}</span>-->
                     <!--</span>-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                <!--</li>-->
 
-                <!--&lt;!&ndash;{% if goal.isMyGoal == 2 %}transparent{% endif %}&ndash;&gt;-->
-                <!--&lt;!&ndash;{% if goal.isMyGoal != 2 %}data-ng-class="{transparent: success[ {{ goal.id }} ]}"{% endif %}&ndash;&gt;-->
+                <!--{% if goal.isMyGoal == 2 %}transparent{% endif %}-->
+                <!--{% if goal.isMyGoal != 2 %}data-ng-class="{transparent: success[ {{ goal.id }} ]}"{% endif %}-->
                 <!--<li class="col-xs-6 ">-->
-                  <!--&lt;!&ndash;<a *ngIf="!success[ {{ goal.id }} ]"&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ls-user-goal-manage&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ls-goal-id="{{ goal.id }}"&ndash;&gt;-->
-                     <!--&lt;!&ndash;data-ng-click="success[ {{ goal.id }} ] = true; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<span class="text">{{ 'done'|trans | upper }}</span>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                  <!--<a *ngIf="!success[ {{ goal.id }} ]"-->
+                     <!--data-ls-user-goal-manage-->
+                     <!--data-ls-goal-id="{{ goal.id }}"-->
+                     <!--data-ng-click="success[ {{ goal.id }} ] = true; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">-->
+                    <!--<i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>-->
+                    <!--<span class="text">{{ 'done'|trans | upper }}</span>-->
+                  <!--</a>-->
 
-                    <!--&lt;!&ndash;<span class="" *ngIf="success[ goal.id ]">&ndash;&gt;-->
-                         <!--&lt;!&ndash;<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>&ndash;&gt;-->
-                         <!--&lt;!&ndash;<span class="text">{{ 'completed'|trans | upper}}</span>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                    <!--<span class="" *ngIf="success[ goal.id ]">-->
+                         <!--<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
+                         <!--<span class="text">{{ 'completed'|trans | upper}}</span>-->
+                    <!--</span>-->
                 <!--</li>-->
               <!--</ul>-->
-              <app-goal-footer [goal]="goal"></app-goal-footer>
-              <!--{% if goal and goal.isMyGoal == 1 or goal.isMyGoal == 2 %}-->
-              <!--data-ng-init="goalId = {{ goal.id }}"-->
-              <ul class="goal-icons">
-                <!--{% if author and author.id == userId %}-->
+
+              <ul class="row goal-links">
+
+                <li class="col-xs-3 clone" *ngIf="appUser && appUser.is_admin">
+                  <a>
+                    <!--<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">-->
+                    <img src="assets/images/clone-icon.svg" width="25" height="25"/>
+                    <span class="text">{{ 'clone'|translate }}</span>
+                  </a>
+                </li>
+
+                <li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin}">
+                  <a>
+                    <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                    <span class="text">{{ 'added'|translate}}</span>
+                  </a>
+                </li>
+
+                <li class="col-xs-6">
+                  <a>
+                    <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                    <span class="text">{{ 'done'|translate | capitalize}}</span>
+                  </a>
+                </li>
+
+              </ul>
+
+              <ul class="goal-icons" *ngIf="goal.is_my_goal == 1 || goal.is_my_goal == 2">
                 <!--data-ng-init="isAuthor=true"-->
-                <li>
+                <li *ngIf="goal.author && appUser && goal.author.id == appUser.id">
                   <!--<a href="{{ path('add_goal') }}?id={{ goal.id }}&slug=Public">-->
-                    <!--<i title="{{ 'my_bucket_list.edit'|trans }}" class="icon-pencil"></i>-->
+                    <i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>
                   <!--</a>-->
                 </li>
-                <!--{% endif %}-->
 
                 <li class="bordered-list">
                   <!--<a data-ls-type="manage"-->
                      <!--data-ls-goal-id="{{  goal.id }}"-->
                      <!--data-ls-goal-manage-->
                      <!--class="text-gray manage-modal">-->
-                    <!--<i class="icon-manage"></i>-->
+                    <i class="icon-manage"></i>
                   <!--</a>-->
                 </li>
 
                 <li class="bordered-list">
                   <div class="check_status">
-                    <!--<a *ngIf="!success[ goal.id ]"-->
-                       <!--data-ng-click="success[ goal.id ] = true"-->
-                       <!--data-ls-goal-id="{{ goal.id }}"-->
-                       <!--data-ls-user-goal-manage-->
-                       <!--id="done{{ goal.id }}"-->
-                       <!--class="">-->
-                      <!--<i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>-->
-                    <!--</a>-->
-                    <!--<a  *ngIf="success[ {{ goal.id }} ]"-->
-                        <!--data-ls-user-goal-manage-->
-                        <!--data-ls-type="manage"-->
-                        <!--data-ls-goal-id="{{ goal.id }}"-->
-                        <!--class="successtory "-->
-                        <!--id="success{{ goal.id }}">-->
-                      <!--<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
-                    <!--</a>-->
+                    <a *ngIf="goal.is_my_goal != 2">
+                      <!--data-ng-click="success[ goal.id ] = true"-->
+                      <!--data-ls-goal-id="{{ goal.id }}"-->
+                      <!--data-ls-user-goal-manage-->
+                      <!--id="done{{ goal.id }}"-->
+                      <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                    </a>
+                    <a  *ngIf="goal.is_my_goal == 2">
+                      <!--data-ls-user-goal-manage-->
+                      <!--data-ls-type="manage"-->
+                      <!--data-ls-goal-id="{{ goal.id }}"-->
+                      <!--class="successtory "-->
+                      <!--id="success{{ goal.id }}"-->
+                      <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                    </a>
                   </div>
                 </li>
 
@@ -214,28 +196,26 @@
                   <i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>
                 </li>
 
-                <li *ngIf="!goal.public">
+                <li *ngIf="!goal.status">
                   <i title="{{ 'my_bucket_list.private'|translate }}"  class="icon-lock-white"></i>
                 </li>
               </ul>
-              <!--{% endif %}-->
 
               <!--{% if goal.lat is not null and goal.lng is not null %}-->
-              <!--<div *ngIf="isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">-->
-                <!--<div class="map-marker" *ngIf="location"-->
+              <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && isDesktop">
+                <!--data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]"-->
+                <!--<div *ngIf="location"-->
                      <!--data-simple-map-marker-->
                      <!--data-zoom="14"-->
                      <!--data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"-->
                      <!--data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"-->
                      <!--data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
                      <!--data-markers="location"-->
-
                      <!--style="width: 99.8%; height: 120px">-->
                 <!--</div>-->
-              <!--</div>-->
-              <!--{% else %}-->
-              <hr />
-              <!--{% endif %}-->
+                <map-single style="width: 99.8%; height: 120px" [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]" class="map-marker"></map-single>
+              </div>
+              <hr *ngIf="!goal.location"/>
 
 
               <!--<div id="affiliate-right" class="right-menu-scroll bg-white" *ngIf="isDesktop">-->
@@ -248,16 +228,16 @@
 
         <!--{% if page != view %}-->
 
-        <div class="row bg-white">
+        <div class="row bg-white" *ngIf="type != 'view'">
 
           <div class="col-md-8">
             <!--{% if page == inner %}-->
-            <ul class="users-lists row">
+            <ul class="users-lists row" *ngIf="type == 'inner'">
               <li class="col-xs-6">
                 <ul class="row no-gutter">
                   <li class="col-xs-9 col-sm-5">
                     {{ 'done_by'|translate | uppercase }}
-                    <p class="text-purple">{{ goal.stats.doneBy }}</p>
+                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.doneBy }}</p>
                   </li>
                   <li class="col-xs-3 col-sm-7">
                     <ul class="users">
@@ -266,28 +246,22 @@
                       <!--{% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}-->
                       <!--{% set className = "user-no" ~ random(4) %}-->
                       <li [style.right]="80 + (i + 1)*20" *ngFor="let user of doneByUsers;let i = index" class="hidden-xs">
-                        <!--{% if doneByUser.getPhotoLink  %}-->
-                        <figure>
-                          <!--<img src="{{ doneByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ doneByUser.firstName }}">-->
+
+                        <figure *ngIf="user.cached_image">
+                          <img src="{{ user.cached_image }}" class="img-circle img-responsive" alt="{{ user.first_name }}">
                         </figure>
-                        <!--{% else %}-->
-                        <!--<p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>-->
-                        <!--{% endif %}-->
+
+                        <p *ngIf="!user.cached_image" class="no-image user-no4">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
 
                       </li>
                       <!--{% set left = left + 20 %}-->
                       <!--{% endfor %}-->
 
                       <li class="users-arrow">
-                        <!--{% if goal.stats.doneBy == 0 %}-->
-                        <!--<i></i>-->
-                        <!--{% else %}-->
-                        <!--<a data-ls-goal-users-->
-                           <!---->
-                           <!--data-ls-count="{{ goal.stats.doneBy }}"-->
-                           <!--data-ls-goal-id="{{ goal.id }}">-->
-                        <!--</a>-->
-                        <!--{% endif %}-->
+                        <i *ngIf="goal.stats.doneBy == 0"></i>
+
+                        <a *ngIf="goal.stats.doneBy" (click)="openUsersModal(goal.id, goal.stats.listedBy, 2)">
+                        </a>
                       </li>
                     </ul>
                   </li>
@@ -298,7 +272,7 @@
                 <ul class="row no-gutter">
                   <li class="col-xs-9 col-sm-5">
                     {{ 'listed_by'|translate | uppercase }}
-                    <p class="text-purple">{{ goal.stats.listedBy }}</p>
+                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.listedBy }}</p>
                   </li>
                   <li class="col-xs-3 col-sm-7">
                     <ul class="users">
@@ -308,26 +282,20 @@
                       <!--{% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}-->
                       <!--{% set className = "user-no" ~ random(4) %}-->
                       <li [style.right]="80 + (i + 1)*20" *ngFor="let user of listedByUsers;let i = index" class="hidden-xs">
-                        <!--{% if listedByUser.getPhotoLink  %}-->
-                        <figure>
-                          <!--<img src="{{ listedByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ listedByUser.firstName }}">-->
+                        <figure *ngIf="user.cached_image">
+                          <img src="{{ user.cached_image }}" class="img-circle img-responsive" alt="{{ user.first_name }}">
                         </figure>
-                        <!--{% else %}-->
-                        <!--<p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>-->
-                        <!--{% endif %}-->
+
+                        <p *ngIf="!user.cached_image" class="no-image user-no4">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
+
                       </li>
                       <!--{% set left = left + 20 %}-->
                       <!--{% endfor %}-->
                       <li class="users-arrow">
-                        <!--{% if goal.stats.listedBy == 0 %}-->
-                        <!--<i></i>-->
-                        <!--{% else %}-->
-                        <!--<a data-ls-goal-users-->
-                           <!---->
-                           <!--data-ls-goal-id="{{ goal.id }}"-->
-                           <!--data-ls-count="{{ goal.stats.listedBy }}"-->
-                           <!--data-ls-category="1"></a>-->
-                        <!--{% endif %}-->
+                        <i *ngIf="goal.stats.listedBy == 0"></i>
+
+                        <a *ngIf="goal.stats.listedBy" (click)="openUsersModal(goal.id, goal.stats.listedBy, 1)">
+                        </a>
                       </li>
                     </ul>
                   </li>
@@ -335,7 +303,7 @@
               </li>
             </ul>
             <!--{% if goal.lat is not null and goal.lng is not null %}-->
-            <!--<div *ngIf="!isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">-->
+            <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && !isDesktop">
               <!--<div class="map-marker" *ngIf="location"-->
                    <!--data-simple-map-marker-->
                    <!--data-zoom="14"-->
@@ -346,7 +314,8 @@
 
                    <!--style="width: 99.8%; height: 215px">-->
               <!--</div>-->
-            <!--</div>-->
+              <map-single style="width: 99.8%; height: 215px" [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]" class="map-marker"></map-single>
+            </div>
             <!--<div id="affiliate-right-mobile" class="right-menu-scroll bg-white" *ngIf="!isDesktop">-->
               <!--<adds-affiliate class="affiliate-right-mobile" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
             <!--</div>-->
@@ -354,7 +323,7 @@
           <div class="col-md-4 hidden-xs"></div>
         </div>
 
-        <div class="row padding-top bg-white">
+        <div class="row padding-top bg-white" *ngIf="type != 'view'">
 
           <div class="col-md-8">
             <div class="row">
@@ -362,7 +331,7 @@
                 <div class="row">
                   <div class="col-xs-4 col-sm-3 col-md-3">
                     <!--<div class="fb-like"-->
-                         <!--data-href="{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}"-->
+                         <!--data-href="{{ serverPath + goal.shareLink }}"-->
                          <!--data-layout="button_count"-->
                          <!--data-action="like"-->
                          <!--data-show-faces="false"-->
@@ -370,7 +339,7 @@
                     <!--</div>-->
                   </div>
                   <div class="col-xs-8 col-sm-9 col-md-9">
-                    <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{ goal.title }}" class="twitter-hashtag-button" data-related="BucketList127" data-url="{{ SchemeAndHttpHost + goal.shareLink }}" data-dnt="true">Tweet #BucketList127</a>-->
+                    <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{ goal.title }}" class="twitter-hashtag-button" data-related="BucketList127" data-url="{{ serverPath + goal.share_link }}" data-dnt="true">Tweet #BucketList127</a>-->
                     <!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>-->
                   </div>
                 </div>
@@ -393,297 +362,53 @@
 
             <div class="inner">
               <hr/>
-              <!--{% if goal.description and not goal.description == '' %}-->
-              <!--<div class="text-dark-grey goal-info">{{ goal.description|removeTag|markdown }}</div>-->
+              <div class="text-dark-grey goal-info" *ngIf="goal.description && goal.description != ''" [innerHTML]="goal.description|removeTag|MarkdownToHtml"></div>
 
-              <!--{% endif %}-->
 
-              <!--{% if goal.videoLink %}-->
-              <!--{% if goal.videoLink and goal.videoLink|length %}-->
-
-              <!--{% if goal.videoLink|length == 1 %}-->
-              <!--{% set v = goal.videoLink[0] %}-->
-              <div class="row">
+              <div class="row" *ngIf="goal.video_link && goal.video_link.length == 1">
                 <div class="col-sm-12">
-                  <!--<embed-video-->
-                          <!--data-ng-init="mainSliderVideo='{{ v }}'"-->
-                          <!--data-ng-href="[[ ::mainSliderVideo ]]"-->
-                          <!--height="360px"-->
-                          <!--width="100%">-->
-                  <!--</embed-video>-->
+                  <embed-video [href]="goal.video_link[0]"
+                          height="360px"
+                          width="100%">
+                    <!--data-ng-init="mainSliderVideo='{{ v }}'"-->
+                  </embed-video>
                 </div>
               </div>
-              <!--{% else %}-->
-              <div class="row">
-                <div id="main-slider-video" class="swiper-container" style="position: relative; top: 0; left: 0">
+              <div class="row" *ngIf="goal.video_link && goal.video_link.length > 1">
+                <swiper [config]="videoConfig" id="main-slider-video" class="swiper-container" style="position: relative; top: 0; left: 0">
                   <!-- Slides Container -->
                   <div class="swiper-wrapper">
-                    <!--{% for k, video in goal.videoLink %}-->
-                    <!--{% if video %}-->
-                    <div class="swiper-slide">
-                      <!--<embed-video u="image"-->
-                                   <!--width="100%"-->
-                                   <!--height="300px"-->
-                                   <!--data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"-->
-                                   <!--data-ng-href="[[ ::mainSliderVideo[{{ k }}] ]]">-->
-                      <!--</embed-video>-->
+                    <div class="swiper-slide" *ngFor="let video of goal.video_link;let k = index">
+                      <embed-video width="100%"
+                                   height="300px"
+                                   [href]="video">
+                        <!--u="image"-->
+                        <!--data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"-->
+                      </embed-video>
                     </div>
-                    <!--{% endif %}-->
-                    <!--{% endfor %}-->
                   </div>
 
                   <div class="swiper-pagination swiper-pagination-white"></div>
                   <!-- Add Arrows -->
                   <div class="swiper-button-next swiper-button-white"></div>
                   <div class="swiper-button-prev swiper-button-white"></div>
-                </div>
-              </div>
-              <!--{% endif %}-->
-              <!--{% endif %}-->
-              <!--{% endif %}-->
-
-              <!--{% if page == inner %}-->
-
-              <!--{% set stories = goal.getSuccessStories %}-->
-
-              <!--{% if stories|length > 0 %}-->
-              <div class="story-count">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <a name="success_story"></a>
-                    <h4 class="text-dark-gray">
-                      <i class="success-icon"></i>
-                      {{ 'success_stories'|translate }}
-                    </h4>
-                  </div>
-                </div>
-                <hr />
+                </swiper>
               </div>
 
-              <!--{% for key, story in stories %}-->
-              <!--{% set addedUser = story.user %}-->
-              <!--{% set files = story.files %}-->
-              <!--{% set videos = story.videoLink %}-->
+              <inner-stories [stories]="stories" [appUser]="appUser" *ngIf="type == 'inner' && stories && stories.length > 0"></inner-stories>
 
-              <!--data-ng-init="successStoryShow[{{ key }}]={{ key < storiesCount ? 'true':'false' }};-->
-              <!--count[{{ story.id }}] = {{ story.getVotersCount() }};-->
-              <!--vote[{{ story.id }}] = '{{ app.user is not null and story.getIsVote() }}'? true: false-->
-              <!--{% if app.user and story.user.id == app.user.id %};showMyStory[{{ story.id }}] = true{% endif %}"-->
-              <!--<div class="comment-place story-fade-in " *ngIf="successStoryShow[{{ key }}]{% if app.user and story.user.id == app.user.id %} && showMyStory[{{ story.id }}]{% endif %}">-->
-                <div class="row no-gutter">
-                  <div class="col-xs-9">
-                      <div class="clearfix">
-                        <!--<a {% if app.user is not null %} href="{{ path('user_profile',  {'user': addedUser.uId})}}"{% else %}-->
-                           <!--data-ng-click="openSignInPopover()" {% endif %}-->
-                           <!--class="pull-left">-->
-                          <!--{% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}-->
-                          <!--{% set className = "user-no" ~ random(4) %}-->
-
-                          <figure class="user-image">
-                            <!--{% if addedUser.getPhotoLink  %}-->
-                            <!--<img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">-->
-                            <!--{% else %}-->
-                            <!--<span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>-->
-                            <!--{% endif %}-->
-                          </figure>
-
-                        <!--</a>-->
-
-                        <div class="pull-left">
-                          <p>
-                            <!--<a {% if app.user is not null %} href="{{ path('user_profile',  {'user': addedUser.uId})}}"{% else %}-->
-                               <!--data-ng-click="openSignInPopover()" {% endif %}-->
-                               <!--class="text-dark-gray">{{ addedUser.showName }}</a>-->
-                          </p>
-                            <span >
-                                <!--[[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]-->
-                            </span>
-                          <!--{% if app.user is not null and addedUser.id != app.user.id%}-->
-                            <!--<span data-ls-report-->
-                                  <!--data-ls-type="1"-->
-                                  <!--data-ls-comment="{{ story.id }}"-->
-                                  <!--class="report">{{ 'report.title'|trans({},'messages') }}-->
-                            <!--</span>-->
-                          <!--{% endif %}-->
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <div class=" col-xs-3 text-right" >
-                      <span class="text-purple " *ngIf="count[story.id] < 1">0</span>
-                      <!--<a data-ls-goal-users-->
-                         <!--class="text-purple "-->
-                         <!--*ngIf="count[{{ story.id }}] > 0"-->
-                         <!---->
-                         <!--data-ls-item-id="{{ story.id }}"-->
-                         <!--data-ls-count="[[ count[{{ story.id }}] ]]"-->
-                         <!--data-ls-category="3">-->
-                        <!--[[ count[{{ story.id }}] ]]-->
-                      <!--</a>-->
-                      <!--{% set class = '' %}-->
-                      <!--<i data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% else %}  {% set class = 'user-story' %} {% endif %} class="like-icon {{ class }}"></i>-->
-                    </div>
-
-                  </div>
-
-                    <!--{% if app.user and story.user.id == app.user.id %}-->
-                    <!--<div class="story-remove" data-ls-text="{{ 'success_story.delete_confirm'|trans }}" data-ls-confirm="removeStory({{ story.id }})"><span class="report">{{ 'btn_delete'|trans }}</span></div>-->
-                    <!--{% endif %}-->
-
-                    <div class="border-left">
-                      <div class="row">
-                        <div class="col-xs-12">
-                          <p>{{ story.story }} </p>
-                        </div>
-                      </div>
-                    </div>
-                    <!--{% if files and files|length %}-->
-
-                    <!--{% if files|length == 1 %}-->
-                    <!--{% set file = files.first %}-->
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <figure>
-                          <!--<img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}" height="360"/>-->
-                        </figure>
-                      </div>
-                    </div>
-                    <!--{% else %}-->
-                    <!--<div class="row">-->
-                      <!--<div class="col-sm-12">-->
-                        <!--<div id="story-slider-image{{ key }}" data-ng-init="successStoryImageKeys[{{ key }}] = {{ key }}" class="swiper-container story-slider image-slider">-->
-                          <!--&lt;!&ndash; Slides Container &ndash;&gt;-->
-                          <!--<div class="swiper-wrapper">-->
-                            <!--{% for k,file in files %}-->
-                            <!--<div class="swiper-slide">-->
-                              <!--<a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-key-{{ key }}">-->
-                                <!--<img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}"/>-->
-                              <!--</a>-->
-                            <!--</div>-->
-                            <!--{% endfor %}-->
-                          <!--</div>-->
-
-                          <!--{% if files|length > 2 %}-->
-                          <!--<div class="swiper-pagination swiper-pagination-white"></div>-->
-                          <!--&lt;!&ndash; Add Arrows &ndash;&gt;-->
-                          <!--<div class="swiper-button-next swiper-button-white"></div>-->
-                          <!--<div class="swiper-button-prev swiper-button-white"></div>-->
-                          <!--{% endif %}-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                    <!--{% endif %}-->
-                    <!--{% endif %}-->
-
-                    <!--{% if videos and videos|length %}-->
-
-                    <!--{% if videos|length == 1 %}-->
-                    <!--{% set v = videos[0] %}-->
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <figure>
-                          <!--{#<iframe src="{{ v }}" width="700" height="360"></iframe>#}-->
-                          <!--<embed-video-->
-                                  <!--data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"-->
-                                  <!--data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"-->
-                                  <!--height="360px"-->
-                                  <!--width="100%">-->
-                          <!--</embed-video >-->
-                        </figure>
-                      </div>
-                    </div>
-                    <!--{% else %}-->
-                    <!--<div class="row">-->
-                      <!--<div class="col-sm-12">-->
-                        <!--<div id="story-slider-video{{ key }}" class="swiper-container story-slider video-slider">-->
-                          <!--&lt;!&ndash; Slides Container &ndash;&gt;-->
-                          <!--<div class="swiper-wrapper">-->
-                            <!--{% for k,video in videos %}-->
-                            <!--{% if video %}-->
-                            <!--<div class="swiper-slide">-->
-                              <!--<embed-video-->
-                                      <!--u="image"-->
-                                      <!--data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"-->
-                                      <!--width="100%"-->
-                                      <!--height="360px"-->
-                                      <!--data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">-->
-                              <!--</embed-video>-->
-                            <!--</div>-->
-                            <!--{% endif %}-->
-                            <!--{% endfor %}-->
-                          <!--</div>-->
-
-                          <!--<div class="swiper-pagination swiper-pagination-white"></div>-->
-                          <!--&lt;!&ndash; Add Arrows &ndash;&gt;-->
-                          <!--<div class="swiper-button-next swiper-button-white"></div>-->
-                          <!--<div class="swiper-button-prev swiper-button-white"></div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                    <!--{% endif %}-->
-                    <!--{% endif %}-->
-                  <!--</div>-->
-                  <!--{% endfor %}-->
-
-                  <!--{% if stories|length > storiesCount %}-->
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <div class="text-right">
-                        <!--<a *ngIf="successStoryActiveIndex !== {{ stories.length }}"-->
-                           <!--data-ng-click="showMoreSuccessStory({{ stories.length }})"-->
-                           <!--data-ng-init="storyLength={{ stories|length - storiesCount}};storiesCount = {{ storiesCount }}"-->
-                           <!--class="text-purple view-more-comments">-->
-                          <!--Show More +<span data-ng-bind="storyLength"></span>-->
-                        <!--</a>-->
-                      </div>
-                    </div>
-                  </div>
-
-                  <!--<div data-ls-comment-manage-->
-                       <!--data-ls-goal-id="{{ goal.id }}"-->
-                       <!--data-ls-slug="{{ goal.slug }}"-->
-                       <!--data-ls-inner="true"-->
-                       <!--data-ls-reply="{{ 'reply'|trans }}"-->
-                       <!--data-ls-replied="{{ 'replied'|trans }}"-->
-                       <!--data-ls-logged="{% if app.user %}true{% else %}false{% endif %}"-->
-                       <!--data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"-->
-                       <!--data-ls-title="{{ 'comments'|trans }}"-->
-                       <!--{% if app.user %}-->
-                       <!--data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}-->
-                                            <!--{% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}-->
-                                            <!--{{ nameOnImage  |upper}}{% endif %}"-->
-                       <!--{% endif %}>-->
-                  <!--</div>-->
-                </div>
-
+              <app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}">
+              </app-comment>
               </div>
-              <div class="col-md-4"></div>
-            </div>
-            <br class="hidden-xs" />
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="bg-grey">
-    <div class="container" id="random_goals">
-
-      <h2 class="text-center text-dark">{{ 'goal.see_also'|translate }}</h2>
-
-      <div class="row">
-        <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
-          <div class="row idea-item ">
-            <div class="col-md-4 goals-animate" *ngFor="let goal of items">
-              <figure>
-                <app-goal [goal]="goal"></app-goal>
-                <app-goal-footer [goal]="goal"></app-goal-footer>
-              </figure>
-            </div>
           </div>
+          <div class="col-md-4"></div>
         </div>
+        <br class="hidden-xs" />
       </div>
+
     </div>
+
   </div>
+
+  <see-also></see-also>
 </div>

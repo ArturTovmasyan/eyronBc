@@ -23,20 +23,21 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class ProjectService {
 
-     private baseOrigin = environment.production?'http://stage.bucketlist127.com':'http://bucketlist.loc';
+    private baseOrigin = environment.production?'http://stage.bucketlist127.com':'http://bucketlist.loc';
     //private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
     private appUser:User;
 
-     private envprefix = environment.production?'/':'/app_dev.php/';
+    private envprefix = environment.production?'/':'/app_dev.php/';
     //private envprefix = '/';
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private base2Url = this.baseOrigin + this.envprefix + 'api/v2.0/' ;
-    private goalUrl = '';  // URL to web API
+    private goalUrl =  this.baseUrl + 'goal/by-slug';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
     private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
+    private registrationUrl  = this.baseUrl + 'users';  // URL to web API
 
     //modals
     private reportUrl = this.baseUrl + 'report';
@@ -56,16 +57,18 @@ export class ProjectService {
     private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
     private featuredIdeasUrl = this.baseUrl + 'goal/featured'; //URL to get featured iteas
-    private badgesUrl = this.baseUrl + 'badges'; 
+    private badgesUrl = this.baseUrl + 'badges';
     private bottomMenuUrl = this.baseUrl + 'bottom/menu';
     private categoriesUrl = this.baseUrl + 'goal/categories';
-    private notificationUrl = this.baseUrl + 'notifications/0/10';
-    private getCompateProfileUrl = this.baseUrl + 'goal/categories';
+    private notificationUrl = this.baseUrl + 'notifications';
+    private notificationAllReadUrl = this.baseUrl + 'notification';
+    private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
+    private overallUrl = this.baseUrl + 'user/overall?';
     private followToggleUrl = this.baseUrl + 'users/';
     private followToggleUrl2 = '/toggles/followings';
     private calendarUrl = this.baseUrl + 'usergoal/calendar/data';
@@ -84,7 +87,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param loginData
      * @returns {any}
      */
@@ -93,7 +96,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param type
      * @param token
      * @param secret
@@ -106,15 +109,15 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @returns {Observable<R>}
      */
     getPath(){
         return this.baseOrigin;
     }
-    
+
     /**
-     * 
+     *
      * @returns {Observable<R>}
      */
     getMyUser(){
@@ -126,26 +129,26 @@ export class ProjectService {
      * @param slug
      * @returns {Observable<R>}
      */
-    getGoal(slug:string):Observable<Goal> {
+    getGoal(slug:string):Observable<any> {
         return this.http.get(this.goalUrl + '/' + slug)
-            .map((r:Response) => r.json() as Goal)
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
     /**
-     * 
+     *
      * @param start
      * @param count
      * @param userId
      * @param time
-     * @returns {Observable<R>}
+     * @returns {any}
      */
     getActivities(start:number, count:number, userId:number, time?:any):Observable<Activity[]> {
         return this.http.get(this.activityUrl + start + '/' + count + (userId?('/'+userId):'') +(time?('?time=' + time):''), {headers: this.headers})
             .map((r:Response) => r.json() as Activity[])
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @param goalId
@@ -180,7 +183,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param id
      * @returns {Observable<R>}
      */
@@ -191,7 +194,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param id
      * @returns {Observable<R>}
      */
@@ -200,9 +203,9 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
-    
+
     /**
-     * 
+     *
      */
     getUser():Observable<User> {
         return this.http.get(this.userUrl, {headers: this.headers})
@@ -211,22 +214,22 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param uId
      * @returns {Observable<R>}
      */
-    getUserByUId(uId):Observable<User> {
-        let end = uId == 'my'?'':('/' + uId);console.log(end,uId);
+    getUserByUId(uId:string):Observable<User> {
+        let end = uId == 'my'?'':('/' + uId);
         return this.http.get(this.userUrl + end, {headers: this.headers})
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);
     }
-    
+
     /**
-     * 
+     *
      */
-    getCompateProfileInfo():Observable<any> {
-        return this.http.get(this.getCompateProfileUrl, {headers: this.headers})
+    getCompleteProfileUrl():Observable<any> {
+        return this.http.get(this.completeProfileUrl, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
@@ -260,7 +263,7 @@ export class ProjectService {
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<T>}
@@ -270,7 +273,7 @@ export class ProjectService {
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<T>}
@@ -280,14 +283,57 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<T>}
      */
-    getNotifications():Observable<any> {
-        return this.http.get(this.notificationUrl, {headers: this.headers})
+    getNotifications(start: number, end: number):Observable<any> {
+        return this.http.get(this.notificationUrl + '/' + start + '/' + end , {headers: this.headers})
             .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    readAllNotifications():Observable<any>{
+        return this.http.get(this.notificationAllReadUrl +'/all/read',{headers: this.headers})
+            .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    deleteNotifications(id: number):Observable<any>{
+        return this.http.delete(this.notificationUrl + '/' + id,{headers: this.headers})
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    deleteDrafts(id: number):Observable<any>{
+        return this.http.delete(this.ideasUrl + id + '/drafts',{headers: this.headers})
+            .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    getMyIdeas(start: number, count: number):Observable<any>{
+        return this.http.get(this.ideasUrl + 'drafts/' + start +'/'+ count , {headers : this.headers})
+            .map((r:Response) => r.json() as Goal[])
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<T>}
+     */
+    readSigle(id: number):Observable<any>{
+        return this.http.get(this.notificationUrl + '/' +id +'/read',{headers: this.headers})
             .catch(this.handleError);
     }
 
@@ -320,11 +366,11 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     getIdeaGoals(start:number, count:number, search:string = '',category:string = ''):Observable<Goal[]> {
-        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&cateegory=' + category)
+        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&category=' + ((category && category != 'discover')?category:''))
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
-    } 
-    
+    }
+
     /**
      *
      * @returns {Observable<R>}
@@ -336,7 +382,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param goalId
      * @returns {Observable<R>}
      */
@@ -345,7 +391,7 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<R>}
@@ -356,7 +402,7 @@ export class ProjectService {
             .map((r:Response) => r.json() as Story[])
             .catch(this.handleError);
     }
-    
+
     /**
      *
      * @returns {Observable<R>}
@@ -411,17 +457,26 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
-     /**
+    /**
      *
      */
     putComment(id:number, body:any, commentId?:number):Observable<Comment> {
-         let comment = commentId? ('/'+ commentId): '';
+        let comment = commentId? ('/'+ commentId): '';
         return this.http.put(this.putCommentUrl + id + comment, {'commentBody': body}, {headers: this.headers})
             .map((r:Response) => r.json() as Comment)
             .catch(this.handleError);
     }
 
-    //modal requests
+    /**
+     *
+     * @param regData
+     * @returns {Observable<R>}
+     */
+    putUser(regData:any):Observable<any> {
+        return this.http.post(this.registrationUrl, regData)
+            .map((r:Response) => r.json())
+    }
+
     /**
      *
      */
@@ -457,21 +512,24 @@ export class ProjectService {
             .map((r:Response) => r.json() as User[])
             .catch(this.handleError);
     }
-    
+
+
+
+
     //profile page requests
     /**
-     * 
+     *
      * @param id
      * @returns {Observable<R>}
      */
     toggleFollow(id:number):Observable<any> {
-        return this.http.post(this.followToggleUrl + id + this.followToggleUrl2, {headers: this.headers})
+        return this.http.post(this.followToggleUrl + id + this.followToggleUrl2, {}, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
     /**
-     * 
+     *
      * @returns {Observable<R>}
      */
     getCalendarData():Observable<any> {
@@ -507,6 +565,34 @@ export class ProjectService {
 
     /**
      * 
+     * @param condition
+     * @param count
+     * @param first
+     * @param isDream
+     * @param notUrgentImportant
+     * @param notUrgentNotImportant
+     * @param urgentImportant
+     * @param urgentNotImportant
+     * @param status
+     * @param userId
+     * @param owned
+     * @returns {Observable<R>}
+     */
+    getOverall(condition:number, count:number, first:number, isDream:boolean,
+             notUrgentImportant:boolean, notUrgentNotImportant:boolean,
+             urgentImportant:boolean, urgentNotImportant:boolean, status:string, 
+             userId?:number, owned?:boolean):Observable<any> {
+        let path = owned?('owned=true'):('condition=' + condition +
+        '&count=' + count + '&first=' + first + '&isDream=' + isDream + '&notUrgentImportant=' + notUrgentImportant +
+        '&notUrgentNotImportant=' + notUrgentNotImportant + '&urgentImportant=' + urgentImportant +
+        '&status=' + status + '&urgentNotImportant=' + urgentNotImportant + '&userId=' + userId);
+        return this.http.get(this.overallUrl + path, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
      * @param id
      * @param count
      * @param first
@@ -529,6 +615,8 @@ export class ProjectService {
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
+
+
     /**
      *
      * @param error

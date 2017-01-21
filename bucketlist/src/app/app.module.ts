@@ -1,14 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule, Http } from '@angular/http';
-import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import {MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
-import {SelectModule} from 'ng2-select/ng2-select';
-import {DndModule} from 'ng2-dnd';
+import { SelectModule} from 'ng2-select/ng2-select';
+import { DndModule} from 'ng2-dnd';
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+import { MaterialModule } from '@angular/material';
+import { ValidationService } from './validation.service';
+import { Broadcaster} from './tools/broadcaster';
+import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { AngularFireModule } from 'angularfire2';
 import { AuthProviders } from 'angularfire2';
@@ -71,7 +74,6 @@ export function createTranslateLoader(http: Http) {
     ResettingRequestComponent,
 
     PageComponent,
-    MarkdownToHtmlPipe,
     ReportComponent,
 
     ReportComponent,
@@ -84,6 +86,7 @@ export function createTranslateLoader(http: Http) {
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     ComponentModule,
     InfiniteScrollModule,
     HttpModule,
@@ -95,15 +98,26 @@ export function createTranslateLoader(http: Http) {
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),
+    MaterialModule.forRoot(),
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
       deps: [Http]
     })
   ],
+  entryComponents: [
+    AddComponent,
+    DoneComponent,
+    UsersComponent,
+    CommonComponent,
+    ReportComponent
+  ],
   providers: [
     ProjectService,
-    AuthGuard
+    AuthGuard,
+    Broadcaster,
+    ValidationService,
+    CacheService
   ],
   bootstrap: [AppComponent]
 })

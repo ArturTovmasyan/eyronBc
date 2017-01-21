@@ -30,6 +30,112 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class UserController extends FOSRestController
 {
     /**
+     * This function is used to get current user overall progress
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to to get current user overall progress",
+     *  statusCodes={
+     *         200="Returned when status changed",
+     *         401="Access allowed only for registered users"
+     *     },
+     * )
+     * @Secure(roles="ROLE_USER")
+     * @Rest\View()
+     */
+    public function getOverallAction(Request $request)
+    {
+        //disable listener for stats count
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $sendNoteService = $this->get('bl_put_notification_service');
+
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+
+        //check if not logged in user
+        if(!is_object($currentUser)) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
+        }
+
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        // check conditions
+        switch($request->get('condition')){
+            case UserGoal::ACTIVE:
+                $condition = UserGoal::ACTIVE;
+                break;
+            case UserGoal::COMPLETED:
+                $condition = UserGoal::COMPLETED;
+                break;
+            default:
+                $condition = null;
+        }
+
+        $dream = $this->toBool($request->query->get('isDream'));
+        $first = 0;
+        $count = null;
+        $owned = $request->get('owned');
+
+        $requestFilter = [];
+        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $this->toBool($request->get('urgentImportant'));
+        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->get('urgentNotImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->get('notUrgentImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->get('notUrgentNotImportant'));
+
+
+        if($owned){
+            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
+                ->findOwnedUserGoals($currentUser, true);
+        } else{
+            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
+                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count, true);
+        }
+
+        if(is_null($lastUpdated)){
+            return array('progress' => 0);
+        }
+
+        $response = new Response();
+
+        $lastDeleted = $currentUser->getUserGoalRemoveDate();
+        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
+
+        $response->setLastModified($lastModified);
+
+        $response->headers->set('cache-control', 'private, must-revalidate');
+
+        // check is modified
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        if($owned){
+            $userGoals = $em->getRepository('AppBundle:UserGoal')
+                ->findOwnedUserGoals($currentUser);
+        } else{
+            $userGoals = $em->getRepository('AppBundle:UserGoal')
+                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count);
+        }
+
+        $progress = $sendNoteService->calculateProgress($userGoals);
+        if ($progress) {
+            $result = array('progress' => $progress);
+            $response->setContent(json_encode($result));
+
+            return $response;
+        }
+
+        return array('progress' => 0);
+    }
+
+    /**
      * @ApiDoc(
      *  resource=true,
      *  section="User",
@@ -56,6 +162,14 @@ class UserController extends FOSRestController
     public function postAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
 
         $data = $request->request->all();
 
@@ -98,7 +212,7 @@ class UserController extends FOSRestController
         $em->persist($user);
         $em->flush();
 
-        $response = $this->loginAction($user, array('user'));
+        $response = $this->loginAction($user, ['user']);
 
         return $response;
     }
@@ -547,37 +661,37 @@ class UserController extends FOSRestController
      *         401="Access allowed only for registered users"
      *     },
      * )
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "completed_profile"})
      * @Rest\Get("/user/{uid}", name="get_user", defaults={"uid" = null}, options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
+     * @param $uid
+     * @return array
      */
     public function getAction(Request $request, $uid = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        if($uid){
-            //get current user
-            $currentUser = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('uId' => $uid));;
-        } else {
-            //get current user
-            $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+        $liipManager = $this->get('liip_imagine.cache.manager');
 
-            // get drafts
-            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
-        }
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($currentUser);
+        //get current user
+        $currentUser = $uid?$em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId'=>$uid)) :$this->get('security.token_storage')->getToken()->getUser();
+        // get drafts
+        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
 
         //check if not logged in user
         if(!is_object($currentUser)) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
         }
 
-        if ($currentUser->getImagePath()){
-            $imagineCacheManager = $this->get('liip_imagine.cache.manager');
-            $resolvedPath = $imagineCacheManager->getBrowserPath($currentUser->getImagePath(), 'user_image');
+        $states = $currentUser->getStats();
 
-            $currentUser->setCachedImage($resolvedPath);
+        $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($currentUser->getId(), false);
+
+        $currentUser->setStats($states);
+
+        if($currentUser->getImagePath()){
+            $currentUser->setCachedImage($liipManager->getBrowserPath($currentUser->getImagePath(), 'user_image'));
         }
 
         return $currentUser;
@@ -594,113 +708,6 @@ class UserController extends FOSRestController
 
         return false;
     }
-
-    /**
-     * This function is used to get current user overall progress
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  section="User",
-     *  description="This function is used to to get current user overall progress",
-     *  statusCodes={
-     *         200="Returned when status changed",
-     *         401="Access allowed only for registered users"
-     *     },
-     * )
-     * @Secure(roles="ROLE_USER")
-     * @Rest\View()
-     */
-    public function getOverallAction(Request $request)
-    {
-        //disable listener for stats count
-        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $sendNoteService = $this->get('bl_put_notification_service');
-
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        //get current user
-        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
-
-        //check if not logged in user
-        if(!is_object($currentUser)) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
-        }
-
-        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
-            $content = $request->getContent();
-            $request->request->add(json_decode($content, true));
-        }
-
-        // check conditions
-        switch($request->get('condition')){
-            case UserGoal::ACTIVE:
-                $condition = UserGoal::ACTIVE;
-                break;
-            case UserGoal::COMPLETED:
-                $condition = UserGoal::COMPLETED;
-                break;
-            default:
-                $condition = null;
-        }
-
-        $dream = $this->toBool($request->query->get('isDream'));
-        $first = 0;
-        $count = null;
-        $owned = $request->get('owned');
-
-        $requestFilter = [];
-        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $this->toBool($request->get('urgentImportant'));
-        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->get('urgentNotImportant'));
-        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->get('notUrgentImportant'));
-        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->get('notUrgentNotImportant'));
-
-
-        if($owned){
-            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
-                ->findOwnedUserGoals($currentUser, true);
-        } else{
-            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
-                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count, true);
-        }
-
-        if(is_null($lastUpdated)){
-            return array('progress' => 0);
-        }
-
-        $response = new Response();
-
-        $lastDeleted = $currentUser->getUserGoalRemoveDate();
-        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
-
-        $response->setLastModified($lastModified);
-
-        $response->headers->set('cache-control', 'private, must-revalidate');
-
-        // check is modified
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
-        if($owned){
-            $userGoals = $em->getRepository('AppBundle:UserGoal')
-                ->findOwnedUserGoals($currentUser);
-        } else{
-            $userGoals = $em->getRepository('AppBundle:UserGoal')
-                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count);
-        }
-
-        $progress = $sendNoteService->calculateProgress($userGoals);
-        if ($progress) {
-            $result = array('progress' => $progress);
-            $response->setContent(json_encode($result));
-
-            return $response;
-        }
-
-        return array('progress' => 0);
-    }
-
 
     /**
      * This function is used to get apps string for mobile
@@ -816,12 +823,14 @@ class UserController extends FOSRestController
             $device = $regData[$mobileOc];
             if(!in_array($registrationId, $device)){
                 array_push($device, $registrationId);
+                $this->cleanRegIds($registrationId, $mobileOc);
             }
 
             $regData[$mobileOc] = $device;
         }
         else {
             $regData[$mobileOc][] =  $registrationId;
+            $this->cleanRegIds($registrationId, $mobileOc);
         }
 
         $currentUser->setRegistrationIds($regData);
@@ -837,7 +846,22 @@ class UserController extends FOSRestController
         return new JsonResponse(Response::HTTP_NO_CONTENT);
     }
 
+//    this function clean duplicate registration ids from old users
+    private function cleanRegIds($registrationId, $mobileOc){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('ApplicationUserBundle:User')->findWithRelationsIds($registrationId);
+        foreach ($users as $user){
+            $userRegData = $user->getRegistrationIds();
+            $userDevice = $userRegData[$mobileOc];
+            $key = array_search($registrationId, $userDevice);
+            if(!($key === false)){
+                unset($userDevice[$key]);
+                $userRegData[$mobileOc] = $userDevice;
+                $user->setRegistrationIds($userRegData);
+            }
 
+        }
+    }
     /**
      * @ApiDoc(
      *  resource=true,

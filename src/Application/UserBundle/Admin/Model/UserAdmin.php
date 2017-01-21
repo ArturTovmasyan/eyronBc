@@ -25,6 +25,14 @@ class UserAdmin extends AbstractAdmin
     public    $usersCount       = 0;
 
     /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('sendMessage', 'send-message');
+    }
+
+    /**
      * @param string $name
      * @return mixed|null|string
      */
@@ -61,6 +69,7 @@ class UserAdmin extends AbstractAdmin
             ->add('profile', null, ['label' => 'show.label_profile', 'template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'])
             ->add('userSocial', null, ['label' => 'show.label_user_social', 'template' => 'ApplicationUserBundle:Admin:user_social_icon_show.html.twig'])
             ->add('userMobileOs', null, ['label' => 'show.label_user_mobile', 'template' => 'ApplicationUserBundle:Admin:user_mobile_os_icon_show.html.twig'])
+            ->add('registrationIds', null, ['label' => 'show.label_registration_ids', 'template' => 'ApplicationUserBundle:Admin:registration_ids_show.html.twig'])
             ->add('enabled', null, ['label' => 'form.label_enabled'])
             ->add('listedGoals', null, ['label' => 'show.label_listed_goal', 'template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'])
             ->add('createdGoals', null, ['label' => 'show.label_created_goal', 'template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'])
@@ -109,6 +118,20 @@ class UserAdmin extends AbstractAdmin
             ->add('registrationIds', null, ['label' => 'show.label_user_mobile', 'show_filter' => true],
                 'choice', ['choices'=>['android' => 'admin.label.name.android', 'ios'=>'admin.label.name.ios']
                 ])
+            ->add('deviceId', 'doctrine_orm_callback', [
+                'mapped' => false,
+                'show_filter' => true,
+                'callback' => function($queryBuilder, $alias, $field, $value) {
+                    if (!$value['value']) {
+                        return;
+                    }
+                    $queryBuilder
+                        ->andWhere($alias . ".registrationIds LIKE :value")
+                        ->setParameter('value', '%'.$value['value'].'%');
+                    return true;
+                },
+                'label'=>'show.label_registration_ids'
+            ], 'text')
             ->add('email', null, ['label'=>'show.label_email_username','show_filter' => true])
             ->add('firstname', null, ['label'=>'show.label_firstname','show_filter' => true])
             ->add('lastname', null, ['label'=>'show.label_lastname','show_filter' => true])
@@ -138,7 +161,6 @@ class UserAdmin extends AbstractAdmin
                         'show' => [],
                         'edit' => [],
                         'delete' => [],
-                        'pushNote' => ['template' => 'ApplicationUserBundle:Admin:test_message.html.twig']
                     ]
                 ]
             )

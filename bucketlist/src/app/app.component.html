@@ -288,25 +288,25 @@
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
 
-        <div *ngIf="reportModal">
-            <report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>
-        </div>
+        <!--<div *ngIf="reportModal">-->
+            <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
+        <!--</div>-->
 
-        <div *ngIf="commonModal">
-            <common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>
-        </div>
+        <!--<div *ngIf="commonModal">-->
+            <!--<common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>-->
+        <!--</div>-->
 
-        <div *ngIf="usersModal">
-            <users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>
-        </div>
+        <!--<div *ngIf="usersModal">-->
+            <!--<users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>-->
+        <!--</div>-->
 
-        <div *ngIf="addModal">
-            <add-modal (changeModal)="hideModal('add')" [data]="addData" class="modal-block"></add-modal>
-        </div>
+        <!--<div *ngIf="addModal">-->
+            <!--<add-modal (changeModal)="hideModal('add')" [data]="addData" class="modal-block"></add-modal>-->
+        <!--</div>-->
 
-        <div *ngIf="doneModal">
-            <done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>
-        </div>
+        <!--<div *ngIf="doneModal">-->
+            <!--<done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>-->
+        <!--</div>-->
 
         <router-outlet></router-outlet>
     </div>
@@ -356,7 +356,7 @@
             <!--Bottom menu-->
             <ul>
                 <li class="first" *ngFor="let menu of menus; let i = index, let f = first, let l = last" [hidden]="menu.isTerm" [class.first]="f" [class.last]="l" >
-                    <a *ngIf="menu.slug" routerLink="page/{{ menu.slug}}">{{ menu.name }}</a>
+                    <a *ngIf="menu.slug" routerLink="/page/{{ menu.slug}}">{{ menu.name }}</a>
                     <a *ngIf="!menu.slug" href="{{ menu.url }}">{{ menu.name }}</a>
                 </li>
             </ul>

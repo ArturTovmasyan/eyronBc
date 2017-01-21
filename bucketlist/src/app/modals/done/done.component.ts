@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { Router } from '@angular/router';
+import {MdDialog, MdDialogRef} from '@angular/material';
+
 
 
 @Component({
@@ -10,20 +12,29 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class DoneComponent implements OnInit {
-  @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
-  @Input() data: any;
+  // @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
+  public data: any;
   public userGoal:any;
   public appUser:any;
   public story:string;
   public serverPath:string = '';
 
-  constructor(private ProjectService: ProjectService, private router: Router) { }
+  constructor(
+              private ProjectService: ProjectService, 
+              private router: Router,
+              public dialogRef: MdDialogRef<DoneComponent>
+
+
+
+  ) { }
 
   ngOnInit() {
     this.serverPath = this.ProjectService.getPath();
     if(!localStorage.getItem('apiKey')){
-      // this.router.navigate(['/']);
-      this.modalHideEmitter.emit(null);
+      this.router.navigate(['/']);
+      this.dialogRef.close();
+      // this.modalHideEmitter.emit(null);
+      
     } else {
         this.appUser = this.ProjectService.getMyUser();
         this.userGoal = this.data;
@@ -43,7 +54,7 @@ export class DoneComponent implements OnInit {
   }
 
   filesUpdated(files) {
-    console.log("Store state updated! Current state: ", files)
+    // console.log("Store state updated! Current state: ", files)
   }
 
   beforeRequest(xhr){

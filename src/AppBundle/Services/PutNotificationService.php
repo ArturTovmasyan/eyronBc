@@ -9,6 +9,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\UserGoal;
+use Application\UserBundle\Controller\MainController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\Container;
 use RMS\PushNotificationsBundle\Message\iOSMessage;
@@ -46,19 +47,29 @@ class PutNotificationService
     /**
      * @param $ids
      * @param $message
+     * @param null $deviceId
+     * @return array
      */
-    public function sendNoteToIos($ids, $message)
+    public function sendNoteToIos($ids, $message, $deviceId = null)
     {
-        foreach($ids as $id){
-            // get notifications
-            $notifications = $this->container->get('rms_push_notifications');
+        // get notifications
+        $notifications = $this->container->get('rms_push_notifications');
+
+        // get pem file
+        $pemFile = $this->container->getParameter("rms_push_notifications.ios.pem");
+
+        $response = [];
+
+        if($deviceId) {
 
             // create ios message
             $push = new iOSMessage();
             $push->setAPSBadge(1);
             $push->setAPSSound('default');
+
             // check is array
             if(is_array($message)){
+
                 // set message
                 $push->setMessage($message['message']);
                 $push->setData(array('adId' => $message['adId']));
@@ -66,30 +77,77 @@ class PutNotificationService
             else{
                 $push->setMessage($message);
             }
-            // device
-            $push->setDeviceIdentifier($id);
-            // get pem file
-            $pemFile = $this->container->getParameter("rms_push_notifications.ios.pem");
+
             // set passphrase
             $passphrase =null;
+
             // get pem phrase
             $pemContent = file_get_contents($pemFile);
+
             // set content
             $notifications->setAPNSPemAsString($pemContent, $passphrase);
+
+            // device
+            $push->setDeviceIdentifier($deviceId);
+
             // send push
             $notifications->send($push);
+
+            $response = $notifications->getResponses('rms_push_notifications.os.ios')[0];
+
         }
+        else{
+            foreach($ids as $id)
+            {
+                // create ios message
+                $push = new iOSMessage();
+                $push->setAPSBadge(1);
+                $push->setAPSSound('default');
+
+                // check is array
+                if(is_array($message)){
+                    // set message
+                    $push->setMessage($message['message']);
+                    $push->setData(array('adId' => $message['adId']));
+                }
+                else{
+                    $push->setMessage($message);
+                }
+
+                // set passphrase
+                $passphrase =null;
+
+                // get pem phrase
+                $pemContent = file_get_contents($pemFile);
+
+                // set content
+                $notifications->setAPNSPemAsString($pemContent, $passphrase);
+
+                // device
+                $push->setDeviceIdentifier($id);
+
+                // send push
+                $notifications->send($push);
+            }
+        }
+
+        return $response;
     }
 
     /**
      * @param $ids
      * @param $message
+     * @param null $deviceId
+     * @return array|mixed
      */
-    public function sendNoteToAndroid($ids, $message)
+    public function sendNoteToAndroid($ids, $message, $deviceId = null)
     {
-        foreach($ids as $id) {
-            // get notifications
-            $notifications = $this->container->get('rms_push_notifications');
+        // get notifications
+        $notifications = $this->container->get('rms_push_notifications');
+
+        $response = [];
+
+        if($deviceId) {
 
             // create ios message
             $push = new AndroidMessage();
@@ -107,64 +165,105 @@ class PutNotificationService
             } else {
                 $push->setMessage($message);
             }
-            // device
-            $push->setDeviceIdentifier($id);
-            // get pem file
-            //        $pemFile = $this->container->getParameter("rms_push_notifications.ios.pem");
-            // set content
-            //        $notifications->setAPNSPemAsString($pemContent, $passphrase);
-            // send push
+
+            $push->setDeviceIdentifier($deviceId);
             $notifications->send($push);
+
+            $response = $notifications->getResponses('rms_push_notifications.os.android.gcm')[0]->getContent();
         }
+        else {
+            foreach($ids as $id)
+            {
+                // create ios message
+                $push = new AndroidMessage();
+                $push->setGCM(true);
+
+                $isAutocomplete = is_array($message) && array_key_exists('isAutocomplete', $message) ?
+                    $message['isAutocomplete'] : false;
+
+                // check is array
+                if (is_array($message)) {
+                    // set message
+                    $push->setMessage($message['message']);
+
+                    $push->setData(array('adId' => $message['adId'], 'isAutocomplete' => $isAutocomplete));
+                } else {
+                    $push->setMessage($message);
+                }
+
+                // device
+                $push->setDeviceIdentifier($id);
+                $notifications->send($push);
+            }
+        }
+
+        return $response;
     }
 
     /**
      * Check and send mobiles notes
-     *
      * @param $currentUser
      * @param $message
+     * @param null $deviceId
+     * @param null $mobileOS
+     * @return array
      */
-    public function sendPushNote($currentUser, $message)
+    public function sendPushNote($currentUser, $message, $deviceId = null, $mobileOS = null)
     {
         $androidIds = array();
         $iosIds = array();
-        // if user is deactivate, return
-//        if($currentUser->getDeactivate() || !$currentUser->getNotificationSwitch()){
-//            return;
-//        }
-        // check registration ids
-        $registrations = $currentUser->getRegistrationIds();
-        // check registrations
-        if($registrations){
-            // check, and get android ids, if exist
-            if(array_key_exists( self::ANDROID, $registrations)){
-                $androidIds = $registrations[self::ANDROID];
-            }
-            // check, and get ios ids, if exist
-            if(array_key_exists(self::IOS, $registrations)){
-                $iosIds = $registrations[self::IOS];
+
+        if($deviceId && $mobileOS == self::ANDROID) {
+            $androidIds = $deviceId;
+        }
+        elseif($deviceId && $mobileOS == self::IOS)
+        {
+            $iosIds = $deviceId;
+        }
+        else{
+            // check registration ids
+            $registrations = $currentUser->getRegistrationIds();
+
+            // check registrations
+            if($registrations){
+
+                // check, and get android ids, if exist
+                if(array_key_exists( self::ANDROID, $registrations)){
+                    $androidIds = $registrations[self::ANDROID];
+                }
+                // check, and get ios ids, if exist
+                if(array_key_exists(self::IOS, $registrations)){
+                    $iosIds = $registrations[self::IOS];
+                }
             }
         }
+
+        $data = [];
+
         // check androids ids
         if(count($androidIds) > 0){
-            $this->sendNoteToAndroid($androidIds, $message);
+            $data['android'] = $this->sendNoteToAndroid($androidIds, $message, $deviceId);
         }
         // check ios ids
         if(count($iosIds) > 0){
-            $this->sendNoteToIos($iosIds, $message);
+            $data['ios'] = $this->sendNoteToIos($iosIds, $message, $deviceId);
         }
+
+        return $data;
     }
 
     /**
      * @param $currentUser
+     * @param $deviceId
+     * @param $mobileOS
+     * @return array
      */
-    public function sendTestMassage($currentUser)
+    public function sendTestMassage($currentUser, $deviceId, $mobileOS)
     {
         $massage = $this->container->get('translator')->trans('test_message');
 
-        $this->sendPushNote($currentUser, $massage);
-
-        $this->sendProgressMassage($currentUser);
+       return $this->sendPushNote($currentUser, $massage, $deviceId, $mobileOS);
+//        $this->sendProgressMassage($currentUser, $deviceId, $mobileOS);
     }
 
     /**
@@ -176,14 +275,16 @@ class PutNotificationService
 
         if($goals){
             $massage = $this->container->get('translator')->trans('reminder_message');
-            $this->sendPushNote($currentUser, $massage);
+            $this->sendPushNote($currentUser, $massage, null, self::ANDROID);
         }
     }
 
     /**
      * @param $currentUser
+     * @param $deviceId
+     * @param $mobileOS
      */
-    public function sendProgressMassage($currentUser)
+    public function sendProgressMassage($currentUser, $deviceId = null, $mobileOS = null)
     {
         $progress = $this->calculateProgress($currentUser->getUserGoal());
 
@@ -197,7 +298,7 @@ class PutNotificationService
             $massage = $this->container->get('translator')->trans('progress_excellent');
         }
 
-        $this->sendPushNote($currentUser, $massage);
+        $this->sendPushNote($currentUser, $massage, $deviceId, $mobileOS);
     }
 
     /**

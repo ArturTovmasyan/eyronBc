@@ -4,8 +4,10 @@ import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@an
 import { Broadcaster } from '../tools/broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import {ProjectService} from '../project.service';
+
 import {Location} from '../interface/location';
 import {Goal} from "../interface/goal";
+import {User} from "../interface/user";
 import {UserGoal} from "../interface/userGoal";
 
 @Component({
@@ -18,7 +20,7 @@ export class ProfileComponent implements OnInit {
   @ViewChild("tooltip") public tooltipElementRef: ElementRef;
   public categories: string[]= ['all', 'active', 'completed'];
   public uId: string;
-  public id: number = 1;
+  public id: number;
   public type: string;
   public errorMessage: string;
   public filterVisibility: boolean = false;
@@ -31,6 +33,7 @@ export class ProfileComponent implements OnInit {
   public eventId: number = 0;
   public isHover: boolean = false;
   public busy: boolean = false;
+  public busyInitial: boolean = false;
   public noGoals: boolean = false;
   public noItem: boolean = false;
   public hoveredText: string = '';
@@ -42,10 +45,12 @@ export class ProfileComponent implements OnInit {
   public count: number = 10;
   public locations:Location[] = [];
   public locationsIds = [];
-  public goals: Goal[];
-  public reserveGoals: Goal[];
-  public userGoals: UserGoal[];
-  public reserveUserGoals: UserGoal[];
+  // public goals: Goal[];
+  // public reserveGoals: Goal[];
+  public userGoals: any[];
+  public reserveUserGoals: any[];
+  
+  public overall:number;
 
   constructor(
       private route: ActivatedRoute,
@@ -64,18 +69,49 @@ export class ProfileComponent implements OnInit {
         this.uId = this.route.snapshot.params['uId']?this.route.snapshot.params['uId']:'my';
         this.myProfile = this.uId == 'my';
         this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:this.myProfile?'all':'activity';
-        this.goals = null;
+        // this.goals = null;
         this.noItem = false;
         this.userGoals = null;
-        this.reserveGoals = null;
+        // this.reserveGoals = null;
         this.reserveUserGoals = null;
-        this.getData();
+        if(this.id){
+          this.busyInitial = false;
+          this.getData();
+        } else {
+          this.busyInitial = true;
+        }
       }
     })
   }
 
   ngOnInit() {
     this.serverPath = this._projectService.getPath();
+
+    // $rootScope.$on('removeUserGoal', function () {
+    //   UserGoalDataManager.overall($scope.currentPage, function (data) {
+    //     $scope.overallProgress = data.progress;
+    //   });
+    // });
+
+    // $scope.$on('doneGoal', function(){
+    //   UserGoalDataManager.overall($scope.currentPage, function (data) {
+    //     $scope.overallProgress = data.progress;
+    //   });
+    // });
+    // $rootScope.$on('lsJqueryModalClosedSaveGoal', function () {
+    //   UserGoalDataManager.overall($scope.currentPage, function (data) {
+    //     $scope.overallProgress = data.progress;
+    //   });
+    // });    
+    
+    this.broadcaster.on<User>('pageUser')
+        .subscribe(user => {
+          this.id = user.id;
+          if(this.busyInitial){
+            this.busyInitial = false;
+            this.getData();
+          }
+        });
   }
 
   getData(){
@@ -84,6 +120,9 @@ export class ProfileComponent implements OnInit {
     let index = this.categories.indexOf(this.type);
     if(index != -1){
       this.getGoals(index);
+      if(this.uId == 'my'){
+        this.getOverall(index);
+      }
     } else {
       switch (this.type){
         case 'common':
@@ -93,6 +132,7 @@ export class ProfileComponent implements OnInit {
           break;
         case 'activity':
           this.busy = true;
+          this.overall = 0;
           // $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
           // $scope.Activities.nextActivity();
           // $scope.$emit('lsGoActivity');
@@ -100,6 +140,9 @@ export class ProfileComponent implements OnInit {
         case 'owned':
           this.busy = false;
           this.getOwned();
+            if(this.uId == 'my'){
+              this.getOverall(null,true);
+            }
           break;
       }
     }
@@ -182,8 +225,8 @@ export class ProfileComponent implements OnInit {
         .subscribe(
             data => {
               this.noItem = !data.goals.length;
-              this.goals = data.goals;
-              this.calculateLocations(this.goals);
+              this.userGoals = data.goals;
+              this.calculateLocations(this.userGoals);
               this.start += this.count;
               this.getCommonReserve();
             });
@@ -194,8 +237,8 @@ export class ProfileComponent implements OnInit {
         this.id, this.count, this.start)
         .subscribe(
             data => {
-              this.reserveGoals = data.goals;
-              this.optimiseImages(true);
+              this.reserveUserGoals = data.goals;
+              this.optimiseImages();
               this.start += this.count;
               this.busy = false;
             });
@@ -209,13 +252,13 @@ export class ProfileComponent implements OnInit {
 
   optimiseImages(isGoal?:boolean){
     if(isGoal){
-      for(let item of this.reserveGoals){
-        let img;
-        if(item.cached_image){
-          img = new Image();
-          img.src = this.serverPath + item.cached_image;
-        }
-      }
+      // for(let item of this.reserveGoals){
+      //   let img;
+      //   if(item.cached_image){
+      //     img = new Image();
+      //     img.src = this.serverPath + item.cached_image;
+      //   }
+      // }
     } else {
       for(let item of this.reserveUserGoals){
         let img;
@@ -256,6 +299,16 @@ export class ProfileComponent implements OnInit {
       }
     }
     this.broadcaster.broadcast('getLocation', this.locations);
+  }
+
+  getOverall(condition,owned?){
+    this._projectService.getOverall(
+        condition, this.count, this.start, this.isDream, this.notUrgentImportant, this.notUrgentNotImportant,
+        this.urgentImportant, this.urgentNotImportant, ((this.type == 'all')?'': (this.type + '-goals')),((this.myProfile)?0:this.id),owned)
+        .subscribe(
+            data => {
+              this.overall = data.progress;
+            });
   }
 
   hideJoin(event){

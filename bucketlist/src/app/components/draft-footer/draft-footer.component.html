@@ -1,0 +1,23 @@
+<ul class="row  goal-links  ">
+  <!--{% if inner is defined %}-->
+  <!--{% endif %}-->
+  <li class="col-xs-6">
+
+
+    <!--{% set slugName = slug? slug: "Private" %}-->
+    <a (click)="redirectToGoalCreate()">
+      <!--href="{{ path('add_goal', {'id': goal.id, 'slug': slugName }) }}"-->
+      <i class="icon-manage-in-circle"><span class="path1"></span><span class="path2"></span></i>
+      <span    class="text">{{ 'btn_edit'|translate | capitalize}}</span>
+    </a>
+  </li>
+
+  <li class="col-xs-6" (click)="openDialog(id)">
+
+    <!--<a  data-ls-confirm data-ls-href="{{ path('remove_my_ideas', {'goal' : goal.id , 'slug' : slug}) }}">-->
+      <i class="icon-delete-in-circle"><span class="path1"></span><span class="path2"></span></i>
+      <span class="text">{{ 'btn_remove'|translate | capitalize}}</span>
+
+    <!--</a>-->
+  </li>
+</ul>

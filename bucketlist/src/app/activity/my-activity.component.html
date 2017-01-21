@@ -46,7 +46,7 @@
                     <div class="pull-left text-gray">
                         <h4>
 
-                            <a routerLink="profile/{{ activity.user.u_id }}" class="text-dark-gray">
+                            <a routerLink="/profile/{{ activity.user.u_id }}" class="text-dark-gray">
                                 {{ activity.user.first_name }} {{ activity.user.last_name }}
                                 <i class="leaderboard-small" *ngIf="haveTop && inArray(activity.user.id)"></i>
                             </a>

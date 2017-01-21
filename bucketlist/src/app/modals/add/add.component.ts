@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../../project.service';
+import {MdDialog, MdDialogRef} from '@angular/material';
 import { Router } from '@angular/router';
 
 
@@ -10,8 +11,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class AddComponent implements OnInit {
-  @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
-  @Input() data: any;
+  public data: any;
   public userGoal: any;
   public appUser: any;
   public year: number;
@@ -47,28 +47,31 @@ export class AddComponent implements OnInit {
   }
 
   public selected(value:any):void {
-    console.log('Selected value is: ', value);
+    // console.log('Selected value is: ', value);
   }
 
   public removed(value:any):void {
-    console.log('Removed value is: ', value);
+    // console.log('Removed value is: ', value);
   }
 
   public typed(value:any):void {
-    console.log('New search input: ', value);
+    // console.log('New search input: ', value);
   }
 
   public refreshValue(value:any, type:string):void {
     this.value = value;console.log(value, type);
   }
 
-  constructor(private ProjectService: ProjectService, private router: Router) {
+  constructor(
+      public dialogRef: MdDialogRef<AddComponent>,
+      private ProjectService: ProjectService,
+      private router: Router) {
   }
 
   ngOnInit() {
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
-      this.modalHideEmitter.emit(null);
+      this.dialogRef.close();
     } else {
       this.appUser = this.ProjectService.getMyUser();
       this.userGoal = this.data;
@@ -85,7 +88,6 @@ export class AddComponent implements OnInit {
   }
   
   add(addForm){
-    console.log('submit');
     event.preventDefault();
   };
 

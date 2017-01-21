@@ -9,11 +9,17 @@ import {GoalFooterComponent} from './goal-footer/goal-footer.component';
 import {GoalComponent} from './goal/goal.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {GoalFriendComponent} from './goal-friend/goal-friend.component';
-import { CapitalizePipe } from '../pipes/capitalize.pipe';
-import { RoundPipe } from '../pipes/round.pipe';
 import { UserComponent } from './user/user.component';
 import { CommentComponent } from './comment/comment.component';
 import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
+import { ControlMessagesComponent } from './control-messages/control-messages.component';
+import { SeeAlsoComponent } from './see-also/see-also.component';
+
+import { CapitalizePipe } from '../pipes/capitalize.pipe';
+import { RoundPipe } from '../pipes/round.pipe';
+import { RemoveTagPipe } from '../pipes/removeTag.pipe';
+import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
+import { EmbedVideoComponent } from './embed-video/embed-video.component';
 
 
 @NgModule({
@@ -31,9 +37,14 @@ import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
     GoalFriendComponent,
     CapitalizePipe,
     RoundPipe,
+    RemoveTagPipe,
+    MarkdownToHtmlPipe,
     UserComponent,
     CommentComponent,
-    ProfileGoalComponent
+    ProfileGoalComponent,
+    ControlMessagesComponent,
+    EmbedVideoComponent,
+    SeeAlsoComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -44,7 +55,12 @@ import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
     RoundPipe,
     UserComponent,
     CommentComponent,
-    ProfileGoalComponent
+    ProfileGoalComponent,
+    RemoveTagPipe,
+    MarkdownToHtmlPipe,
+    ControlMessagesComponent,
+    EmbedVideoComponent,
+    SeeAlsoComponent
   ]
 })
 export class ComponentModule { }
