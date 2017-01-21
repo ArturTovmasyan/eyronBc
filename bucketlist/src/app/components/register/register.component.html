@@ -10,10 +10,10 @@
           <div class="form-group row">
             <div class="col-sm-4 col-sm-offset-4">
 
-              <label class="upload" for="file">Upload a photo</label>
+              <label class="upload" for="file" *ngIf="!source">Upload a photo</label>
 
               <div class="registration-image">
-                <img src="#" class="uploaded-image" alt="User Image" style="display: none">
+                <img src="{{ source}}" class="uploaded-image" alt="User Image" *ngIf="source">
               </div>
 
               <control-messages [control]="registerData.controls.file"></control-messages>
@@ -21,7 +21,7 @@
             </div>
 
             <div class="hide">
-              <input type="file" id="file" formControlName="file" name="file" (change)="showUploadedImage(this)">
+              <input type="file" id="file" formControlName="file" name="file" (change)="showUploadedImage($event)">
             </div>
             <div>
             </div>

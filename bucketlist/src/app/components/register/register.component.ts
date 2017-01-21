@@ -10,6 +10,7 @@ import {ProjectService} from 'app/project.service';
 })
 export class RegisterComponent implements OnInit {
 
+    source:string;
     registerData:any = {};
     arrayMonth:string[] = [];
     arrayDay:number[] = [];
@@ -63,27 +64,6 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    showUploadedImage(input){
-
-//     if (input.files && input.files[0]) {
-//         let reader = new FileReader();
-//
-//         reader.onload = function (e) {
-//             $('.uploaded-image').show();
-//             $('.uploaded-image')
-//                 .attr('src', e.target.result);
-//             $('.upload').hide();
-//         };
-//
-//         reader.readAsDataURL(input.files[0]);
-//     }
-// }
-//
-//     $(document).ready(function(){
-//     $('select').niceSelect();
-//         console.log(input);
-  }
-
     /**
      *
      * @param registerData
@@ -95,4 +75,20 @@ export class RegisterComponent implements OnInit {
                 },
                 error => this.errorMessage = <any>error);
     }
+
+    showUploadedImage(event){
+        let input = event.target;
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = (e:any) => {
+                if(e && e.target){
+                    this.source = e.target.result;
+                }
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+}
 }
