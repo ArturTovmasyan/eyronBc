@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ValidationService } from 'app/validation.service';
 import {ProjectService} from 'app/project.service';
 import { Broadcaster } from '../../tools/broadcaster';
@@ -12,31 +12,33 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
+    registerData: FormGroup;
     source:string;
-    registerData:any = {};
     arrayMonth:string[] = [];
     arrayDay:number[] = [];
     arrayYear:number[] = [];
     errorMessage:any = null;
+    valid:any;
 
-    constructor(private _projectService: ProjectService, private formBuilder: FormBuilder, private router: Router,
-                private broadcaster: Broadcaster)
-    {
-        this.registerData = this.formBuilder.group({
-            'file': ['', null],
-            'apikey': [true, null],
-            'firstName': ['', [Validators.required]],
-            'lastName': ['', [Validators.required]],
-            'email': ['', [Validators.required, ValidationService.emailValidator]],
-            'password': ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]],
-            'plainPassword' : ['', [Validators.required, Validators.minLength(6)]],
-        });
-    }
+    constructor(private _projectService: ProjectService, private fb: FormBuilder, private router: Router, private broadcaster: Broadcaster)
+    {}
 
     ngOnInit() {
 
+        //create form validation
+        this.registerData = this.fb.group({
+                'file': ['', null],
+                'apikey': [true, null],
+                'firstName': ['', [Validators.required]],
+                'lastName': ['', [Validators.required]],
+                'email': ['', [Validators.required, ValidationService.emailValidator]],
+                'password': ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]],
+                'plainPassword' : ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]]
+            }, {validator: ValidationService.passwordsEqual}
+        );
+
+        //create date value
         this.arrayMonth = [
-            // 'form.birth_date_month',
             'form.month_january',
             'form.month_february',
             'form.month_march',
@@ -50,7 +52,6 @@ export class RegisterComponent implements OnInit {
             'form.month_november',
             'form.month_december'
         ];
-
         this.createDays(31);
         this.createYears(1917, 2017);
     }
@@ -82,9 +83,9 @@ export class RegisterComponent implements OnInit {
                     }
                 },
                 error => {
-                    this.errorMessage = JSON.parse(error._body).email;
+                    this.errorMessage = JSON.parse(error._body);
                 }
-                );
+            );
     }
 
     /**
@@ -105,5 +106,5 @@ export class RegisterComponent implements OnInit {
 
             reader.readAsDataURL(input.files[0]);
         }
-}
+    }
 }

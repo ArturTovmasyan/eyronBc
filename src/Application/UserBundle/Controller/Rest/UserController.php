@@ -171,7 +171,16 @@ class UserController extends FOSRestController
             $request->request->add(json_decode($content, true));
         }
 
+        //get all data in request
         $data = $request->request->all();
+
+        $returnResult = [];
+        $tr = $this->get('translator');
+
+        //check if plain password is not valid
+        if($data['plainPassword'] !== $data['password']) {
+            $returnResult['password'] = $tr->trans('fos_user.password.mismatch', [], 'validators');
+        }
 
         $user = new User();
         $user->setUsername(array_key_exists('email', $data) ? $data['email'] : null);
@@ -182,15 +191,13 @@ class UserController extends FOSRestController
         $user->setDateOfBirth(array_key_exists('birthday', $data) ? \DateTime::createFromFormat('d/m/Y', $data['birthday'])  : null);
 
         $validator = $this->get('validator');
-        $errors = $validator->validate($user, null, array('Register', 'Default'));
+        $errors = $validator->validate($user, null, ['Register', 'Default']);
 
+        if(count($errors) > 0 || count($returnResult) > 0){
 
-        if(count($errors) > 0){
-            $returnResult = [];
-            if(count($errors) > 0){
-                foreach($errors as $error){
-                    $returnResult[$error->getPropertyPath()] = $error->getMessage();
-                }
+            foreach($errors as $error)
+            {
+                $returnResult[$error->getPropertyPath()] = $error->getMessage();
             }
 
             return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
