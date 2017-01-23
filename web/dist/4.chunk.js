@@ -1,21 +1,21 @@
 webpackJsonp([4,13],{
 
-/***/ 1065:
+/***/ 1071:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(216);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(551);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tools_map_map_module__ = __webpack_require__(1114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__project_service__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_useful_swiper__ = __webpack_require__(554);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(557);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tools_map_map_module__ = __webpack_require__(1120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__project_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_useful_swiper__ = __webpack_require__(559);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_useful_swiper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular2_useful_swiper__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ideas_component__ = __webpack_require__(1137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ideas_routing__ = __webpack_require__(1149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ideas_component__ = __webpack_require__(1143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ideas_routing__ = __webpack_require__(1156);
 /* harmony export (binding) */ __webpack_require__.d(exports, "IdeasModule", function() { return IdeasModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -65,14 +65,14 @@ var IdeasModule = (function () {
 
 /***/ },
 
-/***/ 1071:
+/***/ 1077:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var maps_api_loader_1 = __webpack_require__(1073);
+var maps_api_loader_1 = __webpack_require__(1079);
 /**
  * Wrapper class that handles the communication with the Google Maps Javascript
  * API v3
@@ -193,14 +193,14 @@ exports.GoogleMapsAPIWrapper = GoogleMapsAPIWrapper;
 
 /***/ },
 
-/***/ 1072:
+/***/ 1078:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var google_maps_api_wrapper_1 = __webpack_require__(1071);
+var google_maps_api_wrapper_1 = __webpack_require__(1077);
 var MarkerManager = (function () {
     function MarkerManager(_mapsWrapper, _zone) {
         this._mapsWrapper = _mapsWrapper;
@@ -284,7 +284,7 @@ exports.MarkerManager = MarkerManager;
 
 /***/ },
 
-/***/ 1073:
+/***/ 1079:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -305,13 +305,13 @@ exports.MapsAPILoader = MapsAPILoader;
 
 /***/ },
 
-/***/ 1082:
+/***/ 1088:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var info_window_manager_1 = __webpack_require__(1086);
+var info_window_manager_1 = __webpack_require__(1092);
 var infoWindowId = 0;
 /**
  * SebmGoogleMapInfoWindow renders a info window inside a {@link SebmGoogleMapMarker} or standalone.
@@ -427,7 +427,7 @@ exports.SebmGoogleMapInfoWindow = SebmGoogleMapInfoWindow;
 
 /***/ },
 
-/***/ 1083:
+/***/ 1089:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -470,7 +470,7 @@ exports.SebmGoogleMapPolylinePoint = SebmGoogleMapPolylinePoint;
 
 /***/ },
 
-/***/ 1084:
+/***/ 1090:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -479,26 +479,26 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 // main modules
-__export(__webpack_require__(1116));
-__export(__webpack_require__(1117));
+__export(__webpack_require__(1122));
+__export(__webpack_require__(1123));
 // Google Maps types
 // core module
 // we explicitly export the module here to prevent this Ionic 2 bug:
 // http://stevemichelotti.com/integrate-angular-2-google-maps-into-ionic-2/
-var core_module_1 = __webpack_require__(1115);
+var core_module_1 = __webpack_require__(1121);
 exports.AgmCoreModule = core_module_1.AgmCoreModule;
 //# sourceMappingURL=index.js.map
 
 /***/ },
 
-/***/ 1085:
+/***/ 1091:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var google_maps_api_wrapper_1 = __webpack_require__(1071);
+var google_maps_api_wrapper_1 = __webpack_require__(1077);
 var CircleManager = (function () {
     function CircleManager(_apiWrapper, _zone) {
         this._apiWrapper = _apiWrapper;
@@ -597,14 +597,14 @@ exports.CircleManager = CircleManager;
 
 /***/ },
 
-/***/ 1086:
+/***/ 1092:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var google_maps_api_wrapper_1 = __webpack_require__(1071);
-var marker_manager_1 = __webpack_require__(1072);
+var google_maps_api_wrapper_1 = __webpack_require__(1077);
+var marker_manager_1 = __webpack_require__(1078);
 var InfoWindowManager = (function () {
     function InfoWindowManager(_mapsWrapper, _zone, _markerManager) {
         this._mapsWrapper = _mapsWrapper;
@@ -681,14 +681,14 @@ exports.InfoWindowManager = InfoWindowManager;
 
 /***/ },
 
-/***/ 1087:
+/***/ 1093:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var google_maps_api_wrapper_1 = __webpack_require__(1071);
+var google_maps_api_wrapper_1 = __webpack_require__(1077);
 var PolygonManager = (function () {
     function PolygonManager(_mapsWrapper, _zone) {
         this._mapsWrapper = _mapsWrapper;
@@ -759,14 +759,14 @@ exports.PolygonManager = PolygonManager;
 
 /***/ },
 
-/***/ 1088:
+/***/ 1094:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
 var Observable_1 = __webpack_require__(2);
-var google_maps_api_wrapper_1 = __webpack_require__(1071);
+var google_maps_api_wrapper_1 = __webpack_require__(1077);
 var PolylineManager = (function () {
     function PolylineManager(_mapsWrapper, _zone) {
         this._mapsWrapper = _mapsWrapper;
@@ -843,7 +843,7 @@ exports.PolylineManager = PolylineManager;
 
 /***/ },
 
-/***/ 1089:
+/***/ 1095:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -854,8 +854,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = __webpack_require__(0);
-var browser_globals_1 = __webpack_require__(1109);
-var maps_api_loader_1 = __webpack_require__(1073);
+var browser_globals_1 = __webpack_require__(1115);
+var maps_api_loader_1 = __webpack_require__(1079);
 (function (GoogleMapsScriptProtocol) {
     GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTP"] = 1] = "HTTP";
     GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTPS"] = 2] = "HTTPS";
@@ -953,13 +953,13 @@ exports.LazyMapsAPILoader = LazyMapsAPILoader;
 
 /***/ },
 
-/***/ 1104:
+/***/ 1110:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var circle_manager_1 = __webpack_require__(1085);
+var circle_manager_1 = __webpack_require__(1091);
 var SebmGoogleMapCircle = (function () {
     function SebmGoogleMapCircle(_manager) {
         this._manager = _manager;
@@ -1157,14 +1157,14 @@ exports.SebmGoogleMapCircle = SebmGoogleMapCircle;
 
 /***/ },
 
-/***/ 1105:
+/***/ 1111:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var marker_manager_1 = __webpack_require__(1072);
-var google_map_info_window_1 = __webpack_require__(1082);
+var marker_manager_1 = __webpack_require__(1078);
+var google_map_info_window_1 = __webpack_require__(1088);
 var markerId = 0;
 /**
  * SebmGoogleMapMarker renders a map marker inside a {@link SebmGoogleMap}.
@@ -1338,13 +1338,13 @@ exports.SebmGoogleMapMarker = SebmGoogleMapMarker;
 
 /***/ },
 
-/***/ 1106:
+/***/ 1112:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var polygon_manager_1 = __webpack_require__(1087);
+var polygon_manager_1 = __webpack_require__(1093);
 /**
  * SebmGoogleMapPolygon renders a polygon on a {@link SebmGoogleMap}
  *
@@ -1572,14 +1572,14 @@ exports.SebmGoogleMapPolygon = SebmGoogleMapPolygon;
 
 /***/ },
 
-/***/ 1107:
+/***/ 1113:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var polyline_manager_1 = __webpack_require__(1088);
-var google_map_polyline_point_1 = __webpack_require__(1083);
+var polyline_manager_1 = __webpack_require__(1094);
+var google_map_polyline_point_1 = __webpack_require__(1089);
 var polylineId = 0;
 /**
  * SebmGoogleMapPolyline renders a polyline on a {@link SebmGoogleMap}
@@ -1784,18 +1784,18 @@ exports.SebmGoogleMapPolyline = SebmGoogleMapPolyline;
 
 /***/ },
 
-/***/ 1108:
+/***/ 1114:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var google_maps_api_wrapper_1 = __webpack_require__(1071);
-var circle_manager_1 = __webpack_require__(1085);
-var info_window_manager_1 = __webpack_require__(1086);
-var marker_manager_1 = __webpack_require__(1072);
-var polygon_manager_1 = __webpack_require__(1087);
-var polyline_manager_1 = __webpack_require__(1088);
+var google_maps_api_wrapper_1 = __webpack_require__(1077);
+var circle_manager_1 = __webpack_require__(1091);
+var info_window_manager_1 = __webpack_require__(1092);
+var marker_manager_1 = __webpack_require__(1078);
+var polygon_manager_1 = __webpack_require__(1093);
+var polyline_manager_1 = __webpack_require__(1094);
 /**
  * SebMGoogleMap renders a Google Map.
  * **Important note**: To be able see a map in the browser, you have to define a height for the CSS
@@ -2102,7 +2102,7 @@ exports.SebmGoogleMap = SebmGoogleMap;
 
 /***/ },
 
-/***/ 1109:
+/***/ 1115:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2126,24 +2126,24 @@ exports.BROWSER_GLOBALS_PROVIDERS = [WindowRef, DocumentRef];
 
 /***/ },
 
-/***/ 1110:
+/***/ 1116:
 /***/ function(module, exports) {
 
-module.exports = ".sebm-google-map-container {\n  height: 300px;\n}\n#hide-completed {\n  display: inline-block;\n  margin: 10px 25px 5px 0;\n}\n.controls {\n  margin-top: 10px;\n  border: 1px solid transparent;\n  border-radius: 2px 0 0 2px;\n  box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  height: 32px;\n  outline: none;\n  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n}\n.map-autocomplete div.clearfix {\n  position: absolute;\n  z-index: 1;\n}\n#pac-input {\n  background-color: #fff;\n  font-family: Roboto;\n  font-size: 15px;\n  font-weight: 300;\n  margin-left: 120px;\n  padding: 3px 11px 3px 13px;\n  text-overflow: ellipsis;\n  width: 185px;\n  margin-top: 10px;\n}\n#pac-input:focus {\n  border: 2px solid #4d90fe;\n}\n.pac-container {\n  font-family: Roboto;\n}\n#type-selector {\n  color: #fff;\n  background-color: #4d90fe;\n  padding: 5px 11px 0 11px;\n  margin-top: 10px;\n}\n#type-selector label {\n  font-family: Roboto;\n  font-size: 13px;\n  font-weight: 300;\n  color: #fff;\n  vertical-align: middle;\n}\n"
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.sebm-google-map-container {\n  height: 300px;\n}\n#hide-completed {\n  display: inline-block;\n  margin: 10px 25px 5px 0;\n}\n.controls {\n  margin-top: 10px;\n  border: 1px solid transparent;\n  border-radius: 2px 0 0 2px;\n  box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  height: 32px;\n  outline: none;\n  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);\n}\n.map-autocomplete div.clearfix {\n  position: absolute;\n  z-index: 1;\n}\n#pac-input {\n  background-color: #fff;\n  font-family: Roboto;\n  font-size: 13px;\n  font-weight: 300;\n  margin-left: 10px;\n  padding: 6px 11px 6px 13px;\n  text-overflow: ellipsis;\n  width: 90%;\n  margin-top: 50px;\n}\n#pac-input:focus {\n  border: 2px solid #4d90fe;\n}\n.pac-container {\n  font-family: Roboto;\n}\n#type-selector {\n  color: #fff;\n  background-color: #4d90fe;\n  padding: 7px 11px 4px 11px;\n  max-width: 90%;\n  margin: 4px 10px;\n}\n#type-selector label {\n  font-family: Roboto;\n  font-size: 13px;\n  font-weight: 300;\n  color: #fff;\n  vertical-align: middle;\n}\n@media (min-width: 768px) {\n  #pac-input {\n    font-size: 15px;\n    margin-left: 120px;\n    width: 220px;\n    margin-top: 10px;\n  }\n  #type-selector {\n    margin: 10px 0;\n  }\n}\n@media (min-width: 1200px) {\n  #pac-input {\n    padding: 3px 11px 4px 13px;\n  }\n  #type-selector {\n    padding: 5px 11px 1px 11px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 1112:
+/***/ 1118:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__ = __webpack_require__(1084);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__ = __webpack_require__(1090);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__broadcaster__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__broadcaster__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(66);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AutocomplateMapComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2303,10 +2303,10 @@ var AutocomplateMapComponent = (function () {
     AutocomplateMapComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'map-autocomplate',
-            template: __webpack_require__(1119),
-            styles: [__webpack_require__(1110)]
+            template: __webpack_require__(1125),
+            styles: [__webpack_require__(1116)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */]) === 'function' && _f) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */]) === 'function' && _f) || Object])
     ], AutocomplateMapComponent);
     return AutocomplateMapComponent;
     var _a, _b, _c, _d, _e, _f;
@@ -2315,17 +2315,17 @@ var AutocomplateMapComponent = (function () {
 
 /***/ },
 
-/***/ 1113:
+/***/ 1119:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__ = __webpack_require__(1084);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__ = __webpack_require__(1090);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__broadcaster__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__broadcaster__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__ = __webpack_require__(66);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MapComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2363,6 +2363,18 @@ var MapComponent = (function () {
         this.longitude = -98.5795;
         //create search FormControl
         this.searchControl = new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormControl */]();
+        this.mapsAPILoader.load().then(function () {
+            _this.bounds = new google.maps.LatLngBounds(null);
+            if (_this.locations) {
+                for (var _i = 0, _a = _this.locations; _i < _a.length; _i++) {
+                    var location = _a[_i];
+                    _this.bounds.extend({
+                        lat: location.latitude,
+                        lng: location.longitude
+                    });
+                }
+            }
+        });
         this.broadcaster.on('getLocation')
             .subscribe(function (locations) {
             _this.bounds = new google.maps.LatLngBounds(null);
@@ -2418,10 +2430,10 @@ var MapComponent = (function () {
     MapComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'map-single',
-            template: __webpack_require__(1120),
-            styles: [__webpack_require__(1110)]
+            template: __webpack_require__(1126),
+            styles: [__webpack_require__(1116)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */]) === 'function' && _f) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_google_maps_core__["MapsAPILoader"]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__broadcaster__["a" /* Broadcaster */]) === 'function' && _f) || Object])
     ], MapComponent);
     return MapComponent;
     var _a, _b, _c, _d, _e, _f;
@@ -2430,19 +2442,19 @@ var MapComponent = (function () {
 
 /***/ },
 
-/***/ 1114:
+/***/ 1120:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(216);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__ = __webpack_require__(1084);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_translate__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__ = __webpack_require__(1090);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_angular2_google_maps_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__map_component__ = __webpack_require__(1113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__autocomplate_map_component__ = __webpack_require__(1112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__map_component__ = __webpack_require__(1119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__autocomplate_map_component__ = __webpack_require__(1118);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MapModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2494,23 +2506,23 @@ var MapModule = (function () {
 
 /***/ },
 
-/***/ 1115:
+/***/ 1121:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var core_1 = __webpack_require__(0);
-var google_map_1 = __webpack_require__(1108);
-var google_map_circle_1 = __webpack_require__(1104);
-var google_map_info_window_1 = __webpack_require__(1082);
-var google_map_marker_1 = __webpack_require__(1105);
-var google_map_polygon_1 = __webpack_require__(1106);
-var google_map_polyline_1 = __webpack_require__(1107);
-var google_map_polyline_point_1 = __webpack_require__(1083);
-var lazy_maps_api_loader_1 = __webpack_require__(1089);
-var lazy_maps_api_loader_2 = __webpack_require__(1089);
-var maps_api_loader_1 = __webpack_require__(1073);
-var browser_globals_1 = __webpack_require__(1109);
+var google_map_1 = __webpack_require__(1114);
+var google_map_circle_1 = __webpack_require__(1110);
+var google_map_info_window_1 = __webpack_require__(1088);
+var google_map_marker_1 = __webpack_require__(1111);
+var google_map_polygon_1 = __webpack_require__(1112);
+var google_map_polyline_1 = __webpack_require__(1113);
+var google_map_polyline_point_1 = __webpack_require__(1089);
+var lazy_maps_api_loader_1 = __webpack_require__(1095);
+var lazy_maps_api_loader_2 = __webpack_require__(1095);
+var maps_api_loader_1 = __webpack_require__(1079);
+var browser_globals_1 = __webpack_require__(1115);
 /**
  * @internal
  */
@@ -2553,59 +2565,59 @@ exports.AgmCoreModule = AgmCoreModule;
 
 /***/ },
 
-/***/ 1116:
+/***/ 1122:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var google_map_1 = __webpack_require__(1108);
+var google_map_1 = __webpack_require__(1114);
 exports.SebmGoogleMap = google_map_1.SebmGoogleMap;
-var google_map_circle_1 = __webpack_require__(1104);
+var google_map_circle_1 = __webpack_require__(1110);
 exports.SebmGoogleMapCircle = google_map_circle_1.SebmGoogleMapCircle;
-var google_map_info_window_1 = __webpack_require__(1082);
+var google_map_info_window_1 = __webpack_require__(1088);
 exports.SebmGoogleMapInfoWindow = google_map_info_window_1.SebmGoogleMapInfoWindow;
-var google_map_marker_1 = __webpack_require__(1105);
+var google_map_marker_1 = __webpack_require__(1111);
 exports.SebmGoogleMapMarker = google_map_marker_1.SebmGoogleMapMarker;
-var google_map_polygon_1 = __webpack_require__(1106);
+var google_map_polygon_1 = __webpack_require__(1112);
 exports.SebmGoogleMapPolygon = google_map_polygon_1.SebmGoogleMapPolygon;
-var google_map_polyline_1 = __webpack_require__(1107);
+var google_map_polyline_1 = __webpack_require__(1113);
 exports.SebmGoogleMapPolyline = google_map_polyline_1.SebmGoogleMapPolyline;
-var google_map_polyline_point_1 = __webpack_require__(1083);
+var google_map_polyline_point_1 = __webpack_require__(1089);
 exports.SebmGoogleMapPolylinePoint = google_map_polyline_point_1.SebmGoogleMapPolylinePoint;
 //# sourceMappingURL=directives.js.map
 
 /***/ },
 
-/***/ 1117:
+/***/ 1123:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var google_maps_api_wrapper_1 = __webpack_require__(1071);
+var google_maps_api_wrapper_1 = __webpack_require__(1077);
 exports.GoogleMapsAPIWrapper = google_maps_api_wrapper_1.GoogleMapsAPIWrapper;
-var circle_manager_1 = __webpack_require__(1085);
+var circle_manager_1 = __webpack_require__(1091);
 exports.CircleManager = circle_manager_1.CircleManager;
-var info_window_manager_1 = __webpack_require__(1086);
+var info_window_manager_1 = __webpack_require__(1092);
 exports.InfoWindowManager = info_window_manager_1.InfoWindowManager;
-var marker_manager_1 = __webpack_require__(1072);
+var marker_manager_1 = __webpack_require__(1078);
 exports.MarkerManager = marker_manager_1.MarkerManager;
-var polygon_manager_1 = __webpack_require__(1087);
+var polygon_manager_1 = __webpack_require__(1093);
 exports.PolygonManager = polygon_manager_1.PolygonManager;
-var polyline_manager_1 = __webpack_require__(1088);
+var polyline_manager_1 = __webpack_require__(1094);
 exports.PolylineManager = polyline_manager_1.PolylineManager;
-var lazy_maps_api_loader_1 = __webpack_require__(1089);
+var lazy_maps_api_loader_1 = __webpack_require__(1095);
 exports.GoogleMapsScriptProtocol = lazy_maps_api_loader_1.GoogleMapsScriptProtocol;
 exports.LAZY_MAPS_API_CONFIG = lazy_maps_api_loader_1.LAZY_MAPS_API_CONFIG;
 exports.LazyMapsAPILoader = lazy_maps_api_loader_1.LazyMapsAPILoader;
-var maps_api_loader_1 = __webpack_require__(1073);
+var maps_api_loader_1 = __webpack_require__(1079);
 exports.MapsAPILoader = maps_api_loader_1.MapsAPILoader;
-var noop_maps_api_loader_1 = __webpack_require__(1118);
+var noop_maps_api_loader_1 = __webpack_require__(1124);
 exports.NoOpMapsAPILoader = noop_maps_api_loader_1.NoOpMapsAPILoader;
 //# sourceMappingURL=services.js.map
 
 /***/ },
 
-/***/ 1118:
+/***/ 1124:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2632,29 +2644,29 @@ exports.NoOpMapsAPILoader = NoOpMapsAPILoader;
 
 /***/ },
 
-/***/ 1119:
+/***/ 1125:
 /***/ function(module, exports) {
 
 module.exports = "<h3 class=\"text-center nearby-title text-dark \" *ngIf=\"notAllowed\" [innerHTML]=\"'ideas_near_by_allow'|translate\" (click)=\"setCurrentPosition()\">\n</h3>\n<div class=\"map-autocomplete\">\n    <div class=\"clearfix\">\n        <input id=\"pac-input\" autocorrect=\"off\" autocapitalize=\"off\" class=\"mapControls pull-left\" type=\"text\"\n               placeholder=\"Enter a location\" #search [formControl]=\"searchControl\">\n\n        <div id=\"type-selector\" class=\"mapControls pull-left\">\n            <input type=\"radio\" name=\"type\" id=\"changetype-all\" checked=\"checked\" (click)=\"setType([])\">\n            <label for=\"changetype-all\">All</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-establishment\" (click)=\"setType(['establishment'])\">\n            <label for=\"changetype-establishment\">Establishments</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-address\" (click)=\"setType(['address'])\">\n            <label for=\"changetype-address\">Addresses</label>\n\n            <input type=\"radio\" name=\"type\" id=\"changetype-geocode\" (click)=\"setType(['geocode'])\">\n            <label for=\"changetype-geocode\">Geocodes</label>\n        </div>\n    </div>\n\n    <sebm-google-map [latitude]=\"latitude\" [longitude]=\"longitude\" [scrollwheel]=\"false\" [zoom]=\"zoom\" [fitBounds]=\"bounds\"\n                     [mapTypeControl]=\"true\">\n        <sebm-google-map-marker *ngFor=\"let marker of markers\"\n            [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n            [iconUrl]=\"marker.iconUrl\">\n            <sebm-google-map-info-window [disableAutoPan]=\"true\">\n                {{ marker.title}}\n            </sebm-google-map-info-window>\n        </sebm-google-map-marker>\n        <sebm-google-map-marker width='30' height='30' *ngFor=\"let marker of locations\"\n            [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n            (mouseOut)=\"marker.isHover = false\" (markerClick)=\"clickMarker(marker)\" (mouseOver)=\"marker.isHover = true\"\n            [iconUrl]=\"(marker.status == 1)?activeGoalMarkerIcon1:(marker.status == 2)?activeGoalMarkerIcon2:passiveMarkerIcon\">\n            <sebm-google-map-info-window [disableAutoPan]=\"true\" [isOpen]=\"marker.isHover\">\n                {{ marker.title}}\n            </sebm-google-map-info-window>\n        </sebm-google-map-marker>\n    </sebm-google-map>\n</div>"
 
 /***/ },
 
-/***/ 1120:
+/***/ 1126:
 /***/ function(module, exports) {
 
 module.exports = "<sebm-google-map [latitude]=\"latitude\" [longitude]=\"longitude\" [scrollwheel]=\"false\" [zoom]=\"zoom\" [fitBounds]=\"bounds\"\n                 [mapTypeControl]=\"true\">\n  <sebm-google-map-marker width='30' height='30' *ngFor=\"let marker of locations\"\n                          [latitude]=\"marker.latitude\" [longitude]=\"marker.longitude\"\n                          (mouseOut)=\"marker.isHover = false\" (markerClick)=\"clickMarker(marker)\" (mouseOver)=\"marker.isHover = true\"\n                          [iconUrl]=\"(marker.status == 1)?activeGoalMarkerIcon1:(marker.status == 2)?activeGoalMarkerIcon2:passiveMarkerIcon\">\n    <sebm-google-map-info-window [disableAutoPan]=\"true\" [isOpen]=\"marker.isHover\">\n      {{ marker.title}}\n    </sebm-google-map-info-window>\n  </sebm-google-map-marker>\n</sebm-google-map>\n"
 
 /***/ },
 
-/***/ 1137:
+/***/ 1143:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__ = __webpack_require__(66);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return IdeasComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2694,7 +2706,7 @@ var IdeasComponent = (function () {
         this.locations = [];
         this.locationsIds = [];
         router.events.subscribe(function (val) {
-            if (_this.eventId != val.id && val instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* NavigationEnd */]) {
+            if (_this.eventId != val.id && val instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* NavigationEnd */]) {
                 _this.eventId = val.id;
                 _this.start = 0;
                 _this.locationsIds = [];
@@ -2894,11 +2906,11 @@ var IdeasComponent = (function () {
     IdeasComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-ideas',
-            template: __webpack_require__(1181),
-            styles: [__webpack_require__(1164)],
+            template: __webpack_require__(1192),
+            styles: [__webpack_require__(1173)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]) === 'function' && _g) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]) === 'function' && _g) || Object])
     ], IdeasComponent);
     return IdeasComponent;
     var _a, _b, _c, _d, _e, _f, _g;
@@ -2907,12 +2919,12 @@ var IdeasComponent = (function () {
 
 /***/ },
 
-/***/ 1149:
+/***/ 1156:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ideas_component__ = __webpack_require__(1137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ideas_component__ = __webpack_require__(1143);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return IdeasRouting; });
 
 
@@ -2926,14 +2938,14 @@ var IdeasRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["d" /* RouterMo
 
 /***/ },
 
-/***/ 1164:
+/***/ 1173:
 /***/ function(module, exports) {
 
 module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n[hidden] {\n  display: none;\n}\n.ideas-result {\n  padding-top: 20px;\n}\n#hide-completed {\n  display: inline-block;\n  margin: 15px 25px 0 0 ;\n}\n#hide-completed .purple-checkbox .my-md-container {\n  position: absolute;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n  box-sizing: border-box;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  left: 0;\n  right: auto;\n}\n#hide-completed .purple-checkbox .my-md-icon {\n  box-sizing: border-box;\n  -webkit-transition: .24s;\n  transition: .24s;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 20px;\n  height: 20px;\n  border: 2px solid rgba(0, 0, 0, 0.4);\n  border-radius: 2px;\n}\n#hide-completed .purple-checkbox .my-md-label {\n  box-sizing: border-box;\n  position: relative;\n  display: inline-block;\n  vertical-align: top;\n  white-space: normal;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n  margin-left: 30px;\n  margin-right: 0;\n  font-size: 16px;\n  color: #333333;\n}\n#hide-completed .purple-checkbox .my-md-checked .my-md-icon {\n  background-color: #7724F6;\n  border: 2px solid #7724f6;\n}\n#hide-completed .purple-checkbox .my-md-checked .my-md-icon:after {\n  box-sizing: border-box;\n  -webkit-transform: rotate(45deg);\n  transform: rotate(45deg);\n  position: absolute;\n  left: 4.66667px;\n  top: .22222px;\n  display: table;\n  width: 6.66667px;\n  height: 13.33333px;\n  border: 2px solid;\n  border-top: 0;\n  border-left: 0;\n  content: '';\n  color: #ffffff;\n}\n#hide-completed .purple-checkbox .my-md-checked .md-on {\n  -webkit-transform: scale(0.5);\n  /* transform: scale(0.5); */\n  background-color: #7724F6;\n}\n#hide-completed .purple-checkbox .md-off,\n#hide-completed .purple-checkbox .md-on {\n  box-sizing: border-box;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  border: 2px solid #7724F6;\n}\n.content-top {\n  background-color: #ffffff;\n}\n.ideas-top {\n  min-height: 114px;\n}\n.ideas-top .search {\n  height: 51px;\n}\nhr {\n  margin: 0;\n}\n.filters-slider {\n  height: 60px;\n}\n.filters-slider .bg-left,\n.filters-slider .bg-right {\n  position: absolute;\n  z-index: 10;\n  height: 100%;\n  width: 20px;\n  top: 0;\n  background: rgba(255, 255, 255, 0.6);\n  cursor: pointer;\n}\n.filters-slider .bg-left {\n  left: 0;\n}\n.filters-slider .bg-right {\n  right: 0;\n}\n.filters-slider .swiper-button-prev,\n.filters-slider .swiper-button-next {\n  width: 10px;\n  height: 19px;\n  top: 65%;\n  cursor: pointer;\n}\n.filters-slider .swiper-button-prev {\n  background: url('../../assets/images/left-slide.png') no-repeat center center;\n  background-size: 100%;\n  left: 7px;\n}\n.filters-slider .swiper-button-next {\n  background: url('../../assets/images/right-slide.png') no-repeat center center;\n  background-size: 100%;\n  right: 7px;\n}\nul.filter {\n  padding: 7px 5px 10px;\n  margin-bottom: 0;\n  min-width: 125px;\n  height: 60px;\n}\nul.filter li {\n  display: inline-block;\n  cursor: pointer;\n}\nul.filter li a {\n  color: #666666;\n  display: block;\n  vertical-align: middle;\n  font-weight: 500;\n  font-size: 12px;\n  padding: 0;\n  text-align: center;\n}\nul.filter li a span {\n  display: block;\n  vertical-align: middle;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  overflow: hidden;\n}\nul.filter li a img {\n  height: 30px;\n}\nul.filter li a .svg {\n  width: 30px;\n  height: 30px;\n}\nul.filter li a:hover,\nul.filter li a:active,\nul.filter li a:focus {\n  text-decoration: none;\n  color: #7725f6 ;\n}\nul.filter li a:hover span,\nul.filter li a:active span,\nul.filter li a:focus span {\n  color: #7725f6 ;\n}\nul.filter li.active-category .most-popular {\n  stroke: #7725f6;\n}\nul.filter li.active-category svg path,\nul.filter li.active-category circle,\nul.filter li.active-category polygon,\nul.filter li.active-category rect,\nul.filter li.active-category line,\nul.filter li.active-category polyline,\nul.filter li.active-category .st0 {\n  stroke: #7725f6;\n}\nul.filter li.active-category a {\n  color: #7725f6;\n}\nul.filter li.active-category a[data-slug=nearby] svg ellipse {\n  stroke: #7725f6;\n}\nul.filter li.active-category a[data-slug=travel] svg path {\n  fill: #7725f6;\n  stroke: transparent;\n}\nul.filter li.active-category a[data-slug=experience] svg polygon {\n  fill: #7725f6;\n}\nul.filter li.active-category a[data-slug=newskills] svg circle {\n  fill: #7725f6;\n}\nul.filter li.active-category a[data-slug=social] svg g g path {\n  fill: #7725f6;\n}\nul.filter li.active-category a[data-slug=personal] svg g path:first-child {\n  fill: #7725f6;\n}\n.list-tooltip {\n  position: absolute;\n  z-index: 1000;\n  text-align: center;\n  background-color: #ffffff;\n  color: #333333;\n  border: 1px solid #b0b0b0;\n  min-width: 150px;\n  height: 34px;\n  line-height: normal;\n  padding: 5px 10px;\n  border-radius: 4px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  -ms-border-radius: 4px;\n  -o-border-radius: 4px;\n}\n.list-tooltip .arrow-up {\n  top: -7px;\n  left: 60px;\n  position: absolute;\n  border-bottom-color: #ffffff;\n  border-top-color: #ffffff;\n}\n@media (min-width: 768px) {\n  .filters-slider {\n    height: 70px;\n  }\n  .filters-slider .bg-left {\n    left: -7px;\n  }\n  .filters-slider .bg-right {\n    right: 1px;\n  }\n  .ideas-top {\n    min-height: 146px;\n  }\n  .ideas-top .search {\n    height: 75px;\n  }\n  ul.filter {\n    min-width: 170px;\n    padding: 8px 0 11px;\n  }\n  ul.filter li a {\n    font-size: 13px;\n  }\n  ul.filter li a span {\n    padding: 3px 0 0;\n  }\n}\n@media (min-width: 768px) {\n  ul.filter li a {\n    font-size: 14px;\n  }\n}\n"
 
 /***/ },
 
-/***/ 1181:
+/***/ 1192:
 /***/ function(module, exports) {
 
 module.exports = "<div class=\"content-top ideas-top\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <div class=\"search\">\n          <form class=\"navbar-form\" role=\"search\">\n          <span class=\"icon-search-icon\" [ngClass]=\"{'text-purple': search}\"></span>\n          <input type=\"text\"\n                 name=\"search\"\n                 [(ngModel)]=\"search\"\n                 autocomplete=\"off\"\n                 placeholder=\"{{ 'search'|translate | capitalize}}\"\n                 (keyup.enter)=\"doSearch($event)\"\n                 class=\"form-control\">\n\n          <i class=\"close-icon hidden-sm hidden-md hidden-lg\"\n             [ngClass]=\"{'hidden-xs': !search}\"\n             (click)=\"search = ''\">\n          </i>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <hr/>\n\n  <div class=\"container\">\n    <div class=\"row no-gutter\">\n      <div class=\"col-xs-12\">\n        <swiper [config]=\"config\" class=\"filters-slider swiper-container\" *ngIf=\"filterVisibility\">\n          <ul class=\"filter swiper-wrapper\">\n            <li class=\"swiper-slide\"  [ngClass]=\"{'active-category': category == 'nearby'}\">\n              <a routerLink=\"/ideas/nearby\" routerLinkActive=\"active\">\n                <img src=\"assets/images/nearby.svg\" class=\"svg\"/>\n                <span>{{ 'nearby'|translate }}</span>\n              </a>\n            </li>\n\n            <li class=\"swiper-slide\" [ngClass]=\"{'active-category': category == 'discover'}\">\n              <a routerLink=\"/ideas/discover\">\n                <img src=\"assets/images/discover.svg\" class=\"svg\"/>\n                <span>{{ 'discover'|translate }}</span>\n              </a>\n            </li>\n\n            <!--{% if featured %}-->\n            <li class=\"swiper-slide\" [ngClass]=\"{'active-category': category == 'featured'}\">\n              <a routerLink=\"/ideas/featured\">\n                <img src=\"assets/images/featured.svg\" class=\"svg\"/>\n                <span>{{ 'featured'|translate }}</span>\n              </a>\n            </li>\n            <!--{% endif %}-->\n\n            <!--{% if mostPopular %}-->\n            <li class=\"swiper-slide\" [ngClass]=\"{'active-category': category == 'most-popular'}\">\n              <a routerLink=\"/ideas/most-popular\">\n                <img src=\"assets/images/most-popular.svg\"  class=\"svg\"/>\n                <span>{{ 'most_popular'|translate }}</span>\n              </a>\n            </li>\n            <!--{% endif %}-->\n\n            <!--{% for category in categories %}-->\n            <!--{% if category.slug != 'most-popular' and category.slug != 'featured' and category.slug != 'nearby' %}-->\n            <li class=\"swiper-slide\" *ngFor=\"let cat of categories\" [style.display]=\"(cat.slug == 'most-popular' || cat.slug == 'featured' || cat.slug == 'nearby')?'none':'inline-block'\" [ngClass]=\"{'active-category': category == cat.slug}\">\n              <a routerLink=\"/ideas/{{ cat.slug }}\">\n                <img src=\"{{ serverPath + cat.image_download_link }}\" class=\"svg\"/>\n                <span>{{ cat.title }}</span>\n              </a>\n            </li>\n            <!--{% endif %}-->\n            <!--{% endfor %}-->\n          </ul>\n\n          <div class=\"hidden-lg\">\n            <div class=\"bg-left\">\n              <i class=\"swiper-button-prev\"></i>\n            </div>\n            <div  class=\"bg-right\">\n              <i class=\"swiper-button-next\"></i>\n            </div>\n          </div>\n        </swiper>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n<div class=\"container\"  *ngIf=\"category == 'nearby'\">\n  <map-autocomplate [locations]=\"locations\"></map-autocomplate>\n\n  <div>\n    <label>\n      <div id=\"hide-completed\" class=\"task-checkbox purple-checkbox\">\n        <label class=\"relative\">\n            <span class=\"my-md-container\" [ngClass]=\"{'my-md-checked': isCompletedGoals}\">\n                <span class=\"my-md-icon\"></span>\n                <input type=\"checkbox\" aria-label=\"steps\"\n                       name=\"completed\"\n                       [(ngModel)]=\"isCompletedGoals\"\n                       (change)=\"completedChange()\"\n                       style=\"display: none\" />\n            </span>\n        </label>\n      </div>\n      Show Completed\n    </label>\n  </div>\n\n</div>\n\n<div class=\"container ideas-list\" >\n\n  <!--{% set href = path('add_goal')~'?title=[[search]]'  %}-->\n  <h2 *ngIf=\"noIdeas\" class=\" text-center creating-goal\">\n    <!-- {{ ({'%search%' : '[[search]]', '%href%': href, '%isSearch%' : '!!search'})|raw }}-->\n    <div class=\"empty-text text-center\" [innerHTML]=\"'goal.not_found'|translate\"></div>\n    <p  class=\"empty-text textc-enter\" *ngIf='searchError'>\n      <span>{{ 'goal.not_found2'| translate}}</span>\n      <span class=\"text-purple\">{{ searchError }}</span>\n      <a  class=\"btn btn-purple\" routerLink=\"/goal/create/{{ search }}\">{{'goal.start'| translate}}</a>\n    </p>\n    <p class=\"empty-text text-center\" *ngIf='searchError'>{{ 'goal.not_found3'| translate}}</p>\n  </h2>\n\n  <!--{% if not search %}-->\n  <!--<h2 *ngIf=\"!search && ideas && ideas.length && !noIdeas && ideasTitle\" class=\"text-center text-dark\">-->\n    <!--{{ 'ideas_list_title'|translate }}-->\n  <!--</h2>-->\n  <!--{% endif %}-->\n\n  <div class=\"row\">\n\n    <div class=\"col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0\">\n      <div class=\"row idea-item ideas-result\">\n        <!--{% if search %} ideas-result {% endif %}-->\n        <div class=\"col-md-{{ ((+i + 1) % 7) < 5 ? 4 : 8 }} goals-animate\"\n             *ngFor=\"let goal of ideas; let i = index\">\n          <div class=\"row idea-item\">\n            <div class=\"col-sm-12\">\n              <figure>\n                <app-goal [goal]=\"goal\" [type]=\"(category == 'nearby')?'nearby':''\"\n                          (onHover)=\"hideJoin($event)\" [userLocation]=\"userLocation\"\n                          [ngClass]=\"{height: ((+i + 1) % 7) == 6 || ((+i + 1) % 7) == 0}\"></app-goal>\n\n                <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n              </figure>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"list-tooltip\"\n       [hidden]=\"!isHover\" #tooltip>\n    <span class=\"arrow-up\"></span>\n    {{ hoveredText |translate}}\n  </div>\n\n  <div class=\"navigation text-center\">\n    <a *ngIf=\"reserve && reserve.length > 0\"\n       (click)='getReserve()'\n       class=\"show-more \">\n      <span></span>\n      <span></span>\n      <span></span>\n    </a>\n  </div>\n\n</div>"

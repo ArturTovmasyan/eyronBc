@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-    registerData: FormGroup;
+    form: FormGroup;
     source:string;
     arrayMonth:string[] = [];
     arrayDay:number[] = [];
@@ -26,14 +26,17 @@ export class RegisterComponent implements OnInit {
     ngOnInit() {
 
         //create form validation
-        this.registerData = this.fb.group({
+        this.form = this.fb.group({
                 'file': ['', null],
                 'apikey': [true, null],
                 'firstName': ['', [Validators.required]],
                 'lastName': ['', [Validators.required]],
                 'email': ['', [Validators.required, ValidationService.emailValidator]],
                 'password': ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]],
-                'plainPassword' : ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]]
+                'plainPassword' : ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]],
+                'month' : ['', [Validators.required]],
+                'year' : ['', [Validators.required]],
+                'day' : ['', [Validators.required]]
             }, {validator: ValidationService.passwordsEqual}
         );
 
@@ -73,6 +76,18 @@ export class RegisterComponent implements OnInit {
      * @param registerData
      */
     createUser(registerData:any) {
+        //generate birthday value
+        let birthday = registerData.day+'/'+registerData.month+'/'+registerData.year;
+
+        //add birthday in form data
+        registerData['birthday'] = birthday;
+
+        //remove day,month,year
+        delete registerData.day;
+        delete registerData.year;
+        delete registerData.month;
+
+        console.log(registerData);
         this._projectService.putUser(registerData)
             .subscribe(
                 res => {
