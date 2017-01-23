@@ -3,6 +3,7 @@ import { ProjectService } from '../../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import { Router } from '@angular/router';
+import { Broadcaster } from '../../tools/broadcaster';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class AddComponent implements OnInit {
   public defaultMonth:any;
   public newAdded:boolean;
   public newCreated:boolean;
+  public dateChanged:boolean;
+  public switchChanged:boolean = false;
   public complatedPercent: number;
   // public newAdded:boolean = userGoal.manage? false: true;
   public completedStepCount: number;
@@ -51,6 +54,7 @@ export class AddComponent implements OnInit {
   ];
 
   constructor(
+      private broadcaster: Broadcaster,
       public dialogRef: MdDialogRef<AddComponent>,
       private ProjectService: ProjectService,
       private _cacheService: CacheService,
@@ -75,6 +79,7 @@ export class AddComponent implements OnInit {
                   })
         }
       }
+      this.complete.switch = this.userGoal.status == 2?1:0;
       let date = new Date();
       let currentYear = date.getFullYear();
       for(let i = 0 ; i < 50; i++){
@@ -99,11 +104,6 @@ export class AddComponent implements OnInit {
       
     }
   }
-  
-  // add(addForm){
-  //   event.preventDefault();
-  //   console.log(addForm);
-  // };
 
   getDaysInMonth(m, y) {
     return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
@@ -151,6 +151,7 @@ export class AddComponent implements OnInit {
   switchChanges(){
     this.uncompletedYear = false;
     this.invalidYear = false;
+    this.switchChanged = !this.switchChanged;
 
     if(this.complete.switch == 1){
       this.updateDate(new Date(), true);
@@ -206,17 +207,85 @@ export class AddComponent implements OnInit {
   }
 
   save(){
-    console.log(this);
-    // this.dialogRef.close();
+    this.uncompletedYear = false;
+    this.userGoal.completed = this.complatedPercent;
+    if(this.year && this.month && this.day ){
+      this.dateChanged = true;
+      this.userGoal.date_status = 1;
+      this.dayInMonth = this.getDaysInMonth(this.month, this.year);
+
+      if(this.day > this.dayInMonth){
+        this.invalidYear = true;
+        return;
+      }
+
+      if(this.complete.switch){
+        this.userGoal.completion_date = new Date(this.year, this.month - 1, this.day);
+
+      } else{
+        this.userGoal.do_date = new Date(this.year, this.month - 1, this.day);
+        this.userGoal.completion_date = null;
+        this.userGoal.do_date_status = 1;
+      }
+    } else if(this.year){
+      //when select only year
+      this.dateChanged = true;
+      var month = (this.month)?this.month: (this.complete.switch? ((new Date()).getMonth() + 1):12);
+      var day = this.getDaysInMonth(month, this.year);
+
+      this.userGoal.date_status = this.month?3:2;
+
+      if(this.complete.switch){
+        this.userGoal.completion_date = new Date(this.year, month - 1, day);
+      } else {
+        this.userGoal.do_date = new Date(this.year, month - 1, day);
+        this.userGoal.do_date_status = (this.month)?3:2;
+        this.userGoal.completion_date = null;
+      }
+
+    }
+    else if(this.month || this.day){
+      this.uncompletedYear = true;
+      return;
+    }
+    this.invalidYear = false;
+    // if(this.userGoal.completion_date && this.compareDates(this.firefox_completed_date) === 1){
+    //   this.invalidYear = true;
+    //   return;
+    // }
+
+    this.userGoal.steps = {};
+
+    for(let value of this.userGoal.formatted_steps){
+      if(value.text) {
+        this.userGoal.steps[value.text] = value.switch ? value.switch : false;
+      }
+    }
+
+    this.userGoal.goal_status = this.complete.switch;
+    this.userGoal.status = +this.complete.switch + 1;
+
+    this.ProjectService.addUserGoal(this.userGoal.goal.id, this.userGoal).subscribe((data) => {
+
+    });
+    // UserGoalDataManager.manage({id: this.userGoal.goal.id}, this.userGoal, function (res){
+    //   this.$emit('lsJqueryModalClosedSaveGoal', res);
+    // }, function () {
+    //   toastr.error('Sorry! Your goal has not been saved');
+    // });
+    this.dialogRef.close(this.userGoal);
   }
   
   removeUserGoal(id){
+    this.ProjectService.removeUserGoal(id).subscribe((data) => {
+
+    });
     // UserGoalDataManager.delete({id:id}, function (resource){
-    //   $scope.$emit('removeUserGoal', id);
+    //   this.$emit('removeUserGoal', id);
     //   if(resource[0] == 1){
     //     $analytics.eventTrack('Goal delete', {  category: 'Goal', label: 'Goal delete from Web' });
     //   }
     // },
-    // this.dialogRef.close();
+    this.dialogRef.close({'remove': id});
   }
 }

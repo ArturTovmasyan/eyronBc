@@ -150,12 +150,24 @@ export class ProjectService {
     }
 
     /**
+     * 
+     * @param goalId
+     * @param data
+     * @returns {Observable<R>}
+     */
+    addUserGoal(goalId:number, data:any):Observable<UserGoal> {
+        return this.http.put(this.userGoalsUrl + goalId, data, {headers: this.headers})
+            .map((r:Response) => r.json() as UserGoal)
+            .catch(this.handleError);
+    }
+
+    /**
      *
      * @param goalId
      * @returns {Observable<R>}
      */
-    addUserGoal(goalId:number):Observable<UserGoal> {
-        return this.http.put(this.userGoalsUrl + goalId, {}, {headers: this.headers})
+    removeUserGoal(goalId:number):Observable<UserGoal> {
+        return this.http.delete(this.userGoalsUrl + goalId, {headers: this.headers})
             .map((r:Response) => r.json() as UserGoal)
             .catch(this.handleError);
     }
