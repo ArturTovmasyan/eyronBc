@@ -75,5 +75,32 @@ export class ProfileGoalComponent implements OnInit {
 
     return (d1 < d2);
   };
+
+  manageGoal(id){
+    this._projectService.getUserGoal(id).subscribe((data) => {
+      this.broadcaster.broadcast('addModal', {
+        'userGoal': data,
+        'newAdded' : false,
+        'newCreated' : false
+      });
+    });
+  }
+
+  completeGoal(id, isManage){
+    this.success = true;
+    
+    if(isManage){
+      this._projectService.getStory(id).subscribe((data)=> {
+        this.broadcaster.broadcast('doneModal', data);
+      })
+    } else {
+      this._projectService.setDoneUserGoal(id).subscribe(() => {
+        this._projectService.getStory(id).subscribe((data)=> {
+          this.broadcaster.broadcast('doneModal', data);
+        })
+      });
+    }
+    
+  }
   
 }

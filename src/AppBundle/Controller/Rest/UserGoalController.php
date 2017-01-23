@@ -104,6 +104,7 @@ class UserGoalController extends FOSRestController
     {
         $this->denyAccessUnlessGranted('add', $goal, $this->get('translator')->trans('goal.add_access_denied'));
 
+        $this->getDoctrine()->getManager()->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
         $userGoalService = $this->get('app.user.goal');
         return $userGoalService->addUserGoal($request, $goal, $this->getUser());
     }

@@ -38,7 +38,7 @@
             </p>
 
             <span>
-              {{ story.created | date:'dd MMMM,  yyyy' }} at {{ story.created | date:'HH:mm' }}
+              {{ story.created | date:'MMMM dd,  yyyy' }} at {{ story.created | date:'shortTime' }}
             </span>
 
             <span class="report" (click)="report(1, story.id)" *ngIf="appUser && story.user.id != appUser.id">
