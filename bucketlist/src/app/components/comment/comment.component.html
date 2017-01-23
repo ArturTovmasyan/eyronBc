@@ -32,7 +32,7 @@
 
       <div class="pull-left">
         <p class="text-dark-gray">{{ comment.author.show_name }}</p>
-        <span class="convert-to-local">{{ comment.created_at| date:'dd MMMM,  yyyy' }} at {{ comment.created_at| date:'HH:mm' }}</span>
+        <span class="convert-to-local">{{ comment.created_at| date:'MMMM dd ,  yyyy' }} at {{ comment.created_at| date:'shortTime' }}</span>
           <span (click)="report(0, comment.id)"
                 *ngIf="appUser && comment.author.id != appUser.id"
                 class="report">{{ 'report.title'|translate }}</span>
@@ -62,7 +62,7 @@
 
                 <div class="pull-left">
                   <p class="text-dark-gray">{{ child.author.show_name }} <span class="text-dark-gray">{{ 'replied'|translate }}</span></p>
-                  <span class="convert-to-local ">{{ comment.created_at| date:'dd MMMM,  yyyy' }} at {{ comment.created_at| date:'HH:mm' }}</span>
+                  <span class="convert-to-local ">{{ comment.created_at| date:'MMMM dd ,  yyyy' }} at {{ comment.created_at| date:'shortTime' }}</span>
                     <span (click)="report(0,comment.id)"
                           *ngIf="appUser && child.author.id != appUser.id"
                           class="report">{{ 'report.title'|translate }}</span>
