@@ -155,13 +155,15 @@ export class AppComponent implements OnInit  {
       
       this.broadcaster.on<any>('addModal')
           .subscribe(data => {
-              this.addData = data;
+              // this.addData = data;
               let dialogRef: MdDialogRef<AddComponent>;
               let config = new MdDialogConfig();
               config.viewContainerRef = this.viewContainerRef;
               config.height = '600px';
               dialogRef = this.dialog.open(AddComponent, config);
-              dialogRef.componentInstance.data = data;
+              dialogRef.componentInstance.newCreated = data.newCreated;
+              dialogRef.componentInstance.newAdded = data.newAdded;
+              dialogRef.componentInstance.userGoal = data.userGoal;
               dialogRef.afterClosed().subscribe(result => {
                   
               });
