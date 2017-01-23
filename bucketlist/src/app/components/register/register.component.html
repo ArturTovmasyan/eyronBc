@@ -82,6 +82,7 @@
                   {{ month|translate }}
                 </md-option>
               </md-select>
+              <control-messages [control]="form.controls.month"></control-messages>
             </div>
 
             <div class="col-sm-4 date">
@@ -90,6 +91,7 @@
                   {{ day }}
                 </md-option>
               </md-select>
+              <control-messages [control]="form.controls.day"></control-messages>
             </div>
 
             <div class="col-sm-4 date">
@@ -98,6 +100,7 @@
                   {{ year }}
                 </md-option>
               </md-select>
+              <control-messages [control]="form.controls.year"></control-messages>
             </div>
 
           </div>

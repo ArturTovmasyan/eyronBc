@@ -18,7 +18,6 @@ export class RegisterComponent implements OnInit {
     arrayDay:number[] = [];
     arrayYear:number[] = [];
     errorMessage:any = null;
-    valid:any;
 
     constructor(private _projectService: ProjectService, private fb: FormBuilder, private router: Router, private broadcaster: Broadcaster)
     {}
@@ -87,7 +86,6 @@ export class RegisterComponent implements OnInit {
         delete registerData.year;
         delete registerData.month;
 
-        console.log(registerData);
         this._projectService.putUser(registerData)
             .subscribe(
                 res => {
