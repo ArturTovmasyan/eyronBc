@@ -154,6 +154,17 @@ export class ProjectService {
      * @param goalId
      * @returns {Observable<R>}
      */
+    addUserGoal(goalId:number):Observable<UserGoal> {
+        return this.http.put(this.userGoalsUrl + goalId, {}, {headers: this.headers})
+            .map((r:Response) => r.json() as UserGoal)
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param goalId
+     * @returns {Observable<R>}
+     */
     getUserGoal(goalId:number):Observable<UserGoal> {
         return this.http.get(this.userGoalsUrl + goalId, {headers: this.headers})
             .map((r:Response) => r.json() as UserGoal)
