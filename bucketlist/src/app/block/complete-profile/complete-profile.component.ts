@@ -14,27 +14,26 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
   ]
 })
 export class CompleteProfileBlockComponent implements OnInit {
-  public data:any;
-  public percent:number;
-
-  constructor(private _projectService: ProjectService, private _cacheService: CacheService) { }
+  public appUser: any;
+  public locale: string = 'ru';
+    constructor(
+      private _projectService: ProjectService,
+      private _cacheService: CacheService
+  ) { }
 
   ngOnInit() {
-    let data = this._cacheService.get('complate-profile');
-    if (data) {
-      this.data = data;
-    } else {
-      this.getCompleteProfileUrl()
+    this.appUser = this._projectService.getMyUser();
+    if (!this.appUser) {
+      this.appUser = this._cacheService.get('user_');
+      if(!this.appUser) {
+        this._projectService.getUser()
+            .subscribe(
+                user => {
+                  this.appUser = user;
+                  this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                })
+      }
     }
-  }
-
-  getCompleteProfileUrl(){
-    this._projectService.getCompleteProfileUrl()
-        .subscribe(
-            data => {
-              this.data = data;
-              this._cacheService.set('complate-profile', data);
-            })
   }
 
 }
