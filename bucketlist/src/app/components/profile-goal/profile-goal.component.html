@@ -117,10 +117,7 @@
           </li>
 
           <li>
-            <a class="text-gray manage-modal">
-              <!--data-ls-type="manage"-->
-              <!--data-ls-goal-id="{{ goal.id }}"-->
-              <!--data-ls-goal-manage-->
+            <a class="text-gray manage-modal" (click)="manageGoal(goal.id)">
               <i *ngIf="userGoal.note" title="{{ 'my_bucket_list.notes'|translate}}" class="svg edit-note"></i>
             </a>
           </li>
@@ -158,10 +155,7 @@
 
         <div class="row">
           <div class="col-xs-5">
-            <a class="text-gray manage-modal">
-              <!--data-ls-type="manage"-->
-              <!--data-ls-goal-id="{{ goal.id }}"-->
-              <!--data-ls-goal-manage-->
+            <a class="text-gray manage-modal" (click)="manageGoal(goal.id)">
               <i class="icon-manage"></i>
               <span>{{ 'manage'|translate| capitalize }}</span>
             </a>
@@ -173,18 +167,12 @@
             <!--data-ng-init="success[ goal.id ] = goalStatus"-->
           <div class="check_status">
             <a *ngIf="!success"
-               (click)="success = true" class="btn btn-transparent ">
-               <!--data-ls-goal-id="{{ goal.id }}"-->
-               <!--data-ls-user-goal-manage-->
+               (click)="completeGoal(goal.id)" class="btn btn-transparent ">
               <!--id="done{{ goal.id }}"-->
               <i class="icon done-icon"></i>
               {{ 'done'|translate| capitalize }}
             </a>
-            <a  *ngIf="success" class="btn btn-transparent successtory ">
-                <!--data-ls-user-goal-manage-->
-                <!--data-ls-type="manage"-->
-
-                <!--data-ls-goal-id="{{ goal.id }}"-->
+            <a  *ngIf="success" class="btn btn-transparent successtory" (click)="completeGoal(goal.id, true)">
                 <!--id="success{{ goal.id }}">-->
               <i class="icon ok-icon-green"></i>
               {{ 'successtory'|translate| capitalize }}
