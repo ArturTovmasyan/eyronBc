@@ -76,7 +76,6 @@ export function createTranslateLoader(http: Http) {
     PageComponent,
     ReportComponent,
 
-    ReportComponent,
     CommonComponent,
     UsersComponent,
     AddComponent,
