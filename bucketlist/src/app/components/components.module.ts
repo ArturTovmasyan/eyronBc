@@ -20,6 +20,7 @@ import { RoundPipe } from '../pipes/round.pipe';
 import { RemoveTagPipe } from '../pipes/removeTag.pipe';
 import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
+import { InputVideoComponent } from './embed-video/input-video.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { EmbedVideoComponent } from './embed-video/embed-video.component';
     ProfileGoalComponent,
     ControlMessagesComponent,
     EmbedVideoComponent,
+    InputVideoComponent,
     SeeAlsoComponent
   ],
   exports: [ GoalUsersComponent,
@@ -60,6 +62,7 @@ import { EmbedVideoComponent } from './embed-video/embed-video.component';
     MarkdownToHtmlPipe,
     ControlMessagesComponent,
     EmbedVideoComponent,
+    InputVideoComponent,
     SeeAlsoComponent
   ]
 })

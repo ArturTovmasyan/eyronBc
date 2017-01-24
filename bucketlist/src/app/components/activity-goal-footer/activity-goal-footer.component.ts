@@ -40,7 +40,10 @@ export class ActivityGoalFooterComponent implements OnInit {
     } else {
       this.ProjectService.setDoneUserGoal(id).subscribe(() => {
         this.ProjectService.getStory(id).subscribe((data)=> {
-          this.broadcaster.broadcast('doneModal', data);
+          this.broadcaster.broadcast('doneModal', {
+            'userGoal': data,
+            'newAdded' : true
+          });
         })
       });
     }

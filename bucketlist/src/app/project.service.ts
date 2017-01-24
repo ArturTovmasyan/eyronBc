@@ -162,6 +162,18 @@ export class ProjectService {
     }
 
     /**
+     * 
+     * @param goalId
+     * @param data
+     * @returns {Observable<R>}
+     */
+    addUserGoalStory(goalId:number, data:any):Observable<any> {
+        return this.http.put(this.ideasUrl + goalId + '/story', data, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
      *
      * @param goalId
      * @returns {Observable<R>}
