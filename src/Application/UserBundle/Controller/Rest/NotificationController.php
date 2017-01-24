@@ -72,10 +72,10 @@ class NotificationController extends Controller
         $userNotifications = $em->getRepository('ApplicationUserBundle:UserNotification')
             ->getUserNotifications($this->getUser()->getId(), $first, $count, $lastId);
 
-        if (is_null($lastId)){
+//        if (is_null($lastId)){
             $unreadCount = $em->getRepository('ApplicationUserBundle:UserNotification')
                 ->getUnreadCount($this->getUser()->getId());
-        }
+//        }
 
         $content = [
             'userNotifications' => $userNotifications,
