@@ -1,11 +1,14 @@
+import { FormControl } from '@angular/forms';
+
 export class ValidationService {
+
     static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
         let config = {
             'required': 'Required',
             'invalidEmailAddress': 'Invalid email address',
             'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
             'minlength': `Minimum length ${validatorValue?validatorValue.requiredLength:0}`,
-            'invalidConfirmPassword': 'Invalid confirm password'
+            'invalidConfirmPassword': 'Passwords do not match, please retype'
         };
 
         return config[validatorName];
@@ -26,6 +29,17 @@ export class ValidationService {
             return null;
         } else {
             return { 'invalidPassword': true };
+        }
+    }
+
+    //function for checking plain password validation
+    static passwordsEqual(c:FormControl) {
+
+        if (c.value.plainPassword.length > 0 && c.value.password !== c.value.plainPassword) {
+            return { 'invalidConfirmPassword' :true};
+        }
+        else{
+            return null;
         }
     }
 }
