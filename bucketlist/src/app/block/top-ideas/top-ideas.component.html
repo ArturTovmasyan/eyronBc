@@ -9,13 +9,13 @@
           </div>
 
           <div class="col-xs-2 text-right">
-            <a  (click)="refreshIdeas()" class="load" id="topIdeasLoad"></a>
+            <a  (click)="refreshIdeas()" class="load" id="topIdeasLoad" #rotate></a>
           </div>
         </div>
 
         <hr class="hr-margin"/>
 
-        <div *ngFor="let goal of goals" class="row idea-item">
+        <div *ngFor="let goal of goals" class="row idea-item goals-animate">
             <div class="col-sm-6 col-md-12">
                 <figure>
                     <app-goal [goal]="goal"></app-goal>

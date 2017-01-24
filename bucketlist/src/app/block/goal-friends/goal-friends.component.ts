@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { ElementRef, Renderer} from '@angular/core';
 
 
 import { ProjectService } from '../../project.service';
@@ -16,13 +17,19 @@ import {User} from '../../interface/user';
   ]
 })
 export class GoalFriendsBlockComponent implements OnInit {
+  @ViewChild("rotate")
+  public rotateElementRef: ElementRef;
+  degree:number = 360;
 
   users:User[];
   length:Number;
   reserve: any;
   errorMessage:string;
 
-  constructor(private _projectService: ProjectService, private _cacheService: CacheService) {}
+  constructor(private _projectService: ProjectService,
+              private _cacheService: CacheService,
+              public renderer: Renderer
+  ) {}
 
   ngOnInit() {
     let data = this._cacheService.get('goalFriendBox');
@@ -65,13 +72,12 @@ export class GoalFriendsBlockComponent implements OnInit {
   }
 
   refreshGoalFriends(){
-    // angular.element('#popularLoad').css({
-    //   '-webkit-transform': 'rotate('+deg+'deg)',
-    //   '-ms-transform': 'rotate('+deg+'deg)',
-    //   'transform': 'rotate('+deg+'deg)'
-    // });
+
+    this.renderer.setElementStyle(this.rotateElementRef.nativeElement, 'transform','rotate('+this.degree+'deg)');
     this.users = this.reserve[1];
     this.length = this.reserve.length;
-    this.goalReserve()
+    this.goalReserve();
+    this.degree += 360;
+
   }
 }

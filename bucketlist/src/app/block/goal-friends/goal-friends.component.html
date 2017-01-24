@@ -11,14 +11,14 @@
       </div>
 
       <div class="col-xs-2 text-right">
-        <a (click)="refreshGoalFriends()" class="load" id="goalFriendLoad"></a>
+        <a (click)="refreshGoalFriends()" class="load" id="goalFriendLoad" #rotate></a>
       </div>
     </div>
 
     <hr class="hr-margin"/>
 
     <ul class="list">
-      <li class="clearfix friends-animate" *ngFor="let user of users">
+      <li class="clearfix goals-animate" *ngFor="let user of users">
         <goal-friend [user]="user"></goal-friend>
       </li>
     </ul>
