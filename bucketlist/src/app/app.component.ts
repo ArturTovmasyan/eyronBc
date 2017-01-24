@@ -162,7 +162,7 @@ export class AppComponent implements OnInit  {
               let dialogRef: MdDialogRef<AddComponent>;
               let config = new MdDialogConfig();
               config.viewContainerRef = this.viewContainerRef;
-              config.height = '600px';
+              //config.height = '600px';
               dialogRef = this.dialog.open(AddComponent, config);
               dialogRef.componentInstance.newCreated = data.newCreated;
               dialogRef.componentInstance.newAdded = data.newAdded;

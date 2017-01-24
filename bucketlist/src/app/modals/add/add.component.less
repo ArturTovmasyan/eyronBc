@@ -30,6 +30,10 @@
       margin-right: 0;
       left: 5px;
     }
+
+    input{
+      padding:6px 30px 6px 40px;
+    }
   }
 
   hr{
@@ -63,6 +67,13 @@
       background-color: #021523;
       display: inline-block;
       padding: 0 5px 5px;
+      &.title-smaller {
+        font-size: 12px;
+        line-height: 28px;
+        height: 30px;
+        width: 260px;
+        overflow: hidden;
+      }
     }
   }
 
@@ -127,10 +138,6 @@
     margin-right: 12px;
   }
 
-  .task-checkbox {
-    margin: 7px 0;
-  }
-
   form{
     padding-bottom:10px;
 
@@ -177,12 +184,44 @@
   padding-top: 10px;
 }
 
-.title-smaller {
-  font-size: 12px;
-  line-height: 28px;
-  height: 30px;
-  width: 260px;
-  overflow: hidden;
+.goal-container{
+  min-height:840px;
+  height:auto !important;
+  height:840px;
+
+  img{
+    position: absolute;
+    width:100%;
+  }
+}
+
+.email{
+  padding: 5px;
+  text-align:center;
+  position: relative;
+  background: #7724F6;
+  color:#ffffff;
+  z-index: 10;
+  font-size:12px;
+  span{
+    display: inline-block;
+    margin: 8px 0 0;
+    font-size:12px;
+  }
+  a{
+    margin: 5px 0 0 5px;
+    display: inline-block;
+    font-weight:bold;
+    padding:2px 5px;
+    color: #ffffff;
+    border:1px solid #ffffff;
+    font-size:12px;
+
+    &:hover{
+      color:#7724F6;
+      background-color: #ffffff;
+    }
+  }
 }
 
 @media (min-width: @screen-sm) {
@@ -230,6 +269,10 @@
       font-size:18px;
       padding-top:3px !important;
       font-weight:normal;
+
+      &.md-radio-label{
+        margin-right: 12px;
+      }
     }
 
     label.onoffswitch-label{
@@ -262,6 +305,13 @@
       span{
         padding: 10px 30px;
         font-size: 32px;
+
+        &.title-smaller {
+          width: auto;
+          height: auto;
+          font-size: 18px;
+          line-height: 23px;
+        }
       }
     }
 
@@ -291,13 +341,32 @@
     padding-top: 15px;
   }
 
-  .title-smaller {
-    width: auto;
-    height: auto;
-    font-size: 18px;
-    line-height: 23px;
+  .goal-container{
+    min-height:900px;
+    height:auto !important;
+    height:900px;
+
+    .icon-eye{
+      font-size: 41px;
+      margin: -3px 0 -6px -8px;
+    }
+
+    .icon-eye-icon{
+      font-size: 26px;
+      margin:0 7px 0 0;
+      vertical-align: middle;
+      padding-top: 5px;
+      height: 32px;
+    }
   }
 
+  .email{
+    padding: 15px 5px;
+    font-size:14px;
+    span{
+      font-size:14px;
+    }
+  }
 }
 
 @media (min-width: @screen-md) {
@@ -347,5 +416,11 @@
         text-align: center;
       }
     }
+  }
+
+  .goal-container{
+    min-height:925px;
+    height:auto !important;
+    height:925px;
   }
 }
