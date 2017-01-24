@@ -3165,7 +3165,7 @@ div[dnd-list] .noselect {
   /* Non-prefixed version, currently
                                   not supported by any browser */
 }
-.dndPlaceholder {
+.dnd-sortable-drag {
   display: block;
   background-color: #7725f6;
   opacity: 0.5;

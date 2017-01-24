@@ -36,7 +36,8 @@ export class AppComponent implements OnInit  {
   public isMobile:Boolean= (window.innerWidth < 768);
   errorMessage:string;
   public appUser:User;
-    
+  public busy:boolean = false;
+
   //  modal
     public reportModal:boolean = false;
     // public commonModal:boolean = false;
@@ -155,15 +156,24 @@ export class AppComponent implements OnInit  {
       
       this.broadcaster.on<any>('addModal')
           .subscribe(data => {
-              this.addData = data;
+              if(this.busy)return;
+              this.busy = true;
+              // this.addData = data;
               let dialogRef: MdDialogRef<AddComponent>;
               let config = new MdDialogConfig();
               config.viewContainerRef = this.viewContainerRef;
               config.height = '600px';
               dialogRef = this.dialog.open(AddComponent, config);
-              dialogRef.componentInstance.data = data;
+              dialogRef.componentInstance.newCreated = data.newCreated;
+              dialogRef.componentInstance.newAdded = data.newAdded;
+              dialogRef.componentInstance.userGoal = data.userGoal;
               dialogRef.afterClosed().subscribe(result => {
-                  
+                  this.busy = false;
+                  if(result.remove){
+                      this.broadcaster.broadcast('removeUserGoal_' + result.remove, result.remove);
+                  } else {
+                      this.broadcaster.broadcast('saveUserGoal_' + result.id, result);
+                  }
               });
               // this.addModal = true;
           });
