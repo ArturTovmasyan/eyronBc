@@ -92,11 +92,9 @@ export class AddComponent implements OnInit {
 
       if(this.userGoal.completion_date && this.userGoal.status == 2){
         this.updateDate(this.userGoal.completion_date);
-        // this.userGoal.completion_date = moment(this.userGoal.completion_date).format('MM-DD-YYYY');
       } else{
         if(this.userGoal.do_date){
           this.updateDate(this.userGoal.do_date);
-          // this.userGoal.do_date = moment(this.userGoal.do_date).format('MM-DD-YYYY');
           this.userGoal.do_date_status = this.userGoal.date_status;
         }
       }
@@ -206,6 +204,10 @@ export class AddComponent implements OnInit {
     }
   }
 
+  dateByFormat(month, day, year){
+    return '' + (month > 9?month:('0' + month)) + '-' + (day > 9?day:('0' + day)) + '-' + year;
+  }
+
   save(){
     this.uncompletedYear = false;
     this.userGoal.completed = this.complatedPercent;
@@ -265,7 +267,19 @@ export class AddComponent implements OnInit {
     this.userGoal.goal_status = this.complete.switch;
     this.userGoal.status = +this.complete.switch + 1;
 
-    this.ProjectService.addUserGoal(this.userGoal.goal.id, this.userGoal).subscribe((data) => {
+    let data = this.userGoal;
+
+    if(this.userGoal.completion_date){
+      let myDate = new Date(this.userGoal.completion_date);
+      data.completion_date = this.dateByFormat(myDate.getMonth() + 1, myDate.getDate(), myDate.getFullYear());
+    }
+
+    if(this.userGoal.do_date){
+      let myDate = new Date(this.userGoal.do_date);
+      data.do_date = this.dateByFormat(myDate.getMonth() + 1, myDate.getDate(), myDate.getFullYear());
+    }
+
+    this.ProjectService.addUserGoal(this.userGoal.goal.id, data).subscribe(() => {
 
     });
     // UserGoalDataManager.manage({id: this.userGoal.goal.id}, this.userGoal, function (res){
