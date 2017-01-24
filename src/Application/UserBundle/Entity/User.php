@@ -221,6 +221,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="user_emails", type="array", nullable=true)
+     * @Groups({"user"})
      */
     protected $userEmails;
 

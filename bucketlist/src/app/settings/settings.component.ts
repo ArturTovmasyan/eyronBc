@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -18,12 +18,17 @@ export class SettingsComponent implements OnInit {
   eventId: number = 0;
   type: string;
   appUser:any;
-  userData: FormGroup;
+  form: FormGroup;
   arrayMonth:string[] = [];
   arrayDay:number[] = [];
   arrayYear:number[] = [];
   currentLang: string;
-  languages: any[] = [
+  token:boolean = false;
+  userEmails:any;
+  errorMessage:any;
+  item :any= [];
+
+    languages: any[] = [
       {
           value:'en',
           name: 'English'
@@ -68,9 +73,6 @@ export class SettingsComponent implements OnInit {
       ];
       this.createDays(31);
       this.createYears(1917, 2017);
-  }
-
-  ngOnInit() {
 
       //get current user data
       if(localStorage.getItem('apiKey')){
@@ -87,11 +89,13 @@ export class SettingsComponent implements OnInit {
                           })
               }
           }
-          console.log(this.appUser);
       }
+  }
+
+  ngOnInit() {
 
       //create form validation
-      this.userData = this.fb.group({
+      this.form = this.fb.group({
               'file': ['', null],
               'apikey': [true, null],
               'firstName': [ this.appUser.first_name, [Validators.required]],
@@ -102,7 +106,7 @@ export class SettingsComponent implements OnInit {
               'plainPassword' : ['', [Validators.minLength(6)]],
               'primary' : ['', null],
               'language' : [ this.appUser.language, null],
-              'userEmail' : ['', [ValidationService.emailValidator]],
+              'userEmail' : ['', []],
               'addEmail' : ['', [ValidationService.emailValidator]],
               'month' : ['', [Validators.required]],
               'year' : ['', [Validators.required]],
@@ -110,7 +114,10 @@ export class SettingsComponent implements OnInit {
           }, {validator: ValidationService.passwordsEqual}
       );
 
+      //get keys in userEmails object
+      this.userEmails = Object.keys(this.appUser.user_emails);
   }
+
 
     createDays(number) {
         for (let i = 1; i <= number; i++) {
@@ -130,19 +137,50 @@ export class SettingsComponent implements OnInit {
 
     /**
      *
-     * @param userData
+     * @param form
      */
-  changeData(userData:any){
+  saveUserData(form:any){
 
-        //generate birthday value
-        let birthday = userData.day+'/'+userData.month+'/'+userData.year;
+        // generate birthday value
+        let birthday = form.day+'/'+form.month+'/'+form.year;
 
-        //add birthday in form data
-        userData['birthDate'] = birthday;
+        // add birthday in form data
+        form['birthDate'] = birthday;
 
-        //remove day,month,year
-        delete userData.day;
-        delete userData.year;
-        delete userData.month;
-  }
+        // remove day,month,year
+        delete form.day;
+        delete form.year;
+        delete form.month;
+
+        // this._projectService.saveUserData(form)
+        //     .subscribe(
+        //         (data) => {
+        //             console.log(data);
+        //         },
+        //         error => {
+        //             this.errorMessage = error;
+        //         }
+        //     );
+
+        console.log(form);
+    }
+
+
+    /**
+     *
+     * @param email
+     */
+  removeEmail(email:string) {
+      console.log(email);
+
+        this._projectService.removeUserEmail(email)
+            .subscribe(
+                () => {
+                },
+                error => {
+                    this.errorMessage = error;
+                }
+            );
+    }
+
 }
