@@ -6,6 +6,9 @@ export class ValidationService {
         let config = {
             'required': 'Required',
             'invalidEmailAddress': 'Invalid email address',
+            'currentPassword': 'Invalid current password',
+            'bl_user_angular_settings':'Set invalid primary email',
+            'addEmail':'This email already exists',
             'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
             'minlength': `Minimum length ${validatorValue?validatorValue.requiredLength:0}`,
             'invalidConfirmPassword': 'Passwords do not match, please retype'
@@ -35,7 +38,7 @@ export class ValidationService {
     //function for checking plain password validation
     static passwordsEqual(c:FormControl) {
 
-        if (c.value.plainPassword.length > 0 && c.value.password !== c.value.plainPassword) {
+        if ((c.value.password.length > 0 && c.value.plainPassword.length == 0) || (c.value.plainPassword.length > 0 && c.value.password != c.value.plainPassword)) {
             return { 'invalidConfirmPassword' :true};
         }
         else{

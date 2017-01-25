@@ -65,7 +65,9 @@ export class ProjectService {
     private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
-
+    private removeEmailUrl = this.baseUrl + 'settings/email';
+    private changeSettingsUrl = this.baseUrl + 'user/update';
+    private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
     private overallUrl = this.baseUrl + 'user/overall?';
@@ -122,6 +124,14 @@ export class ProjectService {
      */
     getMyUser(){
         return this.appUser;
+    }
+
+    /**
+     *
+     * @param data
+     */
+    setMyUser(data){
+        this.appUser = data;
     }
 
     /**
@@ -651,6 +661,38 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
+    /**
+     *
+     * This service is used to remove user email
+     *
+     * @param email
+     */
+    removeUserEmail(email:string) {
+        return this.http.delete(this.removeEmailUrl+'?email='+email, {headers: this.headers})
+            .map((r:Response) => r)
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * This service is used to save user data
+     *
+     * @param data
+     */
+    saveUserData(data:any) {
+        return this.http.post(this.changeSettingsUrl, {'bl_user_angular_settings':data}, {headers: this.headers})
+            .map((r:Response) => r.json());
+    }
+
+    /**
+     *
+     * @param data
+     * @returns {Observable<R>}
+     */
+    saveNotifySettings(data:any) {
+        return this.http.post(this.changeNotifySettingsUrl, {'bl_user_notify_type':data}, {headers: this.headers})
+            .map((r:Response) => r.json());
+    }
 
     /**
      *

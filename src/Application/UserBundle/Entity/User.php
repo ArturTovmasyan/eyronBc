@@ -221,6 +221,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="user_emails", type="array", nullable=true)
+     * @Groups({"user"})
      */
     protected $userEmails;
 
@@ -1227,6 +1228,9 @@ class User extends BaseUser
 
     /**
      * @return null|string
+     * @VirtualProperty()
+     * @SerializedName("social_email")
+     * @Groups({"user"})
      */
     public function getSocialFakeEmail()
     {

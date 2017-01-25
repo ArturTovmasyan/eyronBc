@@ -10,7 +10,9 @@ namespace Application\UserBundle\Controller\Rest;
 
 use Application\UserBundle\Entity\User;
 use Application\UserBundle\Form\ChangePasswordMobileType;
+use Application\UserBundle\Form\SettingsAngularType;
 use Application\UserBundle\Form\SettingsMobileType;
+use Application\UserBundle\Form\Type\UserNotifyType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -223,6 +225,10 @@ class SettingsController extends FOSRestController
         //get email in request data
         $email = array_key_exists('email', $data) ? $data['email'] : null;
 
+        if(!$email) {
+            $email = $request->query->get('email');
+        }
+
         //check if email is empty
         if (!$email) {
 
@@ -257,5 +263,196 @@ class SettingsController extends FOSRestController
 
         // return 404 if email is empty
         return new Response('User not have removable email', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @Rest\Post("/user/update")
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Settings",
+     *  description="This function is used to set settings data",
+     *  statusCodes={
+     *         204="No content",
+     *         400="Bad request",
+     *         401="Unauthorized user",
+     *     },
+     * parameters={
+     *      {"name"="bl_user_angular_settings[file]", "dataType"="file", "required"=false, "description"="Users profile image file"},
+     *      {"name"="bl_user_angular_settings[firstName]", "dataType"="string", "required"=true, "description"="User`s first name | min=3 / max=20 symbols"},
+     *      {"name"="bl_user_angular_settings[lastName]", "dataType"="string", "required"=true, "description"="User`s last name | min=3 / max=20 symbols"},
+     *      {"name"="bl_user_angular_settings[addEmail]", "dataType"="email", "required"=false, "description"="Add email for user"},
+     *      {"name"="bl_user_angular_settings[email]", "dataType"="email", "required"=false, "description"="User email"},
+     *      {"name"="bl_user_angular_settings[birthDate]", "dataType"="string", "required"=false, "description"="User`s birthday | in this 2015/01/22 format"},
+     *      {"name"="bl_user_angular_settings[language]", "dataType"="string", "required"=false, "description"="User`s language | en|ru"},
+     *      {"name"="bl_user_angular_settings[currentPassword]", "dataType"="password", "required"=false, "description"="User current password"},
+     *      {"name"="bl_user_angular_settings[plainPassword][first]", "dataType"="string", "required"=false, "description"="User new password"},
+     *      {"name"="bl_user_angular_settings[plainPassword][second]", "dataType"="string", "required"=false, "description"="User new password"},
+     * }
+     * )
+     * @Rest\View(serializerGroups={"user", "completed_profile"})
+     * @Secure("ROLE_USER")
+     */
+    public function postSettingsForAngularAction(Request $request)
+    {
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        //get form data about email value
+        $formData = $request->request->get('bl_user_angular_settings');
+        $primaryEmail = $formData['primary'];
+        $addEmail = $formData['addEmail'];
+
+        //get current user
+        $user = $this->getUser();
+
+        $currentEmail = $user->getEmail();
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // create goal form
+        $form = $this->createForm(SettingsAngularType::class, $user);
+
+        //check if primary email equal current email
+        if ($primaryEmail != null && $primaryEmail == $currentEmail) {
+
+            //set primary email
+            $primaryEmail = null;
+        }
+        else {
+
+            //set for check user duplicate error
+            $user->setEmail($primaryEmail);
+        }
+
+        //set primary value in entity
+        $user->primary = $primaryEmail;
+        $user->addEmail = $addEmail;
+
+        // get data from request
+        $form->handleRequest($request);
+
+        //check if from valid
+        if ($form->isValid()) {
+
+            //get uploadFile service for load profile pictures
+            $this->container->get('bl_service')->uploadFile($user);
+
+            $em->persist($user);
+            $em->flush();
+
+            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($user);
+
+            return $user;
+
+        } else{
+
+            //get form errors
+            $formErrors = $form->getErrors(true);
+
+            //set default array
+            $returnResult = array();
+
+            foreach($formErrors as $formError)
+            {
+                //get error field name
+                $name = $formError->getOrigin()->getConfig()->getName();
+
+                //set for errors in array
+                $returnResult[$name] = $formError->getMessage();
+            }
+
+            return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
+     * @Rest\Post("/notify-settings/update")
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Settings",
+     *  description="This function is used to set notify settings data",
+     *  statusCodes={
+     *         204="No content",
+     *         400="Bad request",
+     *         401="Unauthorized user",
+     *     },
+     * parameters={
+     *      {"name"="bl_user_notify_type[isCommentOnGoalNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_type[isCommentOnIdeaNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_type[isSuccessStoryOnGoalNotify]", "dataType"="email", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_type[isSuccessStoryOnIdeaNotify]", "dataType"="email", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_type[isSuccessStoryLikeNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_type[isGoalPublishNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_type[isCommentReplyNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_type[isDeadlineExpNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_type[isNewGoalFriendNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value1"},
+     *      {"name"="bl_user_notify_type[isNewIdeaNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     * }
+     * )
+     * @Rest\View(serializerGroups={"user", "completed_profile"})
+     * @Secure("ROLE_USER")
+     */
+    public function postEditNotifyAction(Request $request)
+    {
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        //get current user
+        $user = $this->getUser();
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // create goal form
+        $form = $this->createForm(UserNotifyType::class, $user);
+
+        // get data from request
+        $form->handleRequest($request);
+
+        //check if from valid
+        if ($form->isValid()) {
+
+            //get uploadFile service for load profile pictures
+            $this->container->get('bl_service')->uploadFile($user);
+
+            $em->persist($user);
+            $em->flush();
+
+            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($user);
+
+            return $user;
+
+        }
+        else{
+
+            //get form errors
+            $formErrors = $form->getErrors(true);
+
+            //set default array
+            $returnResult = array();
+
+            foreach($formErrors as $formError)
+            {
+                //get error field name
+                $name = $formError->getOrigin()->getConfig()->getName();
+
+                //set for errors in array
+                $returnResult[$name] = $formError->getMessage();
+            }
+
+            return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
+
+        }
     }
 }
