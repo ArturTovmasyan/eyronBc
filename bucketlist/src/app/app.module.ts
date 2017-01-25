@@ -16,7 +16,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AuthProviders } from 'angularfire2';
 import { AuthMethods } from 'angularfire2';
 import { SwiperModule } from 'angular2-useful-swiper';
-// import FileDroppa from 'file-droppa'
+import { Uploader }      from 'angular2-http-file-upload';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -114,7 +114,8 @@ export function createTranslateLoader(http: Http) {
     AuthGuard,
     Broadcaster,
     ValidationService,
-    CacheService
+    CacheService,
+    Uploader
   ],
   bootstrap: [AppComponent]
 })

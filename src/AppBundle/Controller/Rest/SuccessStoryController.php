@@ -181,7 +181,7 @@ class SuccessStoryController extends FOSRestController
         $em->persist($storyImage);
         $em->flush();
 
-        return $storyImage->getId();
+        return new JsonResponse($storyImage->getId());
     }
 
     /**

@@ -21,6 +21,7 @@ import { RemoveTagPipe } from '../pipes/removeTag.pipe';
 import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
 import { InputVideoComponent } from './embed-video/input-video.component';
+import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { InputVideoComponent } from './embed-video/input-video.component';
     ControlMessagesComponent,
     EmbedVideoComponent,
     InputVideoComponent,
-    SeeAlsoComponent
+    SeeAlsoComponent,
+    MyDropzoneComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -63,7 +65,8 @@ import { InputVideoComponent } from './embed-video/input-video.component';
     ControlMessagesComponent,
     EmbedVideoComponent,
     InputVideoComponent,
-    SeeAlsoComponent
+    SeeAlsoComponent,
+    MyDropzoneComponent
   ]
 })
 export class ComponentModule { }

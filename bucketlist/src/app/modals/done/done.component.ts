@@ -23,6 +23,11 @@ export class DoneComponent implements OnInit {
   public dayInMonth:number;
   public serverPath:string = '';
 
+  public imageCount:number = 6;
+  public uploadingFiles: any[] = [];
+  public existingFiles: any[] = [];
+  public clickable: boolean = true;
+
   public year: number = 0;
   public day: number = 0;
   public month: number = 0;
@@ -100,6 +105,13 @@ export class DoneComponent implements OnInit {
         }else {
           this.videos_array.push('');
         }
+
+        if(this.userGoal.story.files) {
+          this.existingFiles = this.userGoal.story.files;
+          for(let file of this.existingFiles){
+            this.files.push(file.id);
+          }
+        }
       }else {
         this.videos_array.push('');
       }
@@ -134,27 +146,6 @@ export class DoneComponent implements OnInit {
   dateByFormat(month, day, year){
     return '' + (month > 9?month:('0' + month)) + '-' + (day > 9?day:('0' + day)) + '-' + year;
   }
-  
-  beforeFileUpload(formData){console.log(formData);
-    // formData.append("file",[]);
-    return formData;
-  }
-
-  fileUploaded(success, response, file){
-    success && console.log("uploaded - awesome", response, file);
-    success || console.log("not uploaded - very bad", response, file);
-  }
-
-  filesUpdated(files) {
-    // console.log("Store state updated! Current state: ", files)
-  }
-
-  beforeRequest(xhr){
-    xhr.setRequestHeader('apikey', localStorage.getItem('apiKey'));
-  }
-
-
-
 
   isInValid() {
     this.noStory = false;
@@ -247,9 +238,9 @@ export class DoneComponent implements OnInit {
       // angular.element('textarea[name=story]').addClass('border-red');
       return;
     }
-    // if(!clickable){
-    //   return;
-    // }
+    if(!this.clickable){
+      return;
+    }
 
     let video_link = [];
 
