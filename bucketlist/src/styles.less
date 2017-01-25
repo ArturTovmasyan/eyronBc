@@ -4314,11 +4314,11 @@ ul{
   border-bottom: 10px solid #f4f4f4;
 }
 
-.example-margin{
-  .md-checkbox-inner-container{
-    margin: auto 3px auto auto;
-  }
-}
+//.example-margin{
+//  .md-checkbox-inner-container{
+//    margin: auto 3px auto auto;
+//  }
+//}
 
 .md-checkbox-checked.md-accent .md-checkbox-background, .md-checkbox-indeterminate.md-accent .md-checkbox-background{
   background: #6108EA;
@@ -4352,4 +4352,23 @@ md-radio-button.md-radio-checked{
     background-color: rgba(119, 36, 246, 0.3) !important;
   }
 
+}
+//
+//.cdk-global-overlay-wrapper{
+//  overflow: auto;
+//}
+
+.md-dialog-container{
+  padding: 0;
+  overflow: hidden;
+}
+
+
+.cdk-overlay-container{
+  z-index: 10001;
+
+}
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container{
+  overflow: auto;
 }

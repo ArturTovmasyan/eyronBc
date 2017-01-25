@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import { SelectModule} from 'ng2-select/ng2-select';
 import { DndModule} from 'ng2-dnd';
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -91,7 +90,6 @@ export function createTranslateLoader(http: Http) {
     HttpModule,
     JsonpModule,
     appRouting,
-    SelectModule,
     SwiperModule,
     // FileDroppa,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),

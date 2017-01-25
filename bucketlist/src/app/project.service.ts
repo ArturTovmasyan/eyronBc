@@ -65,7 +65,8 @@ export class ProjectService {
     private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
-
+    private removeEmail = this.baseUrl + 'settings/email';
+    private changeSetting = this.baseUrl + 'settings/settings';
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
     private overallUrl = this.baseUrl + 'user/overall?';
@@ -158,6 +159,18 @@ export class ProjectService {
     addUserGoal(goalId:number, data:any):Observable<UserGoal> {
         return this.http.put(this.userGoalsUrl + goalId, data, {headers: this.headers})
             .map((r:Response) => r.json() as UserGoal)
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param goalId
+     * @param data
+     * @returns {Observable<R>}
+     */
+    addUserGoalStory(goalId:number, data:any):Observable<any> {
+        return this.http.put(this.ideasUrl + goalId + '/story', data, {headers: this.headers})
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 
@@ -622,7 +635,7 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     ownedGoals(id:number, count:number, first:number):Observable<any> {
-        return this.http.get(this.ideasUrl + id + '/owned/' + first + '/' + count, {headers: this.headers})
+        return this.http.get(this.ideasUrl + id, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
@@ -639,6 +652,29 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
+    /**
+     *
+     * This service is used to remove user email
+     *
+     * @param email
+     */
+    removeUserEmail(email:string) {
+        return this.http.delete(this.removeEmail+'?email='+email, {headers: this.headers})
+            .map((r:Response) => r)
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * This service is used to save user data
+     *
+     * @param data
+     */
+    saveUserData(data:any) {
+        return this.http.post(this.changeSetting, {'bl_mobile_user_settings':data}, {headers: this.headers})
+            .map((r:Response) => r)
+            .catch(this.handleError);
+    }
 
     /**
      *

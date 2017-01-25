@@ -125,7 +125,7 @@
 
                             </div>
 
-                            <div class="col-sm-4 date " *ngIf="complete.switch == 1">
+                            <div class="col-sm-4 date ">
                                 <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" [(ngModel)]="month">
                                     <md-option *ngFor="let month of months; let i=index" [value]="i">
                                         {{ month|translate }}
@@ -133,15 +133,7 @@
                                 </md-select>
 
                             </div>
-                            <div class="col-sm-4 date " *ngIf="!(complete.switch == 1)">
-                                <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" [(ngModel)]="month">
-                                    <md-option *ngFor="let month of months; let i=index" [value]="i">
-                                        {{ month|translate }}
-                                    </md-option>
-                                </md-select>
-
-                            </div>
-                            <div class="col-sm-4 date " *ngIf="complete.switch == 1">
+                            <div class="col-sm-4 date ">
                                 <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" [(ngModel)]="day">
                                     <md-option [value]="0">
                                         {{ 'form.birth_date_day'|translate }}
@@ -151,16 +143,6 @@
                                     </md-option>
                                 </md-select>
 
-                            </div>
-                            <div class="col-sm-4 date " *ngIf="!(complete.switch == 1)">
-                                <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" [(ngModel)]="day">
-                                    <md-option [value]="0">
-                                        {{ 'form.birth_date_day'|translate }}
-                                    </md-option>
-                                    <md-option *ngFor="let day of days" [value]="day">
-                                        {{ day }}
-                                    </md-option>
-                                </md-select>
                             </div>
                         </div>
 

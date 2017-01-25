@@ -1,8 +1,8 @@
-<div class=" my-modal goal-modal">
+<div class="my-modal goal-modal">
     <div *ngIf="newAdded" class="email">{{ "message_on_top_of_the_page" | translate | uppercase }}</div>
-    <div class="modal-top">
-        <figure *ngIf="userGoal && userGoal.goal.cached_image">
-            <img *ngIf="userGoal && userGoal.goal.cached_image" src="{{ userGoal.goal.cached_image }}" alt="{{ userGoal.goal.title }}" class="img-responsive"/>
+    <div class="modal-top" *ngIf="userGoal">
+        <figure *ngIf="userGoal.goal.cached_image">
+            <img *ngIf="userGoal.goal.cached_image" src="{{ userGoal.goal.cached_image }}" alt="{{ userGoal.goal.title }}" class="img-responsive"/>
         </figure>
 
         <span class="overlay"></span>
@@ -11,11 +11,9 @@
             <h2 [ngClass]="{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author || !userGoal.goal.author.show_name}">
                 <span>{{ userGoal.goal.title }}</span>
             </h2>
-            <!--{% if app.user %}-->
-            <p *ngIf="userGoal && userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id ">
+            <p *ngIf="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id ">
                 {{ userGoal.goal.author.show_name }}
             </p>
-            <!--{% endif %}-->
             <ul>
                 <li>
                     <a >
@@ -35,7 +33,7 @@
         </div>
     </div>
     <div id="fb-root"></div>
-    <div class="row bg-grey">
+    <div class="row bg-grey" *ngIf="userGoal">
         <div class="col-xs-10 col-xs-offset-1">
             <div class="row">
                 <div class="col-sm-8">
@@ -55,23 +53,7 @@
         </div>
     </div>
 
-    <!--{% set arrayMonth = {-->
-    <!--0:'form.birth_date_month'|trans({}, 'FOSUserBundle'),-->
-    <!--1:'form.month_january'|trans({}, 'FOSUserBundle'),-->
-    <!--2:'form.month_february'|trans({}, 'FOSUserBundle'),-->
-    <!--3:'form.month_march'|trans({}, 'FOSUserBundle'),-->
-    <!--4:'form.month_april'|trans({}, 'FOSUserBundle'),-->
-    <!--5:'form.month_may'|trans({}, 'FOSUserBundle'),-->
-    <!--6:'form.month_june'|trans({}, 'FOSUserBundle'),-->
-    <!--7:'form.month_july'|trans({}, 'FOSUserBundle'),-->
-    <!--8:'form.month_august'|trans({}, 'FOSUserBundle'),-->
-    <!--9:'form.month_september'|trans({}, 'FOSUserBundle'),-->
-    <!--10:'form.month_october'|trans({}, 'FOSUserBundle'),-->
-    <!--11:'form.month_november'|trans({}, 'FOSUserBundle'),-->
-    <!--12:'form.month_december'|trans({}, 'FOSUserBundle') }-->
-    <!--%}-->
-    <!--data-ng-init="myMonths={{ arrayMonth |json_encode()}}"-->
-    <div class="bg-white">
+    <div class="bg-white" *ngIf="userGoal">
 
         <div *ngIf="newAdded">
             <div class="row">
@@ -83,42 +65,32 @@
 
                     <div class="form-group row">
                         <div class="col-sm-4 date">
-                             <!--data-ng-init="defaultYear = '{{ 'form.birth_date_year'|translate  }}';-->
-                                            <!--defaultDay = '{{ 'form.birth_date_day'|translate }}';-->
-                                            <!--defaultMonth = '{{ 'form.birth_date_month'|translate }}'">-->
-                            <!--<ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">-->
-                                <!--<ui-select-match placeholder="{{ 'form.birth_date_year'|translate }}">-->
-                                    <!--<span>{{ $select.selected }}</span>-->
-                                <!--</ui-select-match>-->
-
-                                <!--<ui-select-choices repeat="y in years">-->
-                                    <!--<span data-ng-bind="y"></span>-->
-                                <!--</ui-select-choices>-->
-                            <!--</ui-select>-->
+                            <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
+                                <md-option [value]="0">
+                                    {{ 'form.birth_date_year'|translate }}
+                                </md-option>
+                                <md-option *ngFor="let year of completeYears" [value]="year">
+                                    {{ year }}
+                                </md-option>
+                            </md-select>
                         </div>
 
                         <div class="col-sm-4 date">
-                            <!--<ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">-->
-                                <!--<ui-select-match placeholder="{{ 'form.birth_date_month'|translate }}">-->
-                                    <!--<span>{{ $select.selected }}</span>-->
-                                <!--</ui-select-match>-->
-
-                                <!--<ui-select-choices repeat="m in months">-->
-                                    <!--<span data-ng-bind="m"></span>-->
-                                <!--</ui-select-choices>-->
-                            <!--</ui-select>-->
+                            <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" [(ngModel)]="month">
+                                <md-option *ngFor="let month of months; let i=index" [value]="i">
+                                    {{ month|translate }}
+                                </md-option>
+                            </md-select>
                         </div>
                         <div class="col-sm-4 date">
-
-                            <!--<ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">-->
-                                <!--<ui-select-match placeholder="{{ 'form.birth_date_day'|translate }}">-->
-                                    <!--<span>{{ $select.selected }}</span>-->
-                                <!--</ui-select-match>-->
-
-                                <!--<ui-select-choices repeat="day in days">-->
-                                    <!--<span data-ng-bind="day"></span>-->
-                                <!--</ui-select-choices>-->
-                            <!--</ui-select>-->
+                            <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" [(ngModel)]="day">
+                                <md-option [value]="0">
+                                    {{ 'form.birth_date_day'|translate }}
+                                </md-option>
+                                <md-option *ngFor="let day of days" [value]="day">
+                                    {{ day }}
+                                </md-option>
+                            </md-select>
                         </div>
                     </div>
 
@@ -134,14 +106,12 @@
             </div>
         </div>
 
-        <!--{#{{ form_errors(form) }}#}-->
-
         <form id="goal-done-form" action="#" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-xs-10 col-xs-offset-1">
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <textarea required="required" name="story" [(ngModel)]="story" class="form-control" placeholder="{{ 'success_story.add'|translate }}" rows="4"></textarea>
+                            <textarea required="required" name="story" [(ngModel)]="story" class="form-control" [class.border-red]="noStory" placeholder="{{ 'success_story.add'|translate }}" rows="4"></textarea>
                         </div>
                     </div>
 
@@ -177,12 +147,14 @@
 
                     <div class="form-group">
                         <label class="text-grey-dark story-title">Video</label>
-                        <!--<video-link data-ng-repeat="(k, video) in userGoal.videos_array"-->
-                                    <!--data-key="k"-->
-                                    <!--data-limit="3"-->
-                                    <!--data-link="video.link"-->
-                                    <!--data-array="userGoal.videos_array">-->
-                        <!--</video-link>-->
+
+                        <input-video *ngFor="let video of videos_array; let i = index"
+                                [key]="i"
+                                [limit]="3"
+                                [link]="video"
+                                [array]="videos_array">
+
+                        </input-video>
                     </div>
                     <p class="text-center error-message" *ngIf="noStory">{{ 'success_story.error_widht_file'|translate }}</p>
                     <p class="text-center error-message" *ngIf="invalidYear">{{ 'success_story.error_day_in_month1'|translate }} {{ dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}</p>
