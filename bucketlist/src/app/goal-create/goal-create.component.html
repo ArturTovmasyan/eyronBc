@@ -23,7 +23,8 @@
                         <div class="col-xs-1 suggest-input">
                             <!--<input id="{{ form.status.vars.id }}" name="{{ form.status.vars.full_name}}" type="checkbox" value="1" >-->
                             <!--{% if form.status.vars.data == 1 %} checked {% endif %}-->
-                            <md-checkbox></md-checkbox>
+                            <md-checkbox class="example-margin" name="isPublic" [(ngModel)]="isPublic">
+                            </md-checkbox>
                         </div>
 
                         <div class="col-xs-11">
@@ -44,33 +45,26 @@
                 <div class="col-md-6 text-right">
                     <div class="buttons">
 
-                        <button type="submit" [disabled]="disablePreview" class="btn btn-transparent goal-view-submit"
+                        <div (click)="preview()" class="btn btn-transparent goal-view-submit"
                                 name="btn_preview">
                             <span>{{ 'goal.preview'|translate }}</span>
-                        </button>
+                        </div>
 
-                        <!--{% if not isPrivate %}-->
+                        <div *ngIf="!isPrivate" (click)="createDraft()" class="btn btn-transparent draft-save-submit" name="btn_save_draft">
+                            <span *ngIf="!id">{{ 'draft.create'|translate }}</span>
+                            <span *ngIf="id">{{ 'draft.update'|translate }}</span>
+                        </div>
 
-                        <button type="submit" class="btn btn-transparent draft-save-submit" name="btn_save_draft">
-                            <span>{{ 'draft.create'|translate }}</span>
-                            <!--<span>{{ 'draft.update'|translate }}</span>-->
-
-                            <!--{% if id %}{{ 'draft.update'|translate }}{% else %}{{ 'draft.create'|translate }}{% endif %}-->
-                        </button>
-
-                        <!--{% endif %}-->
-
-                        <button type="submit"
+                        <div type="submit" (click)="save()"
                                 class="btn btn-purple goal-create-submit"
                                 name="btn_publish">
                             <!--data-ls-jquery-modal-->
                             <!--data-ls-identity="goalSave"-->
                             <!--data-ls-template="[[ ::goalSubmitTemplate ]]"-->
-                            {{ 'goal.publish'|translate }}
-                            <!--{{ 'goal.edit'|translate }}-->
-                            <!--{% if id and isPrivate%}{{ 'goal.edit'|translate }}{% else %}{{ 'goal.publish'|translate }}{% endif %}-->
+                            <span *ngIf="id && isPrivate">{{ 'goal.edit'|translate }}</span>
+                            <span *ngIf="!id || !isPrivate">{{ 'goal.publish'|translate }}</span>
                             <i class="icon-arrow-right"></i>
-                        </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,8 +75,6 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="goals">
-                    <!--data-ng-init="showIdeas = true"-->
-                    <!--{{ form_errors(form) }}-->
 
                     <div class="row bg-white">
                         <div class="col-xs-10 col-xs-offset-1">
@@ -91,21 +83,6 @@
                                        class="form-control title" placeholder="Title" autocomplete="off"
                                        [(ngModel)]="title"
                                        (ngModelChange)="getGoals()">
-
-                                <div class="col-md-4 goals-animate" style="margin-top: 10px" *ngFor="let goal of goals">
-
-                                    <div class="row idea-item">
-                                        <div class="col-sm-12">
-                                            <figure>
-                                                <app-goal [goal]="goal" [type]="(category == 'nearby')?'nearby':''"
-                                                          (onHover)="hideJoin($event)" [userLocation]="userLocation">
-                                                </app-goal>
-
-                                                <app-goal-footer [goal]="goal"></app-goal-footer>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
                                 <!--{% if form.vars.value.title %}data-ng-init="addTitle ='{{ form.vars.value.title }}'" {% endif %}-->
                                 <!--{{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title', 'data-ng-model' : "addTitle",-->
                                 <!--'data-ng-change' : "searchGoal($event)"} }) }}-->
@@ -121,20 +98,20 @@
                                 <div class="col-xs-10">
                                     <h3 class="text-left pull-left text-dark">{{ 'goal.existing'|translate }}</h3>
 
-                                    <a href="#" (click)="slickConfig.method.slickPrev()">
-                                        <i class="icon-arrow-left">
-                                            <span class="path1"></span><span class="path2"></span>
-                                        </i>
-                                    </a>
+                                    <!--<a href="#" (click)="slickConfig.method.slickPrev()">-->
+                                        <!--<i class="icon-arrow-left">-->
+                                            <!--<span class="path1"></span><span class="path2"></span>-->
+                                        <!--</i>-->
+                                    <!--</a>-->
 
-                                    <a href="#" (click)="slickConfig.method.slickNext()">
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
+                                    <!--<a href="#" (click)="slickConfig.method.slickNext()">-->
+                                        <!--<i class="icon-arrow-right"></i>-->
+                                    <!--</a>-->
 
                                 </div>
                                 <div class="col-xs-2 text-right" *ngIf="isMore">
 
-                                    <a href="#" (click)="$parent.$parent.showIdeas = false">
+                                    <a (click)="showIdeas = false">
                                         <i class="icon-remove-video-link"><span class="path2"></span><span
                                                 class="path3"></span></i>
                                     </a>
@@ -142,62 +119,21 @@
                                 </div>
                             </div>
 
-                            <!--<slick settings="slickConfig" class="row idea-item">-->
-                            <!--<div class="col-md-4 goals-animate" *ngFor=" let goal of Ideas.items">-->
-                            <!--&lt;!&ndash;data-ng-cloak&ndash;&gt;-->
+                            <div class="row idea-item">
+                                <div class="col-md-4 goals-animate" style="margin-top: 10px" *ngFor="let goal of goals">
 
-                            <!--<figure>-->
-                            <!--<h3>-->
-                            <!--<a routerLink="{{ env_prefix }}/goal/{{goal.slug }}">{{goal.title }}</a>-->
-                            <!--</h3>-->
+                                    <div class="row idea-item">
+                                        <div class="col-sm-12">
+                                            <figure>
+                                                <app-goal [goal]="goal">
+                                                </app-goal>
 
-                            <!--<a routerLink="{{ env_prefix }}/goal/{{goal.slug }}"-->
-                            <!--class="goalTitle">-->
-                            <!--<span class="overlay"></span>-->
-                            <!--<img *ngIf="goal.cached_image" src="{{goal.cached_image}}" alt="{{goal.title}}"/>-->
-                            <!--</a>-->
-
-                            <!--<div class="absolute">-->
-                            <!--<ul>-->
-                            <!--<li>-->
-                            <!--<a routerLink="{{ env_prefix }}/listed-users/[[ ::goal.slug ]]" [hidden]="!castInt(goal.stats.listedBy)">-->
-                            <!--<span>-->
-                            <!--{{ 'home_listed_by'|translate | capitalize }}-->
-                            <!--{{goal.stats.listedBy }}-->
-                            <!--</span>-->
-                            <!--<i class="icon-user-small"></i>-->
-                            <!--</a>-->
-
-                            <!--<span class="text-white ng-hide" [hidden]="castInt(goal.stats.listedBy)">-->
-                            <!--{{ 'home_listed_by'|translate | capitalize }}-->
-                            <!--{{goal.stats.listedBy }}-->
-                            <!--<i [hidden]="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>-->
-                            <!--</span>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                            <!--<a routerLink="{{ env_prefix }}/done-users/[[ ::goal.slug ]]" [hidden]="!castInt(goal.stats.doneBy)">-->
-                            <!--<span>-->
-                            <!--{{ 'home_complete'|translate | capitalize }}-->
-                            <!--{{goal.stats.doneBy }}-->
-                            <!--</span>-->
-                            <!--<i class="icon-user-small"></i>-->
-                            <!--</a>-->
-
-                            <!--<span class="text-white ng-hide" [hidden]="castInt(goal.stats.doneBy)">-->
-                            <!--{{ 'home_complete'|translate | capitalize }}-->
-                            <!--{{goal.stats.doneBy}}-->
-                            <!--<i [hidden]="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>-->
-                            <!--</span>-->
-                            <!--</li>-->
-                            <!--</ul>-->
-                            <!--</div>-->
-
-                            <!--<figcaption>-->
-                            <!--&lt;!&ndash;{%  include "AppBundle:Blocks:goalFooter.html.twig"  %}&ndash;&gt;-->
-                            <!--</figcaption>-->
-                            <!--</figure>-->
-                            <!--</div>-->
-                            <!--</slick>-->
+                                                <app-goal-footer [goal]="goal"></app-goal-footer>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -206,16 +142,14 @@
 
                             <div class="form-group">
 
-                                <textarea class="form-control margin-top" placeholder="Description" rows="4"></textarea>
-                                <!--{{ form_widget(form.description, {'attr': {'class':'form-control margin-top', 'placeholder' : 'Description', 'rows' :"4", "data-ng-model":"description", "data-ng-init":"description =\"" ~ form.vars.value.description |replace({'\"': '\\\"'})  ~ "\"", "data-value" : "[[ description ]]" } }) }}-->
+                                <textarea class="form-control margin-top" [(ngModel)]="description" name="description" placeholder="Description" rows="4" (ngModelChange)="changeDescription()"></textarea>
                                 <div class="tags">
-                                    <!--data-ng-cloak-->
-                                    <button *ngFor=" let tag of tags" type="button" class="btn btn-purple"> {{tag }}
+                                    <button *ngFor=" let tag of tags" type="button" class="btn btn-purple">
+                                        {{tag }}
                                     </button>
                                 </div>
 
-                                <p class="text-gray" [innerHTML] = "'goal.description_title' | translate">
-                                    <!--{{ 'goal.description_title'| translate }}-->
+                                <p class="text-gray" [innerHTML]="'goal.description_title' | translate">
                                 </p>
                                 <!--{{ form_widget(form.hashTags, {'attr': { "value" : "[[ tags ]]" } }) }}-->
 
@@ -223,24 +157,25 @@
 
                             <div class="text-center">
                                 <!--data-ng-init="initDropzone('{{ path('app_rest_goal_addimages') }}')"-->
-                                <div class="dropzone" id="goalDropzone">
-                                    <div class="dz-message">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <span class="btn-purple">
-                                                    <i class="icon-cloud"></i>BROWSE
-                                                </span>
+                                <my-dropzone [files]="files" [type]="'goal'" [existing]="existingFiles" [count]="imageCount"></my-dropzone>
+                                <!--<div class="dropzone" id="goalDropzone">-->
+                                    <!--<div class="dz-message">-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-sm-12">-->
+                                                <!--<span class="btn-purple">-->
+                                                    <!--<i class="icon-cloud"></i>BROWSE-->
+                                                <!--</span>-->
 
-                                                <h3 class="text-dark-gray">
-                                                    {{ 'drag_drop'|translate }}
-                                                </h3>
-                                            </div>
-                                        </div>
+                                                <!--<h3 class="text-dark-gray">-->
+                                                    <!--{{ 'drag_drop'|translate }}-->
+                                                <!--</h3>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
 
-                                        <p class="text-gray" [innerHTML]="'upload'|translate"></p>
-                                        <!--| raw-->
-                                    </div>
-                                </div>
+                                        <!--<p class="text-gray" [innerHTML]="'upload'|translate"></p>-->
+                                        <!--&lt;!&ndash;| raw&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
                             </div>
 
                             <!--{{ form_widget(form.files, {'attr': { "value" : "[[ files ]]" } }) }}-->
@@ -249,22 +184,22 @@
 
                             <div class="row">
                                 <!--{% for image in images %}-->
-                                <div class="col-sm-2">
-                                    <!--<a>-->
-                                        <!--&lt;!&ndash;href="{{ path("app_get_rest_goal_removeimage", {'id' : image.id }) }}"&ndash;&gt;-->
-                                        <!--<i class="icon-remove-video-link"><span class="path1"></span><span-->
-                                                <!--class="path2"></span><span class="path3"></span></i>-->
-                                    <!--</a>-->
+                                <div class="col-sm-2" *ngFor="let image of images">
+                                    <a (click)="removeImage(image.id)">
+                                        <!--href="{{ path("app_get_rest_goal_removeimage", {'id' : image.id }) }}"-->
+                                        <i class="icon-remove-video-link"><span class="path1"></span><span
+                                                class="path2"></span><span class="path3"></span></i>
+                                    </a>
                                     <!--<img src="{{ image.downloadLink }}" alt="{{ image.filename }}" class="img-responsive"/>-->
                                 </div>
                                 <!--{% endfor %}-->
                             </div>
                             <br/>
 
-                            <div class="language lng">
+                            <div class="language lng" [class.sr-only]="!appUser.is_admin">
                                 <!--{% if not is_granted("ROLE_ADMIN") %} class="sr-only" {% endif %}>-->
                                 <!--{{ form_widget(form.language, {'attr': {'class':'form-control' } }) }}-->
-                                <md-select placeholder="Language" style="width: 100%">
+                                <md-select placeholder="Language" style="width: 100%" [(ngModel)]="language" name="language">
                                     <md-option *ngFor="let language of languages" [value]="language.vale">
                                         {{ language.name }}
                                     </md-option>
@@ -273,9 +208,13 @@
 
                             <br/>
                             <!--{{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}-->
-                            <br class="hidden-xs"/>
-                            <input type="text" placeholder="Type in a youtube or vimeo link in the field"
-                                   class="form-control">
+                            <input-video *ngFor="let video of videos_array; let i = index"
+                                         [key]="i"
+                                         [limit]="3"
+                                         [link]="video"
+                                         [array]="videos_array">
+
+                            </input-video>
                             <br />
                         </div>
                     </div>
@@ -289,27 +228,3 @@
     </div>
 
 </form>
-<!--{% endblock %}-->
-
-<!--{% block javascripts %}-->
-<!--{{ parent() }}-->
-
-<!--{% javascripts output='js/app_goal_add.js'-->
-<!--'bundles/app/js/images.js'-->
-<!--%}-->
-<script type="text/javascript" [src]="{{ asset_url }}"></script>
-<!--{% endjavascripts %}-->
-
-<!--{% endblock %}-->
-
-<!--{%- block title -%}-->
-<!--{{ 'goal.add_title'|trans() }}-->
-<!--{%- endblock -%}-->
-
-<!--{%- block meta_description -%}-->
-<!--{{ 'goal.add_description'|trans() }}-->
-<!--{%- endblock -%}-->
-
-<!--{%- block og_url -%}-->
-<!--{{- app.request.uri -}}-->
-<!--{%- endblock -%}-->

@@ -43,7 +43,7 @@ export class MyDropzoneComponent implements OnInit {
   }
 
   showUploadedImage(event){
-    if(this.process || this.existing.length > this.count - 1)return;
+    if(this.process || (this.existing && this.existing.length > this.count - 1))return;
     this.process = true;
 
     let input = event.target;
@@ -54,7 +54,11 @@ export class MyDropzoneComponent implements OnInit {
         this.file = file;
 
         if(this.type == 'story'){
-          this.saveImage('/app_dev.php/success-story/add-images');
+          this.saveImage('/api/v1.0/success-story/add-images');
+        }
+
+        if(this.type == 'goal'){
+          this.saveImage('/api/v1.0/goals/add-images');
         }
       }
 
