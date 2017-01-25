@@ -116,7 +116,7 @@
         </div>
 
         <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
-        <div class="profile-information" *ngIf="user && user.completedPercent != 100">
+        <div class="profile-information" *ngIf="user && user.completed_percent != 100">
           <em>{{ 'complete_message'|translate }}</em>
 
           <div class="row no-gutter">
@@ -127,9 +127,9 @@
                      aria-valuenow="45"
                      aria-valuemin="0"
                      aria-valuemax="100"
-                     [ngStyle]="{'width.%': user.completedPercent| round}">
+                     [ngStyle]="{'width.%': user.completed_percent| round}">
 
-                  {{ user.getCompletedPercent|round }}%
+                  {{ user.completed_percent|round }}%
                 </div>
               </div>
             </div>
@@ -159,7 +159,7 @@
 
 
     <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
-    <div class="row slide" *ngIf="user && user.completedPercent != 100 && completeProfileMyBucketList">
+    <div class="row slide" *ngIf="user && user.completed_percent != 100 && completeProfileMyBucketList">
       <!--data-ng-cloak *ngIf="completeProfileMyBucketList" style="display: none"-->
       <div class="col-sm-6">
         <ol style="position: relative;">

@@ -129,7 +129,7 @@ export class AppComponent implements OnInit  {
               this.reportData = data;
               let dialogRef: MdDialogRef<ReportComponent>;
               let config = new MdDialogConfig();
-              config.height = '600px';
+              config.height = '400px';
               config.viewContainerRef = this.viewContainerRef;
               dialogRef = this.dialog.open(ReportComponent, config);
               dialogRef.componentInstance.data = data;
