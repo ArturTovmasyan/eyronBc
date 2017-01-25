@@ -1228,6 +1228,9 @@ class User extends BaseUser
 
     /**
      * @return null|string
+     * @VirtualProperty()
+     * @SerializedName("social_email")
+     * @Groups({"user"})
      */
     public function getSocialFakeEmail()
     {
