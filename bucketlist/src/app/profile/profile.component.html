@@ -195,6 +195,9 @@
                                 <span *ngIf="myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'all'">
                                     {{ 'my_bucket_list.doing_here'|translate}} <a routerLink="/goal/create" class="text-purple">{{ 'my_bucket_list.add_goal'|translate}}</a>
                                 </span>
+                                <span *ngIf="myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'owned'">
+                                    {{ 'my_bucket_list.doing_here'|translate}} <a routerLink="/goal/create" class="text-purple">{{ 'my_bucket_list.create_goal'|translate}}</a>
+                                </span>
                 <!--{% else %}-->
                                 <span *ngIf="!myProfile">
                                     {{ 'profile_empty'|translate}}
