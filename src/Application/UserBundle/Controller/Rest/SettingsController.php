@@ -223,6 +223,10 @@ class SettingsController extends FOSRestController
         //get email in request data
         $email = array_key_exists('email', $data) ? $data['email'] : null;
 
+        if(!$email) {
+            $email = $request->query->get('email');
+        }
+
         //check if email is empty
         if (!$email) {
 
