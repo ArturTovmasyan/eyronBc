@@ -10,6 +10,7 @@
 .goal-modal{
   width: 280px;
   margin: 0 auto;
+  overflow: hidden;
   text-align: left;
   .rounded-corners(6px);
 
@@ -203,6 +204,28 @@
   overflow: hidden;
 }
 
+.remove-icon{
+  position: absolute;
+  right: 3px;
+  top: 2px;
+  background-color: #ffffff;
+  padding:0 0 0 3px;
+  .icon-remove-video-link{
+    font-size: 25px;
+  }
+
+  &:hover,:focus{
+    text-decoration: none;
+  }
+}
+
+.story-title {
+  margin: 10px 0 15px;
+  font-size: 18px;
+  line-height: normal;
+  font-weight: normal;
+}
+
 @media (min-width: @screen-sm) {
   .goal-modal{
     width: 530px;
@@ -327,6 +350,10 @@
     line-height: 23px;
   }
 
+  .remove-icon{
+    right: 10px;
+  }
+
 }
 
 @media (min-width: @screen-md) {
@@ -387,4 +414,14 @@
   //    }
   //  }
   //}
+
+  .remove-icon{
+    .icon-remove-video-link{
+      font-size: 27px;
+    }
+  }
+
+  .relative{
+    margin-bottom:5px;
+  }
 }
