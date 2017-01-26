@@ -34,15 +34,14 @@ export class ProjectService {
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private base2Url = this.baseOrigin + this.envprefix + 'api/v2.0/' ;
-    private goalUrl =  this.baseUrl + 'goal/by-slug';  // URL to web API
+    private goalUrl =  this.baseUrl + 'goal/by-slug/';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
     private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
     private registrationUrl  = this.baseUrl + 'users';  // URL to web API
 
     //modals
     private reportUrl = this.baseUrl + 'report';
-    private commonUrl1 = this.baseUrl + 'goals/';
-    private commonUrl2 = '/common';
+    private commonUrl = '/common';
     private usersUrl = this.baseUrl + 'user-list/';
     // private friendsUrl = this.baseUrl + 'goals/';
 
@@ -140,7 +139,29 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     getGoal(slug:string):Observable<any> {
-        return this.http.get(this.goalUrl + '/' + slug)
+        return this.http.get(this.goalUrl + slug, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    getGoalMyId(id:number):Observable<any> {
+        return this.http.get(this.ideasUrl + id, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param id
+     * @returns {Observable<R>}
+     */
+    createGoal(data, id?:number):Observable<any> {
+        return this.http.put(this.ideasUrl + 'create' + (id?('/' + id):''), data, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
@@ -544,7 +565,7 @@ export class ProjectService {
      */
     getCommons(id:number, start?:number, count?:number):Observable<any> {
         let end = count?('/' + start + '/' + count):'';
-        return this.http.get(this.commonUrl1 + id + this.commonUrl2 + end, {headers: this.headers})
+        return this.http.get(this.ideasUrl + id + this.commonUrl + end, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }

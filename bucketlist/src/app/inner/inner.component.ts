@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../project.service';
-import {ActivatedRoute, Params} from '@angular/router';
 import { Broadcaster } from '../tools/broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { RouterModule, Routes, ActivatedRoute, Router, Params } from '@angular/router';
 
 import {Goal} from '../interface/goal';
 import {User} from '../interface/user';
 import {Story} from '../interface/story';
+import {UserGoal} from "../interface/userGoal";
 
 @Component({
   selector: 'app-inner',
@@ -29,6 +30,7 @@ export class InnerComponent implements OnInit {
   public isDesktop:boolean = (screen.width >= 992  && window.innerWidth >= 992);
   public stories:Story[];
   public appUser:User;
+  public userGoal:UserGoal;
 
   public config: Object = {
     pagination: '.swiper-pagination',
@@ -50,6 +52,7 @@ export class InnerComponent implements OnInit {
   };
 
   constructor(
+      private router: Router,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
       private broadcaster: Broadcaster,
@@ -75,8 +78,8 @@ export class InnerComponent implements OnInit {
     this.imgPath = this.serverPath + '/bundles/app/images/cover2.jpg';
     this.route.params.forEach((params:Params) => {
       let goalSlug = params['slug'];
-      if(params['id']){
-        this.type = 'view'
+      if(params['page']){
+        this.type = params['page']
       }
 
       // load data
@@ -102,6 +105,13 @@ export class InnerComponent implements OnInit {
               });
               if(this.goal){
                 this.stories = this.goal.success_stories;
+                if(this.goal.is_my_goal == 1 || this.goal.is_my_goal == 2){
+                  this._projectService.getUserGoal(this.goal.id)
+                      .subscribe(
+                          data => {
+                            this.userGoal = data;
+                          });
+                }
               }
 
               if (this.aphorisms.length > 1) {
@@ -130,6 +140,84 @@ export class InnerComponent implements OnInit {
     return (d1 < d2);
   }
 
+  manageGoal(){
+    if(this.userGoal){
+      this.broadcaster.broadcast('addModal', {
+        'userGoal': this.userGoal,
+        'newAdded' : false,
+        'newCreated' : false
+      });
+
+      this.broadcaster.on<any>('saveUserGoal_' + this.userGoal.id)
+          .subscribe(data => {
+            this.userGoal = data;
+            this.goal.is_my_goal = data.status;
+          });
+    }
+  }
+
+  add(id){
+    let key = localStorage.getItem('apiKey');
+    if(!key){
+      this.broadcaster.broadcast('openLogin', 'some message');
+    } else {
+      this._projectService.addUserGoal(id, {}).subscribe((data) => {
+        this.broadcaster.broadcast('addModal', {
+          'userGoal': data,
+          'newAdded' : true,
+          'newCreated' : false
+        });
+
+        this.broadcaster.on<any>('saveUserGoal_' + data.id)
+            .subscribe(data => {
+              this.userGoal = data;
+              this.goal.is_my_goal = data.status;
+            });
+      });
+    }
+    this.goal.is_my_goal = 1;
+  }
+
+  completeGoal(id, isManage){
+    this.goal.is_my_goal = 2;
+
+    if(isManage){
+      this._projectService.getStory(id).subscribe((data)=> {
+        this.userGoal = data;
+        this.broadcaster.broadcast('doneModal', {
+          'userGoal': data,
+          'newAdded' : false
+        });
+      })
+    } else {
+      this._projectService.setDoneUserGoal(id).subscribe(() => {
+        this._projectService.getStory(id).subscribe((data)=> {
+          this.userGoal = data;
+          this.broadcaster.broadcast('doneModal', {
+            'userGoal': data,
+            'newAdded' : true
+          });
+        })
+      });
+    }
+
+  }
+  
+  save(id){
+    this._projectService.addUserGoal(id, {}).subscribe((data) => {
+      this.broadcaster.broadcast('addModal', {
+        'userGoal': data,
+        'newAdded' : true,
+        'newCreated' : true
+      });
+      this.broadcaster.on<any>('saveUserGoal_' + data.id)
+          .subscribe(data => {
+            this.router.navigate(['/profile/my/all']);
+          });
+    });
+    
+  }
+  
   openUsersModal(id:number, count:number, category: number){
     if(!localStorage.getItem('apiKey') || !this.appUser){
       this.broadcaster.broadcast('openLogin', 'some message');
