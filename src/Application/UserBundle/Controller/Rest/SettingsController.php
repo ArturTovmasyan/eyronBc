@@ -328,6 +328,7 @@ class SettingsController extends FOSRestController
 
             //set for check user duplicate error
             $user->setEmail($primaryEmail);
+            $em->persist($user);
         }
 
         //set primary value in entity

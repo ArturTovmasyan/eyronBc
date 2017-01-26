@@ -52,12 +52,12 @@
                                         <div class="row">
                                             <div class="col-xs-2 text-center">
                                                 <md-radio-group formControlName="primary" name="primary">
-                                                    <md-radio-button value="{{ appUser.username }}" checked="true"></md-radio-button>
+                                                    <md-radio-button value="{{ email }}" checked="true"></md-radio-button>
                                                 </md-radio-group>
                                             </div>
 
                                             <div class="col-xs-10">
-                                                <input type="email" class="form-control" formControlName="email" id="bl_user_settings_email" readonly placeholder="{{ 'form.email'|translate }}">
+                                                <input type="email" class="form-control" formControlName="email" value="{{ email }}" id="bl_user_settings_email" readonly placeholder="{{ 'form.email'|translate }}">
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                     <div *ngFor="let item of userEmails" class="form-group row emails">
 
                                         <!--TODO must fix token error after add Email-->
-                                        <div *ngIf="!appUser.user_emails[item].token">
+                                        <div *ngIf="appUser.user_emails[item] && !appUser.user_emails[item].token">
                                             <div class="col-sm-3"></div>
                                             <div class="col-sm-9">
                                                 <div class="row">
@@ -129,29 +129,40 @@
                                 <div class="form-group row">
 
                                     <div class="col-sm-4 date">
-                                        <md-select placeholder="Month" formControlName="month">
-                                            <md-option *ngFor="let month of arrayMonth; let i=index" [value]="i+1">
+                                        <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" formControlName="month">
+                                            <md-option *ngFor="let month of arrayMonth; let i=index" [value]="i">
                                                 {{ month|translate }}
                                             </md-option>
                                         </md-select>
+
                                         <control-messages [control]="form.controls.month"></control-messages>
                                     </div>
 
                                     <div class="col-sm-4 date">
-                                        <md-select placeholder="Day" formControlName="day">
+
+                                        <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" formControlName="day">
+                                            <md-option [value]="0">
+                                                {{ 'form.birth_date_day'|translate }}
+                                            </md-option>
                                             <md-option *ngFor="let day of arrayDay" [value]="day">
                                                 {{ day }}
                                             </md-option>
                                         </md-select>
+
                                         <control-messages [control]="form.controls.day"></control-messages>
                                     </div>
 
                                     <div class="col-sm-4 date">
-                                        <md-select placeholder="Year" formControlName="year">
+
+                                        <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" formControlName="year">
+                                            <md-option [value]="0">
+                                                {{ 'form.birth_date_year'|translate }}
+                                            </md-option>
                                             <md-option *ngFor="let year of arrayYear" [value]="year">
                                                 {{ year }}
                                             </md-option>
                                         </md-select>
+
                                         <control-messages [control]="form.controls.year"></control-messages>
                                     </div>
 

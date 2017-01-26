@@ -19,7 +19,6 @@ export class SettingsComponent implements OnInit {
     type: string;
     appUser:any;
     form: FormGroup;
-    arrayMonth:string[] = [];
     arrayDay:number[] = [];
     arrayYear:number[] = [];
     currentLang: string;
@@ -29,6 +28,10 @@ export class SettingsComponent implements OnInit {
     errorMessage:any;
     item :any= [];
     saveMessage:any;
+    email:any;
+    day:any = 0;
+    month:any = 0;
+    year:any = 0;
 
     languages: any[] = [
         {
@@ -45,6 +48,23 @@ export class SettingsComponent implements OnInit {
         first: '',
         second: ''
     };
+
+    //create date value
+    public arrayMonth:Array<string> = [
+        'form.birth_date_month',
+        'form.month_january',
+        'form.month_february',
+        'form.month_march',
+        'form.month_april',
+        'form.month_may',
+        'form.month_june',
+        'form.month_july',
+        'form.month_august',
+        'form.month_september',
+        'form.month_october',
+        'form.month_november',
+        'form.month_december'
+    ];
 
     constructor(
         private _translate: TranslateService,
@@ -69,22 +89,6 @@ export class SettingsComponent implements OnInit {
             }
         });
 
-        //create date value
-        this.arrayMonth = [
-            'form.month_january',
-            'form.month_february',
-            'form.month_march',
-            'form.month_april',
-            'form.month_may',
-            'form.month_june',
-            'form.month_july',
-            'form.month_august',
-            'form.month_september',
-            'form.month_october',
-            'form.month_november',
-            'form.month_december'
-        ];
-
         this.createDays(31);
         this.createYears(1917, 2017);
 
@@ -104,6 +108,7 @@ export class SettingsComponent implements OnInit {
                 }
             }
         }
+        console.log(this.appUser);
     }
 
     ngOnInit() {
@@ -132,11 +137,20 @@ export class SettingsComponent implements OnInit {
         //get keys in userEmails object
         this.userEmails = Object.keys(this.appUser.user_emails);
 
+        console.log(this.userEmails);
+
         if(this.appUser.social_email) {
             this.socialEmail = this.appUser.social_email;
         } else{
             this.socialEmail = null;
         }
+
+        let birth = new Date(this.appUser.birth_date);
+
+        this.year = birth.getFullYear();
+        this.month = birth.getMonth() + 1;
+        this.day = birth.getDate();
+        this.email = this.appUser.username;
     }
 
 
@@ -154,9 +168,9 @@ export class SettingsComponent implements OnInit {
                 'primary' : ['', null],
                 'language' : [this.appUser.language, [Validators.required]],
                 'addEmail' : ['', null],
-                'month' : ['', null],
-                'year' : ['', null],
-                'day' : ['', null]
+                'month' : [this.month, null],
+                'year' : [this.year, null],
+                'day' : [this.day, null]
             }, {validator: ValidationService.passwordsEqual}
         );
     }
@@ -218,9 +232,11 @@ export class SettingsComponent implements OnInit {
                     console.log(data);
                     this._projectService.setMyUser(null);
                     this.appUser = data;
-                    // this.form.reset();
+                    this.userEmails = Object.keys(this.appUser.user_emails);
                     this.saveMessage = true;
                     this.errorMessage = null;
+                    this.email = this.appUser.username;
+                    console.log(this.email);
                 },
                 error => {
                     this.errorMessage = JSON.parse(error._body);
