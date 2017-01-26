@@ -129,16 +129,16 @@ export class SettingsComponent implements OnInit {
         // create form validation
         this.form = this.fb.group({
                 'file': ['', null],
-                'isCommentOnGoalNotify': [this.notifySettings.is_comment_on_goal_notify, null],
-                'isCommentOnIdeaNotify': [this.notifySettings.is_comment_on_idea_notify, null],
-                'isSuccessStoryOnGoalNotify': [this.notifySettings.is_success_story_on_goal_notify, null],
-                'isSuccessStoryOnIdeaNotify': [this.notifySettings.is_success_story_on_idea_notify, null],
-                'isSuccessStoryLikeNotify': [this.notifySettings.is_success_story_like_notify, null],
-                'isGoalPublishNotify' : [this.notifySettings.is_goal_publish_notify, null],
-                'isCommentReplyNotify' : [this.notifySettings.is_comment_reply_notify, null],
-                'isDeadlineExpNotify' : [this.notifySettings.is_deadline_exp_notify, null],
-                'isNewGoalFriendNotify' : [this.notifySettings.is_new_goal_friend_notify, null],
-                'isNewIdeaNotify' : [this.notifySettings.is_new_idea_notify, null]
+                'isCommentOnGoalNotify': [(this.notifySettings?this.notifySettings.is_comment_on_goal_notify:false), null],
+                'isCommentOnIdeaNotify': [(this.notifySettings?this.notifySettings.is_comment_on_idea_notify:false), null],
+                'isSuccessStoryOnGoalNotify': [(this.notifySettings?this.notifySettings.is_success_story_on_goal_notify:false), null],
+                'isSuccessStoryOnIdeaNotify': [(this.notifySettings?this.notifySettings.is_success_story_on_idea_notify:false), null],
+                'isSuccessStoryLikeNotify': [(this.notifySettings?this.notifySettings.is_success_story_like_notify:false), null],
+                'isGoalPublishNotify' : [(this.notifySettings?this.notifySettings.is_goal_publish_notify:false), null],
+                'isCommentReplyNotify' : [(this.notifySettings?this.notifySettings.is_comment_reply_notify:false), null],
+                'isDeadlineExpNotify' : [(this.notifySettings?this.notifySettings.is_deadline_exp_notify:false), null],
+                'isNewGoalFriendNotify' : [(this.notifySettings?this.notifySettings.is_new_goal_friend_notify:false), null],
+                'isNewIdeaNotify' : [(this.notifySettings?this.notifySettings.is_new_idea_notify:false), null]
             }
         );
     }

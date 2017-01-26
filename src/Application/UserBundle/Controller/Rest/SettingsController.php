@@ -9,6 +9,7 @@
 namespace Application\UserBundle\Controller\Rest;
 
 use Application\UserBundle\Entity\User;
+use Application\UserBundle\Entity\UserNotify;
 use Application\UserBundle\Form\ChangePasswordMobileType;
 use Application\UserBundle\Form\SettingsAngularType;
 use Application\UserBundle\Form\SettingsMobileType;
@@ -418,6 +419,10 @@ class SettingsController extends FOSRestController
         //get user notify
         $userNotify = $user->getUserNotifySettings();
 
+        if(!$userNotify) {
+            $userNotify = new UserNotify();
+        }
+
         // create goal form
         $form = $this->createForm(UserNotifyAngularType::class, $userNotify);
 
@@ -430,7 +435,8 @@ class SettingsController extends FOSRestController
             //get uploadFile service for load profile pictures
 //            $this->container->get('bl_service')->uploadFile($user);
 
-            $em->persist($userNotify);
+            $user->setUserNotifySettings($userNotify);
+            $em->persist($user);
             $em->flush();
 
             return new JsonResponse('', Response::HTTP_NO_CONTENT);
