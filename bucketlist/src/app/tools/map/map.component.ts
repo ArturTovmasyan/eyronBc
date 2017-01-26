@@ -52,10 +52,17 @@ export class MapComponent implements OnInit {
       this.bounds = new google.maps.LatLngBounds(null);
       if(this.locations){
         for(let location of this.locations){
-          this.bounds.extend({
-            lat: location.latitude,
-            lng: location.longitude
-          });
+          if(this.locations.length > 1){
+            this.bounds.extend({
+              lat: location.latitude,
+              lng: location.longitude
+            });
+          } else {
+            this.zoom = 15;
+            this.latitude = location.latitude;
+            this.longitude = location.longitude;
+          }
+
         }
 
       }
