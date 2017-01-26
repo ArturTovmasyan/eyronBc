@@ -68,6 +68,8 @@ export class ProjectService {
     private removeEmailUrl = this.baseUrl + 'settings/email';
     private changeSettingsUrl = this.baseUrl + 'user/update';
     private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
+    private getNotifySettingsUrl = this.baseUrl + 'user/notify-settings';
+
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
     private overallUrl = this.baseUrl + 'user/overall?';
@@ -689,9 +691,20 @@ export class ProjectService {
      * @param data
      * @returns {Observable<R>}
      */
-    saveNotifySettings(data:any) {
-        return this.http.post(this.changeNotifySettingsUrl, {'bl_user_notify_type':data}, {headers: this.headers})
-            .map((r:Response) => r.json());
+    postNotifySettings(data:any) {
+        return this.http.post(this.changeNotifySettingsUrl, {'bl_user_notify_angular_type':data}, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getNotifySettings() {
+        return this.http.get(this.getNotifySettingsUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
     }
 
     /**

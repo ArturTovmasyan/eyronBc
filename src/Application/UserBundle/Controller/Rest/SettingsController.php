@@ -12,7 +12,7 @@ use Application\UserBundle\Entity\User;
 use Application\UserBundle\Form\ChangePasswordMobileType;
 use Application\UserBundle\Form\SettingsAngularType;
 use Application\UserBundle\Form\SettingsMobileType;
-use Application\UserBundle\Form\Type\UserNotifyType;
+use Application\UserBundle\Form\Type\UserNotifyAngularType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -384,19 +384,19 @@ class SettingsController extends FOSRestController
      *         401="Unauthorized user",
      *     },
      * parameters={
-     *      {"name"="bl_user_notify_type[isCommentOnGoalNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
-     *      {"name"="bl_user_notify_type[isCommentOnIdeaNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
-     *      {"name"="bl_user_notify_type[isSuccessStoryOnGoalNotify]", "dataType"="email", "required"=false, "description"="User isCommentOnGoalNotify value"},
-     *      {"name"="bl_user_notify_type[isSuccessStoryOnIdeaNotify]", "dataType"="email", "required"=false, "description"="User isCommentOnGoalNotify value"},
-     *      {"name"="bl_user_notify_type[isSuccessStoryLikeNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
-     *      {"name"="bl_user_notify_type[isGoalPublishNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
-     *      {"name"="bl_user_notify_type[isCommentReplyNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value"},
-     *      {"name"="bl_user_notify_type[isDeadlineExpNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value"},
-     *      {"name"="bl_user_notify_type[isNewGoalFriendNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value1"},
-     *      {"name"="bl_user_notify_type[isNewIdeaNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_angular_type[isCommentOnGoalNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_angular_type[isCommentOnIdeaNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_angular_type[isSuccessStoryOnGoalNotify]", "dataType"="email", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_angular_type[isSuccessStoryOnIdeaNotify]", "dataType"="email", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_angular_type[isSuccessStoryLikeNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_angular_type[isGoalPublishNotify]", "dataType"="string", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_angular_type[isCommentReplyNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_angular_type[isDeadlineExpNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value"},
+     *      {"name"="bl_user_notify_angular_type[isNewGoalFriendNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value1"},
+     *      {"name"="bl_user_notify_angular_type[isNewIdeaNotify]", "dataType"="boolean", "required"=false, "description"="User isCommentOnGoalNotify value"},
      * }
      * )
-     * @Rest\View(serializerGroups={"user", "completed_profile"})
+     * @Rest\View()
      * @Secure("ROLE_USER")
      */
     public function postEditNotifyAction(Request $request)
@@ -409,14 +409,17 @@ class SettingsController extends FOSRestController
             $request->request->add(json_decode($content, true));
         }
 
-        //get current user
-        $user = $this->getUser();
-
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        //get current user
+        $user = $this->getUser();
+
+        //get user notify
+        $userNotify = $user->getUserNotifySettings();
+
         // create goal form
-        $form = $this->createForm(UserNotifyType::class, $user);
+        $form = $this->createForm(UserNotifyAngularType::class, $userNotify);
 
         // get data from request
         $form->handleRequest($request);
@@ -425,15 +428,12 @@ class SettingsController extends FOSRestController
         if ($form->isValid()) {
 
             //get uploadFile service for load profile pictures
-            $this->container->get('bl_service')->uploadFile($user);
+//            $this->container->get('bl_service')->uploadFile($user);
 
-            $em->persist($user);
+            $em->persist($userNotify);
             $em->flush();
 
-            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($user);
-
-            return $user;
-
+            return new JsonResponse('', Response::HTTP_NO_CONTENT);
         }
         else{
 
@@ -455,5 +455,28 @@ class SettingsController extends FOSRestController
             return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
 
         }
+    }
+
+    /**
+     * @Rest\Get("/user/notify-settings")
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Settings",
+     *  description="This function is used to get user notify settings",
+     *  statusCodes={
+     *         200="OK",
+     *     },
+     * )
+     * @Rest\View(serializerGroups={"settings"})
+     * @Secure("ROLE_USER")
+     */
+    public function getUserNotifySettingsAction()
+    {
+        //get current user
+        $user = $this->getUser();
+
+        $notifySettings = $user->getUserNotifySettings();
+
+        return $notifySettings;
     }
 }

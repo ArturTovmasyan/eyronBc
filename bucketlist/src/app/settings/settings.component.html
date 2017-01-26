@@ -18,8 +18,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <div class="settings bg-white round">
+                <div class="settings bg-white round" *ngIf="ready">
                     <form action="#" method="POST" [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="saveUserData(form.value)" class="form-horizontal text-center">
+
+                        <!--<i <input type="file" id="file" formControlName="file" name="file" (change)="showUploadedImage($event)">-->
+
                         <div *ngIf="type == 'profile'" class="row">
                             <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0">
 
@@ -27,7 +30,10 @@
                                     <strong>Well done!</strong> You successfully change your profile data.
                                 </div>
 
-                                <!--<i <input type="file" id="file" formControlName="file" name="file" (change)="showUploadedImage($event)">-->
+                                <div *ngIf="removeMessage" class="alert alert-success" role="alert">
+                                    Your email has been successfully removed.
+                                </div>
+
                                 <div class="form-group row no-padding">
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" formControlName="firstName" placeholder="{{ 'form.firstName'|translate }}">
@@ -185,57 +191,62 @@
                         </div>
 
                         <div *ngIf="type == 'notification'">
+
+                            <div *ngIf="saveMessage" class="alert alert-success" role="alert">
+                                <strong>Well done!</strong> You successfully change your profile data.
+                            </div>
+
                             <h3>{{ 'user.notify_settings_text'|translate }}</h3>
                             <hr />
 
                             <div class="row">
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isCommentOnGoalNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.comment_goal'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.comment_goal_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isCommentOnIdeaNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.comment_idea'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.comment_idea_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isSuccessStoryOnGoalNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_goal'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.success_story_goal_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isSuccessStoryOnIdeaNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_idea'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.success_story_idea_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isSuccessStoryLikeNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.success_story_like'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.success_story_like_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isGoalPublishNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.publish_goal'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.publish_goal_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isCommentReplyNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.reply_comment'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.reply_comment_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isDeadlineExpNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.deadline'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.deadline_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isNewGoalFriendNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.new_goalfriend'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.new_goalfriend_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
-                                <md-slide-toggle>
+                                <md-slide-toggle formControlName="isNewIdeaNotify">
                                     <strong class="text-grey-dark center-block">{{ 'notify_settings.new_idea'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.new_idea_desc'|translate }}</strong>
                                 </md-slide-toggle>
