@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer } from '@angular/core';
 import { ProjectService} from '../project.service';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
-import { Router } from '@angular/router';
+import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+
 import { Broadcaster} from '../tools/broadcaster';
 
 import {Goal} from '../interface/goal';
@@ -17,23 +18,24 @@ export class GoalCreateComponent implements OnInit {
     public disablePreview:boolean = false;
     public isPrivate:boolean = false;
     public id:number;
+    public tags:any[];
+    public files:any[] = [];
+    public existingFiles:any[] = [];
+    public language:string;
+    public videos_array:string[] = [];
+    public title: string = '' ;
+    public description: string = '' ;
+    
     public imageCount:number = 6;
     public showIdeas:boolean = true;
     public haveIdeas:boolean = false;
     public isMore:boolean = false;
-    public tags:any[];
-    public files:any[] = [];
-    public existingFiles:any[] = [];
-    public images:any[];
-    public language:string;
-    public videos_array:string[] = [];
-    
-    public title: string = '' ;
-    public description: string = '' ;
     public start: number = 0;
     public count: number = 3;
     public writeTimeout: any;
     public appUser: User;
+    public eventId: any;
+    public slug: any;
     public languages: any[] = [
      {
         value:'en',
@@ -53,12 +55,49 @@ export class GoalCreateComponent implements OnInit {
      }
     ];
     public goals: Goal[];
+    public goal: Goal;
     constructor(
       private router: Router,
+      private route: ActivatedRoute,
+      public renderer: Renderer,
       private broadcaster: Broadcaster,
       private _projectService: ProjectService,
       private _cacheService: CacheService
-    ) {}
+    ) {
+        router.events.subscribe((val) => {
+            if(this.eventId != val.id && val instanceof NavigationEnd){
+                this.eventId = val.id;
+                this.id = this.route.snapshot.params['id'];
+                this.slug = this.route.snapshot.params['status'];
+                this.isPrivate = (this.slug && this.slug != 'draft');
+                if(this.id){
+                    this._projectService.getGoalMyId(this.id)
+                        .subscribe(
+                        data => {
+                            this.goal = data.goal;
+                            this.isPublic = this.goal.status;
+                            this.title = this.goal.title;
+                            this.description = this.goal.description;
+                            this.changeDescription();
+                            this.language = this.goal.language;
+                            this.existingFiles = this.goal.images;
+                            for(let file of this.existingFiles){
+                                this.files.push(file.id);
+                            }
+
+                            if(this.goal.video_link && this.goal.video_link.length){
+                                this.videos_array = this.goal.video_link;
+                            }
+
+                            this.videos_array.push('');
+
+                        })
+                } else {
+                    this.videos_array.push('');
+                }
+            }
+        })
+    }
     
     ngOnInit() {
       this.appUser = this._projectService.getMyUser();
@@ -86,25 +125,86 @@ export class GoalCreateComponent implements OnInit {
     
     preview(){
     if(this.disablePreview)return;
+        let video_link = [];
+        for(let i = 0; i < this.videos_array.length; i++){
+            if(this.videos_array[i] && this.isVideoLink(this.videos_array[i])){
+                video_link.push(this.videos_array[i]);
+            }
+        }
+
+        this._projectService.createGoal({
+            'is_public': this.isPublic,
+            'title': this.title,
+            'description': this.description,
+            'video_links': this.videos_array,
+            'language': this.language,
+            'files' : this.files,
+            'tags' : this.tags
+        },this.id)
+            .subscribe(
+                (data) => {
+                    this.router.navigate(['/goal/' + data.slug + '/view']);
+                });
     }
 
     createDraft(){
-        this.router.navigate(['/goal/my-ideas/drafts']);
+        let video_link = [];
+        for(let i = 0; i < this.videos_array.length; i++){
+            if(this.videos_array[i] && this.isVideoLink(this.videos_array[i])){
+                video_link.push(this.videos_array[i]);
+            }
+        }
+        
+        this._projectService.createGoal({
+            'is_public': this.isPublic,
+            'title': this.title,
+            'description': this.description,
+            'video_links': this.videos_array,
+            'language': this.language,
+            'files' : this.files,
+            'tags' : this.tags
+        },this.id)
+            .subscribe(
+                () => {
+                    this.router.navigate(['/goal/my-ideas/drafts']);
+                });
     }
 
+    isVideoLink(url){
+        return !(!url || url.indexOf("https:/") == -1);
+    };
+    
     save(){
-        let id = 0;
-        this._projectService.addUserGoal(id, {}).subscribe((data) => {
-            this.broadcaster.broadcast('addModal', {
-                'userGoal': data,
-                'newAdded' : true,
-                'newCreated' : true
-            });
-            this.broadcaster.on<any>('saveUserGoal_' + data.id)
-                .subscribe(data => {
-                    this.router.navigate(['/profile/my/all']);
+        let video_link = [];
+        for(let i = 0; i < this.videos_array.length; i++){
+            if(this.videos_array[i] && this.isVideoLink(this.videos_array[i])){
+                video_link.push(this.videos_array[i]);
+            }
+        }
+        
+        this._projectService.createGoal({
+            'is_public': this.isPublic,
+            'title': this.title,
+            'description': this.description,
+            'video_links': video_link,
+            'language': this.language,
+            'files' : this.files,
+            'tags' : this.tags
+        }, this.id)
+            .subscribe(
+                (d) => {
+                    this._projectService.addUserGoal(d.id, {}).subscribe((data) => {
+                        this.broadcaster.broadcast('addModal', {
+                            'userGoal': data,
+                            'newAdded' : true,
+                            'newCreated' : true
+                        });
+                        this.broadcaster.on<any>('saveUserGoal_' + data.id)
+                            .subscribe(data => {
+                                this.router.navigate(['/profile/my/all']);
+                            });
+                    });
                 });
-        });
     }
     
     getGoals(){

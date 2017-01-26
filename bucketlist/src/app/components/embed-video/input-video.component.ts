@@ -10,7 +10,8 @@ export class InputVideoComponent implements OnInit {
   @Input() key: any;
   @Input() link: any;
   @Input() limit: number;
-  
+
+  public writeTimeout:any;
   constructor() {}
 
   ngOnInit() {
@@ -29,16 +30,21 @@ export class InputVideoComponent implements OnInit {
     }
   };
 
-  changeLink(){
-    if(this.array[this.key] === ''){
+  changeLink(ev){
+    if(ev === ''){
       this.removeItem();
     }
     else {
-      if(!this.array[this.key + 1] && this.array.length < this.limit){
-        setTimeout(()=>{
-          this.array.push('');
-        }, 100)
-      }
+      clearTimeout(this.writeTimeout);
+      this.writeTimeout = setTimeout(() =>{
+        this.array[this.key] = ev;
+
+        if(!this.array[this.key + 1] && this.array[this.key + 1] != '' && this.array.length < this.limit){
+          setTimeout(()=>{
+            this.array.push('');
+          }, 200)
+        }
+      }, 600);
     }
   }
   isVideoLink(url){
