@@ -2314,6 +2314,12 @@ footer .footer-bottom ul li a:hover {
 .hr-margin {
   margin: 5px 0 10px;
 }
+md-select .md-select-placeholder {
+  color: transparent;
+}
+md-select .md-select-value {
+  color: #3c3c3c;
+}
 @media (min-width: 768px) {
   header .navbar {
     min-height: 82px;
