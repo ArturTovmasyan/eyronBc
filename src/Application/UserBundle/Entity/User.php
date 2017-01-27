@@ -1577,7 +1577,7 @@ class User extends BaseUser
     public function getUserGoalCount()
     {
         if (is_null($this->userGoalCount)){
-            $this->userGoalCount = $this->userGoal->count();
+            $this->userGoalCount = $this->userGoal ? $this->userGoal->count() : 0;
         }
 
         return $this->userGoalCount;
