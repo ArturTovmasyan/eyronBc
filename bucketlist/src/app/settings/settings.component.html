@@ -180,9 +180,6 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 language lng">
                                         <md-select placeholder="Language" style="width: 100%" formControlName="language">
-                                            <md-option [value]="">
-                                                Language
-                                            </md-option>
                                             <md-option *ngFor="let language of languages" [value]="language.value">
                                                 {{ language.name }}
                                             </md-option>

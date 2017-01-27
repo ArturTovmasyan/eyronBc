@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
     userEmails:any;
     socialEmail:any;
     errorMessage:any;
-    lng:any = '';
+    lng:any = 'en';
     item :any= [];
     saveMessage:any;
     removeMessage:any;
