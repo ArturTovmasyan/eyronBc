@@ -209,7 +209,7 @@ class SettingsController extends FOSRestController
      *      {"name"="email", "dataType"="string", "required"=true, "description"="User`s email"},
      * }
      * )
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"user", "completed_profile"})
      * @Secure("ROLE_USER")
      */
     public function deleteEmailAction(Request $request)
@@ -259,7 +259,7 @@ class SettingsController extends FOSRestController
             $em->persist($user);
             $em->flush();
 
-            return new Response('', Response::HTTP_OK);
+           return $user;
         }
 
         // return 404 if email is empty

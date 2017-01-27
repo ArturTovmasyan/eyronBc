@@ -692,7 +692,7 @@ export class ProjectService {
      */
     removeUserEmail(email:string) {
         return this.http.delete(this.removeEmailUrl+'?email='+email, {headers: this.headers})
-            .map((r:Response) => r)
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 

@@ -206,6 +206,19 @@ export class SettingsComponent implements OnInit {
    }
 
     /**
+     * This function is used to refresh user data and form
+     *
+     * @param data
+     */
+   refreshUserAndForm(data:any)
+   {
+       this._projectService.setMyUser(null);
+       this.appUser = data;
+       this._cacheService.set('user_', this.appUser, {maxAge: 3 * 24 * 60 * 60});
+       this.form = null;
+   }
+
+    /**
      *
      * @param form
      */
@@ -245,12 +258,9 @@ export class SettingsComponent implements OnInit {
             this._projectService.saveUserData(form)
                 .subscribe(
                     (data) => {
-                        this._projectService.setMyUser(null);
-                        this.appUser = data;
-                        this._cacheService.set('user_', this.appUser, {maxAge: 3 * 24 * 60 * 60});
                         this.saveMessage = true;
                         this.errorMessage = null;
-                        this.form = null;
+                        this.refreshUserAndForm(data);
                         this.initProfileForm();
                     },
                     error => {
@@ -321,9 +331,9 @@ export class SettingsComponent implements OnInit {
   removeEmail(email:string) {
         this._projectService.removeUserEmail(email)
             .subscribe(
-                () => {
-                    this._projectService.setMyUser(null);
+                (data) => {
                     this.removeMessage = true;
+                    this.refreshUserAndForm(data);
                     this.initProfileForm();
                 },
                 error => {
