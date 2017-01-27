@@ -453,3 +453,9 @@
     height: 925px;
   }
 }
+md-select .md-select-placeholder {
+  color: transparent;
+}
+md-select .md-select-value {
+  color: #3c3c3c;
+}
