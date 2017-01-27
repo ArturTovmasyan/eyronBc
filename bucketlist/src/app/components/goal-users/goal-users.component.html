@@ -1,12 +1,12 @@
 <a *ngIf="type == 1" (click)="openUsersModal(goal.id, goal.stats.listedBy, type)">
-  <span>
+  <span class="text-white">
       {{ 'home_listed_by' | translate }}
       {{ goal.stats.listedBy }}
   </span>
   <i class="icon-user-small"></i>
 </a>
 <a *ngIf="type == 2" (click)="openUsersModal(goal.id, goal.stats.doneBy, type)">
-  <span>
+  <span class="text-white">
       {{ 'home_complete' | translate }}
       {{ goal.stats.doneBy }}
   </span>

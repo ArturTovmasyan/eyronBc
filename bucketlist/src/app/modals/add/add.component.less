@@ -19,6 +19,10 @@
     display: inline-block;
     vertical-align: middle;
     color: #a3a3a3;
+
+    &.icon-user-small{
+      color: #ffffff;
+    }
   }
 
   .location {
@@ -44,6 +48,7 @@
 .modal-top{
   position: relative;
   overflow: hidden;
+  height: 158px;
 
   div{
     position: absolute;
@@ -92,6 +97,10 @@
   figure{
     position: absolute;
     width: 100%;
+
+    img{
+      width: 100%;
+    }
   }
 
   .overlay{
@@ -102,8 +111,9 @@
 
 .goal-add{
   background-color: #ffffff;
-  padding:10px 10px 0;
+  padding: 10px 15px 0;
   margin-bottom: 50px;
+  .rounded-corners-bottom(8px);
 
   h3{
     font-size:17px;
@@ -188,10 +198,25 @@
   min-height:840px;
   height:auto !important;
   height:840px;
+  .rounded-corners(8px);
+  overflow: hidden;
 
   img{
     position: absolute;
     width:100%;
+  }
+
+  .icon-eye{
+    font-size: 41px;
+    margin: -3px 0 -6px -8px;
+  }
+
+  .icon-eye-icon{
+    font-size: 26px;
+    margin:0 7px 0 0;
+    vertical-align: middle;
+    padding-top: 5px;
+    height: 32px;
   }
 }
 
@@ -222,6 +247,47 @@
       background-color: #ffffff;
     }
   }
+}
+
+.delete-message{
+  top:0;
+  text-align:center;
+  padding:40px 0 50px;
+  position: absolute;
+  display: block;
+  width:100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 100;
+  left: 0;
+  min-height: 100%;
+
+  div{
+    height:100%;
+    top:50%;
+    position: absolute;
+    width: 100%;
+  }
+
+  h3{
+    color:#ffffff !important;
+    padding:0 0 23px 0;
+    font-size:13px;
+    line-height:24px;
+    margin:0;
+  }
+
+  .btn{
+    font-size:13px;
+    padding:5px 12px;
+    margin-right:20px;
+    &:hover{
+      border:1px solid #6108EA;
+    }
+  }
+  .btn-purple{
+    border:1px solid #7724F6;
+  }
+
 }
 
 @media (min-width: @screen-sm) {
@@ -346,18 +412,18 @@
     height:auto !important;
     height:900px;
 
-    .icon-eye{
-      font-size: 41px;
-      margin: -3px 0 -6px -8px;
-    }
-
-    .icon-eye-icon{
-      font-size: 26px;
-      margin:0 7px 0 0;
-      vertical-align: middle;
-      padding-top: 5px;
-      height: 32px;
-    }
+    //.icon-eye{
+    //  font-size: 41px;
+    //  margin: -3px 0 -6px -8px;
+    //}
+    //
+    //.icon-eye-icon{
+    //  font-size: 26px;
+    //  margin:0 7px 0 0;
+    //  vertical-align: middle;
+    //  padding-top: 5px;
+    //  height: 32px;
+    //}
   }
 
   .email{
@@ -365,6 +431,22 @@
     font-size:14px;
     span{
       font-size:14px;
+    }
+  }
+
+  .delete-message{
+    padding:55px 0 50px;
+
+    h3{
+      padding:0 0 40px 0;
+      font-size:25px;
+      line-height:40px;
+    }
+
+    .btn{
+      font-size:15px;
+      padding:6px 12px;
+      margin-right:20px;
     }
   }
 }
@@ -422,5 +504,15 @@
     min-height:925px;
     height:auto !important;
     height:925px;
+  }
+}
+
+
+md-select{
+  .md-select-placeholder{
+    color: transparent;
+  }
+  .md-select-value{
+    color: #3c3c3c;
   }
 }

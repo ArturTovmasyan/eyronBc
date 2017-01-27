@@ -4,6 +4,12 @@ import {Location} from "./location";
 export interface Goal {
     id: number,
     title: string,
+    description?: string,
+    publish?: boolean,
+    images?: any[],
+    video_link?: any[],
+    status?: boolean,
+    language?: string,
     slug: string,
     location?: Location,
     is_my_goal?: number,

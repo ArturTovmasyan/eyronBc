@@ -220,6 +220,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * @Assert\NotBlank(groups={"goal"}, message = "Language can't be blank")
      * @ORM\Column(name="language", type="string", length=3, nullable=true)
+     * @Groups({"goal"})
      * @var
      */
     protected $language = "en";

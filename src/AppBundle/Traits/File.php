@@ -65,7 +65,7 @@ trait File
 
     /**
      * @ORM\Column(name="file_name", type="string", length=70, nullable=true)
-     * @Groups({"image"})
+     * @Groups({"image", "image_info"})
      */
     protected $fileName;
 

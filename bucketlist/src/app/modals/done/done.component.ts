@@ -237,7 +237,13 @@ export class DoneComponent implements OnInit {
     if(this.noStory){
       // angular.element('textarea[name=story]').addClass('border-red');
       return;
+    } else {
+      if(!this.story){
+        this.dialogRef.close(this.userGoal);
+        return;
+      }
     }
+
     if(!this.clickable){
       return;
     }

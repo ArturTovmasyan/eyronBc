@@ -42,7 +42,7 @@
           [infiniteScrollThrottle]="500"
           (scrolled)="onScroll()">
         <!--{% for goal in goals %}-->
-        <div class="col-sm-6 col-md-4" *ngFor="let goal of goals">
+        <div class="col-sm-6 col-md-4" *ngFor="let goal of goals;let i = index">
             <figure class="relative">
                 <h3>
                     <a href="">{{ goal.title }}</a>
@@ -58,7 +58,7 @@
                 <!--{% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}-->
                 </a>
                 <figcaption>
-                  <draft-footer></draft-footer>
+                  <draft-footer [goals]="goals" [index]="i" [slug]="type"></draft-footer>
                   <!--{%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}-->
                 </figcaption>
             </figure>
