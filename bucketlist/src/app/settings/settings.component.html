@@ -196,7 +196,7 @@
                                 <strong>Well done!</strong> You successfully change your profile data.
                             </div>
 
-                            <h3>{{ 'user.notify_settings_text'|translate }}</h3>
+                            <h3 class="text-left">{{ 'user.notify_settings_text'|translate }}</h3>
                             <hr />
 
                             <div class="row">
@@ -232,7 +232,7 @@
                                 </md-slide-toggle>
 
                                 <md-slide-toggle formControlName="isCommentReplyNotify">
-                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.reply_comment'|translate }}</strong>
+                                    <strong class="text-grey-dark text-left center-block">{{ 'notify_settings.reply_comment'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.reply_comment_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
@@ -253,11 +253,11 @@
 
                             </div>
 
-                            <hr />
-
                         </div>
 
-                        <div class="form-group">
+                        <hr />
+
+                        <div class="text-left">
                             <button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</button>
                         </div>
                     </form>
