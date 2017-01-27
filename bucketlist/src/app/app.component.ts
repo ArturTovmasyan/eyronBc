@@ -117,7 +117,7 @@ export class AppComponent implements OnInit  {
               this.commonId = id;
               let dialogRef: MdDialogRef<CommonComponent>;
               let config = new MdDialogConfig();
-              config.height = '600px';
+              // config.height = '600px';
               config.viewContainerRef = this.viewContainerRef;
               dialogRef = this.dialog.open(CommonComponent, config);
               dialogRef.componentInstance.id = id;
@@ -175,9 +175,16 @@ export class AppComponent implements OnInit  {
                   if(result){
                       if(result.remove){
                           this.broadcaster.broadcast('removeUserGoal_' + result.remove, result.remove);
+                          this.broadcaster.broadcast('removeGoal', result.remove);
+                          this.broadcaster.broadcast('removeGoal'+data.userGoal.goal.id, data.userGoal.goal.id);
                       } else {
                           this.broadcaster.broadcast('saveUserGoal_' + result.id, result);
+                          this.broadcaster.broadcast('saveGoal', result);
+                          this.broadcaster.broadcast('saveGoal'+result.goal.id, result);
                       }
+                  } else {
+                      this.broadcaster.broadcast('addGoal', result);
+                      this.broadcaster.broadcast('addGoal'+data.userGoal.goal.id, result);
                   }
               });
               // this.addModal = true;
@@ -185,6 +192,7 @@ export class AppComponent implements OnInit  {
 
       this.broadcaster.on<any>('doneModal')
           .subscribe(data => {
+              this.broadcaster.broadcast('doneGoal', data);
               this.doneData = data;
               this.addData = data;
               let dialogRef: MdDialogRef<DoneComponent>;
