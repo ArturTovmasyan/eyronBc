@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
     arrayDay:number[] = [];
     arrayYear:number[] = [];
     currentLang: string;
-    token:boolean = false;
+    token:boolean = true;
     ready:boolean = false;
     userEmails:any;
     socialEmail:any;
@@ -146,9 +146,9 @@ export class SettingsComponent implements OnInit {
     initProfileForm() {
 
         if(this.appUser.user_emails) {
-            
-            //get keys in userEmails object
             this.userEmails = Object.keys(this.appUser.user_emails);
+            this.checkEmailToken(this.appUser);
+
         } else{
             this.userEmails = null;
         }
@@ -158,6 +158,8 @@ export class SettingsComponent implements OnInit {
         } else{
             this.socialEmail = null;
         }
+
+        this.email = this.appUser.username;
 
         let birth = new Date(this.appUser.birth_date);
         this.year = birth.getFullYear();
@@ -170,17 +172,17 @@ export class SettingsComponent implements OnInit {
                 'file': ['', null],
                 'firstName': [this.appUser.first_name, [Validators.required]],
                 'lastName': [this.appUser.last_name, [Validators.required]],
-                'email': [this.appUser.username, [ValidationService.emailValidator, Validators.required]],
-                'currentPassword': ['', [Validators.minLength(6), ValidationService.passwordValidator]],
-                'password': ['', [Validators.minLength(6), ValidationService.passwordValidator]],
+                'email': [this.email, [ValidationService.emailValidator, Validators.required]],
+                'currentPassword': ['', [Validators.minLength(6)]],
+                'password': ['', [Validators.minLength(6)]],
                 'plainPassword' : ['', [Validators.minLength(6)]],
-                'primary' : ['', null],
+                'primary' : [this.email, null],
                 'language' : [this.appUser.language, [Validators.required]],
                 'addEmail' : ['', null],
                 'month' : [this.month, null],
                 'year' : [this.year, null],
                 'day' : [this.day, null]
-            }, {validator: ValidationService.passwordsEqual}
+            }, {validator: ValidationService.passwordsEqualValidator}
         );
     }
 
@@ -201,6 +203,19 @@ export class SettingsComponent implements OnInit {
 
     getUserInfoByType(){
       this.currentLang = this._translate.currentLang;
+   }
+
+    /**
+     * This function is used to refresh user data and form
+     *
+     * @param data
+     */
+   refreshUserAndForm(data:any)
+   {
+       this._projectService.setMyUser(null);
+       this.appUser = data;
+       this._cacheService.set('user_', this.appUser, {maxAge: 3 * 24 * 60 * 60});
+       this.form = null;
    }
 
     /**
@@ -243,13 +258,9 @@ export class SettingsComponent implements OnInit {
             this._projectService.saveUserData(form)
                 .subscribe(
                     (data) => {
-                        this._projectService.setMyUser(null);
-                        this.appUser = data;
-                        this.userEmails = Object.keys(this.appUser.user_emails);
                         this.saveMessage = true;
                         this.errorMessage = null;
-                        this.email = this.appUser.username;
-                        this.form = null;
+                        this.refreshUserAndForm(data);
                         this.initProfileForm();
                     },
                     error => {
@@ -272,6 +283,25 @@ export class SettingsComponent implements OnInit {
         }
 
         console.log(form);
+    }
+
+    /**
+     *
+     * @param user
+     */
+    checkEmailToken(user)
+    {
+        let emailKey = Object.keys(user.user_emails);
+
+        for(let key of emailKey)
+        {
+            let emailsData = this.appUser.user_emails[key];
+
+            if(emailsData && emailsData.token) {
+                this.token = false;
+                break;
+            }
+        }
     }
 
     /**
@@ -301,9 +331,9 @@ export class SettingsComponent implements OnInit {
   removeEmail(email:string) {
         this._projectService.removeUserEmail(email)
             .subscribe(
-                () => {
-                    this._projectService.setMyUser(null);
+                (data) => {
                     this.removeMessage = true;
+                    this.refreshUserAndForm(data);
                     this.initProfileForm();
                 },
                 error => {

@@ -14,6 +14,7 @@
 .goal-modal {
   width: 280px;
   margin: 0 auto;
+  overflow: hidden;
   text-align: left;
   border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -53,53 +54,6 @@
   margin-top: 10px;
   font-weight: 400;
 }
-.modal-top {
-  position: relative;
-  overflow: hidden;
-}
-.modal-top i {
-  color: #ffffff;
-}
-.modal-top div {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-.modal-top h2 {
-  color: #fff;
-  margin: 10px 0 5px 10px;
-  font-size: 18px;
-  white-space: normal;
-  word-wrap: break-word;
-  line-height: 28px;
-  height: 30px;
-  width: 260px;
-  overflow: hidden;
-  padding: 0;
-}
-.modal-top h2 span {
-  background-color: #021523;
-  display: inline-block;
-  padding: 0 5px 5px;
-}
-.modal-top ul {
-  padding: 0 0 0 15px;
-}
-.modal-top ul li {
-  display: inline-block;
-}
-.modal-top a {
-  color: #fff;
-  font-size: 12px;
-}
-.modal-top figure {
-  position: absolute;
-  width: 100%;
-}
-.modal-top .overlay {
-  height: 260px;
-  background: rgba(0, 0, 0, 0.28);
-}
 .priority {
   padding-top: 10px;
 }
@@ -109,6 +63,53 @@
   height: 30px;
   width: 260px;
   overflow: hidden;
+}
+.remove-icon {
+  position: absolute;
+  right: 3px;
+  top: 2px;
+  background-color: #ffffff;
+  padding: 0 0 0 3px;
+}
+.remove-icon .icon-remove-video-link {
+  font-size: 25px;
+}
+.remove-icon:hover,
+.remove-icon :focus {
+  text-decoration: none;
+}
+.story-title {
+  margin: 10px 0 15px;
+  font-size: 18px;
+  line-height: normal;
+  font-weight: normal;
+}
+.email {
+  padding: 5px;
+  text-align: center;
+  position: relative;
+  background: #7724F6;
+  color: #ffffff;
+  z-index: 10;
+  font-size: 12px;
+}
+.email span {
+  display: inline-block;
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+.email a {
+  margin: 5px 0 0 5px;
+  display: inline-block;
+  font-weight: bold;
+  padding: 2px 5px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  font-size: 12px;
+}
+.email a:hover {
+  color: #7724F6;
+  background-color: #ffffff;
 }
 @media (min-width: 768px) {
   .goal-modal {
@@ -167,6 +168,16 @@
     font-size: 18px;
     line-height: 23px;
   }
+  .remove-icon {
+    right: 10px;
+  }
+  .email {
+    padding: 15px 5px;
+    font-size: 14px;
+  }
+  .email span {
+    font-size: 14px;
+  }
 }
 @media (min-width: 992px) {
   .goal-modal h2 {
@@ -180,5 +191,11 @@
   }
   .goal-modal .fb-share-button {
     margin: 16px 0 14px;
+  }
+  .remove-icon .icon-remove-video-link {
+    font-size: 27px;
+  }
+  .relative {
+    margin-bottom: 5px;
   }
 }

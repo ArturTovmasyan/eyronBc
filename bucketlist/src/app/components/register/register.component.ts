@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
                 'month' : ['', [Validators.required]],
                 'year' : ['', [Validators.required]],
                 'day' : ['', [Validators.required]]
-            }, {validator: ValidationService.passwordsEqual}
+            }, {validator: ValidationService.passwordsEqualValidator}
         );
 
         //create date value
