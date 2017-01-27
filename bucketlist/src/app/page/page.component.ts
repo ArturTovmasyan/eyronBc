@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ValidationService } from 'app/validation.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser'
 
 import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -29,7 +30,8 @@ export class PageComponent implements OnInit {
         private _projectService: ProjectService,
         private _cacheService: CacheService,
         private router:Router,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private sanitizer: DomSanitizer
     ) {
         router.events.subscribe((val) => {
             if(this.eventId != val.id && val instanceof NavigationEnd){
@@ -61,7 +63,11 @@ export class PageComponent implements OnInit {
             .subscribe(
                 data => {
                     this.data = data[0];
-                    this.description = this.data.description;
+                    if(this.name == 'about'){
+                        this.description = this.sanitizer.bypassSecurityTrustHtml(this.data.description);
+                    } else {
+                        this.description = this.data.description;
+                    }
                     this.title = this.data.title;
                 });
     }

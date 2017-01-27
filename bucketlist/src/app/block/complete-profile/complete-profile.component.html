@@ -60,12 +60,12 @@
       </li>
       <li>
         <!--{% if user.socialPhotoLink or  user.fileName %}-->
-                    <span *ngIf="appUser.image_path !== '' ">{{ 'image_complete_text'|translate }}
-                        <i class="icon-ok-only"></i>
-                    </span>
+        <span *ngIf="appUser.social_photo_link || appUser.file_name || appUser.image_path">{{ 'image_complete_text'|translate }}
+            <i class="icon-ok-only"></i>
+        </span>
         <!--{% else %}-->
 
-        <a  *ngIf="appUser.image_path == ''" routerLink='/edit'>
+        <a  *ngIf="!appUser.social_photo_link && !appUser.file_name && !appUser.image_path" routerLink='/edit/profile'>
           <strong>{{ 'image_complete_text'|translate }}</strong>
           <i class="icon-question-only"></i>
         </a>

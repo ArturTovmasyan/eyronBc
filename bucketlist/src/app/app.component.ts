@@ -80,14 +80,17 @@ export class AppComponent implements OnInit  {
     this.selectLang('en');
 
     if(localStorage.getItem('apiKey')){
-        this._projectService.getUser()
-            .subscribe(
-            user => {
-                this.appUser = user;
-                this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
-                this.broadcaster.broadcast('getUser', user);
-            },
-            error => localStorage.removeItem('apiKey'));
+        this.appUser = this._cacheService.get('user_');
+        if(!this.appUser) {
+            this._projectService.getUser()
+                .subscribe(
+                    user => {
+                        this.appUser = user;
+                        this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                        this.broadcaster.broadcast('getUser', user);
+                    },
+                    error => localStorage.removeItem('apiKey'));
+        }
     }
 
     this.broadcaster.on<User>('login')
