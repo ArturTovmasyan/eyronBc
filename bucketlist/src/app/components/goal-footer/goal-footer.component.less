@@ -7,6 +7,12 @@ figcaption{
     li{
       height:35px;
       line-height:31px;
+      cursor:pointer;
+
+      &>span{
+        display: block;
+      }
+
       a{
         &:hover,&:focus{
           text-decoration: none;
@@ -14,8 +20,9 @@ figcaption{
       }
 
       i{
-        font-size:25px;
+        font-size: 25px;
         vertical-align: middle;
+        margin-right: 5px;
       }
 
       i.icon-green-ok,.icon-green-plus{
@@ -33,8 +40,12 @@ figcaption{
           }
         }
       }
+
       .text{
-        font-size:12px;
+        display: inline-block;
+        vertical-align: middle;
+        color: #999999;
+        font-size: 12px;
       }
       //&:last-child{
       //  text-align:left;
@@ -87,11 +98,15 @@ figcaption{
         &:hover{
           background-color: #7724F6;
           color:#ffffff;
+
+          span{
+            color: #ffffff;
+          }
         }
 
         &:focus,&:active{
           background-color: #6108EA;
-          a{
+          a,span{
             color:#ffffff;
           }
         }
