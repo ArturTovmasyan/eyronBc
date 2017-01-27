@@ -316,7 +316,7 @@
                       <!--{% for listedByUser in listedByUsers %}-->
                       <!--{% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}-->
                       <!--{% set className = "user-no" ~ random(4) %}-->
-                      <li [style.right]="80 + (i + 1)*20" *ngFor="let user of listedByUsers;let i = index" class="hidden-xs">
+                      <li [style.right.px]="80 + (i + 1)*20" *ngFor="let user of listedByUsers;let i = index" class="hidden-xs">
                         <figure *ngIf="user.cached_image">
                           <img src="{{ user.cached_image }}" class="img-circle img-responsive" alt="{{ user.first_name }}">
                         </figure>
