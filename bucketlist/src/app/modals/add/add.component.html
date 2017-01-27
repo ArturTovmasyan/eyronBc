@@ -347,18 +347,22 @@
                     </div>
                 </div>
 
-                <div class="modal-bottom">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                            <a  (click)="save()"
-                               class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
-                            <a  (click)="dialogRef.close()" id="cancel"
-                               class="btn btn-transparent">{{ 'btn_cancel'|translate }}</a>
-                            <a  (click)="showDetails = ! showDetails"
-                               class="btn btn-transparent">
-                                <span>{{ 'forget'|translate | uppercase}}</span>
-                            </a>
-                        </div>
+                <div class="row modal-bottom">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                        <!--<div class="modal-bottom">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+                                    <a  (click)="save()"
+                                       class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
+                                    <a  (click)="dialogRef.close()" id="cancel"
+                                       class="btn btn-transparent">{{ 'btn_cancel'|translate }}</a>
+                                    <a  (click)="showDetails = ! showDetails"
+                                       class="btn btn-transparent">
+                                        <span>{{ 'forget'|translate | uppercase}}</span>
+                                    </a>
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                 </div>
 

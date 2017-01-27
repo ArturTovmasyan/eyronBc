@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , ViewEncapsulation} from '@angular/core';
 
 import { Goal } from '../../interface/goal';
 import {Broadcaster} from '../../tools/broadcaster';
@@ -8,7 +8,8 @@ import {ProjectService} from '../../project.service';
 @Component({
   selector: 'app-goal-footer',
   templateUrl: './goal-footer.component.html',
-  styleUrls: ['./goal-footer.component.less']
+  styleUrls: ['./goal-footer.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class GoalFooterComponent implements OnInit {
   @Input() goal: Goal;
