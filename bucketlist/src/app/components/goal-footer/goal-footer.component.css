@@ -12,6 +12,10 @@ figcaption {
 figcaption ul li {
   height: 35px;
   line-height: 31px;
+  cursor: pointer;
+}
+figcaption ul li > span {
+  display: block;
 }
 figcaption ul li a:hover,
 figcaption ul li a:focus {
@@ -20,6 +24,7 @@ figcaption ul li a:focus {
 figcaption ul li i {
   font-size: 25px;
   vertical-align: middle;
+  margin-right: 5px;
 }
 figcaption ul li i.icon-green-ok,
 figcaption ul li .icon-green-plus {
@@ -34,6 +39,9 @@ figcaption ul li:hover a .text {
   color: #ffffff;
 }
 figcaption ul li .text {
+  display: inline-block;
+  vertical-align: middle;
+  color: #999999;
   font-size: 12px;
 }
 figcaption ul .transparent .text {
@@ -70,12 +78,17 @@ figcaption ul .transparent:hover .text {
     background-color: #7724F6;
     color: #ffffff;
   }
+  figcaption ul li:hover span {
+    color: #ffffff;
+  }
   figcaption ul li:focus,
   figcaption ul li:active {
     background-color: #6108EA;
   }
   figcaption ul li:focus a,
-  figcaption ul li:active a {
+  figcaption ul li:active a,
+  figcaption ul li:focus span,
+  figcaption ul li:active span {
     color: #ffffff;
   }
 }

@@ -161,6 +161,21 @@
 .goal-add .onoffswitch .onoffswitch-switch {
   border: 1px solid #cccccc;
 }
+.goal-add .modal-bottom {
+  border-radius: 8px;
+  -moz-border-radius-topleft: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
 .goal-add .modal-bottom button,
 .goal-add .modal-bottom a {
   padding: 8px 15px;
@@ -335,7 +350,7 @@
   .modal-top h2 {
     width: auto;
     height: auto;
-    margin: 0 0 5px 0;
+    margin: 0 0 5px 30px;
     font-size: 25px;
     line-height: 38px;
   }
@@ -397,6 +412,7 @@
   .goal-modal h2 {
     font-size: 27px;
     line-height: 41px;
+    margin: 0 0 5px 0;
   }
   .goal-add {
     padding-bottom: 3px;
