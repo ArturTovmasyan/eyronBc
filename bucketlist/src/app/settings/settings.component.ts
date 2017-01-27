@@ -27,9 +27,11 @@ export class SettingsComponent implements OnInit {
     userEmails:any;
     socialEmail:any;
     errorMessage:any;
+    lng:any = 'en';
     item :any= [];
     saveMessage:any;
     removeMessage:any;
+    birthDate:any;
     email:any;
     day:any = 0;
     month:any = 0;
@@ -161,10 +163,17 @@ export class SettingsComponent implements OnInit {
 
         this.email = this.appUser.username;
 
-        let birth = new Date(this.appUser.birth_date);
-        this.year = birth.getFullYear();
-        this.month = birth.getMonth() + 1;
-        this.day = birth.getDate();
+        if(this.appUser.birth_date) {
+            this.birthDate = new Date(this.appUser.birth_date);
+            this.year = this.birthDate.getFullYear();
+            this.month = this.birthDate.getMonth() + 1;
+            this.day = this.birthDate.getDate();
+        }
+
+        if(this.appUser.language) {
+            this.lng = this.appUser.language;
+        }
+
         this.email = this.appUser.username;
 
         //create form validation
@@ -177,7 +186,7 @@ export class SettingsComponent implements OnInit {
                 'password': ['', [Validators.minLength(6)]],
                 'plainPassword' : ['', [Validators.minLength(6)]],
                 'primary' : [this.email, null],
-                'language' : [this.appUser.language, [Validators.required]],
+                'language' : [this.lng, [Validators.required]],
                 'addEmail' : ['', null],
                 'month' : [this.month, null],
                 'year' : [this.year, null],
@@ -229,7 +238,7 @@ export class SettingsComponent implements OnInit {
             let birthday:any;
 
             // generate birthday value
-            if(form.day && form.month && form.year) {
+            if(form.day!=0 && form.month!=0 && form.year!=0) {
                 birthday = form.year+'/'+form.month+'/'+form.day;
             } else {
                 birthday = null;
