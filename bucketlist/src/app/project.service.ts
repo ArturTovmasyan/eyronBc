@@ -49,6 +49,7 @@ export class ProjectService {
     private getStoryUrl = this.baseUrl + 'story/';  // URL to web API
     private addVoteUrl = this.baseUrl + 'success-story/add-vote/';  // URL to web API
     private removeVoteUrl = this.baseUrl + 'success-story/remove-vote/';  // URL to web API
+    private removeStoryUrl = this.baseUrl + 'success-story/remove/';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
     private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
@@ -246,6 +247,17 @@ export class ProjectService {
      */
     getStory(goalId:number):Observable<any> {
         return this.http.get(this.getStoryUrl + goalId, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    removeStory(id:number):Observable<any> {
+        return this.http.delete(this.removeStoryUrl + id, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }

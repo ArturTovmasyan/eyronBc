@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { ProjectService } from '../project.service';
 import {TranslateModule} from 'ng2-translate';
 import { SwiperModule } from 'angular2-useful-swiper';
+import { ModalsModule} from '../modals/modals.module';
 
 import { InnerRouting } from './inner-routing';
 import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
@@ -21,6 +22,7 @@ import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
     TranslateModule,
     SwiperModule,
     FormsModule,
+    ModalsModule,
     MaterialModule.forRoot()
   ],
   declarations: [

@@ -673,7 +673,7 @@ class GoalRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('u, ug')
             ->from('ApplicationUserBundle:User', 'u', 'u.id')
-            ->join('u.userGoal', 'ug', 'WITH', 'ug.status = :status')
+            ->join('u.userGoal', 'ug', 'WITH', '(ug.status = :status) OR (:status IS NULL AND ug.status IN (1, 2))')
             ->join('ug.goal', 'g', 'WITH', 'g.id = :goalId')
             ->setParameter('status', $status)
             ->setParameter('goalId', $goalId);
