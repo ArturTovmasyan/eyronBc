@@ -51,6 +51,7 @@ export class ProfileComponent implements OnInit {
   public reserveUserGoals: any[];
   
   public overall:number;
+  public appUser:User;
 
   constructor(
       private route: ActivatedRoute,
@@ -106,6 +107,7 @@ export class ProfileComponent implements OnInit {
     
     this.broadcaster.on<User>('pageUser')
         .subscribe(user => {
+          this.appUser = user;
           this.id = user.id;
           if(this.busyInitial){
             this.busyInitial = false;

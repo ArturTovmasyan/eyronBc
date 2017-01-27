@@ -241,6 +241,7 @@ class UserController extends FOSRestController
             $params = ['path' => ltrim($user->getImagePath(), '/'), 'filter' => 'user_goal'];
             $filterUrl = $route->generate('liip_imagine_filter', $params);
             $user->setMobileImagePath($filterUrl);
+            $user->setCachedImage($liipManager->getBrowserPath($user->getImagePath(), 'user_image'));;
         }
 
         $request     = $this->get('request_stack')->getCurrentRequest();
@@ -291,6 +292,20 @@ class UserController extends FOSRestController
 
 
         $serializer = $this->get('serializer');
+        if(!$request->query->get('mobileAppPlatform')){
+            $group = array_merge($group, ["completed_profile", "image_info"]);
+
+            $states = $content['userInfo']->getStats();
+
+            $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($content['userInfo']->getId(), false);
+
+            $content['userInfo']->setStats($states);
+
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyIdeasCount($content['userInfo']);
+            $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($content['userInfo']->getId(), null, $goalFriendsCount, true);
+            $content['userInfo']->setGoalFriendsCount($goalFriendsCount);
+        }
         $contentJson = $serializer->serialize($content, 'json', SerializationContext::create()->setGroups($group));
 
         $response->setContent($contentJson);
@@ -669,7 +684,7 @@ class UserController extends FOSRestController
      *         401="Access allowed only for registered users"
      *     },
      * )
-     * @Rest\View(serializerGroups={"user", "completed_profile"})
+     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info"})
      * @Rest\Get("/user/{uid}", name="get_user", defaults={"uid" = null}, options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
      * @param $uid
@@ -684,8 +699,17 @@ class UserController extends FOSRestController
 
         //get current user
         $currentUser = $uid?$em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId'=>$uid)) :$this->get('security.token_storage')->getToken()->getUser();
-        // get drafts
-        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
+
+        if(!$request->query->get('mobileAppPlatform')){
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyIdeasCount($currentUser);
+            $goalFriendsCount = 0;
+            $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($currentUser->getId(), null, $goalFriendsCount, true);
+            $currentUser->setGoalFriendsCount($goalFriendsCount);
+        } else {
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
+        }
 
         //check if not logged in user
         if(!is_object($currentUser)) {
