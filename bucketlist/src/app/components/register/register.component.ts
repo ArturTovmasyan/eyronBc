@@ -14,10 +14,30 @@ export class RegisterComponent implements OnInit {
 
     form: FormGroup;
     source:string;
-    arrayMonth:string[] = [];
     arrayDay:number[] = [];
     arrayYear:number[] = [];
     errorMessage:any = null;
+    day:any = 0;
+    month:any = 0;
+    year:any = 0;
+    birthDay:any;
+
+    //create date value
+    public arrayMonth:Array<string> = [
+        'form.birth_date_month',
+        'form.month_january',
+        'form.month_february',
+        'form.month_march',
+        'form.month_april',
+        'form.month_may',
+        'form.month_june',
+        'form.month_july',
+        'form.month_august',
+        'form.month_september',
+        'form.month_october',
+        'form.month_november',
+        'form.month_december'
+    ];
 
     constructor(private _projectService: ProjectService, private fb: FormBuilder, private router: Router, private broadcaster: Broadcaster)
     {}
@@ -33,27 +53,12 @@ export class RegisterComponent implements OnInit {
                 'email': ['', [Validators.required, ValidationService.emailValidator]],
                 'password': ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]],
                 'plainPassword' : ['', [Validators.required, Validators.minLength(6), ValidationService.passwordValidator]],
-                'month' : ['', [Validators.required]],
-                'year' : ['', [Validators.required]],
-                'day' : ['', [Validators.required]]
+                'month' : [this.month, null],
+                'year' : [this.year, null],
+                'day' : [this.day, null]
             }, {validator: ValidationService.passwordsEqualValidator}
         );
 
-        //create date value
-        this.arrayMonth = [
-            'form.month_january',
-            'form.month_february',
-            'form.month_march',
-            'form.month_april',
-            'form.month_may',
-            'form.month_june',
-            'form.month_july',
-            'form.month_august',
-            'form.month_september',
-            'form.month_october',
-            'form.month_november',
-            'form.month_december'
-        ];
         this.createDays(31);
         this.createYears(1917, 2017);
     }
@@ -75,12 +80,15 @@ export class RegisterComponent implements OnInit {
      * @param registerData
      */
     createUser(registerData:any) {
-        //generate birthday value
-        let birthday = registerData.day+'/'+registerData.month+'/'+registerData.year;
 
-        //add birthday in form data
-        registerData['birthday'] = birthday;
-
+        if(registerData.day!=0 && registerData.month!=0 && registerData.year!=0) {
+            //generate birthday value
+            this.birthDay = registerData.day+'/'+registerData.month+'/'+registerData.year;
+            registerData['birthday'] = this.birthDay;
+        }else{
+            this.birthDay = '';
+        }
+        
         //remove day,month,year
         delete registerData.day;
         delete registerData.year;

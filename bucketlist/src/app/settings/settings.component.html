@@ -135,7 +135,7 @@
                                 <br/>
                                 <div class="form-group row">
 
-                                    <div class="col-sm-4 date">
+                                    <div class="col-sm-4">
                                         <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" formControlName="month">
                                             <md-option *ngFor="let month of arrayMonth; let i=index" [value]="i">
                                                 {{ month|translate }}
@@ -145,7 +145,7 @@
                                         <control-messages [control]="form.controls.month"></control-messages>
                                     </div>
 
-                                    <div class="col-sm-4 date">
+                                    <div class="col-sm-4">
 
                                         <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" formControlName="day">
                                             <md-option [value]="0">
@@ -159,7 +159,7 @@
                                         <control-messages [control]="form.controls.day"></control-messages>
                                     </div>
 
-                                    <div class="col-sm-4 date">
+                                    <div class="col-sm-4">
 
                                         <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" formControlName="year">
                                             <md-option [value]="0">
@@ -180,6 +180,9 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 language lng">
                                         <md-select placeholder="Language" style="width: 100%" formControlName="language">
+                                            <md-option [value]="">
+                                                Language
+                                            </md-option>
                                             <md-option *ngFor="let language of languages" [value]="language.value">
                                                 {{ language.name }}
                                             </md-option>
@@ -197,7 +200,7 @@
                                 <strong>Well done!</strong> You successfully change your profile data.
                             </div>
 
-                            <h3>{{ 'user.notify_settings_text'|translate }}</h3>
+                            <h3 class="text-left">{{ 'user.notify_settings_text'|translate }}</h3>
                             <hr />
 
                             <div class="row">
@@ -233,7 +236,7 @@
                                 </md-slide-toggle>
 
                                 <md-slide-toggle formControlName="isCommentReplyNotify">
-                                    <strong class="text-grey-dark center-block">{{ 'notify_settings.reply_comment'|translate }}</strong>
+                                    <strong class="text-grey-dark text-left center-block">{{ 'notify_settings.reply_comment'|translate }}</strong>
                                     <strong class="text-muted">{{ 'notify_settings.reply_comment_desc'|translate }}</strong>
                                 </md-slide-toggle>
 
@@ -254,11 +257,11 @@
 
                             </div>
 
-                            <hr />
-
                         </div>
 
-                        <div class="form-group">
+                        <hr />
+
+                        <div class="text-left">
                             <button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</button>
                         </div>
                     </form>

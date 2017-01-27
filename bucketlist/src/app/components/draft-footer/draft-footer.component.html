@@ -1,13 +1,17 @@
-<ul class="row  goal-links  ">
-  <li class="col-xs-6">
-    <a routerLink="/goal/create/{{ goals[index].id }}/{{ slug?slug: 'Private'}}">
-      <i class="icon-manage-in-circle"><span class="path1"></span><span class="path2"></span></i>
-      <span class="text">{{ 'btn_edit'|translate | capitalize}}</span>
-    </a>
-  </li>
+<figcaption>
 
-  <li class="col-xs-6" (click)="openDialog(goals[index].id)">
-      <i class="icon-delete-in-circle"><span class="path1"></span><span class="path2"></span></i>
-      <span class="text">{{ 'btn_remove'|translate | capitalize}}</span>
-  </li>
-</ul>
+    <ul class="row  goal-links">
+      <li class="col-xs-6">
+        <a routerLink="/goal/create/{{ goals[index].id }}/{{ slug?slug: 'Private'}}">
+          <i class="icon-manage-in-circle"><span class="path1"></span><span class="path2"></span></i>
+          <span class="text">{{ 'btn_edit'|translate | capitalize}}</span>
+        </a>
+      </li>
+
+      <li class="col-xs-6" (click)="openDialog(goals[index].id)">
+          <i class="icon-delete-in-circle"><span class="path1"></span><span class="path2"></span></i>
+          <span class="text">{{ 'btn_remove'|translate | capitalize}}</span>
+      </li>
+    </ul>
+
+</figcaption>
