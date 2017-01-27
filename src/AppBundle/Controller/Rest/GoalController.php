@@ -851,7 +851,48 @@ class GoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $draftGoals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser(), $first, $count);
 
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        foreach($draftGoals as $draftGoal){
+            if ($draftGoal->getListPhotoDownloadLink()) {
+                $draftGoal->setCachedImage($liipManager->getBrowserPath($draftGoal->getListPhotoDownloadLink(), 'goal_list_small'));
+            }
+        }
         return $draftGoals;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get user private goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     * )
+     *
+     * @Rest\View(serializerGroups={"goal_draft"})
+     *
+     * @Rest\Get("/goals/private/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_goal_getprivategoals", options={"method_prefix"=false})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param $first
+     * @param $count
+     * @return array
+     */
+    public function getPrivatesAction($first, $count)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $privateGoals = $em->getRepository("AppBundle:Goal")->findMyPrivateGoals($this->getUser(), $first, $count);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        foreach($privateGoals as $privateGoal){
+            if ($privateGoal->getListPhotoDownloadLink()) {
+                $privateGoal->setCachedImage($liipManager->getBrowserPath($privateGoal->getListPhotoDownloadLink(), 'goal_list_small'));
+            }
+        }
+        return $privateGoals;
     }
 
     /**
