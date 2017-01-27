@@ -7,6 +7,7 @@ export class ValidationService {
             'required': 'Required',
             'invalidEmailAddress': 'Invalid email address',
             'currentPassword': 'Invalid current password',
+            'primary': 'Set invalid primary emai',
             'bl_user_angular_settings':'Set invalid primary email',
             'addEmail':'This email already exists',
             'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
@@ -36,10 +37,12 @@ export class ValidationService {
     }
 
     //function for checking plain password validation
-    static passwordsEqual(c:FormControl) {
+    static passwordsEqualValidator(c:FormControl) {
 
-        if ((c.value.password.length > 0 && c.value.plainPassword.length == 0) || (c.value.plainPassword.length > 0 && c.value.password != c.value.plainPassword)) {
-            return { 'invalidConfirmPassword' :true};
+        if ((c.value.password.length > 0 && c.value.plainPassword.length == 0) ||
+            (c.value.plainPassword.length > 0 &&
+            c.value.password != c.value.plainPassword)) {
+            return {'invalidConfirmPassword' :true};
         }
         else{
             return null;

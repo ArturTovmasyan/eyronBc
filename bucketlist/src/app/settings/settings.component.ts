@@ -172,17 +172,17 @@ export class SettingsComponent implements OnInit {
                 'file': ['', null],
                 'firstName': [this.appUser.first_name, [Validators.required]],
                 'lastName': [this.appUser.last_name, [Validators.required]],
-                'email': [this.appUser.username, [ValidationService.emailValidator, Validators.required]],
-                'currentPassword': ['', [Validators.minLength(6), ValidationService.passwordValidator]],
-                'password': ['', [Validators.minLength(6), ValidationService.passwordValidator]],
+                'email': [this.email, [ValidationService.emailValidator, Validators.required]],
+                'currentPassword': ['', [Validators.minLength(6)]],
+                'password': ['', [Validators.minLength(6)]],
                 'plainPassword' : ['', [Validators.minLength(6)]],
-                'primary' : ['', null],
+                'primary' : [this.email, null],
                 'language' : [this.appUser.language, [Validators.required]],
                 'addEmail' : ['', null],
                 'month' : [this.month, null],
                 'year' : [this.year, null],
                 'day' : [this.day, null]
-            }, {validator: ValidationService.passwordsEqual}
+            }, {validator: ValidationService.passwordsEqualValidator}
         );
     }
 

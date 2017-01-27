@@ -329,7 +329,7 @@ class SettingsController extends FOSRestController
 
             //set for check user duplicate error
             $user->setEmail($primaryEmail);
-            $em->persist($user);
+            $em->flush();
         }
 
         //set primary value in entity
@@ -343,7 +343,7 @@ class SettingsController extends FOSRestController
         if ($form->isValid()) {
 
             //get uploadFile service for load profile pictures
-            $this->container->get('bl_service')->uploadFile($user);
+//            $this->container->get('bl_service')->uploadFile($user);
 
             $em->persist($user);
             $em->flush();
