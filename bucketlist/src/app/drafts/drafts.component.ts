@@ -26,7 +26,7 @@ export class DraftsComponent implements OnInit {
     router.events.subscribe((val) => {
       if(this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
-        this.type = this.route.snapshot.params['slug']?this.route.snapshot.params['slug']:'private';
+        this.type = (this.route.snapshot.params['slug'] && this.route.snapshot.params['slug'] == 'drafts')?'drafts':'private';
         this.start = 0;
         this.goals = null;
         this.reserve = null;
@@ -38,7 +38,7 @@ export class DraftsComponent implements OnInit {
   ngOnInit() {
   }
   getGoals(){
-   this._projectService.getMyIdeas(this.start,this.count)
+   this._projectService.getMyIdeas(this.type, this.start,this.count)
        .subscribe(
            goals =>{
                this.empty = (goals.length == 0);
@@ -50,7 +50,7 @@ export class DraftsComponent implements OnInit {
        
   }
     setReserve(){
-        this._projectService.getMyIdeas(this.start,this.count)
+        this._projectService.getMyIdeas(this.type, this.start,this.count)
             .subscribe(
                 goals =>{
                     this.reserve = goals;

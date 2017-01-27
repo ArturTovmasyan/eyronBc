@@ -823,9 +823,11 @@ class GoalRepository extends EntityRepository
 
     /**
      * @param $user
-     * @return array
+     * @param null $first
+     * @param null $count
+     * @return mixed
      */
-    public function findMyPrivateGoals($user)
+    public function findMyPrivateGoals($user, $first = null, $count = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
@@ -842,6 +844,15 @@ class GoalRepository extends EntityRepository
             ->setParameter('readinessStatus', Goal::TO_PUBLISH)
         ;
 
+        if (!is_null($first) && !is_null($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
+        }
+        
         return $query->getQuery();
     }
 
