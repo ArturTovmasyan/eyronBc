@@ -135,7 +135,7 @@
                                 <br/>
                                 <div class="form-group row">
 
-                                    <div class="col-sm-4 date">
+                                    <div class="col-sm-4">
                                         <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" formControlName="month">
                                             <md-option *ngFor="let month of arrayMonth; let i=index" [value]="i">
                                                 {{ month|translate }}
@@ -145,7 +145,7 @@
                                         <control-messages [control]="form.controls.month"></control-messages>
                                     </div>
 
-                                    <div class="col-sm-4 date">
+                                    <div class="col-sm-4">
 
                                         <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" formControlName="day">
                                             <md-option [value]="0">
@@ -159,7 +159,7 @@
                                         <control-messages [control]="form.controls.day"></control-messages>
                                     </div>
 
-                                    <div class="col-sm-4 date">
+                                    <div class="col-sm-4">
 
                                         <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" formControlName="year">
                                             <md-option [value]="0">
