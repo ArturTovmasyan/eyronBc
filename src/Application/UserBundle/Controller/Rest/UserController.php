@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\Serializer\SerializationContext;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -207,10 +208,10 @@ class UserController extends FOSRestController
 
         if($profileImage){
             $user->setFile($profileImage);
+            $blService = $this->container->get('bl_service');
+            $blService->uploadFile($user);
         }
 
-        $blService = $this->container->get('bl_service');
-        $blService->uploadFile($user);
         $token = md5(microtime());
         $user->setRegistrationToken($token);
 

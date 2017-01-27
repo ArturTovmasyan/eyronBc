@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
     arrayDay:number[] = [];
     arrayYear:number[] = [];
     currentLang: string;
-    token:boolean = false;
+    token:boolean = true;
     ready:boolean = false;
     userEmails:any;
     socialEmail:any;
@@ -146,9 +146,9 @@ export class SettingsComponent implements OnInit {
     initProfileForm() {
 
         if(this.appUser.user_emails) {
-            
-            //get keys in userEmails object
             this.userEmails = Object.keys(this.appUser.user_emails);
+            this.checkEmailToken(this.appUser);
+
         } else{
             this.userEmails = null;
         }
@@ -158,6 +158,8 @@ export class SettingsComponent implements OnInit {
         } else{
             this.socialEmail = null;
         }
+
+        this.email = this.appUser.username;
 
         let birth = new Date(this.appUser.birth_date);
         this.year = birth.getFullYear();
@@ -245,10 +247,9 @@ export class SettingsComponent implements OnInit {
                     (data) => {
                         this._projectService.setMyUser(null);
                         this.appUser = data;
-                        this.userEmails = Object.keys(this.appUser.user_emails);
+                        this._cacheService.set('user_', this.appUser, {maxAge: 3 * 24 * 60 * 60});
                         this.saveMessage = true;
                         this.errorMessage = null;
-                        this.email = this.appUser.username;
                         this.form = null;
                         this.initProfileForm();
                     },
@@ -272,6 +273,25 @@ export class SettingsComponent implements OnInit {
         }
 
         console.log(form);
+    }
+
+    /**
+     *
+     * @param user
+     */
+    checkEmailToken(user)
+    {
+        let emailKey = Object.keys(user.user_emails);
+
+        for(let key of emailKey)
+        {
+            let emailsData = this.appUser.user_emails[key];
+
+            if(emailsData && emailsData.token) {
+                this.token = false;
+                break;
+            }
+        }
     }
 
     /**
