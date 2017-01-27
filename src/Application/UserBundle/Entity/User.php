@@ -209,6 +209,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"image_info"})
      */
     protected $socialPhotoLink;
 

@@ -41,64 +41,24 @@
           [infiniteScrollDistance]="1"
           [infiniteScrollThrottle]="500"
           (scrolled)="onScroll()">
-        <!--{% for goal in goals %}-->
         <div class="col-sm-6 col-md-4" *ngFor="let goal of goals;let i = index">
-            <figure class="relative">
-                <h3>
-                    <a href="">{{ goal.title }}</a>
-                    <!--{% if slug == "drafts" %}-->
-                    <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}">
-
-                <!--{% set image = goal.getListPhoto %}-->
-                </h3>
-                <a href="">
-                <!--{% if slug == "drafts" %}-->
-                <!--{{ path('add_goal', {'id': goal.id }) }}{% else%}{{ path('inner_goal', {'slug' : goal.slug }) }}{% endif %}"-->
-                    <span class="overlay"></span>
-                <!--{% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}-->
-                </a>
+            <figure>
+                <app-goal [goal]="goal" [type]="type"></app-goal>
                 <figcaption>
-                  <draft-footer [goals]="goals" [index]="i" [slug]="type"></draft-footer>
-                  <!--{%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}-->
+                    <draft-footer [goals]="goals" [index]="i" [slug]="type"></draft-footer>
                 </figcaption>
             </figure>
+                <!--{% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}-->
         </div>
-    <!--{% elseif slug == "drafts" %}-->
-        <p class="empty-text text-center">
-        <!--{{ 'goal.empty_draft'|translate }}-->
-        </p>
-    <!--{% else%}-->
-        <p class="empty-text text-center">
-            <!--{{ 'goal.empty_private_ideas'|translate }}-->
-        </p>
-    <!--{% endif %}-->
 
-    <!--{# display navigation #}-->
-        <div class="navigation">
-            <!--{{ knp_pagination_render(goals) }}-->
-        </div>
+        <p class="empty-text text-center" *ngIf="empty && type == 'drafts'">
+        {{ 'goal.empty_draft'|translate }}
+        </p>
+
+        <p class="empty-text text-center" *ngIf="empty && type != 'drafts'">
+            {{ 'goal.empty_private_ideas'|translate }}
+        </p>
 
     </div>
 </div>
-<!--{% endblock %}-->
-
-<!--{%- block title -%}-->
-<!--{% if slug == "drafts" %}-->
-<!--{{ 'draft.title'|trans }}-->
-<!--{% else%}-->
-<!--{{ 'private_ideas.title'|trans }}-->
-<!--{% endif %}-->
-<!--{%- endblock -%}-->
-
-<!--{%- block meta_description -%}-->
-<!--{% if slug == "drafts" %}-->
-<!--{{ 'draft.description'|trans }}-->
-<!--{% else%}-->
-<!--{{ 'private_ideas.description'|trans }}-->
-<!--{% endif %}-->
-<!--{%- endblock -%}-->
-
-<!--{%- block og_url -%}-->
-<!--{{- app.request.uri -}}-->
-<!--{%- endblock -%}-->
 

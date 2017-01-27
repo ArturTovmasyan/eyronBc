@@ -15,6 +15,7 @@ export class DraftsComponent implements OnInit {
       public count: number = 9;
       public goals: Goal[];
       public errorMessage:string;
+      public empty:boolean = false;
       public busy: boolean = false;
       public reserve: Goal[];
   constructor(
@@ -40,6 +41,7 @@ export class DraftsComponent implements OnInit {
    this._projectService.getMyIdeas(this.start,this.count)
        .subscribe(
            goals =>{
+               this.empty = (goals.length == 0);
                this.goals = goals;
                this.start += this.count;
                this.setReserve();
