@@ -278,7 +278,6 @@ class SettingsController extends FOSRestController
      *         401="Unauthorized user",
      *     },
      * parameters={
-     *      {"name"="bl_user_angular_settings[file]", "dataType"="file", "required"=false, "description"="Users profile image file"},
      *      {"name"="bl_user_angular_settings[firstName]", "dataType"="string", "required"=true, "description"="User`s first name | min=3 / max=20 symbols"},
      *      {"name"="bl_user_angular_settings[lastName]", "dataType"="string", "required"=true, "description"="User`s last name | min=3 / max=20 symbols"},
      *      {"name"="bl_user_angular_settings[addEmail]", "dataType"="email", "required"=false, "description"="Add email for user"},
@@ -341,9 +340,6 @@ class SettingsController extends FOSRestController
 
         //check if from valid
         if ($form->isValid()) {
-
-            //get uploadFile service for load profile pictures
-//            $this->container->get('bl_service')->uploadFile($user);
 
             $em->persist($user);
             $em->flush();
