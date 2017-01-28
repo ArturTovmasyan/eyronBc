@@ -14,13 +14,18 @@
         <figure>
 
           <a routerLink="/edit/profile" routerLinkActive="active" *ngIf="!userInfo || userInfo == 'my'" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
-
-          <div *ngIf="profileUser">
-            <img src="{{ profileUser.cached_image }}" *ngIf="profileUser.cached_image" alt="Profile image" class="img-responsive img-circle"/>
-            <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->
-            <span class="no-image profile-image profile-image1" *ngIf="!profileUser.cached_image">
-              {{ profileUser.first_name |slice:0:1 |uppercase }} {{ profileUser.last_name |slice:0:1 |uppercase }}</span>
-          </div>
+          <form>
+            <label class="image-label" for="file" *ngIf="type == 'settings'">Upload a photo</label>
+            <div class="hide" *ngIf="type == 'settings'">
+              <input type="file" id="file" name="file" (change)="showUploadedImage($event)">
+            </div>
+            <div *ngIf="profileUser">
+              <img src="{{ profileUser.cached_image }}" *ngIf="profileUser.cached_image" alt="Profile image" class="img-responsive img-circle"/>
+              <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->
+              <span class="no-image profile-image profile-image1" *ngIf="!profileUser.cached_image">
+                {{ profileUser.first_name |slice:0:1 |uppercase }} {{ profileUser.last_name |slice:0:1 |uppercase }}</span>
+            </div>
+          </form>
 
           <figcaption>
 

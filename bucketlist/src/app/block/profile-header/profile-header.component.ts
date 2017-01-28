@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter , ViewEncapsulation } fr
 import { ProjectService } from '../../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Broadcaster } from '../../tools/broadcaster';
+import { Uploader }      from 'angular2-http-file-upload';
+import { MyUploadItem }  from '../../components/my-dropzone/my-upload';
 
 import {User} from "../../interface/user";
 
@@ -12,30 +14,34 @@ import {User} from "../../interface/user";
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileHeaderComponent implements OnInit {
-  @Input() userInfo: string ;
-  @Input() type: string ;
-  @Output('onHover') hoverEmitter: EventEmitter<any> = new EventEmitter();
-  public profileUser:User;
-  public appUser:User;
-  public serverPath:string = '';
-  public imgPath: string = '';
-  // public nameOnImage: string = '';
-  public listedBy;
-  public active;
-  public doneBy;
-  public badges: any[];
-  public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
-  public isMobile:Boolean= (window.innerWidth < 768);
-  public isFollow:Boolean;
-  constructor(
+    @Input() userInfo: string ;
+    @Input() type: string;
+    @Output('onHover') hoverEmitter: EventEmitter<any> = new EventEmitter();
+    public profileUser:User;
+    public file:any;
+    public appUser:User;
+    public serverPath:string = '';
+    public imgPath: string = '';
+    path:string = '/api/v1.0/user/upload-file';
+    // public nameOnImage: string = '';
+    public listedBy;
+    public active;
+    public doneBy;
+    public badges: any[];
+    public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
+    public isMobile:Boolean= (window.innerWidth < 768);
+    public isFollow:Boolean;
+    constructor(
       private broadcaster: Broadcaster,
       private _projectService: ProjectService,
-      private _cacheService: CacheService) { }
+      private _cacheService: CacheService,
+      public uploaderService: Uploader) { }
 
-  ngOnInit() {
+    ngOnInit() {
+        console.log(this.type);
     this.serverPath = this._projectService.getPath();
     this.imgPath = this.serverPath + '/bundles/app/images/cover3.jpg';
-    
+
     if(localStorage.getItem('apiKey')){
       this.appUser = this._projectService.getMyUser();
       if (!this.appUser) {
@@ -66,12 +72,52 @@ export class ProfileHeaderComponent implements OnInit {
               })
     }, 1000);
 
-  }
+    }
 
-  toggleFollow(){
+    toggleFollow(){
     this._projectService.toggleFollow(1).subscribe(
         user => {
           this.isFollow = !this.isFollow;
         });
-  }
+    }
+
+    showUploadedImage(event){
+
+        let input = event.target;
+
+        if (input.files && input.files[0]) {
+
+            this.file = input.files[0];
+
+            this.saveImage();
+
+            let reader = new FileReader();
+
+            reader.onload = (e:any) => {
+                if(e && e.target){
+                    this.profileUser.cached_image = e.target.result;
+                    let user = this._cacheService.get('user_');
+                    user.cached_image = e.target.result;
+                    this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                }
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    saveImage(){
+        if(this.file){
+            let myUploadItem = new MyUploadItem(this.file, this._projectService.getPath() + this.path);
+            // myUploadItem.formData = { FormDataKey: 'Form Data Value' };  // (optional) form data can be sent with file
+
+            this.uploaderService.onSuccessUpload = (item, response, status, headers) => {
+            };
+            this.uploaderService.onErrorUpload = (item, response, status, headers) => {
+            };
+            this.uploaderService.onCompleteUpload = (item, response, status, headers) => {
+            };
+            this.uploaderService.upload(myUploadItem);
+        }
+    }
 }
