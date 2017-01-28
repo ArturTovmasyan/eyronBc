@@ -1,0 +1,66 @@
+
+<div id="notifications-list" class="notdrop">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-8">
+        <div  class="bg-white padding notdrop">
+          <!--data-infinite-scroll='nextNotifications()'-->
+          <!--data-infinite-scroll-disabled='noNotification || busy'-->
+
+          <!--data-ng-cloak-->
+          <ul id="notification-list" style="{height: 600px}">
+            <li>
+              <div class="row">
+                <div class="col-xs-5">
+                  <h3 class="text-gray">Notifications</h3>
+                </div>
+                <div class="col-xs-7 text-right">
+                  <a class="text-grey-dark" (click)="readAll()" >Mark All as read</a>
+                  <!--href="javascript:void(0)-->
+                </div>
+              </div>
+            </li>
+
+            <li>
+
+                <ul *ngFor="let notify of notifications;let i = index" class="goals-animate"  [ngClass]="{'unread': !notify.is_read}">
+                <li>
+                  <i class="close-icon" data-click="true" (click)="delete(notify.id, i)"></i>
+                  <div (click)="goNotificationPage(notify, i)" class="clearfix" >
+                    <!--[ngInit]="time[notify.id] = getInterval(notify.notification.created)"-->
+                    <figure class="pull-left">
+                      <img  *ngIf=" notify.notification.performer && notify.notification.performer.image_path" src="{{serverPath + notify.notification.performer.image_path}}" alt="photo"  height="40"/>
+                      <!--[src]="[[ ::notify.notification.performer.image_path ]]"-->
+                      <img src="assets/images/notify-user.png" *ngIf="!notify.notification.performer || !notify.notification.performer.image_path" alt="photo "  height="40"/>
+                    </figure>
+
+                    <p>
+                        <span>
+                            <a class="pull-left" *ngIf="notify.notification.performer" routerLink="/profile/{{notify.notification.performer.u_id }}">{{ notify.notification.performer.show_name}} &nbsp</a>
+                            <span class="text-dark-gray" [innerHTML]="bodyInHtml(notify.notification.body)"></span>
+                        </span>
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'datetime'">{{ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm a" }} </span>-->
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|translate }} {{ notify.notification.created | date: "h:mm a" }}</span>-->
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'hr'">-->
+                      <!--<span *ngIf="time[notify.id].time == 1">{{ time[notify.id].time }} {{ 'notify.hour'|translate }}</span>-->
+                      <!--<span *ngIf="time[notify.id].time != 1">{{ time[notify.id].time }} {{ 'notify.hours'|translate }}</span>-->
+                      <!--</span>-->
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'minute'">{{ time[notify.id].time }} {{ 'notify.minute'|translate }}</span>-->
+                      <!--<span class="text-gray " *ngIf="time[notify.id].title == 'now'">{{ 'notify.now'|translate }}</span>-->
+                    </p>
+
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <a routerLink="/notifications" (click)="hideNote()"><div class="footdiv">See all</div></a>
+
+        </div>
+        <br/>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -164,7 +164,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li id="notification" *ngIf="appUser && (!isMobile || !joinToggle1)">
                                 <div>
-                                    <a routerLink="/notifications" class="relative notify">
+                                    <a (click)="toogleNote()" class="relative notify">
                                         <i class="bell"></i>
                                         <sup *ngIf="newNotCount">{{ newNotCount }}</sup>
                                     </a>
@@ -287,7 +287,9 @@
         <div *ngIf="joinShow">
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
-
+      <div [hidden]="!show" (clickOutside)="closeDropdown()">
+          <notification-dropdown (changeNote)="hideNote($event)"></notification-dropdown>
+      </div>
         <!--<div *ngIf="reportModal">-->
             <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
         <!--</div>-->

@@ -29,6 +29,7 @@ export class AppComponent implements OnInit  {
   public translatedText: string;
   public supportedLanguages: any[];
   public joinShow:boolean = false;
+  public show:boolean = false;
   public menus: any[];
   public privacyMenu: any;
   public serverPath:string = '';
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit  {
     public usersData:any;
     public addData:any;
     public doneData:any;
+    public writeTimeout:any;
 
   constructor(
       private _translate: TranslateService,
@@ -201,6 +203,16 @@ export class AppComponent implements OnInit  {
           });
       
   }
+    toogleNote(){
+        if(this.show != true){
+            this.writeTimeout = setTimeout(() =>{
+                this.show = !this.show;
+            }, 100)
+        }
+    }
+    hideNote(ev){
+        this.show = false;
+    }
 
   hideJoin(ev){
     this.joinShow = false;
@@ -215,6 +227,9 @@ export class AppComponent implements OnInit  {
     this._translate.use(lang);
   }
 
+    closeDropdown(){
+        if(this.show)this.show = false
+    }
   logout(){
       localStorage.removeItem('apiKey');
       this.router.navigate(['/']);
