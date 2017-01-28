@@ -91,42 +91,37 @@ export class AutocomplateMapComponent implements OnInit {
           }
         });
 
-    this.broadcaster.on<string>('addGoal')
+    this.broadcaster.on<any>('addGoal')
         .subscribe(data => {
-          // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
-          //     var icon = {
-          //         url: this.activeGoalMarkerIcon1,
-          //         scaledSize:new google.maps.Size(35, 50)
-          //     };
-          //     scope.mapMarkers[data].setIcon(icon);
-          // }
+          this.changeLocationIcon(data.goal.id, 1);
+        });
+    this.broadcaster.on<any>('removeGoal')
+        .subscribe(id => {
+          this.changeLocationIcon(id, 0);
         });
 
-    this.broadcaster.on<string>('lsJqueryModalClosedSaveGoal')
+    this.broadcaster.on<any>('saveGoal')
         .subscribe(userGoal => {
-          // if(!userGoal || !userGoal.status || !scope.mapMarkers[userGoal.goal.id] || !scope.mapMarkers[userGoal.goal.id].map)
-          //         return;
-          //
-          //     var icon = {
-          //         url: scope['activeGoalMarkerIcon'+userGoal.status],
-          //         scaledSize:new google.maps.Size(35, 50)
-          //     };
-          //     scope.mapMarkers[userGoal.goal.id].setIcon(icon);
+          this.changeLocationIcon(userGoal.goal.id, userGoal.status);
         });
 
-    this.broadcaster.on<string>('doneGoal')
-        .subscribe(data => {console.log(data);
-          // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
-          //     var icon = {
-          //         url: scope.activeGoalMarkerIcon2,
-          //         scaledSize:new google.maps.Size(35, 50)
-          //     };
-          //     scope.mapMarkers[data].setIcon(icon);
-          // }
+    this.broadcaster.on<any>('doneGoal')
+        .subscribe(data => {
+          if(data.userGoal && data.userGoal.goal){
+            this.changeLocationIcon(data.userGoal.goal.id, 2);
+          }
         });
 
   }
 
+  changeLocationIcon(id, status){
+    for(let location of this.locations){
+      if(location.id == id){
+        location.status = status
+      }
+    }
+  }
+  
   setType(types){
     this.autocomplete.setTypes(types)
   }

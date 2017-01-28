@@ -14,7 +14,7 @@
 
             <span class="overlay"></span>
 
-            <div *ngIf="userGoal">
+            <div *ngIf="userGoal && userGoal.goal">
                 <h2>
                     <span [ngClass]="{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}">{{ userGoal.goal.title }}</span>
                 </h2>
@@ -23,16 +23,16 @@
                     {{ userGoal.goal.author.show_name }}
                 </p>
                 <!--{% endif %}-->
-                <ul>
+                <ul *ngIf="userGoal.goal.stats">
                     <li>
-                        <a >
+                        <a>
                             {{ 'block_listed'|translate | capitalize }}
                             <span>{{ userGoal.goal.stats.listedBy | number }}</span>
                             <i class="icon-user-small"></i>
                         </a>
                     </li>
                     <li>
-                        <a >
+                        <a>
                             {{ 'block_completed'|translate | capitalize }}
                             <span>{{ userGoal.goal.stats.doneBy | number }}</span>
                             <i class="icon-user-small"></i>
@@ -41,31 +41,12 @@
                 </ul>
             </div>
         </div>
-        <!--{% set arrayMonth = {-->
-        <!--0:'form.birth_date_month'|translate,-->
-        <!--1:'form.month_january'|translate,-->
-        <!--2:'form.month_february'|translate,-->
-        <!--3:'form.month_march'|translate,-->
-        <!--4:'form.month_april'|translate,-->
-        <!--5:'form.month_may'|translate,-->
-        <!--6:'form.month_june'|translate,-->
-        <!--7:'form.month_july'|translate,-->
-        <!--8:'form.month_august'|translate,-->
-        <!--9:'form.month_september'|translate,-->
-        <!--10:'form.month_october'|translate,-->
-        <!--11:'form.month_november'|translate,-->
-        <!--12:'form.month_december'|translate } %}-->
 
-        <!--data-ng-init="myMonths={{ arrayMonth |json_encode() }}; redirectPath='{{ path('user_profile') }}'"-->
-        <form class="form-horizontal" method="post" #addForm="ngForm" (ngSubmit)="add(addForm)">
+        <form class="form-horizontal" method="post" #addForm="ngForm">
             <div class="goal-add bg-white">
                 <div class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-                        <!--{# edit goal status #}-->
-                        <!--data-ng-init="defaultYear = '{{ 'form.birth_date_year'|translate }}';-->
-                        <!--defaultDay = '{{ 'form.birth_date_day'|translate }}';-->
-                        <!--defaultMonth = '{{ 'form.birth_date_month'|translate }}'"-->
                         <div class="clearfix " *ngIf="userGoal.id">
                             <div class="no-marginb">
 
@@ -75,36 +56,11 @@
 
                                 <p>{{ "goal.in_proces"|translate }}</p>
 
-                                <!--data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)"-->
                                 <div class="clearfix purple-checkbox">
-
-                                    <label class="relative">
-                                        <span class="my-md-container" [ngClass]="{'my-md-checked': complete.switch == 0}">
-                                            <span class="md-off"></span>
-                                            <span class="md-on"></span>
-                                        </span>
-
-                                        <input name="active" type="radio" [value]="0" [(ngModel)]="complete.switch" style="display: none">
-
-                                        <span class="my-md-label">
-                                            <span class="ng-scope">{{ "user_goal.active"|translate }}</span>
-                                        </span>
-
-                                    </label>
-
-                                    <label class="relative">
-                                        <span class="my-md-container"  [ngClass]="{'my-md-checked': complete.switch == 1}">
-                                            <span class="md-off"></span>
-                                            <span class="md-on"></span>
-                                        </span>
-
-                                        <input name="active" type="radio" [value]="1"  [(ngModel)]="complete.switch" style="display: none">
-
-                                        <span class="my-md-label">
-                                            <span class="ng-scope">{{ "user_goal.completed"|translate }}</span>
-                                        </span>
-
-                                    </label>
+                                    <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
+                                        <md-radio-button value="0">{{ "user_goal.active"|translate }}</md-radio-button>
+                                        <md-radio-button value="1">{{ "user_goal.completed"|translate }}</md-radio-button>
+                                    </md-radio-group>
 
                                 </div>
 
@@ -118,22 +74,22 @@
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                        <h3 [ngClass]="{'text-purple': !(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1}"
+                        <h3 [ngClass]="{'text-purple': !(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1}"
                             *ngIf="!(complete.switch == 1) || userGoal.do_date">
                             {{ "goal.deadline"|translate }}
-                            <i *ngIf="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1"
+                            <i *ngIf="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1"
                                class="icon-info text-purple"></i>
 
                             <span class="text-purple "
-                                  *ngIf="complete.switch == 1 && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: {{ momentDateFormat(firefox_do_date, 'DD MMM YYYY') }}</span>
+                                  *ngIf="complete.switch == 1 && userGoal.do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: {{ userGoal.do_date| date:'dd MMMM yyyy' }}</span>
                             <span class="text-purple "
-                                  *ngIf="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: {{ momentDateFormat(firefox_do_date, 'YYYY') }}</span>
+                                  *ngIf="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: {{ userGoal.do_date| date:'yyyy'}}</span>
                             <span class="text-purple "
-                                  *ngIf="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: {{ momentDateFormat(firefox_do_date, 'MMM YYYY') }}</span>
+                                  *ngIf="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: {{ userGoal.do_date| date:'MMM yyyy' }}</span>
                         </h3>
 
                         <p class="text-gray text-left"
-                           *ngIf="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1">
+                           *ngIf="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1">
                             {{ "goal.missed_deadline"|translate }}
                         </p>
 
@@ -146,132 +102,47 @@
 
                         <div class="row">
 
-                            <div class="col-sm-4 date " *ngIf="complete.switch != 1">
-                                <ng-select [allowClear]="true"
-                                           [items]="years"
-                                           [disabled]="disabled"
-                                           (data)="refreshValue($event, 'year')"
-                                           (selected)="selected($event)"
-                                           (removed)="removed($event)"
-                                           (typed)="typed($event)"
-                                           placeholder="{{ 'form.birth_date_year'|translate }}">
-                                </ng-select>
-                                <!--<ui-select search-enabled="false" [(ngModel)]="$parent.year" skip-focusser="true">-->
-                                    <!--<ui-select-match-->
-                                            <!--placeholder="{{ 'form.birth_date_year'|translate }}">-->
-                                        <!--<span>{{ $select.selected }}</span>-->
-                                    <!--</ui-select-match>-->
+                            <div class="col-sm-4" *ngIf="complete.switch != 1">
+                                <md-select  placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
+                                    <md-option [value]="0">
+                                        {{ 'form.birth_date_year'|translate }}
+                                    </md-option>
+                                    <md-option *ngFor="let year of years" [value]="year">
+                                        {{ year }}
+                                    </md-option>
+                                </md-select>
 
-                                    <!--<ui-select-choices repeat="y in years">-->
-                                        <!--<span data-ng-bind="y"></span>-->
-                                    <!--</ui-select-choices>-->
-                                <!--</ui-select>-->
                             </div>
-                            <div class="col-sm-4 " *ngIf="complete.switch == 1">
-                                <ng-select [allowClear]="true"
-                                           [items]="completeYears"
-                                           [disabled]="disabled"
-                                           (data)="refreshValue($event, 'year')"
-                                           (selected)="selected($event)"
-                                           (removed)="removed($event)"
-                                           (typed)="typed($event)"
-                                           placeholder="{{ 'form.birth_date_year'|translate }}">
-                                </ng-select>
-                                <!--<ui-select search-enabled="false" [(ngModel)]="$parent.year" skip-focusser="true">-->
-                                    <!--<ui-select-match-->
-                                            <!--placeholder="{{ 'form.birth_date_year'|translate }}">-->
-                                        <!--<span>{{ $select.selected }}</span>-->
-                                    <!--</ui-select-match>-->
+                            <div class="col-sm-4" *ngIf="complete.switch == 1">
+                                <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
+                                    <md-option [value]="0">
+                                        {{ 'form.birth_date_year'|translate }}
+                                    </md-option>
+                                    <md-option *ngFor="let year of completeYears" [value]="year">
+                                        {{ year }}
+                                    </md-option>
+                                </md-select>
 
-                                    <!--<ui-select-choices repeat="y in completeYears">-->
-                                        <!--<span data-ng-bind="y"></span>-->
-                                    <!--</ui-select-choices>-->
-                                <!--</ui-select>-->
                             </div>
 
-                            <div class="col-sm-4 date " *ngIf="complete.switch == 1">
-                                <ng-select [allowClear]="true"
-                                           [items]="months"
-                                           [disabled]="disabled"
-                                           (data)="refreshValue($event, 'month')"
-                                           (selected)="selected($event)"
-                                           (removed)="removed($event)"
-                                           (typed)="typed($event)"
-                                           placeholder="{{ 'form.birth_date_month'|translate }}">
-                                </ng-select>
-                                <!--<ui-select search-enabled="false" [(ngModel)]="$parent.month" skip-focusser="true">-->
-                                    <!--<ui-select-match-->
-                                            <!--placeholder="{{ 'form.birth_date_month'|translate }}">-->
-                                        <!--<span>{{ $select.selected }}</span>-->
-                                    <!--</ui-select-match>-->
+                            <div class="col-sm-4">
+                                <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" [(ngModel)]="month">
+                                    <md-option *ngFor="let month of months; let i=index" [value]="i">
+                                        {{ month|translate }}
+                                    </md-option>
+                                </md-select>
 
-                                    <!--<ui-select-choices repeat="m in months">-->
-                                        <!--<span data-ng-bind="m"></span>-->
-                                    <!--</ui-select-choices>-->
-                                <!--</ui-select>-->
                             </div>
-                            <div class="col-sm-4 date " *ngIf="!(complete.switch == 1)">
-                                <ng-select [allowClear]="true"
-                                           [items]="months"
-                                           [disabled]="disabled"
-                                           (data)="refreshValue($event, 'month')"
-                                           (selected)="selected($event)"
-                                           (removed)="removed($event)"
-                                           (typed)="typed($event)"
-                                           placeholder="{{ 'form.birth_date_month'|translate }}">
-                                </ng-select>
-                                <!--<ui-select search-enabled="false" [(ngModel)]="$parent.month" skip-focusser="true">-->
-                                    <!--<ui-select-match-->
-                                            <!--placeholder="{{ 'form.birth_date_month'|translate }}">-->
-                                        <!--<span>{{ $select.selected }}</span>-->
-                                    <!--</ui-select-match>-->
+                            <div class="col-sm-4">
+                                <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" [(ngModel)]="day">
+                                    <md-option [value]="0">
+                                        {{ 'form.birth_date_day'|translate }}
+                                    </md-option>
+                                    <md-option *ngFor="let day of days" [value]="day">
+                                        {{ day }}
+                                    </md-option>
+                                </md-select>
 
-                                    <!--<ui-select-choices repeat="m in months">-->
-                                        <!--<span data-ng-bind="m"></span>-->
-                                    <!--</ui-select-choices>-->
-                                <!--</ui-select>-->
-                            </div>
-                            <div class="col-sm-4 date " *ngIf="complete.switch == 1">
-                                <ng-select [allowClear]="true"
-                                           [items]="days"
-                                           [disabled]="disabled"
-                                           (data)="refreshValue($event, 'day')"
-                                           (selected)="selected($event)"
-                                           (removed)="removed($event)"
-                                           (typed)="typed($event)"
-                                           placeholder="{{ 'form.birth_date_day'|translate }}">
-                                </ng-select>
-                                <!--<ui-select search-enabled="false" [(ngModel)]="$parent.day" skip-focusser="true">-->
-                                    <!--<ui-select-match-->
-                                            <!--placeholder="{{ 'form.birth_date_day'|translate }}">-->
-                                        <!--<span>{{ $select.selected }}</span>-->
-                                    <!--</ui-select-match>-->
-
-                                    <!--<ui-select-choices repeat="day in days">-->
-                                        <!--<span data-ng-bind="day"></span>-->
-                                    <!--</ui-select-choices>-->
-                                <!--</ui-select>-->
-                            </div>
-                            <div class="col-sm-4 date " *ngIf="!(complete.switch == 1)">
-                                <ng-select [allowClear]="true"
-                                           [items]="days"
-                                           [disabled]="disabled"
-                                           (data)="refreshValue($event, 'day')"
-                                           (selected)="selected($event)"
-                                           (removed)="removed($event)"
-                                           (typed)="typed($event)"
-                                           placeholder="{{ 'form.birth_date_day'|translate }}">
-                                </ng-select>
-                                <!--<ui-select search-enabled="false" [(ngModel)]="$parent.day" skip-focusser="true">-->
-                                    <!--<ui-select-match-->
-                                            <!--placeholder="{{ 'form.birth_date_day'|translate }}">-->
-                                        <!--<span>{{ $select.selected }}</span>-->
-                                    <!--</ui-select-match>-->
-
-                                    <!--<ui-select-choices repeat="day in days">-->
-                                        <!--<span data-ng-bind="day"></span>-->
-                                    <!--</ui-select-choices>-->
-                                <!--</ui-select>-->
                             </div>
                         </div>
 
@@ -299,26 +170,16 @@
                                 <div class="priority purple-checkbox">
 
                                     <label class="relative">
-                                        <span class="my-md-container" [ngClass]="{'my-md-checked': userGoal.urgent}">
-                                            <span class="my-md-icon"></span>
-                                            <input name="urgent" type="checkbox" [(ngModel)]="userGoal.urgent" style="display: none">
-                                        </span>
-
-                                        <span class="my-md-label">
-                                            <span class="ng-scope">{{ 'goal.urgent'|translate }}</span>
-                                        </span>
+                                        <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent">
+                                            {{ 'goal.urgent'|translate }}
+                                        </md-checkbox>
 
                                     </label>
 
                                     <label class="relative">
-                                        <span class="my-md-container" [ngClass]="{'my-md-checked': userGoal.important}">
-                                            <div class="my-md-icon"></div>
-                                            <input name="important" type="checkbox" [(ngModel)]="userGoal.important" style="display: none">
-                                        </span>
-
-                                        <span class="my-md-label">
-                                            <span class="ng-scope">{{ 'goal.important'|translate }}</span>
-                                        </span>
+                                        <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important">
+                                            {{ 'goal.important'|translate }}
+                                        </md-checkbox>
                                     </label>
 
                                 </div>
@@ -352,48 +213,26 @@
                         </p>
 
                         <div class="progress " *ngIf="!(complete.switch == 1)">
-                            <!--<div class="progress-bar progress-bar-striped"-->
-                                 <!--role="progressbar"-->
-                                 <!--aria-valuenow="45"-->
-                                 <!--aria-valuemin="0"-->
-                                 <!--aria-valuemax="100"-->
-                                 <!--[ngStyle]="width:{{ getCompleted(userGoal) | number }}%">-->
-                                <!--{{ getCompleted(userGoal) | number }}% Complete-->
-                            <!--</div>-->
+                            <section class="example-section">
+                                <md-progress-bar
+                                        class="example-margin"
+                                        [value]="complatedPercent">
+                                </md-progress-bar>
+                            </section>
                         </div>
 
                         <div dnd-sortable-container [sortableData]="userGoal.formatted_steps">
-                            <!--data-dnd-list="userGoal.formatted_steps"-->
-                            <!--data-dnd-disable-if="complete.switch == 1"-->
-                            <!--data-dnd-dragover="dragoverCallback(event, index, external, type)"-->
-                            <!--data-dnd-drop="dropCallback(event, index, item, external, type, '')"-->
                             <div class="form-group row"
                                  *ngFor="let step of userGoal.formatted_steps; let i = index"
                                  dnd-sortable
                                  [sortableIndex]="i"
-                                 [hidden]="!((!step.switch || !myStep[k]) && !(!step.text && complete.switch == 1))"
+                                 [hidden]="step.switch || (!step.text && complete.switch == 1)"
                                  [ngClass]="{'noselect': !step.text}">
-                                <!--data-ng-init="myStep[k] = step.switch"-->
-                                <!--data-dnd-draggable="step"-->
-                                <!--data-dnd-disable-if="!step.text || step.switch"-->
-                                <!--data-dnd-moved="moveElement($index)"-->
-                                <!--data-dnd-effect-allowed="move"-->
-                                <!--data-dnd-selected="models.selected = step"-->
-                                <!--class 'selected': models.selected === step,-->
 
                                 <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
 
                                     <label class="relative">
-                                        <span class="my-md-container" [ngClass]="{'my-md-checked': step.switch}">
-                                            <span class="my-md-icon"></span>
-                                            <!--id="myonoffswitch{{k}}"-->
-                                            <input id="myonoffswitch{{ i }}" type="checkbox" aria-label="steps"
-                                                   name="{% if app.environment !='test' %}switch[ {{k}} ]{% endif %}"
-                                                   [(ngModel)]="step.switch"
-                                                   style="display: none" />
-                                            <!--(change)="myStep[k] = false"-->
-                                                   <!--data-ng-disabled="complete.switch == 1 || !step.text"-->
-                                        </span>
+                                        <md-checkbox class="example-margin" name="switch" [(ngModel)]="step.switch" *ngIf="step.text" (ngModelChange)="complatedPercent = getCompleted(userGoal)"></md-checkbox>
 
                                     </label>
 
@@ -406,13 +245,9 @@
                                                class="form-control"
                                                [ngClass]="{'market-step': step.switch}"
                                                [(ngModel)]="step.text"
+                                               (ngModelChange)="generateStep(step.text, userGoal.formatted_steps, i)"
                                                name="stepText{{i}}"
                                                placeholder="{{ 'goal.add_step'|translate }}">
-                                        <!--name="stepText[ {{ k }} ]"-->
-                                        <!--data-step-->
-                                        <!--data-key="k"-->
-                                        <!--data-array="userGoal.formatted_steps"-->
-                                        <!--data-ng-disabled="complete.switch == 1 || step.switch"-->
                                     </div>
                                 </div>
 
@@ -431,14 +266,7 @@
                                 <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
 
                                     <label class="relative">
-                                        <span class="my-md-container my-md-checked">
-                                            <span class="my-md-icon"></span>
-                                            <input id="myonoffswitch{{ k }}" type="checkbox" aria-label="steps"
-                                                   name="switch{{ k }}"
-                                                   [(ngModel)]="step.switch"
-                                                   style="display: none" />
-                                            <!--data-ng-disabled="complete.switch == 1 || !step.text"-->
-                                        </span>
+                                        <md-checkbox class="example-margin" name="switch{{k}}" [(ngModel)]="step.switch" (ngModelChange)="complatedPercent = getCompleted(userGoal)"></md-checkbox>
 
                                     </label>
                                 </div>
@@ -450,16 +278,11 @@
                                                [(ngModel)]="step.text"
                                                name="stepText{{ k }}"
                                                placeholder="{{ 'goal.add_step'|translate }}">
-                                        <!--data-step-->
-                                        <!--data-key="k"-->
-                                        <!--data-array="userGoal.formatted_steps"-->
-                                        <!--data-ng-disabled="complete.switch == 1"-->
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div class="dndPlaceholder form-group row"></div>
 
                         </div>
 
@@ -479,39 +302,16 @@
 
                             <p class="text-gray">
                                 <i class="icon-eye-icon " *ngIf="userGoal.is_visible"></i>
-                                <i class="icon-eye " [hidden]="userGoal.is_visible"></i>
+                                <i class="icon-eye" *ngIf="!userGoal.is_visible"></i>
                                 <span>{{ "goal.visible_text"|translate }}</span>
                             </p>
 
                             <div class="clearfix purple-checkbox" id="goal-is-visible">
                                 <!--[(ngModel)]="userGoal.is_visible"-->
-                                <label class="relative">
-                                    <span class="my-md-container" [ngClass]="{'my-md-checked': userGoal.is_visible == true}">
-                                        <span class="md-off"></span>
-                                        <span class="md-on"></span>
-                                    </span>
-
-                                    <input name="visible" type="radio" [(ngModel)]="userGoal.is_visible" [value]="true" style="display: none">
-
-                                    <span class="my-md-label">
-                                        <span class="ng-scope">{{ "goal.visible"|translate }}</span>
-                                    </span>
-
-                                </label>
-
-                                <label class="relative">
-                                    <span class="my-md-container"  [ngClass]="{'my-md-checked': userGoal.is_visible == false}">
-                                        <span class="md-off"></span>
-                                        <span class="md-on"></span>
-                                    </span>
-
-                                    <input name="visible" type="radio" [value]="false" [(ngModel)]="userGoal.is_visible" style="display: none">
-
-                                    <span class="my-md-label">
-                                        <span class="ng-scope">{{ "my_bucket_list.invisible"|translate }}</span>
-                                    </span>
-
-                                </label>
+                                <md-radio-group [(ngModel)]="userGoal.is_visible" name="visibility">
+                                    <md-radio-button [value]="true">{{ "goal.visible"|translate }}</md-radio-button>
+                                    <md-radio-button [value]="false">{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
+                                </md-radio-group>
                             </div>
 
                         </div>
@@ -519,7 +319,6 @@
                 </div>
 
 
-                <!--{% if app.user %}-->
                 <hr/>
                 <div class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -534,7 +333,6 @@
                         </div>
                     </div>
                 </div>
-                <!--{% endif %}-->
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -549,18 +347,22 @@
                     </div>
                 </div>
 
-                <div class="modal-bottom">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                            <a  (click)="save()"
-                               class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
-                            <a  (click)="dialogRef.close()" id="cancel"
-                               class="btn btn-transparent">{{ 'btn_cancel'|translate }}</a>
-                            <a  (click)="showDetails = ! showDetails"
-                               class="btn btn-transparent">
-                                <span>{{ 'forget'|translate | uppercase}}</span>
-                            </a>
-                        </div>
+                <div class="row modal-bottom">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                        <!--<div class="modal-bottom">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+                                    <a  (click)="save()"
+                                       class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
+                                    <a  (click)="dialogRef.close()" id="cancel"
+                                       class="btn btn-transparent">{{ 'btn_cancel'|translate }}</a>
+                                    <a  (click)="showDetails = ! showDetails"
+                                       class="btn btn-transparent">
+                                        <span>{{ 'forget'|translate | uppercase}}</span>
+                                    </a>
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                 </div>
 

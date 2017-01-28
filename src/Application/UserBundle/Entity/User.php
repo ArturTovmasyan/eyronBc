@@ -11,6 +11,7 @@ namespace Application\UserBundle\Entity;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Services\UserNotifyService;
 use AppBundle\Traits\File;
+use JMS\Serializer\Annotation as Serializer;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\SerializedName;
@@ -179,7 +180,7 @@ class User extends BaseUser
     /**
      * @var
      * @Assert\Date
-     * @Groups({"settings"})
+     * @Groups({"settings", "user"})
      * @SerializedName("birth_date")
      * @Type("DateTime<'Y-m-d'>")
      */
@@ -208,6 +209,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"image_info"})
      */
     protected $socialPhotoLink;
 
@@ -220,6 +222,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="user_emails", type="array", nullable=true)
+     * @Groups({"user"})
      */
     protected $userEmails;
 
@@ -1226,6 +1229,9 @@ class User extends BaseUser
 
     /**
      * @return null|string
+     * @VirtualProperty()
+     * @SerializedName("social_email")
+     * @Groups({"user"})
      */
     public function getSocialFakeEmail()
     {
@@ -1244,6 +1250,9 @@ class User extends BaseUser
 
     /**
      * @return mixed
+     * @VirtualProperty()
+     * @SerializedName("language")
+     * @Groups({"user"})
      */
     public function getLanguage()
     {
@@ -1568,7 +1577,7 @@ class User extends BaseUser
     public function getUserGoalCount()
     {
         if (is_null($this->userGoalCount)){
-            $this->userGoalCount = $this->userGoal->count();
+            $this->userGoalCount = $this->userGoal ? $this->userGoal->count() : 0;
         }
 
         return $this->userGoalCount;

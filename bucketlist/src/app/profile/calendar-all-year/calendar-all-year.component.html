@@ -1,7 +1,7 @@
-<div class="col-xs-6 col-sm-3 col-md-2" *ngFor="let item of colArray">
+<div class="col-xs-6 col-sm-3 col-md-2" *ngFor="let i of colArray">
   <div class="lifetime bg-white">
         <span class="text-grey-dark">
-           <sup>Year {{ +currentYear + +item }}</sup>
+           <sup>Year {{ +currentYear + +i }}</sup>
         </span>
 
         <span class="absolute" *ngIf="currentYear && myYears && myYears[ +currentYear + i ]">

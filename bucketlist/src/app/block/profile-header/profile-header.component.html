@@ -14,13 +14,18 @@
         <figure>
 
           <a routerLink="/edit/profile" routerLinkActive="active" *ngIf="!userInfo || userInfo == 'my'" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
-
-          <div *ngIf="profileUser">
-            <img src="{{ profileUser.cached_image }}" *ngIf="profileUser.cached_image" alt="Profile image" class="img-responsive img-circle"/>
-            <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->
-            <span class="no-image profile-image profile-image1" *ngIf="!profileUser.cached_image">
-              {{ profileUser.first_name |slice:0:1 |uppercase }} {{ profileUser.last_name |slice:0:1 |uppercase }}</span>
-          </div>
+          <form>
+            <label class="image-label" for="file" *ngIf="type == 'settings'">Upload a photo</label>
+            <div class="hide" *ngIf="type == 'settings'">
+              <input type="file" id="file" name="file" (change)="showUploadedImage($event)">
+            </div>
+            <div *ngIf="profileUser">
+              <img src="{{ profileUser.cached_image }}" *ngIf="profileUser.cached_image" alt="Profile image" class="img-responsive img-circle"/>
+              <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->
+              <span class="no-image profile-image profile-image1" *ngIf="!profileUser.cached_image">
+                {{ profileUser.first_name |slice:0:1 |uppercase }} {{ profileUser.last_name |slice:0:1 |uppercase }}</span>
+            </div>
+          </form>
 
           <figcaption>
 
@@ -116,7 +121,7 @@
         </div>
 
         <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
-        <div class="profile-information" *ngIf="user && user.completedPercent != 100">
+        <div class="profile-information" *ngIf="user && user.completed_percent != 100">
           <em>{{ 'complete_message'|translate }}</em>
 
           <div class="row no-gutter">
@@ -127,9 +132,9 @@
                      aria-valuenow="45"
                      aria-valuemin="0"
                      aria-valuemax="100"
-                     [ngStyle]="{'width.%': user.completedPercent| round}">
+                     [ngStyle]="{'width.%': user.completed_percent| round}">
 
-                  {{ user.getCompletedPercent|round }}%
+                  {{ user.completed_percent|round }}%
                 </div>
               </div>
             </div>
@@ -159,7 +164,7 @@
 
 
     <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
-    <div class="row slide" *ngIf="user && user.completedPercent != 100 && completeProfileMyBucketList">
+    <div class="row slide" *ngIf="user && user.completed_percent != 100 && completeProfileMyBucketList">
       <!--data-ng-cloak *ngIf="completeProfileMyBucketList" style="display: none"-->
       <div class="col-sm-6">
         <ol style="position: relative;">

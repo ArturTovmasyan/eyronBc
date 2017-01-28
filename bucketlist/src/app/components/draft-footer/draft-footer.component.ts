@@ -1,27 +1,27 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 import { ConfirmComponent} from '../../modals/confirm/confirm.component';
-import { Router } from '@angular/router';
 import {ProjectService} from '../../project.service';
+import {Goal} from "../../interface/goal";
 
 
 @Component({
   selector: 'draft-footer',
   templateUrl: './draft-footer.component.html',
-  styleUrls: ['./draft-footer.component.less'],
+  styleUrls: ['../goal-footer/goal-footer.component.less'],
   providers: [
     ProjectService
   ]
 })
 export class DraftFooterComponent implements OnInit {
-
-    public goals: any[];
+    @Input() slug: string;
+    @Input() goals: Goal[];
+    @Input() index: number;
     
   constructor(
         private _projectService : ProjectService,
         private viewContainerRef: ViewContainerRef,
-        public dialog: MdDialog,
-        private router: Router
+        public dialog: MdDialog
   ){}
 
   ngOnInit() {}
@@ -38,13 +38,9 @@ export class DraftFooterComponent implements OnInit {
              this._projectService.deleteDrafts(id)
                  .subscribe(
                      () => {}
-                 )
-             this.goals.splice(id,1);
-
+                 );
+             this.goals.splice(this.index,1);
          }
      });
  }
-    redirectToGoalCreate(){
-        this.router.navigate(['goal/create'])
-    }
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input , ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation, ViewChild} from '@angular/core';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { ElementRef, Renderer} from '@angular/core';
 
 import { ProjectService } from '../../project.service';
 
@@ -17,15 +18,22 @@ import {Goal} from '../../interface/goal';
 })
 
 export class TopIdeasBlockComponent implements OnInit {
-  @Input() type: string ;
+  @ViewChild('rotate')
+  public rotateElementRef: ElementRef;
+  @Input() type: string;
   goals:Goal[] = null;
   errorMessage:string;
   categories = ['top', 'suggest', 'featured'];
+  degree:number = 360;
 
-  constructor(private _projectService: ProjectService, private _cacheService: CacheService) {}
+  constructor(
+      private _projectService: ProjectService,
+      private _cacheService: CacheService,
+      private renderer: Renderer
+  ) {}
 
   ngOnInit() {
-    if(this.type == this.categories[2]) {
+        if(this.type == this.categories[2]) {
       let data = this._cacheService.get('featuredIdea');
       if (data) {
         this.goals = data;
@@ -64,6 +72,8 @@ export class TopIdeasBlockComponent implements OnInit {
   }
 
   refreshIdeas(){
+    this.renderer.setElementStyle(this.rotateElementRef.nativeElement, 'transform','rotate('+this.degree+'deg)');
+    this.degree += 360;
     if(this.type == this.categories[2]){
       this.getFeaturedIdeas()
     } else {

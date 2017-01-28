@@ -38,7 +38,7 @@
             </p>
 
             <span>
-              {{ story.created | date:'dd MMMM,  yyyy' }} at {{ story.created | date:'HH:mm' }}
+              {{ story.created | date:'MMMM dd,  yyyy' }} at {{ story.created | date:'shortTime' }}
             </span>
 
             <span class="report" (click)="report(1, story.id)" *ngIf="appUser && story.user.id != appUser.id">
@@ -55,7 +55,9 @@
 
     </div>
 
-    <div class="story-remove" *ngIf="appUser && story.user.id == appUser.id"><span class="report">{{ 'btn_delete'|translate }}</span></div>
+    <div class="story-remove" *ngIf="appUser && story.user.id == appUser.id" (click)="openDialog(story.id, k)">
+      <span class="report">{{ 'btn_delete'|translate }}</span>
+    </div>
     <!--data-ls-text="{{ 'success_story.delete_confirm'|trans }}" data-ls-confirm="removeStory({{ story.id }})"-->
 
     <div class="border-left" *ngIf="story">

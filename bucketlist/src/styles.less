@@ -2926,6 +2926,15 @@ footer{
 }
 
 
+md-select{
+  .md-select-placeholder{
+    color: transparent;
+  }
+  .md-select-value{
+    color: #3c3c3c;
+  }
+}
+
 @media (min-width: @screen-sm) {
 
   header{
@@ -4183,7 +4192,7 @@ div[dnd-list] {
   }
 }
 
-.dndPlaceholder {
+.dnd-sortable-drag {
   display: block;
   background-color: #7725f6;
   opacity: 0.5;
@@ -4314,11 +4323,11 @@ ul{
   border-bottom: 10px solid #f4f4f4;
 }
 
-.example-margin{
-  .md-checkbox-inner-container{
-    margin: auto 3px auto auto;
-  }
-}
+//.example-margin{
+//  .md-checkbox-inner-container{
+//    margin: auto 3px auto auto;
+//  }
+//}
 
 .md-checkbox-checked.md-accent .md-checkbox-background, .md-checkbox-indeterminate.md-accent .md-checkbox-background{
   background: #6108EA;
@@ -4352,4 +4361,34 @@ md-radio-button.md-radio-checked{
     background-color: rgba(119, 36, 246, 0.3) !important;
   }
 
+}
+//
+//.cdk-global-overlay-wrapper{
+//  overflow: auto;
+//}
+
+.md-dialog-container{
+  padding: 0;
+  overflow: hidden;
+  box-shadow: none;
+  background: transparent;
+  .rounded-corners(6px);
+}
+
+.cdk-overlay-container{
+  z-index: 10001;
+}
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container{
+  //overflow: auto;
+}
+
+.cdk-focus-trap-content{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 25px;
+  bottom: 0;
+  overflow: auto;
+  .rounded-corners(8px);
 }

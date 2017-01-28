@@ -36,7 +36,8 @@ export class AppComponent implements OnInit  {
   public isMobile:Boolean= (window.innerWidth < 768);
   errorMessage:string;
   public appUser:User;
-    
+  public busy:boolean = false;
+
   //  modal
     public reportModal:boolean = false;
     // public commonModal:boolean = false;
@@ -79,14 +80,17 @@ export class AppComponent implements OnInit  {
     this.selectLang('en');
 
     if(localStorage.getItem('apiKey')){
-        this._projectService.getUser()
-            .subscribe(
-            user => {
-                this.appUser = user;
-                this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
-                this.broadcaster.broadcast('getUser', user);
-            },
-            error => localStorage.removeItem('apiKey'));
+        this.appUser = this._cacheService.get('user_');
+        if(!this.appUser) {
+            this._projectService.getUser()
+                .subscribe(
+                    user => {
+                        this.appUser = user;
+                        this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                        this.broadcaster.broadcast('getUser', user);
+                    },
+                    error => localStorage.removeItem('apiKey'));
+        }
     }
 
     this.broadcaster.on<User>('login')
@@ -113,7 +117,7 @@ export class AppComponent implements OnInit  {
               this.commonId = id;
               let dialogRef: MdDialogRef<CommonComponent>;
               let config = new MdDialogConfig();
-              config.height = '600px';
+              // config.height = '600px';
               config.viewContainerRef = this.viewContainerRef;
               dialogRef = this.dialog.open(CommonComponent, config);
               dialogRef.componentInstance.id = id;
@@ -128,7 +132,7 @@ export class AppComponent implements OnInit  {
               this.reportData = data;
               let dialogRef: MdDialogRef<ReportComponent>;
               let config = new MdDialogConfig();
-              config.height = '600px';
+              config.height = '400px';
               config.viewContainerRef = this.viewContainerRef;
               dialogRef = this.dialog.open(ReportComponent, config);
               dialogRef.componentInstance.data = data;
@@ -155,29 +159,49 @@ export class AppComponent implements OnInit  {
       
       this.broadcaster.on<any>('addModal')
           .subscribe(data => {
-              this.addData = data;
+              if(this.busy)return;
+              this.busy = true;
+              // this.addData = data;
               let dialogRef: MdDialogRef<AddComponent>;
               let config = new MdDialogConfig();
               config.viewContainerRef = this.viewContainerRef;
-              config.height = '600px';
+              //config.height = '600px';
               dialogRef = this.dialog.open(AddComponent, config);
-              dialogRef.componentInstance.data = data;
+              dialogRef.componentInstance.newCreated = data.newCreated;
+              dialogRef.componentInstance.newAdded = data.newAdded;
+              dialogRef.componentInstance.userGoal = data.userGoal;
               dialogRef.afterClosed().subscribe(result => {
-                  
+                  this.busy = false;
+                  if(result){
+                      if(result.remove){
+                          this.broadcaster.broadcast('removeUserGoal_' + result.remove, result.remove);
+                          this.broadcaster.broadcast('removeGoal', result.remove);
+                          this.broadcaster.broadcast('removeGoal'+data.userGoal.goal.id, data.userGoal.goal.id);
+                      } else {
+                          this.broadcaster.broadcast('saveUserGoal_' + result.id, result);
+                          this.broadcaster.broadcast('saveGoal', result);
+                          this.broadcaster.broadcast('saveGoal'+result.goal.id, result);
+                      }
+                  } else {
+                      this.broadcaster.broadcast('addGoal', result);
+                      this.broadcaster.broadcast('addGoal'+data.userGoal.goal.id, result);
+                  }
               });
               // this.addModal = true;
           });
 
       this.broadcaster.on<any>('doneModal')
           .subscribe(data => {
+              this.broadcaster.broadcast('doneGoal', data);
               this.doneData = data;
               this.addData = data;
               let dialogRef: MdDialogRef<DoneComponent>;
               let config = new MdDialogConfig();
-              config.height = '600px';
+              // config.height = '600px';
               config.viewContainerRef = this.viewContainerRef;
               dialogRef = this.dialog.open(DoneComponent, config);
-              dialogRef.componentInstance.data = data;
+              dialogRef.componentInstance.newAdded = data.newAdded;
+              dialogRef.componentInstance.userGoal = data.userGoal;
               dialogRef.afterClosed().subscribe(result => {
 
               });

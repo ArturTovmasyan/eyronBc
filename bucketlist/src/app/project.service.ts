@@ -34,15 +34,14 @@ export class ProjectService {
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;
     private base2Url = this.baseOrigin + this.envprefix + 'api/v2.0/' ;
-    private goalUrl =  this.baseUrl + 'goal/by-slug';  // URL to web API
+    private goalUrl =  this.baseUrl + 'goal/by-slug/';  // URL to web API
     private userUrl  = this.baseUrl + 'user';  // URL to web API
     private socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
     private registrationUrl  = this.baseUrl + 'users';  // URL to web API
 
     //modals
     private reportUrl = this.baseUrl + 'report';
-    private commonUrl1 = this.baseUrl + 'goals/';
-    private commonUrl2 = '/common';
+    private commonUrl = '/common';
     private usersUrl = this.baseUrl + 'user-list/';
     // private friendsUrl = this.baseUrl + 'goals/';
 
@@ -50,6 +49,7 @@ export class ProjectService {
     private getStoryUrl = this.baseUrl + 'story/';  // URL to web API
     private addVoteUrl = this.baseUrl + 'success-story/add-vote/';  // URL to web API
     private removeVoteUrl = this.baseUrl + 'success-story/remove-vote/';  // URL to web API
+    private removeStoryUrl = this.baseUrl + 'success-story/remove/';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
     private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
@@ -65,6 +65,10 @@ export class ProjectService {
     private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
+    private removeEmailUrl = this.baseUrl + 'settings/email';
+    private changeSettingsUrl = this.baseUrl + 'user/update';
+    private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
+    private getNotifySettingsUrl = this.baseUrl + 'user/notify-settings';
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
@@ -126,11 +130,41 @@ export class ProjectService {
 
     /**
      *
+     * @param data
+     */
+    setMyUser(data){
+        this.appUser = data;
+    }
+
+    /**
+     *
      * @param slug
      * @returns {Observable<R>}
      */
     getGoal(slug:string):Observable<any> {
-        return this.http.get(this.goalUrl + '/' + slug)
+        return this.http.get(this.goalUrl + slug, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    getGoalMyId(id:number):Observable<any> {
+        return this.http.get(this.ideasUrl + id, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param id
+     * @returns {Observable<R>}
+     */
+    createGoal(data, id?:number):Observable<any> {
+        return this.http.put(this.ideasUrl + 'create' + (id?('/' + id):''), data, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
@@ -150,12 +184,36 @@ export class ProjectService {
     }
 
     /**
+     * 
+     * @param goalId
+     * @param data
+     * @returns {Observable<R>}
+     */
+    addUserGoal(goalId:number, data:any):Observable<UserGoal> {
+        return this.http.put(this.userGoalsUrl + goalId, data, {headers: this.headers})
+            .map((r:Response) => r.json() as UserGoal)
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param goalId
+     * @param data
+     * @returns {Observable<R>}
+     */
+    addUserGoalStory(goalId:number, data:any):Observable<any> {
+        return this.http.put(this.ideasUrl + goalId + '/story', data, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
      *
      * @param goalId
      * @returns {Observable<R>}
      */
-    addUserGoal(goalId:number):Observable<UserGoal> {
-        return this.http.put(this.userGoalsUrl + goalId, {}, {headers: this.headers})
+    removeUserGoal(goalId:number):Observable<UserGoal> {
+        return this.http.delete(this.userGoalsUrl + goalId, {headers: this.headers})
             .map((r:Response) => r.json() as UserGoal)
             .catch(this.handleError);
     }
@@ -189,6 +247,17 @@ export class ProjectService {
      */
     getStory(goalId:number):Observable<any> {
         return this.http.get(this.getStoryUrl + goalId, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    removeStory(id:number):Observable<any> {
+        return this.http.delete(this.removeStoryUrl + id, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
@@ -329,12 +398,16 @@ export class ProjectService {
         return this.http.delete(this.ideasUrl + id + '/drafts',{headers: this.headers})
             .catch(this.handleError);
     }
+
     /**
      *
-     * @returns {Observable<T>}
+     * @param type
+     * @param start
+     * @param count
+     * @returns {Observable<R>}
      */
-    getMyIdeas(start: number, count: number):Observable<any>{
-        return this.http.get(this.ideasUrl + 'drafts/' + start +'/'+ count , {headers : this.headers})
+    getMyIdeas(type:string, start: number, count: number):Observable<any>{
+        return this.http.get(this.ideasUrl + type + '/' + start +'/'+ count , {headers : this.headers})
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     }
@@ -510,7 +583,7 @@ export class ProjectService {
      */
     getCommons(id:number, start?:number, count?:number):Observable<any> {
         let end = count?('/' + start + '/' + count):'';
-        return this.http.get(this.commonUrl1 + id + this.commonUrl2 + end, {headers: this.headers})
+        return this.http.get(this.ideasUrl + id + this.commonUrl + end, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }
@@ -627,6 +700,49 @@ export class ProjectService {
             .catch(this.handleError);
     }
 
+    /**
+     *
+     * This service is used to remove user email
+     *
+     * @param email
+     */
+    removeUserEmail(email:string) {
+        return this.http.delete(this.removeEmailUrl+'?email='+email, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * This service is used to save user data
+     *
+     * @param data
+     */
+    saveUserData(data:any) {
+        return this.http.post(this.changeSettingsUrl, {'bl_user_angular_settings':data}, {headers: this.headers})
+            .map((r:Response) => r.json());
+    }
+
+    /**
+     *
+     * @param data
+     * @returns {Observable<R>}
+     */
+    postNotifySettings(data:any) {
+        return this.http.post(this.changeNotifySettingsUrl, {'bl_user_notify_angular_type':data}, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getNotifySettings() {
+        return this.http.get(this.getNotifySettingsUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
 
     /**
      *

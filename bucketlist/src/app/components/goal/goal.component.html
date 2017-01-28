@@ -50,7 +50,7 @@
       </a>
 
       <div class="absolute" >
-        <ul>
+        <ul *ngIf="type != 'drafts' && goal && goal.stats">
           <li>
             <goal-users [goal]="goal" type="1"></goal-users>
           </li>

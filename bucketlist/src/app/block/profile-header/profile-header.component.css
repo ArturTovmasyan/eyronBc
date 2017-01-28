@@ -195,9 +195,11 @@
   display: block;
   color: #ffffff;
   font-size: 14px;
+  line-height: 21px;
 }
 .profile figure figcaption li span:last-child {
   font-size: 22px;
+  line-height: 33px;
 }
 .profile figure figcaption li:last-child {
   border: 0;
@@ -424,6 +426,7 @@
   padding-left: 15px;
   min-width: 245px;
   max-width: 300px;
+  text-align: left;
 }
 @media (min-width: 768px) {
   .content-header > figure {
@@ -469,6 +472,7 @@
   }
   .profile figure figcaption li span:last-child {
     font-size: 16px;
+    line-height: 24px;
   }
   .profile .close-friends {
     height: 40px;
@@ -527,6 +531,7 @@
   .profile figcaption span.title-smaller {
     font-size: 16px;
     line-height: 35px;
+    display: inline-block;
   }
   .profile h1 span.title-smaller span,
   .profile figcaption span.title-smaller span {
@@ -625,7 +630,7 @@
     margin-right: 0;
   }
   .profile figure {
-    padding: 20px 0 14px;
+    padding: 20px 0 9px;
   }
   .profile figure div {
     width: 140px;
@@ -648,9 +653,11 @@
   }
   .profile figure figcaption li span {
     font-size: 14px;
+    line-height: 21px;
   }
   .profile figure figcaption li span:last-child {
     font-size: 18px;
+    line-height: 27px;
   }
   .profile .relative {
     height: 232px;

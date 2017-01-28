@@ -11,6 +11,7 @@ use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Entity\UserPlace;
+use AppBundle\Entity\Tag;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
@@ -606,6 +607,12 @@ class GoalController extends FOSRestController
     public function putAction(Request $request, $id = null)
     {
         $em = $this->getDoctrine()->getManager();
+
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
         $data = $request->request->all();
 
         if ($id){
@@ -615,6 +622,7 @@ class GoalController extends FOSRestController
             }
 
             $this->denyAccessUnlessGranted('edit', $goal, $this->get('translator')->trans('goal.edit_access_denied'));
+            $em->getRepository('AppBundle:UserGoal')->updateUserGoals($id);
         }
         else {
             $goal = new Goal();
@@ -628,6 +636,66 @@ class GoalController extends FOSRestController
         $goal->setReadinessStatus(Goal::DRAFT);
         $goal->setAuthor($this->getUser());
 
+        if(array_key_exists('files', $data) && $data['files']){
+            $images = $data['files'];
+            $imageIds = array_unique($images);
+            if($id){
+                foreach($goal->getImages() as $file){
+                    if (!in_array($file->getId(), $imageIds)){
+                        $em->remove($file);
+                        $goal->removeImage($file);
+                    }
+                }
+            } else {
+                
+                $goalImages = $em->getRepository('AppBundle:GoalImage')->findByIDs($imageIds);
+
+                if(count($goalImages) != 0){
+                    foreach($goalImages as $goalImage){
+                        $goal->addImage($goalImage);
+                    }
+                }
+            }
+            
+        }
+        
+        if(array_key_exists('tags', $data) && $data['tags']){
+            $tags = $data['tags'];
+
+            $tags = implode(" ", $tags);
+            $tags = str_replace('#', '', $tags);
+            $tags = explode(" ", $tags);
+            
+            $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
+
+            $newTags = array_diff($tags, $dbTags);
+            $newTags = array_unique($newTags);
+
+            foreach($newTags as $tagString)
+            {
+                $tag = new Tag();
+                $title = strtolower($tagString);
+                $title = str_replace(',', '', $title);
+                $title = str_replace(':', '', $title);
+                $title = str_replace('.', '', $title);
+
+                $tag->setTag($title);
+                $goal->addTag($tag);
+
+//                $em->persist($tag);
+            }
+
+            $existTags = array_diff($tags, $newTags);
+            $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
+
+            foreach($oldTags as $oldTag){
+                if(!$goal->getTags() || !$goal->getTags()->contains($oldTag)){
+                    $goal->addTag($oldTag);
+                    $em->persist($oldTag);
+                }
+            }
+        }
+
         $validator = $this->get('validator');
         $error = $validator->validate($goal, null, array('goal'));
 
@@ -638,7 +706,9 @@ class GoalController extends FOSRestController
         $em->persist($goal);
         $em->flush();
 
-        return array('id' => $goal->getId());
+        return array(
+            'id'   => $goal->getId(),
+            'slug' => $goal->getSlug());
     }
 
     /**
@@ -781,7 +851,48 @@ class GoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $draftGoals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser(), $first, $count);
 
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        foreach($draftGoals as $draftGoal){
+            if ($draftGoal->getListPhotoDownloadLink()) {
+                $draftGoal->setCachedImage($liipManager->getBrowserPath($draftGoal->getListPhotoDownloadLink(), 'goal_list_small'));
+            }
+        }
         return $draftGoals;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get user private goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     * )
+     *
+     * @Rest\View(serializerGroups={"goal_draft"})
+     *
+     * @Rest\Get("/goals/private/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_goal_getprivategoals", options={"method_prefix"=false})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param $first
+     * @param $count
+     * @return array
+     */
+    public function getPrivatesAction($first, $count)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $privateGoals = $em->getRepository("AppBundle:Goal")->findMyPrivateGoals($this->getUser(), $first, $count);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        foreach($privateGoals as $privateGoal){
+            if ($privateGoal->getListPhotoDownloadLink()) {
+                $privateGoal->setCachedImage($liipManager->getBrowserPath($privateGoal->getListPhotoDownloadLink(), 'goal_list_small'));
+            }
+        }
+        return $privateGoals;
     }
 
     /**

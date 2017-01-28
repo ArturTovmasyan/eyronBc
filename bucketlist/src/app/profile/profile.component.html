@@ -195,6 +195,9 @@
                                 <span *ngIf="myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'all'">
                                     {{ 'my_bucket_list.doing_here'|translate}} <a routerLink="/goal/create" class="text-purple">{{ 'my_bucket_list.add_goal'|translate}}</a>
                                 </span>
+                                <span *ngIf="myProfile && !isDream && !(notUrgentImportant || notUrgentNotImportant || urgentNotImportant || urgentImportant) && type == 'owned'">
+                                    {{ 'my_bucket_list.doing_here'|translate}} <a routerLink="/goal/create" class="text-purple">{{ 'my_bucket_list.create_goal'|translate}}</a>
+                                </span>
                 <!--{% else %}-->
                                 <span *ngIf="!myProfile">
                                     {{ 'profile_empty'|translate}}
@@ -205,7 +208,7 @@
         </div>
 
         <div class="col-md-4" >
-            <create-goal [myProfile]="myProfile"></create-goal>
+            <create-goal [myProfile]="myProfile" [myIdeasCount]="appUser?appUser.draft_count:'0'"></create-goal>
             <overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>
             <top-ideas-block [type]="'suggest'"></top-ideas-block>
             <top-ideas-block [type]="'featured'"></top-ideas-block>

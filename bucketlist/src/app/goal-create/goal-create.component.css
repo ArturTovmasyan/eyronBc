@@ -119,20 +119,6 @@
 .goals figure {
   margin: 0 0 20px 0;
 }
-.goals .remove-icon {
-  position: absolute;
-  right: 3px;
-  top: 2px;
-  background-color: #ffffff;
-  padding: 0 0 0 3px;
-}
-.goals .remove-icon .icon-remove-video-link {
-  font-size: 25px;
-}
-.goals .remove-icon:hover,
-.goals .remove-icon :focus {
-  text-decoration: none;
-}
 @media (min-width: 768px) {
   .buttons {
     margin: 22px 0 20px;
@@ -199,9 +185,6 @@
   }
   .goals .relative {
     margin-bottom: 5px;
-  }
-  .goals .remove-icon {
-    right: 10px;
   }
 }
 @media (min-width: 992px) {

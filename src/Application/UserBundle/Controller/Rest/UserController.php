@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\Serializer\SerializationContext;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -171,7 +172,16 @@ class UserController extends FOSRestController
             $request->request->add(json_decode($content, true));
         }
 
+        //get all data in request
         $data = $request->request->all();
+
+        $returnResult = [];
+        $tr = $this->get('translator');
+
+        //check if plain password is not valid
+        if($data['plainPassword'] !== $data['password']) {
+            $returnResult['password'] = $tr->trans('fos_user.password.mismatch', [], 'validators');
+        }
 
         $user = new User();
         $user->setUsername(array_key_exists('email', $data) ? $data['email'] : null);
@@ -182,15 +192,13 @@ class UserController extends FOSRestController
         $user->setDateOfBirth(array_key_exists('birthday', $data) ? \DateTime::createFromFormat('d/m/Y', $data['birthday'])  : null);
 
         $validator = $this->get('validator');
-        $errors = $validator->validate($user, null, array('Register', 'Default'));
+        $errors = $validator->validate($user, null, ['Register', 'Default']);
 
+        if(count($errors) > 0 || count($returnResult) > 0){
 
-        if(count($errors) > 0){
-            $returnResult = [];
-            if(count($errors) > 0){
-                foreach($errors as $error){
-                    $returnResult[$error->getPropertyPath()] = $error->getMessage();
-                }
+            foreach($errors as $error)
+            {
+                $returnResult[$error->getPropertyPath()] = $error->getMessage();
             }
 
             return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
@@ -200,10 +208,10 @@ class UserController extends FOSRestController
 
         if($profileImage){
             $user->setFile($profileImage);
+            $blService = $this->container->get('bl_service');
+            $blService->uploadFile($user);
         }
 
-        $blService = $this->container->get('bl_service');
-        $blService->uploadFile($user);
         $token = md5(microtime());
         $user->setRegistrationToken($token);
 
@@ -233,6 +241,7 @@ class UserController extends FOSRestController
             $params = ['path' => ltrim($user->getImagePath(), '/'), 'filter' => 'user_goal'];
             $filterUrl = $route->generate('liip_imagine_filter', $params);
             $user->setMobileImagePath($filterUrl);
+            $user->setCachedImage($liipManager->getBrowserPath($user->getImagePath(), 'user_image'));;
         }
 
         $request     = $this->get('request_stack')->getCurrentRequest();
@@ -283,6 +292,20 @@ class UserController extends FOSRestController
 
 
         $serializer = $this->get('serializer');
+        if(!$request->query->get('mobileAppPlatform')){
+            $group = array_merge($group, ["completed_profile", "image_info"]);
+
+            $states = $content['userInfo']->getStats();
+
+            $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($content['userInfo']->getId(), false);
+
+            $content['userInfo']->setStats($states);
+
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyIdeasCount($content['userInfo']);
+            $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($content['userInfo']->getId(), null, $goalFriendsCount, true);
+            $content['userInfo']->setGoalFriendsCount($goalFriendsCount);
+        }
         $contentJson = $serializer->serialize($content, 'json', SerializationContext::create()->setGroups($group));
 
         $response->setContent($contentJson);
@@ -661,7 +684,7 @@ class UserController extends FOSRestController
      *         401="Access allowed only for registered users"
      *     },
      * )
-     * @Rest\View(serializerGroups={"user", "completed_profile"})
+     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info"})
      * @Rest\Get("/user/{uid}", name="get_user", defaults={"uid" = null}, options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
      * @param $uid
@@ -676,8 +699,17 @@ class UserController extends FOSRestController
 
         //get current user
         $currentUser = $uid?$em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId'=>$uid)) :$this->get('security.token_storage')->getToken()->getUser();
-        // get drafts
-        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
+
+        if(!$request->query->get('mobileAppPlatform')){
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyIdeasCount($currentUser);
+            $goalFriendsCount = 0;
+            $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($currentUser->getId(), null, $goalFriendsCount, true);
+            $currentUser->setGoalFriendsCount($goalFriendsCount);
+        } else {
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
+        }
 
         //check if not logged in user
         if(!is_object($currentUser)) {
@@ -1040,6 +1072,55 @@ class UserController extends FOSRestController
         $goalFriends = $currentUser->getFollowings();
 
         return $goalFriends;
+    }
+
+    /**
+     * This function is used to to post file for current user
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to to post file for current user",
+     *  statusCodes={
+     *         204="No content",
+     *         400="Bad Request",
+     *         401="Access allowed only for registered users"
+     *     },
+     *  parameters={
+     *      {"name"="file", "dataType"="file", "required"=true, "description"="File for current user"}
+     * }
+     * )
+     * @Rest\View()
+     * @Rest\Post("/user/upload-file",name="application_user_rest_user_postuploadfile", options={"method_prefix"=false})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function postUploadFileAction(Request $request)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        
+        //get current user
+        $currentUser = $this->getUser();
+
+        //get file
+        $file = $request->files->get('file');
+
+        if(!$file) {
+            return new JsonResponse('File not found', Response::HTTP_BAD_REQUEST);
+        }
+
+        $currentUser->setFile($file);
+
+        //get uploadFile service
+        $this->get('bl_service')->uploadFile($currentUser);
+        $imagePath = $liipManager->getBrowserPath($currentUser->getImagePath(), 'user_image');
+        $currentUser->setCachedImage($imagePath);
+        
+        $em->persist($currentUser);
+        $em->flush();
+
+        return new Response($imagePath, Response::HTTP_OK);
     }
 }
 

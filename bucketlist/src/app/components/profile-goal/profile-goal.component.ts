@@ -24,6 +24,7 @@ export class ProfileGoalComponent implements OnInit {
   public status:number;
   public goalStatus:boolean;
   public success:boolean;
+  public removed:boolean = false;
   public goalDate:any;
   public appUser:User;
   public isMobile:Boolean= (window.innerWidth < 768);
@@ -51,8 +52,33 @@ export class ProfileGoalComponent implements OnInit {
       this.broadcaster.broadcast('logout', 'some message');
     }
 
+    this.initData();
+
+    if(this.userGoal){
+      this.broadcaster.on<any>('saveUserGoal_' + this.userGoal.id)
+          .subscribe(data => {
+            this.userGoal = data;
+            this.initData();
+          });
+      this.broadcaster.on<any>('removeUserGoal_' + this.userGoal.id)
+          .subscribe(data => {
+            this.removed = true;
+          });
+    }
+
+  }
+  
+  initData(){
     if(this.userGoal && this.userGoal.goal){
-      this.goal = this.userGoal.goal;
+
+      if(this.goal){
+        let image = this.goal.cached_image;
+        this.goal = this.userGoal.goal;
+        this.goal.cached_image = image;
+      } else {
+        this.goal = this.userGoal.goal;
+      }
+
       this.dateStatus = this.userGoal.date_status;
       this.status = this.userGoal.status;
       this.goalStatus = (this.status == 2);
@@ -78,7 +104,11 @@ export class ProfileGoalComponent implements OnInit {
 
   manageGoal(id){
     this._projectService.getUserGoal(id).subscribe((data) => {
-      this.broadcaster.broadcast('addModal', data);
+      this.broadcaster.broadcast('addModal', {
+        'userGoal': data,
+        'newAdded' : false,
+        'newCreated' : false
+      });
     });
   }
 
@@ -87,12 +117,18 @@ export class ProfileGoalComponent implements OnInit {
     
     if(isManage){
       this._projectService.getStory(id).subscribe((data)=> {
-        this.broadcaster.broadcast('doneModal', data);
+        this.broadcaster.broadcast('doneModal', {
+          'userGoal': data,
+          'newAdded' : false
+        });
       })
     } else {
       this._projectService.setDoneUserGoal(id).subscribe(() => {
         this._projectService.getStory(id).subscribe((data)=> {
-          this.broadcaster.broadcast('doneModal', data);
+          this.broadcaster.broadcast('doneModal', {
+            'userGoal': data,
+            'newAdded' : true
+          });
         })
       });
     }

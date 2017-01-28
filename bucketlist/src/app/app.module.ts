@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import { SelectModule} from 'ng2-select/ng2-select';
 import { DndModule} from 'ng2-dnd';
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -17,7 +16,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AuthProviders } from 'angularfire2';
 import { AuthMethods } from 'angularfire2';
 import { SwiperModule } from 'angular2-useful-swiper';
-// import FileDroppa from 'file-droppa'
+import { Uploader }      from 'angular2-http-file-upload';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -76,7 +75,6 @@ export function createTranslateLoader(http: Http) {
     PageComponent,
     ReportComponent,
 
-    ReportComponent,
     CommonComponent,
     UsersComponent,
     AddComponent,
@@ -92,7 +90,6 @@ export function createTranslateLoader(http: Http) {
     HttpModule,
     JsonpModule,
     appRouting,
-    SelectModule,
     SwiperModule,
     // FileDroppa,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
@@ -117,7 +114,8 @@ export function createTranslateLoader(http: Http) {
     AuthGuard,
     Broadcaster,
     ValidationService,
-    CacheService
+    CacheService,
+    Uploader
   ],
   bootstrap: [AppComponent]
 })

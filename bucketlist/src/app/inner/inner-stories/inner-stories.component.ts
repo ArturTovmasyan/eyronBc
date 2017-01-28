@@ -1,5 +1,8 @@
-import { Component, OnInit , Input} from '@angular/core';
+import { Component, OnInit , Input, ViewContainerRef} from '@angular/core';
 import { Broadcaster } from '../../tools/broadcaster';
+import { ConfirmComponent} from '../../modals/confirm/confirm.component';
+import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import {ProjectService} from '../../project.service';
 
 import {Story} from '../../interface/story';
 import {User} from '../../interface/user';
@@ -36,7 +39,12 @@ export class InnerStoriesComponent implements OnInit {
     autoplay: 3000
   };
   
-  constructor(private broadcaster: Broadcaster){}
+  constructor(
+      private viewContainerRef: ViewContainerRef,
+      private _projectService : ProjectService,
+      private broadcaster: Broadcaster,
+      public dialog: MdDialog
+  ){}
 
   ngOnInit() {
     if(this.stories){
@@ -78,5 +86,23 @@ export class InnerStoriesComponent implements OnInit {
       this.stories[i].show = true;
     }
 
+  }
+
+  openDialog(id, index){
+
+    let dialogRef: MdDialogRef<ConfirmComponent>;
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.viewContainerRef;
+    dialogRef = this.dialog.open(ConfirmComponent, config);
+    dialogRef.componentInstance.lsText = 'success_story.delete_confirm';
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'yes'){
+        this._projectService.removeStory(id)
+            .subscribe(
+                () => {}
+            );
+        this.stories.splice(index,1);
+      }
+    });
   }
 }

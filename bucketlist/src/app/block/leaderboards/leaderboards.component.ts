@@ -1,5 +1,5 @@
-import { Component, OnInit , ViewEncapsulation } from '@angular/core';
-
+import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
+import { ElementRef, Renderer} from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { LeaderboardComponent } from '../../components/leaderboard/leaderboard.component';
 
@@ -12,17 +12,24 @@ import {User} from '../../interface/user';
   encapsulation: ViewEncapsulation.None
 })
 export class LeaderboardsBlockComponent implements OnInit {
+    @ViewChild('rotate')
+    public rotateElementRef : ElementRef
 
-  users;
-  badges;
-  maxUpdate;
-  min;
-  index:number = 0;
-  topUsers;
-  normOfTop:number;
-  errorMessage:string;
+    users;
+    badges;
+    maxUpdate;
+    min;
+    index:number = 0;
+    topUsers;
+    normOfTop:number;
+    errorMessage:string;
+    degree:number = 360;
 
-  constructor(private _projectService: ProjectService) {}
+  constructor(
+      private _projectService: ProjectService,
+      private renderer: Renderer
+
+  ) {}
 
     ngOnInit() {
     this.users = [];
@@ -52,10 +59,12 @@ export class LeaderboardsBlockComponent implements OnInit {
     };
 
     refreshLeaderboards(){
+        this.renderer.setElementStyle(this.rotateElementRef.nativeElement, 'transform','rotate('+this.degree+'deg)');
         if(this.normOfTop > 0) {
             this.index = (this.index == 9) ? 0 : this.index + 1;
             this.initUsers();
         }
+        this.degree += 360;
     }
   
 }

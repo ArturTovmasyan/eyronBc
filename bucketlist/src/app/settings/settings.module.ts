@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule }     from '@angular/common';
-import { FormsModule }      from '@angular/forms';
+import { FormsModule, ReactiveFormsModule}  from '@angular/forms';
 import { SettingsComponent } from './settings.component';
 import { ComponentModule } from '../components/components.module';
 import { MaterialModule } from '@angular/material';
@@ -17,6 +17,7 @@ import { SettingsRouting } from './settings-routing';
     TranslateModule,
     SettingsRouting,
     FormsModule,
+    ReactiveFormsModule,
     ActivityBlockModule,
     MaterialModule.forRoot(),
   ],
