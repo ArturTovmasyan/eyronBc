@@ -1098,7 +1098,8 @@ class UserController extends FOSRestController
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
-
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        
         //get current user
         $currentUser = $this->getUser();
 
@@ -1113,11 +1114,13 @@ class UserController extends FOSRestController
 
         //get uploadFile service
         $this->get('bl_service')->uploadFile($currentUser);
-
+        $imagePath = $liipManager->getBrowserPath($currentUser->getImagePath(), 'user_image');
+        $currentUser->setCachedImage($imagePath);
+        
         $em->persist($currentUser);
         $em->flush();
 
-        return new Response('', Response::HTTP_NO_CONTENT);
+        return new Response($imagePath, Response::HTTP_OK);
     }
 }
 
