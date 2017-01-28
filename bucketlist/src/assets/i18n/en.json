@@ -691,10 +691,12 @@
             "username": "Email",
             "submit": "Send",
             "reset": "Reset your password",
-            "reset_text": "We’ll send instructions to reset your password to your email."
+            "reset_text": "We’ll send instructions to reset your password to your email.",
+            "password" : "Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long"
         },
         "flash": {
-            "success": "The password has been reset successfully"
+            "success": "The password has been reset successfully",
+            "success_second": "You've successfully changed your password Now you can start using all of www.bucketlist127.com's great features"
         },
         "email": {
             "subject": "Reset your %project_name% password",
