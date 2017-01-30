@@ -49,6 +49,7 @@ export class ProjectService {
     private getStoryUrl = this.baseUrl + 'story/';  // URL to web API
     private addVoteUrl = this.baseUrl + 'success-story/add-vote/';  // URL to web API
     private removeVoteUrl = this.baseUrl + 'success-story/remove-vote/';  // URL to web API
+    private removeStoryUrl = this.baseUrl + 'success-story/remove/';  // URL to web API
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
     private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
@@ -64,6 +65,8 @@ export class ProjectService {
     private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
+    private sendResettingEmailUrl = this.baseUrl + 'contact/send-email';
+    private changePasswordUrl = this.baseUrl + 'contact/send-email';
     private removeEmailUrl = this.baseUrl + 'settings/email';
     private changeSettingsUrl = this.baseUrl + 'user/update';
     private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
@@ -251,6 +254,17 @@ export class ProjectService {
     }
 
     /**
+     * 
+     * @param id
+     * @returns {Observable<R>}
+     */
+    removeStory(id:number):Observable<any> {
+        return this.http.delete(this.removeStoryUrl + id, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
      *
      * @param id
      * @returns {Observable<R>}
@@ -386,12 +400,16 @@ export class ProjectService {
         return this.http.delete(this.ideasUrl + id + '/drafts',{headers: this.headers})
             .catch(this.handleError);
     }
+
     /**
      *
-     * @returns {Observable<T>}
+     * @param type
+     * @param start
+     * @param count
+     * @returns {Observable<R>}
      */
-    getMyIdeas(start: number, count: number):Observable<any>{
-        return this.http.get(this.ideasUrl + 'drafts/' + start +'/'+ count , {headers : this.headers})
+    getMyIdeas(type:string, start: number, count: number):Observable<any>{
+        return this.http.get(this.ideasUrl + type + '/' + start +'/'+ count , {headers : this.headers})
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     }
@@ -515,6 +533,26 @@ export class ProjectService {
         return this.http.post(this.sendEmailUrl, {'emailData' : emailData})
             .map((r:Response) => r)
             .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param email
+     * @returns {Observable<R>}
+     */
+    sendResettingEmail(email: any):Observable<any> {
+        return this.http.post(this.sendResettingEmailUrl, {'email' : email})
+            .map((r:Response) => r);
+    }
+
+    /**
+     *
+     * @param data
+     * @returns {Observable<R>}
+     */
+    changePassword(data: any):Observable<any> {
+        return this.http.post(this.changePasswordUrl, {'data': data})
+            .map((r: Response) => r);
     }
 
     /**
@@ -692,7 +730,7 @@ export class ProjectService {
      */
     removeUserEmail(email:string) {
         return this.http.delete(this.removeEmailUrl+'?email='+email, {headers: this.headers})
-            .map((r:Response) => r)
+            .map((r:Response) => r.json())
             .catch(this.handleError);
     }
 

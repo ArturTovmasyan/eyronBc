@@ -8,7 +8,7 @@ import {Goal} from "../../interface/goal";
 @Component({
   selector: 'draft-footer',
   templateUrl: './draft-footer.component.html',
-  styleUrls: ['./draft-footer.component.less'],
+  styleUrls: ['../goal-footer/goal-footer.component.less'],
   providers: [
     ProjectService
   ]

@@ -212,9 +212,11 @@
           display:block;
           color:#ffffff;
           font-size: 14px;
+          line-height: 21px;
 
           &:last-child{
             font-size: 22px;
+            line-height: 33px;
           }
         }
 
@@ -487,6 +489,7 @@
   padding-left: 15px;
   min-width: 245px;
   max-width: 300px;
+  text-align: left;
 }
 
 @media (min-width: @screen-sm) {
@@ -540,8 +543,10 @@
 
           span{
             font-size:13px;
+
             &:last-child{
-              font-size:16px;
+              font-size: 16px;
+              line-height: 24px;
             }
           }
         }
@@ -619,6 +624,7 @@
     h1 span.title-smaller,figcaption span.title-smaller{
       font-size: 16px;
       line-height: 35px;
+      display: inline-block;
       span{
         padding:3px 7px 5px;
       }
@@ -750,7 +756,7 @@
     }
 
     figure{
-      padding:20px 0 14px;
+      padding: 20px 0 9px;
 
       div{
         width:140px;
@@ -775,10 +781,12 @@
           padding:0 20px;
 
           span{
-            font-size:14px;
+            font-size: 14px;
+            line-height: 21px;
 
             &:last-child{
-              font-size:18px;
+              font-size: 18px;
+              line-height: 27px;
             }
           }
         }
@@ -934,4 +942,11 @@
     }
   }
 
+}
+.image-label{
+  position: absolute;
+  left: 35%;
+  top: 36%;
+  color: purple;
+  cursor: pointer
 }

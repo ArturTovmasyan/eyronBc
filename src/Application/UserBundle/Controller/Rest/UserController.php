@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\Serializer\SerializationContext;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -207,10 +208,10 @@ class UserController extends FOSRestController
 
         if($profileImage){
             $user->setFile($profileImage);
+            $blService = $this->container->get('bl_service');
+            $blService->uploadFile($user);
         }
 
-        $blService = $this->container->get('bl_service');
-        $blService->uploadFile($user);
         $token = md5(microtime());
         $user->setRegistrationToken($token);
 
@@ -1071,6 +1072,55 @@ class UserController extends FOSRestController
         $goalFriends = $currentUser->getFollowings();
 
         return $goalFriends;
+    }
+
+    /**
+     * This function is used to to post file for current user
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to to post file for current user",
+     *  statusCodes={
+     *         204="No content",
+     *         400="Bad Request",
+     *         401="Access allowed only for registered users"
+     *     },
+     *  parameters={
+     *      {"name"="file", "dataType"="file", "required"=true, "description"="File for current user"}
+     * }
+     * )
+     * @Rest\View()
+     * @Rest\Post("/user/upload-file",name="application_user_rest_user_postuploadfile", options={"method_prefix"=false})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function postUploadFileAction(Request $request)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        
+        //get current user
+        $currentUser = $this->getUser();
+
+        //get file
+        $file = $request->files->get('file');
+
+        if(!$file) {
+            return new JsonResponse('File not found', Response::HTTP_BAD_REQUEST);
+        }
+
+        $currentUser->setFile($file);
+
+        //get uploadFile service
+        $this->get('bl_service')->uploadFile($currentUser);
+        $imagePath = $liipManager->getBrowserPath($currentUser->getImagePath(), 'user_image');
+        $currentUser->setCachedImage($imagePath);
+        
+        $em->persist($currentUser);
+        $em->flush();
+
+        return new Response($imagePath, Response::HTTP_OK);
     }
 }
 

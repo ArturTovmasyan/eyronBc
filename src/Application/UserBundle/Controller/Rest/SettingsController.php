@@ -209,7 +209,7 @@ class SettingsController extends FOSRestController
      *      {"name"="email", "dataType"="string", "required"=true, "description"="User`s email"},
      * }
      * )
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"user", "completed_profile"})
      * @Secure("ROLE_USER")
      */
     public function deleteEmailAction(Request $request)
@@ -259,7 +259,7 @@ class SettingsController extends FOSRestController
             $em->persist($user);
             $em->flush();
 
-            return new Response('', Response::HTTP_OK);
+           return $user;
         }
 
         // return 404 if email is empty
@@ -278,7 +278,6 @@ class SettingsController extends FOSRestController
      *         401="Unauthorized user",
      *     },
      * parameters={
-     *      {"name"="bl_user_angular_settings[file]", "dataType"="file", "required"=false, "description"="Users profile image file"},
      *      {"name"="bl_user_angular_settings[firstName]", "dataType"="string", "required"=true, "description"="User`s first name | min=3 / max=20 symbols"},
      *      {"name"="bl_user_angular_settings[lastName]", "dataType"="string", "required"=true, "description"="User`s last name | min=3 / max=20 symbols"},
      *      {"name"="bl_user_angular_settings[addEmail]", "dataType"="email", "required"=false, "description"="Add email for user"},
@@ -329,7 +328,7 @@ class SettingsController extends FOSRestController
 
             //set for check user duplicate error
             $user->setEmail($primaryEmail);
-            $em->persist($user);
+            $em->flush();
         }
 
         //set primary value in entity
@@ -342,13 +341,25 @@ class SettingsController extends FOSRestController
         //check if from valid
         if ($form->isValid()) {
 
-            //get uploadFile service for load profile pictures
-            $this->container->get('bl_service')->uploadFile($user);
-
             $em->persist($user);
             $em->flush();
 
-            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($user);
+            $liipManager = $this->get('liip_imagine.cache.manager');
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyIdeasCount($user);
+            $goalFriendsCount = 0;
+            $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($user->getId(), null, $goalFriendsCount, true);
+            $user->setGoalFriendsCount($goalFriendsCount);
+
+            $states = $user->getStats();
+
+            $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($user->getId(), false);
+
+            $user->setStats($states);
+
+            if($user->getImagePath()){
+                $user->setCachedImage($liipManager->getBrowserPath($user->getImagePath(), 'user_image'));
+            }
 
             return $user;
 

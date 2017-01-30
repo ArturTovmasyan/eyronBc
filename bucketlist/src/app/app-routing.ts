@@ -8,7 +8,10 @@ import { AuthGuard }      from './common/auth.guard';
 import {PageComponent} from './page/page.component';
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
-  { path: 'resetting/request', component: ResettingRequestComponent },
+
+  { path: 'resetting/:type', component: ResettingRequestComponent },
+  { path: 'resetting/:type/:secret', component: ResettingRequestComponent },
+
   { path: 'page', component: PageComponent},
   { path: 'page/:name', component: PageComponent},
   { path: 'activity', loadChildren: './activity/activity.module#ActivityModule', canActivate: [AuthGuard]},

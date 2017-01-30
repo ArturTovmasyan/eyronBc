@@ -2314,6 +2314,12 @@ footer .footer-bottom ul li a:hover {
 .hr-margin {
   margin: 5px 0 10px;
 }
+md-select .md-select-placeholder {
+  color: transparent;
+}
+md-select .md-select-value {
+  color: #3c3c3c;
+}
 @media (min-width: 768px) {
   header .navbar {
     min-height: 82px;
@@ -3297,11 +3303,27 @@ md-radio-button.md-radio-checked .md-ripple-foreground {
 .md-dialog-container {
   padding: 0;
   overflow: hidden;
+  box-shadow: none;
+  background: transparent;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
 }
 .cdk-overlay-container {
   z-index: 10001;
 }
-.cdk-global-overlay-wrapper,
-.cdk-overlay-container {
+.cdk-focus-trap-content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 25px;
+  bottom: 0;
   overflow: auto;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }

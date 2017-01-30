@@ -14,6 +14,7 @@
 .goal-modal {
   width: 280px;
   margin: 0 auto;
+  overflow: hidden;
   text-align: left;
   border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -56,6 +57,7 @@
 .modal-top {
   position: relative;
   overflow: hidden;
+  height: 158px;
 }
 .modal-top i {
   color: #ffffff;
@@ -96,6 +98,9 @@
   position: absolute;
   width: 100%;
 }
+.modal-top figure img {
+  width: 100%;
+}
 .modal-top .overlay {
   height: 260px;
   background: rgba(0, 0, 0, 0.28);
@@ -109,6 +114,39 @@
   height: 30px;
   width: 260px;
   overflow: hidden;
+}
+.story-title {
+  margin: 10px 0 15px;
+  font-size: 18px;
+  line-height: normal;
+  font-weight: normal;
+}
+.email {
+  padding: 5px;
+  text-align: center;
+  position: relative;
+  background: #7724F6;
+  color: #ffffff;
+  z-index: 10;
+  font-size: 12px;
+}
+.email span {
+  display: inline-block;
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+.email a {
+  margin: 5px 0 0 5px;
+  display: inline-block;
+  font-weight: bold;
+  padding: 2px 5px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  font-size: 12px;
+}
+.email a:hover {
+  color: #7724F6;
+  background-color: #ffffff;
 }
 @media (min-width: 768px) {
   .goal-modal {
@@ -135,7 +173,7 @@
   .modal-top h2 {
     width: auto;
     height: auto;
-    margin: 0 0 5px 0;
+    margin: 0 0 5px 30px;
     font-size: 25px;
     line-height: 38px;
   }
@@ -166,6 +204,13 @@
     height: auto;
     font-size: 18px;
     line-height: 23px;
+  }
+  .email {
+    padding: 15px 5px;
+    font-size: 14px;
+  }
+  .email span {
+    font-size: 14px;
   }
 }
 @media (min-width: 992px) {

@@ -140,13 +140,28 @@
     margin-bottom:2px;
   }
 
-  label.text-purple{
-    font-size:18px;
+  .task-checkbox{
+    margin: 4px 0 0;
   }
 
-  label.relative{
-    margin-right: 12px;
+  .md-radio-label,.example-margin{
+    margin: 0 12px 0 0;
   }
+
+  label{
+    .text-purple{
+      font-size:18px;
+    }
+
+    .relative{
+      margin-right: 12px;
+    }
+
+    .md-radio-container{
+      top: 5px;
+    }
+  }
+
 
   form{
     padding-bottom:10px;
@@ -171,6 +186,7 @@
   }
 
   .modal-bottom{
+    .rounded-corners-bottom(8px);
     button,a{
       padding:8px 15px;
       color: #666666;
@@ -314,6 +330,24 @@
       padding: 15px 0 6px;
     }
 
+    .task-checkbox{
+      margin: 0;
+    }
+
+    label{
+      font-size:18px;
+      padding-top:3px !important;
+      font-weight:normal;
+
+      .md-radio-label{
+        margin-right: 12px;
+      }
+
+      .md-radio-container{
+        top: 3px;
+      }
+    }
+
     h3{
       font-size:24px;
       margin-top: 20px;
@@ -331,15 +365,7 @@
       margin-bottom:10px;
     }
 
-    label{
-      font-size:18px;
-      padding-top:3px !important;
-      font-weight:normal;
 
-      &.md-radio-label{
-        margin-right: 12px;
-      }
-    }
 
     label.onoffswitch-label{
       padding-top:0 !important;
@@ -347,7 +373,7 @@
 
     .modal-bottom{
       button,a{
-        padding:10px 45px;
+        padding:10px 42px;
         font-size:14px;
         margin-right: 5px;
 
@@ -364,7 +390,7 @@
     h2{
       width: auto;
       height: auto;
-      margin: 0 0 5px 0;
+      margin: 0 0 5px 30px;
       font-size: 25px;
       line-height: 38px;
 
@@ -456,6 +482,7 @@
     h2{
       font-size: 27px;
       line-height: 41px;
+      margin: 0 0 5px 0;
     }
   }
 
@@ -498,21 +525,23 @@
         text-align: center;
       }
     }
+
+    //.modal-bottom{
+    //  button,a{
+    //    padding:10px 45px;
+    //    font-size:14px;
+    //    margin-right: 5px;
+    //
+    //    &.forget{
+    //      padding:6px 15px 6px 10px;
+    //    }
+    //  }
+    //}
   }
 
   .goal-container{
     min-height:925px;
     height:auto !important;
     height:925px;
-  }
-}
-
-
-md-select{
-  .md-select-placeholder{
-    color: transparent;
-  }
-  .md-select-value{
-    color: #3c3c3c;
   }
 }

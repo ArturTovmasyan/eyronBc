@@ -22,14 +22,16 @@ export class SettingsComponent implements OnInit {
     arrayDay:number[] = [];
     arrayYear:number[] = [];
     currentLang: string;
-    token:boolean = false;
+    token:boolean = true;
     ready:boolean = false;
     userEmails:any;
     socialEmail:any;
     errorMessage:any;
+    lng:any = 'en';
     item :any= [];
     saveMessage:any;
     removeMessage:any;
+    birthDate:any;
     email:any;
     day:any = 0;
     month:any = 0;
@@ -146,9 +148,9 @@ export class SettingsComponent implements OnInit {
     initProfileForm() {
 
         if(this.appUser.user_emails) {
-            
-            //get keys in userEmails object
             this.userEmails = Object.keys(this.appUser.user_emails);
+            this.checkEmailToken(this.appUser);
+
         } else{
             this.userEmails = null;
         }
@@ -159,10 +161,19 @@ export class SettingsComponent implements OnInit {
             this.socialEmail = null;
         }
 
-        let birth = new Date(this.appUser.birth_date);
-        this.year = birth.getFullYear();
-        this.month = birth.getMonth() + 1;
-        this.day = birth.getDate();
+        this.email = this.appUser.username;
+
+        if(this.appUser.birth_date) {
+            this.birthDate = new Date(this.appUser.birth_date);
+            this.year = this.birthDate.getFullYear();
+            this.month = this.birthDate.getMonth() + 1;
+            this.day = this.birthDate.getDate();
+        }
+
+        if(this.appUser.language) {
+            this.lng = this.appUser.language;
+        }
+
         this.email = this.appUser.username;
 
         //create form validation
@@ -170,17 +181,17 @@ export class SettingsComponent implements OnInit {
                 'file': ['', null],
                 'firstName': [this.appUser.first_name, [Validators.required]],
                 'lastName': [this.appUser.last_name, [Validators.required]],
-                'email': [this.appUser.username, [ValidationService.emailValidator, Validators.required]],
-                'currentPassword': ['', [Validators.minLength(6), ValidationService.passwordValidator]],
-                'password': ['', [Validators.minLength(6), ValidationService.passwordValidator]],
+                'email': [this.email, [ValidationService.emailValidator, Validators.required]],
+                'currentPassword': ['', [Validators.minLength(6)]],
+                'password': ['', [Validators.minLength(6)]],
                 'plainPassword' : ['', [Validators.minLength(6)]],
-                'primary' : ['', null],
-                'language' : [this.appUser.language, [Validators.required]],
+                'primary' : [this.email, null],
+                'language' : [this.lng, [Validators.required]],
                 'addEmail' : ['', null],
                 'month' : [this.month, null],
                 'year' : [this.year, null],
                 'day' : [this.day, null]
-            }, {validator: ValidationService.passwordsEqual}
+            }, {validator: ValidationService.passwordsEqualValidator}
         );
     }
 
@@ -204,6 +215,20 @@ export class SettingsComponent implements OnInit {
    }
 
     /**
+     * This function is used to refresh user data and form
+     *
+     * @param data
+     */
+   refreshUserAndForm(data:any)
+   {
+       this._projectService.setMyUser(null);
+       this.appUser = data;
+       // this._cacheService.set('user_', this.appUser, {maxAge: 3 * 24 * 60 * 60});
+       this.broadcaster.broadcast('login', this.appUser);
+       this.form = null;
+   }
+
+    /**
      *
      * @param form
      */
@@ -214,7 +239,7 @@ export class SettingsComponent implements OnInit {
             let birthday:any;
 
             // generate birthday value
-            if(form.day && form.month && form.year) {
+            if(form.day!=0 && form.month!=0 && form.year!=0) {
                 birthday = form.year+'/'+form.month+'/'+form.day;
             } else {
                 birthday = null;
@@ -243,13 +268,9 @@ export class SettingsComponent implements OnInit {
             this._projectService.saveUserData(form)
                 .subscribe(
                     (data) => {
-                        this._projectService.setMyUser(null);
-                        this.appUser = data;
-                        this.userEmails = Object.keys(this.appUser.user_emails);
                         this.saveMessage = true;
                         this.errorMessage = null;
-                        this.email = this.appUser.username;
-                        this.form = null;
+                        this.refreshUserAndForm(data);
                         this.initProfileForm();
                     },
                     error => {
@@ -272,6 +293,25 @@ export class SettingsComponent implements OnInit {
         }
 
         console.log(form);
+    }
+
+    /**
+     *
+     * @param user
+     */
+    checkEmailToken(user)
+    {
+        let emailKey = Object.keys(user.user_emails);
+
+        for(let key of emailKey)
+        {
+            let emailsData = this.appUser.user_emails[key];
+
+            if(emailsData && emailsData.token) {
+                this.token = false;
+                break;
+            }
+        }
     }
 
     /**
@@ -301,9 +341,9 @@ export class SettingsComponent implements OnInit {
   removeEmail(email:string) {
         this._projectService.removeUserEmail(email)
             .subscribe(
-                () => {
-                    this._projectService.setMyUser(null);
+                (data) => {
                     this.removeMessage = true;
+                    this.refreshUserAndForm(data);
                     this.initProfileForm();
                 },
                 error => {
@@ -311,5 +351,4 @@ export class SettingsComponent implements OnInit {
                 }
             );
     }
-
 }

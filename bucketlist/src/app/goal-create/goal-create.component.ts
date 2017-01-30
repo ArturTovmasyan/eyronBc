@@ -136,7 +136,7 @@ export class GoalCreateComponent implements OnInit {
             'is_public': this.isPublic,
             'title': this.title,
             'description': this.description,
-            'video_links': this.videos_array,
+            'video_links': video_link,
             'language': this.language,
             'files' : this.files,
             'tags' : this.tags
@@ -159,7 +159,7 @@ export class GoalCreateComponent implements OnInit {
             'is_public': this.isPublic,
             'title': this.title,
             'description': this.description,
-            'video_links': this.videos_array,
+            'video_links': video_link,
             'language': this.language,
             'files' : this.files,
             'tags' : this.tags
