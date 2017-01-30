@@ -12,7 +12,7 @@ import {UserGoal} from "../interface/userGoal";
 @Component({
   selector: 'app-inner',
   templateUrl: './inner.component.html',
-  styleUrls: ['./inner.component.less'],
+  styleUrls: ['./inner.component.less','../goal-create/goal-create.component.less'],
   providers: [ProjectService],
   encapsulation: ViewEncapsulation.None
 })
