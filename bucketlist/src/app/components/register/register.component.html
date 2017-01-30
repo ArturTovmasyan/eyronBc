@@ -122,6 +122,9 @@
           <button type="submit" name="register" [disabled]="form.invalid" class="btn btn-purple">{{ 'security.login.sign_up'|translate }}</button>
 
         </form>
+        <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
+          <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+        </div>
       </div>
 
     </div>

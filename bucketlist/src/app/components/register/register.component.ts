@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
     path:string = '/api/v1.0/user/upload-file';
     file:any;
     imageError:any;
+    show: boolean = false;
 
     //create date value
     public arrayMonth:Array<string> = [
@@ -91,6 +92,8 @@ export class RegisterComponent implements OnInit {
      */
     createUser(registerData:any) {
 
+        this.show = true;
+
         if(registerData.day!=0 && registerData.month!=0 && registerData.year!=0) {
             //generate birthday value
             this.birthDay = registerData.day+'/'+registerData.month+'/'+registerData.year;
@@ -110,6 +113,7 @@ export class RegisterComponent implements OnInit {
                     if(res.apiKey) {
                         localStorage.setItem('apiKey', res.apiKey);
                         this.saveImage(res.userInfo);
+                        this.show = false;
                     }
                 },
                 error => {
