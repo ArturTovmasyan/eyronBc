@@ -65,8 +65,9 @@ export class ProjectService {
     private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
-    private sendResettingEmailUrl = this.baseUrl + 'contact/send-email';
-    private changePasswordUrl = this.baseUrl + 'contact/send-email';
+    private sendResettingEmailUrl = this.baseUrl + 'users/';
+    private checkResetTokenUrl = this.baseUrl + 'user/check/reset-token/';
+    private changePasswordUrl = this.baseUrl + 'users/news/passwords';
     private removeEmailUrl = this.baseUrl + 'settings/email';
     private changeSettingsUrl = this.baseUrl + 'user/update';
     private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
@@ -541,7 +542,7 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     sendResettingEmail(email: any):Observable<any> {
-        return this.http.post(this.sendResettingEmailUrl, {'email' : email})
+        return this.http.get(this.sendResettingEmailUrl + email + '/reset')
             .map((r:Response) => r);
     }
 
@@ -551,8 +552,19 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     changePassword(data: any):Observable<any> {
-        return this.http.post(this.changePasswordUrl, {'data': data})
-            .map((r: Response) => r);
+        return this.http.post(this.changePasswordUrl, data, {headers: this.headers})
+            .map((r: Response) => r.json());
+    }
+
+    /**
+     *
+     * @param token
+     * @returns {Observable<R>}
+     */
+    checkResetToken(token: any):Observable<any> {
+    return this.http.get(this.checkResetTokenUrl + token)
+        .map((r: Response) => r.json())
+        .catch(this.handleError);
     }
 
     /**

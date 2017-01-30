@@ -8,16 +8,20 @@
 namespace Application\UserBundle\Services;
 
 use FOS\UserBundle\Mailer\Mailer as BaseMailer;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class Mailer extends BaseMailer
 {
     protected $translator;
+    protected $request;
+    protected $angular2host;
 
-    public function __construct($translator, $mailer, RouterInterface $router, EngineInterface $templating, array $parameters)
+    public function __construct($translator, $angular2host, $mailer, RouterInterface $router, EngineInterface $templating, array $parameters)
     {
         $this->translator = $translator;
+        $this->angular2host = $angular2host;
 
         parent::__construct($mailer, $router, $templating, $parameters);
     }
@@ -42,6 +46,21 @@ class Mailer extends BaseMailer
             ->setBody($body);
 
         $this->mailer->send($message);
+    }
+
+    public function sendResettingEmailMessage(UserInterface $user)
+    {
+        $template = $this->parameters['resetting.template'];
+
+        //generate activation token url 
+        $url = sprintf('%s/resetting/reset/%s', $this->angular2host, $user->getConfirmationToken());
+
+        $rendered = $this->templating->render($template, [
+            'user' => $user,
+            'confirmationUrl' => $url
+        ]);
+
+        $this->sendEmailMessage($rendered, $this->parameters['from_email']['resetting'], $user->getEmail());
     }
 }
 
