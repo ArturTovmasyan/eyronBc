@@ -161,7 +161,7 @@
                   </a>
                 </li>
 
-                <li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin}">
+                <li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">
                   <a *ngIf="!goal.is_my_goal" (click)="add(goal.id)">
                     <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                     <span class="text">{{ 'add'|translate | uppercase}}</span>
@@ -172,7 +172,7 @@
                   </span>
                 </li>
 
-                <li class="col-xs-6">
+                <li class="col-xs-6" [class.transparent]="goal.is_my_goal == 2">
                   <a (click)="completeGoal(goal.id)" *ngIf="goal.is_my_goal != 2">
                     <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                     <span class="text">{{ 'done'|translate | uppercase }}</span>
