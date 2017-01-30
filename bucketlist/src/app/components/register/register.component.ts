@@ -153,6 +153,9 @@ export class RegisterComponent implements OnInit {
             };
             this.uploaderService.onErrorUpload = (item, response, status, headers) => {
                 this.imageError = response;
+                this.errorMessage = response;
+                this.broadcaster.broadcast('login', userInfo);
+                this.router.navigate(['/edit/profile']);
             };
             this.uploaderService.onCompleteUpload = (item, response, status, headers) => {
                 // this.existing[this.existing.length -1].progress = false;

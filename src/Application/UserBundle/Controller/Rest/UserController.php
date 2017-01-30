@@ -1112,6 +1112,25 @@ class UserController extends FOSRestController
 
         $currentUser->setFile($file);
 
+        //get validator
+        $validator = $this->get('validator');
+
+
+        //get errors
+        $errors = $validator->validate($currentUser, null, ['File']);
+
+        $returnResult = [];
+
+        if(count($errors) > 0){
+
+            foreach($errors as $error)
+            {
+                $returnResult[$error->getPropertyPath()] = $error->getMessage();
+            }
+
+            return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
+        }
+
         //get uploadFile service
         $this->get('bl_service')->uploadFile($currentUser);
         $imagePath = $liipManager->getBrowserPath($currentUser->getImagePath(), 'user_image');

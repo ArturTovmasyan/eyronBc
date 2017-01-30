@@ -326,7 +326,7 @@ export class SettingsComponent implements OnInit {
                 this.notifySettings = data;
                 this.ready = true;
                 this.initNotifyForm();
-                this.errorMessage = true;
+                this.errorMessage = null;
             },
             error => {
                 this.errorMessage = error._body;
