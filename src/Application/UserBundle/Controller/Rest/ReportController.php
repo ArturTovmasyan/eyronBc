@@ -51,8 +51,10 @@ class ReportController extends FOSRestController
     public function putAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $content = (array) json_decode($request->getContent());
-        $request->request->add($content);
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = (array) json_decode($request->getContent());
+            $request->request->add($content);
+        }
         $currentUser = $this->getUser();
 
         $report = $em->getRepository("ApplicationUserBundle:Report")
