@@ -9,17 +9,24 @@ namespace Application\UserBundle\Controller\Rest;
 
 use Application\UserBundle\Entity\User;
 use AppBundle\Entity\UserGoal;
+use Application\UserBundle\Form\ChangePasswordFormType;
+use Application\UserBundle\Form\ChangePasswordMobileType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\UserBundle\Model\UserInterface;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\Serializer\SerializationContext;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -644,7 +651,7 @@ class UserController extends FOSRestController
      *
      * @Rest\View()
      * @param $email
-     * @return array
+     * @return array|JsonResponse
      */
     public function getResetAction($email)
     {
@@ -652,11 +659,11 @@ class UserController extends FOSRestController
         $trans = $this->get('translator');
 
         if (null === $user) {
-            return new Response($trans->trans('resetting.user_not_found', [], 'FOSUserBundle'), Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['user' => $trans->trans('resetting.user_not_found', [], 'FOSUserBundle')], Response::HTTP_NOT_FOUND);
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return new Response($trans->trans('resetting.password_already_requested', [], 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse(['expires' => $trans->trans('resetting.password_already_requested', [], 'FOSUserBundle')], Response::HTTP_BAD_REQUEST);
         }
 
         if (null === $user->getConfirmationToken()) {
@@ -666,10 +673,11 @@ class UserController extends FOSRestController
         }
 
         $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
+
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
-        return new Response('', Response::HTTP_OK);
+        return new JsonResponse('', Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -1091,7 +1099,7 @@ class UserController extends FOSRestController
      * }
      * )
      * @Rest\View()
-     * @Rest\Post("/user/upload-file",name="application_user_rest_user_postuploadfile", options={"method_prefix"=false})
+     * @Rest\Post("/user/upload-file", name="application_user_rest_user_postuploadfile", options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
      */
     public function postUploadFileAction(Request $request)
@@ -1141,5 +1149,95 @@ class UserController extends FOSRestController
 
         return new Response($imagePath, Response::HTTP_OK);
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to create new password",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found",
+     *         400="Bad request"
+     *     },
+     * )
+     *
+     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info"})
+     */
+    public function postNewPasswordAction(Request $request)
+    {
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        //get post data in request
+        $token = $request->request->get('token');
+        $password = $request->request->get('password');
+        $plainPassword = $request->request->get('plainPassword');
+
+        //get user by token
+        $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+
+        //check if user not exist
+        if(!$user){
+            return new JsonResponse("The user with confirmation token does not exist for value $token", Response::HTTP_NOT_FOUND);
+        }
+
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+
+        if($password && $plainPassword && $password == $plainPassword) {
+            $user->setPlainPassword($plainPassword);
+            $user->setConfirmationToken(null);
+            $user->setPasswordRequestedAt(null);
+            $user->setEnabled(true);
+            $this->container->get('fos_user.user_manager')->updateUser($user);
+        }else{
+            return new JsonResponse(['password' => 'Passwords is not equals'] , Response::HTTP_BAD_REQUEST);
+        }
+
+       $response = $this->loginAction($user, ['user']);
+
+        return $response;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to reset password",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found"
+     *     },
+     * )
+     *
+     * @Rest\View()
+     * @Rest\Get("/user/check/reset-token/{token}", name="application_user_rest_user_checkresettoken_1", options={"method_prefix"=false})
+     * @param $token
+     * @return array|JsonResponse|RedirectResponse
+     */
+    public function checkResetTokenAction($token)
+    {
+        //get user by token
+        $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+
+        if (!$user) {
+            return ['confirm' => false];
+        }
+
+        if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
+            return ['confirm' => false];
+        }
+
+        return  ['confirm' => true];
+    }
+
 }
 

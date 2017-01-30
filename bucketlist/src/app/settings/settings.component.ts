@@ -223,7 +223,6 @@ export class SettingsComponent implements OnInit {
    {
        this._projectService.setMyUser(null);
        this.appUser = data;
-       // this._cacheService.set('user_', this.appUser, {maxAge: 3 * 24 * 60 * 60});
        this.broadcaster.broadcast('login', this.appUser);
        this.form = null;
    }
