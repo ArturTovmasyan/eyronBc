@@ -176,18 +176,16 @@ class SuccessStoryService extends AbstractProcessService
         $validator = $this->container->get('validator');
 
         $content = json_decode($request->getContent());
-        if (!isset($content->story)){
+        if (!isset($content->story) && !$request->get('story')){
             return new JsonResponse("story is empty", Response::HTTP_BAD_REQUEST);
         }
-        $story     = $content->story;
-        $videoLink = $content->videoLink;
-        $videoLink = array_values($videoLink);
-        $videoLink = array_filter($videoLink);
+        $story     = $content?$content->story:$request->get('story');
+        $videoLink = $content?$content->videoLink:$request->get('videoLink');
 
         $lastStory = $em->getRepository('AppBundle:SuccessStory')
             ->findUserGoalStory($user->getId(), $goal->getId());
 
-        $imageIds = $content->files;
+        $imageIds = $content?$content->files:$request->get('files');
         if (count($lastStory) == 0){
             $successStory = new SuccessStory();
             $successStory->setGoal($goal);
@@ -205,7 +203,11 @@ class SuccessStoryService extends AbstractProcessService
             }
         }
 
-        $successStory->setVideoLink($videoLink);
+        if($videoLink){
+            $videoLink = array_values($videoLink);
+            $videoLink = array_filter($videoLink);
+            $successStory->setVideoLink($videoLink);
+        }
         $successStory->setStory($story);
 
         if($imageIds){
