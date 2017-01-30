@@ -34,13 +34,7 @@ export class ResettingRequestComponent implements OnInit {
             this.eventId = val.id;
 
             this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'request';
-
             this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']: null;
-
-            this.form = null;
-
-            console.log(this.type);
-            console.log(this.secret);
 
             if(this.type == 'request') {
               this.initSendEmailForm();
