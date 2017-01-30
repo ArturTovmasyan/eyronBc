@@ -65,6 +65,8 @@ export class ProjectService {
     private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
+    private sendResettingEmailUrl = this.baseUrl + 'contact/send-email';
+    private changePasswordUrl = this.baseUrl + 'contact/send-email';
     private removeEmailUrl = this.baseUrl + 'settings/email';
     private changeSettingsUrl = this.baseUrl + 'user/update';
     private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
@@ -531,6 +533,26 @@ export class ProjectService {
         return this.http.post(this.sendEmailUrl, {'emailData' : emailData})
             .map((r:Response) => r)
             .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param email
+     * @returns {Observable<R>}
+     */
+    sendResettingEmail(email: any):Observable<any> {
+        return this.http.post(this.sendResettingEmailUrl, {'email' : email})
+            .map((r:Response) => r);
+    }
+
+    /**
+     *
+     * @param data
+     * @returns {Observable<R>}
+     */
+    changePassword(data: any):Observable<any> {
+        return this.http.post(this.changePasswordUrl, {'data': data})
+            .map((r: Response) => r);
     }
 
     /**

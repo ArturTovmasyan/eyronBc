@@ -140,11 +140,21 @@
   color: #a2a2a2;
   margin-bottom: 2px;
 }
-.goal-add label.text-purple {
+.goal-add .task-checkbox {
+  margin: 4px 0 0;
+}
+.goal-add .md-radio-label,
+.goal-add .example-margin {
+  margin: 0 12px 0 0;
+}
+.goal-add label .text-purple {
   font-size: 18px;
 }
-.goal-add label.relative {
+.goal-add label .relative {
   margin-right: 12px;
+}
+.goal-add label .md-radio-container {
+  top: 5px;
 }
 .goal-add form {
   padding-bottom: 10px;
@@ -309,6 +319,20 @@
   .goal-add .private-space {
     padding: 15px 0 6px;
   }
+  .goal-add .task-checkbox {
+    margin: 0;
+  }
+  .goal-add label {
+    font-size: 18px;
+    padding-top: 3px !important;
+    font-weight: normal;
+  }
+  .goal-add label .md-radio-label {
+    margin-right: 12px;
+  }
+  .goal-add label .md-radio-container {
+    top: 3px;
+  }
   .goal-add h3 {
     font-size: 24px;
     margin-top: 20px;
@@ -323,20 +347,12 @@
     font-size: 14px;
     margin-bottom: 10px;
   }
-  .goal-add label {
-    font-size: 18px;
-    padding-top: 3px !important;
-    font-weight: normal;
-  }
-  .goal-add label.md-radio-label {
-    margin-right: 12px;
-  }
   .goal-add label.onoffswitch-label {
     padding-top: 0 !important;
   }
   .goal-add .modal-bottom button,
   .goal-add .modal-bottom a {
-    padding: 10px 45px;
+    padding: 10px 42px;
     font-size: 14px;
     margin-right: 5px;
   }
@@ -452,10 +468,4 @@
     height: auto !important;
     height: 925px;
   }
-}
-md-select .md-select-placeholder {
-  color: transparent;
-}
-md-select .md-select-value {
-  color: #3c3c3c;
 }

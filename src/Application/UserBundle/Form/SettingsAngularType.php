@@ -47,7 +47,6 @@ class SettingsAngularType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
             ])
             ->add('birthDate', DateType::class, ['required' => false,  'widget' => 'single_text', 'format' => 'yyyy/MM/dd'])
-            ->add('file', FileType::class, ['required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'])
         ;
     }
 
