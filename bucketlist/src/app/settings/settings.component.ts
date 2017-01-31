@@ -32,6 +32,8 @@ export class SettingsComponent implements OnInit {
     saveMessage:any;
     removeMessage:any;
     birthDate:any;
+    addMail:any;
+    secret:any;
     email:any;
     day:any = 0;
     month:any = 0;
@@ -86,6 +88,9 @@ export class SettingsComponent implements OnInit {
                 this.eventId = val.id;
                 this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'profile';
 
+                this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']:null;
+                this.addMail = this.route.snapshot.params['addMail']?this.route.snapshot.params['addMail']:null;
+
                 this.form = null;
                 this.ready = false;
 
@@ -101,6 +106,10 @@ export class SettingsComponent implements OnInit {
                     this.removeMessage = false;
                     this.getNotifySettings();
                 }
+
+                // if(this.type == 'add-email' && this.secret && this.addMail){
+                //     this.activationUserAddEmail(this.secret, this.addMail);
+                // }
 
                 this.getUserInfoByType();
             }
@@ -320,6 +329,25 @@ export class SettingsComponent implements OnInit {
 
     /**
      *
+     * @param email
+     * @param secret
+     */
+    activationUserAddEmail(secret, email)
+    {
+        this._projectService.activationUserAddEmail(secret, email)
+            .subscribe(
+                (data) => {
+                    console.log(secret, email);
+                    this.router.navigate(['/activity']);
+                },
+                error => {
+                    this.errorMessage = error._body;
+                }
+            );
+    }
+
+    /**
+     *
      * @param form
      */
     getNotifySettings() {
@@ -343,12 +371,16 @@ export class SettingsComponent implements OnInit {
      * @param email
      */
   removeEmail(email:string) {
+
+       this.show = true;
+
         this._projectService.removeUserEmail(email)
             .subscribe(
                 (data) => {
                     this.removeMessage = true;
                     this.refreshUserAndForm(data);
                     this.initProfileForm();
+                    this.show = false;
                 },
                 error => {
                     this.errorMessage = error;
