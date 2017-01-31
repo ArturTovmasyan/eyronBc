@@ -223,7 +223,7 @@ export class SettingsComponent implements OnInit {
    {
        this._projectService.setMyUser(null);
        this.appUser = data;
-       this._cacheService.set('user_', this.appUser, {maxAge: 3 * 24 * 60 * 60});
+       this.broadcaster.broadcast('login', this.appUser);
        this.form = null;
    }
 
@@ -325,7 +325,7 @@ export class SettingsComponent implements OnInit {
                 this.notifySettings = data;
                 this.ready = true;
                 this.initNotifyForm();
-                this.errorMessage = true;
+                this.errorMessage = null;
             },
             error => {
                 this.errorMessage = error._body;
@@ -350,5 +350,4 @@ export class SettingsComponent implements OnInit {
                 }
             );
     }
-
 }

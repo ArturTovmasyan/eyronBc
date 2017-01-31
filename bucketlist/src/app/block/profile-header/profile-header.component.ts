@@ -27,6 +27,7 @@ export class ProfileHeaderComponent implements OnInit {
     public listedBy;
     public active;
     public doneBy;
+    public errorMessage:any;
     public badges: any[];
     public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
     public isMobile:Boolean= (window.innerWidth < 768);
@@ -114,6 +115,7 @@ export class ProfileHeaderComponent implements OnInit {
             this.uploaderService.onSuccessUpload = (item, response, status, headers) => {
             };
             this.uploaderService.onErrorUpload = (item, response, status, headers) => {
+                this.errorMessage = response;
             };
             this.uploaderService.onCompleteUpload = (item, response, status, headers) => {
             };

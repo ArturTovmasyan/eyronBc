@@ -344,7 +344,22 @@ class SettingsController extends FOSRestController
             $em->persist($user);
             $em->flush();
 
-            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($user);
+            $liipManager = $this->get('liip_imagine.cache.manager');
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyIdeasCount($user);
+            $goalFriendsCount = 0;
+            $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($user->getId(), null, $goalFriendsCount, true);
+            $user->setGoalFriendsCount($goalFriendsCount);
+
+            $states = $user->getStats();
+
+            $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($user->getId(), false);
+
+            $user->setStats($states);
+
+            if($user->getImagePath()){
+                $user->setCachedImage($liipManager->getBrowserPath($user->getImagePath(), 'user_image'));
+            }
 
             return $user;
 

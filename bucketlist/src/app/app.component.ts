@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 import { AddComponent} from './modals/add/add.component';
 import { DoneComponent} from './modals/done/done.component';
@@ -25,10 +25,12 @@ import {User} from './interface/user';
 })
 
 export class AppComponent implements OnInit  {
-
+   @Input() count:number;
   public translatedText: string;
   public supportedLanguages: any[];
   public joinShow:boolean = false;
+  public show:boolean = false;
+  public newNotCount:number = 0;
   public menus: any[];
   public privacyMenu: any;
   public serverPath:string = '';
@@ -49,6 +51,7 @@ export class AppComponent implements OnInit  {
     public usersData:any;
     public addData:any;
     public doneData:any;
+    public writeTimeout:any;
 
   constructor(
       private _translate: TranslateService,
@@ -68,6 +71,7 @@ export class AppComponent implements OnInit  {
       { display: 'Russian', value: 'ru' }
     ];
 
+    this.selectLang('en');
     this._cacheService.set('supportedLanguages', this.supportedLanguages, {maxAge: 3 * 24 * 60 * 60});
 
     let data = this._cacheService.get('footerMenu');
@@ -77,25 +81,33 @@ export class AppComponent implements OnInit  {
     }else {
         this.getBottomMenu();
     }
-    this.selectLang('en');
 
     if(localStorage.getItem('apiKey')){
-        this.appUser = this._cacheService.get('user_');
+        this.appUser = this._cacheService.get('user_');console.log(this.appUser);
         if(!this.appUser) {
             this._projectService.getUser()
                 .subscribe(
                     user => {
                         this.appUser = user;
+                        this.selectLang((user && user.language)?user.language:'en');
                         this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                         this.broadcaster.broadcast('getUser', user);
                     },
                     error => localStorage.removeItem('apiKey'));
+        } else {
+            this.selectLang((this.appUser.language)?this.appUser.language:'en');
         }
     }
+
+      this.broadcaster.on<any>('updateNoteCount')
+          .subscribe(count => {
+              this.newNotCount = count;
+          });
 
     this.broadcaster.on<User>('login')
         .subscribe(user => {
           this.appUser = user;
+          this.selectLang((this.appUser.language)?this.appUser.language:'en');
           this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
           this.broadcaster.broadcast('getUser', user);
         });
@@ -209,7 +221,19 @@ export class AppComponent implements OnInit  {
           });
       
   }
-
+    toogleNote(){
+        if(this.show != true){
+            this.writeTimeout = setTimeout(() =>{
+                this.show = !this.show;
+            }, 100)
+        }
+    }
+    hideNote(ev){
+        this.show = false;
+    }
+    newCount(ev){
+        this.newNotCount = ev;
+    }
   hideJoin(ev){
     this.joinShow = false;
   }
@@ -223,6 +247,9 @@ export class AppComponent implements OnInit  {
     this._translate.use(lang);
   }
 
+    closeDropdown(){
+        if(this.show)this.show = false
+    }
   logout(){
       localStorage.removeItem('apiKey');
       this.router.navigate(['/']);
@@ -244,24 +271,4 @@ export class AppComponent implements OnInit  {
             },
             error => this.errorMessage = <any>error);
   }
-
-  // hideModal(name:string){
-  //       switch(name){
-  //           case 'report':
-  //               this.reportModal = false;
-  //               break;
-            // case 'common':
-            //     this.commonModal = false;
-            //     break;
-            // case 'users':
-                // this.usersModal = false;
-                // break;
-            // case 'add':
-            //     this.addModal = false;
-            //     break;
-            // case 'done':
-            //     this.doneModal = false;
-            //     break;
-        // }
-  // }
 }

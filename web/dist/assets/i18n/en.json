@@ -279,7 +279,7 @@
         "title": "Bucket List 127-My Bucketlist",
         "active_goals": "My Bucket List 127-Active Goals",
         "completed_goals": "My Bucket List 127-Competed Goals",
-        "create_goal": "What are you waiting for? Come on! Create your own goals!",
+        "create_goal": "Create your own goals!",
         "description": "Look at the things you did and the things you are about to do. See the list of your own goals, manage and share your own 'bucketlist'.",
         "add_goal": "add some goals",
         "doing_here": "What are you doing here? Come on,",
@@ -682,7 +682,7 @@
         "user_not_found": "User not found",
         "check_email": {
             "title": "Check your email",
-            "check_email_first_text": "We've sent an email to %email%. Click the link in the email to reset your password.",
+            "check_email_first_text": "We've sent an email to {{email}}. Click the link in the email to reset your password.",
             "check_email_second_text": "If you don't see the email, also check your junk, spam, social, or other folders.",
             "have_not_received": "I haven’t received the email."
         },
@@ -691,10 +691,12 @@
             "username": "Email",
             "submit": "Send",
             "reset": "Reset your password",
-            "reset_text": "We’ll send instructions to reset your password to your email."
+            "reset_text": "We’ll send instructions to reset your password to your email.",
+            "password" : "Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long"
         },
         "flash": {
-            "success": "The password has been reset successfully"
+            "success": "The password has been reset successfully",
+            "success_second": "You've successfully changed your password Now you can start using all of www.bucketlist127.com's great features"
         },
         "email": {
             "subject": "Reset your %project_name% password",

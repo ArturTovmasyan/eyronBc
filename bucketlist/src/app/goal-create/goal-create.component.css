@@ -49,6 +49,10 @@
   outline: 0;
   background-color: #4f3576;
 }
+.buttons button:focus,
+.buttons a:focus {
+  color: #ffffff;
+}
 .buttons .btn-transparent {
   padding: 4px 6px 4px 7px;
 }
@@ -57,6 +61,17 @@
 }
 .suggest-input {
   padding: 21px 0 0 16px;
+}
+#goal-create-form h3.text-purple,
+.goal-preview h3.text-purple {
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 25px;
+}
+#goal-create-form p,
+.goal-preview p {
+  font-size: 12px;
+  line-height: 18px;
 }
 .goals {
   padding-bottom: 20px;
@@ -121,7 +136,7 @@
 }
 @media (min-width: 768px) {
   .buttons {
-    margin: 22px 0 20px;
+    margin: 5px 0 20px;
   }
   .buttons button,
   .buttons a {
@@ -145,6 +160,17 @@
   }
   .suggest-input {
     padding: 22px 0 0 22px;
+  }
+  #goal-create-form h3.text-purple,
+  .goal-preview h3.text-purple {
+    margin: 15px 0 0;
+    font-size: 20px;
+    line-height: 30px;
+  }
+  #goal-create-form p,
+  .goal-preview p {
+    font-size: 13px;
+    line-height: 19px;
   }
   .goals {
     margin: 30px 0;
@@ -194,7 +220,7 @@
   .buttons button,
   .buttons a {
     padding: 6px 25px;
-    margin-left: 12px;
+    margin-left: 10px;
     font-size: 12px;
   }
   .buttons .btn-transparent {
@@ -202,6 +228,17 @@
   }
   .suggest-input {
     padding: 35px 0 0 22px;
+  }
+  #goal-create-form h3.text-purple,
+  .goal-preview h3.text-purple {
+    margin: 27px 0 0;
+    font-size: 24px;
+    line-height: 36px;
+  }
+  #goal-create-form p,
+  .goal-preview p {
+    font-size: 14px;
+    line-height: 21px;
   }
   .goals .margin-top {
     margin-top: 30px;

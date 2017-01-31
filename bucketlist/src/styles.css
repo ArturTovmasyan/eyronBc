@@ -2320,6 +2320,14 @@ md-select .md-select-placeholder {
 md-select .md-select-value {
   color: #3c3c3c;
 }
+.error-message {
+  color: #FF0000 !important;
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+}
+.error-message ul {
+  padding-left: 0;
+}
 @media (min-width: 768px) {
   header .navbar {
     min-height: 82px;

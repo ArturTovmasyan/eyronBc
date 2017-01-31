@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild, HostListener} from '@angular/core';
 import { ProjectService } from '../project.service';
 import { Broadcaster } from '../tools/broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -12,13 +12,24 @@ import {UserGoal} from "../interface/userGoal";
 @Component({
   selector: 'app-inner',
   templateUrl: './inner.component.html',
-  styleUrls: ['./inner.component.less'],
+  styleUrls: ['./inner.component.less','../goal-create/goal-create.component.less'],
   providers: [ProjectService],
   encapsulation: ViewEncapsulation.None
 })
 export class InnerComponent implements OnInit {
+  @ViewChild('ticker') tickerView: ElementRef;
+  @ViewChild('goalImage') goalImage: ElementRef;
+  @ViewChild('container') container: ElementRef;
+  @ViewChild('mainSlider') mainSlider: any;
+  @ViewChild('sliderImage') sliderImage: ElementRef;
+  quoteHeight: number;
+  goalImageHeight: number;
+  slideHeight: number = 435;
+  fullHeight: boolean;
+  seeAlsoShow: boolean;
   public goal:Goal = null;
   public errorMessage:string;
+  public angularPath:string;
   public serverPath:string = '';
   public type:string = 'inner';
   public imgPath:string = '';
@@ -32,11 +43,11 @@ export class InnerComponent implements OnInit {
   public appUser:User;
   public userGoal:UserGoal;
 
-  public config: Object = {
+  public config: any = {
     pagination: '.swiper-pagination',
     paginationClickable: true,
     autoHeight: true,
-    loop: true,
+    // loop: true,
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
     spaceBetween: 30,
@@ -58,7 +69,14 @@ export class InnerComponent implements OnInit {
       private broadcaster: Broadcaster,
       private route: ActivatedRoute) {}
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    // event.target.innerWidth;
+    this.imageResize();
+  }
+
   ngOnInit() {
+    this.angularPath = this._projectService.getAngularPath();
     if(localStorage.getItem('apiKey')){
       this.appUser = this._projectService.getMyUser();
       if (!this.appUser) {
@@ -78,6 +96,7 @@ export class InnerComponent implements OnInit {
     this.imgPath = this.serverPath + '/bundles/app/images/cover2.jpg';
     this.route.params.forEach((params:Params) => {
       let goalSlug = params['slug'];
+      this.seeAlsoShow = false;
       if(params['page']){
         this.type = params['page']
       }
@@ -95,7 +114,9 @@ export class InnerComponent implements OnInit {
     this._projectService.getGoal(slug)
         .subscribe(
             data => {
+              this.seeAlsoShow = true;
               this.goal = data.goal;
+              this.config.loop = (this.goal && this.goal.images && this.goal.images.length > 1);
               this.aphorisms = data.aphorisms;
               this.listedByUsers = Object.keys(data.listedByUsers).map(function(key) {
                 return data.listedByUsers[key];
@@ -104,6 +125,18 @@ export class InnerComponent implements OnInit {
                 return data.doneByUsers[key];
               });
               if(this.goal){
+                // setTimeout(()=>{
+                //   let div = document.createElement('div');
+                //   div.setAttribute('class', 'addthis_native_toolbox');
+                //   div.setAttribute('data-url', this.angularPath + 'goal/' + this.goal.slug);
+                //   console.log(document.getElementById('addthis'));
+                //   document.getElementById('addthis').appendChild(div);
+                //
+                //   let addthisScript = document.createElement('script');
+                //   addthisScript.setAttribute('src', 'http://s7.addthis.com/js/300/addthis_widget.js#domready=1');
+                //   document.body.appendChild(addthisScript);
+                // },2000);
+
                 this.stories = this.goal.success_stories;
                 if(this.goal.is_my_goal == 1 || this.goal.is_my_goal == 2){
                   this._projectService.getUserGoal(this.goal.id)
@@ -125,9 +158,37 @@ export class InnerComponent implements OnInit {
                   
                 }, this.delay);
               }
+
+              this.imageResize();
             },
             error => this.errorMessage = <any>error);
   }
+
+  imageResize() {
+
+    setTimeout(()=>{
+      if(this.tickerView){
+        this.quoteHeight = this.tickerView.nativeElement.children[0].offsetHeight + 35;
+      }
+
+      if(this.sliderImage){
+        let imageHeight = this.sliderImage.nativeElement.offsetHeight;
+        this.fullHeight = ( (window.innerWidth < 768 && imageHeight < 190) ||
+        (window.innerWidth > 767 && window.innerWidth < 992 && imageHeight < 414) ||
+        (window.innerWidth > 991 && imageHeight < 435))
+      }
+
+      if(this.goalImage && this.mainSlider){
+        let slider = this.mainSlider.elementRef?this.mainSlider.elementRef:this.mainSlider;
+        // let goalImageBottom = this.goalImage.nativeElement.offsetTop + this.goalImage.nativeElement.offsetHeight ;
+        // let mainSliderBottom = slider.nativeElement.offsetTop + slider.nativeElement.offsetHeight;
+
+
+        this.goalImageHeight = (this.quoteHeight?this.quoteHeight:this.container.nativeElement.children[0].offsetHeight)
+            + this.container.nativeElement.children[1].offsetHeight + slider.nativeElement.offsetHeight;
+      }
+    }, 1000);
+  };
 
   isLate(date){
     if(!date){

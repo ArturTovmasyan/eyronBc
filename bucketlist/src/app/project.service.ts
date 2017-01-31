@@ -24,6 +24,7 @@ import { environment } from '../environments/environment';
 export class ProjectService {
 
     private baseOrigin = environment.production?'http://stage.bucketlist127.com':'http://bucketlist.loc';
+    private angularOrigin = environment.production?'http://stage2.bucketlist127.com/':'http://ang.bucketlist.loc/';
     //private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
@@ -65,6 +66,9 @@ export class ProjectService {
     private completeProfileUrl = this.baseUrl + 'user';
     private PageUrl = this.baseUrl + 'pages/';
     private sendEmailUrl = this.baseUrl + 'contact/send-email';
+    private sendResettingEmailUrl = this.baseUrl + 'users/';
+    private checkResetTokenUrl = this.baseUrl + 'user/check/reset-token/';
+    private changePasswordUrl = this.baseUrl + 'users/news/passwords';
     private removeEmailUrl = this.baseUrl + 'settings/email';
     private changeSettingsUrl = this.baseUrl + 'user/update';
     private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
@@ -118,6 +122,13 @@ export class ProjectService {
      */
     getPath(){
         return this.baseOrigin;
+    }
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getAngularPath(){
+        return this.angularOrigin;
     }
 
     /**
@@ -377,6 +388,15 @@ export class ProjectService {
      *
      * @returns {Observable<T>}
      */
+    getNewNotifications(start: number, end: number, lastId: number):Observable<any> {
+        return this.http.get(this.notificationUrl + '/' + start + '/' + end + '/' +lastId, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<T>}
+     */
     readAllNotifications():Observable<any>{
         return this.http.get(this.notificationAllReadUrl +'/all/read',{headers: this.headers})
             .catch(this.handleError);
@@ -531,6 +551,37 @@ export class ProjectService {
         return this.http.post(this.sendEmailUrl, {'emailData' : emailData})
             .map((r:Response) => r)
             .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param email
+     * @returns {Observable<R>}
+     */
+    sendResettingEmail(email: any):Observable<any> {
+        return this.http.get(this.sendResettingEmailUrl + email + '/reset')
+            .map((r:Response) => r);
+    }
+
+    /**
+     *
+     * @param data
+     * @returns {Observable<R>}
+     */
+    changePassword(data: any):Observable<any> {
+        return this.http.post(this.changePasswordUrl, data, {headers: this.headers})
+            .map((r: Response) => r.json());
+    }
+
+    /**
+     *
+     * @param token
+     * @returns {Observable<R>}
+     */
+    checkResetToken(token: any):Observable<any> {
+    return this.http.get(this.checkResetTokenUrl + token)
+        .map((r: Response) => r.json())
+        .catch(this.handleError);
     }
 
     /**

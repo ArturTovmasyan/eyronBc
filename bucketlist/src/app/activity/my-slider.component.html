@@ -1,4 +1,5 @@
-<swiper [config]="config" class="activity-slider swiper-container">
+<!--<swiper [config]="config" class="activity-slider swiper-container" #slide>-->
+<div class=" swiper-container" id="activity-slider-{{index}}-on">
     <div class="idea-item swiper-wrapper goals-animate">
         <div class="swiper-slide" *ngFor="let goal of reserveGoals">
 
@@ -47,4 +48,4 @@
         <div class="swiper-button-next swiper-button-white"></div>
         <div class="swiper-button-prev swiper-button-white"></div>
     </div>
-</swiper>
+</div>

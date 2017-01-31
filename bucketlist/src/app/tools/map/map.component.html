@@ -1,4 +1,4 @@
-<sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" [fitBounds]="bounds"
+<sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" [fitBounds]="((locations && locations.length > 1)?bounds:null)"
                  [mapTypeControl]="true">
   <sebm-google-map-marker width='30' height='30' *ngFor="let marker of locations"
                           [latitude]="marker.latitude" [longitude]="marker.longitude"

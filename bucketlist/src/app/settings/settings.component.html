@@ -21,12 +21,10 @@
                 <div class="settings bg-white round" *ngIf="ready">
                     <form action="#" method="POST" [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="saveUserData(form.value)" class="form-horizontal text-center">
 
-                        <!--<i <input type="file" id="file" formControlName="file" name="file" (change)="showUploadedImage($event)">-->
-
                         <div *ngIf="type == 'profile'" class="row">
                             <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0">
 
-                                <div *ngIf="saveMessage" class="alert alert-success" role="alert">
+                                <div *ngIf="saveMessage && !errorMessage" class="alert alert-success" role="alert">
                                     <strong>Well done!</strong> You successfully change your profile data.
                                 </div>
 

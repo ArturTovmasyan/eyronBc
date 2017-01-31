@@ -18,6 +18,7 @@ export class MyDropzoneComponent implements OnInit {
   public file:any;
   public serverPath:string = '';
   public image:any;
+  public progressIndex:any;
   public process:boolean = false;
   constructor(private _projectService: ProjectService, public uploaderService: Uploader) { }
 
@@ -25,7 +26,7 @@ export class MyDropzoneComponent implements OnInit {
     this.serverPath = this._projectService.getPath();
   }
 
-  saveImage(path){
+  saveImage(path ,length){
 
     let myUploadItem = new MyUploadItem(this.file, this._projectService.getPath() + path);
     // myUploadItem.formData = { FormDataKey: 'Form Data Value' };  // (optional) form data can be sent with file
@@ -34,10 +35,12 @@ export class MyDropzoneComponent implements OnInit {
       this.files.push(response);
     };
     this.uploaderService.onErrorUpload = (item, response, status, headers) => {
-      this.existing[this.existing.length -1].error = response;
+      this.existing[this.progressIndex].error = response;
+      if(this.progressIndex < length)this.progressIndex++;
     };
     this.uploaderService.onCompleteUpload = (item, response, status, headers) => {
-      this.existing[this.existing.length -1].progress = false;
+      this.existing[this.progressIndex].progress = false;
+      if(this.progressIndex < length)this.progressIndex++;
     };
     this.uploaderService.upload(myUploadItem);
   }
@@ -50,34 +53,38 @@ export class MyDropzoneComponent implements OnInit {
 
     if (input.files && input.files[0]) {
 
+      let length = this.existing.length -1;
+      this.progressIndex = this.existing.length;
+
       for(let file of input.files){
+        let reader = new FileReader();
+
+        reader.onload = (e:any) => {
+          if(e && e.target){
+            this.image = e.target.result;
+            this.existing.push({
+              file_name: this.file.name,
+              image: this.image,
+              progress: true,
+              error:''
+            })
+          }
+        };
+
         this.file = file;
 
+        if(length > this.count - 1)return;
+        reader.readAsDataURL(file);
+        length++;
+
         if(this.type == 'story'){
-          this.saveImage('/api/v1.0/success-story/add-images');
+          this.saveImage('/api/v1.0/success-story/add-images', length);
         }
 
         if(this.type == 'goal'){
-          this.saveImage('/api/v1.0/goals/add-images');
+          this.saveImage('/api/v1.0/goals/add-images', length);
         }
       }
-
-
-      let reader = new FileReader();
-
-      reader.onload = (e:any) => {
-        if(e && e.target){
-          this.image = e.target.result;
-          this.existing.push({
-            file_name: this.file.name,
-            image: this.image,
-            progress: true,
-            error:''
-          })
-        }
-      };
-
-      reader.readAsDataURL(input.files[0]);
     }
 
 
