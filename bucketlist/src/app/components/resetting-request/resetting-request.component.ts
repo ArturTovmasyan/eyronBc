@@ -23,6 +23,7 @@ export class ResettingRequestComponent implements OnInit {
     appUser:any;
     apikey:boolean = true;
     initForm:boolean = false;
+    email:any = null;
 
     constructor(private route: ActivatedRoute,
                 private _projectService: ProjectService,
@@ -45,9 +46,19 @@ export class ResettingRequestComponent implements OnInit {
                         this.ready = true;
                     }
 
-                    if(this.type == 'reset' && this.secret){
+                    if(this.type == 'reset' && this.secret) {
 
                         this.checkResetToken(this.secret);
+                    }
+
+                    if(this.type == 'check-email') {
+
+                        if(this.email) {
+                            this.checkResetToken(this.secret);
+
+                        } else{
+                            this.router.navigate(['/resetting/request']);
+                        }
                     }
                 }
             }
@@ -64,7 +75,7 @@ export class ResettingRequestComponent implements OnInit {
     initSendEmailForm() {
         //create form validation
         this.form = this.fb.group({
-            'email': ['', [ValidationService.emailValidator, Validators.required]]
+            'email': ['', [Validators.required, ValidationService.emailValidator]]
         });
     }
 
@@ -78,6 +89,7 @@ export class ResettingRequestComponent implements OnInit {
         this._projectService.sendResettingEmail(data.email)
             .subscribe(
                 () => {
+                    this.email = data.email;
                     this.router.navigate(['/resetting/check-email']);
                     this.show = false;
                 },

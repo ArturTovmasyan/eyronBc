@@ -58,13 +58,11 @@
           </div>
         </div>
 
-
         <div class="col-md-8 col-md-offset-2 text-center" *ngIf="type == 'check-email'">
 
           <h1 class="text-center">{{ 'resetting.check_email.title'|translate }}</h1>
-
           <h4 class="text-gray">
-            {{ 'resetting.check_email.check_email_first_text'|translate }}
+            {{ 'resetting.check_email.check_email_first_text'|translate:{email: email|sliceEmail} }}
           </h4>
 
           <h4 class="text-gray">

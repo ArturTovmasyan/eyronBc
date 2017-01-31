@@ -16,6 +16,7 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
 import { SeeAlsoComponent } from './see-also/see-also.component';
 
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
+import { SliceEmailPipe } from '../pipes/sliceEmail.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
 import { RemoveTagPipe } from '../pipes/removeTag.pipe';
 import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
@@ -38,6 +39,7 @@ import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
     LeaderboardComponent,
     GoalFriendComponent,
     CapitalizePipe,
+    SliceEmailPipe,
     RoundPipe,
     RemoveTagPipe,
     MarkdownToHtmlPipe,
@@ -56,6 +58,7 @@ import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
     LeaderboardComponent,
     GoalFriendComponent,
     CapitalizePipe,
+    SliceEmailPipe,
     RoundPipe,
     UserComponent,
     CommentComponent,
