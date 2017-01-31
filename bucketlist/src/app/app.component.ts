@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 import { AddComponent} from './modals/add/add.component';
 import { DoneComponent} from './modals/done/done.component';
@@ -25,11 +25,12 @@ import {User} from './interface/user';
 })
 
 export class AppComponent implements OnInit  {
-
+   @Input() count:number;
   public translatedText: string;
   public supportedLanguages: any[];
   public joinShow:boolean = false;
   public show:boolean = false;
+  public newNotCount:number = 0;
   public menus: any[];
   public privacyMenu: any;
   public serverPath:string = '';
@@ -97,6 +98,11 @@ export class AppComponent implements OnInit  {
             this.selectLang((this.appUser.language)?this.appUser.language:'en');
         }
     }
+
+      this.broadcaster.on<any>('updateNoteCount')
+          .subscribe(count => {
+              this.newNotCount = count;
+          });
 
     this.broadcaster.on<User>('login')
         .subscribe(user => {
@@ -225,7 +231,9 @@ export class AppComponent implements OnInit  {
     hideNote(ev){
         this.show = false;
     }
-
+    newCount(ev){
+        this.newNotCount = ev;
+    }
   hideJoin(ev){
     this.joinShow = false;
   }
