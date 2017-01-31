@@ -68,6 +68,7 @@ export class AppComponent implements OnInit  {
       { display: 'Russian', value: 'ru' }
     ];
 
+    this.selectLang('en');
     this._cacheService.set('supportedLanguages', this.supportedLanguages, {maxAge: 3 * 24 * 60 * 60});
 
     let data = this._cacheService.get('footerMenu');

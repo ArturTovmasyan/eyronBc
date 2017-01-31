@@ -1,4 +1,4 @@
-import { Component, OnInit, Input , ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input , ViewEncapsulation, OnDestroy } from '@angular/core';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Activity } from '../interface/activity';
 import { Broadcaster } from '../tools/broadcaster';
@@ -16,7 +16,7 @@ import { ProjectService } from '../project.service';
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class MyActivityComponent implements OnInit {
+export class MyActivityComponent implements OnInit,OnDestroy {
     @Input() single: boolean;
     @Input() userId: number;
     public Activities:Activity[];
@@ -33,16 +33,19 @@ export class MyActivityComponent implements OnInit {
     errorMessage:string;
     
     constructor(private _projectService: ProjectService, private _cacheService: CacheService, private broadcaster: Broadcaster) {}
-    
+    ngOnDestroy(){
+        clearInterval(this.interval);
+    }
+
     ngOnInit() {
-        let data = this._cacheService.get('activities');
-        if(data && !this.single){
-          this.Activities = data;
-          this.noActivities = (!data || !data.length);
-          this.refreshCache();
-        } else {
-          this.getActivities()
-        }
+        // let data = this._cacheService.get('activities');
+        // if(data && !this.single){
+        //   this.Activities = data;
+        //   this.noActivities = (!data || !data.length);
+        //   this.refreshCache();
+        // } else {
+          this.getActivities();
+        // }
 
         this.broadcaster.on<any>('slide-change')
             .subscribe(data => {
@@ -64,8 +67,7 @@ export class MyActivityComponent implements OnInit {
             }else {
                 clearInterval(this.interval);
             }
-        }
-            , 120000)
+        }, 120000)
     }
     
     getActivities(){
