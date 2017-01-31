@@ -55,9 +55,16 @@ class NotificationController extends Controller
 
         $lastModified = $em->getRepository('ApplicationUserBundle:UserNotification')
             ->getUserNotifications($this->getUser()->getId(), $first, $count, $lastId, true);
+//        if (is_null($lastId)){
+            $unreadCount = $em->getRepository('ApplicationUserBundle:UserNotification')
+                ->getUnreadCount($this->getUser()->getId());
+//        }
 
         if (is_null($lastModified)){
-            return ['userNotifications' => []];
+            return [
+                'userNotifications' => [],
+                'unreadCount'       => isset($unreadCount) ? $unreadCount : null
+            ];
         }
 
         $response = new Response();
@@ -72,10 +79,6 @@ class NotificationController extends Controller
         $userNotifications = $em->getRepository('ApplicationUserBundle:UserNotification')
             ->getUserNotifications($this->getUser()->getId(), $first, $count, $lastId);
 
-        if (is_null($lastId)){
-            $unreadCount = $em->getRepository('ApplicationUserBundle:UserNotification')
-                ->getUnreadCount($this->getUser()->getId());
-        }
 
         $content = [
             'userNotifications' => $userNotifications,
