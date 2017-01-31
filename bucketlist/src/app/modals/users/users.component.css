@@ -26,6 +26,9 @@
 #goal-users-modal .users-content h4 span {
   font-size: 12px;
 }
+md-progress-spinner {
+  margin: 0 auto;
+}
 @media (min-width: 768px) {
   #goal-users-modal {
     width: 390px;

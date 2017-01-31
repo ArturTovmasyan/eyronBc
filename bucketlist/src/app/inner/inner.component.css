@@ -273,6 +273,7 @@
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   vertical-align: middle;
+  margin: 0 -5px 0 0;
 }
 .goal-icons li.bordered-list a.manage-modal i {
   font-size: 28px;

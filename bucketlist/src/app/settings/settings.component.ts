@@ -37,6 +37,7 @@ export class SettingsComponent implements OnInit {
     month:any = 0;
     year:any = 0;
     notifySettings:any;
+    show:boolean = false;
 
     languages: any[] = [
         {
@@ -233,6 +234,8 @@ export class SettingsComponent implements OnInit {
      */
     saveUserData(form:any) {
 
+        this.show = true;
+
         if (this.type == 'profile') {
 
             let birthday:any;
@@ -271,6 +274,7 @@ export class SettingsComponent implements OnInit {
                         this.errorMessage = null;
                         this.refreshUserAndForm(data);
                         this.initProfileForm();
+                        this.show = false;
                     },
                     error => {
                         this.errorMessage = JSON.parse(error._body);
@@ -284,6 +288,7 @@ export class SettingsComponent implements OnInit {
                 .subscribe(
                     () => {
                         this.saveMessage = true;
+                        this.show = false;
                     },
                     error => {
                         this.errorMessage = error._body;
