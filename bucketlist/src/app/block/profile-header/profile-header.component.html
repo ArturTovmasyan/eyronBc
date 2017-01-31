@@ -15,10 +15,15 @@
 
           <a routerLink="/edit/profile" routerLinkActive="active" *ngIf="!userInfo || userInfo == 'my'" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
           <form>
-            <label class="image-label" for="file" *ngIf="type == 'settings'">Upload a photo</label>
+            <label class="image-label" for="file" *ngIf="type == 'settings' && profileUser && !profileUser.cached_image">Upload a photo</label>
+            <label class="image-label" for="file" *ngIf="type == 'settings' && profileUser && profileUser.cached_image">CHANGE PROFILE PICTURE</label>
             <div class="hide" *ngIf="type == 'settings'">
               <input type="file" id="file" name="file" (change)="showUploadedImage($event)">
             </div>
+
+            <!--<span *ngIf="errorMessage && errorMessage.file" style="text-align: center;color: red">{{ errorMessage.file }}</span>-->
+            <p *ngIf="errorMessage && errorMessage.file" [innerHTML]="errorMessage.file"></p>
+
             <div *ngIf="profileUser">
               <img src="{{ profileUser.cached_image }}" *ngIf="profileUser.cached_image" alt="Profile image" class="img-responsive img-circle"/>
               <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->

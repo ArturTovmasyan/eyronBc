@@ -23,7 +23,7 @@ trait File
 //*     minHeight = 540,
     /**
      * @Assert\Image(
-     *     groups={"Registration", "Profile", "Default", "Register"},
+     *     groups={"Registration", "Profile", "Default", "Register", "File"},
      *     minWidth = 400,
      *     minHeight = 400,
      *     mimeTypes = {
