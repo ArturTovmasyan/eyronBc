@@ -86,7 +86,7 @@
         <div class="row no-gutter">
           <div class="col-md-8" *ngIf="seeAlsoShow">
 
-            <swiper [config]="config" id="main-slider" #mainSlider class="swiper-container" *ngIf="goal.images">
+            <swiper [config]="config" id="main-slider" #mainSlider class="swiper-container" *ngIf="goal.images && goal.images.length">
               <!-- Slides Container -->
               <div style="height: 435px" class="swiper-wrapper">
 
@@ -107,7 +107,7 @@
               <div class="swiper-button-prev swiper-button-white" *ngIf="goal.images.length > 1"></div>
             </swiper>
 
-            <figure class="goal-preview" id="main-slider" *ngIf="!goal.images">
+            <figure class="goal-preview" #mainSlider id="main-slider" *ngIf="!goal.images || !goal.images.length">
               <img class="img-responsive" src="{{ imgPath }}" alt="view goal img" style="height: 100%;"/>
             </figure>
 

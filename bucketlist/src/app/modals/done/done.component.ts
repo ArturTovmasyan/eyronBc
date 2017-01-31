@@ -214,7 +214,7 @@ export class DoneComponent implements OnInit {
         return;
       }
 
-      let completion_date = this.dateByFormat(this.year , this.month ,this.day);
+      let completion_date = this.dateByFormat(this.month ,this.day, this.year);
       this.userGoal.completion_date = new Date(this.year, this.month - 1, this.day);
       this.userGoal.goal_status = true;
       this.userGoal.date_status = 1;
@@ -223,7 +223,7 @@ export class DoneComponent implements OnInit {
     }else if(this.year && this.newAdded){//when select only year
       var month = this.month?this.month: ((new Date()).getMonth() + 1);
       var day = 1;
-      let completion_date = this.dateByFormat(this.year, month, day);
+      let completion_date = this.dateByFormat(month, day, this.year);
       this.userGoal.completion_date = new Date(this.year, month - 1, day);
       this.userGoal.goal_status = true;
       this.userGoal.date_status = (this.month)?3:2;

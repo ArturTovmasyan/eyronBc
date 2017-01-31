@@ -15,12 +15,16 @@
 
               <input type="email" formControlName="email" class="form-control" placeholder="{{ 'resetting.request.username'|translate }}"/>
               <control-messages [control]="form.controls.email"></control-messages>
-
+              <span *ngIf="errorMessage && errorMessage.user" style="text-align: center;color: red">{{ errorMessage.user }}</span>
+              <span *ngIf="errorMessage && errorMessage.expires" style="text-align: center;color: red">{{ errorMessage.expires }}</span>
             </div>
             <div class="form-group text-right">
               <button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'resetting.request.submit'|translate }}</button>
             </div>
           </form>
+          <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
+            <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+          </div>
         </div>
 
 
@@ -43,11 +47,15 @@
 
             </div>
 
+            <span *ngIf="errorMessage && errorMessage.password" style="text-align: center;color: red">{{ errorMessage.password }}</span>
             <div class="form-group text-right">
               <button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'change_password.submit'|translate }}</button>
             </div>
 
           </form>
+          <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
+            <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+          </div>
         </div>
 
 
