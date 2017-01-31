@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {TranslateModule} from 'ng2-translate';
+import { TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
-
 import {GoalUsersComponent} from './goal-users/goal-users.component';
 import {GoalFooterComponent} from './goal-footer/goal-footer.component';
 import {GoalComponent} from './goal/goal.component';
@@ -23,6 +22,7 @@ import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
 import { InputVideoComponent } from './embed-video/input-video.component';
 import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
+import { NotificationDropdownComponent } from './notification-dropdown/notification-dropdown.component';
 
 
 @NgModule({
@@ -50,7 +50,8 @@ import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
     EmbedVideoComponent,
     InputVideoComponent,
     SeeAlsoComponent,
-    MyDropzoneComponent
+    MyDropzoneComponent,
+    NotificationDropdownComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -69,7 +70,8 @@ import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
     EmbedVideoComponent,
     InputVideoComponent,
     SeeAlsoComponent,
-    MyDropzoneComponent
+    MyDropzoneComponent,
+    NotificationDropdownComponent
   ]
 })
 export class ComponentModule { }

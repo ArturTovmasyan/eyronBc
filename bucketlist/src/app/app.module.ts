@@ -10,6 +10,7 @@ import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { MaterialModule } from '@angular/material';
 import { ValidationService } from './validation.service';
 import { Broadcaster} from './tools/broadcaster';
+import { ClickOutsideDirective} from './tools/outside';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { AngularFireModule } from 'angularfire2';
@@ -78,7 +79,8 @@ export function createTranslateLoader(http: Http) {
     CommonComponent,
     UsersComponent,
     AddComponent,
-    DoneComponent
+    DoneComponent,
+    ClickOutsideDirective
 
   ],
   imports: [
@@ -115,7 +117,8 @@ export function createTranslateLoader(http: Http) {
     Broadcaster,
     ValidationService,
     CacheService,
-    Uploader
+    Uploader,
+    ClickOutsideDirective
   ],
   bootstrap: [AppComponent]
 })
