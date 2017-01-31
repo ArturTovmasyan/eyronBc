@@ -4,5 +4,6 @@ export interface User {
     first_name?: string,
     last_name?: string,
     cached_image?: string,
-    stats?:any
+    stats?:any,
+    language?:string
 }

@@ -1,4 +1,5 @@
 <div class="bg-grey my-modal" id="goal-users-modal">
+    <md-progress-spinner mode="indeterminate" *ngIf="!users"></md-progress-spinner>
     <div class="bg-white relative text-left" *ngIf="users && users.length && data.category">
         <h3 *ngIf="data.category == 1"  >{{ 'home_listed_by'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
         <h3 *ngIf="data.category == 2"  >{{ 'home_complete'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
@@ -10,8 +11,9 @@
          infinite-scroll
          [infiniteScrollDistance]="1"
          [infiniteScrollThrottle]="500"
-         (scrolled)="onScroll()">
-        <div [hidden]="!users || !users.length"
+         (scrolled)="onScroll()"
+         *ngIf="users">
+        <div [hidden]="!users.length"
              class="row"
              *ngFor="let user of users">
 

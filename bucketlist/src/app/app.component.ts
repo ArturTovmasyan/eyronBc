@@ -77,25 +77,28 @@ export class AppComponent implements OnInit  {
     }else {
         this.getBottomMenu();
     }
-    this.selectLang('en');
 
     if(localStorage.getItem('apiKey')){
-        this.appUser = this._cacheService.get('user_');
+        this.appUser = this._cacheService.get('user_');console.log(this.appUser);
         if(!this.appUser) {
             this._projectService.getUser()
                 .subscribe(
                     user => {
                         this.appUser = user;
+                        this.selectLang((user && user.language)?user.language:'en');
                         this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                         this.broadcaster.broadcast('getUser', user);
                     },
                     error => localStorage.removeItem('apiKey'));
+        } else {
+            this.selectLang((this.appUser.language)?this.appUser.language:'en');
         }
     }
 
     this.broadcaster.on<User>('login')
         .subscribe(user => {
           this.appUser = user;
+          this.selectLang((this.appUser.language)?this.appUser.language:'en');
           this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
           this.broadcaster.broadcast('getUser', user);
         });
@@ -244,24 +247,4 @@ export class AppComponent implements OnInit  {
             },
             error => this.errorMessage = <any>error);
   }
-
-  // hideModal(name:string){
-  //       switch(name){
-  //           case 'report':
-  //               this.reportModal = false;
-  //               break;
-            // case 'common':
-            //     this.commonModal = false;
-            //     break;
-            // case 'users':
-                // this.usersModal = false;
-                // break;
-            // case 'add':
-            //     this.addModal = false;
-            //     break;
-            // case 'done':
-            //     this.doneModal = false;
-            //     break;
-        // }
-  // }
 }

@@ -21,7 +21,7 @@ export class GoalCreateComponent implements OnInit {
     public tags:any[];
     public files:any[] = [];
     public existingFiles:any[] = [];
-    public language:string;
+    public language:string = 'en';
     public videos_array:string[] = [];
     public title: string = '' ;
     public description: string = '' ;

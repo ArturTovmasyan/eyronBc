@@ -165,12 +165,13 @@ export class InnerComponent implements OnInit {
       }
 
       if(this.goalImage && this.mainSlider){
-        let goalImageBottom = this.goalImage.nativeElement.offsetTop + this.goalImage.nativeElement.offsetHeight ;
-        let mainSliderBottom = this.mainSlider.elementRef.nativeElement.offsetTop + this.mainSlider.elementRef.nativeElement.offsetHeight;
+        let slider = this.mainSlider.elementRef?this.mainSlider.elementRef:this.mainSlider;
+        // let goalImageBottom = this.goalImage.nativeElement.offsetTop + this.goalImage.nativeElement.offsetHeight ;
+        // let mainSliderBottom = slider.nativeElement.offsetTop + slider.nativeElement.offsetHeight;
 
 
         this.goalImageHeight = (this.quoteHeight?this.quoteHeight:this.container.nativeElement.children[0].offsetHeight)
-            + this.container.nativeElement.children[1].offsetHeight + this.mainSlider.elementRef.nativeElement.offsetHeight;
+            + this.container.nativeElement.children[1].offsetHeight + slider.nativeElement.offsetHeight;
       }
     }, 1000);
   };
