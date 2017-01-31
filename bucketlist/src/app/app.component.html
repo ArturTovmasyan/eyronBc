@@ -28,7 +28,7 @@
                             </li>
 
                             <li *ngIf="appUser">
-                                <a routerLink="/profile" routerLinkActive="active">
+                                <a routerLink="/profile/my" routerLinkActive="active">
                                     <i class="icons mybucketlist-icon"></i>
                                     <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|translate | uppercase}}</span>
                                 </a>
@@ -109,7 +109,7 @@
                                     </li>
 
                                     <li>
-                                        <a routerLink="/profile" (click)="joinToggle1 = false">
+                                        <a routerLink="/profile/my" (click)="joinToggle1 = false">
                                             <i class="icons mybucketlist-icon"></i>
                                             <span>{{ 'my_bucketlist'|translate }}</span>
                                         </a>
