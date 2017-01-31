@@ -682,7 +682,7 @@
         "user_not_found": "User not found",
         "check_email": {
             "title": "Check your email",
-            "check_email_first_text": "We've sent an email to %email%. Click the link in the email to reset your password.",
+            "check_email_first_text": "We've sent an email to {{email}}. Click the link in the email to reset your password.",
             "check_email_second_text": "If you don't see the email, also check your junk, spam, social, or other folders.",
             "have_not_received": "I haven’t received the email."
         },

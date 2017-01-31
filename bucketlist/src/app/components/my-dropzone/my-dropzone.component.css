@@ -157,8 +157,9 @@
   -o-border-radius: 3px;
   background: rgba(0, 0, 0, 0.03);
   min-height: 170px;
-  padding: 10px 23px;
+  padding: 10px 13px;
   margin: 5px 0;
+  cursor: pointer;
 }
 .dropzone .dz-default.dz-message {
   opacity: 1;
@@ -187,12 +188,30 @@
   cursor: pointer;
   margin: 0;
   font-size: 17px;
+  line-height: 22px;
+  font-weight: 700;
+}
+.dropzone .dz-message h3 span.btn-purple {
+  display: inline-block;
+  font-size: 14px;
+  margin: 0 10px 0 0;
+  vertical-align: middle;
+}
+.dropzone .dz-message h3 span.btn-purple i {
+  font-size: 30px;
+  vertical-align: middle;
+  display: inline-block;
+  margin: -5px 0 0 0;
+}
+.dropzone .dz-message h3 span:last-child {
+  display: block;
+  margin: 12px 0 0;
 }
 .dropzone .dz-message .icon-cloud {
   font-size: 40px;
+  margin-right: -2px;
 }
 .dropzone .dz-message p {
-  margin: 10px 0 0 0;
   font-size: 12px;
   color: #a2a2a2;
 }
@@ -413,10 +432,10 @@
 }
 @media (min-width: 768px) {
   .dropzone {
-    padding: 23px;
+    padding: 23px 13px;
   }
-  .dropzone .dz-message {
-    text-align: center;
+  .dropzone .dz-message h3 span:last-child {
+    display: inline-block;
   }
   .dropzone .dz-message p {
     font-size: 14px;
@@ -424,17 +443,9 @@
   }
 }
 @media (min-width: 992px) {
-  .dropzone {
-    padding: 23px;
-  }
-  .dropzone .dz-message {
-    text-align: center;
-  }
   .dropzone .dz-message h3 {
-    font-size: 20px;
+    font-size: 24px;
+    line-height: 36px;
     margin: 10px 0;
-  }
-  .dropzone .dz-message .icon-cloud {
-    margin-right: 10px;
   }
 }
