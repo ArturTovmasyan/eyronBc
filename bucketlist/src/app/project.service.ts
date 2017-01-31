@@ -379,6 +379,15 @@ export class ProjectService {
      *
      * @returns {Observable<T>}
      */
+    getNewNotifications(start: number, end: number, lastId: number):Observable<any> {
+        return this.http.get(this.notificationUrl + '/' + start + '/' + end + '/' +lastId, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+    /**
+     *
+     * @returns {Observable<T>}
+     */
     readAllNotifications():Observable<any>{
         return this.http.get(this.notificationAllReadUrl +'/all/read',{headers: this.headers})
             .catch(this.handleError);

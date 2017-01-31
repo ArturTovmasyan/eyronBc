@@ -41,7 +41,7 @@
                                 <div>
                                     <a (click)="toogleNote()" class="relative notify">
                                         <i class="bell"></i>
-                                        <sup *ngIf="newNotCount">{{ newNotCount }}</sup>
+                                        <sup *ngIf="newNotCount && newNotCount != 0">{{ newNotCount }}</sup>
                                     </a>
                                 </div>
                             </li>
@@ -162,7 +162,7 @@
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
       <div [hidden]="!show" (clickOutside)="closeDropdown()">
-          <notification-dropdown (changeNote)="hideNote($event)"></notification-dropdown>
+          <notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)"></notification-dropdown>
       </div>
         <!--<div *ngIf="reportModal">-->
             <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
