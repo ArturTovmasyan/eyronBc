@@ -29,6 +29,7 @@ export class InnerComponent implements OnInit {
   seeAlsoShow: boolean;
   public goal:Goal = null;
   public errorMessage:string;
+  public angularPath:string;
   public serverPath:string = '';
   public type:string = 'inner';
   public imgPath:string = '';
@@ -75,6 +76,7 @@ export class InnerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.angularPath = this._projectService.getAngularPath();
     if(localStorage.getItem('apiKey')){
       this.appUser = this._projectService.getMyUser();
       if (!this.appUser) {
@@ -123,6 +125,18 @@ export class InnerComponent implements OnInit {
                 return data.doneByUsers[key];
               });
               if(this.goal){
+                // setTimeout(()=>{
+                //   let div = document.createElement('div');
+                //   div.setAttribute('class', 'addthis_native_toolbox');
+                //   div.setAttribute('data-url', this.angularPath + 'goal/' + this.goal.slug);
+                //   console.log(document.getElementById('addthis'));
+                //   document.getElementById('addthis').appendChild(div);
+                //
+                //   let addthisScript = document.createElement('script');
+                //   addthisScript.setAttribute('src', 'http://s7.addthis.com/js/300/addthis_widget.js#domready=1');
+                //   document.body.appendChild(addthisScript);
+                // },2000);
+
                 this.stories = this.goal.success_stories;
                 if(this.goal.is_my_goal == 1 || this.goal.is_my_goal == 2){
                   this._projectService.getUserGoal(this.goal.id)

@@ -24,6 +24,7 @@ import { environment } from '../environments/environment';
 export class ProjectService {
 
     private baseOrigin = environment.production?'http://stage.bucketlist127.com':'http://bucketlist.loc';
+    private angularOrigin = environment.production?'http://stage2.bucketlist127.com/':'http://ang.bucketlist.loc/';
     //private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
@@ -121,6 +122,13 @@ export class ProjectService {
      */
     getPath(){
         return this.baseOrigin;
+    }
+    /**
+     *
+     * @returns {Observable<R>}
+     */
+    getAngularPath(){
+        return this.angularOrigin;
     }
 
     /**
