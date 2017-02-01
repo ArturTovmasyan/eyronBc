@@ -23,6 +23,7 @@ export class ResettingRequestComponent implements OnInit {
     apikey:boolean = true;
     initForm:boolean = false;
     email:any = null;
+    busy:boolean = false;
 
     constructor(private route: ActivatedRoute,
                 private _projectService: ProjectService,
@@ -38,6 +39,8 @@ export class ResettingRequestComponent implements OnInit {
                     this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'request';
                     this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']: null;
 
+                    if(this.busy) return;
+
                     if(this.type == 'request') {
 
                         this.initSendEmailForm();
@@ -51,10 +54,7 @@ export class ResettingRequestComponent implements OnInit {
 
                     if(this.type == 'check-email') {
 
-                        if(this.email) {
-                            this.checkResetToken(this.secret);
-
-                        } else{
+                        if(!this.email) {
                             this.router.navigate(['/resetting/request']);
                         }
                     }
@@ -148,15 +148,19 @@ export class ResettingRequestComponent implements OnInit {
             .subscribe(
                 (res) => {
                     if(res.confirm) {
+                        this.busy = true;
                         this.initChangePasswordForm();
                         this.ready = true;
                     }
-                    // if(!res.confirm){
-                    //     this.router.navigate(['/resetting/request']);
-                    // }
                 },
                 error => {
                     this.errorMessage = JSON.parse(error._body);
+
+                    if(this.errorMessage.email_token) {
+                        this.busy = true;
+                        this.broadcaster.broadcast('error', this.errorMessage.email_token);
+                        this.router.navigate(['/error']);
+                    }
                 }
             );
     }

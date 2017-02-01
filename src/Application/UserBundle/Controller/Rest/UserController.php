@@ -1215,7 +1215,7 @@ class UserController extends FOSRestController
      * @Rest\View()
      * @Rest\Get("/user/check/reset-token/{token}", name="application_user_rest_user_checkresettoken_1", options={"method_prefix"=false})
      * @param $token
-     * @return array
+     * @return array|JsonResponse
      */
     public function checkResetTokenAction($token)
     {
@@ -1225,7 +1225,7 @@ class UserController extends FOSRestController
         $t = $this->container->getParameter('fos_user.resetting.token_ttl');
 
         if (!$user || (!$user->isPasswordRequestNonExpired($t))) {
-            return ['confirm' => false];
+            return new JsonResponse(['email_token' => 'Invalid email token for this user'], Response::HTTP_BAD_REQUEST);
         }
 
         return  ['confirm' => true];

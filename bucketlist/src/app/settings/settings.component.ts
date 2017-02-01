@@ -349,6 +349,7 @@ export class SettingsComponent implements OnInit {
                     if(this.errorMessage.email_token) {
                         this.broadcaster.broadcast('error', this.errorMessage.email_token);
                         this.router.navigate(['/error']);
+                        this.busy = true;
                     }
                 }
             );
