@@ -773,3 +773,25 @@
     margin: 9px 10px 0;
   }
 }
+.addthis_counter {
+  width: 113px !important;
+  height: 31px !important;
+  background: url('../../assets/images/share-new.png') no-repeat center center !important;
+  background-size: 100% !important;
+}
+.addthis_counter:hover {
+  background: url('../../assets/images/share-purple.png') no-repeat center center !important;
+  background-size: 100% !important;
+}
+.addthis_counter .sb-buttons {
+  display: block;
+}
+.addthis_counter .sb-btn {
+  background-color: #0a001d;
+}
+.addthis_counter .sb-container {
+  position: absolute;
+  width: 115px;
+  background-color: whitesmoke;
+  border: 1px solid gainsboro;
+}
