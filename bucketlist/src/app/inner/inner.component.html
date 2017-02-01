@@ -38,7 +38,7 @@
   </div>
 </div>
 
-<!--<div id="fb-root"></div>-->
+<div id="fb-root"></div>
 <div class="inner-container" *ngIf="goal" [ngClass]="{'no-quote': !aphorisms, 'no-author': (!goal.author || goal.author.is_admin)}">
   <!--{% set cover = goal.getCoverPhotoDownloadLink %}-->
   <!--{% set goalInner = true %}-->
@@ -337,18 +337,7 @@
                 </ul>
               </li>
             </ul>
-            <!--{% if goal.lat is not null and goal.lng is not null %}-->
             <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && !isDesktop">
-              <!--<div class="map-marker" *ngIf="location"-->
-                   <!--data-simple-map-marker-->
-                   <!--data-zoom="14"-->
-                   <!--data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"-->
-                   <!--data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"-->
-                   <!--data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
-                   <!--data-markers="location"-->
-
-                   <!--style="width: 99.8%; height: 215px">-->
-              <!--</div>-->
               <map-single style="width: 99.8%; height: 215px" [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]" class="map-marker"></map-single>
             </div>
             <!--<div id="affiliate-right-mobile" class="right-menu-scroll bg-white" *ngIf="!isDesktop">-->
@@ -365,24 +354,33 @@
               <div class="col-sm-8">
                 <div class="row">
                   <div class="col-xs-4 col-sm-3 col-md-3">
-                    <!--<div class="fb-like"-->
-                         <!--data-href="{{ serverPath + goal.shareLink }}"-->
-                         <!--data-layout="button_count"-->
-                         <!--data-action="like"-->
-                         <!--data-show-faces="false"-->
-                         <!--data-share="false">-->
-                    <!--</div>-->
+                    <div class="fb-like"
+                         [attr.data-href]="serverPath + goal.shareLink"
+                         data-layout="button_count"
+                         data-action="like"
+                         data-show-faces="false"
+                         data-share="false">
+                    </div>
                   </div>
                   <div class="col-xs-8 col-sm-9 col-md-9">
-                    <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{ goal.title }}" class="twitter-hashtag-button" data-related="BucketList127" data-url="{{ serverPath + goal.share_link }}" data-dnt="true">Tweet #BucketList127</a>-->
-                    <!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>-->
+                    <a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{goal.title}}" class="twitter-hashtag-button" data-related="BucketList127" [attr.data-url]="angularPath + goal.share_link" [attr.data-dnt]="true">Tweet #BucketList127</a>
                   </div>
                 </div>
               </div>
 
               <div class="col-sm-4">
-                <div id="addthis"></div>
-                <!--<div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>-->
+                <div class="addthis_counter" (mouseover)="isHover = true" >
+                  <share-buttons [url]="linkToShare"
+                                 *ngIf="isHover"
+                                 (mouseout)="isHover = false"
+                                 [facebook]="fbInner"
+                                 [twitter]="twitterInner"
+                                 [pinterest]="pintInner"
+                                 [linkedIn]="inInner"
+                                 [google]="googleInner"
+                                 [tumblr]="tumblrInner">
+                  </share-buttons>
+                </div>
               </div>
             </div>
           </div>
