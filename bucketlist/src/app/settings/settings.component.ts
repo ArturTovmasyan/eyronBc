@@ -289,6 +289,11 @@ export class SettingsComponent implements OnInit {
                         this.refreshUserAndForm(data);
                         this.initProfileForm();
                         this.show = false;
+
+                        setTimeout(() => {
+                            this.saveMessage = null;
+                        }, 4000);
+
                     },
                     error => {
                         this.errorMessage = JSON.parse(error._body);
@@ -303,6 +308,11 @@ export class SettingsComponent implements OnInit {
                     () => {
                         this.saveMessage = true;
                         this.show = false;
+
+                        setTimeout(() => {
+                            this.saveMessage = null;
+                        }, 4000);
+
                     },
                     error => {
                         this.errorMessage = error._body;
@@ -389,8 +399,11 @@ export class SettingsComponent implements OnInit {
                     this.removeMessage = true;
                     this.refreshUserAndForm(data);
                     this.initProfileForm();
-                    this.saveMessage = null;
                     this.show = false;
+
+                    setTimeout(() => {
+                        this.removeMessage = null;
+                    }, 3000);
                 },
                 error => {
                     this.errorMessage = error;

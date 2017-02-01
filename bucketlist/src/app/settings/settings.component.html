@@ -25,11 +25,11 @@
                             <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0">
 
                                 <div *ngIf="saveMessage && !errorMessage" class="alert alert-success" role="alert">
-                                    <strong>Well done!</strong> You successfully change your profile data.
+                                    {{ 'updated_user_data'|translate }}
                                 </div>
 
                                 <div *ngIf="removeMessage" class="alert alert-success" role="alert">
-                                    Your email has been successfully removed.
+                                    {{ 'remove_email'|translate }}
                                 </div>
 
                                 <div class="form-group row no-padding">
@@ -192,7 +192,7 @@
                         <div *ngIf="type == 'notification'">
 
                             <div *ngIf="saveMessage" class="alert alert-success" role="alert">
-                                <strong>Well done!</strong> You successfully change your profile data.
+                                {{ 'updated_user_data'|translate }}
                             </div>
 
                             <h3 class="text-left">{{ 'user.notify_settings_text'|translate }}</h3>
