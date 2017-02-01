@@ -350,7 +350,6 @@ export class SettingsComponent implements OnInit {
                         this.broadcaster.broadcast('error', this.errorMessage.email_token);
                         this.router.navigate(['/error']);
                     }
-                    console.log(this.errorMessage.email_token);
                 }
             );
     }

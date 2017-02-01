@@ -21,7 +21,6 @@ export class ErrorComponent implements OnInit {
   getError() {
       this.broadcaster.on<any>('error')
           .subscribe(error => {
-              console.log(error);
               this.errorMessage = error;
           });
   }

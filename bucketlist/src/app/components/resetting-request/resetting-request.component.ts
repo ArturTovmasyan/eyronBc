@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ProjectService } from '../../project.service';
-import { CacheService, CacheStoragesEnum } from 'ng2-cache/ng2-cache';
 import { Broadcaster } from '../../tools/broadcaster';
 import { ValidationService } from 'app/validation.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -27,7 +26,6 @@ export class ResettingRequestComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private _projectService: ProjectService,
-                private _cacheService: CacheService,
                 private broadcaster: Broadcaster,
                 private router:Router,
                 private fb: FormBuilder
