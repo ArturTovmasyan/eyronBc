@@ -782,7 +782,7 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     activationUserAddEmail(secret, email) {
-        return this.http.get(this.activationAddedEmailUrl + secret +'/' + email,  {headers: this.headers})
+        return this.http.get(this.activationAddedEmailUrl + secret +'/'+ email, {headers: this.headers})
             .map((r:Response) => r.json());
     }
 

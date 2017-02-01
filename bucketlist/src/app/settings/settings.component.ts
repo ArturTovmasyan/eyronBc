@@ -32,8 +32,9 @@ export class SettingsComponent implements OnInit {
     saveMessage:any;
     removeMessage:any;
     birthDate:any;
-    addMail:any;
-    secret:any;
+    addMail:any = null;
+    secret:any = null;
+    busy:boolean = false;
     email:any;
     day:any = 0;
     month:any = 0;
@@ -85,14 +86,15 @@ export class SettingsComponent implements OnInit {
     ) {
         router.events.subscribe((val) => {
             if(this.eventId != val.id && val instanceof NavigationEnd){
+
                 this.eventId = val.id;
                 this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'profile';
 
-                this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']:null;
-                this.addMail = this.route.snapshot.params['addMail']?this.route.snapshot.params['addMail']:null;
+                if(this.busy)return;
 
                 this.form = null;
                 this.ready = false;
+                this.errorMessage = null;
 
                 if(this.type == 'profile') {
                     this.saveMessage = false;
@@ -107,9 +109,11 @@ export class SettingsComponent implements OnInit {
                     this.getNotifySettings();
                 }
 
-                // if(this.type == 'add-email' && this.secret && this.addMail){
-                //     this.activationUserAddEmail(this.secret, this.addMail);
-                // }
+                if(this.type == 'add-email'){
+                    this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']:null;
+                    this.addMail = this.route.snapshot.params['addMail']?this.route.snapshot.params['addMail']:null;
+                    this.activationUserAddEmail(this.secret, this.addMail);
+                }
 
                 this.getUserInfoByType();
             }
@@ -244,6 +248,7 @@ export class SettingsComponent implements OnInit {
     saveUserData(form:any) {
 
         this.show = true;
+        this.removeMessage = false;
 
         if (this.type == 'profile') {
 
@@ -304,8 +309,6 @@ export class SettingsComponent implements OnInit {
                     }
                 );
         }
-
-        console.log(form);
     }
 
     /**
@@ -336,19 +339,25 @@ export class SettingsComponent implements OnInit {
     {
         this._projectService.activationUserAddEmail(secret, email)
             .subscribe(
-                (data) => {
-                    console.log(secret, email);
+                () => {
                     this.router.navigate(['/activity']);
+                    this.busy = true;
                 },
                 error => {
-                    this.errorMessage = error._body;
+                    this.errorMessage = JSON.parse(error._body);
+
+                    if(this.errorMessage.email_token) {
+                        this.broadcaster.broadcast('error', this.errorMessage.email_token);
+                        this.router.navigate(['/error']);
+                    }
+                    console.log(this.errorMessage.email_token);
                 }
             );
     }
 
     /**
+     * This function is used to get notify settings data
      *
-     * @param form
      */
     getNotifySettings() {
 
@@ -380,6 +389,7 @@ export class SettingsComponent implements OnInit {
                     this.removeMessage = true;
                     this.refreshUserAndForm(data);
                     this.initProfileForm();
+                    this.saveMessage = null;
                     this.show = false;
                 },
                 error => {
