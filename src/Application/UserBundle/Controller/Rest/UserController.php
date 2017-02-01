@@ -1231,5 +1231,66 @@ class UserController extends FOSRestController
         return  ['confirm' => true];
     }
 
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to check reset password token",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found",
+     *         400="Bad request"
+     *     },
+     * )
+     *
+     * @Rest\View()
+     * @Rest\Get("/user/activation-email/{emailToken}/{email}", name="application_user_rest_user_activationuseremails", options={"method_prefix"=false})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function activationUserEmailsAction($emailToken, $email)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $user = $this->getUser();
+
+        //check if user not exist
+        if (!$user) {
+         return  new JsonResponse('User not found', Response::HTTP_NOT_FOUND);
+        }
+
+        //get user emails
+        $userEmails = $user->getUserEmails();
+
+        //get current email data
+        $data = $userEmails[$email];
+
+        //get userEmail value in array
+        $currentEmailToken = $data['token'];
+
+        //check if tokens is equal
+        if ($currentEmailToken == $emailToken) {
+
+            //set token null in userEmails by key
+            $userEmails[$email]['token'] = null;
+
+            //set activation email token null
+            $user->setUserEmails($userEmails);
+
+            if ($user->getSocialFakeEmail() == $user->getEmail()){
+                $user->primary = $email;
+            }
+        }
+        else {
+           return new JsonResponse(['email_token' => 'Invalid email token for this user'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $em->persist($user);
+        $em->flush($user);
+
+       return new JsonResponse('', Response::HTTP_NO_CONTENT);
+    }
+
 }
 

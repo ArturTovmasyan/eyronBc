@@ -32,11 +32,15 @@ export class SettingsComponent implements OnInit {
     saveMessage:any;
     removeMessage:any;
     birthDate:any;
+    addMail:any = null;
+    secret:any = null;
+    busy:boolean = false;
     email:any;
     day:any = 0;
     month:any = 0;
     year:any = 0;
     notifySettings:any;
+    show:boolean = false;
 
     languages: any[] = [
         {
@@ -82,11 +86,15 @@ export class SettingsComponent implements OnInit {
     ) {
         router.events.subscribe((val) => {
             if(this.eventId != val.id && val instanceof NavigationEnd){
+
                 this.eventId = val.id;
                 this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'profile';
 
+                if(this.busy)return;
+
                 this.form = null;
                 this.ready = false;
+                this.errorMessage = null;
 
                 if(this.type == 'profile') {
                     this.saveMessage = false;
@@ -99,6 +107,12 @@ export class SettingsComponent implements OnInit {
                     this.saveMessage = false;
                     this.removeMessage = false;
                     this.getNotifySettings();
+                }
+
+                if(this.type == 'add-email'){
+                    this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']:null;
+                    this.addMail = this.route.snapshot.params['addMail']?this.route.snapshot.params['addMail']:null;
+                    this.activationUserAddEmail(this.secret, this.addMail);
                 }
 
                 this.getUserInfoByType();
@@ -233,6 +247,9 @@ export class SettingsComponent implements OnInit {
      */
     saveUserData(form:any) {
 
+        this.show = true;
+        this.removeMessage = false;
+
         if (this.type == 'profile') {
 
             let birthday:any;
@@ -271,6 +288,7 @@ export class SettingsComponent implements OnInit {
                         this.errorMessage = null;
                         this.refreshUserAndForm(data);
                         this.initProfileForm();
+                        this.show = false;
                     },
                     error => {
                         this.errorMessage = JSON.parse(error._body);
@@ -284,14 +302,13 @@ export class SettingsComponent implements OnInit {
                 .subscribe(
                     () => {
                         this.saveMessage = true;
+                        this.show = false;
                     },
                     error => {
                         this.errorMessage = error._body;
                     }
                 );
         }
-
-        console.log(form);
     }
 
     /**
@@ -315,7 +332,32 @@ export class SettingsComponent implements OnInit {
 
     /**
      *
-     * @param form
+     * @param email
+     * @param secret
+     */
+    activationUserAddEmail(secret, email)
+    {
+        this._projectService.activationUserAddEmail(secret, email)
+            .subscribe(
+                () => {
+                    this.router.navigate(['/activity']);
+                    this.busy = true;
+                },
+                error => {
+                    this.errorMessage = JSON.parse(error._body);
+
+                    if(this.errorMessage.email_token) {
+                        this.broadcaster.broadcast('error', this.errorMessage.email_token);
+                        this.router.navigate(['/error']);
+                    }
+                    console.log(this.errorMessage.email_token);
+                }
+            );
+    }
+
+    /**
+     * This function is used to get notify settings data
+     *
      */
     getNotifySettings() {
 
@@ -338,12 +380,17 @@ export class SettingsComponent implements OnInit {
      * @param email
      */
   removeEmail(email:string) {
+
+       this.show = true;
+
         this._projectService.removeUserEmail(email)
             .subscribe(
                 (data) => {
                     this.removeMessage = true;
                     this.refreshUserAndForm(data);
                     this.initProfileForm();
+                    this.saveMessage = null;
+                    this.show = false;
                 },
                 error => {
                     this.errorMessage = error;

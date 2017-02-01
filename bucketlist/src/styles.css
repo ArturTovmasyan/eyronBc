@@ -3335,3 +3335,6 @@ md-radio-button.md-radio-checked .md-ripple-foreground {
   -ms-border-radius: 8px;
   -o-border-radius: 8px;
 }
+md-progress-spinner {
+  margin: 70px auto 0;
+}

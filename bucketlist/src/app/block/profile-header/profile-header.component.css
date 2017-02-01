@@ -9,6 +9,7 @@
 .content-header {
   position: relative;
   overflow: hidden;
+  min-height: 261px;
 }
 .content-header > figure {
   position: absolute;
@@ -613,6 +614,9 @@
   }
 }
 @media (min-width: 992px) {
+  .content-header {
+    min-height: 266px;
+  }
   .content-header > figure {
     height: 266px;
   }

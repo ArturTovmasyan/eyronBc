@@ -73,6 +73,7 @@ export class ProjectService {
     private changeSettingsUrl = this.baseUrl + 'user/update';
     private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
     private getNotifySettingsUrl = this.baseUrl + 'user/notify-settings';
+    private activationAddedEmailUrl = this.baseUrl + 'user/activation-email/';
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
@@ -771,6 +772,17 @@ export class ProjectService {
      */
     saveUserData(data:any) {
         return this.http.post(this.changeSettingsUrl, {'bl_user_angular_settings':data}, {headers: this.headers})
+            .map((r:Response) => r.json());
+    }
+
+    /**
+     *
+     * @param secret
+     * @param email
+     * @returns {Observable<R>}
+     */
+    activationUserAddEmail(secret, email) {
+        return this.http.get(this.activationAddedEmailUrl + secret +'/'+ email, {headers: this.headers})
             .map((r:Response) => r.json());
     }
 

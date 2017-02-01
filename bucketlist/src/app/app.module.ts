@@ -50,6 +50,8 @@ import { HomeFooterComponent } from './components/home-footer/home-footer.compon
 import { ComponentModule } from './components/components.module';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { PageComponent } from './page/page.component';
+import { ErrorComponent } from './components/error/error.component';
+
 
 //modals
 import { ReportComponent } from './modals/report/report.component';
@@ -80,7 +82,8 @@ export function createTranslateLoader(http: Http) {
     UsersComponent,
     AddComponent,
     DoneComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    ErrorComponent
 
   ],
   imports: [

@@ -111,7 +111,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row" *ngIf="!socialEmail">
+                                <div class="form-group row" *ngIf="!socialEmail || (socialEmail !== email)">
                                     <div class="col-sm-12">
                                         <input type="password" class="form-control" formControlName="currentPassword" placeholder="{{ 'form.current_password'|translate }}">
                                         <control-messages [control]="form.controls.currentPassword"></control-messages>
@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row no-padding" *ngIf="!socialEmail">
+                                <div class="form-group row no-padding" *ngIf="!socialEmail || (socialEmail !== email)">
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control" formControlName="password" placeholder="{{ 'form.new_password'|translate }}">
                                         <control-messages [control]="form.controls.password"></control-messages>
@@ -260,6 +260,10 @@
                             <button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</button>
                         </div>
                     </form>
+
+                    <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
+                        <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+                    </div>
 
                 </div>
 
