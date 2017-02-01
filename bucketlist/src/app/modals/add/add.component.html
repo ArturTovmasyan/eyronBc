@@ -1,4 +1,4 @@
-<div class="my-modal goal-modal" >
+<div class="my-modal goal-modal" (clickOutside)="closeModal()">
     <div class="goal-container">
         <div *ngIf="newAdded" class="email">
             {{ "goal.create_goal" | translate }}

@@ -14,6 +14,7 @@ export class ReportComponent implements OnInit {
   // @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
   public data: any;
   public isReported:boolean = false;
+  public isOpen:boolean = false;
   public reportText:string;
   public reportOption:any;
   constructor(private ProjectService: ProjectService,
@@ -24,6 +25,7 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
+      this.isOpen = false;
       this.dialogRef.close();
 
       // this.modalHideEmitter.emit(null);
@@ -31,6 +33,7 @@ export class ReportComponent implements OnInit {
       if(this.data && this.data.contentId){
         this.ProjectService.getReport(this.data).subscribe(
             data => {
+              this.isOpen = true;
               if(data && data.content_id){
                 this.reportOption = data.report_type?data.report_type:null;
                 this.reportText = data.message?data.message:'';
@@ -53,6 +56,11 @@ export class ReportComponent implements OnInit {
             // this.modalHideEmitter.emit(null);
           },1500);
     })
+  }
+  closeModal(){
+    if(!this.isOpen)return;
+    this.isOpen = false;
+    this.dialogRef.close();
   }
 
 }

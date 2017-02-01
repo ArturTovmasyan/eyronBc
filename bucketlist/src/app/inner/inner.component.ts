@@ -29,6 +29,7 @@ export class InnerComponent implements OnInit {
   seeAlsoShow: boolean;
   public goal:Goal = null;
   public errorMessage:string;
+  public linkToShare:string;
   public angularPath:string;
   public serverPath:string = '';
   public type:string = 'inner';
@@ -125,17 +126,26 @@ export class InnerComponent implements OnInit {
                 return data.doneByUsers[key];
               });
               if(this.goal){
-                // setTimeout(()=>{
-                //   let div = document.createElement('div');
-                //   div.setAttribute('class', 'addthis_native_toolbox');
-                //   div.setAttribute('data-url', this.angularPath + 'goal/' + this.goal.slug);
-                //   console.log(document.getElementById('addthis'));
-                //   document.getElementById('addthis').appendChild(div);
-                //
-                //   let addthisScript = document.createElement('script');
-                //   addthisScript.setAttribute('src', 'http://s7.addthis.com/js/300/addthis_widget.js#domready=1');
-                //   document.body.appendChild(addthisScript);
-                // },2000);
+                this.linkToShare = this.angularPath + 'goal/' + this.goal.slug;
+                setTimeout(()=>{
+                  //twitter
+                  var js,fjs=document.getElementsByTagName('script')[0],p=(location.protocol.indexOf('https') == -1?'http':'https');
+                  if(!document.getElementById('twitter-wjs')){
+                    js=document.createElement('script');
+                    js.id='twitter-wjs';
+                    js.src=p+'://platform.twitter.com/widgets.js';
+                    fjs.parentNode.insertBefore(js,fjs);
+                  }
+
+                  //facebbok
+                  (function(d, s, id){
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) {return;}
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1490967017868221&version=v2.0";
+                    fjs.parentNode.insertBefore(js, fjs);
+                  }(document, 'script', 'facebook-jssdk'));
+                },2000);
 
                 this.stories = this.goal.success_stories;
                 if(this.goal.is_my_goal == 1 || this.goal.is_my_goal == 2){

@@ -9,6 +9,7 @@ import { ProjectService } from '../project.service';
 import {TranslateModule} from 'ng2-translate';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { ModalsModule} from '../modals/modals.module';
+import {ShareButtonsModule} from "ng2-sharebuttons";
 
 import { InnerRouting } from './inner-routing';
 import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
@@ -23,7 +24,8 @@ import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
     SwiperModule,
     FormsModule,
     ModalsModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    ShareButtonsModule
   ],
   declarations: [
     InnerComponent,

@@ -16,6 +16,7 @@ export class DoneComponent implements OnInit {
   public userGoal:any;
   public appUser:any;
   public story:string;
+  public goalLink:string;
   public newAdded:boolean;
   public invalidYear:boolean;
   public uncompletedYear:boolean;
@@ -61,6 +62,7 @@ export class DoneComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.goalLink = window.location.origin + '/goal/' +this.userGoal.goal.slug;
     this.serverPath = this.ProjectService.getPath();
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
@@ -118,7 +120,9 @@ export class DoneComponent implements OnInit {
 
     }
   }
-
+  closeModal(){
+    this.dialogRef.close();
+  }
   getDaysInMonth(m, y) {
     return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
   };
@@ -151,9 +155,7 @@ export class DoneComponent implements OnInit {
     this.noStory = false;
     let noDate = this.noData();
     if(!noDate){
-      if(!this.userGoal.story
-          || !this.story
-          || this.story.length < 3 )this.noStory = true;
+      if(!this.story || this.story.length < 3 )this.noStory = true;
 
     }
   };

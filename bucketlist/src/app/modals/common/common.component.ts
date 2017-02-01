@@ -21,6 +21,7 @@ export class CommonComponent implements OnInit {
   public start:number = 0;
   public count:number = 10;
   public busy:boolean = false;
+  public isOpen:boolean = false;
   public serverPath:string = '';
 
   constructor(private ProjectService: ProjectService, 
@@ -32,6 +33,7 @@ export class CommonComponent implements OnInit {
     this.serverPath = this.ProjectService.getPath();
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
+      this.isOpen = false;
       this.dialogRef.close();
 
       // this.modalHideEmitter.emit(null);
@@ -39,6 +41,7 @@ export class CommonComponent implements OnInit {
       if(this.id){
         this.ProjectService.getCommons(this.id, this.start, this.count).subscribe(
             goals => {
+              this.isOpen = true;
               this.goals = goals['goals'];
               this.start += this.count;
               this.setReserve();
@@ -46,7 +49,11 @@ export class CommonComponent implements OnInit {
       }
     }
   }
-
+  closeModal(){
+    if(!this.isOpen)return;
+    this.isOpen = false;
+    this.dialogRef.close();
+  }
   setReserve(){
     this.ProjectService.getCommons(this.id, this.start, this.count)
         .subscribe(
