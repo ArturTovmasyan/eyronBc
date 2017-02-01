@@ -1,16 +1,16 @@
-<div id="notifications-list" class="notdrop">
-    <div class="bg-white padding notdrop">
+<div id="notdrop" class="bg-white">
+
         <!--data-infinite-scroll='nextNotifications()'-->
         <!--data-infinite-scroll-disabled='noNotification || busy'-->
 
         <!--data-ng-cloak-->
-        <ul id="notification-list" style="{height: 600px}">
-            <li>
+        <ul id="notification-list">
+            <li class="test">
                 <div class="row">
-                    <div class="col-xs-5">
+                    <div class="col-xs-5 text-left">
                         <h3 class="text-gray">Notifications</h3>
                     </div>
-                    <div *ngIf="count" class="col-xs-7 text-right">
+                    <div *ngIf="notifications && notifications.length" class="col-xs-7 text-right">
                         <a class="text-grey-dark" (click)="readAll()">Mark All as read</a>
                         <!--href="javascript:void(0)-->
                     </div>
@@ -59,10 +59,14 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="text-center">
+                <a *ngIf="notifications && notifications.length" routerLink="/notifications" (click)="hideNote()" class="text-grey-dark">
+                    See all
+                </a>
+
+            </li>
         </ul>
-        <a *ngIf="notifications && notifications.length " routerLink="/notifications" (click)="hideNote()">
-            <div class="footdiv">See all</div>
-        </a>
 
         <div *ngIf="!(notifications && notifications.length)" class="ng-hide text-center no-note">
             <span></span>
@@ -70,7 +74,5 @@
             <p>{{ 'notification.no_notification'|translate }}</p>
 
         </div>
-    </div>
-    <br/>
 </div>
 
