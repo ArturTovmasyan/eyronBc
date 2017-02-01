@@ -126,6 +126,18 @@ export class InnerComponent implements OnInit {
                 return data.doneByUsers[key];
               });
               if(this.goal){
+                var allMetaElements = document.getElementsByTagName('meta');
+                for (var i=0; i<allMetaElements.length; i++) {
+                  if (allMetaElements[i].getAttribute("property") == "og:title" || allMetaElements[i].getAttribute("property") == "title") {
+                    allMetaElements[i].setAttribute('content', this.goal.title);
+                  }
+                  if (allMetaElements[i].getAttribute("property") == "og:description" || allMetaElements[i].getAttribute("property") == "description") {
+                    allMetaElements[i].setAttribute('content', this.goal.description);
+                  }
+                  if (allMetaElements[i].getAttribute("property") == "og:image") {
+                    allMetaElements[i].setAttribute('content', this.goal.cached_image);
+                  }
+                }
                 this.linkToShare = this.angularPath + 'goal/' + this.goal.slug;
                 setTimeout(()=>{
                   //twitter

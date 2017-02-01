@@ -93,7 +93,6 @@ export function createTranslateLoader(http: Http) {
     JsonpModule,
     appRouting,
     SwiperModule,
-    // FileDroppa,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),
