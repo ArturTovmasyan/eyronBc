@@ -111,7 +111,7 @@
             <!--{% if score  > 0 %}-->
             <li *ngFor="let badge of badges">
               <i title="{{ (badge.type == 1?'leaderboard.traveler': badge.type == 2?'leaderboard.writer':'leaderboard.innovator')|translate }}" class="badge-{{ badge.type }}"></i>
-               <a routerLink="/leaderboard" routerLinkActive="active">{{ score }}</a>
+               <a routerLink="/leaderboard" routerLinkActive="active">{{ badge.score }}</a>
               <!--{{ score|round(0, 'ceil')}}-->
             </li>
             <!--{% endif %}-->
@@ -127,7 +127,7 @@
           </div>
 
           <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
-          <div class="profile-information" *ngIf="user && user.completed_percent != 100">
+          <div class="profile-information" *ngIf="appUser && appUser.completed_percent != 100">
             <em>{{ 'complete_message'|translate }}</em>
 
             <div class="row no-gutter">
@@ -138,7 +138,7 @@
                        aria-valuenow="45"
                        aria-valuemin="0"
                        aria-valuemax="100"
-                       [ngStyle]="{'width.%': user.completed_percent| round}">
+                       [ngStyle]="{'width.%': appUser.completed_percent| round}">
 
                     {{ user.completed_percent|round }}%
                   </div>
@@ -170,7 +170,7 @@
 
 
       <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
-      <div class="row slide" *ngIf="user && user.completed_percent != 100 && completeProfileMyBucketList">
+      <div class="row slide" *ngIf="appUser && appUser.completed_percent != 100 && completeProfileMyBucketList">
         <!--data-ng-cloak *ngIf="completeProfileMyBucketList" style="display: none"-->
         <div class="col-sm-6">
           <ol style="position: relative;">
@@ -183,22 +183,20 @@
             </li>
             <li>
               <span class="profile-title">{{ 'account.complete_text'|translate }}
-                  <!--{% if user.registrationToken is null %}-->
-                      <i class="icon-ok-only"></i>
-                  <!--{% else %}-->
-                      <i class="icon-question-only"></i>
-                  <!--{% endif %}-->
+                  <i *ngIf="appUser.is_confirmed == true" class="icon-ok-only"></i>
+                    <i *ngIf="appUser.is_confirmed !== true" class="icon-question-only"></i>
               </span>
               <span class="text-gray">{{ 'my_list.verification'|translate }}</span>
               <span class="text-gray">{{ 'my_list.confirm'|translate }}</span>
             </li>
             <li>
               <!--{% if user.socialPhotoLink or  user.fileName %}-->
-              <span class="profile-title">{{ 'image_complete_text'|translate }}
-                  <i class="icon-ok-only"></i>
-              </span>
+                <span class="profile-title" *ngIf="appUser.social_photo_link || appUser.file_name || appUser.image_path">{{ 'image_complete_text'|translate }}
+                    <i class="icon-ok-only"></i>
+                </span>
+              <!--{% else %}-->
 
-              <a routerLink="/edit/profile" >
+              <a  *ngIf="!appUser.social_photo_link && !appUser.file_name && !appUser.image_path" routerLink='/edit/profile'>
                 <strong>{{ 'image_complete_text'|translate }}</strong>
                 <i class="icon-question-only"></i>
               </a>
@@ -208,12 +206,11 @@
 
             </li>
             <li>
-              <a routerLink="/goal/create">
-                <strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>
-                <!--{% if user.getUserGoalCount|length > 0 %}-->
-                <i class="icon-ok-only"></i>
+              <a routerLink="/goal/create"><strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>
+                <!--{% if user.userGoalCount > 0 %}-->
+                <i *ngIf="appUser.draft_count > 0" class="icon-ok-only"></i>
                 <!--{% else %}-->
-                <i class="icon-question-only"></i>
+                <i  *ngIf="appUser.draft_count == 0 " class="icon-question-only"></i>
                 <!--{% endif %}-->
               </a>
 
@@ -228,33 +225,33 @@
           <ol style="position: relative" start="5">
             <li>
               <span class="profile-title">{{ 'deadline.complete_text'|translate }}
-                  <!--{% if user.checkDeadLines() %}-->
-                      <i class="icon-ok-only"></i>
-                  <!--{% else %}-->
-                      <i class="icon-question-only"></i>
-                  <!--{% endif %}-->
-              </span>
+                <!--{% if user.checkDeadLines() %}-->
+                    <i *ngIf="appUser.check_deadline == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i *ngIf="appUser.check_deadline !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
+            </span>
               <span class="text-gray">{{ 'my_list.dream_text'|translate }}</span>
             </li>
             <li>
               <span class="profile-title">{{ 'goal.complete_text'|translate }}
-                  <!--{% if user.checkCompletedGoals() %}-->
-                      <i class="icon-ok-only"></i>
-                  <!--{% else %}-->
-                      <i class="icon-question-only"></i>
-                  <!--{% endif %}-->
+                <!--{% if user.checkCompletedGoals() %}-->
+                    <i *ngIf="appUser.check_completed_goals == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i  *ngIf="appUser.check_completed_goals !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
               </span>
               <span class="text-gray">{{ 'my_list.have_goal'|translate }}</span>
             </li>
 
             <li>
-              <span class="profile-title">{{ 'success_story.complete_text'|translate | capitalize}}
-                  <!--{% if user.checkSuccessStory() %}-->
-                      <i class="icon-ok-only"></i>
-                  <!--{% else %}-->
-                      <i class="icon-question-only"></i>
-                  <!--{% endif %}-->
-              </span>
+              <span class="profile-title">{{ 'success_story.complete_text'|translate }}
+                <!--{% if user.checkSuccessStory() %}-->
+                    <i *ngIf="appUser.check_success_story == true" class="icon-ok-only"></i>
+                <!--{% else %}-->
+                    <i *ngIf="appUser.check_success_story !== true" class="icon-question-only"></i>
+                <!--{% endif %}-->
+            </span>
               <span class="text-gray">{{ 'my_list.complete_goal'|translate }}</span>
             </li>
           </ol>

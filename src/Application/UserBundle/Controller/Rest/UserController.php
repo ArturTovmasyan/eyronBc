@@ -334,7 +334,7 @@ class UserController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "badge"})
      * @param $request
      * @return Response
      */
@@ -390,7 +390,7 @@ class UserController extends FOSRestController
      * @param $accessToken
      * @param $tokenSecret
      * @return Response
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "badge"})
      * @Rest\Get("/users/social-login/{type}/{accessToken}/{tokenSecret}", defaults={"tokenSecret"=null}, name="application_user_rest_user_getsociallogin", options={"method_prefix"=false})
      */
     public function getSocialLoginAction($type, $accessToken, $tokenSecret)
@@ -686,7 +686,7 @@ class UserController extends FOSRestController
      *         401="Access allowed only for registered users"
      *     },
      * )
-     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info"})
+     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info", "badge"})
      * @Rest\Get("/user/{uid}", name="get_user", defaults={"uid" = null}, options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
      * @param $uid

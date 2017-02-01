@@ -55,7 +55,7 @@ export class MyActivityComponent implements OnInit,OnDestroy {
             });
 
         this.interval = setInterval(() => {
-            if(this.Activities && !this.single){
+            if(this.Activities && this.Activities.length &&!this.single){
                 this._projectService.getActivities(0, this.count, this.userId, this.Activities[0].datetime).subscribe(
                     data => {
                         if(data && data.length != 0){

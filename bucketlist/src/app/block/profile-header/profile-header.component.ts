@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter , ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter , ViewEncapsulation, OnChanges } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Broadcaster } from '../../tools/broadcaster';
@@ -19,6 +19,7 @@ export class ProfileHeaderComponent implements OnInit {
     @Output('onHover') hoverEmitter: EventEmitter<any> = new EventEmitter();
     public profileUser:User;
     public file:any;
+    public current:any;
     public appUser:User;
     public serverPath:string = '';
     public imgPath: string = '';
@@ -38,43 +39,53 @@ export class ProfileHeaderComponent implements OnInit {
       private _cacheService: CacheService,
       public uploaderService: Uploader) { }
 
-    ngOnInit() {
-        console.log(this.type);
-    this.serverPath = this._projectService.getPath();
-    this.imgPath = this.serverPath + '/bundles/app/images/cover3.jpg';
-
-    if(localStorage.getItem('apiKey')){
-      this.appUser = this._projectService.getMyUser();
-      if (!this.appUser) {
-        this.appUser = this._cacheService.get('user_');
-        if(!this.appUser) {
-          this._projectService.getUser()
-              .subscribe(
-                  user => {
-                    this.appUser = user;
-                    this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
-                    this.broadcaster.broadcast('getUser', user);
-                  })
+    ngOnChanges(){
+        if(this.userInfo && this.current && this.current != this.userInfo){
+            this.profileUser = null;
+            this.init();
         }
-      }
-    } else {
-      this.broadcaster.broadcast('logout', 'some message');
+    }
+    ngOnInit() {
+        this.serverPath = this._projectService.getPath();
+        this.imgPath = this.serverPath + '/bundles/app/images/cover3.jpg';
+
+        if(localStorage.getItem('apiKey')){
+          this.appUser = this._projectService.getMyUser();
+          if (!this.appUser) {
+            this.appUser = this._cacheService.get('user_');
+            if(!this.appUser) {
+              this._projectService.getUser()
+                  .subscribe(
+                      user => {
+                        this.appUser = user;
+                        this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                        this.broadcaster.broadcast('getUser', user);
+                      })
+            }
+          }
+        } else {
+          this.broadcaster.broadcast('logout', 'some message');
+        }
+
+        this.init();
+
     }
 
-    setTimeout(()=>{
-      this._projectService.getUserByUId(this.userInfo)
-          .subscribe(
-              user => {
-                this.profileUser = user;
-                this.broadcaster.broadcast('pageUser', this.profileUser);
-                this.active = this.profileUser.stats.active;
-                this.listedBy = this.profileUser.stats.listedBy;
-                this.doneBy = this.profileUser.stats.doneBy;
-              })
-    }, 1000);
-
+    init(){
+        setTimeout(()=>{
+            this.current = this.userInfo;
+            this._projectService.getUserByUId(this.userInfo)
+                .subscribe(
+                    user => {
+                        this.profileUser = user;
+                        this.badges = user.badges;
+                        this.broadcaster.broadcast('pageUser', this.profileUser);
+                        this.active = this.profileUser.stats.active;
+                        this.listedBy = this.profileUser.stats.listedBy;
+                        this.doneBy = this.profileUser.stats.doneBy;
+                    })
+        }, 1000);
     }
-
     toggleFollow(){
     this._projectService.toggleFollow(1).subscribe(
         user => {

@@ -116,6 +116,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToMany(targetEntity="Badge", mappedBy="user", cascade={"persist", "remove"})
+     * @Groups({"badge"})
      */
     protected $badges;
 
