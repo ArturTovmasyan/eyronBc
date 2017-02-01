@@ -40,14 +40,14 @@
                     <h2 class="text-grey-dark">{{ 'share_title'|translate }}</h2>
                 </div>
                 <div class="col-sm-4" >
-                    <!--<div fb-share class="fb-share-button"-->
-                         <!--data-fb-name="userGoal.goal.slug"-->
-                         <!--data-fb-link="goalLink"-->
-                         <!--data-fb-caption="BUCKETLIST127.COM"-->
-                         <!--data-fb-picture="userGoal.goal.cached_image"-->
-                         <!--data-fb-message="{{ 'facebook_post_text'|trans }}"-->
-                         <!--data-fb-description="userGoal.goal.description">-->
-                    <!--</div>-->
+                    <fb-share
+                         [name]="userGoal.goal.slug"
+                         [link]="goalLink"
+                         caption="BUCKETLIST127.COM"
+                         [picture]="userGoal.goal.cached_image"
+                         [message]="'facebook_post_text'|translate"
+                         [description]="userGoal.goal.description">
+                    </fb-share>
                 </div>
             </div>
         </div>
