@@ -60,7 +60,8 @@
 
                                 <a class="user user-popover clearfix"
                                    (click)="joinToggle1 = !joinToggle1"
-                                   [ngClass]="{'join-class': joinToggle1}">
+                                   [ngClass]="{'join-class': joinToggle1}"
+                                   (clickOutside)="joinToggle1 = false">
                                     <figure class="img-circle" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
                                         <img src="{{ appUser.cached_image }}" alt="{{ appUser.filename }}" class="img-responsive">
                                     </figure>
