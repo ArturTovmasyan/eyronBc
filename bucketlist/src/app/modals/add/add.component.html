@@ -6,15 +6,15 @@
             <span *ngIf="newCreated"> {{ "admin.label.name.createdU" | translate }}</span>
         </div>
 
-        <div class="modal-top">
-            <figure *ngIf="userGoal &&userGoal.goal.cached_image">
-                <img *ngIf="userGoal && userGoal.goal.cached_image" src="{{ userGoal.goal.cached_image}}"
+        <div class="modal-top" *ngIf="userGoal">
+            <figure *ngIf="userGoal.goal.cached_image">
+                <img *ngIf=" userGoal.goal.cached_image" src="{{ userGoal.goal.cached_image}}"
                      alt="{{ userGoal.goal.title }}" class="img-responsive"/>
             </figure>
 
             <span class="overlay"></span>
 
-            <div *ngIf="userGoal && userGoal.goal">
+            <div *ngIf="userGoal.goal">
                 <h2>
                     <span [ngClass]="{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}">{{ userGoal.goal.title }}</span>
                 </h2>
@@ -148,7 +148,7 @@
 
                         <h3 *ngIf="userGoal.goal.location">Location</h3>
 
-                        <div class="form-group row" *ngIf="userGoal && userGoal.goal.location">
+                        <div class="form-group row" *ngIf="userGoal.goal.location">
                             <div class="col-sm-12">
                                 <div class="location">
                                     <i class="icon-location-icon"></i>
@@ -349,20 +349,14 @@
 
                 <div class="row modal-bottom">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                        <!--<div class="modal-bottom">-->
-                            <!--<div class="row">-->
-                                <!--<div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
-                                    <a  (click)="save()"
-                                       class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
-                                    <a  (click)="dialogRef.close()" id="cancel"
-                                       class="btn btn-transparent">{{ 'btn_cancel'|translate }}</a>
-                                    <a  (click)="showDetails = ! showDetails"
-                                       class="btn btn-transparent">
-                                        <span>{{ 'forget'|translate | uppercase}}</span>
-                                    </a>
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                        <a  (click)="save()"
+                           class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
+                        <a  (click)="dialogRef.close()" id="cancel"
+                           class="btn btn-transparent">{{ 'btn_cancel'|translate }}</a>
+                        <a  (click)="showDetails = ! showDetails"
+                           class="btn btn-transparent">
+                            <span>{{ 'forget'|translate | uppercase}}</span>
+                        </a>
                     </div>
                 </div>
 
@@ -370,7 +364,7 @@
                     <div class="delete-message">
                         <div>
                             <h3 [innerHTML]="'delete_message'|translate|uppercase"></h3>
-                            <a  (click)="removeUserGoal(userGoal.id)"
+                            <a  (click)="removeUserGoal()"
                                class="btn btn-transparent">{{ 'btn_delete'|translate| uppercase}}</a>
                             <a (click)="showDetails=!showDetails"
                                class="btn btn-purple">{{ 'btn_cancel'|translate| uppercase}}</a>
