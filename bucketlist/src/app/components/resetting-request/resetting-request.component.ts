@@ -49,6 +49,12 @@ export class ResettingRequestComponent implements OnInit {
 
                     if(this.type == 'reset' && this.secret) {
 
+                        if(this.errorMessage && this.errorMessage.email_token) {
+                            this.router.navigate(['/error']);
+                            this.busy = true;
+                            this.errorMessage = null;
+                        }
+
                         this.checkResetToken(this.secret);
                     }
 
@@ -157,7 +163,6 @@ export class ResettingRequestComponent implements OnInit {
                     this.errorMessage = JSON.parse(error._body);
 
                     if(this.errorMessage.email_token) {
-                        this.busy = true;
                         this.broadcaster.broadcast('error', this.errorMessage.email_token);
                         this.router.navigate(['/error']);
                     }

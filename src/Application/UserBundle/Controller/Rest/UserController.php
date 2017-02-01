@@ -1257,11 +1257,16 @@ class UserController extends FOSRestController
 
         //check if user not exist
         if (!$user) {
-         return  new JsonResponse('User not found', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('User not found', Response::HTTP_BAD_REQUEST);
         }
 
         //get user emails
         $userEmails = $user->getUserEmails();
+
+        //check new email not exist in user emails
+        if(!array_key_exists($email, $userEmails)) {
+            return new JsonResponse('User not found', Response::HTTP_BAD_REQUEST);
+        }
 
         //get current email data
         $data = $userEmails[$email];
@@ -1283,7 +1288,7 @@ class UserController extends FOSRestController
             }
         }
         else {
-           return new JsonResponse(['email_token' => 'Invalid email token for this user'], Response::HTTP_BAD_REQUEST);
+           return new JsonResponse('Invalid email token for this user', Response::HTTP_BAD_REQUEST);
         }
 
         $em->persist($user);
