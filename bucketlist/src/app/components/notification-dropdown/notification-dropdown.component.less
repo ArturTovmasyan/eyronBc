@@ -1,13 +1,153 @@
-.notdrop{
-  width: 416px;
+@import "../../../assets/less/variables.less";
+@import "../../../assets/less/function.less";
+
+#notdrop{
+  min-width: 310px;
   position: absolute;
-  right: 210px;
+  border:1px solid #e5e5e5;
   z-index: 1000;
-}
-.footdiv{
-  text-align: center;
+
+  #notification-list{
+    margin-bottom:0;
+    padding:0;
+
+    a{
+      &:hover{
+        background-color: transparent;
+      }
+    }
+
+    li{
+      display:block;
+      border-left:0;
+      position: relative;
+      width: auto;
+
+      ul{
+        li{
+
+          figure{
+            height: 60px;
+            width: 60px;
+            text-align: center;
+            margin: 0px 10px 2px 10px;
+
+            p{
+              height: 60px;
+              width: 60px;
+              line-height: 55px;
+              color: #ffffff;
+            }
+            img{
+              height: 60px;
+            }
+          }
+
+          p{
+            span{
+              text-align: left;
+              padding: 0 15px 0 0;
+
+            //  span{
+            //    a{
+            //      &:hover{
+            //        background-color: transparent;
+            //      }
+            //  }
+            //
+            //}
+          }
+
+          }
+          a{
+            padding:0;
+            background-color: transparent;
+          }
+        }
+      }
+
+      &.test{
+        padding: 6px 10px 5px;
+        h3,a{
+          font-size: 14px;
+          margin: 0;
+          line-height: 21px;
+        }
+
+        h3{
+          font-weight: 600;
+        }
+
+        a{
+          display:inline-block;
+          font-weight: 400;
+          padding: 0 25px 0 5px !important;
+          &:hover{
+            text-decoration: none;
+            background-color: transparent;
+          }
+        }
+      }
+
+      &.text-center{
+        float: none;
+        width: 100%;
+        right: 0;
+        border-bottom: 0 !important;
+        a{
+          padding: 10px 0;
+          font-size:14px;
+          line-height: 21px;
+          font-weight: 400;
+          &:hover{
+            background-color: transparent;
+            color: #7724f6 !important;
+          }
+        }
+      }
+    }
   }
+}
+
 #container {
   position: relative;
   height: 100%; /* Or whatever you want (eg. 400px) */
+}
+
+@media (min-width: @screen-sm) {
+  #notdrop{
+    right: -122px;
+    left: auto;
+    ul{
+
+      width: 430px;
+
+      li{
+        &:first-child{
+          a{
+            &:hover{
+              color: #7724f6 !important;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+  #notdrop{
+
+    right: -240px;
+    left: auto;
+
+    &:hover,&:active,&:focus{
+      background-color: #000000;
+      a.relative{
+        background-color: #000000;
+      }
+    }
+
+  }
 }

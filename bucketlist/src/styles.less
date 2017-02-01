@@ -664,6 +664,19 @@ header{
     background-size: 100%;
   }
 
+  .bell{
+      display: block;
+      width: 25px;
+      height: 41px;
+      background: url('assets/images/bell.png') no-repeat center 11px;
+      background-size: 100%;
+  }
+
+  a.relative{
+    display: block;
+    padding: 15px 19px 21px !important;
+  }
+
   #notification{
 
     a.relative{
@@ -3054,6 +3067,13 @@ md-select{
     }
 
 
+    a.relative{
+      padding: 19px 19px 18px!important;
+    }
+
+    .bell{
+      background-position: center center;
+    }
 
     #notification{
 
@@ -3676,6 +3696,16 @@ md-select{
       }
     }
 
+    a.relative{
+      padding: 25px 20px !important;
+    }
+
+    .bell{
+      width: 25px;
+      height:30px;
+      background-position: center bottom;
+    }
+
     #notification{
 
       a.relative{
@@ -4037,6 +4067,7 @@ html {
       a{
         &:hover{
           color: #7724F6 !important;
+          background-color: transparent;
         }
       }
     }
