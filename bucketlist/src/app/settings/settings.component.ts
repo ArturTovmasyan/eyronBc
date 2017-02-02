@@ -94,7 +94,6 @@ export class SettingsComponent implements OnInit {
 
                 this.form = null;
                 this.ready = false;
-                this.errorMessage = null;
 
                 if(this.type == 'profile') {
                     this.saveMessage = false;
@@ -110,6 +109,13 @@ export class SettingsComponent implements OnInit {
                 }
 
                 if(this.type == 'add-email'){
+
+                    if(this.errorMessage) {
+                        this.router.navigate(['/error']);
+                        this.busy = true;
+                        this.errorMessage = null;
+                    }
+
                     this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']:null;
                     this.addMail = this.route.snapshot.params['addMail']?this.route.snapshot.params['addMail']:null;
                     this.activationUserAddEmail(this.secret, this.addMail);
@@ -289,6 +295,11 @@ export class SettingsComponent implements OnInit {
                         this.refreshUserAndForm(data);
                         this.initProfileForm();
                         this.show = false;
+
+                        setTimeout(() => {
+                            this.saveMessage = null;
+                        }, 4000);
+
                     },
                     error => {
                         this.errorMessage = JSON.parse(error._body);
@@ -303,6 +314,11 @@ export class SettingsComponent implements OnInit {
                     () => {
                         this.saveMessage = true;
                         this.show = false;
+
+                        setTimeout(() => {
+                            this.saveMessage = null;
+                        }, 4000);
+
                     },
                     error => {
                         this.errorMessage = error._body;
@@ -344,13 +360,13 @@ export class SettingsComponent implements OnInit {
                     this.busy = true;
                 },
                 error => {
-                    this.errorMessage = JSON.parse(error._body);
+                    this.errorMessage = error._body;
 
-                    if(this.errorMessage.email_token) {
-                        this.broadcaster.broadcast('error', this.errorMessage.email_token);
+                    console.log(this.errorMessage);
+                    if(this.errorMessage) {
+                        this.broadcaster.broadcast('error', this.errorMessage);
                         this.router.navigate(['/error']);
                     }
-                    console.log(this.errorMessage.email_token);
                 }
             );
     }
@@ -389,8 +405,11 @@ export class SettingsComponent implements OnInit {
                     this.removeMessage = true;
                     this.refreshUserAndForm(data);
                     this.initProfileForm();
-                    this.saveMessage = null;
                     this.show = false;
+
+                    setTimeout(() => {
+                        this.removeMessage = null;
+                    }, 3000);
                 },
                 error => {
                     this.errorMessage = error;
