@@ -5,8 +5,8 @@ import { HttpModule, JsonpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { DndModule} from 'ng2-dnd';
-import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+import { NotificationDropdownComponent } from './components/notification-dropdown/notification-dropdown.component';
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { MaterialModule } from '@angular/material';
 import { ValidationService } from './validation.service';
 import { Broadcaster} from './tools/broadcaster';
@@ -71,6 +71,7 @@ export function createTranslateLoader(http: Http) {
     DiscoverGoalComponent,
     BaseStoriesComponent,
     HomeFooterComponent,
+    NotificationDropdownComponent,
     LoginComponent,
     RegisterComponent,
     ResettingRequestComponent,

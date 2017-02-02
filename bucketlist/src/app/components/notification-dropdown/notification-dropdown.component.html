@@ -1,5 +1,4 @@
 <div id="notdrop" class="bg-white">
-
         <!--data-infinite-scroll='nextNotifications()'-->
         <!--data-infinite-scroll-disabled='noNotification || busy'-->
 
@@ -19,7 +18,9 @@
 
             <li>
 
-                <ul *ngFor="let notify of notifications;let i = index" class="goals-animate"
+                <perfect-scrollbar class="container" [config]="config">
+                    <div class="content">
+                        <ul *ngFor="let notify of notifications;let i = index" class="goals-animate"
                     [ngClass]="{'unread': !notify.is_read}">
                     <li>
                         <i class="close-icon" data-click="true" (click)="delete(notify.id, i)"></i>
@@ -58,6 +59,8 @@
                         </div>
                     </li>
                 </ul>
+                    </div>
+                </perfect-scrollbar>
             </li>
 
             <li class="text-center">
