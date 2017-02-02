@@ -145,7 +145,7 @@ export class InnerComponent implements OnInit {
                     allMetaElements[i].setAttribute('content', this.goal.cached_image);
                   }
                 }
-                this.linkToShare = this.angularPath + 'goal/' + this.goal.slug;
+                this.linkToShare = this.angularPath + '/goal/' + this.goal.slug;
                 setTimeout(()=>{
                   //twitter
                   var js,fjs=document.getElementsByTagName('script')[0],p=(location.protocol.indexOf('https') == -1?'http':'https');
