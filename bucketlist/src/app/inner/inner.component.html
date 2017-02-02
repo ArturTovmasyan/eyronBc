@@ -369,8 +369,10 @@
               </div>
 
               <div class="col-sm-4">
-                <div class="addthis_counter" (mouseover)="isHover = true" >
+                <div class="addthis_counter" (mouseover)="isHover = true" (mouseleave)="isHover = false">
                   <share-buttons [url]="linkToShare"
+                                 (mouseover)="isHover = true"
+                                 (mouseleave)="isHover = false"
                                  *ngIf="isHover"
                                  [facebook]="fbInner"
                                  [twitter]="twitterInner"
