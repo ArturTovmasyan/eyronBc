@@ -70,20 +70,20 @@
                     </div>
 
                     <div class="row bg-grey" *ngIf="haveIdeas && showIdeas">
-                        <div class="col-xs-12">
+                        <swiper [config]="config" class="swiper-container col-xs-12">
                             <div class="row no-gutter existing-menu">
                                 <div class="col-xs-10">
                                     <h3 class="text-left pull-left text-dark">{{ 'goal.existing'|translate }}</h3>
 
-                                    <!--<a href="#" (click)="slickConfig.method.slickPrev()">-->
-                                        <!--<i class="icon-arrow-left">-->
-                                            <!--<span class="path1"></span><span class="path2"></span>-->
-                                        <!--</i>-->
-                                    <!--</a>-->
+                                    <a>
+                                        <i class="icon-arrow-left">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </a>
 
-                                    <!--<a href="#" (click)="slickConfig.method.slickNext()">-->
-                                        <!--<i class="icon-arrow-right"></i>-->
-                                    <!--</a>-->
+                                    <a>
+                                        <i class="icon-arrow-right"></i>
+                                    </a>
 
                                 </div>
                                 <div class="col-xs-2 text-right" *ngIf="isMore">
@@ -96,8 +96,8 @@
                                 </div>
                             </div>
 
-                            <div class="row idea-item">
-                                <div class="col-md-4 goals-animate" style="margin-top: 10px" *ngFor="let goal of goals">
+                            <div class="row idea-item swiper-wrapper">
+                                <div class="col-md-4 goals-animate swiper-slide" style="margin-top: 10px" *ngFor="let goal of goals">
 
                                     <div class="row idea-item">
                                         <div class="col-sm-12">
@@ -111,7 +111,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </swiper>
                     </div>
 
                     <div class="row bg-white">
@@ -119,7 +119,7 @@
 
                             <div class="form-group">
 
-                                <textarea class="form-control margin-top" [(ngModel)]="description" name="description" placeholder="Description" rows="4" (ngModelChange)="changeDescription()"></textarea>
+                                <textarea [class.border-red]="invalidDescription" class="form-control margin-top" [(ngModel)]="description" name="description" placeholder="Description" rows="4" (ngModelChange)="changeDescription()"></textarea>
                                 <div class="tags">
                                     <button *ngFor="let tag of tags" type="button" class="btn btn-purple">
                                         {{tag }}

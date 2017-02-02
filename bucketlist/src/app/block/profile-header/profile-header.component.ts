@@ -29,6 +29,7 @@ export class ProfileHeaderComponent implements OnInit {
     public active;
     public doneBy;
     public errorMessage:any;
+    public flashBag:any;
     public badges: any[];
     public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
     public isMobile:Boolean= (window.innerWidth < 768);
@@ -74,6 +75,13 @@ export class ProfileHeaderComponent implements OnInit {
     init(){
         setTimeout(()=>{
             this.current = this.userInfo;
+            if(this.userInfo == 'my'){
+                this.flashBag = this._cacheService.get('flash_massage');
+                this._cacheService.set('flash_massage', [], {maxAge: 3 * 24 * 60 * 60});
+                setTimeout(()=>{
+                    this.flashBag = 0;
+                },6000)
+            }
             this._projectService.getUserByUId(this.userInfo)
                 .subscribe(
                     user => {
@@ -86,11 +94,12 @@ export class ProfileHeaderComponent implements OnInit {
                     })
         }, 1000);
     }
+
     toggleFollow(){
-    this._projectService.toggleFollow(1).subscribe(
-        user => {
-          this.isFollow = !this.isFollow;
-        });
+        this._projectService.toggleFollow(1).subscribe(
+            user => {
+              this.isFollow = !this.isFollow;
+            });
     }
 
     showUploadedImage(event){
@@ -132,5 +141,9 @@ export class ProfileHeaderComponent implements OnInit {
             };
             this.uploaderService.upload(myUploadItem);
         }
+    }
+
+    closeFlashBug(index){
+        this.flashBag.splice(index,1);
     }
 }
