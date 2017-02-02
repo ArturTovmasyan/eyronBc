@@ -25,14 +25,27 @@ export class GoalFriendsBlockComponent implements OnInit {
   length:Number;
   reserve: any;
   errorMessage:string;
+  appUser:any;
 
   constructor(private _projectService: ProjectService,
               private _cacheService: CacheService,
-              public renderer: Renderer
-  ) {}
+              public renderer: Renderer){}
 
   ngOnInit() {
-    let data = this._cacheService.get('goalFriendBox');
+
+    this.appUser = this._cacheService.get('user_');
+
+    if(!this.appUser) {
+
+      this._projectService.getUser()
+          .subscribe(
+              user => {
+                this.appUser = user;
+              })
+    }
+
+    let data = this._cacheService.get('goalFriendBox'+this.appUser.id);
+
     if(data){
       this.users = data[1];
       this.length = data.length;
@@ -48,7 +61,7 @@ export class GoalFriendsBlockComponent implements OnInit {
             data => {
               this.users = data[1];
               this.length = data.length;
-              this._cacheService.set('goalFriendBox', data, {maxAge: 2 * 24 * 60 * 60});
+              this._cacheService.set('goalFriendBox'+this.appUser.id, data, {maxAge: 2 * 24 * 60 * 60});
             },
             error => this.errorMessage = <any>error);
     this.goalReserve();
@@ -66,18 +79,16 @@ export class GoalFriendsBlockComponent implements OnInit {
                   img.src = item.cached_image;
                 }
               }
-              this._cacheService.set('goalFriendBox', this.reserve, {maxAge: 2 * 24 * 60 * 60});
+              this._cacheService.set('goalFriendBox'+this.appUser.id, this.reserve, {maxAge: 2 * 24 * 60 * 60});
             },
             error => this.errorMessage = <any>error);
   }
 
   refreshGoalFriends(){
-
     this.renderer.setElementStyle(this.rotateElementRef.nativeElement, 'transform','rotate('+this.degree+'deg)');
     this.users = this.reserve[1];
     this.length = this.reserve.length;
     this.goalReserve();
     this.degree += 360;
-
   }
 }

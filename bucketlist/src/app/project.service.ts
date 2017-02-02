@@ -581,8 +581,7 @@ export class ProjectService {
      */
     checkResetToken(token: any):Observable<any> {
     return this.http.get(this.checkResetTokenUrl + token)
-        .map((r: Response) => r.json())
-        .catch(this.handleError);
+        .map((r: Response) => r.json());
     }
 
     /**

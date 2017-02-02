@@ -1215,7 +1215,7 @@ class UserController extends FOSRestController
      * @Rest\View()
      * @Rest\Get("/user/check/reset-token/{token}", name="application_user_rest_user_checkresettoken_1", options={"method_prefix"=false})
      * @param $token
-     * @return array
+     * @return array|JsonResponse
      */
     public function checkResetTokenAction($token)
     {
@@ -1225,7 +1225,7 @@ class UserController extends FOSRestController
         $t = $this->container->getParameter('fos_user.resetting.token_ttl');
 
         if (!$user || (!$user->isPasswordRequestNonExpired($t))) {
-            return ['confirm' => false];
+            return new JsonResponse(['email_token' => 'Invalid email token for this user'], Response::HTTP_BAD_REQUEST);
         }
 
         return  ['confirm' => true];
@@ -1257,11 +1257,16 @@ class UserController extends FOSRestController
 
         //check if user not exist
         if (!$user) {
-         return  new JsonResponse('User not found', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('User not found', Response::HTTP_BAD_REQUEST);
         }
 
         //get user emails
         $userEmails = $user->getUserEmails();
+
+        //check new email not exist in user emails
+        if(!array_key_exists($email, $userEmails)) {
+            return new JsonResponse('User not found', Response::HTTP_BAD_REQUEST);
+        }
 
         //get current email data
         $data = $userEmails[$email];
@@ -1283,7 +1288,7 @@ class UserController extends FOSRestController
             }
         }
         else {
-           return new JsonResponse(['email_token' => 'Invalid email token for this user'], Response::HTTP_BAD_REQUEST);
+           return new JsonResponse('Invalid email token for this user', Response::HTTP_BAD_REQUEST);
         }
 
         $em->persist($user);
