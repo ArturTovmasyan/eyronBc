@@ -799,6 +799,7 @@
     "upload_error": "you cannot upload more than 6 files",
     "remove_file": "Remove file",
     "remove_email" : "Your email has been successfully removed",
-    "updated_user_data": "Your profile has been successfully updated"
+    "updated_user_data": "Your profile has been successfully updated",
+    "primary_email" : "Primary email"
 
 }
