@@ -83,7 +83,7 @@ export class AppComponent implements OnInit  {
     }
 
     if(localStorage.getItem('apiKey')){
-        this.appUser = this._cacheService.get('user_');console.log(this.appUser);
+        this.appUser = this._cacheService.get('user_');
         if(!this.appUser) {
             this._projectService.getUser()
                 .subscribe(

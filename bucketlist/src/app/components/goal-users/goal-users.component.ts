@@ -54,7 +54,7 @@ export class GoalUsersComponent implements OnInit {
     if(!localStorage.getItem('apiKey') || !this.appUser){
       this.broadcaster.broadcast('openLogin', 'some message');
     } else {
-      if(!count)return;
+      if(!count || count == 0)return;
       this.broadcaster.broadcast('usersModal', {itemId: id, count: count, category: category});
     }
 

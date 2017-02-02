@@ -4,12 +4,18 @@
 #notdrop{
   min-width: 310px;
   position: absolute;
-  border:1px solid #e5e5e5;
+  border: 1px solid #e5e5e5;
   z-index: 1000;
+  right: -66px;
+  top: 78px;
 
   #notification-list{
-    margin-bottom:0;
-    padding:0;
+    margin-bottom: 0;
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    background-color: #ffffff;
 
     a{
       &:hover{
@@ -47,15 +53,6 @@
             span{
               text-align: left;
               padding: 0 15px 0 0;
-
-            //  span{
-            //    a{
-            //      &:hover{
-            //        background-color: transparent;
-            //      }
-            //  }
-            //
-            //}
           }
 
           }
@@ -63,9 +60,16 @@
             padding:0;
             background-color: transparent;
           }
+
+
         }
       }
 
+      &:nth-child(2){
+        height: 300px;
+        overflow: auto;
+      }
+      
       &.test{
         padding: 6px 10px 5px;
         h3,a{
@@ -118,6 +122,12 @@
   #notdrop{
     right: -122px;
     left: auto;
+    //top: 78px;
+
+    #notification-list{
+      position: relative;
+    }
+
     ul{
 
       width: 430px;

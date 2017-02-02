@@ -126,6 +126,18 @@ export class InnerComponent implements OnInit {
                 return data.doneByUsers[key];
               });
               if(this.goal){
+                var allMetaElements = document.getElementsByTagName('meta');
+                for (var i=0; i<allMetaElements.length; i++) {
+                  if (allMetaElements[i].getAttribute("property") == "og:title" || allMetaElements[i].getAttribute("property") == "title") {
+                    allMetaElements[i].setAttribute('content', this.goal.title);
+                  }
+                  if (allMetaElements[i].getAttribute("property") == "og:description" || allMetaElements[i].getAttribute("property") == "description") {
+                    allMetaElements[i].setAttribute('content', this.goal.description);
+                  }
+                  if (allMetaElements[i].getAttribute("property") == "og:image") {
+                    allMetaElements[i].setAttribute('content', this.goal.cached_image);
+                  }
+                }
                 this.linkToShare = this.angularPath + 'goal/' + this.goal.slug;
                 setTimeout(()=>{
                   //twitter
@@ -213,6 +225,7 @@ export class InnerComponent implements OnInit {
 
   manageGoal(){
     if(this.userGoal){
+      let oldStatus = this.goal.is_my_goal;
       this.broadcaster.broadcast('addModal', {
         'userGoal': this.userGoal,
         'newAdded' : false,
@@ -223,6 +236,34 @@ export class InnerComponent implements OnInit {
           .subscribe(data => {
             this.userGoal = data;
             this.goal.is_my_goal = data.status;
+            switch (oldStatus){
+                  case 1:
+                      if(data.status == 2){
+                        this.goal.stats.listedBy--;
+                        this.goal.stats.doneBy++;
+                      }
+                    break;
+                  case 2:
+                    if(data.status == 1){
+                      this.goal.stats.listedBy++;
+                      this.goal.stats.doneBy--;
+                    }
+                    break;
+                }
+          });
+
+      this.broadcaster.on<any>('removeUserGoal_' + this.userGoal.id)
+          .subscribe(data => {
+            switch (oldStatus){
+              case 1:
+                this.goal.stats.listedBy--;
+                break;
+              case 2:
+                this.goal.stats.doneBy--;
+                break;
+            }
+            this.userGoal = null;
+            this.goal.is_my_goal = 0;
           });
     }
   }
@@ -239,35 +280,73 @@ export class InnerComponent implements OnInit {
           'newCreated' : false
         });
 
+        this.broadcaster.on<any>('addGoal' + this.goal.id)
+            .subscribe(() => {
+              this.userGoal = data;
+              this.goal.is_my_goal = 1;
+              this.goal.stats.listedBy++;
+            });
+
         this.broadcaster.on<any>('saveUserGoal_' + data.id)
             .subscribe(data => {
               this.userGoal = data;
               this.goal.is_my_goal = data.status;
+
+              if(data.status == 2){
+                this.goal.stats.doneBy++;
+              } else {
+                this.goal.stats.listedBy++;
+              }
+
             });
-      });
+        });
     }
     this.goal.is_my_goal = 1;
   }
 
   completeGoal(id, isManage){
+    let oldStatus = this.goal.is_my_goal;
     this.goal.is_my_goal = 2;
 
     if(isManage){
       this._projectService.getStory(id).subscribe((data)=> {
-        this.userGoal = data;
         this.broadcaster.broadcast('doneModal', {
           'userGoal': data,
           'newAdded' : false
         });
+        if(!this.userGoal){
+          this._projectService.getUserGoal(this.goal.id)
+              .subscribe(
+                  data => {
+                    this.userGoal = data;
+                  });
+        }
       })
     } else {
+      switch (oldStatus){
+        case 1:
+          this.goal.stats.doneBy++;
+          this.goal.stats.listedBy--;
+          break;
+        case 0:
+          this.goal.stats.doneBy++;
+          break;
+      }
+
       this._projectService.setDoneUserGoal(id).subscribe(() => {
         this._projectService.getStory(id).subscribe((data)=> {
-          this.userGoal = data;
           this.broadcaster.broadcast('doneModal', {
             'userGoal': data,
             'newAdded' : true
           });
+
+          if(!this.userGoal){
+            this._projectService.getUserGoal(this.goal.id)
+                .subscribe(
+                    data => {
+                      this.userGoal = data;
+                    });
+          }
         })
       });
     }
@@ -283,6 +362,19 @@ export class InnerComponent implements OnInit {
       });
       this.broadcaster.on<any>('saveUserGoal_' + data.id)
           .subscribe(data => {
+            let messages = this._cacheService.get('flash_massage');
+            messages = messages?messages:[];
+            messages.push((!this.goal.status)?'goal.was_created.private' : 'goal.was_created.public');
+            this._cacheService.set('flash_massage', messages, {maxAge: 3 * 24 * 60 * 60});
+            this.router.navigate(['/profile/my/all']);
+          });
+
+      this.broadcaster.on<any>('addGoal' + id)
+          .subscribe(data => {
+            let messages = this._cacheService.get('flash_massage');
+            messages = messages?messages:[];
+            messages.push((!this.goal.status)?'goal.was_created.private' : 'goal.was_created.public');
+            this._cacheService.set('flash_massage', messages, {maxAge: 3 * 24 * 60 * 60});
             this.router.navigate(['/profile/my/all']);
           });
     });

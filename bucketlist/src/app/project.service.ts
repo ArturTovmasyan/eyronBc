@@ -73,6 +73,7 @@ export class ProjectService {
     private changeSettingsUrl = this.baseUrl + 'user/update';
     private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
     private getNotifySettingsUrl = this.baseUrl + 'user/notify-settings';
+    private activationAddedEmailUrl = this.baseUrl + 'user/activation-email/';
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
@@ -82,7 +83,7 @@ export class ProjectService {
     private calendarUrl = this.baseUrl + 'usergoal/calendar/data';
 
     private nearByUrl = this.baseUrl + 'goals/nearby/';
-    private resetNearByUrl = this.baseUrl + 'usergoals/';
+    private resetNearByUrl = this.baseOrigin + this.envprefix + 'usergoals/';
     private getCommentsUrl = this.baseUrl + 'comments/goal_';
     private putCommentUrl = this.baseUrl + 'comments/';
 
@@ -580,8 +581,7 @@ export class ProjectService {
      */
     checkResetToken(token: any):Observable<any> {
     return this.http.get(this.checkResetTokenUrl + token)
-        .map((r: Response) => r.json())
-        .catch(this.handleError);
+        .map((r: Response) => r.json());
     }
 
     /**
@@ -771,6 +771,17 @@ export class ProjectService {
      */
     saveUserData(data:any) {
         return this.http.post(this.changeSettingsUrl, {'bl_user_angular_settings':data}, {headers: this.headers})
+            .map((r:Response) => r.json());
+    }
+
+    /**
+     *
+     * @param secret
+     * @param email
+     * @returns {Observable<R>}
+     */
+    activationUserAddEmail(secret, email) {
+        return this.http.get(this.activationAddedEmailUrl + secret +'/'+ email, {headers: this.headers})
             .map((r:Response) => r.json());
     }
 

@@ -797,5 +797,8 @@
     "cancel_upload": "Cancel upload",
     "reply_comment": "Reply...",
     "upload_error": "you cannot upload more than 6 files",
-    "remove_file": "Remove file"
+    "remove_file": "Remove file",
+    "remove_email" : "Your email has been successfully removed",
+    "updated_user_data": "Your profile has been successfully updated"
+
 }

@@ -273,6 +273,7 @@
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
   vertical-align: middle;
+  margin: 0 -5px 0 0;
 }
 .goal-icons li.bordered-list a.manage-modal i {
   font-size: 28px;
@@ -771,4 +772,26 @@
   .inner-content .twitter-hashtag-button {
     margin: 9px 10px 0;
   }
+}
+.addthis_counter {
+  width: 113px !important;
+  height: 31px !important;
+  background: url('../../assets/images/share-new.png') no-repeat center center !important;
+  background-size: 100% !important;
+}
+.addthis_counter:hover {
+  background: url('../../assets/images/share-purple.png') no-repeat center center !important;
+  background-size: 100% !important;
+}
+.addthis_counter .sb-buttons {
+  display: block;
+}
+.addthis_counter .sb-btn {
+  background-color: #0a001d;
+}
+.addthis_counter .sb-container {
+  position: absolute;
+  width: 115px;
+  background-color: whitesmoke;
+  border: 1px solid gainsboro;
 }
