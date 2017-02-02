@@ -119,8 +119,12 @@
 
                             <div class="form-group">
 
-                                <textarea [class.border-red]="invalidDescription" class="form-control margin-top" [(ngModel)]="description" name="description" placeholder="Description" rows="4" (ngModelChange)="changeDescription()"></textarea>
-                                <div *ngIf="invalidDescription" class="description-tooltip">Please fill out this field</div>
+                                <textarea [class.border-purple]="invalidDescription" class="form-control margin-top" [(ngModel)]="description" name="description" placeholder="Description" rows="4" (ngModelChange)="changeDescription()"></textarea>
+                                <div *ngIf="invalidDescription" class="description-tooltip">
+                                    <span class="arrow-up"></span>
+                                        Please fill out this field
+                                </div>
+
                                 <div class="tags">
                                     <button *ngFor="let tag of tags" type="button" class="btn btn-purple">
                                         {{tag }}
