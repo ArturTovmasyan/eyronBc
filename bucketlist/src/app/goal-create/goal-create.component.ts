@@ -17,6 +17,7 @@ export class GoalCreateComponent implements OnInit {
     public isPublic:boolean = true;
     public disablePreview:boolean = false;
     public isPrivate:boolean = false;
+    public invalidDescription:boolean = false;
     public id:number;
     public tags:any[];
     public files:any[] = [];
@@ -31,11 +32,20 @@ export class GoalCreateComponent implements OnInit {
     public haveIdeas:boolean = false;
     public isMore:boolean = false;
     public start: number = 0;
-    public count: number = 3;
+    public count: number = 9;
     public writeTimeout: any;
     public appUser: User;
     public eventId: any;
     public slug: any;
+    public config: any = {
+        observer: true,
+        autoHeight: true,
+        loop: false,
+        slidesPerView: 3,
+        nextButton: '.icon-arrow-right',
+        prevButton: '.icon-arrow-left',
+        spaceBetween: 30
+    };
     public languages: any[] = [
      {
         value:'en',
@@ -67,9 +77,9 @@ export class GoalCreateComponent implements OnInit {
         router.events.subscribe((val) => {
             if(this.eventId != val.id && val instanceof NavigationEnd){
                 this.eventId = val.id;
-                this.id = this.route.snapshot.params['id'];
+                this.id = this.route.snapshot.params['id'];console.log(this.id);
                 this.slug = this.route.snapshot.params['status'];
-                this.isPrivate = (this.slug && this.slug != 'draft');
+                this.isPrivate = (this.slug && this.slug != 'drafts');
                 if(this.id){
                     this._projectService.getGoalMyId(this.id)
                         .subscribe(
@@ -115,39 +125,50 @@ export class GoalCreateComponent implements OnInit {
     }
     
     changeDescription(){
-      let reg = /(#[a-z0-9][a-z0-9\-_]+)/ig;
-      this.tags = this.description.match(reg);
+        this.invalidDescription = false;
+        let reg = /(#[a-z0-9][a-z0-9\-_]+)/ig;
+        this.tags = this.description.match(reg);
     }
-    
-    removeImage(id){
-        
-    }
+    //
+    // removeImage(id){
+    //    
+    // }
     
     preview(){
-    if(this.disablePreview)return;
-        let video_link = [];
-        for(let i = 0; i < this.videos_array.length; i++){
-            if(this.videos_array[i] && this.isVideoLink(this.videos_array[i])){
-                video_link.push(this.videos_array[i]);
-            }
+        if(!this.description){
+            this.invalidDescription = true;
+            return;
         }
-
-        this._projectService.createGoal({
-            'is_public': this.isPublic,
-            'title': this.title,
-            'description': this.description,
-            'video_links': video_link,
-            'language': this.language,
-            'files' : this.files,
-            'tags' : this.tags
-        },this.id)
-            .subscribe(
-                (data) => {
-                    this.router.navigate(['/goal/' + data.slug + '/view']);
-                });
+        
+        if(this.disablePreview)return;
+            let video_link = [];
+            for(let i = 0; i < this.videos_array.length; i++){
+                if(this.videos_array[i] && this.isVideoLink(this.videos_array[i])){
+                    video_link.push(this.videos_array[i]);
+                }
+            }
+    
+            this._projectService.createGoal({
+                'is_public': this.isPublic,
+                'title': this.title,
+                'description': this.description,
+                'video_links': video_link,
+                'language': this.language,
+                'files' : this.files,
+                'tags' : this.tags
+            },this.id)
+                .subscribe(
+                    (data) => {
+                        this.router.navigate(['/goal/' + data.slug + '/view']);
+                    });
     }
 
     createDraft(){
+        if(!this.description){
+            this.invalidDescription = true;
+            return;
+        }
+        
         let video_link = [];
         for(let i = 0; i < this.videos_array.length; i++){
             if(this.videos_array[i] && this.isVideoLink(this.videos_array[i])){
@@ -175,6 +196,11 @@ export class GoalCreateComponent implements OnInit {
     };
     
     save(){
+        if(!this.description){
+            this.invalidDescription = true;
+            return;
+        }
+        
         let video_link = [];
         for(let i = 0; i < this.videos_array.length; i++){
             if(this.videos_array[i] && this.isVideoLink(this.videos_array[i])){
@@ -217,6 +243,7 @@ export class GoalCreateComponent implements OnInit {
                   .subscribe(
                       goals => {
                           self.goals = goals;
+                          this.config.loop = (goals.length > 3);
                           self.isMore = goals.length > 0;
                           self.haveIdeas = (goals.length &&self.title)?true:false;
                       });
