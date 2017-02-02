@@ -83,7 +83,7 @@ export class ProjectService {
     private calendarUrl = this.baseUrl + 'usergoal/calendar/data';
 
     private nearByUrl = this.baseUrl + 'goals/nearby/';
-    private resetNearByUrl = this.baseUrl + 'usergoals/';
+    private resetNearByUrl = this.baseOrigin + this.envprefix + 'usergoals/';
     private getCommentsUrl = this.baseUrl + 'comments/goal_';
     private putCommentUrl = this.baseUrl + 'comments/';
 
