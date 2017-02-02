@@ -45,6 +45,7 @@ export class GoalFooterComponent implements OnInit {
             'newAdded' : true,
             'newCreated' : false
           });
+          this.broadcaster.broadcast('add_my_goal'+id, {});
       });
     }
   }
@@ -56,6 +57,7 @@ export class GoalFooterComponent implements OnInit {
     } else {
       this.goal.is_my_goal = 2;
       this.ProjectService.setDoneUserGoal(id).subscribe(() => {
+          this.broadcaster.broadcast('add_my_goal'+id, {});
           this.ProjectService.getStory(id).subscribe((data)=> {
             this.broadcaster.broadcast('doneModal', {
               'userGoal': data,

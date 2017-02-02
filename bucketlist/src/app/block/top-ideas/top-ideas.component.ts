@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, ViewEncapsulation, ViewChild} from '@angular/core';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { ElementRef, Renderer} from '@angular/core';
+import {Broadcaster} from '../../tools/broadcaster';
 
 import { ProjectService } from '../../project.service';
 
@@ -27,16 +28,18 @@ export class TopIdeasBlockComponent implements OnInit {
   degree:number = 360;
 
   constructor(
+      private broadcaster: Broadcaster,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
       private renderer: Renderer
   ) {}
 
   ngOnInit() {
-        if(this.type == this.categories[2]) {
+    if(this.type == this.categories[2]) {
       let data = this._cacheService.get('featuredIdea');
       if (data) {
         this.goals = data;
+        this.refreshListener();
       } else {
         this.getFeaturedIdeas()
       }
@@ -44,6 +47,7 @@ export class TopIdeasBlockComponent implements OnInit {
       let data = this._cacheService.get('topIdea');
       if (data) {
         this.goals = data;
+        this.refreshListener();
       } else {
         this.getTopIdeas()
       }
@@ -54,6 +58,7 @@ export class TopIdeasBlockComponent implements OnInit {
     this._projectService.getTopIdeas()
         .subscribe(
             goals => {
+              this.refreshListener();
               this.goals = goals;
               this._cacheService.set('topIdea', goals, {maxAge: 24 * 60 * 60});
             },
@@ -64,6 +69,7 @@ export class TopIdeasBlockComponent implements OnInit {
     this._projectService.getFeaturedIdeas()
         .subscribe(
             goals => {
+              this.refreshListener();
               this.goals = goals;
               this._cacheService.set('featuredIdea', goals, {maxAge: 24 * 60 * 60});
             },
@@ -71,6 +77,14 @@ export class TopIdeasBlockComponent implements OnInit {
             );
   }
 
+  refreshListener(){
+    for(let goal of this.goals){
+      this.broadcaster.on<any>('add_my_goal'+goal.id)
+        .subscribe(() => {
+            this.refreshIdeas();
+        });
+    }
+  }
   refreshIdeas(){
     this.renderer.setElementStyle(this.rotateElementRef.nativeElement, 'transform','rotate('+this.degree+'deg)');
     this.degree += 360;

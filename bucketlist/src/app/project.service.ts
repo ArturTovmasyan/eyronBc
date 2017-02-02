@@ -471,7 +471,7 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     getIdeaGoals(start:number, count:number, search:string = '',category:string = ''):Observable<Goal[]> {
-        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&category=' + ((category && category != 'discover')?category:''))
+        return this.http.get(this.ideasUrl + start + '/' + count + '?search=' + search + '&category=' + ((category && category != 'discover')?category:''), {headers: this.headers})
             .map((r:Response) => r.json() as Goal[])
             .catch(this.handleError);
     }
