@@ -227,6 +227,19 @@ export class GoalCreateComponent implements OnInit {
                         });
                         this.broadcaster.on<any>('saveUserGoal_' + data.id)
                             .subscribe(data => {
+                                let messages = this._cacheService.get('flash_massage');
+                                messages = messages?messages:[];
+                                messages.push((!this.isPublic)?'goal.was_created.private' : 'goal.was_created.public');
+                                this._cacheService.set('flash_massage', messages, {maxAge: 3 * 24 * 60 * 60});
+                                this.router.navigate(['/profile/my/all']);
+                            });
+
+                        this.broadcaster.on<any>('addGoal' + d.id)
+                            .subscribe(data => {
+                                let messages = this._cacheService.get('flash_massage');
+                                messages = messages?messages:[];
+                                messages.push((!this.isPublic)?'goal.was_created.private' : 'goal.was_created.public');
+                                this._cacheService.set('flash_massage', messages, {maxAge: 3 * 24 * 60 * 60});
                                 this.router.navigate(['/profile/my/all']);
                             });
                     });
