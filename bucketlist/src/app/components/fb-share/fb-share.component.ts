@@ -16,9 +16,10 @@ export class FbShareComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // (window.location.href.indexOf('bucketlist.loc') === -1)?"486680294849466" : "999576146739877",
     (<any>window).fbAsyncInit = function() {
       FB.init({
-        appId      : (window.location.href.indexOf('bucketlist.loc') === -1)?"486680294849466" : "999576146739877",
+        appId      : "999576146739877",
         xfbml      : true,
         version    : 'v2.4'
       });
