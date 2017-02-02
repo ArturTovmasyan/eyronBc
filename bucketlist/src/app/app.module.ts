@@ -5,8 +5,8 @@ import { HttpModule, JsonpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { DndModule} from 'ng2-dnd';
-import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+import { NotificationDropdownComponent } from './components/notification-dropdown/notification-dropdown.component';
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { MaterialModule } from '@angular/material';
 import { ValidationService } from './validation.service';
 import { Broadcaster} from './tools/broadcaster';
@@ -50,6 +50,8 @@ import { HomeFooterComponent } from './components/home-footer/home-footer.compon
 import { ComponentModule } from './components/components.module';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { PageComponent } from './page/page.component';
+import { ErrorComponent } from './components/error/error.component';
+
 
 //modals
 import { ReportComponent } from './modals/report/report.component';
@@ -69,6 +71,7 @@ export function createTranslateLoader(http: Http) {
     DiscoverGoalComponent,
     BaseStoriesComponent,
     HomeFooterComponent,
+    NotificationDropdownComponent,
     LoginComponent,
     RegisterComponent,
     ResettingRequestComponent,
@@ -80,7 +83,8 @@ export function createTranslateLoader(http: Http) {
     UsersComponent,
     AddComponent,
     DoneComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    ErrorComponent
 
   ],
   imports: [
@@ -93,7 +97,6 @@ export function createTranslateLoader(http: Http) {
     JsonpModule,
     appRouting,
     SwiperModule,
-    // FileDroppa,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),

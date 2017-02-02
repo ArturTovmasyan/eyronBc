@@ -83,7 +83,7 @@ export class AppComponent implements OnInit  {
     }
 
     if(localStorage.getItem('apiKey')){
-        this.appUser = this._cacheService.get('user_');console.log(this.appUser);
+        this.appUser = this._cacheService.get('user_');
         if(!this.appUser) {
             this._projectService.getUser()
                 .subscribe(
@@ -195,8 +195,8 @@ export class AppComponent implements OnInit  {
                           this.broadcaster.broadcast('saveGoal'+result.goal.id, result);
                       }
                   } else {
-                      this.broadcaster.broadcast('addGoal', result);
-                      this.broadcaster.broadcast('addGoal'+data.userGoal.goal.id, result);
+                      this.broadcaster.broadcast('addGoal', data.userGoal);
+                      this.broadcaster.broadcast('addGoal'+data.userGoal.goal.id, data.userGoal);
                   }
               });
               // this.addModal = true;

@@ -58,6 +58,7 @@ class Badge
      * @Assert\NotBlank(message="badge.type.notBlank")
      * @Assert\Choice({Badge::TYPE_TRAVELLER, Badge::TYPE_MOTIVATOR, Badge::TYPE_INNOVATOR}, message = "badge.type.choice")
      * @ORM\Column(name="type", type="smallint")
+     * @Groups({"badge"})
      */
     protected $type;
 

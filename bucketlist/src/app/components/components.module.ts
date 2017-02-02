@@ -22,7 +22,7 @@ import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
 import { InputVideoComponent } from './embed-video/input-video.component';
 import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
-import { NotificationDropdownComponent } from './notification-dropdown/notification-dropdown.component';
+import { FbShareComponent } from './fb-share/fb-share.component';
 
 
 @NgModule({
@@ -51,7 +51,7 @@ import { NotificationDropdownComponent } from './notification-dropdown/notificat
     InputVideoComponent,
     SeeAlsoComponent,
     MyDropzoneComponent,
-    NotificationDropdownComponent
+    FbShareComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -71,7 +71,7 @@ import { NotificationDropdownComponent } from './notification-dropdown/notificat
     InputVideoComponent,
     SeeAlsoComponent,
     MyDropzoneComponent,
-    NotificationDropdownComponent
+    FbShareComponent
   ]
 })
 export class ComponentModule { }

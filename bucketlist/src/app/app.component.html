@@ -38,12 +38,14 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li id="notification" *ngIf="appUser && (!isMobile || !joinToggle1)">
-                                <div>
-                                    <a (click)="toogleNote()" class="relative notify">
-                                        <i class="bell"></i>
-                                        <sup *ngIf="newNotCount && newNotCount != 0">{{ newNotCount }}</sup>
-                                    </a>
-                                </div>
+
+                                <a (click)="toogleNote()" class="relative notify">
+                                    <i class="bell"></i>
+                                    <sup *ngIf="newNotCount && newNotCount != 0">{{ newNotCount }}</sup>
+                                </a>
+
+                                <notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)" [hidden]="!show" (clickOutside)="closeDropdown()"></notification-dropdown>
+
                             </li>
                             <li *ngIf="appUser" [class.block]="isMobile && joinToggle1">
                                 <!--{% if app.user %}-->
@@ -58,7 +60,8 @@
 
                                 <a class="user user-popover clearfix"
                                    (click)="joinToggle1 = !joinToggle1"
-                                   [ngClass]="{'join-class': joinToggle1}">
+                                   [ngClass]="{'join-class': joinToggle1}"
+                                   (clickOutside)="joinToggle1 = false">
                                     <figure class="img-circle" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
                                         <img src="{{ appUser.cached_image }}" alt="{{ appUser.filename }}" class="img-responsive">
                                     </figure>
@@ -161,9 +164,11 @@
         <div *ngIf="joinShow">
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
-      <div [hidden]="!show" (clickOutside)="closeDropdown()">
-          <notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)"></notification-dropdown>
-      </div>
+
+      <!--<div [hidden]="!show" (clickOutside)="closeDropdown()">-->
+          <!--<notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)"></notification-dropdown>-->
+      <!--</div>-->
+
         <!--<div *ngIf="reportModal">-->
             <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
         <!--</div>-->

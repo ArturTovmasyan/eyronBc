@@ -74,8 +74,14 @@ class EmailSenderService
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
 
+        //get angular2 host in parameter
+        $angular2host = $this->container->getParameter('angular2host');
+
+        //generate url
+        $url = sprintf('%s/edit/add-email/%s/%s', $angular2host, $emailToken, $newUserEmail);
+
         //get email activate url
-        $url = $this->container->get('router')->generate('activation_user_email', array('emailToken' => $emailToken, 'email' => $newUserEmail), true);
+//        $url = $this->container->get('router')->generate('activation_user_email', array('emailToken' => $emailToken, 'email' => $newUserEmail), true);
 
         //get help center link
         $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);

@@ -10,7 +10,7 @@
       <span class="ng-hide text-dark-gray" title="{{ name }}">
           {{ name.length < 31 ? name: (name|slice:0:26  + '...')}}
       </span>
-      <!--<i class="leaderboard-small" *ngIf="haveTop && inArray(user.id)"></i>-->
+      <i class="leaderboard-small" *ngIf="user.innovator || user.mentor || user.traveler"></i>
     </h4>
 
     <span class="text-gray">{{ 'listed_by'|translate }} <span>{{ user.stats.listedBy }}</span></span> |

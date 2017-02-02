@@ -103,6 +103,9 @@ export class AddComponent implements OnInit {
     }
   }
 
+  closeModal(){
+    this.dialogRef.close();
+  }
   getDaysInMonth(m, y) {
     return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
   };
@@ -290,16 +293,10 @@ export class AddComponent implements OnInit {
     this.dialogRef.close(this.userGoal);
   }
   
-  removeUserGoal(id){
-    this.ProjectService.removeUserGoal(id).subscribe((data) => {
+  removeUserGoal(){
+    this.ProjectService.removeUserGoal(this.userGoal.id).subscribe((data) => {
 
     });
-    // UserGoalDataManager.delete({id:id}, function (resource){
-    //   this.$emit('removeUserGoal', id);
-    //   if(resource[0] == 1){
-    //     $analytics.eventTrack('Goal delete', {  category: 'Goal', label: 'Goal delete from Web' });
-    //   }
-    // },
-    this.dialogRef.close({'remove': id});
+    this.dialogRef.close({'remove': this.userGoal.id});
   }
 }

@@ -334,7 +334,7 @@ class UserController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "badge"})
      * @param $request
      * @return Response
      */
@@ -390,7 +390,7 @@ class UserController extends FOSRestController
      * @param $accessToken
      * @param $tokenSecret
      * @return Response
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "badge"})
      * @Rest\Get("/users/social-login/{type}/{accessToken}/{tokenSecret}", defaults={"tokenSecret"=null}, name="application_user_rest_user_getsociallogin", options={"method_prefix"=false})
      */
     public function getSocialLoginAction($type, $accessToken, $tokenSecret)
@@ -686,7 +686,7 @@ class UserController extends FOSRestController
      *         401="Access allowed only for registered users"
      *     },
      * )
-     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info"})
+     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info", "badge"})
      * @Rest\Get("/user/{uid}", name="get_user", defaults={"uid" = null}, options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
      * @param $uid
@@ -1215,7 +1215,7 @@ class UserController extends FOSRestController
      * @Rest\View()
      * @Rest\Get("/user/check/reset-token/{token}", name="application_user_rest_user_checkresettoken_1", options={"method_prefix"=false})
      * @param $token
-     * @return array
+     * @return array|JsonResponse
      */
     public function checkResetTokenAction($token)
     {
@@ -1225,10 +1225,76 @@ class UserController extends FOSRestController
         $t = $this->container->getParameter('fos_user.resetting.token_ttl');
 
         if (!$user || (!$user->isPasswordRequestNonExpired($t))) {
-            return ['confirm' => false];
+            return new JsonResponse(['email_token' => 'Invalid email token for this user'], Response::HTTP_BAD_REQUEST);
         }
 
         return  ['confirm' => true];
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to check reset password token",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found",
+     *         400="Bad request"
+     *     },
+     * )
+     *
+     * @Rest\View()
+     * @Rest\Get("/user/activation-email/{emailToken}/{email}", name="application_user_rest_user_activationuseremails", options={"method_prefix"=false})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function activationUserEmailsAction($emailToken, $email)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $user = $this->getUser();
+
+        //check if user not exist
+        if (!$user) {
+            return new JsonResponse('User not found', Response::HTTP_BAD_REQUEST);
+        }
+
+        //get user emails
+        $userEmails = $user->getUserEmails();
+
+        //check new email not exist in user emails
+        if(!array_key_exists($email, $userEmails)) {
+            return new JsonResponse('User not found', Response::HTTP_BAD_REQUEST);
+        }
+
+        //get current email data
+        $data = $userEmails[$email];
+
+        //get userEmail value in array
+        $currentEmailToken = $data['token'];
+
+        //check if tokens is equal
+        if ($currentEmailToken == $emailToken) {
+
+            //set token null in userEmails by key
+            $userEmails[$email]['token'] = null;
+
+            //set activation email token null
+            $user->setUserEmails($userEmails);
+
+            if ($user->getSocialFakeEmail() == $user->getEmail()){
+                $user->primary = $email;
+            }
+        }
+        else {
+           return new JsonResponse('Invalid email token for this user', Response::HTTP_BAD_REQUEST);
+        }
+
+        $em->persist($user);
+        $em->flush($user);
+
+       return new JsonResponse('', Response::HTTP_NO_CONTENT);
     }
 
 }

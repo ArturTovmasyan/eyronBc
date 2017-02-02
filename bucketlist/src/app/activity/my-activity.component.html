@@ -82,18 +82,7 @@
                     <div class="pull-right" *ngIf="activity.goals.length > 1">
                         <div class="swiper-pagination text-dark-grey">{{ (activeIndex && activeIndex[activity.id])?activeIndex[activity.id]:1 }} / {{ activity.goals.length }}</div>
                     </div>
-                    <div class="text-right pull-right"
-                          *ngIf="activity.success_story">
-                        <!--data-ng-init="$parent.count[ activity.success_story.id ] = activity.success_story.voters_count;-->
-                        <!--$parent.vote[activity.success_story.id] = isVoting(activity.success_story.is_vote, activity.success_story)"-->
-                        <!--<span class="text-purple " *ngIf="count[ activity.success_story.id ] < 1">0</span>-->
-                        <!--<a data-ls-goal-users-->
-                           <!--class="text-purple "-->
-                           <!--*ngIf="$parent.count[ activity.success_story.id ] > 0"-->
-                           <!--href="javascript:void(0)"-->
-                           <!--data-ls-item-id="{{ activity.success_story.id }}"-->
-                           <!--data-ls-count="{{ $parent.count[ activity.success_story.id ] }}"-->
-                           <!--data-ls-category="3">{{ $parent.count[ activity.success_story.id ] }}</a>-->
+                    <div class="text-right pull-right" *ngIf="activity.success_story">
                         <goal-users [story]="activity.success_story" [type]="3" [user]="activity.user"></goal-users>
                     </div>
                 </div>
@@ -116,21 +105,6 @@
             <app-comment *ngIf="activity.createComment" [hidden]="!activity.showComment"
                          [data]="{id: activity.reserveGoals[((activeIndex && activeIndex[activity.id])?(activeIndex[activity.id] - 1):0)].id, slug:activity.reserveGoals[((activeIndex && activeIndex[activity.id])?(activeIndex[activity.id] - 1):0)].slug,inner:false}">
             </app-comment>
-            <!--<div data-ls-comment-manage-->
-                 <!--class="padding slide "-->
-                 <!--*ngIf="activity.createComment"-->
-                 <!--*ngIf="activity.showComment"-->
-                 <!--data-ls-goal-id="{{ activity.reserveGoals[activity.activeIndex - 1].id }}"-->
-                 <!--data-ls-slug="{{ activity.reserveGoals[activity.activeIndex - 1].slug }}"-->
-                 <!--data-ls-reply="{{ 'reply'|translate }}"-->
-                 <!--data-ls-replied="{{ 'replied'|translate }}"-->
-                 <!--data-ls-logged="true"-->
-                 <!--data-ls-report-title="{{ 'report.title'|translate }}"-->
-                 <!--data-ls-title="{{ 'comments'|translate }}"-->
-                 <!--data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}-->
-                <!--{% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}-->
-                <!--{{ nameOnImage  |uppercase}}{% endif %}">-->
-            <!--</div>-->
         </div>
         <br/>
     </div>

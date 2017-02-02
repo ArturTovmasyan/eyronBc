@@ -507,10 +507,10 @@
   .addthis_counter a.atc_s{
     width:113px !important;
     height:31px !important;
-    background: url('../images/share-new.png') no-repeat center center !important;
+    background: url('../../assets/images/share-new.png') no-repeat center center !important;
     background-size: 100% !important;
     &:hover{
-      background: url('../images/share-purple.png') no-repeat center center !important;
+      background: url('../../assets/images/share-purple.png') no-repeat center center !important;
       background-size: 100% !important;
     }
   }
@@ -564,6 +564,50 @@
 
 .fullHeight{
   height: 100%;
+}
+
+
+.addthis_counter{
+  width:113px;
+  height:31px;
+  background: url('../../assets/images/share-new.png') no-repeat center center;
+  background-size: 100%;
+  float: right;
+  cursor:pointer;
+
+  &:hover{
+    background: url('../../assets/images/share-purple.png') no-repeat center center ;
+    background-size: 100%;
+  }
+
+  .sb-btn{
+    background-color: #0a001d;
+  }
+
+  .sb-container{
+    position: absolute;
+    min-width: 215px;
+    right: 15px;
+    z-index: 11;
+    top: 31px;
+    width: auto;
+    background-color: whitesmoke;
+    border: 1px solid gainsboro;
+
+    .sb-buttons{
+      margin: 10px 0;
+    }
+
+    h3{
+      display: none;
+    }
+
+    button{
+      max-width: 50px;
+      min-width: 30px;
+    }
+
+  }
 }
 
 @media (min-width: @screen-sm) {
@@ -813,6 +857,14 @@
     }
   }
 
+
+  .addthis_counter{
+    margin-right: 17px;
+
+    .sb-container{
+      right: 32px;
+    }
+  }
 }
 
 @media (min-width: @screen-md) {
@@ -941,6 +993,14 @@
       height:435px;
     }
   }
+
+  .addthis_counter{
+    margin-right: 0;
+
+    .sb-container{
+      right: 15px;
+    }
+  }
 }
 
 @media (min-width: @screen-lg) {
@@ -978,3 +1038,4 @@
     }
   }
 }
+
