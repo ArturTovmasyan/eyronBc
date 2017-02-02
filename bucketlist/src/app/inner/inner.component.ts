@@ -44,6 +44,13 @@ export class InnerComponent implements OnInit {
   public appUser:User;
   public userGoal:UserGoal;
 
+  shareTitle = "Sharing is caring";
+  fbInner = "<img src='../../assets/images/facebook-share.svg'>";
+  twitterInner = "<img src='../../assets/images/twitter-share.svg'>";
+  pintInner = "<img src='../../assets/images/pinterest-share.svg'>";
+  inInner = "<img src='../../assets/images/linkedin-share.svg'>";
+  googleInner = "<img src='../../assets/images/google-plus-share.svg'>";
+
   public config: any = {
     pagination: '.swiper-pagination',
     paginationClickable: true,

@@ -372,13 +372,14 @@
                 <div class="addthis_counter" (mouseover)="isHover = true" >
                   <share-buttons [url]="linkToShare"
                                  *ngIf="isHover"
-                                 (mouseout)="isHover = false"
                                  [facebook]="fbInner"
                                  [twitter]="twitterInner"
                                  [pinterest]="pintInner"
                                  [linkedIn]="inInner"
                                  [google]="googleInner"
-                                 [tumblr]="tumblrInner">
+                                 [tumblr]="false"
+                                 [reddit]="false"
+                                 [stumbleUpOn]="false">
                   </share-buttons>
                 </div>
               </div>
