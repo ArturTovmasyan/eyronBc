@@ -10,7 +10,7 @@
         </a>
       </div>
 
-      <div class="col-xs-2 text-right">
+      <div *ngIf="length > 3" class="col-xs-2 text-right">
         <a (click)="refreshGoalFriends()" class="load" id="goalFriendLoad" #rotate></a>
       </div>
     </div>

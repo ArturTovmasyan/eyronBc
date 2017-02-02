@@ -7,7 +7,7 @@
 
   </figure>
 
-  <div class="profile" *ngIf="profileUser">
+  <div class="profile"  *ngIf="appUser && profileUser">
     <div class="container">
 
       <div class="row">
@@ -127,7 +127,7 @@
           </div>
 
           <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
-          <div class="profile-information" *ngIf="appUser && appUser.completed_percent != 100">
+          <div class="profile-information" *ngIf="appUser.completed_percent != 100">
             <em>{{ 'complete_message'|translate }}</em>
 
             <div class="row no-gutter">
@@ -140,14 +140,14 @@
                        aria-valuemax="100"
                        [ngStyle]="{'width.%': appUser.completed_percent| round}">
 
-                    {{ user.completed_percent|round }}%
+                    {{ appUser.completed_percent|round }}%
                   </div>
                 </div>
               </div>
               <div class="col-xs-2">
                 <a class="text-gray" (click)="completeProfileMyBucketList=!completeProfileMyBucketList">
-                  <i class="question-icon-new" [hidden]="completeProfileMyBucketList || isMobile"></i>
-                  <i class="icon-question-icon" [hidden]="completeProfileMyBucketList || !isMobile"><span class="path1"></span><span class="path2"></span></i>
+                  <i class="question-icon-new" *ngIf="!completeProfileMyBucketList && !isMobile"></i>
+                  <i class="icon-question-icon" *ngIf="!completeProfileMyBucketList && isMobile"><span class="path1"></span><span class="path2"></span></i>
                   <i class="icon-icon-up" *ngIf="completeProfileMyBucketList"><span class="path1"></span><span class="path2"></span></i>
                 </a>
               </div>
@@ -168,7 +168,7 @@
 
 
       <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
-      <div class="row slide" *ngIf="appUser && appUser.completed_percent != 100 && completeProfileMyBucketList">
+      <div class="row slide" *ngIf="appUser.completed_percent != 100 && completeProfileMyBucketList">
         <!--data-ng-cloak *ngIf="completeProfileMyBucketList" style="display: none"-->
         <div class="col-sm-6">
           <ol style="position: relative;">
