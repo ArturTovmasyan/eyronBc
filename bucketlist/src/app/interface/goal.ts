@@ -11,6 +11,7 @@ export interface Goal {
     status?: boolean,
     language?: string,
     slug: string,
+    stats: any,
     location?: Location,
     is_my_goal?: number,
     success_stories?: Story[],

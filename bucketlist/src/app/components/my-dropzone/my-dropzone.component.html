@@ -1,25 +1,24 @@
 <div class="text-center">
     <div class="dropzone" id="goalDropzone">
         <form action="#">
-            <div class="dz-message">
-                <label for="file">
-                    <div class="row">
-                        <div class="col-sm-12">
+            <label for="file">
+                <div class="dz-message">
+                <div class="row">
+                    <div class="col-sm-12">
 
-                            <h3 class="text-dark-gray" *ngIf="type == 'story'">
-                                <i class="icon-cloud"></i> {{ 'drag_drop'|translate }}
-                            </h3>
-                            <h3 class="text-dark-gray" *ngIf="type != 'story'">
-                                 <span class="btn-purple" >
-                                    <i class="icon-cloud"></i> BROWSE
-                                 </span>
+                        <h3 class="text-dark-gray" *ngIf="type == 'story'">
+                            <i class="icon-cloud"></i> {{ 'drag_drop'|translate }}
+                        </h3>
+                        <h3 class="text-dark-gray" *ngIf="type != 'story'">
+                             <span class="btn-purple" >
+                                <i class="icon-cloud"></i> BROWSE
+                             </span>
 
-                                 <span>{{ 'drag_drop'|translate }}</span>
-                            </h3>
+                             <span>{{ 'drag_drop'|translate }}</span>
+                        </h3>
 
-                        </div>
                     </div>
-                </label>
+                </div>
 
                 <p [innerHTML]="'upload'|translate"></p>
 
@@ -50,7 +49,7 @@
                     </div>
                 </div>
             </div>
-
+            </label>
             <div class="hide">
                 <input type="file" id="file" name="file" (change)="showUploadedImage($event)" multiple>
             </div>

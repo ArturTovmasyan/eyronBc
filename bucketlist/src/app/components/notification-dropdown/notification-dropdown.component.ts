@@ -16,6 +16,7 @@ export class NotificationDropdownComponent implements OnInit {
   @Output('count') notCount: EventEmitter<any> = new EventEmitter();
   public notifications: any[];
   public start: number = 0;
+  public width: number = 430;
   public end: number = 10;
   public count: number;
   public errorMessage:string;
@@ -32,6 +33,10 @@ export class NotificationDropdownComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+      
+    if(window.innerWidth < 768){
+        this.width = window.innerWidth;
+    }
     this.serverPath = this._projectService.getPath();
     this.getNotifications();
       this.broadcaster.on<any>('updateNoteCount')
