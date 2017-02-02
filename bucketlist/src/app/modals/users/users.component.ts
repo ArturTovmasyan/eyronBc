@@ -20,6 +20,7 @@ export class UsersComponent implements OnInit {
   public users:User[];
   public reserve:User[];
   public busy:boolean = false;
+  public isOpen:boolean = false;
   public start: number = 0;
   public count: number = 10;
   public serverPath:string = '';
@@ -33,24 +34,30 @@ export class UsersComponent implements OnInit {
     this.serverPath = this._projectService.getPath();
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
-      // this.modalHideEmitter.emit(null);
+        // this.modalHideEmitter.emit(null);
     } else {
       if(this.data && this.data.itemId && this.data.category){
         this.getUsers();
       }
     }
   }
+    closeModal(){
+        if(!this.isOpen)return;
+        this.isOpen = false;
+        this.dialogRef.close();
+    }
 
   getUsers() {
     this._projectService.getUsers(this.start, this.count, this.data.itemId, this.data.category)
         .subscribe(
             users => {
-              this.users = users;
-              if(!users.length){
+                this.isOpen = true;
+                this.users = users;
+                if(!users.length){
                 // this.modalHideEmitter.emit(null);
-              }
-              this.start += this.count;
-              this.setReserve();
+                }
+                this.start += this.count;
+                this.setReserve();
             });
   }
   

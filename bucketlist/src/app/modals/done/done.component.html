@@ -1,4 +1,4 @@
-<div class="my-modal goal-modal">
+<div class="my-modal goal-modal" (clickOutside)="closeModal()">
     <div *ngIf="newAdded" class="email">{{ "message_on_top_of_the_page" | translate | uppercase }}</div>
     <div class="modal-top" *ngIf="userGoal">
         <figure *ngIf="userGoal.goal.cached_image">

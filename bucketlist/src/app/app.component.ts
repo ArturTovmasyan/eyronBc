@@ -195,8 +195,8 @@ export class AppComponent implements OnInit  {
                           this.broadcaster.broadcast('saveGoal'+result.goal.id, result);
                       }
                   } else {
-                      this.broadcaster.broadcast('addGoal', result);
-                      this.broadcaster.broadcast('addGoal'+data.userGoal.goal.id, result);
+                      this.broadcaster.broadcast('addGoal', data.userGoal);
+                      this.broadcaster.broadcast('addGoal'+data.userGoal.goal.id, data.userGoal);
                   }
               });
               // this.addModal = true;

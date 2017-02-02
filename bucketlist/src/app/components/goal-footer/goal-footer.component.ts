@@ -31,7 +31,7 @@ export class GoalFooterComponent implements OnInit {
       
       this.broadcaster.on<any>('addGoal'+this.goal.id)
           .subscribe(data => {
-            this.goal.is_my_goal = data.status;
+            this.goal.is_my_goal = 1;
           });
       
       this.broadcaster.on<any>('removeGoal'+this.goal.id)
