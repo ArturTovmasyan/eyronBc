@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer, OnDestroy } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Broadcaster } from '../tools/broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -17,7 +17,7 @@ import { MetadataService } from 'ng2-metadata';
   styleUrls: ['./profile.component.less']
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild("tooltip") public tooltipElementRef: ElementRef;
   public categories: string[]= ['all', 'active', 'completed'];
   public uId: string;
@@ -37,7 +37,10 @@ export class ProfileComponent implements OnInit {
   public busyInitial: boolean = false;
   public noGoals: boolean = false;
   public noItem: boolean = false;
+  public isDestroy: boolean = false;
   public hoveredText: string = '';
+  public oldUser: string;
+  public initializeTimeout: any;
   public serverPath:string = '';
   public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
   public isMobile:Boolean= (window.innerWidth < 768);
@@ -64,7 +67,7 @@ export class ProfileComponent implements OnInit {
       public renderer: Renderer
   ) {
     router.events.subscribe((val) => {
-      if(this.eventId != val.id && val instanceof NavigationEnd){
+      if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
         this.start = 0;
         this.locationsIds = [];
@@ -79,7 +82,7 @@ export class ProfileComponent implements OnInit {
         this.userGoals = null;
         // this.reserveGoals = null;
         this.reserveUserGoals = null;
-        if(this.id){
+        if(this.oldUser == this.uId){
           this.busyInitial = false;
           this.getData();
         } else {
@@ -87,6 +90,10 @@ export class ProfileComponent implements OnInit {
         }
       }
     })
+  }
+
+  ngOnDestroy(){
+    this.isDestroy = true;
   }
 
   ngOnInit() {
@@ -115,6 +122,7 @@ export class ProfileComponent implements OnInit {
           this.id = user.id;
           if(this.busyInitial){
             this.busyInitial = false;
+            this.oldUser = this.uId;
             this.getData();
           }
         });
@@ -139,6 +147,7 @@ export class ProfileComponent implements OnInit {
         case 'activity':
           this.busy = true;
           this.overall = 0;
+          this.busyInitial = false;
           // $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
           // $scope.Activities.nextActivity();
           // $scope.$emit('lsGoActivity');
@@ -244,7 +253,7 @@ export class ProfileComponent implements OnInit {
         .subscribe(
             data => {
               this.reserveUserGoals = data.goals;
-              this.optimiseImages();
+              this.optimiseImages(true);
               this.start += this.count;
               this.busy = false;
             });
