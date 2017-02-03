@@ -24,6 +24,7 @@ export class NotificationDropdownComponent implements OnInit {
     public reserve: any[];
     public serverPath:string = '';
     public time: any[];
+    public userPage:boolean = false;
     constructor(
       private _projectService: ProjectService,
       private router: Router,
@@ -164,13 +165,22 @@ export class NotificationDropdownComponent implements OnInit {
 
         return result;
     };
-    goNotificationPage(notify,index){
-        this.singleRead(notify.id,index);
-        this.router.navigate([notify.notification.link]);
-        this.hideNote();
-    }
-    hideNote(){
-        this.noteHideEmitter.emit(null)
+
+  goNotificationPage(notify,index){
+      if(!this.userPage){
+          this.singleRead(notify.id,index);
+          this.router.navigate([notify.notification.link]);
+          this.hideNote();
+      }
+    
+
+  }
+  hideNote(){
+    this.noteHideEmitter.emit(null)
+  }
+  goToUserPage(){
+      this.userPage = true;
+      this.noteHideEmitter.emit(null)
     }
 }
 
