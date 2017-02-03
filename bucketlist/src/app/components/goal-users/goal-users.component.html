@@ -1,22 +1,44 @@
-<a *ngIf="type == 1" (click)="openUsersModal(goal.id, goal.stats.listedBy, type)">
+<a *ngIf="type == 1 && goal && goal.stats && goal.stats.listedBy != '0'" (click)="openUsersModal(goal.id, goal.stats.listedBy, type)">
   <span class="text-white">
       {{ 'home_listed_by' | translate }}
       {{ goal.stats.listedBy }}
   </span>
   <i class="icon-user-small"></i>
 </a>
-<a *ngIf="type == 2" (click)="openUsersModal(goal.id, goal.stats.doneBy, type)">
+<span *ngIf="type == 1 && (!goal || !goal.stats || goal.stats.listedBy == '0')">
+    <span class="text-white">
+      {{ 'home_listed_by' | translate }}
+      0
+  </span>
+  <i class="icon-user-small text-white"></i>
+</span>
+<a *ngIf="type == 2 && goal && goal.stats && goal.stats.doneBy != '0'" (click)="openUsersModal(goal.id, goal.stats.doneBy, type)">
   <span class="text-white">
       {{ 'home_complete' | translate }}
       {{ goal.stats.doneBy }}
   </span>
   <i class="icon-user-small"></i>
 </a>
-<a *ngIf="type == 3" (click)="openUsersModal(story.id, story.count, type)">
-  <span class="text-purple">
+<span *ngIf="type == 2 && (!goal || !goal.stats || goal.stats.doneBy == '0')">
+    <span class="text-white">
+      {{ 'home_complete' | translate }}
+      0
+  </span>
+  <i class="icon-user-small text-white"></i>
+</span>
+<a *ngIf="type == 3 && voters_count">
+  <span class="text-purple" (click)="openUsersModal(story.id, voters_count, type)">
       {{ voters_count }}
   </span>
     <i [ngClass]="{'like-active': is_vote,'user-story': isMy()}"
        (click)="manageVote(story.id)" *ngIf="story"
        class="like-icon"></i>
 </a>
+<span *ngIf="type == 3 && !voters_count">
+    <span class="text-purple">
+      0
+    </span>
+    <i [ngClass]="{'like-active': is_vote,'user-story': isMy()}"
+       (click)="manageVote(story.id)" *ngIf="story"
+       class="like-icon"></i>
+</span>
