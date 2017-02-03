@@ -19,7 +19,7 @@ export class FbShareComponent implements OnInit {
     // (window.location.href.indexOf('bucketlist.loc') === -1)?"486680294849466" : "999576146739877",
     (<any>window).fbAsyncInit = function() {
       FB.init({
-        appId      : "999576146739877",
+        appId      : "571257946411819",
         xfbml      : true,
         version    : 'v2.4'
       });

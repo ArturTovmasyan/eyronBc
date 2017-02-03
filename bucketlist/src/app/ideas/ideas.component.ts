@@ -1,6 +1,7 @@
 import { Component, OnInit , ViewEncapsulation, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Broadcaster } from '../tools/broadcaster';
+import { MetadataService } from 'ng2-metadata';
 
 import {Goal} from '../interface/goal';
 import {Marker} from '../interface/marker';
@@ -48,6 +49,7 @@ export class IdeasComponent implements OnInit {
   public reserve: Goal[];
   public config: Object;
   constructor(
+      private metadataService: MetadataService,
       private route: ActivatedRoute,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
@@ -63,6 +65,8 @@ export class IdeasComponent implements OnInit {
               this.locations = [];
               this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'nearby';
               this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
+              this.metadataService.setTitle('Ideas');
+              this.metadataService.setTag('description', 'Ideas for ' + this.category);
               this.ideas = null;
               this.reserve = null;
               this.ideasTitle = false;

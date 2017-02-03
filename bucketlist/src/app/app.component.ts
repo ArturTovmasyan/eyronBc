@@ -215,7 +215,7 @@ export class AppComponent implements OnInit  {
               dialogRef.componentInstance.newAdded = data.newAdded;
               dialogRef.componentInstance.userGoal = data.userGoal;
               dialogRef.afterClosed().subscribe(result => {
-
+                  this.broadcaster.broadcast('doneGoal'+data.userGoal.goal.id, {});
               });
               // this.doneModal = true;
           });

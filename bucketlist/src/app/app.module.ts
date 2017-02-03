@@ -18,6 +18,7 @@ import { AuthProviders } from 'angularfire2';
 import { AuthMethods } from 'angularfire2';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { Uploader }      from 'angular2-http-file-upload';
+import { MetadataModule } from 'ng2-metadata';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -96,6 +97,7 @@ export function createTranslateLoader(http: Http) {
     HttpModule,
     JsonpModule,
     appRouting,
+    MetadataModule.forRoot(),
     SwiperModule,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ValidationService } from 'app/validation.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser'
+import { MetadataService } from 'ng2-metadata';
 
 import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -26,6 +27,7 @@ export class PageComponent implements OnInit {
     public emailData:any;
 
     constructor(
+        private metadataService: MetadataService,
         private route: ActivatedRoute,
         private _projectService: ProjectService,
         private _cacheService: CacheService,
@@ -37,7 +39,6 @@ export class PageComponent implements OnInit {
             if(this.eventId != val.id && val instanceof NavigationEnd){
                 this.eventId = val.id;
                 this.name = this.route.snapshot.params['name'] ? this.route.snapshot.params['name'] : 'how-it-works';
-
                 if(this.name == 'contact-us') {
                     this.isSend = false;
                 }
@@ -69,6 +70,8 @@ export class PageComponent implements OnInit {
                         this.description = this.data.description;
                     }
                     this.title = this.data.title;
+                    // this.metadataService.setTitle(this.title);
+                    // this.metadataService.setTag('description', this.description);
                 });
     }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProjectService} from '../project.service';
 import {User} from '../interface/user';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { MetadataService } from 'ng2-metadata';
 
 
 @Component({
@@ -26,11 +27,17 @@ export class LeaderboardComponent implements OnInit {
   public isMobile = (window.innerWidth < 768);
   public isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
 
-  constructor(private _projectService: ProjectService, private router:Router, private route: ActivatedRoute) {
+  constructor(
+      private metadataService: MetadataService,
+      private _projectService: ProjectService, 
+      private router:Router, 
+      private route: ActivatedRoute) {
     router.events.subscribe((val) => {
       if(this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
         this.category = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'innovator';
+        this.metadataService.setTitle('Leaderboard');
+        this.metadataService.setTag('description', 'Leaderboard for ' + this.category);
         this.type = this.categories.indexOf(this.category);
         this.getleaderBoard();
       }

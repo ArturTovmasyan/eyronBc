@@ -5,9 +5,30 @@ import { GoalCreateComponent }    from './goal-create.component';
 // import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
 
 const GoalCreateRoutes: Routes = [
-  { path: '',  component: GoalCreateComponent },
-  { path: ':id',  component: GoalCreateComponent },
-  { path: ':id/:status',  component: GoalCreateComponent }
+  { path: '',  component: GoalCreateComponent,
+    data: {
+      metadata: {
+        title: 'Goal Create',
+        description: 'Create Your Goal'
+      }
+    }
+  },
+  { path: ':id',  component: GoalCreateComponent,
+    data: {
+      metadata: {
+        title: 'Goal Edit',
+        description: 'Edit Your Goal'
+      }
+    }
+  },
+  { path: ':id/:status',  component: GoalCreateComponent,
+    data: {
+      metadata: {
+        title: 'Goal Edit',
+        description: 'Edit Your Goal'
+      }
+    }
+  }
 ];
 
 export const GoalCreateRouting: ModuleWithProviders = RouterModule.forChild(GoalCreateRoutes);

@@ -2,12 +2,32 @@ import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GoalfriendsComponent }    from './goalfriends.component';
-// import { IdeasCategoryComponent }  from '../ideas-category/ideas-category.component';
 
 const GoalfriendsRoutes: Routes = [
-  { path: '',  component: GoalfriendsComponent },
-  { path: ':type',  component: GoalfriendsComponent },
-  { path: ':type/:search',  component: GoalfriendsComponent }
+  { path: '',  component: GoalfriendsComponent,
+    data: {
+      metadata: {
+        title: 'GoalFriends',
+        description: 'My GoalFriends'
+      }
+    }
+  },
+  { path: ':type',  component: GoalfriendsComponent,
+    data: {
+      metadata: {
+        title: 'GoalFriends',
+        description: 'My GoalFriends'
+      }
+    }
+  },
+  { path: ':type/:search',  component: GoalfriendsComponent,
+    data: {
+      metadata: {
+        title: 'GoalFriends',
+        description: 'My GoalFriends'
+      }
+    }
+  }
 ];
 
 export const GoalfriendsRouting: ModuleWithProviders = RouterModule.forChild(GoalfriendsRoutes);
