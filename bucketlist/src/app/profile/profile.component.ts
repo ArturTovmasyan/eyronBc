@@ -9,6 +9,7 @@ import {Location} from '../interface/location';
 import {Goal} from "../interface/goal";
 import {User} from "../interface/user";
 import {UserGoal} from "../interface/userGoal";
+import { MetadataService } from 'ng2-metadata';
 
 @Component({
   selector: 'app-profile',
@@ -54,6 +55,7 @@ export class ProfileComponent implements OnInit {
   public appUser:User;
 
   constructor(
+      private metadataService: MetadataService,
       private route: ActivatedRoute,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
@@ -70,6 +72,8 @@ export class ProfileComponent implements OnInit {
         this.uId = this.route.snapshot.params['uId']?this.route.snapshot.params['uId']:'my';
         this.myProfile = this.uId == 'my';
         this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:this.myProfile?'all':'activity';
+        this.metadataService.setTitle((this.myProfile?'My Profile':'Profile'));
+        this.metadataService.setTag('description', 'Profile for ' + this.type);
         // this.goals = null;
         this.noItem = false;
         this.userGoals = null;
@@ -215,7 +219,7 @@ export class ProfileComponent implements OnInit {
         .subscribe(
             data => {
               this.reserveUserGoals = data.goals;
-              this.optimiseImages();
+              this.optimiseImages(true);
               this.start += this.count;
               this.busy = false;
             });
@@ -254,13 +258,13 @@ export class ProfileComponent implements OnInit {
 
   optimiseImages(isGoal?:boolean){
     if(isGoal){
-      // for(let item of this.reserveGoals){
-      //   let img;
-      //   if(item.cached_image){
-      //     img = new Image();
-      //     img.src = this.serverPath + item.cached_image;
-      //   }
-      // }
+      for(let item of this.reserveUserGoals){
+        let img;
+        if(item.cached_image){
+          img = new Image();
+          img.src = this.serverPath + item.cached_image;
+        }
+      }
     } else {
       for(let item of this.reserveUserGoals){
         let img;

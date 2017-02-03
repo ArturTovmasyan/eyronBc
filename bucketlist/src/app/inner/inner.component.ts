@@ -3,6 +3,7 @@ import { ProjectService } from '../project.service';
 import { Broadcaster } from '../tools/broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { RouterModule, Routes, ActivatedRoute, Router, Params } from '@angular/router';
+import { MetadataService } from 'ng2-metadata';
 
 import {Goal} from '../interface/goal';
 import {User} from '../interface/user';
@@ -71,6 +72,7 @@ export class InnerComponent implements OnInit {
   };
 
   constructor(
+      private metadataService: MetadataService,
       private router: Router,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
@@ -133,19 +135,24 @@ export class InnerComponent implements OnInit {
                 return data.doneByUsers[key];
               });
               if(this.goal){
-                var allMetaElements = document.getElementsByTagName('meta');
-                for (var i=0; i<allMetaElements.length; i++) {
-                  if (allMetaElements[i].getAttribute("property") == "og:title" || allMetaElements[i].getAttribute("property") == "title") {
-                    allMetaElements[i].setAttribute('content', this.goal.title);
-                  }
-                  if (allMetaElements[i].getAttribute("property") == "og:description" || allMetaElements[i].getAttribute("property") == "description") {
-                    allMetaElements[i].setAttribute('content', this.goal.description);
-                  }
-                  if (allMetaElements[i].getAttribute("property") == "og:image") {
-                    allMetaElements[i].setAttribute('content', this.goal.cached_image);
-                  }
-                }
-                this.linkToShare = this.angularPath + 'goal/' + this.goal.slug;
+                  this.metadataService.setTitle(this.goal.title);
+                  this.metadataService.setTag('og:image', this.goal.cached_image);
+                  this.metadataService.setTag('description', this.goal.description);
+                  this.metadataService.setTag('og:description', this.goal.description);
+                  this.metadataService.setTag('og:title', this.goal.title);
+                // var allMetaElements = document.getElementsByTagName('meta');
+                // for (var i=0; i<allMetaElements.length; i++) {
+                //   if (allMetaElements[i].getAttribute("name") == "og:title" || allMetaElements[i].getAttribute("name") == "title") {
+                //     allMetaElements[i].setAttribute('content', this.goal.title);
+                //   }
+                //   if (allMetaElements[i].getAttribute("name") == "og:description" || allMetaElements[i].getAttribute("name") == "description") {
+                //     allMetaElements[i].setAttribute('content', this.goal.description);
+                //   }
+                //   if (allMetaElements[i].getAttribute("name") == "og:image") {
+                //     allMetaElements[i].setAttribute('content', this.goal.cached_image);
+                //   }
+                // }
+                this.linkToShare = this.angularPath + '/goal/' + this.goal.slug;
                 setTimeout(()=>{
                   //twitter
                   var js,fjs=document.getElementsByTagName('script')[0],p=(location.protocol.indexOf('https') == -1?'http':'https');
@@ -161,7 +168,7 @@ export class InnerComponent implements OnInit {
                     var js, fjs = d.getElementsByTagName(s)[0];
                     if (d.getElementById(id)) {return;}
                     js = d.createElement(s); js.id = id;
-                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1490967017868221&version=v2.0";
+                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=571257946411819&version=v2.0";
                     fjs.parentNode.insertBefore(js, fjs);
                   }(document, 'script', 'facebook-jssdk'));
                 },2000);
@@ -347,13 +354,14 @@ export class InnerComponent implements OnInit {
             'newAdded' : true
           });
 
-          if(!this.userGoal){
-            this._projectService.getUserGoal(this.goal.id)
-                .subscribe(
-                    data => {
-                      this.userGoal = data;
-                    });
-          }
+          this.broadcaster.on<any>('doneGoal' + this.goal.id)
+              .subscribe(() => {
+                this._projectService.getUserGoal(this.goal.id)
+                    .subscribe(
+                        data => {
+                          this.userGoal = data;
+                        });
+              });
         })
       });
     }

@@ -74,6 +74,10 @@
   padding-bottom:20px;
   margin:15px 0 0;
 
+  .swiper-wrapper{
+    margin: 0 auto;
+  }
+
   .margin-top{
     margin-top:5px;
   }
@@ -82,13 +86,14 @@
     .icon-arrow-right,.icon-arrow-left,i.icon-remove-video-link{
       display:inline-block;
       color: #999999;
-      font-size:20px;
-      margin-top:3px;
+      font-size: 25px;
+      margin-top: 3px;
       line-height: 45px;
     }
 
     i.icon-remove-video-link{
-      margin-right:15px;
+      margin-right: 25px;
+      font-size: 33px;
     }
 
     &:hover{
@@ -147,7 +152,17 @@
     margin:0 0 20px 0;
   }
 
+}
 
+.existing-menu{
+
+  a{
+    display: inline-block;
+  }
+
+  .icon-arrow-left{
+    margin-left: 10px;
+  }
 }
 
 @media (min-width: @screen-sm) {
@@ -206,17 +221,10 @@
         margin-top:13px;
       }
 
-      //.icon-arrow-left{
-      //  font-size: 32px;
-      //}
-
       i.icon-remove-video-link{
         font-size: 40px;
+        margin-right: 18px;
       }
-
-      //.remove-icon{
-      //  right: 10px;
-      //}
 
     }
 
@@ -236,7 +244,7 @@
     }
 
     h3{
-      margin-top:20px;
+      margin-top: 16px;
       font-size: 25px;
       padding: 0 2px 0 15px;
     }
@@ -272,6 +280,10 @@
     padding: 35px 0 0 22px;
   }
 
+  .existing-menu{
+    margin-bottom: 10px;
+  }
+
   #goal-create-form,.goal-preview{
     h3{
       &.text-purple{
@@ -303,10 +315,6 @@
       .icon-arrow-right,.icon-arrow-left,i.icon-remove-video-link{
         margin-top:30px;
       }
-
-      i.icon-remove-video-link{
-        margin-right: 0;
-      }
     }
 
     .title{
@@ -318,7 +326,7 @@
 
     h3{
       margin-top: 31px;
-      padding: 0;
+      //padding: 0;
     }
 
     h3.title{
@@ -339,26 +347,4 @@
     }
   }
 
-}
-
-.description-tooltip{
-  position: absolute;
-  z-index: 1000;
-  top: 136px;
-  text-align: center;
-  background-color: #ffffff;
-  color: #333333;
-  border: 1px solid #b0b0b0;
-  min-width: 150px;
-  height: 34px;
-  line-height: normal;
-  padding: 5px 10px;
-  .rounded-corners(4px);
-  .arrow-up{
-    top: -10px;
-    left: 60px;
-    position: absolute;
-    border-bottom-color: #b0b0b0;
-    border-top-color: #b0b0b0;
-  }
 }

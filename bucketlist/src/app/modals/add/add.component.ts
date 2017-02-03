@@ -15,6 +15,7 @@ import { Broadcaster } from '../../tools/broadcaster';
 export class AddComponent implements OnInit {
   public userGoal: any;
   public appUser: any;
+  public isOpen:boolean = false;
   public year: number = 0;
   public years: number[] = [];
   public completeYears: number[] = [];
@@ -64,9 +65,13 @@ export class AddComponent implements OnInit {
   ngOnInit() {
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
+      this.isOpen = false;
       this.dialogRef.close();
     } else {
 
+      setTimeout(()=>{
+        this.isOpen = true;
+      },500);
       this.appUser = this.ProjectService.getMyUser();
       if (!this.appUser) {
         this.appUser = this._cacheService.get('user_');
@@ -104,6 +109,8 @@ export class AddComponent implements OnInit {
   }
 
   closeModal(){
+    if(!this.isOpen)return;
+    this.isOpen = false;
     this.dialogRef.close();
   }
   getDaysInMonth(m, y) {

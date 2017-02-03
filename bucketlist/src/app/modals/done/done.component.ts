@@ -17,6 +17,7 @@ export class DoneComponent implements OnInit {
   public appUser:any;
   public story:string;
   public goalLink:string;
+  public isOpen:boolean = false;
   public newAdded:boolean;
   public invalidYear:boolean;
   public uncompletedYear:boolean;
@@ -66,10 +67,14 @@ export class DoneComponent implements OnInit {
     this.serverPath = this.ProjectService.getPath();
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
+      this.isOpen = false;
       this.dialogRef.close();
       // this.modalHideEmitter.emit(null);
       
     } else {
+      setTimeout(()=>{
+        this.isOpen = true;
+      },500);
       this.appUser = this.ProjectService.getMyUser();
       if (!this.appUser) {
         this.appUser = this._cacheService.get('user_');
@@ -121,6 +126,8 @@ export class DoneComponent implements OnInit {
     }
   }
   closeModal(){
+    if(!this.isOpen)return;
+    this.isOpen = false;
     this.dialogRef.close();
   }
   getDaysInMonth(m, y) {

@@ -58,8 +58,8 @@ export class TopIdeasBlockComponent implements OnInit {
     this._projectService.getTopIdeas()
         .subscribe(
             goals => {
-              this.refreshListener();
               this.goals = goals;
+              this.refreshListener();
               this._cacheService.set('topIdea', goals, {maxAge: 24 * 60 * 60});
             },
             error => this.errorMessage = <any>error);
@@ -69,8 +69,8 @@ export class TopIdeasBlockComponent implements OnInit {
     this._projectService.getFeaturedIdeas()
         .subscribe(
             goals => {
-              this.refreshListener();
               this.goals = goals;
+              this.refreshListener();
               this._cacheService.set('featuredIdea', goals, {maxAge: 24 * 60 * 60});
             },
                   error => this.errorMessage = <any>error

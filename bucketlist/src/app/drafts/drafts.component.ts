@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import {ProjectService} from '../project.service';
 import {Goal} from '../interface/goal';
+import { MetadataService } from 'ng2-metadata';
 
 @Component({
   selector: 'drafts',
@@ -19,6 +20,7 @@ export class DraftsComponent implements OnInit {
       public busy: boolean = false;
       public reserve: Goal[];
   constructor(
+      private metadataService: MetadataService,
       private _projectService: ProjectService,
       private router:Router,
       private route: ActivatedRoute
@@ -27,6 +29,8 @@ export class DraftsComponent implements OnInit {
       if(this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
         this.type = (this.route.snapshot.params['slug'] && this.route.snapshot.params['slug'] == 'drafts')?'drafts':'private';
+        this.metadataService.setTitle(this.type);
+        this.metadataService.setTag('description', this.type);
         this.start = 0;
         this.goals = null;
         this.reserve = null;
