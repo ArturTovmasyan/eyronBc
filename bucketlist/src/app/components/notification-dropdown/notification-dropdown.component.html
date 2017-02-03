@@ -16,7 +16,7 @@
                 </div>
             </li>
 
-            <li>
+            <li *ngIf="notifications && notifications.length">
 
                 <perfect-scrollbar class="container" [config]="config">
                     <div class="content">
