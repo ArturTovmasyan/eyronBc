@@ -44,7 +44,7 @@ export class GoalCreateComponent implements OnInit {
         slidesPerView: (window.innerWidth < 768?1:(window.innerWidth < 992?2:3)),
         nextButton: '.icon-arrow-right',
         prevButton: '.icon-arrow-left',
-        spaceBetween: 30
+        spaceBetween: 0
     };
     public languages: any[] = [
      {
