@@ -219,6 +219,10 @@ export class AppComponent implements OnInit  {
               });
               // this.doneModal = true;
           });
+      this.broadcaster.on<any>('closeNoteDrop')
+          .subscribe( () => {
+              this.show = false;
+          });
       
   }
     toogleNote(){

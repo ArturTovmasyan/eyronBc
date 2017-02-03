@@ -24,7 +24,7 @@
                     <li>
                         <i class="close-icon" data-click="true" (click)="delete(notify.id, i)"></i>
 
-                        <div (click)="goNotificationPage(notify, i)" class="clearfix">
+                        <div (click)="goNotificationPage(notify, i); userPage = false" class="clearfix">
                             <figure class="pull-left">
                                 <img *ngIf=" notify.notification.performer && notify.notification.performer.image_path"
                                      src="{{serverPath + notify.notification.performer.image_path}}" alt="photo"
@@ -36,7 +36,7 @@
 
                             <p>
                           <span>
-                              <a class="pull-left" *ngIf="notify.notification.performer"
+                              <a class="pull-left" *ngIf="notify.notification.performer" (click)="goToUserPage()"
                                  routerLink="/profile/{{notify.notification.performer.u_id }}">{{
                                   notify.notification.performer.show_name}} &nbsp;</a>
                               <span class="text-dark-gray" [innerHTML]="bodyInHtml(notify.notification.body)"></span>
