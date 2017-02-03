@@ -215,7 +215,7 @@ export class ProfileComponent implements OnInit {
         .subscribe(
             data => {
               this.reserveUserGoals = data.goals;
-              this.optimiseImages();
+              this.optimiseImages(true);
               this.start += this.count;
               this.busy = false;
             });
@@ -254,13 +254,13 @@ export class ProfileComponent implements OnInit {
 
   optimiseImages(isGoal?:boolean){
     if(isGoal){
-      // for(let item of this.reserveGoals){
-      //   let img;
-      //   if(item.cached_image){
-      //     img = new Image();
-      //     img.src = this.serverPath + item.cached_image;
-      //   }
-      // }
+      for(let item of this.reserveUserGoals){
+        let img;
+        if(item.cached_image){
+          img = new Image();
+          img.src = this.serverPath + item.cached_image;
+        }
+      }
     } else {
       for(let item of this.reserveUserGoals){
         let img;
