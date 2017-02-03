@@ -142,7 +142,7 @@ export class NotificationDropdownComponent implements OnInit {
         let now = (new Date()).getTime();
         let ms = (new Date(lastActivity)).getTime();
 
-        let d = ms - now,
+        let d = now - ms,
             dd = Math.floor(d/one_day),
             h = Math.floor(d/one_hour),
             mm = Math.floor(d/one_minute);
