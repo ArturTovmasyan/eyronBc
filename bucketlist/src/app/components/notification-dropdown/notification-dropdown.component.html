@@ -16,7 +16,7 @@
                 </div>
             </li>
 
-            <li>
+            <li *ngIf="notifications && notifications.length">
 
                 <perfect-scrollbar class="container" [config]="config">
                     <div class="content">
@@ -63,7 +63,7 @@
                 </perfect-scrollbar>
             </li>
 
-            <li class="text-center">
+            <li class="text-center" *ngIf="notifications && notifications.length">
                 <a *ngIf="notifications && notifications.length" routerLink="/notifications" (click)="hideNote()" class="text-grey-dark">
                     See all
                 </a>
