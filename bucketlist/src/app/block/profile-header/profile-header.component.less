@@ -4,7 +4,7 @@
 .content-header{
   position: relative;
   overflow: hidden;
-  min-height: 261px;
+  min-height: 230px;
 
   &>figure{
     position: absolute;
@@ -158,13 +158,14 @@
     background-color: rgba(207, 207, 207, 0.34);
     text-align: center;
     position:relative;
-    padding:10px 0;
+    padding: 10px 0 7px;
 
     div{
       width:100px;
       height:100px;
       margin:0 auto;
       overflow:hidden;
+      position: relative;
     }
 
     span.profile-image{
@@ -186,10 +187,6 @@
       margin-top:11px;
       background-color: transparent;
 
-      ul{
-        padding-top: 10px;
-      }
-
       h3{
         color: #ffffff;
         font-size:18px;
@@ -204,32 +201,37 @@
         }
       }
 
-      li{
-        display: inline-block;
-        border-right:1px solid #eeeeee;
-        padding:0 20px;
+      ul{
+        padding-top: 10px;
 
-        span{
-          display:block;
-          color:#ffffff;
-          font-size: 14px;
-          line-height: 21px;
+        li{
+          display: inline-block;
+          border-right:1px solid #eeeeee;
+          padding:0 20px;
+          height: auto;
+          line-height: inherit;
+
+          span{
+            display:block;
+            color:#ffffff;
+            font-size: 14px;
+            line-height: 21px;
+
+            &:last-child{
+              font-size: 22px;
+              line-height: 33px;
+            }
+          }
 
           &:last-child{
-            font-size: 22px;
-            line-height: 33px;
+            border:0;
           }
-        }
-
-        &:last-child{
-          border:0;
-        }
-        &:hover{
-          background-color: transparent;
+          &:hover{
+            background-color: transparent;
+          }
         }
       }
     }
-
   }
 
   #settings-form{
@@ -493,9 +495,21 @@
   text-align: left;
 }
 
+.image-label{
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 22px 5px;
+}
+
 @media (min-width: @screen-sm) {
   .content-header{
-    //min-height:260px;
+    min-height: 236px;
 
     &>figure{
       height:260px;
@@ -538,20 +552,20 @@
 
         ul{
           padding-top: 0;
-        }
+          li{
+            padding:0 8px;
 
-        li{
-          padding:0 8px;
+            span{
+              font-size:13px;
 
-          span{
-            font-size:13px;
-
-            &:last-child{
-              font-size: 16px;
-              line-height: 24px;
+              &:last-child{
+                font-size: 16px;
+                line-height: 24px;
+              }
             }
           }
         }
+
       }
     }
 
@@ -732,11 +746,16 @@
   .md-slide-toggle-content{
     max-width: 600px;
   }
+
+  .image-label{
+    font-size: 15px;
+    padding: 30px 15px;
+  }
 }
 
 @media (min-width: @screen-md) {
   .content-header{
-    min-height: 266px;
+    min-height: 264px;
     &>figure{
       height:266px;
       &.my-profile{
@@ -779,21 +798,22 @@
       figcaption{
         margin-top: 17px;
 
-        li{
-          padding:0 20px;
+        ul{
+          li{
+            padding:0 20px;
 
-          span{
-            font-size: 14px;
-            line-height: 21px;
+            span{
+              font-size: 14px;
+              line-height: 21px;
 
-            &:last-child{
-              font-size: 18px;
-              line-height: 27px;
+              &:last-child{
+                font-size: 18px;
+                line-height: 27px;
+              }
             }
           }
         }
       }
-
     }
 
     .relative{
@@ -930,6 +950,11 @@
       }
     }
   }
+
+  .image-label{
+    font-size: 16px;
+    padding: 41px 15px;
+  }
 }
 
 @media (min-width: @screen-lg) {
@@ -945,10 +970,4 @@
   }
 
 }
-.image-label{
-  position: absolute;
-  left: 35%;
-  top: 36%;
-  color: purple;
-  cursor: pointer
-}
+
