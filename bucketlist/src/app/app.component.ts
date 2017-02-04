@@ -70,10 +70,10 @@ export class AppComponent implements OnInit  {
           { display: 'English', value: 'en' },
           { display: 'Russian', value: 'ru' }
         ];
-        
+
         this.selectLang('en');
         this._cacheService.set('supportedLanguages', this.supportedLanguages, {maxAge: 3 * 24 * 60 * 60});
-        
+
         let data = this._cacheService.get('footerMenu');
         if(data){
             this.menus = data[0];
@@ -81,7 +81,7 @@ export class AppComponent implements OnInit  {
         }else {
             this.getBottomMenu();
         }
-        
+
         if(localStorage.getItem('apiKey')){
             this.appUser = this._cacheService.get('user_');
             if(!this.appUser) {
@@ -98,12 +98,12 @@ export class AppComponent implements OnInit  {
                 this.selectLang((this.appUser.language)?this.appUser.language:'en');
             }
         }
-        
+
           this.broadcaster.on<any>('updateNoteCount')
               .subscribe(count => {
                   this.newNotCount = count;
               });
-        
+
         this.broadcaster.on<User>('login')
             .subscribe(user => {
               this.appUser = user;
@@ -111,18 +111,18 @@ export class AppComponent implements OnInit  {
               this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
               this.broadcaster.broadcast('getUser', user);
             });
-        
+
         this.broadcaster.on<string>('logout')
             .subscribe(message => {
-              this.appUser = null;         
+              this.appUser = null;
             });
-        
+
         this.broadcaster.on<string>('openLogin')
             .subscribe(message => {
               this.appUser = null;
               this.joinShow = true;
             });
-          
+
         //modals
           this.broadcaster.on<number>('commonModal')
               .subscribe(id => {
@@ -134,11 +134,11 @@ export class AppComponent implements OnInit  {
                   dialogRef = this.dialog.open(CommonComponent, config);
                   dialogRef.componentInstance.id = id;
                   dialogRef.afterClosed().subscribe(result => {
-        
+
                   });
                   // this.commonModal = true;
               });
-          
+
           this.broadcaster.on<any>('reportModal')
               .subscribe(data => {
                   this.reportData = data;
@@ -149,11 +149,11 @@ export class AppComponent implements OnInit  {
                   dialogRef = this.dialog.open(ReportComponent, config);
                   dialogRef.componentInstance.data = data;
                   dialogRef.afterClosed().subscribe(result => {
-        
+
                   });
                   this.reportModal = true;
               });
-          
+
           this.broadcaster.on<any>('usersModal')
               .subscribe(data => {
                   this.usersData = data;
@@ -164,11 +164,11 @@ export class AppComponent implements OnInit  {
                   dialogRef = this.dialog.open(UsersComponent, config);
                   dialogRef.componentInstance.data = data;
                   dialogRef.afterClosed().subscribe(result => {
-        
+
                   });
                   // this.usersModal = true;
               });
-          
+
           this.broadcaster.on<any>('addModal')
               .subscribe(data => {
                   if(this.busy)return;
@@ -201,7 +201,7 @@ export class AppComponent implements OnInit  {
                   });
                   // this.addModal = true;
               });
-        
+
           this.broadcaster.on<any>('doneModal')
               .subscribe(data => {
                   this.broadcaster.broadcast('doneGoal', data);
@@ -219,9 +219,9 @@ export class AppComponent implements OnInit  {
                   });
                   // this.doneModal = true;
               });
-          
+
     }
-    
+
     toogleNote(){
         if(this.show != true){
             this.writeTimeout = setTimeout(() =>{
@@ -251,13 +251,13 @@ export class AppComponent implements OnInit  {
     closeDropdown(){
         if(this.show)this.show = false
     }
-    
+
     logout(){
       localStorage.removeItem('apiKey');
       this.router.navigate(['/']);
       this.appUser = null;
     }
-    
+
     getBottomMenu() {
         this._projectService.getBottomMenu()
             .subscribe(

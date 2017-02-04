@@ -13,7 +13,7 @@
 
                         <ul class="nav navbar-nav pull-left" *ngIf="!isMobile || !joinToggle1">
 
-                            <li *ngIf="appUser">
+                            <li *ngIf="appUser && appUser.activity">
                                 <a routerLink="/activity" routerLinkActive="active">
                                     <i class="icons activity-icon"></i>
                                     <span class="hidden-xs hidden-sm">{{ 'activity'|translate | uppercase }}</span>
@@ -82,7 +82,7 @@
                                 <ul class="user-menu" *ngIf="joinToggle1">
 
                                     <!--{% if app.user and app.user.activity %}-->
-                                    <li>
+                                    <li *ngIf="appUser && appUser.activity">
                                         <a routerLink="/activity" (click)="joinToggle1 = false">
                                             <i  class="icons activity-icon"></i>
                                             <span>{{ 'activity'|translate }}</span>
