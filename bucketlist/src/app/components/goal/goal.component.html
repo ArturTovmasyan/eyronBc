@@ -24,16 +24,18 @@
         <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}"
            class="goalTitle goal-item-image">
             <span class="overlay"></span>
-            <img src="{{ goal.cached_image }}"
-                 alt="{{ goal.title }}"
-                 *ngIf="goal.cached_image"/>
+            <preload-img *ngIf="goal.cached_image" [img]="goal.cached_image" [title]="goal.title"></preload-img>
+            <!--<img src="{{ goal.cached_image }}"-->
+                 <!--alt="{{ goal.title }}"-->
+                 <!--*ngIf="goal.cached_image"/>-->
         </a>
         <a *ngIf="!goal.publish"
            class="goalTitle goal-item-image">
             <span class="overlay"></span>
-            <img src="{{ goal.cached_image }}"
-                 alt="{{ goal.title }}"
-                 *ngIf="goal.cached_image"/>
+            <preload-img *ngIf="goal.cached_image" [img]="goal.cached_image" [title]="goal.title"></preload-img>
+            <!--<img src="{{ goal.cached_image }}"-->
+                 <!--alt="{{ goal.title }}"-->
+                 <!--*ngIf="goal.cached_image"/>-->
         </a>
 
       <a class="nearby-distance"
