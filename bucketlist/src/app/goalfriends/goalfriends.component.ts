@@ -67,9 +67,9 @@ export class GoalfriendsComponent implements OnInit {
 
               for(let item of this.reserve){
                 let img;
-                if(item.cached_image){
+                if(item.image_path){
                   img = new Image();
-                  img.src = this.serverPath + item.cached_image;
+                  img.src = this.serverPath + item.image_path;
                 }
               }
               this.start += this.count;
