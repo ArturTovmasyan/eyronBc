@@ -273,6 +273,9 @@ class UserGoalService extends AbstractProcessService
         $userGoal->setStatus($status);
         $userGoal->setCompletionDate($completionDate);
 
+        //set user activity value
+        $this->blService->setUserActivity($user, $url);
+
         $this->em->persist($userGoal);
         $this->em->flush();
 
