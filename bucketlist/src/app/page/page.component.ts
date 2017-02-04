@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ValidationService } from 'app/validation.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -14,12 +14,13 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
     styleUrls: ['./page.component.less']
 })
 
-export class PageComponent implements OnInit {
+export class PageComponent implements OnInit, OnDestroy {
 
     public eventId: number = 0;
     public name: string;
     public title: string;
     public isSend: boolean = false;
+    public isDestroy: boolean = false;
     public description: any ;
     public data: any;
     public locale: string = 'en';
@@ -36,7 +37,7 @@ export class PageComponent implements OnInit {
         private sanitizer: DomSanitizer
     ) {
         router.events.subscribe((val) => {
-            if(this.eventId != val.id && val instanceof NavigationEnd){
+            if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
                 this.eventId = val.id;
                 this.name = this.route.snapshot.params['name'] ? this.route.snapshot.params['name'] : 'how-it-works';
                 if(this.name == 'contact-us') {
@@ -53,6 +54,10 @@ export class PageComponent implements OnInit {
             'subject': ['', [Validators.required]],
             'message': ['', [Validators.required]],
         });
+    }
+
+    ngOnDestroy(){
+        this.isDestroy = true;
     }
 
     ngOnInit() {

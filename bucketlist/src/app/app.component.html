@@ -28,7 +28,7 @@
                             </li>
 
                             <li *ngIf="appUser">
-                                <a routerLink="/profile/my" routerLinkActive="active">
+                                <a routerLink="/profile/my/all" routerLinkActive="active">
                                     <i class="icons mybucketlist-icon"></i>
                                     <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|translate | uppercase}}</span>
                                 </a>
@@ -75,7 +75,7 @@
                                     </a>
 
                                     <!--{% if not isMobile() %}-->
-                                    <i class="menu-hamburger hidden-xs" *ngIf="!joinToggle1"></i>
+                                    <i class="menu-hamburger hidden-xs" *ngIf="!joinToggle1" data-click="true"></i>
                                     <i [ngClass]="{'menu-remove': !isMobile, 'icon-remove-email': isMobile}" *ngIf="joinToggle1"></i>
                                     <!--{% endif %}-->
                                 </a>
@@ -112,7 +112,7 @@
                                     </li>
 
                                     <li>
-                                        <a routerLink="/profile/my" (click)="joinToggle1 = false">
+                                        <a routerLink="/profile/my/all" (click)="joinToggle1 = false">
                                             <i class="icons mybucketlist-icon"></i>
                                             <span>{{ 'my_bucketlist'|translate }}</span>
                                         </a>
@@ -139,14 +139,6 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <!--when mobile menu-->
-                                <!--<a (click)="joinToggle1 = !joinToggle1;" class=" mobile-user hidden-sm hidden-md hidden-lg" *ngIf="!joinToggle1">-->
-                                    <!--<figure class="img-circle" *ngIf="appUser.image_path">-->
-                                        <!--&lt;!&ndash;'user_icon'&ndash;&gt;-->
-                                        <!--<img src="{{ serverPath + appUser.image_path }}" alt="{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}" class="img-responsive img-circle" height="40">-->
-                                    <!--</figure>-->
-                                    <!--<p class="no-image user-no1" *ngIf="!appUser.image_path">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>-->
-                                <!--</a>-->
                             </li>
                             <li *ngIf="!appUser">
                                 <a (click)="joinShow = !joinShow"
@@ -251,17 +243,4 @@
     </footer>
 </div>
 
-<!--<nav>-->
-<!--<a routerLink="/ideas" routerLinkActive="active">Ideas</a>-->
-<!--<a routerLink="/" routerLinkActive="active">Home</a>-->
-<!--<a routerLink="/activity" routerLinkActive="active">Activity</a>-->
-<!--<a routerLink="/profile" routerLinkActive="active">MY List</a>-->
-<!--<a routerLink="/goal/create" routerLinkActive="active">Goal Create</a>-->
-<!--<a routerLink="/notifications" routerLinkActive="active">notifications</a>-->
-<!--<a routerLink="/leaderboard" routerLinkActive="active">leaderboard</a>-->
-<!--<a routerLink="/goal-friends" routerLinkActive="active">goal-friends</a>-->
-<!--<a routerLink="/goal/my-ideas" routerLinkActive="active">Drafts</a>-->
-<!--<a routerLink="/edit/:type" routerLinkActive="active">settings</a>-->
-<!--<a routerLink="/goal/:slug" routerLinkActive="active">Goal Inner</a>-->
-<!--</nav>-->
 
