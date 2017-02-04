@@ -112,7 +112,7 @@
             <!--{% if score  > 0 %}-->
             <li *ngFor="let badge of badges">
               <i title="{{ (badge.type == 1?'leaderboard.traveler': badge.type == 2?'leaderboard.writer':'leaderboard.innovator')|translate }}" class="badge-{{ badge.type }}"></i>
-               <a routerLink="/leaderboard" routerLinkActive="active">{{ badge.points }}</a>
+               <a routerLink="/leaderboard/{{ (badge.type == 2?'mentor':'innovator')}}" routerLinkActive="active">{{ badge.points }}</a>
               <!--{{ score|round(0, 'ceil')}}-->
             </li>
             <!--{% endif %}-->

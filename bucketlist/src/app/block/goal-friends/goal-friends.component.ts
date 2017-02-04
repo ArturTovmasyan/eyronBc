@@ -41,9 +41,14 @@ export class GoalFriendsBlockComponent implements OnInit {
           .subscribe(
               user => {
                 this.appUser = user;
+                this.getData();
               })
+    } else {
+      this.getData();
     }
+  }
 
+  getData(){
     let data = this._cacheService.get('goalFriendBox'+this.appUser.id);
 
     if(data){
@@ -54,7 +59,7 @@ export class GoalFriendsBlockComponent implements OnInit {
       this.goalFriends()
     }
   }
-
+  
   goalFriends() {
     this._projectService.getGaolFriends()
         .subscribe(
