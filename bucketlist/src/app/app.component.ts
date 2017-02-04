@@ -174,6 +174,17 @@ export class AppComponent implements OnInit  {
                   if(this.busy)return;
                   this.busy = true;
                   // this.addData = data;
+                  if(!this.appUser.activity){
+                      this._projectService.getUser()
+                          .subscribe(
+                              user => {
+                                  this.appUser = user;
+                                  this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                                  this.broadcaster.broadcast('getUser', user);
+                              },
+                              error => localStorage.removeItem('apiKey'));
+                  }
+
                   let dialogRef: MdDialogRef<AddComponent>;
                   let config = new MdDialogConfig();
                   config.viewContainerRef = this.viewContainerRef;
@@ -204,6 +215,16 @@ export class AppComponent implements OnInit  {
 
           this.broadcaster.on<any>('doneModal')
               .subscribe(data => {
+                  if(!this.appUser.activity){
+                      this._projectService.getUser()
+                          .subscribe(
+                              user => {
+                                  this.appUser = user;
+                                  this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                                  this.broadcaster.broadcast('getUser', user);
+                              },
+                              error => localStorage.removeItem('apiKey'));
+                  }
                   this.broadcaster.broadcast('doneGoal', data);
                   this.doneData = data;
                   this.addData = data;
