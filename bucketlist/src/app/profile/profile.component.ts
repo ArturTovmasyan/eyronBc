@@ -271,7 +271,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         let img;
         if(item.cached_image){
           img = new Image();
-          img.src = this.serverPath + item.cached_image;
+          img.src = item.cached_image;
         }
       }
     } else {
@@ -279,7 +279,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         let img;
         if(item.goal.cached_image){
           img = new Image();
-          img.src = this.serverPath + item.goal.cached_image;
+          img.src = item.goal.cached_image;
         }
       }
     }

@@ -64,7 +64,7 @@ export class CommonComponent implements OnInit {
                 let img;
                 if(item.cached_image){
                   img = new Image();
-                  img.src = this.serverPath + item.cached_image;
+                  img.src = item.cached_image;
                 }
               }
               this.start += this.count;
