@@ -25,20 +25,20 @@ import {User} from './interface/user';
 })
 
 export class AppComponent implements OnInit  {
-   @Input() count:number;
-  public translatedText: string;
-  public supportedLanguages: any[];
-  public joinShow:boolean = false;
-  public show:boolean = false;
-  public newNotCount:number = 0;
-  public menus: any[];
-  public privacyMenu: any;
-  public serverPath:string = '';
-  public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
-  public isMobile:Boolean= (window.innerWidth < 768);
-  errorMessage:string;
-  public appUser:User;
-  public busy:boolean = false;
+    @Input() count:number;
+    public translatedText: string;
+    public supportedLanguages: any[];
+    public joinShow:boolean = false;
+    public show:boolean = false;
+    public newNotCount:number = 0;
+    public menus: any[];
+    public privacyMenu: any;
+    public serverPath:string = '';
+    public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
+    public isMobile:Boolean= (window.innerWidth < 768);
+    errorMessage:string;
+    public appUser:User;
+    public busy:boolean = false;
 
   //  modal
     public reportModal:boolean = false;
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit  {
     public doneData:any;
     public writeTimeout:any;
 
-  constructor(
+    constructor(
       private _translate: TranslateService,
       private broadcaster: Broadcaster,
       private _projectService: ProjectService,
@@ -61,166 +61,167 @@ export class AppComponent implements OnInit  {
       private router: Router,
       private viewContainerRef: ViewContainerRef,
       public dialog: MdDialog
-  ) { }
+    ) { }
 
-  ngOnInit() {
-    this.serverPath = this._projectService.getPath();
-    // standing data
-    this.supportedLanguages = [
-      { display: 'English', value: 'en' },
-      { display: 'Russian', value: 'ru' }
-    ];
-
-    this.selectLang('en');
-    this._cacheService.set('supportedLanguages', this.supportedLanguages, {maxAge: 3 * 24 * 60 * 60});
-
-    let data = this._cacheService.get('footerMenu');
-    if(data){
-        this.menus = data[0];
-        this.privacyMenu = data[1];
-    }else {
-        this.getBottomMenu();
-    }
-
-    if(localStorage.getItem('apiKey')){
-        this.appUser = this._cacheService.get('user_');
-        if(!this.appUser) {
-            this._projectService.getUser()
-                .subscribe(
-                    user => {
-                        this.appUser = user;
-                        this.selectLang((user && user.language)?user.language:'en');
-                        this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
-                        this.broadcaster.broadcast('getUser', user);
-                    },
-                    error => localStorage.removeItem('apiKey'));
-        } else {
-            this.selectLang((this.appUser.language)?this.appUser.language:'en');
+    ngOnInit() {
+        this.serverPath = this._projectService.getPath();
+        // standing data
+        this.supportedLanguages = [
+          { display: 'English', value: 'en' },
+          { display: 'Russian', value: 'ru' }
+        ];
+        
+        this.selectLang('en');
+        this._cacheService.set('supportedLanguages', this.supportedLanguages, {maxAge: 3 * 24 * 60 * 60});
+        
+        let data = this._cacheService.get('footerMenu');
+        if(data){
+            this.menus = data[0];
+            this.privacyMenu = data[1];
+        }else {
+            this.getBottomMenu();
         }
-    }
-
-      this.broadcaster.on<any>('updateNoteCount')
-          .subscribe(count => {
-              this.newNotCount = count;
-          });
-
-    this.broadcaster.on<User>('login')
-        .subscribe(user => {
-          this.appUser = user;
-          this.selectLang((this.appUser.language)?this.appUser.language:'en');
-          this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
-          this.broadcaster.broadcast('getUser', user);
-        });
-
-    this.broadcaster.on<string>('logout')
-        .subscribe(message => {
-          this.appUser = null;         
-        });
-
-    this.broadcaster.on<string>('openLogin')
-        .subscribe(message => {
-          this.appUser = null;
-          this.joinShow = true;
-        });
-      
-    //modals
-      this.broadcaster.on<number>('commonModal')
-          .subscribe(id => {
-              this.commonId = id;
-              let dialogRef: MdDialogRef<CommonComponent>;
-              let config = new MdDialogConfig();
-              // config.height = '600px';
-              config.viewContainerRef = this.viewContainerRef;
-              dialogRef = this.dialog.open(CommonComponent, config);
-              dialogRef.componentInstance.id = id;
-              dialogRef.afterClosed().subscribe(result => {
-
+        
+        if(localStorage.getItem('apiKey')){
+            this.appUser = this._cacheService.get('user_');
+            if(!this.appUser) {
+                this._projectService.getUser()
+                    .subscribe(
+                        user => {
+                            this.appUser = user;
+                            this.selectLang((user && user.language)?user.language:'en');
+                            this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                            this.broadcaster.broadcast('getUser', user);
+                        },
+                        error => localStorage.removeItem('apiKey'));
+            } else {
+                this.selectLang((this.appUser.language)?this.appUser.language:'en');
+            }
+        }
+        
+          this.broadcaster.on<any>('updateNoteCount')
+              .subscribe(count => {
+                  this.newNotCount = count;
               });
-              // this.commonModal = true;
-          });
-      
-      this.broadcaster.on<any>('reportModal')
-          .subscribe(data => {
-              this.reportData = data;
-              let dialogRef: MdDialogRef<ReportComponent>;
-              let config = new MdDialogConfig();
-              config.height = '400px';
-              config.viewContainerRef = this.viewContainerRef;
-              dialogRef = this.dialog.open(ReportComponent, config);
-              dialogRef.componentInstance.data = data;
-              dialogRef.afterClosed().subscribe(result => {
-
+        
+        this.broadcaster.on<User>('login')
+            .subscribe(user => {
+              this.appUser = user;
+              this.selectLang((this.appUser.language)?this.appUser.language:'en');
+              this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+              this.broadcaster.broadcast('getUser', user);
+            });
+        
+        this.broadcaster.on<string>('logout')
+            .subscribe(message => {
+              this.appUser = null;         
+            });
+        
+        this.broadcaster.on<string>('openLogin')
+            .subscribe(message => {
+              this.appUser = null;
+              this.joinShow = true;
+            });
+          
+        //modals
+          this.broadcaster.on<number>('commonModal')
+              .subscribe(id => {
+                  this.commonId = id;
+                  let dialogRef: MdDialogRef<CommonComponent>;
+                  let config = new MdDialogConfig();
+                  // config.height = '600px';
+                  config.viewContainerRef = this.viewContainerRef;
+                  dialogRef = this.dialog.open(CommonComponent, config);
+                  dialogRef.componentInstance.id = id;
+                  dialogRef.afterClosed().subscribe(result => {
+        
+                  });
+                  // this.commonModal = true;
               });
-              this.reportModal = true;
-          });
-      
-      this.broadcaster.on<any>('usersModal')
-          .subscribe(data => {
-              this.usersData = data;
-              let dialogRef: MdDialogRef<UsersComponent>;
-              let config = new MdDialogConfig();
-              config.height = '600px';
-              config.viewContainerRef = this.viewContainerRef;
-              dialogRef = this.dialog.open(UsersComponent, config);
-              dialogRef.componentInstance.data = data;
-              dialogRef.afterClosed().subscribe(result => {
-
+          
+          this.broadcaster.on<any>('reportModal')
+              .subscribe(data => {
+                  this.reportData = data;
+                  let dialogRef: MdDialogRef<ReportComponent>;
+                  let config = new MdDialogConfig();
+                  config.height = '400px';
+                  config.viewContainerRef = this.viewContainerRef;
+                  dialogRef = this.dialog.open(ReportComponent, config);
+                  dialogRef.componentInstance.data = data;
+                  dialogRef.afterClosed().subscribe(result => {
+        
+                  });
+                  this.reportModal = true;
               });
-              // this.usersModal = true;
-          });
-      
-      this.broadcaster.on<any>('addModal')
-          .subscribe(data => {
-              if(this.busy)return;
-              this.busy = true;
-              // this.addData = data;
-              let dialogRef: MdDialogRef<AddComponent>;
-              let config = new MdDialogConfig();
-              config.viewContainerRef = this.viewContainerRef;
-              //config.height = '600px';
-              dialogRef = this.dialog.open(AddComponent, config);
-              dialogRef.componentInstance.newCreated = data.newCreated;
-              dialogRef.componentInstance.newAdded = data.newAdded;
-              dialogRef.componentInstance.userGoal = data.userGoal;
-              dialogRef.afterClosed().subscribe(result => {
-                  this.busy = false;
-                  if(result){
-                      if(result.remove){
-                          this.broadcaster.broadcast('removeUserGoal_' + result.remove, result.remove);
-                          this.broadcaster.broadcast('removeGoal', result.remove);
-                          this.broadcaster.broadcast('removeGoal'+data.userGoal.goal.id, data.userGoal.goal.id);
+          
+          this.broadcaster.on<any>('usersModal')
+              .subscribe(data => {
+                  this.usersData = data;
+                  let dialogRef: MdDialogRef<UsersComponent>;
+                  let config = new MdDialogConfig();
+                  config.height = '600px';
+                  config.viewContainerRef = this.viewContainerRef;
+                  dialogRef = this.dialog.open(UsersComponent, config);
+                  dialogRef.componentInstance.data = data;
+                  dialogRef.afterClosed().subscribe(result => {
+        
+                  });
+                  // this.usersModal = true;
+              });
+          
+          this.broadcaster.on<any>('addModal')
+              .subscribe(data => {
+                  if(this.busy)return;
+                  this.busy = true;
+                  // this.addData = data;
+                  let dialogRef: MdDialogRef<AddComponent>;
+                  let config = new MdDialogConfig();
+                  config.viewContainerRef = this.viewContainerRef;
+                  //config.height = '600px';
+                  dialogRef = this.dialog.open(AddComponent, config);
+                  dialogRef.componentInstance.newCreated = data.newCreated;
+                  dialogRef.componentInstance.newAdded = data.newAdded;
+                  dialogRef.componentInstance.userGoal = data.userGoal;
+                  dialogRef.afterClosed().subscribe(result => {
+                      this.busy = false;
+                      if(result){
+                          if(result.remove){
+                              this.broadcaster.broadcast('removeUserGoal_' + result.remove, result.remove);
+                              this.broadcaster.broadcast('removeGoal', result.remove);
+                              this.broadcaster.broadcast('removeGoal'+data.userGoal.goal.id, data.userGoal.goal.id);
+                          } else {
+                              this.broadcaster.broadcast('saveUserGoal_' + result.id, result);
+                              this.broadcaster.broadcast('saveGoal', result);
+                              this.broadcaster.broadcast('saveGoal'+result.goal.id, result);
+                          }
                       } else {
-                          this.broadcaster.broadcast('saveUserGoal_' + result.id, result);
-                          this.broadcaster.broadcast('saveGoal', result);
-                          this.broadcaster.broadcast('saveGoal'+result.goal.id, result);
+                          this.broadcaster.broadcast('addGoal', data.userGoal);
+                          this.broadcaster.broadcast('addGoal'+data.userGoal.goal.id, data.userGoal);
                       }
-                  } else {
-                      this.broadcaster.broadcast('addGoal', data.userGoal);
-                      this.broadcaster.broadcast('addGoal'+data.userGoal.goal.id, data.userGoal);
-                  }
+                  });
+                  // this.addModal = true;
               });
-              // this.addModal = true;
-          });
-
-      this.broadcaster.on<any>('doneModal')
-          .subscribe(data => {
-              this.broadcaster.broadcast('doneGoal', data);
-              this.doneData = data;
-              this.addData = data;
-              let dialogRef: MdDialogRef<DoneComponent>;
-              let config = new MdDialogConfig();
-              // config.height = '600px';
-              config.viewContainerRef = this.viewContainerRef;
-              dialogRef = this.dialog.open(DoneComponent, config);
-              dialogRef.componentInstance.newAdded = data.newAdded;
-              dialogRef.componentInstance.userGoal = data.userGoal;
-              dialogRef.afterClosed().subscribe(result => {
-                  this.broadcaster.broadcast('doneGoal'+data.userGoal.goal.id, {});
+        
+          this.broadcaster.on<any>('doneModal')
+              .subscribe(data => {
+                  this.broadcaster.broadcast('doneGoal', data);
+                  this.doneData = data;
+                  this.addData = data;
+                  let dialogRef: MdDialogRef<DoneComponent>;
+                  let config = new MdDialogConfig();
+                  // config.height = '600px';
+                  config.viewContainerRef = this.viewContainerRef;
+                  dialogRef = this.dialog.open(DoneComponent, config);
+                  dialogRef.componentInstance.newAdded = data.newAdded;
+                  dialogRef.componentInstance.userGoal = data.userGoal;
+                  dialogRef.afterClosed().subscribe(result => {
+                      this.broadcaster.broadcast('doneGoal'+data.userGoal.goal.id, {});
+                  });
+                  // this.doneModal = true;
               });
-              // this.doneModal = true;
-          });
-      
-  }
+          
+    }
+    
     toogleNote(){
         if(this.show != true){
             this.writeTimeout = setTimeout(() =>{
@@ -234,41 +235,42 @@ export class AppComponent implements OnInit  {
     newCount(ev){
         this.newNotCount = ev;
     }
-  hideJoin(ev){
-    this.joinShow = false;
-  }
+    hideJoin(ev){
+        this.joinShow = false;
+    }
 
-  isCurrentLang(lang: string) {
-    return lang === this._translate.currentLang;
-  }
+    isCurrentLang(lang: string) {
+        return lang === this._translate.currentLang;
+    }
 
-  selectLang(lang: string) {
-    // set default;
-    this._translate.use(lang);
-  }
+    selectLang(lang: string) {
+        // set default;
+        this._translate.use(lang);
+    }
 
     closeDropdown(){
         if(this.show)this.show = false
     }
-  logout(){
+    
+    logout(){
       localStorage.removeItem('apiKey');
       this.router.navigate(['/']);
       this.appUser = null;
-  }
+    }
+    
+    getBottomMenu() {
+        this._projectService.getBottomMenu()
+            .subscribe(
+                menus => {
+                  this.menus = menus;
 
-  getBottomMenu() {
-    this._projectService.getBottomMenu()
-        .subscribe(
-            menus => {
-              this.menus = menus;
-
-              for(let index in this.menus){
-                if (this.menus[index].isTerm) {
-                  this.privacyMenu = this.menus[index];
-                }
-              }
-              this._cacheService.set('footerMenu', [menus, this.privacyMenu], {maxAge: 3 * 24 * 60 * 60});
-            },
-            error => this.errorMessage = <any>error);
-  }
+                  for(let index in this.menus){
+                    if (this.menus[index].isTerm) {
+                      this.privacyMenu = this.menus[index];
+                    }
+                  }
+                  this._cacheService.set('footerMenu', [menus, this.privacyMenu], {maxAge: 3 * 24 * 60 * 60});
+                },
+                error => this.errorMessage = <any>error);
+    }
 }

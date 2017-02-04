@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -13,11 +13,12 @@ import {FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./settings.component.less']
 })
 
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
     eventId: number = 0;
     type: string;
     appUser:any;
+    isDestroy: boolean = false;
     form: FormGroup;
     arrayDay:number[] = [];
     arrayYear:number[] = [];
@@ -85,7 +86,7 @@ export class SettingsComponent implements OnInit {
         private fb: FormBuilder
     ) {
         router.events.subscribe((val) => {
-            if(this.eventId != val.id && val instanceof NavigationEnd){
+            if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
 
                 this.eventId = val.id;
                 this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'profile';
@@ -215,6 +216,10 @@ export class SettingsComponent implements OnInit {
         );
     }
 
+    ngOnDestroy(){
+        this.isDestroy = true;
+    }
+    
     ngOnInit() {
     }
 

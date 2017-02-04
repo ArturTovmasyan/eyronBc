@@ -1,4 +1,4 @@
-import { Component, OnInit , ViewEncapsulation, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit , ViewEncapsulation, ViewChild, ElementRef, Renderer, OnDestroy } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Broadcaster } from '../tools/broadcaster';
 import { MetadataService } from 'ng2-metadata';
@@ -18,37 +18,38 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
   styleUrls: ['./ideas.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class IdeasComponent implements OnInit {
+export class IdeasComponent implements OnInit, OnDestroy {
     @ViewChild("tooltip")
     public tooltipElementRef: ElementRef;
 
-  public category: string;
-  public errorMessage: string;
-  public filterVisibility: boolean = false;
-  public eventId: number = 0;
-  public isHover: boolean = false;
-  public ideasTitle: boolean = true;
-  public noIdeas: boolean = false;
-  public hoveredText: string = '';
-  public serverPath:string = '';
-
-  public start: number = 0;
-  public count: number = 7;
-  public latitude: number;
-  public longitude: number;
-  public userLocation: any;
-  public isCompletedGoals: boolean = false;
-  public search: string = '';
-  public sliderCount: number;
-  public searchError: string = '';
-  public locations:Location[] = [];
-  public locationsIds = [];
-
-  public categories: Category[];
-  public ideas: Goal[];
-  public reserve: Goal[];
-  public config: Object;
-  constructor(
+    public category: string;
+    public errorMessage: string;
+    public filterVisibility: boolean = false;
+    public eventId: number = 0;
+    public isHover: boolean = false;
+    public ideasTitle: boolean = true;
+    public isDestroy: boolean = false;
+    public noIdeas: boolean = false;
+    public hoveredText: string = '';
+    public serverPath:string = '';
+    
+    public start: number = 0;
+    public count: number = 7;
+    public latitude: number;
+    public longitude: number;
+    public userLocation: any;
+    public isCompletedGoals: boolean = false;
+    public search: string = '';
+    public sliderCount: number;
+    public searchError: string = '';
+    public locations:Location[] = [];
+    public locationsIds = [];
+    
+    public categories: Category[];
+    public ideas: Goal[];
+    public reserve: Goal[];
+    public config: Object;
+    constructor(
       private metadataService: MetadataService,
       private route: ActivatedRoute,
       private _projectService: ProjectService,
@@ -56,9 +57,9 @@ export class IdeasComponent implements OnInit {
       private broadcaster: Broadcaster,
       private router:Router,
       public renderer: Renderer
-  ) {
+    ) {
       router.events.subscribe((val) => {
-          if(this.eventId != val.id && val instanceof NavigationEnd){
+          if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
               this.eventId = val.id;
               this.start = 0;
               this.locationsIds = [];
@@ -73,9 +74,13 @@ export class IdeasComponent implements OnInit {
               this.getGoals();
           }
       })
-  }
+    }
 
-  ngOnInit() {
+    ngOnDestroy(){
+        this.isDestroy = true;
+    }
+    
+    ngOnInit() {
     this.serverPath = this._projectService.getPath();
     let data = this._cacheService.get('categories');
     if(data){
@@ -131,7 +136,7 @@ export class IdeasComponent implements OnInit {
         this.filterVisibility = true;
     }
 
-  getCategories(){
+    getCategories(){
     this._projectService.getCategories()
         .subscribe(
             categories => {
@@ -142,7 +147,7 @@ export class IdeasComponent implements OnInit {
             error => this.errorMessage = <any>error);
   }
 
-  getGoals(){
+    getGoals(){
     if(this.category == 'nearby')return;
 
     this._projectService.getIdeaGoals(this.start, this.count, this.search, this.category)
@@ -164,7 +169,7 @@ export class IdeasComponent implements OnInit {
             error => this.errorMessage = <any>error);
   }
 
-  setReserve(){
+    setReserve(){
       if(this.category == 'nearby'){
           this._projectService.getNearByGoals(this.latitude, this.longitude, this.start, this.count, this.isCompletedGoals)
               .subscribe(
@@ -186,7 +191,7 @@ export class IdeasComponent implements OnInit {
       }
   }
 
-  doSearch(){
+    doSearch(){
       this.ideasTitle = false;
       if(this.category == 'nearby'){
           this.category = 'discover'
@@ -194,7 +199,7 @@ export class IdeasComponent implements OnInit {
       this.router.navigate(['/ideas/'+this.category + '/' + this.search]);
   }
 
-  getReserve(){
+    getReserve(){
     this.ideas = this.ideas.concat(this.reserve);
       if(this.category == 'nearby'){
           this.calculateLocations(this.reserve);
@@ -202,7 +207,7 @@ export class IdeasComponent implements OnInit {
     this.setReserve();
   }
 
-  getNearByGoals(){
+    getNearByGoals(){
       this._projectService.getNearByGoals(this.latitude, this.longitude, this.start, this.count, this.isCompletedGoals)
           .subscribe(
               goals => {
@@ -214,14 +219,14 @@ export class IdeasComponent implements OnInit {
               error => this.errorMessage = <any>error);
   }
 
-  completedChange(){
+    completedChange(){
       if(this.latitude && this.longitude){
           this.start = 0;
           this.getNearByGoals();
       }
   }
     
-   calculateLocations(items){
+    calculateLocations(items){
        for(let item of items){
            let location:Location = {
                id: 0,
@@ -250,7 +255,7 @@ export class IdeasComponent implements OnInit {
        this.broadcaster.broadcast('getLocation', this.locations);
   }
 
-   optimizeReserveImages(){
+    optimizeReserveImages(){
        for(let item of this.reserve){
            let img;
            if(item.cached_image){
