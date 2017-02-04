@@ -1235,6 +1235,53 @@ class UserController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="User",
+     *  description="This function is used to confirm user registartion",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found"
+     *     },
+     * )
+     *
+     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info"})
+     * @Rest\Post("/user/confirm", name="application_user_rest_user_confirmregistration", options={"method_prefix"=false})
+     * @return array|JsonResponse
+     */
+    public function confirmRegistrationAction(Request $request)
+    {
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        $token = $request->request->get('token');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(['registrationToken'=>$token]);
+
+        if (!$user) {
+            return new JsonResponse(['user_confirm' => "The user with confirmation token $token does not exist"], Response::HTTP_NOT_FOUND);
+        }
+
+        //set user data
+        $user->setRegistrationToken(null);
+        $user->setEnabled(true);
+        $user->setLastLogin(new \DateTime());
+        $em->persist($user);
+        $em->flush();
+
+        $response = $this->loginAction($user, ['user']);
+
+        return $response;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
      *  description="This function is used to check reset password token",
      *  statusCodes={
      *         204="Returned when all ok",

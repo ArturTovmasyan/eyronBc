@@ -164,6 +164,9 @@ body {
 .border-red {
   border: 2px solid #C70A0A;
 }
+.border-purple {
+  border: 1px solid #7724f6;
+}
 #activities .empty-text {
   display: block;
 }
@@ -602,6 +605,17 @@ header .edit-note {
   height: 30px;
   background: url('assets/images/edit-note.svg') no-repeat center center;
   background-size: 100%;
+}
+header .bell {
+  display: block;
+  width: 25px;
+  height: 41px;
+  background: url('assets/images/bell.png') no-repeat center 11px;
+  background-size: 100%;
+}
+header a.relative {
+  display: block;
+  padding: 15px 19px 21px !important;
 }
 header #notification a.relative {
   display: block;
@@ -2328,6 +2342,9 @@ md-select .md-select-value {
 .error-message ul {
   padding-left: 0;
 }
+.example-margin .md-checkbox-inner-container {
+  margin: auto 3px auto auto;
+}
 @media (min-width: 768px) {
   header .navbar {
     min-height: 82px;
@@ -2402,6 +2419,12 @@ md-select .md-select-value {
   }
   header .navbar-default .navbar-right li:last-child .popover-content a {
     font-size: 14px;
+  }
+  header a.relative {
+    padding: 19px 19px 18px!important;
+  }
+  header .bell {
+    background-position: center center;
   }
   header #notification a.relative {
     padding: 19px 19px 18px!important;
@@ -2791,6 +2814,14 @@ md-select .md-select-value {
   header .navbar-default .navbar-right li:last-child .popover-content a {
     font-size: 14px;
   }
+  header a.relative {
+    padding: 25px 20px !important;
+  }
+  header .bell {
+    width: 25px;
+    height: 30px;
+    background-position: center bottom;
+  }
   header #notification a.relative {
     padding: 25px 20px !important;
   }
@@ -2816,6 +2847,9 @@ md-select .md-select-value {
   .button-lg {
     padding: 10px 45px;
     font-size: 14px;
+  }
+  .example-margin .md-checkbox-inner-container {
+    margin: auto 8px auto auto;
   }
   h1,
   h2 {
@@ -3043,6 +3077,7 @@ html {
 }
 #notification-list li:first-child a:hover {
   color: #7724F6 !important;
+  background-color: transparent;
 }
 #notification-list .close-icon {
   top: 24px;
@@ -3145,12 +3180,6 @@ html {
 .affiliate-right-mobile img {
   width: 100%;
   height: auto;
-}
-.existing-menu {
-  margin-bottom: 17px;
-}
-.existing-menu .icon-arrow-left {
-  margin-left: 10px;
 }
 div[dnd-list],
 div[dnd-list] > div,

@@ -114,6 +114,7 @@ export class RegisterComponent implements OnInit {
                         localStorage.setItem('apiKey', res.apiKey);
                         this.saveImage(res.userInfo);
                         this.show = false;
+                        this.router.navigate(['/ideas']);
                     }
                 },
                 error => {
@@ -153,7 +154,7 @@ export class RegisterComponent implements OnInit {
                 this.imageError = null;
                 userInfo.cached_image = response;
                 this.broadcaster.broadcast('login', userInfo);
-                this.router.navigate(['/activity']);
+                this.router.navigate(['/ideas']);
             };
             this.uploaderService.onErrorUpload = (item, response, status, headers) => {
                 this.imageError = response;
@@ -167,7 +168,7 @@ export class RegisterComponent implements OnInit {
             this.uploaderService.upload(myUploadItem);
         } else {
             this.broadcaster.broadcast('login', userInfo);
-            this.router.navigate(['/activity']);
+            this.router.navigate(['/ideas']);
         }
 
     }

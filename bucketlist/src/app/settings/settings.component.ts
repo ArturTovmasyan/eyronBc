@@ -356,7 +356,7 @@ export class SettingsComponent implements OnInit {
         this._projectService.activationUserAddEmail(secret, email)
             .subscribe(
                 () => {
-                    this.router.navigate(['/activity']);
+                    this.router.navigate(['/ideas']);
                     this.busy = true;
                 },
                 error => {

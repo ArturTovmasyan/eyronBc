@@ -134,7 +134,7 @@ export class ResettingRequestComponent implements OnInit {
 
                         localStorage.setItem('apiKey', res.apiKey);
                         this.broadcaster.broadcast('login', res.userInfo);
-                        this.router.navigate(['/activity']);
+                        this.router.navigate(['/ideas']);
                         this.show = false;
                     }
                 },

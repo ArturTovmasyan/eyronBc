@@ -40,11 +40,13 @@ class EmailSenderService
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
 
+        $angular2host = $this->container->getParameter('angular2host');
+
         //get activate url
-        $url = $this->container->get('router')->generate('registration_confirm', array('token' => $registrationToken), true);
+        $url = sprintf('%s/user/confirm/%s', $angular2host, $registrationToken);
 
         //get help center link
-        $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
+        $helpLink = sprintf('%s/page/%s', $angular2host, 'contact-us');
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your ' . $projectName . ' account')

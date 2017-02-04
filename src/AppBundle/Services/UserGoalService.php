@@ -39,15 +39,26 @@ class UserGoalService extends AbstractProcessService
     private $authorizationChecker;
 
     /**
+     * @var UserGoalService $blService
+     *
+     */
+    private $blService;
+
+    /**
      * UserGoalService constructor.
      * @param EntityManager $em
+     * @param $trans
+     * @param $liipImage
+     * @param $authorizationChecker
+     * @param BucketListService $blService
      */
-    public function __construct(EntityManager $em, $trans, $liipImage, $authorizationChecker)
+    public function __construct(EntityManager $em, $trans, $liipImage, $authorizationChecker, BucketListService $blService)
     {
         $this->em = $em;
         $this->trans = $trans;
         $this->liipImage = $liipImage;
         $this->authorizationChecker = $authorizationChecker;
+        $this->blService = $blService;
     }
 
     /**
@@ -192,6 +203,9 @@ class UserGoalService extends AbstractProcessService
         if ($userGoal->getGoal()->getListPhotoDownloadLink()){
             $userGoal->getGoal()->setCachedImage($this->liipImage->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
         }
+
+        //set user activity value
+       $this->blService->setUserActivity($user, $url);
 
         $this->em->persist($userGoal);
         if($persistUser){
