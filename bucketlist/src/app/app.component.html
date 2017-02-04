@@ -13,7 +13,7 @@
 
                         <ul class="nav navbar-nav pull-left" *ngIf="!isMobile || !joinToggle1">
 
-                            <li *ngIf="appUser && appUser.activity">
+                            <li *ngIf="appUser">
                                 <a routerLink="/activity" routerLinkActive="active">
                                     <i class="icons activity-icon"></i>
                                     <span class="hidden-xs hidden-sm">{{ 'activity'|translate | uppercase }}</span>
@@ -28,7 +28,7 @@
                             </li>
 
                             <li *ngIf="appUser">
-                                <a routerLink="/profile/my" routerLinkActive="active">
+                                <a routerLink="/profile/my/all" routerLinkActive="active">
                                     <i class="icons mybucketlist-icon"></i>
                                     <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|translate | uppercase}}</span>
                                 </a>
@@ -74,17 +74,21 @@
                                         <img src="assets/images/logo.png" alt="Bucket List 127" class="img-responsive"/>
                                     </a>
 
-                                    <i class="menu-hamburger hidden-xs" *ngIf="!joinToggle1"></i>
+                                    <!--{% if not isMobile() %}-->
+                                    <i class="menu-hamburger hidden-xs" *ngIf="!joinToggle1" data-click="true"></i>
                                     <i [ngClass]="{'menu-remove': !isMobile, 'icon-remove-email': isMobile}" *ngIf="joinToggle1"></i>
+                                    <!--{% endif %}-->
                                 </a>
                                 <ul class="user-menu" *ngIf="joinToggle1">
 
-                                    <li *ngIf="appUser && appUser.activity">
+                                    <!--{% if app.user and app.user.activity %}-->
+                                    <li>
                                         <a routerLink="/activity" (click)="joinToggle1 = false">
                                             <i  class="icons activity-icon"></i>
                                             <span>{{ 'activity'|translate }}</span>
                                         </a>
                                     </li>
+                                    <!--{% endif %}-->
 
                                     <li>
                                         <a routerLink="/leaderboard" (click)="joinToggle1 = false">
@@ -108,7 +112,7 @@
                                     </li>
 
                                     <li>
-                                        <a routerLink="/profile/my" (click)="joinToggle1 = false">
+                                        <a routerLink="/profile/my/all" (click)="joinToggle1 = false">
                                             <i class="icons mybucketlist-icon"></i>
                                             <span>{{ 'my_bucketlist'|translate }}</span>
                                         </a>
@@ -123,26 +127,18 @@
 
                                     <li>
                                         <a routerLink="/edit/profile" (click)="joinToggle1 = false">
-                                        <i class="icons settings-icon"></i>
-                                        <span>{{ 'settings'|translate }}</span>
+                                            <i class="icons settings-icon"></i>
+                                            <span>{{ 'settings'|translate }}</span>
                                         </a>
                                     </li>
 
                                     <li>
                                         <a (click)="logout();joinToggle1 = false">
-                                        <i class="icons logout"></i>
-                                        <span>{{ 'logout'|translate }}</span>
+                                            <i class="icons logout"></i>
+                                            <span>{{ 'logout'|translate }}</span>
                                         </a>
                                     </li>
                                 </ul>
-                                <!--when mobile menu-->
-                                <!--<a (click)="joinToggle1 = !joinToggle1;" class=" mobile-user hidden-sm hidden-md hidden-lg" *ngIf="!joinToggle1">-->
-                                    <!--<figure class="img-circle" *ngIf="appUser.image_path">-->
-                                        <!--&lt;!&ndash;'user_icon'&ndash;&gt;-->
-                                        <!--<img src="{{ serverPath + appUser.image_path }}" alt="{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}" class="img-responsive img-circle" height="40">-->
-                                    <!--</figure>-->
-                                    <!--<p class="no-image user-no1" *ngIf="!appUser.image_path">{{ (firstName | slice:0:1 + lastName | slice:0:1 ) | uppercase}}</p>-->
-                                <!--</a>-->
                             </li>
                             <li *ngIf="!appUser">
                                 <a (click)="joinShow = !joinShow"
@@ -161,28 +157,28 @@
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
 
-      <!--<div [hidden]="!show" (clickOutside)="closeDropdown()">-->
-          <!--<notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)"></notification-dropdown>-->
-      <!--</div>-->
+        <!--<div [hidden]="!show" (clickOutside)="closeDropdown()">-->
+        <!--<notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)"></notification-dropdown>-->
+        <!--</div>-->
 
         <!--<div *ngIf="reportModal">-->
-            <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
+        <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
         <!--</div>-->
 
         <!--<div *ngIf="commonModal">-->
-            <!--<common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>-->
+        <!--<common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>-->
         <!--</div>-->
 
         <!--<div *ngIf="usersModal">-->
-            <!--<users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>-->
+        <!--<users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>-->
         <!--</div>-->
 
         <!--<div *ngIf="addModal">-->
-            <!--<add-modal (changeModal)="hideModal('add')" [data]="addData" class="modal-block"></add-modal>-->
+        <!--<add-modal (changeModal)="hideModal('add')" [data]="addData" class="modal-block"></add-modal>-->
         <!--</div>-->
 
         <!--<div *ngIf="doneModal">-->
-            <!--<done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>-->
+        <!--<done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>-->
         <!--</div>-->
 
         <router-outlet></router-outlet>
@@ -246,18 +242,3 @@
 
     </footer>
 </div>
-
-<!--<nav>-->
-<!--<a routerLink="/ideas" routerLinkActive="active">Ideas</a>-->
-<!--<a routerLink="/" routerLinkActive="active">Home</a>-->
-<!--<a routerLink="/activity" routerLinkActive="active">Activity</a>-->
-<!--<a routerLink="/profile" routerLinkActive="active">MY List</a>-->
-<!--<a routerLink="/goal/create" routerLinkActive="active">Goal Create</a>-->
-<!--<a routerLink="/notifications" routerLinkActive="active">notifications</a>-->
-<!--<a routerLink="/leaderboard" routerLinkActive="active">leaderboard</a>-->
-<!--<a routerLink="/goal-friends" routerLinkActive="active">goal-friends</a>-->
-<!--<a routerLink="/goal/my-ideas" routerLinkActive="active">Drafts</a>-->
-<!--<a routerLink="/edit/:type" routerLinkActive="active">settings</a>-->
-<!--<a routerLink="/goal/:slug" routerLinkActive="active">Goal Inner</a>-->
-<!--</nav>-->
-

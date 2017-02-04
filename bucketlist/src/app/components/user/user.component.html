@@ -1,7 +1,7 @@
 <div class="users-list round clearfix">
   <a style="display:block;" class="text-gray">
     <div class="row no-gutter">
-      <div class="col-xs-3" routerLink="/profile/{{ user.u_id }}">
+      <div class="col-xs-3" routerLink="/profile/{{ user.u_id }}/activity">
         <figure class="image-goalfrinds img-circle ">
           <img *ngIf="user.image_path" src="{{ serverPath + user.image_path }}" alt="{{ user.first_name }}" class="img-circle img-responsive" />
           <!--{% set className = "user-no" ~ random(4) %}-->
@@ -11,7 +11,7 @@
 
       <div class="col-xs-9 text-left">
         <div class="text-gray">
-          <h4 class="text-dark-gray" routerLink="/profile/{{ user.u_id }}">
+          <h4 class="text-dark-gray" routerLink="/profile/{{ user.u_id }}/activity">
             {{ user.first_name }} {{ user.last_name }}
           </h4>
           <span class="text-gray">{{ 'listed_by'|translate }}

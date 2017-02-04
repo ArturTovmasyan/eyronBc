@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProjectService } from '../project.service'
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { User } from '../interface/user'
   templateUrl: './goalfriends.component.html',
   styleUrls: ['./goalfriends.component.less']
 })
-export class GoalfriendsComponent implements OnInit {
+export class GoalfriendsComponent implements OnInit, OnDestroy {
 
   public users:User[];
   public reserve:User[];
@@ -23,12 +23,13 @@ export class GoalfriendsComponent implements OnInit {
 
   public type:string = '';
   public noItem:boolean = false;
+  public isDestroy: boolean = false;
   public serverPath:string = '';
   public errorMessage:string;
 
   constructor(private route: ActivatedRoute, private _projectService: ProjectService, private router:Router) {
     router.events.subscribe((val) => {
-      if(this.eventId != val.id && val instanceof NavigationEnd){
+      if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
         this.start = 0;
         this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'all';
@@ -40,6 +41,10 @@ export class GoalfriendsComponent implements OnInit {
         this.busy = false;
       }
     })
+  }
+
+  ngOnDestroy(){
+    this.isDestroy = true;
   }
 
   ngOnInit() {
@@ -67,9 +72,9 @@ export class GoalfriendsComponent implements OnInit {
 
               for(let item of this.reserve){
                 let img;
-                if(item.cached_image){
+                if(item.image_path){
                   img = new Image();
-                  img.src = this.serverPath + item.cached_image;
+                  img.src = this.serverPath + item.image_path;
                 }
               }
               this.start += this.count;

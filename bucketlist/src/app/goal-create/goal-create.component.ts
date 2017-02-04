@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer } from '@angular/core';
+import { Component, OnInit, Renderer, OnDestroy } from '@angular/core';
 import { ProjectService} from '../project.service';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
@@ -13,7 +13,7 @@ import {User} from "../interface/user";
   templateUrl: './goal-create.component.html',
   styleUrls: ['./goal-create.component.less']
 })
-export class GoalCreateComponent implements OnInit {
+export class GoalCreateComponent implements OnInit, OnDestroy {
     public isPublic:boolean = true;
     public disablePreview:boolean = false;
     public isPrivate:boolean = false;
@@ -31,6 +31,7 @@ export class GoalCreateComponent implements OnInit {
     public showIdeas:boolean = true;
     public haveIdeas:boolean = false;
     public isMore:boolean = false;
+    public isDestroy: boolean = false;
     public start: number = 0;
     public count: number = 9;
     public writeTimeout: any;
@@ -75,7 +76,7 @@ export class GoalCreateComponent implements OnInit {
       private _cacheService: CacheService
     ) {
         router.events.subscribe((val) => {
-            if(this.eventId != val.id && val instanceof NavigationEnd){
+            if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
                 this.eventId = val.id;
                 this.id = this.route.snapshot.params['id'];console.log(this.id);
                 this.slug = this.route.snapshot.params['status'];
@@ -107,6 +108,10 @@ export class GoalCreateComponent implements OnInit {
                 }
             }
         })
+    }
+
+    ngOnDestroy(){
+        this.isDestroy = true;
     }
     
     ngOnInit() {

@@ -20,7 +20,7 @@
 
                 <perfect-scrollbar class="container" [config]="config">
                     <div class="content">
-                        <ul *ngFor="let notify of notifications;let i = index" class="goals-animate"
+                        <ul *ngFor="let notify of notifications;let i = index"
                     [ngClass]="{'unread': !notify.is_read}">
                     <li>
                         <i class="close-icon" data-click="true" (click)="delete(notify.id, i)"></i>
@@ -38,7 +38,7 @@
                             <p>
                           <span>
                               <a class="pull-left" *ngIf="notify.notification.performer" (click)="goToUserPage()"
-                                 routerLink="/profile/{{notify.notification.performer.u_id }}">{{
+                                 routerLink="/profile/{{notify.notification.performer.u_id }}/activity">{{
                                   notify.notification.performer.show_name}} &nbsp;</a>
                               <span class="text-dark-gray" [innerHTML]="bodyInHtml(notify.notification.body)"></span>
                           </span>

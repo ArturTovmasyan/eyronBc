@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ProjectService} from '../project.service';
 import {User} from '../interface/user';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
@@ -13,12 +13,13 @@ import { MetadataService } from 'ng2-metadata';
     ProjectService
   ]
 })
-export class LeaderboardComponent implements OnInit {
+export class LeaderboardComponent implements OnInit, OnDestroy {
 
   public data:any;
   public appUser:User;
   public type:number = 1;
   public category:string;
+  public isDestroy: boolean = false;
   public categories = ['','traveler', 'mentor', 'innovator'];
   public count:number = 10;
   public eventId:number = 0;
@@ -33,7 +34,7 @@ export class LeaderboardComponent implements OnInit {
       private router:Router, 
       private route: ActivatedRoute) {
     router.events.subscribe((val) => {
-      if(this.eventId != val.id && val instanceof NavigationEnd){
+      if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
         this.category = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'innovator';
         this.metadataService.setTitle('Leaderboard');
@@ -44,6 +45,10 @@ export class LeaderboardComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(){
+    this.isDestroy = true;
+  }
+  
   ngOnInit() {
     this.serverPath = this._projectService.getPath();
   }

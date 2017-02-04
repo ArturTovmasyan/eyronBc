@@ -75,7 +75,7 @@
       <div class="row">
         <div class="col-sm-12">
           <p class="goal-author" *ngIf="goal.author && goal.author.is_admin">
-            <a routerLink="/profile/{{ goal.author.u_id }}" class="text-gray bg-blue">{{ 'by' + " " + goal.author.show_name }} </a>
+            <a routerLink="/profile/{{ goal.author.u_id }}/activity" class="text-gray bg-blue">{{ 'by' + " " + goal.author.show_name }} </a>
           </p>
           <h2 class="goal-inner-title" [class.title-smaller]="goal.title.length > 40">{{ goal.title }}</h2>
         </div>
