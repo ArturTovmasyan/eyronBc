@@ -178,12 +178,14 @@ export class AppComponent implements OnInit  {
                       this._projectService.getUser()
                           .subscribe(
                               user => {
+                                  console.log(user);
                                   this.appUser = user;
                                   this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                                   this.broadcaster.broadcast('getUser', user);
                               },
                               error => localStorage.removeItem('apiKey'));
                   }
+
 
                   let dialogRef: MdDialogRef<AddComponent>;
                   let config = new MdDialogConfig();

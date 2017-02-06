@@ -35,7 +35,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
     birthDate:any;
     addMail:any = null;
     secret:any = null;
-    busy:boolean = false;
     email:any;
     day:any = 0;
     month:any = 0;
@@ -91,8 +90,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
                 this.eventId = val.id;
                 this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'profile';
 
-                if(this.busy)return;
-
                 this.form = null;
                 this.ready = false;
 
@@ -113,7 +110,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
                     if(this.errorMessage) {
                         this.router.navigate(['/error']);
-                        this.busy = true;
                         this.errorMessage = null;
                     }
 
@@ -308,6 +304,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
                     },
                     error => {
                         this.errorMessage = JSON.parse(error._body);
+                        this.show = false;
                     }
                 );
         }
@@ -362,7 +359,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
             .subscribe(
                 () => {
                     this.router.navigate(['/ideas']);
-                    this.busy = true;
                 },
                 error => {
                     this.errorMessage = error._body;

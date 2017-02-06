@@ -115,7 +115,7 @@
 
           <div class="form-group row">
             <p class="text-gray">{{ 'registration.agreement'|translate }}
-              <a href="http://stage2.bucketlist127.com/page/terms-of-service-privacy-policy" class="text-purple">{{ 'registration.privacy_policy'|translate }}</a>
+              <a routerLink="/page/terms-of-service-privacy-policy" class="text-purple">{{ 'registration.privacy_policy'|translate }}</a>
             </p>
           </div>
 
@@ -132,7 +132,7 @@
     <div class="row">
       <div class="col-md-12">
         <p class="text-center margin-top text-gray">{{ 'registration.have_account'|translate }}
-          <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="text-purple">
+          <a href="javascript:void(0)" (click)="openSignInPopover()" class="text-purple">
             {{ 'registration.sign_in_btn'|translate | capitalize}}
           </a>
         </p>
