@@ -152,7 +152,13 @@ export class LoginComponent {
                         localStorage.setItem('apiKey', res.apiKey);
                         this.broadcaster.broadcast('login', res.userInfo);
                         this.joinHide();
-                        this.router.navigate(['/activity']);
+
+                        if(res.userInfo.activity) {
+                            this.router.navigate(['/activity']);
+
+                        }else{
+                            this.router.navigate(['/ideas']);
+                        }
                     }
                 },
                 error => {this.error = "Bad credentials";console.error(error)}

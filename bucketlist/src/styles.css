@@ -3367,3 +3367,16 @@ md-radio-button.md-radio-checked .md-ripple-foreground {
 md-progress-spinner {
   margin: 70px auto 0;
 }
+.progress .progress-section {
+  position: relative;
+}
+.progress .progress-section span {
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  text-align: center;
+  color: #ffffff;
+}
+.progress md-progress-bar {
+  height: 20px;
+}
