@@ -125,7 +125,12 @@ var LoginComponent = (function () {
                 localStorage.setItem('apiKey', res.apiKey);
                 _this.broadcaster.broadcast('login', res.userInfo);
                 _this.joinHide();
-                _this.router.navigate(['/activity']);
+                if (res.userInfo.activity) {
+                    _this.router.navigate(['/activity']);
+                }
+                else {
+                    _this.router.navigate(['/ideas']);
+                }
             }
         }, function (error) { _this.error = "Bad credentials"; console.error(error); });
         event.preventDefault();
