@@ -172,4 +172,8 @@ export class RegisterComponent implements OnInit {
         }
 
     }
+
+    openSignInPopover(){
+        this.broadcaster.broadcast('openLogin', 'Open Login Please');
+    }
 }

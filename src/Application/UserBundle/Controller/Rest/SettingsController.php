@@ -318,6 +318,9 @@ class SettingsController extends FOSRestController
         // create goal form
         $form = $this->createForm(SettingsAngularType::class, $user);
 
+        //set default array
+        $returnResult = [];
+
         //check if primary email equal current email
         if ($primaryEmail != null && $primaryEmail == $currentEmail) {
 
@@ -326,9 +329,14 @@ class SettingsController extends FOSRestController
         }
         else {
 
-            //set for check user duplicate error
-            $user->setEmail($primaryEmail);
-            $em->flush();
+            try {
+                //set for check user duplicate error
+                $user->setEmail($primaryEmail);
+                $em->flush();
+
+            } catch (\Exception $e) {
+                $returnResult[] = $e->getMessage();
+            }
         }
 
         //set primary value in entity
@@ -367,9 +375,6 @@ class SettingsController extends FOSRestController
 
             //get form errors
             $formErrors = $form->getErrors(true);
-
-            //set default array
-            $returnResult = array();
 
             foreach($formErrors as $formError)
             {
