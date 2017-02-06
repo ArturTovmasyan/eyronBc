@@ -304,6 +304,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
                     },
                     error => {
                         this.errorMessage = JSON.parse(error._body);
+                        this.show = false;
                     }
                 );
         }
