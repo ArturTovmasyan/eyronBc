@@ -209,7 +209,7 @@
         "delete_access_denied": "You can't remove this success story",
         "delete_confirm": "You are about to remove your success story. Are you sure?"
     },
-    "register_text": "Confirm your email address to access all of %XXX%'s features.",
+    "register_text": "Confirm your email address to access all of {{XXX}}'s features.",
     "filters": {
     "import_urgent": "Important, <br />\n<span>urgent<span/>\n",
         "not_import_urgent": "Not important, <br />\n<span>urgent<span/>\n",
@@ -614,7 +614,7 @@
         "update": "Update email address",
         "error": "This email already exists",
         "primary_error": "This email has already been selected by another user, please choose a another  primary email field",
-        "update_message": "We have not been able to send confirmation emails to your new %email% address. You can change to a different address or we can try again."
+        "update_message": "We have not been able to send confirmation emails to your new {{email}} address. You can change to a different address or we can try again."
     },
     "password": {
         "validation": "Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long",
@@ -654,7 +654,7 @@
         "success_second": "Now you can start using all of %project_name%'s great features"
     },
     "registration": {
-        "check_email": "A confirmation message was sent to %email%",
+        "check_email": "A confirmation message was sent to {{email}}",
         "resend_message": "A new confirmation message has been sent to %email%.",
         "confirmed": "Congrats {{username}}, your account is now activated.",
         "back": "Back to the originating page.",

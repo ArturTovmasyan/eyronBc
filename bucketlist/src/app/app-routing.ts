@@ -29,6 +29,8 @@ const appRoutes: Routes = [
   { path: 'ideas', loadChildren: './ideas/ideas.module#IdeasModule'},
   { path: '', component: DashboardComponent },
   { path: 'error', component: ErrorComponent },
+  { path: 'resend-message', component: ErrorComponent },
+  { path: 'update-email', component: ErrorComponent },
   { path: '**', component: ErrorComponent }
 ];
 
