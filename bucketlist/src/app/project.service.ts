@@ -301,6 +301,7 @@ export class ProjectService {
      *
      */
     getUser():Observable<User> {
+        this.headers.set('apikey', localStorage.getItem('apiKey'));
         return this.http.get(this.userUrl, {headers: this.headers})
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);
