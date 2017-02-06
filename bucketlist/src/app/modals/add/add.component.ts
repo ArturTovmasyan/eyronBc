@@ -193,9 +193,6 @@ export class AddComponent implements OnInit {
   };
 
   generateStep(value, array, key){
-    if(!value){
-      return;
-    }
 
     if(value === ''){
       if(key === 0){
@@ -208,10 +205,14 @@ export class AddComponent implements OnInit {
       }
     }
     else {
+      if(!value){
+        return;
+      }
       if(!array[key + 1]) {
         array[key + 1] = {};
       }
     }
+    this.complatedPercent = this.getCompleted(this.userGoal);
   }
 
   dateByFormat(month, day, year){

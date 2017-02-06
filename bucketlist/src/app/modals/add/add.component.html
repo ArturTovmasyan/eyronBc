@@ -214,7 +214,7 @@
 
                         <div class="progress " *ngIf="!(complete.switch == 1)">
                             <section class="progress-section">
-                                <span>10 %</span>
+                                <span>{{ complatedPercent | round}} %</span>
                                 <md-progress-bar
                                         class="example-margin"
                                         [value]="complatedPercent">
