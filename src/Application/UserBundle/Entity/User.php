@@ -257,6 +257,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(name="activity", type="boolean", nullable=false)
+     * @Groups({"user"})
      */
     protected $activity = false;
 

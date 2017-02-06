@@ -656,7 +656,7 @@
     "registration": {
         "check_email": "A confirmation message was sent to %email%",
         "resend_message": "A new confirmation message has been sent to %email%.",
-        "confirmed": "Congrats %username%, your account is now activated.",
+        "confirmed": "Congrats {{username}}, your account is now activated.",
         "back": "Back to the originating page.",
         "submit": "Register",
         "flash": {

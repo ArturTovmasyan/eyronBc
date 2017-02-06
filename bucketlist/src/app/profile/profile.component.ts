@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public hoveredText: string = '';
   public oldUser: string;
   public initializeTimeout: any;
+  public sub: any;
   public serverPath:string = '';
   public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
   public isMobile:Boolean= (window.innerWidth < 768);
@@ -66,7 +67,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       private router:Router,
       public renderer: Renderer
   ) {
-    router.events.subscribe((val) => {
+    this.sub = router.events.subscribe((val) => {
       if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
         this.start = 0;
@@ -93,6 +94,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
+    this.sub.unsubscribe();
     this.isDestroy = true;
   }
 

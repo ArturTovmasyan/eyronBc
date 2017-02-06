@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
+import { RegistrationConfirmComponent } from './components/registration-confirm/registration-confirm.component';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { AuthGuard }      from './common/auth.guard';
 import {PageComponent} from './page/page.component';
@@ -13,7 +14,7 @@ const appRoutes: Routes = [
 
   { path: 'resetting/:type', component: ResettingRequestComponent },
   { path: 'resetting/:type/:secret', component: ResettingRequestComponent },
-
+  { path: 'user/confirm/:secret', component: RegistrationConfirmComponent },
   { path: 'page', component: PageComponent},
   { path: 'page/:name', component: PageComponent},
   { path: 'activity', loadChildren: './activity/activity.module#ActivityModule', canActivate: [AuthGuard]},

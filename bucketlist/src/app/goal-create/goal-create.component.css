@@ -77,6 +77,9 @@
   padding-bottom: 20px;
   margin: 15px 0 0;
 }
+.goals .swiper-wrapper {
+  margin: 0 auto;
+}
 .goals .margin-top {
   margin-top: 5px;
 }
@@ -85,12 +88,13 @@
 .goals a i.icon-remove-video-link {
   display: inline-block;
   color: #999999;
-  font-size: 20px;
+  font-size: 25px;
   margin-top: 3px;
   line-height: 45px;
 }
 .goals a i.icon-remove-video-link {
-  margin-right: 15px;
+  margin-right: 25px;
+  font-size: 33px;
 }
 .goals a:hover {
   text-decoration: none;
@@ -133,6 +137,12 @@
 }
 .goals figure {
   margin: 0 0 20px 0;
+}
+.existing-menu a {
+  display: inline-block;
+}
+.existing-menu .icon-arrow-left {
+  margin-left: 10px;
 }
 @media (min-width: 768px) {
   .buttons {
@@ -186,6 +196,7 @@
   }
   .goals a i.icon-remove-video-link {
     font-size: 40px;
+    margin-right: 18px;
   }
   .goals .title {
     margin-top: 10px;
@@ -202,7 +213,7 @@
     height: auto;
   }
   .goals h3 {
-    margin-top: 20px;
+    margin-top: 16px;
     font-size: 25px;
     padding: 0 2px 0 15px;
   }
@@ -229,6 +240,9 @@
   .suggest-input {
     padding: 35px 0 0 22px;
   }
+  .existing-menu {
+    margin-bottom: 10px;
+  }
   #goal-create-form h3.text-purple,
   .goal-preview h3.text-purple {
     margin: 27px 0 0;
@@ -251,9 +265,6 @@
   .goals a i.icon-remove-video-link {
     margin-top: 30px;
   }
-  .goals a i.icon-remove-video-link {
-    margin-right: 0;
-  }
   .goals .title {
     margin-top: 15px;
     font-size: 52px;
@@ -262,7 +273,6 @@
   }
   .goals h3 {
     margin-top: 31px;
-    padding: 0;
   }
   .goals h3.title {
     padding: 17px 40px;

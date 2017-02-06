@@ -22,7 +22,7 @@
   -ms-border-radius: 6px;
   -o-border-radius: 6px;
 }
-.goal-modal .fb-share-button {
+.goal-modal .fb-share-button-style {
   width: 93px;
   height: 33px;
   background: url('../../../assets/images/fb-share.svg') no-repeat center center;
@@ -163,7 +163,7 @@
     padding: 11px 0;
     margin: 10px 0;
   }
-  .goal-modal .fb-share-button {
+  .goal-modal .fb-share-button-style {
     float: right;
     margin: 18px 0 15px;
   }
@@ -220,10 +220,10 @@
   }
   .goal-modal h2.text-grey-dark {
     font-size: 24px;
-    padding: 11px 0;
+    padding: 2px 0;
     margin: 10px 0;
   }
-  .goal-modal .fb-share-button {
+  .goal-modal .fb-share-button-style {
     margin: 16px 0 14px;
   }
 }

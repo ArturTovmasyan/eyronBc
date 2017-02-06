@@ -13,7 +13,7 @@
 
                         <ul class="nav navbar-nav pull-left" *ngIf="!isMobile || !joinToggle1">
 
-                            <li *ngIf="appUser">
+                            <li *ngIf="appUser && appUser.activity">
                                 <a routerLink="/activity" routerLinkActive="active">
                                     <i class="icons activity-icon"></i>
                                     <span class="hidden-xs hidden-sm">{{ 'activity'|translate | uppercase }}</span>
@@ -82,7 +82,7 @@
                                 <ul class="user-menu" *ngIf="joinToggle1">
 
                                     <!--{% if app.user and app.user.activity %}-->
-                                    <li>
+                                    <li *ngIf="appUser && appUser.activity">
                                         <a routerLink="/activity" (click)="joinToggle1 = false">
                                             <i  class="icons activity-icon"></i>
                                             <span>{{ 'activity'|translate }}</span>
@@ -127,15 +127,15 @@
 
                                     <li>
                                         <a routerLink="/edit/profile" (click)="joinToggle1 = false">
-                                        <i class="icons settings-icon"></i>
-                                        <span>{{ 'settings'|translate }}</span>
+                                            <i class="icons settings-icon"></i>
+                                            <span>{{ 'settings'|translate }}</span>
                                         </a>
                                     </li>
 
                                     <li>
                                         <a (click)="logout();joinToggle1 = false">
-                                        <i class="icons logout"></i>
-                                        <span>{{ 'logout'|translate }}</span>
+                                            <i class="icons logout"></i>
+                                            <span>{{ 'logout'|translate }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -157,28 +157,28 @@
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
 
-      <!--<div [hidden]="!show" (clickOutside)="closeDropdown()">-->
-          <!--<notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)"></notification-dropdown>-->
-      <!--</div>-->
+        <!--<div [hidden]="!show" (clickOutside)="closeDropdown()">-->
+        <!--<notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)"></notification-dropdown>-->
+        <!--</div>-->
 
         <!--<div *ngIf="reportModal">-->
-            <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
+        <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
         <!--</div>-->
 
         <!--<div *ngIf="commonModal">-->
-            <!--<common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>-->
+        <!--<common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>-->
         <!--</div>-->
 
         <!--<div *ngIf="usersModal">-->
-            <!--<users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>-->
+        <!--<users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>-->
         <!--</div>-->
 
         <!--<div *ngIf="addModal">-->
-            <!--<add-modal (changeModal)="hideModal('add')" [data]="addData" class="modal-block"></add-modal>-->
+        <!--<add-modal (changeModal)="hideModal('add')" [data]="addData" class="modal-block"></add-modal>-->
         <!--</div>-->
 
         <!--<div *ngIf="doneModal">-->
-            <!--<done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>-->
+        <!--<done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>-->
         <!--</div>-->
 
         <router-outlet></router-outlet>
@@ -242,5 +242,3 @@
 
     </footer>
 </div>
-
-

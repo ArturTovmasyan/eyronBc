@@ -155,6 +155,7 @@
             <argument type="service" id="translator" />
             <argument type="service" id="liip_imagine.cache.manager" />
             <argument type="service" id="security.authorization_checker" />
+            <argument type="service" id="bl_service" />
         </service>
 
         <!-- goal service -->

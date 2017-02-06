@@ -52,6 +52,8 @@ import { ComponentModule } from './components/components.module';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { PageComponent } from './page/page.component';
 import { ErrorComponent } from './components/error/error.component';
+import { RegistrationConfirmComponent } from './components/registration-confirm/registration-confirm.component';
+
 
 
 //modals
@@ -85,7 +87,8 @@ export function createTranslateLoader(http: Http) {
     AddComponent,
     DoneComponent,
     ClickOutsideDirective,
-    ErrorComponent
+    ErrorComponent,
+    RegistrationConfirmComponent
 
   ],
   imports: [

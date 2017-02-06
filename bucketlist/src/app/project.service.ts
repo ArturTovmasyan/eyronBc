@@ -74,6 +74,7 @@ export class ProjectService {
     private changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
     private getNotifySettingsUrl = this.baseUrl + 'user/notify-settings';
     private activationAddedEmailUrl = this.baseUrl + 'user/activation-email/';
+    private confirmRegUrl = this.baseUrl + 'user/confirm';
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
@@ -300,6 +301,7 @@ export class ProjectService {
      *
      */
     getUser():Observable<User> {
+        this.headers.set('apikey', localStorage.getItem('apiKey'));
         return this.http.get(this.userUrl, {headers: this.headers})
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);
@@ -334,6 +336,16 @@ export class ProjectService {
         return this.http.get(this.goalFriendsUrl, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param data
+     * @returns {Observable<R>}
+     */
+    confirmUserRegistration(data:any):Observable<any> {
+        return this.http.post(this.confirmRegUrl, data)
+            .map((r: Response) => r.json());
     }
 
     /**

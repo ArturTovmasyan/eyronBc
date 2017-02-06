@@ -105,11 +105,12 @@ export class InnerComponent implements OnInit {
     this.serverPath = this._projectService.getPath();
     this.imgPath = this.serverPath + '/bundles/app/images/cover2.jpg';
     this.route.params.forEach((params:Params) => {
-      let goalSlug = params['slug'];
-      this.seeAlsoShow = false;
-      if(params['page']){
-        this.type = params['page']
-      }
+        this.goal = null;
+        let goalSlug = params['slug'];
+        this.seeAlsoShow = false;
+        if(params['page']){
+            this.type = params['page']
+        }
 
       // load data
       this.getProject(goalSlug);

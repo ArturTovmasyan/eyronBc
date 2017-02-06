@@ -4443,3 +4443,24 @@ md-radio-button.md-radio-checked{
 md-progress-spinner{
   margin: 70px auto 0;
 }
+
+.progress{
+
+  .progress-section{
+    position: relative;
+
+    span{
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+      text-align: center;
+      color: #ffffff;
+    }
+    .md-progress-bar-fill::after{
+      background-color: #7724f6;
+    }
+  }
+  md-progress-bar{
+    height: 20px;
+  }
+}

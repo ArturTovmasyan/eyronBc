@@ -39,15 +39,26 @@ class UserGoalService extends AbstractProcessService
     private $authorizationChecker;
 
     /**
+     * @var UserGoalService $blService
+     *
+     */
+    private $blService;
+
+    /**
      * UserGoalService constructor.
      * @param EntityManager $em
+     * @param $trans
+     * @param $liipImage
+     * @param $authorizationChecker
+     * @param BucketListService $blService
      */
-    public function __construct(EntityManager $em, $trans, $liipImage, $authorizationChecker)
+    public function __construct(EntityManager $em, $trans, $liipImage, $authorizationChecker, BucketListService $blService)
     {
         $this->em = $em;
         $this->trans = $trans;
         $this->liipImage = $liipImage;
         $this->authorizationChecker = $authorizationChecker;
+        $this->blService = $blService;
     }
 
     /**
@@ -194,10 +205,14 @@ class UserGoalService extends AbstractProcessService
         }
 
         $this->em->persist($userGoal);
+
         if($persistUser){
             $this->em->persist($user);
         }
         $this->em->flush();
+
+        //set user activity value
+        $this->blService->setUserActivity($user, $url);
 
         if ($suggestAsVisible){
             $userGoal->setIsVisible(true);
@@ -259,8 +274,12 @@ class UserGoalService extends AbstractProcessService
         $userGoal->setStatus($status);
         $userGoal->setCompletionDate($completionDate);
 
+
         $this->em->persist($userGoal);
         $this->em->flush();
+
+        //set user activity value
+        $this->blService->setUserActivity($user, $url);
 
         // check if status is completed, and author is not admin
         if($isDone && $goal->getAuthor() && !$goal->getAuthor()->isAdmin()){

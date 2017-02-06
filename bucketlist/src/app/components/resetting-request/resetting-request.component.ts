@@ -23,7 +23,7 @@ export class ResettingRequestComponent implements OnInit {
     apikey:boolean = true;
     initForm:boolean = false;
     email:any = null;
-    busy:boolean = false;
+    isDestroy:boolean = false;
 
     constructor(private route: ActivatedRoute,
                 private _projectService: ProjectService,
@@ -33,13 +33,11 @@ export class ResettingRequestComponent implements OnInit {
     ) {
 
         router.events.subscribe((val) => {
-                if(this.eventId != val.id && val instanceof NavigationEnd){
+                if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
                     this.eventId = val.id;
 
                     this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'request';
                     this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']: null;
-
-                    if(this.busy) return;
 
                     if(this.type == 'request') {
 
@@ -51,7 +49,6 @@ export class ResettingRequestComponent implements OnInit {
 
                         if(this.errorMessage && this.errorMessage.email_token) {
                             this.router.navigate(['/error']);
-                            this.busy = true;
                             this.errorMessage = null;
                         }
 
@@ -71,6 +68,10 @@ export class ResettingRequestComponent implements OnInit {
 
 
     ngOnInit() {
+    }
+
+    ngOnDestroy(){
+        this.isDestroy = true;
     }
 
     /**
@@ -134,7 +135,7 @@ export class ResettingRequestComponent implements OnInit {
 
                         localStorage.setItem('apiKey', res.apiKey);
                         this.broadcaster.broadcast('login', res.userInfo);
-                        this.router.navigate(['/activity']);
+                        this.router.navigate(['/ideas']);
                         this.show = false;
                     }
                 },
@@ -154,7 +155,6 @@ export class ResettingRequestComponent implements OnInit {
             .subscribe(
                 (res) => {
                     if(res.confirm) {
-                        this.busy = true;
                         this.initChangePasswordForm();
                         this.ready = true;
                     }
