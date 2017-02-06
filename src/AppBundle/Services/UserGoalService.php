@@ -204,14 +204,15 @@ class UserGoalService extends AbstractProcessService
             $userGoal->getGoal()->setCachedImage($this->liipImage->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
         }
 
-        //set user activity value
-       $this->blService->setUserActivity($user, $url);
-
         $this->em->persist($userGoal);
+
         if($persistUser){
             $this->em->persist($user);
         }
         $this->em->flush();
+
+        //set user activity value
+        $this->blService->setUserActivity($user, $url);
 
         if ($suggestAsVisible){
             $userGoal->setIsVisible(true);
@@ -273,11 +274,12 @@ class UserGoalService extends AbstractProcessService
         $userGoal->setStatus($status);
         $userGoal->setCompletionDate($completionDate);
 
-        //set user activity value
-        $this->blService->setUserActivity($user, $url);
 
         $this->em->persist($userGoal);
         $this->em->flush();
+
+        //set user activity value
+        $this->blService->setUserActivity($user, $url);
 
         // check if status is completed, and author is not admin
         if($isDone && $goal->getAuthor() && !$goal->getAuthor()->isAdmin()){
