@@ -6,6 +6,7 @@
 
     <!--{% if not single%}-->
     <!--data-ng-init="activityPage = true"-->
+    <md-progress-spinner mode="indeterminate" *ngIf="!Activities && !noActivities"></md-progress-spinner>
     <div class="new-activity" *ngIf="newActivity && !single">
         <a (click)="addNew()">{{ 'new_activity'|translate }}</a>
     </div>
@@ -19,7 +20,7 @@
     <!--{% endif %}-->
 
     <!--data-ng-init="activity.activeIndex = 1"-->
-    <div class="goals-animate" [class.comingByTop]="activity && activity.forTop"
+    <div [class.goals-animate]="activity && activity.forBottom" [class.comingByTop]="activity && activity.forTop"
          *ngFor="let activity of Activities;let i = index">
         <!--Activities -> Activities.items-->
 
@@ -110,7 +111,7 @@
     </div>
     <!--*ngIf="!single"-->
     <div class="navigation text-center">
-        <a *ngIf="!busy && reserve && reserve.length > 0"
+        <a *ngIf="!busy && reserve && reserve.length > 0 && !haveCache"
            (click)='getReserve()'
            class="show-more ">
             <!--ActivitiesName -> Activities.name-->
