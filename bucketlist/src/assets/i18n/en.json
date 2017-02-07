@@ -209,7 +209,7 @@
         "delete_access_denied": "You can't remove this success story",
         "delete_confirm": "You are about to remove your success story. Are you sure?"
     },
-    "register_text": "Confirm your email address to access all of {{XXX}}'s features.",
+    "register_text": "Confirm your email address to access all of {{XXX}} features.",
     "filters": {
     "import_urgent": "Important, <br />\n<span>urgent<span/>\n",
         "not_import_urgent": "Not important, <br />\n<span>urgent<span/>\n",
@@ -655,7 +655,7 @@
     },
     "registration": {
         "check_email": "A confirmation message was sent to {{email}}",
-        "resend_message": "A new confirmation message has been sent to %email%.",
+        "resend_message": "A new confirmation message has been sent to {{email}}.",
         "confirmed": "Congrats {{username}}, your account is now activated.",
         "back": "Back to the originating page.",
         "submit": "Register",

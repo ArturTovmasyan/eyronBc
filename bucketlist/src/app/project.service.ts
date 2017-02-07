@@ -75,6 +75,8 @@ export class ProjectService {
     private getNotifySettingsUrl = this.baseUrl + 'user/notify-settings';
     private activationAddedEmailUrl = this.baseUrl + 'user/activation-email/';
     private confirmRegUrl = this.baseUrl + 'user/confirm';
+    private updateConfirmRegEmailUrl = this.baseUrl + 'user/update/activation-email';
+    private checkConfirmRegEmailUrl = this.baseUrl + 'user/check/registration-token';
 
     //profile page urls
     private profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
@@ -180,6 +182,21 @@ export class ProjectService {
         return this.http.put(this.ideasUrl + 'create' + (id?('/' + id):''), data, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
+    }
+
+    /**
+     *
+     * @param data
+     * @returns {Observable<R>}
+     */
+    sendConfirmRegistrationEmail(data:any):Observable<any> {
+        return this.http.post(this.updateConfirmRegEmailUrl, data, {headers: this.headers})
+            .map((r: Response) => r.json());
+    }
+
+    checkRegisterToken(data:any):Observable<any> {
+        return this.http.post(this.checkConfirmRegEmailUrl, data, {headers: this.headers})
+            .map((r: Response) => r.json());
     }
 
     /**

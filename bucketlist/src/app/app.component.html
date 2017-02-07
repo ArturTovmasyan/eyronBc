@@ -149,7 +149,6 @@
                             </li>
                         </ul>
                     </div>
-                    <!--{% endif %}-->
                 </div>
             </nav>
         </header>
@@ -157,18 +156,18 @@
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
 
-        <div class="email" *ngIf="appUser && appUser.registration_token">
+        <div class="email" *ngIf="appUser && appUser.registration_token && regConfirmMenu">
             <div class="container">
                 <div class="row no-gutter">
                     <div class="col-sm-9">
                             <span>
-                                {{ 'register_text'|translate:{XXX: appUser.username } }}
-                                {{ 'registration.check_email'|translate:{email: appUser.username } }}
+                                {{ 'register_text'|translate:{XXX: 'stage2.bucketlist127.com' } }}
+                                {{ 'registration.check_email'|translate:{email: updatedEmail } }}
                             </span>
                     </div>
                     <div class="col-sm-3">
-                        <a id="resend_message" href="">{{ 'email.resend'|translate }}</a>
-                        <a href="">{{ 'email.update'|translate }}</a>
+                        <a id="resend_message" routerLink="/resetting/resend-message">{{ 'email.resend'|translate }}</a>
+                        <a routerLink="/resetting/update-email">{{ 'email.update'|translate }}</a>
                     </div>
                 </div>
             </div>
