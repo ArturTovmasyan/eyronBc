@@ -41,7 +41,7 @@ export class ProfileHeaderComponent implements OnInit {
       public uploaderService: Uploader) { }
 
     ngOnChanges(){
-        if(this.userInfo && this.current && this.current != this.userInfo){
+        if(this.userInfo && this.current != this.userInfo){
             this.profileUser = null;
             this.init();
         }
@@ -68,41 +68,39 @@ export class ProfileHeaderComponent implements OnInit {
           this.broadcaster.broadcast('logout', 'some message');
         }
 
-        this.init();
+        // this.init();
 
     }
 
     init(){
-        setTimeout(()=>{
-            this.current = this.userInfo;
-            if(this.userInfo == 'my'){
-                this.flashBag = this._cacheService.get('flash_massage');
-                this._cacheService.set('flash_massage', [], {maxAge: 3 * 24 * 60 * 60});
-                setTimeout(()=>{
-                    this.flashBag = 0;
-                },6000)
-            }
-            if(this.userInfo == 'my'){
-                this.profileUser = this._cacheService.get('user_');
-            } else {
-                this.profileUser = this._cacheService.get('user'+this.userInfo);
-            }
-            this._projectService.getUserByUId(this.userInfo)
-                .subscribe(
-                    user => {
-                        if(this.userInfo == 'my'){
-                            this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
-                        } else {
-                            this._cacheService.set('user'+this.userInfo, user, {maxAge: 3 * 24 * 60 * 60});
-                        }
-                        this.profileUser = user;
-                        this.badges = user.badges;
-                        this.broadcaster.broadcast('pageUser', this.profileUser);
-                        this.active = this.profileUser.stats.active;
-                        this.listedBy = this.profileUser.stats.listedBy;
-                        this.doneBy = this.profileUser.stats.doneBy;
-                    })
-        }, 1000);
+        this.current = this.userInfo;
+        if(this.userInfo == 'my'){
+            this.flashBag = this._cacheService.get('flash_massage');
+            this._cacheService.set('flash_massage', [], {maxAge: 3 * 24 * 60 * 60});
+            setTimeout(()=>{
+                this.flashBag = 0;
+            },6000);
+
+            this.profileUser = this._cacheService.get('user_');
+        } else {
+            this.profileUser = this._cacheService.get('user'+this.userInfo);
+        }
+
+        this._projectService.getUserByUId(this.userInfo)
+            .subscribe(
+                user => {
+                    if(this.userInfo == 'my'){
+                        this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                    } else {
+                        this._cacheService.set('user'+this.userInfo, user, {maxAge: 3 * 24 * 60 * 60});
+                    }
+                    this.profileUser = user;
+                    this.badges = user.badges;
+                    this.broadcaster.broadcast('pageUser', this.profileUser);
+                    this.active = this.profileUser.stats.active;
+                    this.listedBy = this.profileUser.stats.listedBy;
+                    this.doneBy = this.profileUser.stats.doneBy;
+                });
     }
 
     toggleFollow(){
