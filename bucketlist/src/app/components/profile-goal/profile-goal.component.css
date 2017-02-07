@@ -170,6 +170,9 @@
 .goals-information figure figcaption span.text-white:last-child {
   padding-left: 15px;
 }
+.goals-information figure figcaption span.text-white:hover span {
+  text-decoration: none;
+}
 .goals-information .overlay {
   height: 180px;
 }
@@ -201,7 +204,6 @@
 }
 .goals-information .information .progress {
   padding: 4px;
-  height: 25px;
   background: #f4f4f4;
 }
 .goals-information .information h3 {

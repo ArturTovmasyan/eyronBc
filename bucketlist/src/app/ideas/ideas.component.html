@@ -137,6 +137,7 @@
     <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
       <div class="row idea-item ideas-result">
         <!--{% if search %} ideas-result {% endif %}-->
+        <md-progress-spinner mode="indeterminate" *ngIf="!ideas && !noIdeas && category != 'nearby'"></md-progress-spinner>
         <div class="col-md-{{ ((+i + 1) % 7) < 5 ? 4 : 8 }} goals-animate"
              *ngFor="let goal of ideas; let i = index">
           <div class="row idea-item">

@@ -17,6 +17,7 @@ import { SeeAlsoComponent } from './see-also/see-also.component';
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
 import { SliceEmailPipe } from '../pipes/sliceEmail.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
+import { MaterialModule } from '@angular/material';
 import { RemoveTagPipe } from '../pipes/removeTag.pipe';
 import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
@@ -31,6 +32,7 @@ import { PreloadImgComponent } from './preload-img/preload-img.component';
     CommonModule,
     TranslateModule,
     RouterModule,
+    MaterialModule.forRoot(),
     FormsModule
   ],
   declarations: [

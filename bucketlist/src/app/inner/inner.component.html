@@ -39,6 +39,7 @@
 </div>
 
 <div id="fb-root"></div>
+<md-progress-spinner mode="indeterminate" *ngIf="!goal"></md-progress-spinner>
 <div class="inner-container" *ngIf="goal" [ngClass]="{'no-quote': !aphorisms, 'no-author': (!goal.author || goal.author.is_admin)}">
   <!--{% set cover = goal.getCoverPhotoDownloadLink %}-->
   <!--{% set goalInner = true %}-->

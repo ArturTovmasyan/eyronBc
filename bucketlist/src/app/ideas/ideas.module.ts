@@ -6,7 +6,7 @@ import { ComponentModule }  from '../components/components.module';
 import { MapModule }        from '../tools/map/map.module';
 import { ProjectService }   from '../project.service';
 import { SwiperModule }     from 'angular2-useful-swiper';
-
+import { MaterialModule } from '@angular/material';
 
 import { IdeasComponent }    from './ideas.component';
 
@@ -21,6 +21,7 @@ import { IdeasRouting } from './ideas-routing';
     TranslateModule,
     ComponentModule,
     MapModule,
+    MaterialModule.forRoot(),
     SwiperModule
   ],
   declarations: [

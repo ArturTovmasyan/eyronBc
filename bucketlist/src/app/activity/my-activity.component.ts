@@ -4,6 +4,7 @@ import { Activity } from '../interface/activity';
 import { Broadcaster } from '../tools/broadcaster';
 
 import { ProjectService } from '../project.service';
+import {User} from "../interface/user";
 
 
 @Component({
@@ -25,9 +26,11 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     public start:number = 0;
     public count:number = 9;
     public interval:any;
+    public appUser:User;
     public activeIndex:number[] = [];
     public createComment:boolean[] = [];
     public noActivities:boolean = false;
+    public haveCache:boolean = false;
     public busy:boolean = false;
     public newActivity:boolean = false;
     errorMessage:string;
@@ -38,14 +41,15 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     }
 
     ngOnInit() {
-        // let data = this._cacheService.get('activities');
-        // if(data && !this.single){
-        //   this.Activities = data;
-        //   this.noActivities = (!data || !data.length);
-        //   this.refreshCache();
-        // } else {
+        this.appUser = this._cacheService.get('user_');
+        let data = this.appUser?this._cacheService.get('activities'+this.appUser.id):null;
+        if(data && !this.single){
+          this.Activities = data;
+          this.noActivities = (!data || !data.length);
+          this.newActivityFn(true);
+        } else {
           this.getActivities();
-        // }
+        }
 
         this.broadcaster.on<any>('slide-change')
             .subscribe(data => {
@@ -88,7 +92,8 @@ export class MyActivityComponent implements OnInit,OnDestroy {
                   this.start += this.count;
                   this.busy = false;
                   this.setReserve();
-                  this._cacheService.set('activities', this.Activities);
+                  this.appUser = this._cacheService.get('user_');
+                  this._cacheService.set('activities'+this.appUser.id, this.Activities);
                 },
                 error => this.errorMessage = <any>error);
     }
@@ -99,21 +104,28 @@ export class MyActivityComponent implements OnInit,OnDestroy {
         this._projectService.getActivities(this.start, this.count, this.userId)
             .subscribe(
                 activities => {
-                  this.Activities = activities;
-                  this.noActivities = (!activities || !activities.length);
-                  for(let activity of this.Activities) {
-                    if (activity.goals.length > 2) {
-                      activity.reserveGoals = [activity.goals[0], activity.goals[1]];
-                        this.optimizeReserveImages(activity.reserveGoals);
-                    } else {
-                      activity.reserveGoals = activity.goals
-                    }
-                  }
-                    this.start += this.count;
-                    this.busy = false;
-                    this.setReserve();
-                    if(!this.single){
-                        this._cacheService.set('activities', this.Activities);
+                    if(activities && activities.length){
+                        if(activities[0].datetime !== this.Activities[0].datetime ){
+                            this.newData = activities;
+                            this.haveCache = true;
+                            this.newActivity = true;
+
+                            this.reserve = [];
+                        }
+
+                        for(let activity of activities) {
+                            if (activity.goals.length > 2) {
+                                activity.reserveGoals = [activity.goals[0], activity.goals[1]];
+                                this.optimizeReserveImages(activity.reserveGoals);
+                            } else {
+                                activity.reserveGoals = activity.goals
+                            }
+                        }
+                        this.appUser = this._cacheService.get('user_');
+                        this._cacheService.set('activities'+this.appUser.id, activities);
+                        this.start += this.count;
+                        this.busy = false;
+                        this.setReserve();
                     }
                 },
                 error => this.errorMessage = <any>error);
@@ -125,11 +137,12 @@ export class MyActivityComponent implements OnInit,OnDestroy {
                 activities => {
                   this.reserve = activities;
                   for(let activity of this.reserve) {
+                    activity.forBottom = true;
                     if (activity.goals.length > 2) {
-                      activity.reserveGoals = [activity.goals[0], activity.goals[1]];
+                        activity.reserveGoals = [activity.goals[0], activity.goals[1]];
                         this.optimizeReserveImages(activity.reserveGoals);
                     } else {
-                      activity.reserveGoals = activity.goals
+                        activity.reserveGoals = activity.goals
                     }
                   }
                   this.start += this.count;
@@ -146,20 +159,43 @@ export class MyActivityComponent implements OnInit,OnDestroy {
 
     addNew(){
         this.newActivity = false;
-        this.addNewActivity();
-        this.interval = setInterval(this.newActivityFn, 120000)
+        if(this.haveCache){
+            this.haveCache = false;
+            this.purgeOldData();
+        } else {
+            this.addNewActivity();
+            this.interval = setInterval(this.newActivityFn, 120000)
+        }
+
     }
 
-    newActivityFn() {
-        if(this.Activities && !this.single){
-            this._projectService.getActivities(0, this.count, this.userId, this.Activities[0].datetime).subscribe(
-            data => {
-                 if(data && data.length != 0){
-                        this.newData = data;
-                        this.newActivity = true;
-                        clearInterval(this.interval);
-                    }
-            });
+    purgeOldData(){
+        for(let i = this.count - 1; i >= 0; i--){
+            this.newData[i].forTop = true;
+            this.Activities.unshift(this.newData[i]);
+            this.Activities.pop();
+        }
+    }
+
+    newActivityFn(haveReserve?:boolean) {
+        if(!this.single){
+            if(this.Activities && this.Activities[0]){
+                if(haveReserve){
+                    this.refreshCache();
+                } else {
+                    this._projectService.getActivities(0, this.count, this.userId, this.Activities[0].datetime).subscribe(
+                        data => {
+                            if(data && data.length != 0){
+                                this.newData = data;
+                                this.newActivity = true;
+                                clearInterval(this.interval);
+                            }
+                        });
+                }
+            } else {
+                this.getActivities();
+            }
+
         }else {
             clearInterval(this.interval);
         }
@@ -168,13 +204,11 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     addNewActivity(){
         let itemIds = [];
 
-        for(let data of this.newData){
+        for(let data of this.Activities){
             itemIds.push(data.id);
         }
 
         let removingCount = 0,k;
-
-    // angular.element('#activities').addClass('comingByTop');
 
         for(let i = this.newData.length - 1, j = 0; i >= 0; i--, j++){
             k = itemIds.indexOf(this.newData[i].id);
@@ -191,10 +225,6 @@ export class MyActivityComponent implements OnInit,OnDestroy {
             }
             this.Activities.unshift(this.newData[i]);
         }
-    // if(angular.isFunction(cb)){
-    //     cb();
-    // }
-    // angular.element('#activities').removeClass('comingByTop');
     };
 
     optimizeReserveImages(items){

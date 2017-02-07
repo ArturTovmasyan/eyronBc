@@ -190,6 +190,7 @@ export class ProjectService {
      * @returns {Observable<R>}
      */
     sendConfirmRegistrationEmail(data:any):Observable<any> {
+        this.headers.set('apikey', localStorage.getItem('apiKey'));
         return this.http.post(this.updateConfirmRegEmailUrl, data, {headers: this.headers})
             .map((r: Response) => r.json());
     }
@@ -318,6 +319,7 @@ export class ProjectService {
      *
      */
     getUser():Observable<User> {
+        this.headers.set('apikey', localStorage.getItem('apiKey'));
         return this.http.get(this.userUrl, {headers: this.headers})
             .map((r:Response) => r.json() as User)
             .catch(this.handleError);

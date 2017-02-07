@@ -176,6 +176,7 @@
                     <!--{% endif %}-->
                 </div>
 
+                <md-progress-spinner mode="indeterminate" *ngIf="busy || (!userGoals && !noItem)"></md-progress-spinner>
             <p class="empty-text text-center"
                *ngIf="(!userGoals || !userGoals.length) && noItem">
                 <!--data-ng-init="link = (activeGoals? '{{ path('user_profile_single', {'status': active }) }}': '{{ path('goals_list') }}')"-->

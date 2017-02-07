@@ -89,6 +89,7 @@ export class AppComponent implements OnInit  {
         this.broadcaster.on<any>('regConfirmMenu')
             .subscribe((data) => {
                 this.regConfirmMenu = data;
+                this.updatedEmail = this._cacheService.get('confirmRegEmail' + this.appUser.id);
             });
 
         if(localStorage.getItem('apiKey')){

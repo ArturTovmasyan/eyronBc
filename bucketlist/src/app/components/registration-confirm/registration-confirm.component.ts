@@ -14,6 +14,7 @@ export class RegistrationConfirmComponent implements OnInit, OnDestroy {
 
   eventId: number = 0;
   secret: any = null;
+  sub: any;
   type: string;
   errorMessage:any;
   show:boolean = false;
@@ -29,7 +30,7 @@ export class RegistrationConfirmComponent implements OnInit, OnDestroy {
               private router:Router,
               private _cacheService: CacheService) {
 
-    router.events.subscribe((val) => {
+      this.sub = router.events.subscribe((val) => {
 
           if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd) {
 
@@ -49,6 +50,7 @@ export class RegistrationConfirmComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(){
+        this.sub.unsubscribe();
         this.isDestroy = true;
     }
 

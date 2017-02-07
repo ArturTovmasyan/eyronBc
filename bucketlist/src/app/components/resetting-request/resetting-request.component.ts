@@ -157,7 +157,6 @@ export class ResettingRequestComponent implements OnInit {
                         this.router.navigate(['/ideas']);
                     }
 
-                    // this.broadcaster.broadcast('regConfirmMenu', true);
                     this.show = false;
                 },
                 error => {
@@ -247,6 +246,7 @@ export class ResettingRequestComponent implements OnInit {
                 (res) => {
                     if(!res.confirm) {
                         this.router.navigate(['/ideas']);
+                        return;
                     }
 
                     if(this.type == 'resend-message' && res.confirm) {
