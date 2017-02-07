@@ -81,33 +81,34 @@ export class IdeasComponent implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
-    this.serverPath = this._projectService.getPath();
-    let data = this._cacheService.get('categories');
-    if(data){
-      this.categories = data;
-      this.initSlide();
-    }else {
-      this.getCategories();
+        this.serverPath = this._projectService.getPath();
+        let data = this._cacheService.get('categories');
+        if(data){
+          this.categories = data;
+          this.initSlide();
+        }else {
+          this.getCategories();
+        }
+    
+        this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
+          
+        this.broadcaster.on<Marker>('location_changed')
+              .subscribe(marker => {
+                  this.latitude = marker.latitude;
+                  this.longitude = marker.longitude;
+                  this.userLocation = {
+                      latitude: this.latitude,
+                      longitude: this.longitude
+                  };
+                  this.locationsIds = [];
+                  this.locations = [];
+                  this.start = 0;
+                  this.ideas = null;
+                  this.reserve = null;
+                  this.getNearByGoals();
+        });
     }
-
-    this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
-      
-    this.broadcaster.on<Marker>('location_changed')
-          .subscribe(marker => {
-              this.latitude = marker.latitude;
-              this.longitude = marker.longitude;
-              this.userLocation = {
-                  latitude: this.latitude,
-                  longitude: this.longitude
-              };
-              this.locationsIds = [];
-              this.locations = [];
-              this.start = 0;
-              this.ideas = null;
-              this.reserve = null;
-              this.getNearByGoals();
-    });
-  }
+    
     initSlide(){
         if(window.innerWidth < 766){
             this.sliderCount = 3;
@@ -170,25 +171,32 @@ export class IdeasComponent implements OnInit, OnDestroy {
   }
 
     setReserve(){
-      if(this.category == 'nearby'){
+        let category = this.category;
+        if(this.category == 'nearby'){
           this._projectService.getNearByGoals(this.latitude, this.longitude, this.start, this.count, this.isCompletedGoals)
               .subscribe(
                   goals => {
+                      //when change category before request
+                      if(category != this.category)return;
+                      
                       this.reserve = goals;
                       this.optimizeReserveImages();
                       this.start += this.count;
                   },
                   error => this.errorMessage = <any>error);
-      } else {
+        } else {
           this._projectService.getIdeaGoals(this.start, this.count, this.search, this.category)
               .subscribe(
                   goals => {
+                      //when change category before request
+                      if(category != this.category)return;
+                      
                       this.reserve = goals;
                       this.optimizeReserveImages();
                       this.start += this.count;
                   },
                   error => this.errorMessage = <any>error);
-      }
+        }
   }
 
     doSearch(){
