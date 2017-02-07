@@ -2,6 +2,7 @@ export interface User {
     id: number,
     uId: string,
     first_name?: string,
+    username?: string,
     last_name?: string,
     cached_image?: string,
     image_path?: string,

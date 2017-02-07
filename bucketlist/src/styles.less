@@ -2968,8 +2968,45 @@ md-select{
   }
 }
 
+.email{
+  padding: 5px;
+  text-align:center;
+  position: relative;
+  background: #7724F6;
+  color:#ffffff;
+  z-index: 10;
+  font-size:12px;
+  span{
+    display: inline-block;
+    margin: 8px 0 0;
+    font-size:12px;
+  }
+  a{
+    margin: 5px 0 0 5px;
+    display: inline-block;
+    font-weight:bold;
+    padding:2px 5px;
+    color: #ffffff;
+    border:1px solid #ffffff;
+    font-size:12px;
+
+    &:hover{
+      color:#7724F6;
+      background-color: #ffffff;
+    }
+  }
+}
+
 @media (min-width: @screen-sm) {
 
+  .email{
+    padding: 15px 5px;
+    font-size:14px;
+    span{
+      font-size:14px;
+    }
+  }
+  
   header{
 
     .navbar{

@@ -8,6 +8,7 @@ export interface Activity {
     reserveGoals?: Goal[],
     datetime?: any,
     forTop?: boolean,
+    forBottom?: boolean,
     createComment?: boolean,
     showComment?: boolean
 }

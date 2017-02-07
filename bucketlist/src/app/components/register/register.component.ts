@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ValidationService } from 'app/validation.service';
 import { ProjectService} from 'app/project.service';
 import { Broadcaster } from '../../tools/broadcaster';
+import {CacheService} from 'ng2-cache/ng2-cache';
 import { Router } from '@angular/router';
 import { Uploader }      from 'angular2-http-file-upload';
 import { MyUploadItem }  from '../my-dropzone/my-upload';
@@ -50,7 +51,8 @@ export class RegisterComponent implements OnInit {
         private fb: FormBuilder,
         private router: Router,
         private broadcaster: Broadcaster,
-        public uploaderService: Uploader)
+        public uploaderService: Uploader,
+        private _cacheService: CacheService)
     {}
 
     ngOnInit() {
@@ -113,7 +115,9 @@ export class RegisterComponent implements OnInit {
                     if(res.apiKey) {
                         localStorage.setItem('apiKey', res.apiKey);
                         this.saveImage(res.userInfo);
+                        this._cacheService.set('confirmRegEmail' + res.userInfo.id, res.userInfo.username, {maxAge: 3 * 24 * 60 * 60});
                         this.show = false;
+                        this.broadcaster.broadcast('regConfirmMenu', true);
                         this.router.navigate(['/ideas']);
                     }
                 },

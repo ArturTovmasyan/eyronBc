@@ -63,7 +63,7 @@
                                    [ngClass]="{'join-class': joinToggle1}"
                                    (clickOutside)="joinToggle1 = false">
                                     <figure class="img-circle" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
-                                        <img src="{{ appUser.cached_image }}" alt="{{ appUser.filename }}" class="img-responsive">
+                                        <img data-click="true" src="{{ appUser.cached_image }}" alt="{{ appUser.filename }}" class="img-responsive">
                                     </figure>
                                     <p *ngIf="!appUser.cached_image && (!isMobile || !joinToggle1)" class="no-image user-no2">{{ appUser.first_name|slice:0:1| uppercase }}{{ appUser.last_name|slice:0:1 | uppercase}}</p>
 
@@ -149,7 +149,6 @@
                             </li>
                         </ul>
                     </div>
-                    <!--{% endif %}-->
                 </div>
             </nav>
         </header>
@@ -157,29 +156,22 @@
             <my-login (changeJoin)="hideJoin($event)"></my-login>
         </div>
 
-        <!--<div [hidden]="!show" (clickOutside)="closeDropdown()">-->
-        <!--<notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)"></notification-dropdown>-->
-        <!--</div>-->
-
-        <!--<div *ngIf="reportModal">-->
-        <!--<report-modal (changeModal)="hideModal('report')" [data]="reportData" class="modal-block"></report-modal>-->
-        <!--</div>-->
-
-        <!--<div *ngIf="commonModal">-->
-        <!--<common-modal (changeModal)="hideModal('common')" [id]="commonId" class="modal-block"></common-modal>-->
-        <!--</div>-->
-
-        <!--<div *ngIf="usersModal">-->
-        <!--<users-modal (changeModal)="hideModal('users')" [data]="usersData" class="modal-block"></users-modal>-->
-        <!--</div>-->
-
-        <!--<div *ngIf="addModal">-->
-        <!--<add-modal (changeModal)="hideModal('add')" [data]="addData" class="modal-block"></add-modal>-->
-        <!--</div>-->
-
-        <!--<div *ngIf="doneModal">-->
-        <!--<done-modal (changeModal)="hideModal('done')" [data]="doneData" class="modal-block"></done-modal>-->
-        <!--</div>-->
+        <div class="email" *ngIf="appUser && appUser.registration_token && regConfirmMenu">
+            <div class="container">
+                <div class="row no-gutter">
+                    <div class="col-sm-9">
+                            <span>
+                                {{ 'register_text'|translate:{XXX: projectName } }}
+                                {{ 'registration.check_email'|translate:{email: updatedEmail } }}
+                            </span>
+                    </div>
+                    <div class="col-sm-3">
+                        <a id="resend_message" routerLink="/resetting/resend-message">{{ 'email.resend'|translate|uppercase }}</a>
+                        <a routerLink="/resetting/update-email">{{ 'email.update'|translate|uppercase }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <router-outlet></router-outlet>
     </div>

@@ -1235,6 +1235,53 @@ class UserController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="User",
+     *  description="This function is used to check reset password token",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found"
+     *     },
+     * )
+     *
+     * @Rest\View()
+     * @Rest\Post("/user/check/registration-token", name="application_user_rest_user_checkregistrationtoken", options={"method_prefix"=false})
+     * @return array|JsonResponse
+     */
+    public function checkRegistrationTokenAction(Request $request)
+    {
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        $userId = $request->request->get('id');
+
+        $em = $this->getDoctrine()->getManager();
+
+        //get user by token
+        $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
+
+        if(!$user) {
+            new JsonResponse('User not found', Response::HTTP_NOT_FOUND);
+        }
+
+        $registrationToken = $user->getRegistrationToken();
+
+        if($registrationToken) {
+            $tokeExist = true;
+        }else{
+            $tokeExist = false;
+        }
+
+        return  ['confirm' => $tokeExist];
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
      *  description="This function is used to confirm user registartion",
      *  statusCodes={
      *         204="Returned when all ok",
@@ -1344,5 +1391,58 @@ class UserController extends FOSRestController
        return new JsonResponse('', Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to update confirm registration email",
+     *  statusCodes={
+     *         400="Bad request",
+     *         204="Np content"
+     *     },
+     * )
+     * @Rest\View()
+     * @Rest\Post("/user/update/activation-email", name="application_user_rest_user_postupdateconfirmemail", options={"method_prefix"=false})
+     * @Secure(roles="ROLE_USER")
+     * @param Request $request
+     * @return JsonResponse|Response
+     */
+    public function postUpdateConfirmEmailAction(Request $request)
+    {
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        //get email
+        $email = $request->request->get('email');
+        $user = $this->getUser();
+
+        //get registration token
+        $regToken = $user->getRegistrationToken();
+
+        if(!$regToken) {
+            new JsonResponse('Bad request', Response::HTTP_BAD_REQUEST);
+        }
+
+        //check if email not exist
+        if(!$email) {
+            $email = $user->getEmail();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $token = md5(microtime());
+        $user->setRegistrationToken($token);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->container->get('bl.email.sender')->sendConfirmEmail($email, $token, $user->getFirstName());
+
+        return $email;
+    }
 }
 

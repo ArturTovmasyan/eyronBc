@@ -9,7 +9,7 @@
 .content-header {
   position: relative;
   overflow: hidden;
-  min-height: 261px;
+  min-height: 230px;
 }
 .content-header > figure {
   position: absolute;
@@ -146,13 +146,14 @@
   background-color: rgba(207, 207, 207, 0.34);
   text-align: center;
   position: relative;
-  padding: 10px 0;
+  padding: 10px 0 7px;
 }
 .profile figure div {
   width: 100px;
   height: 100px;
   margin: 0 auto;
   overflow: hidden;
+  position: relative;
 }
 .profile figure span.profile-image {
   display: block;
@@ -171,9 +172,6 @@
   margin-top: 11px;
   background-color: transparent;
 }
-.profile figure figcaption ul {
-  padding-top: 10px;
-}
 .profile figure figcaption h3 {
   color: #ffffff;
   font-size: 18px;
@@ -187,25 +185,30 @@
   overflow: hidden;
   display: block;
 }
-.profile figure figcaption li {
+.profile figure figcaption ul {
+  padding-top: 10px;
+}
+.profile figure figcaption ul li {
   display: inline-block;
   border-right: 1px solid #eeeeee;
   padding: 0 20px;
+  height: auto;
+  line-height: inherit;
 }
-.profile figure figcaption li span {
+.profile figure figcaption ul li span {
   display: block;
   color: #ffffff;
   font-size: 14px;
   line-height: 21px;
 }
-.profile figure figcaption li span:last-child {
+.profile figure figcaption ul li span:last-child {
   font-size: 22px;
   line-height: 33px;
 }
-.profile figure figcaption li:last-child {
+.profile figure figcaption ul li:last-child {
   border: 0;
 }
-.profile figure figcaption li:hover {
+.profile figure figcaption ul li:hover {
   background-color: transparent;
 }
 .profile #settings-form figure {
@@ -429,7 +432,21 @@
   max-width: 300px;
   text-align: left;
 }
+.image-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 22px 5px;
+}
 @media (min-width: 768px) {
+  .content-header {
+    min-height: 236px;
+  }
   .content-header > figure {
     height: 260px;
   }
@@ -465,13 +482,13 @@
   .profile figure figcaption ul {
     padding-top: 0;
   }
-  .profile figure figcaption li {
+  .profile figure figcaption ul li {
     padding: 0 8px;
   }
-  .profile figure figcaption li span {
+  .profile figure figcaption ul li span {
     font-size: 13px;
   }
-  .profile figure figcaption li span:last-child {
+  .profile figure figcaption ul li span:last-child {
     font-size: 16px;
     line-height: 24px;
   }
@@ -612,10 +629,14 @@
   .md-slide-toggle-content {
     max-width: 600px;
   }
+  .image-label {
+    font-size: 15px;
+    padding: 30px 15px;
+  }
 }
 @media (min-width: 992px) {
   .content-header {
-    min-height: 266px;
+    min-height: 264px;
   }
   .content-header > figure {
     height: 266px;
@@ -652,14 +673,14 @@
   .profile figure figcaption {
     margin-top: 17px;
   }
-  .profile figure figcaption li {
+  .profile figure figcaption ul li {
     padding: 0 20px;
   }
-  .profile figure figcaption li span {
+  .profile figure figcaption ul li span {
     font-size: 14px;
     line-height: 21px;
   }
-  .profile figure figcaption li span:last-child {
+  .profile figure figcaption ul li span:last-child {
     font-size: 18px;
     line-height: 27px;
   }
@@ -767,17 +788,14 @@
   .settings-menu ul.menu li:last-child.active {
     padding: 25px 15px;
   }
+  .image-label {
+    font-size: 16px;
+    padding: 41px 15px;
+  }
 }
 @media (min-width: 1200px) {
   .profile h1 span {
     font-size: 52px;
     line-height: 78px;
   }
-}
-.image-label {
-  position: absolute;
-  left: 35%;
-  top: 36%;
-  color: purple;
-  cursor: pointer;
 }

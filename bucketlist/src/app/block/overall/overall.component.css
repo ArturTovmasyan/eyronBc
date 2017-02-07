@@ -46,6 +46,9 @@
   background: linear-gradient(to right, #7724f6, #ef4e45);
   /* Standard syntax (must be last) */
 }
+.right-menu.overall-progress hr {
+  margin: 20px 0;
+}
 .right-menu.overall-progress span:hover {
   color: #999999;
 }

@@ -46,11 +46,11 @@
 #activities h4 span {
   display: block;
 }
-#activities .goals-animate .swiper-button-next,
-#activities .goals-animate .swiper-button-prev {
+#activities .swiper-button-next,
+#activities .swiper-button-prev {
   top: 42%;
 }
-#activities .goals-animate .swiper-pagination {
+#activities .swiper-pagination {
   text-align: right;
   position: absolute;
   right: 3px;
@@ -60,13 +60,13 @@
   font-size: 14px;
   left: auto;
 }
-#activities .goals-animate .swiper-pagination .swiper-pagination-bullet {
+#activities .swiper-pagination .swiper-pagination-bullet {
   margin: 0 5px;
 }
-#activities .goals-animate p {
+#activities p {
   padding-bottom: 0;
 }
-#activities .goals-animate .idea-item figure.rounded-corners {
+#activities .idea-item figure.rounded-corners {
   border-radius: 4px;
   -moz-border-radius-topleft: 4px;
   -moz-border-radius-topright: 4px;
@@ -114,11 +114,11 @@
   #activities h4 span {
     display: inline-block;
   }
-  #activities .goals-animate .swiper-pagination {
+  #activities .swiper-pagination {
     top: 6px;
     font-size: 16px;
   }
-  #activities .goals-animate p {
+  #activities p {
     padding-bottom: 0;
   }
 }

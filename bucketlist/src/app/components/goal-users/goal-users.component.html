@@ -5,7 +5,7 @@
   </span>
   <i class="icon-user-small"></i>
 </a>
-<span *ngIf="type == 1 && (!goal || !goal.stats || goal.stats.listedBy == '0')">
+<span *ngIf="type == 1 && (!goal || !goal.stats || goal.stats.listedBy == '0')" class="text-white">
     <span class="text-white">
       {{ 'home_listed_by' | translate }}
       0
@@ -19,7 +19,7 @@
   </span>
   <i class="icon-user-small"></i>
 </a>
-<span *ngIf="type == 2 && (!goal || !goal.stats || goal.stats.doneBy == '0')">
+<span *ngIf="type == 2 && (!goal || !goal.stats || goal.stats.doneBy == '0')" class="text-white">
     <span class="text-white">
       {{ 'home_complete' | translate }}
       0

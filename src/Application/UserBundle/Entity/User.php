@@ -217,6 +217,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="registration_token", type="string", nullable=true, unique=true)
+     * @Groups({"user"})
      */
     protected $registrationToken;
 

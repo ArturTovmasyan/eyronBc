@@ -2345,7 +2345,41 @@ md-select .md-select-value {
 .example-margin .md-checkbox-inner-container {
   margin: auto 3px auto auto;
 }
+.email {
+  padding: 5px;
+  text-align: center;
+  position: relative;
+  background: #7724F6;
+  color: #ffffff;
+  z-index: 10;
+  font-size: 12px;
+}
+.email span {
+  display: inline-block;
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+.email a {
+  margin: 5px 0 0 5px;
+  display: inline-block;
+  font-weight: bold;
+  padding: 2px 5px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  font-size: 12px;
+}
+.email a:hover {
+  color: #7724F6;
+  background-color: #ffffff;
+}
 @media (min-width: 768px) {
+  .email {
+    padding: 15px 5px;
+    font-size: 14px;
+  }
+  .email span {
+    font-size: 14px;
+  }
   header .navbar {
     min-height: 82px;
   }
@@ -3376,6 +3410,9 @@ md-progress-spinner {
   z-index: 1;
   text-align: center;
   color: #ffffff;
+}
+.progress .progress-section .md-progress-bar-fill::after {
+  background-color: #7724f6;
 }
 .progress md-progress-bar {
   height: 20px;

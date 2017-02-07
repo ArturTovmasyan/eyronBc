@@ -1,4 +1,6 @@
 .loading-img {
+  position: absolute;
   width: 100%;
-  height: 230px;
+  text-align: center;
+  top: 35%;
 }

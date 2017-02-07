@@ -38,7 +38,9 @@ export class AppComponent implements OnInit  {
     public isMobile:Boolean= (window.innerWidth < 768);
     errorMessage:string;
     public appUser:User;
+    public updatedEmail:any;
     public busy:boolean = false;
+    public projectName:any;
 
   //  modal
     public reportModal:boolean = false;
@@ -52,6 +54,7 @@ export class AppComponent implements OnInit  {
     public addData:any;
     public doneData:any;
     public writeTimeout:any;
+    public regConfirmMenu:boolean = true;
 
     constructor(
       private _translate: TranslateService,
@@ -64,6 +67,7 @@ export class AppComponent implements OnInit  {
     ) { }
 
     ngOnInit() {
+        this.projectName = this._projectService.getAngularPath();
         this.serverPath = this._projectService.getPath();
         // standing data
         this.supportedLanguages = [
@@ -82,6 +86,12 @@ export class AppComponent implements OnInit  {
             this.getBottomMenu();
         }
 
+        this.broadcaster.on<any>('regConfirmMenu')
+            .subscribe((data) => {
+                this.regConfirmMenu = data;
+                this.updatedEmail = this._cacheService.get('confirmRegEmail' + this.appUser.id);
+            });
+
         if(localStorage.getItem('apiKey')){
             this.appUser = this._cacheService.get('user_');
             if(!this.appUser) {
@@ -96,6 +106,14 @@ export class AppComponent implements OnInit  {
                         error => localStorage.removeItem('apiKey'));
             } else {
                 this.selectLang((this.appUser.language)?this.appUser.language:'en');
+            }
+        }
+
+        if(this.appUser) {
+            this.updatedEmail = this._cacheService.get('confirmRegEmail' + this.appUser.id);
+
+            if(!this.updatedEmail) {
+                this.updatedEmail = this.appUser.username;
             }
         }
 

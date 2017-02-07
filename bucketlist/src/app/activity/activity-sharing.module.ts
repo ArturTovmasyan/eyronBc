@@ -5,6 +5,7 @@ import { TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
 import { ComponentModule } from '../components/components.module';
 import { SwiperModule } from 'angular2-useful-swiper';
+import { MaterialModule } from '@angular/material';
 
 import { MyActivityComponent } from './my-activity.component';
 import { SliderComponent } from './slider.component';
@@ -18,7 +19,8 @@ import { ActivityGoalFooterComponent } from '../components/activity-goal-footer/
     RouterModule,
     FormsModule,
     ComponentModule,
-    SwiperModule
+    SwiperModule,
+    MaterialModule.forRoot(),
   ],
   declarations: [
     MyActivityComponent,

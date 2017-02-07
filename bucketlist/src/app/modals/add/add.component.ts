@@ -103,8 +103,13 @@ export class AddComponent implements OnInit {
           this.userGoal.do_date_status = this.userGoal.date_status;
         }
       }
-      this.complatedPercent = this.getCompleted(this.userGoal);
-      
+      if(this.userGoal.formatted_steps && this.userGoal.formatted_steps[0]){
+        if(this.userGoal.formatted_steps[this.userGoal.formatted_steps.length - 1].text){
+          this.generateStep(true,this. userGoal.formatted_steps, this.userGoal.formatted_steps.length -1);
+        } else {
+          this.complatedPercent = this.getCompleted(this.userGoal);
+        }
+      }
     }
   }
 
@@ -195,6 +200,7 @@ export class AddComponent implements OnInit {
   generateStep(value, array, key){
 
     if(value === ''){
+      array[key].text = value;
       if(key === 0){
         if(array.length > 1) {
           array.splice(key, 1);
@@ -203,16 +209,17 @@ export class AddComponent implements OnInit {
       else {
         array.splice(key, 1);
       }
+      this.complatedPercent = this.getCompleted(this.userGoal);
     }
     else {
-      if(!value){
-        return;
+      if(typeof(value) == "string"){
+        array[key].text = value;
       }
-      if(!array[key + 1]) {
-        array[key + 1] = {};
-      }
+        if(!array[key + 1]) {
+          array[key + 1] = {switch:false,text:''};
+          this.complatedPercent = this.getCompleted(this.userGoal);
+        }
     }
-    this.complatedPercent = this.getCompleted(this.userGoal);
   }
 
   dateByFormat(month, day, year){
