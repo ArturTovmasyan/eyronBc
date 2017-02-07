@@ -28,6 +28,7 @@ export class ResettingRequestComponent implements OnInit {
     data:any = {};
     updatedEmail:any;
     isDestroy:boolean = false;
+    projectName:any;
 
     constructor(private route: ActivatedRoute,
                 private _projectService: ProjectService,
@@ -83,6 +84,7 @@ export class ResettingRequestComponent implements OnInit {
     ngOnInit() {
 
         this.broadcaster.broadcast('regConfirmMenu', false);
+        this.projectName = this._projectService.getAngularPath();
 
         //get current user data
         if(localStorage.getItem('apiKey')){

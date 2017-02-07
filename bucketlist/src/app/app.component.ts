@@ -40,6 +40,7 @@ export class AppComponent implements OnInit  {
     public appUser:User;
     public updatedEmail:any;
     public busy:boolean = false;
+    public projectName:any;
 
   //  modal
     public reportModal:boolean = false;
@@ -66,6 +67,7 @@ export class AppComponent implements OnInit  {
     ) { }
 
     ngOnInit() {
+        this.projectName = this._projectService.getAngularPath();
         this.serverPath = this._projectService.getPath();
         // standing data
         this.supportedLanguages = [
