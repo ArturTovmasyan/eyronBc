@@ -117,6 +117,7 @@ export class RegisterComponent implements OnInit {
                         this.saveImage(res.userInfo);
                         this._cacheService.set('confirmRegEmail' + res.userInfo.id, res.userInfo.username, {maxAge: 3 * 24 * 60 * 60});
                         this.show = false;
+                        this.broadcaster.broadcast('regConfirmMenu', true);
                         this.router.navigate(['/ideas']);
                     }
                 },
