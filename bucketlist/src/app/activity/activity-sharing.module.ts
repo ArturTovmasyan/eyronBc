@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ComponentModule } from '../components/components.module';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { MaterialModule } from '@angular/material';
+import { Angulartics2Module } from 'angulartics2';
 
 import { MyActivityComponent } from './my-activity.component';
 import { SliderComponent } from './slider.component';
@@ -21,6 +22,7 @@ import { ActivityGoalFooterComponent } from '../components/activity-goal-footer/
     ComponentModule,
     SwiperModule,
     MaterialModule.forRoot(),
+    Angulartics2Module.forChild()
   ],
   declarations: [
     MyActivityComponent,
