@@ -2,6 +2,7 @@ import { Component, OnInit, Input , ViewEncapsulation, OnDestroy } from '@angula
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Activity } from '../interface/activity';
 import { Broadcaster } from '../tools/broadcaster';
+import { Angulartics2 } from 'angulartics2';
 
 import { ProjectService } from '../project.service';
 import {User} from "../interface/user";
@@ -35,7 +36,13 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     public newActivity:boolean = false;
     errorMessage:string;
     
-    constructor(private _projectService: ProjectService, private _cacheService: CacheService, private broadcaster: Broadcaster) {}
+    constructor(
+        private angulartics2: Angulartics2,
+        private _projectService: ProjectService,
+        private _cacheService: CacheService,
+        private broadcaster: Broadcaster
+    ) {}
+    
     ngOnDestroy(){
         clearInterval(this.interval);
     }
@@ -152,6 +159,7 @@ export class MyActivityComponent implements OnInit,OnDestroy {
     }
 
     getReserve(){
+        this.angulartics2.eventTrack.next({ action: 'Activity load more', properties: { category: 'Activity', label: 'Load more from angular2'}});
         this.busy = true;
         this.Activities = this.Activities.concat(this.reserve);
         this.setReserve();

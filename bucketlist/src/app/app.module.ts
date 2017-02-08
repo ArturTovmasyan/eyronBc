@@ -8,6 +8,7 @@ import { DndModule} from 'ng2-dnd';
 import { NotificationDropdownComponent } from './components/notification-dropdown/notification-dropdown.component';
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { MaterialModule } from '@angular/material';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { ValidationService } from './validation.service';
 import { Broadcaster} from './tools/broadcaster';
 import { ClickOutsideDirective} from './tools/outside';
@@ -102,6 +103,7 @@ export function createTranslateLoader(http: Http) {
     appRouting,
     MetadataModule.forRoot(),
     SwiperModule,
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),

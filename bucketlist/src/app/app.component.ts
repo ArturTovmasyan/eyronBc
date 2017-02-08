@@ -10,6 +10,7 @@ import { Broadcaster} from './tools/broadcaster';
 import { ProjectService} from './project.service';
 import { Router } from '@angular/router';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { Angulartics2, Angulartics2GoogleAnalytics} from 'angulartics2';
 
 import {User} from './interface/user';
 
@@ -57,6 +58,8 @@ export class AppComponent implements OnInit  {
     public regConfirmMenu:boolean = true;
 
     constructor(
+      private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
+      private angulartics2: Angulartics2,
       private _translate: TranslateService,
       private broadcaster: Broadcaster,
       private _projectService: ProjectService,
@@ -207,6 +210,14 @@ export class AppComponent implements OnInit  {
                               error => localStorage.removeItem('apiKey'));
                   }
 
+                  if(data.newCreated){
+                      this.angulartics2.eventTrack.next({ action: 'Goal create', properties: { category: 'Goal', label: 'Goal create from angular2'}});
+                  }
+                  if(data.newAdded){
+                      this.angulartics2.eventTrack.next({ action: 'Goal add', properties: { category: 'Goal', label: 'Goal add from angular2'}});
+                  } else {
+                      this.angulartics2.eventTrack.next({ action: 'Goal manage', properties: { category: 'Goal', label: 'Goal manage from angular2'}});
+                  }
 
                   let dialogRef: MdDialogRef<AddComponent>;
                   let config = new MdDialogConfig();
@@ -220,6 +231,12 @@ export class AppComponent implements OnInit  {
                       this.busy = false;
                       if(result){
                           if(result.remove){
+                              if(data.userGoal.goal.author == this.appUser.id){
+                                  this.angulartics2.eventTrack.next({ action: 'Goal delete', properties: { category: 'Goal', label: 'Goal delete from angular2'}});
+                              }else {
+                                  this.angulartics2.eventTrack.next({ action: 'Goal unlisted', properties: { category: 'Goal', label: 'Goal unlisted from angular2'}});
+                              }
+                              
                               this.broadcaster.broadcast('removeUserGoal_' + result.remove, result.remove);
                               this.broadcaster.broadcast('removeGoal', result.remove);
                               this.broadcaster.broadcast('removeGoal'+data.userGoal.goal.id, data.userGoal.goal.id);
@@ -248,6 +265,10 @@ export class AppComponent implements OnInit  {
                               },
                               error => localStorage.removeItem('apiKey'));
                   }
+                  if(data.newAdded){
+                      this.angulartics2.eventTrack.next({ action: 'Goal done', properties: { category: 'Goal', label: 'Goal done from angular2'}});
+                  }
+                  
                   this.broadcaster.broadcast('doneGoal', data);
                   this.doneData = data;
                   this.addData = data;
