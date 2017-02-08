@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule}  from '@angular/forms';
-import {TranslateService, TranslateLoader, TranslateModule, TranslateParser} from 'ng2-translate';
+import { TranslateService, TranslateLoader, TranslateModule, TranslateParser } from 'ng2-translate';
 import { MaterialModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -18,7 +18,7 @@ import { RoundPipe } from '../pipes/round.pipe';
 
 import { ProjectService } from '../project.service';
 import { ValidationService } from '../validation.service';
-import {CacheService} from 'ng2-cache/ng2-cache';
+import { CacheService } from 'ng2-cache/ng2-cache';
 import { Broadcaster } from '../tools/broadcaster';
 import { Uploader } from 'angular2-http-file-upload';
 
