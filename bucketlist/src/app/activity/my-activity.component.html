@@ -8,7 +8,7 @@
     <!--data-ng-init="activityPage = true"-->
     <md-progress-spinner mode="indeterminate" *ngIf="!Activities && !noActivities"></md-progress-spinner>
     <div class="new-activity" *ngIf="newActivity && !single">
-        <a (click)="addNew()">{{ 'new_activity'|translate }}</a>
+        <button md-button (click)="addNew()">{{ 'new_activity'|translate }}</button>
     </div>
     <h3 class="text-dark-gray " *ngIf="noActivities && !single" id="non-activity" >{{ 'active.not_have'|translate }}
         <a routerLink="/ideas" class="text-purple">adding</a>
@@ -111,14 +111,14 @@
     </div>
     <!--*ngIf="!single"-->
     <div class="navigation text-center">
-        <a *ngIf="!busy && reserve && reserve.length > 0 && !haveCache"
+        <button md-button *ngIf="!busy && reserve && reserve.length > 0 && !haveCache"
            (click)='getReserve()'
            class="show-more ">
             <!--ActivitiesName -> Activities.name-->
             <span></span>
             <span></span>
             <span></span>
-        </a>
+        </button>
     </div>
 
 </div>

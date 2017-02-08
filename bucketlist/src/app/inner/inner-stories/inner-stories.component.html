@@ -55,7 +55,7 @@
 
     </div>
 
-    <div class="story-remove" *ngIf="appUser && story.user.id == appUser.id" (click)="openDialog(story.id, k)">
+    <div md-button class="story-remove" *ngIf="appUser && story.user.id == appUser.id" (click)="openDialog(story.id, k)">
       <span class="report">{{ 'btn_delete'|translate }}</span>
     </div>
     <!--data-ls-text="{{ 'success_story.delete_confirm'|trans }}" data-ls-confirm="removeStory({{ story.id }})"-->

@@ -156,7 +156,7 @@
 
         <div class="row">
           <div class="col-xs-5">
-            <a class="text-gray manage-modal" (click)="manageGoal(goal.id)">
+            <a md-button class="text-gray manage-modal" (click)="manageGoal(goal.id)">
               <i class="icon-manage"></i>
               <span>{{ 'manage'|translate| capitalize }}</span>
             </a>
@@ -167,13 +167,13 @@
             <!--data-ng-init="goalStatus = (status == '{{ constant("AppBundle\\Entity\\UserGoalCOMPLETED")---2--- }}')"-->
             <!--data-ng-init="success[ goal.id ] = goalStatus"-->
           <div class="check_status">
-            <a *ngIf="!success"
+            <a md-button *ngIf="!success"
                (click)="completeGoal(goal.id)" class="btn btn-transparent ">
               <!--id="done{{ goal.id }}"-->
               <i class="icon done-icon"></i>
               {{ 'done'|translate| capitalize }}
             </a>
-            <a  *ngIf="success" class="btn btn-transparent successtory" (click)="completeGoal(goal.id, true)">
+            <a md-button *ngIf="success" class="btn btn-transparent successtory" (click)="completeGoal(goal.id, true)">
                 <!--id="success{{ goal.id }}">-->
               <i class="icon ok-icon-green"></i>
               {{ 'successtory'|translate| capitalize }}

@@ -35,7 +35,7 @@
     </div>
 
     <div class="bg-white padding text-center" *ngIf="!isReported">
-        <button name="submit" (click)="report()" class="btn btn-purple" [ngClass]="{'purple-transparent': !(reportOption || reportText)}">{{ 'submit'|translate | uppercase }}</button>
+        <button md-button name="submit" (click)="report()" class="btn btn-purple" [ngClass]="{'purple-transparent': !(reportOption || reportText)}">{{ 'submit'|translate | uppercase }}</button>
     </div>
 
 </div>

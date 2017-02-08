@@ -349,11 +349,11 @@
 
                 <div class="row modal-bottom">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                        <a  (click)="save()"
+                        <a md-button  (click)="save()"
                            class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
-                        <a  (click)="dialogRef.close(); isOpen = false" id="cancel"
+                        <a md-button (click)="dialogRef.close(); isOpen = false" id="cancel"
                            class="btn btn-transparent">{{ 'btn_cancel'|translate }}</a>
-                        <a  (click)="showDetails = ! showDetails"
+                        <a md-button (click)="showDetails = ! showDetails"
                            class="btn btn-transparent">
                             <span>{{ 'forget'|translate | uppercase}}</span>
                         </a>
@@ -364,9 +364,9 @@
                     <div class="delete-message">
                         <div>
                             <h3 [innerHTML]="'delete_message'|translate|uppercase"></h3>
-                            <a  (click)="removeUserGoal()"
+                            <a md-button  (click)="removeUserGoal()"
                                class="btn btn-transparent">{{ 'btn_delete'|translate| uppercase}}</a>
-                            <a (click)="showDetails=!showDetails"
+                            <a md-button (click)="showDetails=!showDetails"
                                class="btn btn-purple">{{ 'btn_cancel'|translate| uppercase}}</a>
                         </div>
                     </div>

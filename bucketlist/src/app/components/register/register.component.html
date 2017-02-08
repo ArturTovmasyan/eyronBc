@@ -119,7 +119,7 @@
             </p>
           </div>
 
-          <button type="submit" name="register" [disabled]="form.invalid" class="btn btn-purple">{{ 'security.login.sign_up'|translate }}</button>
+          <button md-button type="submit" name="register" [disabled]="form.invalid" class="btn btn-purple">{{ 'security.login.sign_up'|translate }}</button>
 
         </form>
         <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
@@ -132,7 +132,7 @@
     <div class="row">
       <div class="col-md-12">
         <p class="text-center margin-top text-gray">{{ 'registration.have_account'|translate }}
-          <a href="javascript:void(0)" (click)="openSignInPopover()" class="text-purple">
+          <a md-button (click)="openSignInPopover()" class="text-purple">
             {{ 'registration.sign_in_btn'|translate | capitalize}}
           </a>
         </p>
