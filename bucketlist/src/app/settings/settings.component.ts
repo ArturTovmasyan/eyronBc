@@ -147,7 +147,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
         // create form validation
         this.form = this.fb.group({
-                'file': ['', null],
                 'isCommentOnGoalNotify': [(this.notifySettings?this.notifySettings.is_comment_on_goal_notify:false), null],
                 'isCommentOnIdeaNotify': [(this.notifySettings?this.notifySettings.is_comment_on_idea_notify:false), null],
                 'isSuccessStoryOnGoalNotify': [(this.notifySettings?this.notifySettings.is_success_story_on_goal_notify:false), null],
