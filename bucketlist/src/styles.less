@@ -186,11 +186,10 @@ body{
   margin: 11px auto;
   text-align: center;
 
-  a{
+  button{
     position: fixed;
-    color: #7724F6 !important;
+    color: #7724F6;
     text-align: center;
-    padding: 6px 16px;
     background-color: #ffffff;
     .rounded-corners(5px);
     .box-shadow ( 0 , 0 , 10px ,rgba(0,0,0,0.40));
@@ -1815,26 +1814,27 @@ figure{
           display: block;
           height:auto;
           font-size: 11px;
-          i{
-            font-size: 23px;
-            vertical-align: middle;
-            margin-right: 5px;
-          }
-          bdi,.text{
-            display: inline-block;
-            vertical-align: middle;
-            color:#999999;
-            font-size:11px;
-          }
         }
-        bdi{
+
+        i{
+          font-size: 23px;
+          vertical-align: middle;
+          margin-right: 5px;
+        }
+
+        .text{
+          display: inline-block;
+          vertical-align: middle;
           color:#999999;
+          font-size:11px;
         }
+
         &:last-child{
           border-right:0;
         }
+
         &:hover{
-          background-color: #7724F6;
+          //background-color: #7724F6;
           a{
             color:#ffffff;
 
@@ -1842,15 +1842,15 @@ figure{
               color:#ffffff;
               text-decoration: none;
 
-              i,bdi{
+              i{
                 color:#ffffff;
               }
             }
           }
 
-          a.addthis_counter .atc_s{
-            background: url('assets/images/images.png') no-repeat -7px -742px !important;
-          }
+          //a.addthis_counter .atc_s{
+          //  background: url('assets/images/images.png') no-repeat -7px -742px !important;
+          //}
         }
 
         &:focus,&:active{
@@ -4504,4 +4504,9 @@ md-progress-spinner{
   md-progress-bar{
     height: 20px;
   }
+}
+
+
+.md-ripple-foreground{
+  background-color: rgba(119, 36, 246, 0.3);
 }
