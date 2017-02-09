@@ -195,7 +195,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
         //create form validation
         this.form = this.fb.group({
-                'file': ['', null],
                 'firstName': [this.appUser.first_name, [Validators.required]],
                 'lastName': [this.appUser.last_name, [Validators.required]],
                 'email': [this.email, [ValidationService.emailValidator, Validators.required]],

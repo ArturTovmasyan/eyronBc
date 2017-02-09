@@ -1,13 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, inject, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import {Http, ConnectionBackend, BaseRequestOptions, Response, ResponseOptions} from '@angular/http';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
-
+import { DebugElement, OnInit, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule}  from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { TranslateService, TranslateLoader, TranslateModule, TranslateParser } from 'ng2-translate';
 import { MaterialModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CacheService } from 'ng2-cache/ng2-cache';
+import { Broadcaster } from '../tools/broadcaster';
+import { Uploader } from 'angular2-http-file-upload';
+import {MockBackend} from '@angular/http/testing';
+import 'rxjs/add/operator/map';
 
 import { ProfileHeaderComponent } from '../block/profile-header/profile-header.component';
 import { ControlMessagesComponent } from '../components/control-messages/control-messages.component';
@@ -18,37 +22,44 @@ import { RoundPipe } from '../pipes/round.pipe';
 
 import { ProjectService } from '../project.service';
 import { ValidationService } from '../validation.service';
-import { CacheService } from 'ng2-cache/ng2-cache';
-import { Broadcaster } from '../tools/broadcaster';
-import { Uploader } from 'angular2-http-file-upload';
 
 const SettingsRoutes: Routes = [
-  { path: '',  component: SettingsComponent },
-  { path: ':type',  component: SettingsComponent },
-  { path: ':type/:secret/:addMail',  component: SettingsComponent }
+    { path: '',  component: SettingsComponent },
+    { path: ':type',  component: SettingsComponent },
+    { path: ':type/:secret/:addMail',  component: SettingsComponent }
 ];
 
 fdescribe('SettingsComponent', () => {
 
-  let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
+        let component: SettingsComponent;
+        let fixture: ComponentFixture<SettingsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SettingsComponent, ProfileHeaderComponent, ControlMessagesComponent, CapitalizePipe, RoundPipe],
-      providers: [ValidationService, CacheService, Uploader, TranslateService, TranslateLoader, TranslateParser, ProjectService, Broadcaster],
-      imports: [MaterialModule, TranslateModule, FormsModule, ReactiveFormsModule, RouterModule, RouterTestingModule.withRoutes(SettingsRoutes)]
-    })
-    .compileComponents();
-  }));
+        beforeEach(async(() => {
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SettingsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+                TestBed.configureTestingModule({
+                    declarations: [ SettingsComponent, ProfileHeaderComponent, ControlMessagesComponent, CapitalizePipe, RoundPipe],
+                    providers: [ValidationService, ProjectService, CacheService, Uploader, TranslateService, TranslateLoader, TranslateParser, Broadcaster],
+                    imports: [MaterialModule, TranslateModule, FormsModule, ReactiveFormsModule, RouterModule, RouterTestingModule.withRoutes(SettingsRoutes)],
+                    schemas: [NO_ERRORS_SCHEMA]
+                })
+                    .compileComponents();
+            }
+        ));
 
-  it('should create', () => {
-    expect(true).toBe(true);
-  });
-});
+        beforeEach(() => {
+            fixture = TestBed.createComponent(SettingsComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+
+        // it('Exist text', () => {
+            // let text = fixture.debugElement.query(By.css('.container')).nativeElement;
+            // expect(fixture.nativeElement).toEqual('Profile');
+            // expect(fixture.nativeElement).toEqual('Notification');
+        // });
+
+        it('should create', () => {
+            expect(true).toBe(true);
+        });
+    }
+);
