@@ -49,12 +49,17 @@ export class MyActivityComponent implements OnInit,OnDestroy {
 
     ngOnInit() {
         this.appUser = this._cacheService.get('user_');
+        let fresh = this.appUser?this._cacheService.get('fresh'+this.appUser.id):null;
         let data = this.appUser?this._cacheService.get('activities'+this.appUser.id):null;
-        if(data && !this.single){
+        if(data && !this.single && (!fresh || fresh['activities'])){
           this.Activities = data;
           this.noActivities = (!data || !data.length);
           this.newActivityFn(true);
         } else {
+          if(fresh){
+            fresh['activities'] = true;
+            this._cacheService.set('fresh'+this.appUser.id, fresh);
+          }
           this.getActivities();
         }
 

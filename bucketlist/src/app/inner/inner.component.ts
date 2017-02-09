@@ -288,6 +288,8 @@ export class InnerComponent implements OnInit {
     if(!key){
       this.broadcaster.broadcast('openLogin', 'some message');
     } else {
+
+      let oldStatus = this.goal.is_my_goal;
       this._projectService.addUserGoal(id, {}).subscribe((data) => {
         this.broadcaster.broadcast('addModal', {
           'userGoal': data,
@@ -315,6 +317,20 @@ export class InnerComponent implements OnInit {
 
             });
         });
+
+        this.broadcaster.on<any>('removeGoal' + this.goal.id)
+            .subscribe(data => {
+                switch (oldStatus){
+                    case 1:
+                        this.goal.stats.listedBy--;
+                        break;
+                    case 2:
+                        this.goal.stats.doneBy--;
+                        break;
+                }
+                this.userGoal = null;
+                this.goal.is_my_goal = 0;
+            });
     }
     this.goal.is_my_goal = 1;
   }
