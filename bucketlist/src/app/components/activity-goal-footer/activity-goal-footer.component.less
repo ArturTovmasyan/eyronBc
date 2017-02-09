@@ -33,12 +33,11 @@ figcaption{
       }
 
       &:hover{
-        background-color: #7724f6;
+        //background-color: #7724f6;
         color: #fff;
         a{
           .text{
             color:#ffffff;
-
           }
         }
       }
@@ -99,18 +98,18 @@ figcaption{
 @media (min-width: @screen-md) {
   figcaption{
     ul{
-      li{
+      li:not(.transparent){
 
         &:hover{
-          background-color: #7724F6;
+          //background-color: #7724F6;
           color:#ffffff;
         }
 
         &:focus,&:active{
-          background-color: #6108EA;
-          a{
-            color:#ffffff;
-          }
+          //background-color: #6108EA;
+          //a{
+          //  color:#ffffff;
+          //}
         }
       }
     }

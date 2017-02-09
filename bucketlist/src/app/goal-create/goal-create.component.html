@@ -28,17 +28,17 @@
                 <div class="col-md-6 text-right">
                     <div class="buttons">
 
-                        <button (click)="preview()" class="btn btn-transparent goal-view-submit"
+                        <button md-button (click)="preview()" class="btn btn-transparent goal-view-submit"
                                 name="btn_preview">
                             <span>{{ 'goal.preview'|translate }}</span>
                         </button>
 
-                        <button *ngIf="!isPrivate" (click)="createDraft()" class="btn btn-transparent draft-save-submit" name="btn_save_draft">
+                        <button md-button *ngIf="!isPrivate" (click)="createDraft()" class="btn btn-transparent draft-save-submit" name="btn_save_draft">
                             <span *ngIf="!id">{{ 'draft.create'|translate }}</span>
                             <span *ngIf="id">{{ 'draft.update'|translate }}</span>
                         </button>
 
-                        <button type="submit" (click)="save()"
+                        <button md-button type="submit" (click)="save()"
                                 class="btn btn-purple goal-create-submit"
                                 name="btn_publish">
                             <span *ngIf="id && isPrivate">{{ 'goal.edit'|translate }}</span>
@@ -126,7 +126,7 @@
                                 </div>
 
                                 <div class="tags">
-                                    <button *ngFor="let tag of tags" type="button" class="btn btn-purple">
+                                    <button md-button *ngFor="let tag of tags" type="button" class="btn btn-purple">
                                         {{tag }}
                                     </button>
                                 </div>

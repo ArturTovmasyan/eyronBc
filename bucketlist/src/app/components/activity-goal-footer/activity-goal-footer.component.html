@@ -2,11 +2,11 @@
     <ul class="row news-footer no-gutter " *ngIf="goal.publish">
 
       <li class="col-xs-4" [ngClass]="{transparent: (goal.is_my_goal && goal.is_my_goal !== 0) }">
-        <span *ngIf="!goal.is_my_goal"
+        <a md-button *ngIf="!goal.is_my_goal"
            (click)="addGoal(goal.id)">
           <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
           <span class="text">{{ 'add'|translate | capitalize }} </span>
-        </span>
+        </a>
 
         <span *ngIf="goal.is_my_goal && goal.is_my_goal !== 0">
                 <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
@@ -15,10 +15,10 @@
       </li>
         <!--data-ng-init="success[ goal.id ] = false"-->
       <li class="col-xs-4" [ngClass]="{transparent: (goal.is_my_goal && goal.is_my_goal === 2 )}">
-        <span *ngIf="!goal.is_my_goal || goal.is_my_goal !== 2" (click)="completeGoal(goal.id)">
+        <a md-button *ngIf="!goal.is_my_goal || goal.is_my_goal !== 2" (click)="completeGoal(goal.id)">
              <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
              <span class="text">{{ 'done'|translate | capitalize }}</span>
-        </span>
+        </a>
 
         <span *ngIf="goal.is_my_goal && goal.is_my_goal === 2 " id="success{{ goal.id }}">
              <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
@@ -27,10 +27,10 @@
       </li>
 
       <li class="col-xs-4" (click)="showComment(activity, goal)" [ngClass]="{'bg-purple': ((activity && activity.showComment) || (goal && goal.showComment))}">
-        <span>
+        <a md-button>
           <i class="comment-icon"></i>
           <span class="text" [ngClass]="{'text-white': ((activity && activity.showComment) || (goal && goal.showComment))}">{{ 'comments'|translate | capitalize }}</span>
-        </span>
+        </a>
       </li>
 
     </ul>

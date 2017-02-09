@@ -136,8 +136,8 @@
             </div>
 
             <div class="text-center modal-bottom">
-                <a  (click)="save()" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</a>
-                <a  (click)="dialogRef.close(); isOpen = false" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|translate }}</a>
+                <a md-button (click)="save()" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</a>
+                <a md-button (click)="dialogRef.close(); isOpen = false" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|translate }}</a>
             </div>
 
         </form>
