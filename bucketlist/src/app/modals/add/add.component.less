@@ -188,24 +188,21 @@
       border:1px solid #cccccc;
     }
   }
+}
 
-  .modal-bottom{
-    .rounded-corners-bottom(8px);
-    button,a{
-      padding:8px 15px;
-      color: #666666;
-      font-size:12px;
-      text-transform: uppercase;
-      margin-right: 3px;
-      font-weight:bold;
+.modal-bottom{
+  .rounded-corners-bottom(8px);
+  button,a[md-button]{
+    padding: 0;
+    min-width: 75px;
+    color: #666666;
+    font-size:12px;
+    text-transform: uppercase;
+    margin-right: 3px;
+    font-weight:bold;
 
-      &.forget{
-        padding:5px 10px 5px 5px;
-      }
-
-      &:hover,&:focus,&.btn-purple{
-        color: #ffffff;
-      }
+    &:hover,&:focus,&.btn-purple{
+      color: #ffffff;
     }
   }
 }
@@ -240,35 +237,6 @@
   }
 }
 
-.email{
-  padding: 5px;
-  text-align:center;
-  position: relative;
-  background: #7724F6;
-  color:#ffffff;
-  z-index: 10;
-  font-size:12px;
-  span{
-    display: inline-block;
-    margin: 8px 0 0;
-    font-size:12px;
-  }
-  a{
-    margin: 5px 0 0 5px;
-    display: inline-block;
-    font-weight:bold;
-    padding:2px 5px;
-    color: #ffffff;
-    border:1px solid #ffffff;
-    font-size:12px;
-
-    &:hover{
-      color:#7724F6;
-      background-color: #ffffff;
-    }
-  }
-}
-
 .delete-message{
   top:0;
   text-align:center;
@@ -279,9 +247,9 @@
   background-color: rgba(0, 0, 0, 0.85);
   z-index: 100;
   left: 0;
-  min-height: 100%;
+  min-height: 94.1%;
 
-  div{
+  .delete-content{
     height:100%;
     top:50%;
     position: absolute;
@@ -296,7 +264,7 @@
     margin:0;
   }
 
-  .btn{
+  .btn[md-button]{
     font-size:13px;
     padding:5px 12px;
     margin-right:20px;
@@ -375,19 +343,16 @@
       padding-top:0 !important;
     }
 
-    .modal-bottom{
-      button,a{
-        padding:10px 42px;
-        font-size:14px;
-        margin-right: 5px;
 
-        &.forget{
-          padding:6px 15px 6px 10px;
-        }
-      }
-    }
   }
 
+  .modal-bottom{
+    button,a[md-button]{
+      padding: 2px 42px;
+      font-size:14px;
+      margin-right: 5px;
+    }
+  }
   .modal-top{
     height: 260px;
 
@@ -441,27 +406,6 @@
     min-height:900px;
     height:auto !important;
     height:900px;
-
-    //.icon-eye{
-    //  font-size: 41px;
-    //  margin: -3px 0 -6px -8px;
-    //}
-    //
-    //.icon-eye-icon{
-    //  font-size: 26px;
-    //  margin:0 7px 0 0;
-    //  vertical-align: middle;
-    //  padding-top: 5px;
-    //  height: 32px;
-    //}
-  }
-
-  .email{
-    padding: 15px 5px;
-    font-size:14px;
-    span{
-      font-size:14px;
-    }
   }
 
   .delete-message{
@@ -473,9 +417,9 @@
       line-height:40px;
     }
 
-    .btn{
+    .btn[md-button]{
       font-size:15px;
-      padding:6px 12px;
+      padding: 0;
       margin-right:20px;
     }
   }
@@ -486,7 +430,7 @@
     h2{
       font-size: 27px;
       line-height: 41px;
-      margin: 0 0 5px 0;
+      margin: 0 0 5px 30px;
     }
   }
 
@@ -520,27 +464,16 @@
       color:#666666 !important;
     }
 
-    .modal-bottom{
-      button,a{
-        width: 135px;
-        padding:10px 0;
-        font-size:15px;
-        margin-right: 5px;
-        text-align: center;
-      }
-    }
+  }
 
-    //.modal-bottom{
-    //  button,a{
-    //    padding:10px 45px;
-    //    font-size:14px;
-    //    margin-right: 5px;
-    //
-    //    &.forget{
-    //      padding:6px 15px 6px 10px;
-    //    }
-    //  }
-    //}
+  .modal-bottom{
+    button,a[md-button]{
+      width: 135px;
+      padding: 3px 42px;
+      font-size:15px;
+      margin-right: 5px;
+      text-align: center;
+    }
   }
 
   .goal-container{

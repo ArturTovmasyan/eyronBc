@@ -56,7 +56,7 @@
                 <figure class="pull-left">
                   <img *ngIf="child.author.image_path" src="{{ serverPath + child.author.image_path }}"
                        alt="{{ child.author.first_name }}" class="img-circle img-responsive"/>
-                  <p *ngIf="!child.author.image_path" class="no-image user-no1">{{ (child.author.first_name |
+                  <p *ngIf="!child.author.image_path" class="no-image user-no1 text-white">{{ (child.author.first_name |
                     slice:0:1 | uppercase) + (child.author.last_name | slice:0:1 | uppercase) }}</p>
                 </figure>
 
@@ -95,7 +95,7 @@
             <figure class="pull-left">
               <img *ngIf=" appUser.image_path" src="{{ serverPath + appUser.image_path}}"
                    class="img-circle img-responsive"/>
-              <p *ngIf="!appUser.image_path" class="no-image user-no1">{{ appUser.first_name|slice:0:1 |uppercase}}{{ appUser.last_name|slice:0:1 |uppercase}}</p>
+              <p *ngIf="!appUser.image_path" class="no-image user-no1 text-white">{{ appUser.first_name|slice:0:1 |uppercase}}{{ appUser.last_name|slice:0:1 |uppercase}}</p>
             </figure>
 
             <div class="pull-left leave-comment">
@@ -133,7 +133,7 @@
     <figure class="pull-left">
       <img *ngIf=" appUser.image_path" src="{{ serverPath + appUser.image_path}}"
            class="img-circle img-responsive"/>
-      <p *ngIf="!appUser.image_path" class="no-image user-no1">{{ appUser.first_name|slice:0:1 |uppercase}}{{ appUser.last_name|slice:0:1 |uppercase}}</p>
+      <p *ngIf="!appUser.image_path" class="no-image user-no1 text-white">{{ appUser.first_name|slice:0:1 |uppercase}}{{ appUser.last_name|slice:0:1 |uppercase}}</p>
     </figure>
 
     <div class="pull-left leave-comment">
