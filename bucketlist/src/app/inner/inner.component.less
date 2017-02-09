@@ -290,6 +290,26 @@
         .rounded-corners(4px);
         vertical-align: middle;
         margin: 0 -5px 0 0;
+        &[md-button]{
+          min-width: 35px;
+          height: 22px;
+          padding: 0;
+          line-height: 21px;
+
+          span{
+            display: inline-block;
+          }
+
+          i{
+            margin: -4px 0 0 0;
+            &.icon-green-ok{
+              margin: -5px 0 0 0;
+            }
+            &.icon-ok-icon{
+              margin: -3px 0 0 0;
+            }
+          }
+        }
 
         &.manage-modal{
           i{
@@ -360,6 +380,9 @@
       display: block;
       color: #a4a4a4;
       font-size:12px;
+      &[md-button]{
+        line-height: 33px;
+      }
 
       &:focus{
         text-decoration: none;
@@ -762,6 +785,10 @@
 
       a{
         font-size: 13px;
+        &[md-button]{
+          padding:6px 0 8px;
+          line-height: 36px;
+        }
       }
 
       &.clone{
