@@ -1474,9 +1474,11 @@ figure.img-circle{
   }
 }
 
-.btn-purple[md-button]{
+.btn-purple[md-button],.btn-purple[md-button][disabled]{
   padding: 2px 35px;
+  color:#ffffff;
 }
+
 .btn-transparent,.btn-transparent[md-button]{
   background-color:transparent;
   color:#999999;
@@ -1489,6 +1491,7 @@ figure.img-circle{
     outline:none;
     background-color:#6108EA;
   }
+
   &:focus{
     background-color: transparent;
   }
@@ -3024,6 +3027,12 @@ md-select{
     font-size:14px;
     span{
       font-size:14px;
+    }
+  }
+
+  md-select{
+    .md-select-trigger{
+      min-width: 123px;
     }
   }
   

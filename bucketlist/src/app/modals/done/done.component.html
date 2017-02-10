@@ -1,8 +1,8 @@
 <div class="my-modal goal-modal" (clickOutside)="closeModal()">
     <div *ngIf="newAdded" class="email">{{ "message_on_top_of_the_page" | translate | uppercase }}</div>
     <div class="modal-top" *ngIf="userGoal">
-        <figure *ngIf="userGoal.goal.cached_image">
-            <img *ngIf="userGoal.goal.cached_image" src="{{ userGoal.goal.cached_image }}" alt="{{ userGoal.goal.title }}" class="img-responsive"/>
+        <figure>
+            <img src="{{ userGoal.goal.cached_image?userGoal.goal.cached_image:imgPath }}" alt="{{ userGoal.goal.title }}" class="img-responsive"/>
         </figure>
 
         <span class="overlay"></span>

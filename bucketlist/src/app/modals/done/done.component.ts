@@ -22,6 +22,7 @@ export class DoneComponent implements OnInit {
   public invalidYear:boolean;
   public uncompletedYear:boolean;
   public noStory:boolean = false;
+  public imgPath:string = '';
   public dayInMonth:number;
   public serverPath:string = '';
 
@@ -72,6 +73,8 @@ export class DoneComponent implements OnInit {
       // this.modalHideEmitter.emit(null);
       
     } else {
+      this.imgPath = this.serverPath + '/bundles/app/images/cover3.jpg';
+
       setTimeout(()=>{
         this.isOpen = true;
       },500);

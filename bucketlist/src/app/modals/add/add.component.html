@@ -7,8 +7,8 @@
         </div>
 
         <div class="modal-top" *ngIf="userGoal">
-            <figure *ngIf="userGoal.goal.cached_image">
-                <img *ngIf=" userGoal.goal.cached_image" src="{{ userGoal.goal.cached_image}}"
+            <figure>
+                <img src="{{ userGoal.goal.cached_image?userGoal.goal.cached_image:imgPath}}"
                      alt="{{ userGoal.goal.title }}" class="img-responsive"/>
             </figure>
 
