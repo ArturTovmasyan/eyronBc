@@ -3,7 +3,7 @@
     <div>
       <div class="row">
 
-        <div class="col-sm-6 col-sm-offset-3" *ngIf="type == 'request' && ready">
+        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3" *ngIf="type == 'request' && ready">
 
           <h1 class="text-center">{{ 'resetting.request.reset'|translate }}</h1>
           <h4 class="text-center text-gray">{{ 'resetting.request.reset_text'|translate }}</h4>
@@ -19,7 +19,7 @@
               <span *ngIf="errorMessage && errorMessage.expires" style="text-align: center;color: red">{{ errorMessage.expires }}</span>
             </div>
             <div class="form-group text-right">
-              <button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'resetting.request.submit'|translate }}</button>
+              <button md-button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'resetting.request.submit'|translate }}</button>
             </div>
           </form>
           <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
@@ -49,7 +49,7 @@
 
             <span *ngIf="errorMessage && errorMessage.password" style="text-align: center;color: red">{{ errorMessage.password }}</span>
             <div class="form-group text-right">
-              <button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'change_password.submit'|translate }}</button>
+              <button md-button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'change_password.submit'|translate }}</button>
             </div>
 
           </form>
@@ -88,7 +88,7 @@
             </div>
 
             <div class="form-group text-right">
-              <button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'Done'|translate }}</button>
+              <button md-button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple">{{ 'Done'|translate }}</button>
             </div>
 
           </form>

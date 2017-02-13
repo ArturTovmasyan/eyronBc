@@ -10,6 +10,7 @@ import { Broadcaster} from './tools/broadcaster';
 import { ProjectService} from './project.service';
 import { Router } from '@angular/router';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { Angulartics2, Angulartics2GoogleAnalytics} from 'angulartics2';
 
 import {User} from './interface/user';
 
@@ -51,12 +52,15 @@ export class AppComponent implements OnInit  {
     public commonId:number = 0;
     public reportData:any;
     public usersData:any;
+    public fresh:any;
     public addData:any;
     public doneData:any;
     public writeTimeout:any;
     public regConfirmMenu:boolean = true;
 
     constructor(
+      private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
+      private angulartics2: Angulartics2,
       private _translate: TranslateService,
       private broadcaster: Broadcaster,
       private _projectService: ProjectService,
@@ -89,7 +93,10 @@ export class AppComponent implements OnInit  {
         this.broadcaster.on<any>('regConfirmMenu')
             .subscribe((data) => {
                 this.regConfirmMenu = data;
-                this.updatedEmail = this._cacheService.get('confirmRegEmail' + this.appUser.id);
+                
+                if(this.appUser) {
+                    this.updatedEmail = this._cacheService.get('confirmRegEmail' + this.appUser.id);
+                }
             });
 
         if(localStorage.getItem('apiKey')){
@@ -102,6 +109,7 @@ export class AppComponent implements OnInit  {
                             this.selectLang((user && user.language)?user.language:'en');
                             this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                             this.broadcaster.broadcast('getUser', user);
+                            this.purgeFresh();
                         },
                         error => localStorage.removeItem('apiKey'));
             } else {
@@ -109,6 +117,7 @@ export class AppComponent implements OnInit  {
             }
         }
 
+        this.purgeFresh();
         if(this.appUser) {
             this.updatedEmail = this._cacheService.get('confirmRegEmail' + this.appUser.id);
 
@@ -125,6 +134,7 @@ export class AppComponent implements OnInit  {
         this.broadcaster.on<User>('login')
             .subscribe(user => {
               this.appUser = user;
+              this.purgeFresh();
               this.selectLang((this.appUser.language)?this.appUser.language:'en');
               this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
               this.broadcaster.broadcast('getUser', user);
@@ -204,6 +214,14 @@ export class AppComponent implements OnInit  {
                               error => localStorage.removeItem('apiKey'));
                   }
 
+                  if(data.newCreated){
+                      this.angulartics2.eventTrack.next({ action: 'Goal create', properties: { category: 'Goal', label: 'Goal create from angular2'}});
+                  }
+                  if(data.newAdded){
+                      this.angulartics2.eventTrack.next({ action: 'Goal add', properties: { category: 'Goal', label: 'Goal add from angular2'}});
+                  } else {
+                      this.angulartics2.eventTrack.next({ action: 'Goal manage', properties: { category: 'Goal', label: 'Goal manage from angular2'}});
+                  }
 
                   let dialogRef: MdDialogRef<AddComponent>;
                   let config = new MdDialogConfig();
@@ -217,6 +235,12 @@ export class AppComponent implements OnInit  {
                       this.busy = false;
                       if(result){
                           if(result.remove){
+                              if(data.userGoal.goal.author && data.userGoal.goal.author.id == this.appUser.id){
+                                  this.angulartics2.eventTrack.next({ action: 'Goal delete', properties: { category: 'Goal', label: 'Goal delete from angular2'}});
+                              }else {
+                                  this.angulartics2.eventTrack.next({ action: 'Goal unlisted', properties: { category: 'Goal', label: 'Goal unlisted from angular2'}});
+                              }
+                              
                               this.broadcaster.broadcast('removeUserGoal_' + result.remove, result.remove);
                               this.broadcaster.broadcast('removeGoal', result.remove);
                               this.broadcaster.broadcast('removeGoal'+data.userGoal.goal.id, data.userGoal.goal.id);
@@ -229,6 +253,8 @@ export class AppComponent implements OnInit  {
                           this.broadcaster.broadcast('addGoal', data.userGoal);
                           this.broadcaster.broadcast('addGoal'+data.userGoal.goal.id, data.userGoal);
                       }
+
+                      this.testCache(data.userGoal.goal.id);
                   });
                   // this.addModal = true;
               });
@@ -245,6 +271,10 @@ export class AppComponent implements OnInit  {
                               },
                               error => localStorage.removeItem('apiKey'));
                   }
+                  if(data.newAdded){
+                      this.angulartics2.eventTrack.next({ action: 'Goal done', properties: { category: 'Goal', label: 'Goal done from angular2'}});
+                  }
+                  
                   this.broadcaster.broadcast('doneGoal', data);
                   this.doneData = data;
                   this.addData = data;
@@ -257,10 +287,54 @@ export class AppComponent implements OnInit  {
                   dialogRef.componentInstance.userGoal = data.userGoal;
                   dialogRef.afterClosed().subscribe(result => {
                       this.broadcaster.broadcast('doneGoal'+data.userGoal.goal.id, {});
+                      this.testCache(data.userGoal.goal.id);
                   });
                   // this.doneModal = true;
               });
 
+    }
+
+    purgeFresh(){
+        if(this.appUser) {
+            this.fresh = this._cacheService.get('fresh'+this.appUser.id);
+            if(!this.fresh){
+                this.fresh = {
+                    'activities':true,
+                    'featuredIdea':true,
+                    'topIdea':true
+                }
+            }
+        }
+    }
+
+    testCache(id){
+        let featuredIdea = this._cacheService.get('featuredIdea');
+        let topIdea = this._cacheService.get('topIdea');
+        let activities = this._cacheService.get('activities' + this.appUser.id);
+        this.changeCache(featuredIdea, 'featuredIdea', id);
+        this.changeCache(topIdea, 'topIdea', id);
+        this.changeCache(activities, 'activities', id);
+        this._cacheService.set('fresh'+this.appUser.id, this.fresh);
+    }
+
+    changeCache(dates, name, id){
+        if(dates && dates.length){
+            for(let data of dates){
+                if(data.goals){
+                    for(let goal of data.goals){
+                        if(goal.id == id){
+                            this.fresh[name] = false;
+                            return;
+                        }
+                    }
+                } else {
+                    if(data.id == id){
+                        this.fresh[name] = false;
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     toogleNote(){

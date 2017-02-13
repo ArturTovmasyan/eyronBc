@@ -65,7 +65,7 @@
                                     <figure class="img-circle" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
                                         <img data-click="true" src="{{ appUser.cached_image }}" alt="{{ appUser.filename }}" class="img-responsive">
                                     </figure>
-                                    <p *ngIf="!appUser.cached_image && (!isMobile || !joinToggle1)" class="no-image user-no2">{{ appUser.first_name|slice:0:1| uppercase }}{{ appUser.last_name|slice:0:1 | uppercase}}</p>
+                                    <p *ngIf="!appUser.cached_image && (!isMobile || !joinToggle1)" class="no-image user-no2" data-click="true">{{ appUser.first_name|slice:0:1| uppercase }}{{ appUser.last_name|slice:0:1 | uppercase}}</p>
 
                                     <span class="name hidden-xs">{{ appUser.first_name|slice:0: 8 }} {{ appUser.first_name && appUser.first_name.length > 8 ? '...' : '' }}
                                         <br class="hidden-xs"/>

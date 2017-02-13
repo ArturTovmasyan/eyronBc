@@ -7,8 +7,8 @@
         </div>
 
         <div class="modal-top" *ngIf="userGoal">
-            <figure *ngIf="userGoal.goal.cached_image">
-                <img *ngIf=" userGoal.goal.cached_image" src="{{ userGoal.goal.cached_image}}"
+            <figure>
+                <img src="{{ userGoal.goal.cached_image?userGoal.goal.cached_image:imgPath}}"
                      alt="{{ userGoal.goal.title }}" class="img-responsive"/>
             </figure>
 
@@ -102,7 +102,7 @@
 
                         <div class="row">
 
-                            <div class="col-sm-4" *ngIf="complete.switch != 1">
+                            <div class="col-xs-4" *ngIf="complete.switch != 1">
                                 <md-select  placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
                                     <md-option [value]="0">
                                         {{ 'form.birth_date_year'|translate }}
@@ -113,7 +113,7 @@
                                 </md-select>
 
                             </div>
-                            <div class="col-sm-4" *ngIf="complete.switch == 1">
+                            <div class="col-xs-4" *ngIf="complete.switch == 1">
                                 <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
                                     <md-option [value]="0">
                                         {{ 'form.birth_date_year'|translate }}
@@ -125,7 +125,7 @@
 
                             </div>
 
-                            <div class="col-sm-4">
+                            <div class="col-xs-4">
                                 <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" [(ngModel)]="month">
                                     <md-option *ngFor="let month of months; let i=index" [value]="i">
                                         {{ month|translate }}
@@ -133,7 +133,7 @@
                                 </md-select>
 
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-xs-4">
                                 <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" [(ngModel)]="day">
                                     <md-option [value]="0">
                                         {{ 'form.birth_date_day'|translate }}
@@ -349,11 +349,11 @@
 
                 <div class="row modal-bottom">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                        <a  (click)="save()"
+                        <a md-button  (click)="save()"
                            class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
-                        <a  (click)="dialogRef.close(); isOpen = false" id="cancel"
+                        <a md-button (click)="dialogRef.close(); isOpen = false" id="cancel"
                            class="btn btn-transparent">{{ 'btn_cancel'|translate }}</a>
-                        <a  (click)="showDetails = ! showDetails"
+                        <a md-button (click)="showDetails = ! showDetails"
                            class="btn btn-transparent">
                             <span>{{ 'forget'|translate | uppercase}}</span>
                         </a>
@@ -362,11 +362,11 @@
 
                 <div *ngIf="showDetails">
                     <div class="delete-message">
-                        <div>
+                        <div class="delete-content">
                             <h3 [innerHTML]="'delete_message'|translate|uppercase"></h3>
-                            <a  (click)="removeUserGoal()"
+                            <a md-button  (click)="removeUserGoal()"
                                class="btn btn-transparent">{{ 'btn_delete'|translate| uppercase}}</a>
-                            <a (click)="showDetails=!showDetails"
+                            <a md-button (click)="showDetails=!showDetails"
                                class="btn btn-purple">{{ 'btn_cancel'|translate| uppercase}}</a>
                         </div>
                     </div>

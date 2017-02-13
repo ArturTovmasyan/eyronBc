@@ -18,7 +18,7 @@
         <a routerLink="/resetting/request" (click)="joinHide()" class="text-dark-gray">Forgot password?</a>
 
         <div class="form-group">
-            <button name="submit" class="btn btn-purple" [disabled]="!loginForm.form.valid">SIGN IN</button>
+            <button md-button name="submit" class="btn btn-purple" [disabled]="!loginForm.form.valid">SIGN IN</button>
         </div>
     </form>
 
@@ -31,9 +31,9 @@
     <ul class="social">
         <meta charset="UTF-8">
         <div>
-            <li><a class="facebook" (click)="loginSocial(3);"></a></li>
-            <li><a class="google" (click)="loginSocial(4);"></a></li>
-            <li><a class="twitter" (click)="loginSocial(2);"></a></li>
+            <li><a md-button class="facebook" (click)="loginSocial(3);"></a></li>
+            <li><a md-button class="google" (click)="loginSocial(4);"></a></li>
+            <li><a md-button class="twitter" (click)="loginSocial(2);"></a></li>
         </div>
     </ul>
 </div>

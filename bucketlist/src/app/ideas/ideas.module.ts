@@ -7,6 +7,7 @@ import { MapModule }        from '../tools/map/map.module';
 import { ProjectService }   from '../project.service';
 import { SwiperModule }     from 'angular2-useful-swiper';
 import { MaterialModule } from '@angular/material';
+import { Angulartics2Module } from 'angulartics2';
 
 import { IdeasComponent }    from './ideas.component';
 
@@ -22,7 +23,8 @@ import { IdeasRouting } from './ideas-routing';
     ComponentModule,
     MapModule,
     MaterialModule.forRoot(),
-    SwiperModule
+    SwiperModule,
+    Angulartics2Module.forChild()
   ],
   declarations: [
     IdeasComponent

@@ -16,6 +16,7 @@ figcaption{
       i{
         font-size:25px;
         vertical-align: middle;
+        margin-right: 0;
 
         &.comment-icon{
           vertical-align: middle;
@@ -23,7 +24,7 @@ figcaption{
           background: url('../../../assets/images/comment-icon.svg') no-repeat center center;
           width:21px;
           height:20px;
-          margin: 0;
+          margin: 0 0 0 -16px;
         }
       }
 
@@ -33,12 +34,11 @@ figcaption{
       }
 
       &:hover{
-        background-color: #7724f6;
+        //background-color: #7724f6;
         color: #fff;
         a{
           .text{
             color:#ffffff;
-
           }
         }
       }
@@ -99,18 +99,18 @@ figcaption{
 @media (min-width: @screen-md) {
   figcaption{
     ul{
-      li{
+      li:not(.transparent){
 
         &:hover{
-          background-color: #7724F6;
+          //background-color: #7724F6;
           color:#ffffff;
         }
 
         &:focus,&:active{
-          background-color: #6108EA;
-          a{
-            color:#ffffff;
-          }
+          //background-color: #6108EA;
+          //a{
+          //  color:#ffffff;
+          //}
         }
       }
     }

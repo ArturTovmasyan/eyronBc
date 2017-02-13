@@ -6,6 +6,7 @@ import {Broadcaster} from '../../tools/broadcaster';
 import { ProjectService } from '../../project.service';
 
 import {Goal} from '../../interface/goal';
+import {User} from "../../interface/user";
 
 @Component({
   selector: 'top-ideas-block',
@@ -24,6 +25,8 @@ export class TopIdeasBlockComponent implements OnInit {
   @Input() type: string;
   goals:Goal[] = null;
   errorMessage:string;
+  appUser:User;
+  fresh:any;
   categories = ['top', 'suggest', 'featured'];
   degree:number = 360;
 
@@ -35,9 +38,12 @@ export class TopIdeasBlockComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.appUser = this._cacheService.get('user_');
+    this.fresh = this.appUser?this._cacheService.get('fresh'+this.appUser.id):null;
+    
     if(this.type == this.categories[2]) {
       let data = this._cacheService.get('featuredIdea');
-      if (data) {
+      if (data && (!this.fresh || this.fresh['featuredIdea'])) {
         this.goals = data;
         this.refreshListener();
       } else {
@@ -45,7 +51,7 @@ export class TopIdeasBlockComponent implements OnInit {
       }
     } else {
       let data = this._cacheService.get('topIdea');
-      if (data) {
+      if (data && (!this.fresh || this.fresh['topIdea'])) {
         this.goals = data;
         this.refreshListener();
       } else {
@@ -61,6 +67,10 @@ export class TopIdeasBlockComponent implements OnInit {
               this.goals = goals;
               this.refreshListener();
               this._cacheService.set('topIdea', goals, {maxAge: 24 * 60 * 60});
+              if(this.fresh){
+                this.fresh['topIdea'] = true;
+                this._cacheService.set('fresh'+this.appUser.id, this.fresh);
+              }
             },
             error => this.errorMessage = <any>error);
   }
@@ -72,6 +82,10 @@ export class TopIdeasBlockComponent implements OnInit {
               this.goals = goals;
               this.refreshListener();
               this._cacheService.set('featuredIdea', goals, {maxAge: 24 * 60 * 60});
+              if(this.fresh){
+                this.fresh['featuredIdea'] = true;
+                this._cacheService.set('fresh'+this.appUser.id, this.fresh);
+              }
             },
                   error => this.errorMessage = <any>error
             );

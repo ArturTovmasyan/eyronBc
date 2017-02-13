@@ -2,6 +2,7 @@ import { Component, OnInit , ViewEncapsulation, ViewChild, ElementRef, Renderer,
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Broadcaster } from '../tools/broadcaster';
 import { MetadataService } from 'ng2-metadata';
+import { Angulartics2 } from 'angulartics2';
 
 import {Goal} from '../interface/goal';
 import {Marker} from '../interface/marker';
@@ -50,6 +51,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
     public reserve: Goal[];
     public config: Object;
     constructor(
+      private angulartics2: Angulartics2,
       private metadataService: MetadataService,
       private route: ActivatedRoute,
       private _projectService: ProjectService,
@@ -208,15 +210,16 @@ export class IdeasComponent implements OnInit, OnDestroy {
   }
 
     getReserve(){
-    this.ideas = this.ideas.concat(this.reserve);
-      if(this.category == 'nearby'){
-          this.calculateLocations(this.reserve);
-      }
-    this.setReserve();
-  }
+        this.angulartics2.eventTrack.next({ action: 'Load more in select category', properties: { category: 'Goal', label: 'Load more in category ' + this.category + ' from angular2'}});
+        this.ideas = this.ideas.concat(this.reserve);
+          if(this.category == 'nearby'){
+              this.calculateLocations(this.reserve);
+          }
+        this.setReserve();
+    }
 
     getNearByGoals(){
-      this._projectService.getNearByGoals(this.latitude, this.longitude, this.start, this.count, this.isCompletedGoals)
+        this._projectService.getNearByGoals(this.latitude, this.longitude, this.start, this.count, this.isCompletedGoals)
           .subscribe(
               goals => {
                   this.ideas = goals;
@@ -225,14 +228,14 @@ export class IdeasComponent implements OnInit, OnDestroy {
                   this.setReserve();
               },
               error => this.errorMessage = <any>error);
-  }
+    }
 
     completedChange(){
       if(this.latitude && this.longitude){
           this.start = 0;
           this.getNearByGoals();
       }
-  }
+    }
     
     calculateLocations(items){
        for(let item of items){

@@ -27,6 +27,8 @@ export class AddComponent implements OnInit {
   public invalidYear:boolean = false;
   public uncompletedYear:boolean = false;
   public defaultMonth:any;
+  public imgPath:string = '';
+  public serverPath:string = '';
   public newAdded:boolean;
   public newCreated:boolean;
   public dateChanged:boolean;
@@ -68,6 +70,9 @@ export class AddComponent implements OnInit {
       this.isOpen = false;
       this.dialogRef.close();
     } else {
+
+      this.serverPath = this.ProjectService.getPath();
+      this.imgPath = this.serverPath + '/bundles/app/images/cover1.jpg';
 
       setTimeout(()=>{
         this.isOpen = true;
