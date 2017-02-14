@@ -52,11 +52,33 @@ fdescribe('SettingsComponent', () => {
             fixture.detectChanges();
         });
 
-        // it('Exist text', () => {
-            // let text = fixture.debugElement.query(By.css('.container')).nativeElement;
-            // expect(fixture.nativeElement).toEqual('Profile');
-            // expect(fixture.nativeElement).toEqual('Notification');
-        // });
+        // it('Authorization user', inject([ProjectService], (service) => {
+        //     let loginData;
+        //     loginData = {
+        //         username: 'test@test.am',
+        //         password: 'asasas1',
+        //         apikey: true
+        //     };
+        //
+        //     service.auth(loginData).subscribe((res) => {
+        //         if (res.apiKey) {
+        //             localStorage.setItem('apiKey', res.apiKey);
+        //         }
+        //     });
+        //     // expect(user).toEqual('Login failure!x');
+        // }));
+
+        // it('should greet (with fakeAsync)', inject([ProjectService], fakeAsync((service) => {
+        //     let user:any;
+        //     service.getUser().then((value) => {
+        //         user = value;
+        //     });
+        //
+        //     tick(2000);
+        //
+        //     console.log(user);
+        //     // expect(user).toEqual('Login failure!x');
+        // })));
 
         it('should create', () => {
             expect(true).toBe(true);
