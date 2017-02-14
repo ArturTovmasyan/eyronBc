@@ -301,8 +301,7 @@ export class AppComponent implements OnInit  {
                     this.appUser.draft_count -= 1;
                 }
             );
-        console.log(this.appUser.draft_count);
-
+       
     }
 
     purgeFresh(){
