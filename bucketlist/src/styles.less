@@ -431,6 +431,7 @@ header{
             display: block;
             padding: 19px 5px 19px 15px;
             position: relative;
+            width: 45px;
 
             .navbar-brand{
               width: 120px;
@@ -4064,5 +4065,9 @@ md-progress-spinner{
 
 a[md-button],button[md-button]{
   font-family: 'Open Sans', sans-serif;
+
+  &:active,&:focus,&:visited{
+    background-image: none;
+  }
 }
 

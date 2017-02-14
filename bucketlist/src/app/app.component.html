@@ -62,10 +62,10 @@
                                    (click)="joinToggle1 = !joinToggle1"
                                    [ngClass]="{'join-class': joinToggle1}"
                                    (clickOutside)="joinToggle1 = false">
-                                    <figure class="img-circle" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
+                                    <figure class="img-circle hidden-xs" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
                                         <img data-click="true" src="{{ appUser.cached_image }}" alt="{{ appUser.filename }}" class="img-responsive">
                                     </figure>
-                                    <p *ngIf="!appUser.cached_image && (!isMobile || !joinToggle1)" class="no-image user-no2" data-click="true">{{ appUser.first_name|slice:0:1| uppercase }}{{ appUser.last_name|slice:0:1 | uppercase}}</p>
+                                    <p *ngIf="!appUser.cached_image && (!isMobile || !joinToggle1)" class="no-image user-no2 hidden-xs" data-click="true">{{ appUser.first_name|slice:0:1| uppercase }}{{ appUser.last_name|slice:0:1 | uppercase}}</p>
 
                                     <span class="name hidden-xs">{{ appUser.first_name|slice:0: 8 }} {{ appUser.first_name && appUser.first_name.length > 8 ? '...' : '' }}
                                         <br class="hidden-xs"/>
@@ -75,7 +75,7 @@
                                     </a>
 
                                     <!--{% if not isMobile() %}-->
-                                    <i class="menu-hamburger hidden-xs" *ngIf="!joinToggle1" data-click="true"></i>
+                                    <i class="menu-hamburger" *ngIf="!joinToggle1" data-click="true"></i>
                                     <i [ngClass]="{'menu-remove': !isMobile, 'icon-remove-email': isMobile}" *ngIf="joinToggle1"></i>
                                     <!--{% endif %}-->
                                 </a>
