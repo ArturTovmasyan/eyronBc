@@ -186,11 +186,10 @@ body {
   margin: 11px auto;
   text-align: center;
 }
-.new-activity a {
+.new-activity button {
   position: fixed;
-  color: #7724F6 !important;
+  color: #7724F6;
   text-align: center;
-  padding: 6px 16px;
   background-color: #ffffff;
   border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -1172,7 +1171,8 @@ figure.img-circle img {
   font-size: 14px !important;
   font-weight: 600;
 }
-.btn-purple {
+.btn-purple,
+.btn-purple[md-button] {
   background-color: #7724F6;
   color: #ffffff;
   padding: 10px 35px;
@@ -1185,27 +1185,52 @@ figure.img-circle img {
   -o-border-radius: 7px;
 }
 .btn-purple:hover,
-.btn-purple:focus {
+.btn-purple[md-button]:hover,
+.btn-purple:focus,
+.btn-purple[md-button]:focus {
   color: #ffffff;
-  outline: none;
+  outline: 0;
   outline-offset: 0;
   background-color: #5e1dc3;
 }
 .btn-purple:focus,
-.btn-purple:active {
+.btn-purple[md-button]:focus,
+.btn-purple:active,
+.btn-purple[md-button]:active {
   background-color: #4f3576;
 }
-.btn-transparent {
+.btn-purple[md-button],
+.btn-purple[md-button][disabled] {
+  padding: 2px 35px;
+  color: #ffffff;
+}
+.btn-transparent,
+.btn-transparent[md-button] {
   background-color: transparent;
   color: #999999;
   padding: 10px 35px;
   border: 1px solid #e3e3e3;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
 }
 .btn-transparent:hover,
-.btn-transparent:focus {
+.btn-transparent[md-button]:hover,
+.btn-transparent:focus,
+.btn-transparent[md-button]:focus {
   color: #ffffff;
   outline: none;
   background-color: #6108EA;
+}
+.btn-transparent:focus,
+.btn-transparent[md-button]:focus {
+  background-color: transparent;
+  color: #999999;
+}
+.btn-transparent[md-button] {
+  padding: 2px 35px;
 }
 .empty-text {
   color: #333333;
@@ -1241,7 +1266,7 @@ ul li {
 }
 .signup,
 .settings {
-  padding-bottom: 5px;
+  padding: 10px;
 }
 .signup h1,
 .settings h1 {
@@ -1515,26 +1540,19 @@ figure figcaption ul li a {
   height: auto;
   font-size: 11px;
 }
-figure figcaption ul li a i {
+figure figcaption ul li i {
   font-size: 23px;
   vertical-align: middle;
   margin-right: 5px;
 }
-figure figcaption ul li a bdi,
-figure figcaption ul li a .text {
+figure figcaption ul li .text {
   display: inline-block;
   vertical-align: middle;
   color: #999999;
   font-size: 11px;
 }
-figure figcaption ul li bdi {
-  color: #999999;
-}
 figure figcaption ul li:last-child {
   border-right: 0;
-}
-figure figcaption ul li:hover {
-  background-color: #7724F6;
 }
 figure figcaption ul li:hover a {
   color: #ffffff;
@@ -1543,12 +1561,8 @@ figure figcaption ul li:hover a:hover {
   color: #ffffff;
   text-decoration: none;
 }
-figure figcaption ul li:hover a:hover i,
-figure figcaption ul li:hover a:hover bdi {
+figure figcaption ul li:hover a:hover i {
   color: #ffffff;
-}
-figure figcaption ul li:hover a.addthis_counter .atc_s {
-  background: url('assets/images/images.png') no-repeat -7px -742px !important;
 }
 figure figcaption ul li:focus,
 figure figcaption ul li:active {
@@ -1631,7 +1645,7 @@ figure figcaption ul li:active a {
   display: none;
 }
 .navigation .show-more {
-  padding: 5px 15px 8px;
+  padding: 3px 15px 5px;
   border-radius: 6px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -1640,7 +1654,7 @@ figure figcaption ul li:active a {
   background: #7724F6;
   display: inline-block;
 }
-.navigation .show-more span {
+.navigation .show-more span span {
   display: inline-block;
   height: 6px;
   width: 6px;
@@ -1696,15 +1710,15 @@ footer ul.apps li {
   padding: 5px;
 }
 footer .social {
-  padding: 30px 0 0;
+  padding: 25px 0 0;
 }
 footer .social li {
-  padding: 5px 2px;
+  padding: 5px 3px;
 }
 footer .social li a {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
 }
 footer .social li .facebook-icon {
   background: url('assets/images/facebook-icon.svg') no-repeat center center;
@@ -2334,6 +2348,9 @@ md-select .md-select-placeholder {
 md-select .md-select-value {
   color: #3c3c3c;
 }
+md-select .md-select-trigger {
+  min-width: 70px;
+}
 .error-message {
   color: #FF0000 !important;
   font-size: 12px;
@@ -2379,6 +2396,9 @@ md-select .md-select-value {
   }
   .email span {
     font-size: 14px;
+  }
+  md-select .md-select-trigger {
+    min-width: 123px;
   }
   header .navbar {
     min-height: 82px;
@@ -2633,6 +2653,9 @@ md-select .md-select-value {
   #pac-input {
     width: 265px;
   }
+  figure figcaption ul li .text {
+    font-size: 14px;
+  }
   footer ul {
     padding: 10px 0 0;
   }
@@ -2648,6 +2671,11 @@ md-select .md-select-value {
   }
   footer .social li {
     padding: 5px 10px;
+  }
+  footer .social li a {
+    display: block;
+    width: 40px;
+    height: 40px;
   }
   footer small {
     clear: both;
@@ -2682,10 +2710,7 @@ md-select .md-select-value {
     width: 35px;
     height: 35px;
   }
-  .navigation .show-more {
-    padding: 10px 25px 13px;
-  }
-  .navigation .show-more span {
+  .navigation .show-more span span {
     height: 9px;
     width: 9px;
   }
@@ -2986,13 +3011,6 @@ md-select .md-select-value {
   .navigation .pagination .previous {
     width: 40px;
     height: 40px;
-  }
-  .navigation .show-more {
-    padding: 10px 25px 13px;
-  }
-  .navigation .show-more span {
-    height: 9px;
-    width: 9px;
   }
   .check_status {
     padding: 0 0 5px 0;
@@ -3416,4 +3434,11 @@ md-progress-spinner {
 }
 .progress md-progress-bar {
   height: 20px;
+}
+.md-ripple-foreground {
+  background-color: rgba(119, 36, 246, 0.3);
+}
+a[md-button],
+button[md-button] {
+  font-family: 'Open Sans', sans-serif;
 }
