@@ -1,8 +1,8 @@
 <div class="my-modal goal-modal" (clickOutside)="closeModal()">
     <div *ngIf="newAdded" class="email">{{ "message_on_top_of_the_page" | translate | uppercase }}</div>
     <div class="modal-top" *ngIf="userGoal">
-        <figure *ngIf="userGoal.goal.cached_image">
-            <img *ngIf="userGoal.goal.cached_image" src="{{ userGoal.goal.cached_image }}" alt="{{ userGoal.goal.title }}" class="img-responsive"/>
+        <figure>
+            <img src="{{ userGoal.goal.cached_image?userGoal.goal.cached_image:imgPath }}" alt="{{ userGoal.goal.title }}" class="img-responsive"/>
         </figure>
 
         <span class="overlay"></span>
@@ -64,7 +64,7 @@
                     <p class="complete-text">{{ "success_story.complete_edit_text"|translate }}</p>
 
                     <div class="form-group row">
-                        <div class="col-sm-4 date">
+                        <div class="col-xs-4">
                             <md-select placeholder="{{ 'form.birth_date_year'|translate }}" name="year" [(ngModel)]="year">
                                 <md-option [value]="0">
                                     {{ 'form.birth_date_year'|translate }}
@@ -75,14 +75,14 @@
                             </md-select>
                         </div>
 
-                        <div class="col-sm-4 date">
+                        <div class="col-xs-4">
                             <md-select placeholder="{{ 'form.birth_date_month'|translate }}" name="month" [(ngModel)]="month">
                                 <md-option *ngFor="let month of months; let i=index" [value]="i">
                                     {{ month|translate }}
                                 </md-option>
                             </md-select>
                         </div>
-                        <div class="col-sm-4 date">
+                        <div class="col-xs-4">
                             <md-select placeholder="{{ 'form.birth_date_day'|translate }}" name="day" [(ngModel)]="day">
                                 <md-option [value]="0">
                                     {{ 'form.birth_date_day'|translate }}

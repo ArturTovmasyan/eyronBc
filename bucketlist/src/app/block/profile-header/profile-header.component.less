@@ -504,7 +504,9 @@
   font-weight: normal;
   cursor: pointer;
   font-size: 14px;
-  padding: 22px 5px;
+  padding: 30px 5px;
+  .rounded-corners;
+  background-color: rgba(0, 0, 0, 0.64);
 }
 
 @media (min-width: @screen-sm) {
@@ -658,8 +660,14 @@
     }
 
     .profile-information{
-      margin-top:85px;
-
+      margin: 0;
+      bottom: 5px;
+      position: absolute;
+      a{
+        &.text-gray{
+          margin-left: 4px;
+        }
+      }
     }
 
   }
@@ -749,7 +757,7 @@
 
   .image-label{
     font-size: 15px;
-    padding: 30px 15px;
+    padding: 39px 15px;
   }
 }
 
@@ -882,10 +890,10 @@
     }
 
     .profile-information{
-      margin:110px auto 0;
+      bottom: 10px;
 
       a.text-gray{
-        margin-left:30px;
+        margin-left: 22px;
 
       }
     }
@@ -953,7 +961,7 @@
 
   .image-label{
     font-size: 16px;
-    padding: 41px 15px;
+    padding: 48px 15px;
   }
 }
 

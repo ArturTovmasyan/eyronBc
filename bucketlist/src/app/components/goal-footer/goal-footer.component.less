@@ -1,8 +1,6 @@
 @import "../../../assets/less/variables.less";
 @import "../../../assets/less/function.less";
 
-figure {
-
   figcaption {
     background-color: #ffffff;
     ul {
@@ -18,6 +16,7 @@ figure {
         a {
           &[md-button] {
             display: block;
+            line-height: 33px;
           }
 
           i {
@@ -66,10 +65,10 @@ figure {
       }
     }
   }
-}
+
 
 @media (min-width: @screen-sm) {
-  figure {
+
     figcaption {
       ul {
         li {
@@ -77,6 +76,11 @@ figure {
           line-height: 45px;
 
           a {
+            &[md-button]{
+              padding: 6px 0 8px;
+              line-height: 36px;
+            }
+
             i {
               font-size: 30px;
             }
@@ -97,18 +101,14 @@ figure {
       }
     }
   }
-}
+
 
 @media (min-width: @screen-md) {
-  figure {
+
     figcaption {
       ul {
         li:not(.transparent){
-          a {
-            &[md-button] {
-              padding: 6px 0 8px;
-            }
-          }
+
           &:hover {
             //background-color: #7724F6;
             color: #ffffff;
@@ -128,4 +128,4 @@ figure {
       }
     }
   }
-}
+

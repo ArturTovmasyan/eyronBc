@@ -11,6 +11,19 @@
   .modal-footer{
     border-top: 0;
     text-align: center;
+
+    a[md-button]{
+      padding: 3px 35px;
+    }
+
+    .btn-transparent[md-button]{
+      &:focus,&:active{
+        background-color: #fff;
+        border: 1px solid #e3e3e3;
+        color: #999999;
+      }
+    }
+
   }
 }
 
