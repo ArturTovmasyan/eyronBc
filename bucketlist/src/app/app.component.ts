@@ -291,6 +291,17 @@ export class AppComponent implements OnInit  {
                   });
                   // this.doneModal = true;
               });
+        this.broadcaster.on<any>('draftCount')
+            .subscribe( () => {
+                this.appUser.draft_count += 1;
+            }
+            );
+        this.broadcaster.on<any>('removeDraft')
+            .subscribe( () => {
+                    this.appUser.draft_count -= 1;
+                }
+            );
+        console.log(this.appUser.draft_count);
 
     }
 

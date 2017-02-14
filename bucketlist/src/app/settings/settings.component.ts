@@ -4,7 +4,7 @@ import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import {TranslateService} from 'ng2-translate';
 import { Broadcaster } from '../tools/broadcaster';
-import { ValidationService } from 'app/validation.service';
+import { ValidationService } from '../validation.service';
 import {FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({

@@ -5,6 +5,7 @@ export interface User {
     username?: string,
     last_name?: string,
     cached_image?: string,
+    draft_count?: any;
     image_path?: string,
     stats?:any,
     activity?:any,

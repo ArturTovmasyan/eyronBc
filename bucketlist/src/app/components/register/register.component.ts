@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ValidationService } from 'app/validation.service';
-import { ProjectService} from 'app/project.service';
+import { ValidationService } from '../../validation.service';
+import { ProjectService} from '../../project.service';
 import { Broadcaster } from '../../tools/broadcaster';
 import {CacheService} from 'ng2-cache/ng2-cache';
 import { Router } from '@angular/router';

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { ValidationService } from 'app/validation.service';
+import { ValidationService } from '../validation.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser'
 import { MetadataService } from 'ng2-metadata';

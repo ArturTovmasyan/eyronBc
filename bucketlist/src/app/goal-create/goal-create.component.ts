@@ -194,6 +194,7 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
                 () => {
                     this.router.navigate(['/goal/my-ideas/drafts']);
                 });
+        this.broadcaster.broadcast('draftCount');
     }
 
     isVideoLink(url){
