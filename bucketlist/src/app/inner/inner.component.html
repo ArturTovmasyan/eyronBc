@@ -116,41 +116,238 @@
           <!--data-ng-init="success[ {{ goal.id }} ] = {% if goal.isMyGoal == 2 %} true {% else %} false {% endif %}"-->
           <div class="col-md-4">
             <!--{% if page == inner %}-->
-            <div class="goal-information" *ngIf="type == 'inner'">
-              <!--data-ng-init="added = true"-->
+            <!--<div class="goal-information" *ngIf="type == 'inner'">-->
+              <!--&lt;!&ndash;data-ng-init="added = true"&ndash;&gt;-->
 
-                <!--<li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || success[ {{ goal.id }} ]}" {% endif %}>-->
-                  <!--{% if goal.isMyGoal == 0 %}-->
-                  <!--data-ng-init="added = false" *ngIf="!added"-->
-                  <!--<a data-ls-goal-manage-->
-                     <!--data-ls-goal-id="{{ goal.id }}"-->
-                     <!--data-ng-click="added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">-->
-                    <!--<i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
-                    <!--<span class="text">{{ 'add'|trans | upper}}</span>-->
+                <!--&lt;!&ndash;<li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || success[ {{ goal.id }} ]}" {% endif %}>&ndash;&gt;-->
+                  <!--&lt;!&ndash;{% if goal.isMyGoal == 0 %}&ndash;&gt;-->
+                  <!--&lt;!&ndash;data-ng-init="added = false" *ngIf="!added"&ndash;&gt;-->
+                  <!--&lt;!&ndash;<a data-ls-goal-manage&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-ls-goal-id="{{ goal.id }}"&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-ng-click="added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="text">{{ 'add'|trans | upper}}</span>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="" *ngIf="goal.isMyGoal || added">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span class="text">{{ 'added'|trans | upper}}</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;{% if goal.isMyGoal == 2 %}transparent{% endif %}&ndash;&gt;-->
+                <!--&lt;!&ndash;{% if goal.isMyGoal != 2 %}data-ng-class="{transparent: success[ {{ goal.id }} ]}"{% endif %}&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="col-xs-6 ">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<a *ngIf="!success[ {{ goal.id }} ]"&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-ls-user-goal-manage&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-ls-goal-id="{{ goal.id }}"&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-ng-click="success[ {{ goal.id }} ] = true; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="text">{{ 'done'|trans | upper }}</span>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<span class="" *ngIf="success[ goal.id ]">&ndash;&gt;-->
+                         <!--&lt;!&ndash;<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>&ndash;&gt;-->
+                         <!--&lt;!&ndash;<span class="text">{{ 'completed'|trans | upper}}</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+              <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+
+              <!--<ul class="row goal-links">-->
+
+                <!--<li class="col-xs-3 clone" *ngIf="appUser && appUser.is_admin">-->
+                  <!--<a>-->
+                    <!--&lt;!&ndash;<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">&ndash;&gt;-->
+                    <!--<img src="assets/images/clone-icon.svg" width="25" height="25"/>-->
+                    <!--<span class="text">{{ 'clone'|translate }}</span>-->
                   <!--</a>-->
-                    <!--<span class="" *ngIf="goal.isMyGoal || added">-->
-                        <!--<i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>-->
-                        <!--<span class="text">{{ 'added'|trans | upper}}</span>-->
-                    <!--</span>-->
                 <!--</li>-->
 
-                <!--{% if goal.isMyGoal == 2 %}transparent{% endif %}-->
-                <!--{% if goal.isMyGoal != 2 %}data-ng-class="{transparent: success[ {{ goal.id }} ]}"{% endif %}-->
-                <!--<li class="col-xs-6 ">-->
-                  <!--<a *ngIf="!success[ {{ goal.id }} ]"-->
-                     <!--data-ls-user-goal-manage-->
-                     <!--data-ls-goal-id="{{ goal.id }}"-->
-                     <!--data-ng-click="success[ {{ goal.id }} ] = true; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">-->
+                <!--<li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">-->
+                  <!--<a md-button *ngIf="!goal.is_my_goal" (click)="add(goal.id)">-->
+                    <!--<i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
+                    <!--<span class="text">{{ 'add'|translate | uppercase}}</span>-->
+                  <!--</a>-->
+                  <!--<span *ngIf="goal.is_my_goal">-->
+                      <!--<i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>-->
+                      <!--<span class="text">{{ 'added'|translate | uppercase}}</span>-->
+                  <!--</span>-->
+                <!--</li>-->
+
+                <!--<li class="col-xs-6" [class.transparent]="goal.is_my_goal == 2">-->
+                  <!--<a md-button (click)="completeGoal(goal.id)" *ngIf="goal.is_my_goal != 2">-->
                     <!--<i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>-->
-                    <!--<span class="text">{{ 'done'|trans | upper }}</span>-->
+                    <!--<span class="text">{{ 'done'|translate | uppercase }}</span>-->
                   <!--</a>-->
 
-                    <!--<span class="" *ngIf="success[ goal.id ]">-->
-                         <!--<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
-                         <!--<span class="text">{{ 'completed'|trans | upper}}</span>-->
-                    <!--</span>-->
+                  <!--<span *ngIf="goal.is_my_goal == 2">-->
+                       <!--<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
+                       <!--<span class="text">{{ 'completed'|translate | uppercase }}</span>-->
+                  <!--</span>-->
+                <!--</li>-->
+
+              <!--</ul>-->
+
+              <!--<ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">-->
+                <!--&lt;!&ndash;data-ng-init="isAuthor=true"&ndash;&gt;-->
+                <!--<li *ngIf="goal.author && appUser && goal.author.id == appUser.id">-->
+                  <!--<a routerLink="/goal/create/{{goal.id}}/Public">-->
+                    <!--<i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>-->
+                  <!--</a>-->
+                <!--</li>-->
+
+                <!--<li class="bordered-list">-->
+                  <!--<a md-button (click)="manageGoal()"-->
+                     <!--class="text-gray manage-modal">-->
+                    <!--<i class="icon-manage"></i>-->
+                  <!--</a>-->
+                <!--</li>-->
+
+                <!--<li class="bordered-list">-->
+                  <!--<div class="check_status">-->
+                    <!--<a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">-->
+                      <!--<i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>-->
+                    <!--</a>-->
+                    <!--<a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">-->
+                      <!--<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>-->
+                    <!--</a>-->
+                  <!--</div>-->
+                <!--</li>-->
+
+                <!--<li *ngIf="isLate(userGoal.do_date)">-->
+                  <!--<i title="{{ 'my_bucket_list.missed_deadline'|translate }}"  class="icon-info text-purple"></i>-->
+                <!--</li>-->
+
+                <!--<li *ngIf="userGoal.note">-->
+                  <!--<i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>-->
+                <!--</li>-->
+
+                <!--<li *ngIf="userGoal.steps">-->
+                  <!--<i title="{{ 'goal.steps'|translate }}"  class="icon-step-list"></i>-->
+                <!--</li>-->
+
+                <!--<li *ngIf="userGoal.is_visible">-->
+                  <!--<i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>-->
+                <!--</li>-->
+                <!--<li *ngIf="!userGoal.is_visible">-->
+                  <!--<i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>-->
+                <!--</li>-->
+
+                <!--<li *ngIf="!goal.status">-->
+                  <!--<i title="{{ 'my_bucket_list.private'|translate }}"  class="icon-lock-white"></i>-->
                 <!--</li>-->
               <!--</ul>-->
+
+              <!--&lt;!&ndash;{% if goal.lat is not null and goal.lng is not null %}&ndash;&gt;-->
+              <!--<div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && isDesktop">-->
+                <!--&lt;!&ndash;data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]"&ndash;&gt;-->
+                <!--&lt;!&ndash;<div *ngIf="location"&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-simple-map-marker&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-zoom="14"&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"&ndash;&gt;-->
+                     <!--&lt;!&ndash;data-markers="location"&ndash;&gt;-->
+                     <!--&lt;!&ndash;style="width: 99.8%; height: 120px">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<map-single style="width: 99.8%; height: 120px" [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]" class="map-marker"></map-single>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<hr *ngIf="!goal.location"/>&ndash;&gt;-->
+
+
+              <!--&lt;!&ndash;<div id="affiliate-right" class="right-menu-scroll bg-white" *ngIf="isDesktop">&ndash;&gt;-->
+                <!--&lt;!&ndash;<adds-affiliate class="affiliate-right" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+            <!--{% endif %}-->
+          </div>
+        </div>
+
+        <!--{% if page != view %}-->
+
+        <div class="row bg-white" *ngIf="type != 'view'">
+
+          <div class="col-md-8">
+            <!--{% if page == inner %}-->
+            <ul class="users-lists row" *ngIf="type == 'inner'">
+              <li class="col-xs-6">
+                <ul class="row no-gutter">
+                  <li class="col-xs-9 col-sm-5">
+                    {{ 'done_by'|translate | uppercase }}
+                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.doneBy }}</p>
+                  </li>
+                  <li class="col-xs-3 col-sm-7">
+                    <ul class="users">
+                      <!--{% set left = 80 %}-->
+                      <!--{% for doneByUser in doneByUsers %}-->
+                      <!--{% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}-->
+                      <!--{% set className = "user-no" ~ random(4) %}-->
+                      <li [style.right.px]="80 + (i + 1)*20" *ngFor="let user of doneByUsers;let i = index" class="hidden-xs">
+
+                        <figure *ngIf="user.cached_image">
+                          <img src="{{ user.cached_image }}" class="img-circle img-responsive" alt="{{ user.first_name }}">
+                        </figure>
+
+                        <p *ngIf="!user.cached_image" class="no-image user-no4">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
+
+                      </li>
+                      <!--{% set left = left + 20 %}-->
+                      <!--{% endfor %}-->
+
+                      <li class="users-arrow">
+                        <i *ngIf="goal.stats.doneBy == 0"></i>
+
+                        <a *ngIf="goal.stats.doneBy != 0" (click)="openUsersModal(goal.id, goal.stats.listedBy, 2)">
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="col-xs-6">
+                <ul class="row no-gutter">
+                  <li class="col-xs-9 col-sm-5">
+                    {{ 'listed_by'|translate | uppercase }}
+                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.listedBy }}</p>
+                  </li>
+                  <li class="col-xs-3 col-sm-7">
+                    <ul class="users">
+                      <!--{% set left = 80 %}-->
+                      <!--{#{{ dump(listedByUsers) }}#}-->
+                      <!--{% for listedByUser in listedByUsers %}-->
+                      <!--{% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}-->
+                      <!--{% set className = "user-no" ~ random(4) %}-->
+                      <li [style.right.px]="80 + (i + 1)*20" *ngFor="let user of listedByUsers;let i = index" class="hidden-xs">
+                        <figure *ngIf="user.cached_image">
+                          <img src="{{ user.cached_image }}" class="img-circle img-responsive" alt="{{ user.first_name }}">
+                        </figure>
+
+                        <p *ngIf="!user.cached_image" class="no-image user-no4">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
+
+                      </li>
+                      <!--{% set left = left + 20 %}-->
+                      <!--{% endfor %}-->
+                      <li class="users-arrow">
+                        <i *ngIf="goal.stats.listedBy == 0"></i>
+
+                        <a *ngIf="goal.stats.listedBy != 0" (click)="openUsersModal(goal.id, goal.stats.listedBy, 1)">
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && !isDesktop">
+              <map-single style="width: 99.8%; height: 215px" [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]" class="map-marker"></map-single>
+            </div>
+            <!--<div id="affiliate-right-mobile" class="right-menu-scroll bg-white" *ngIf="!isDesktop">-->
+              <!--<adds-affiliate class="affiliate-right-mobile" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
+            <!--</div>-->
+          </div>
+          <div class="col-md-4">
+
+            <div class="goal-information" *ngIf="type == 'inner'">
 
               <ul class="row goal-links">
 
@@ -241,13 +438,13 @@
               <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && isDesktop">
                 <!--data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]"-->
                 <!--<div *ngIf="location"-->
-                     <!--data-simple-map-marker-->
-                     <!--data-zoom="14"-->
-                     <!--data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"-->
-                     <!--data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"-->
-                     <!--data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
-                     <!--data-markers="location"-->
-                     <!--style="width: 99.8%; height: 120px">-->
+                <!--data-simple-map-marker-->
+                <!--data-zoom="14"-->
+                <!--data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"-->
+                <!--data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"-->
+                <!--data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"-->
+                <!--data-markers="location"-->
+                <!--style="width: 99.8%; height: 120px">-->
                 <!--</div>-->
                 <map-single style="width: 99.8%; height: 120px" [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]" class="map-marker"></map-single>
               </div>
@@ -255,97 +452,10 @@
 
 
               <!--<div id="affiliate-right" class="right-menu-scroll bg-white" *ngIf="isDesktop">-->
-                <!--<adds-affiliate class="affiliate-right" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
+              <!--<adds-affiliate class="affiliate-right" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
               <!--</div>-->
             </div>
-            <!--{% endif %}-->
           </div>
-        </div>
-
-        <!--{% if page != view %}-->
-
-        <div class="row bg-white" *ngIf="type != 'view'">
-
-          <div class="col-md-8">
-            <!--{% if page == inner %}-->
-            <ul class="users-lists row" *ngIf="type == 'inner'">
-              <li class="col-xs-6">
-                <ul class="row no-gutter">
-                  <li class="col-xs-9 col-sm-5">
-                    {{ 'done_by'|translate | uppercase }}
-                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.doneBy }}</p>
-                  </li>
-                  <li class="col-xs-3 col-sm-7">
-                    <ul class="users">
-                      <!--{% set left = 80 %}-->
-                      <!--{% for doneByUser in doneByUsers %}-->
-                      <!--{% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}-->
-                      <!--{% set className = "user-no" ~ random(4) %}-->
-                      <li [style.right.px]="80 + (i + 1)*20" *ngFor="let user of doneByUsers;let i = index" class="hidden-xs">
-
-                        <figure *ngIf="user.cached_image">
-                          <img src="{{ user.cached_image }}" class="img-circle img-responsive" alt="{{ user.first_name }}">
-                        </figure>
-
-                        <p *ngIf="!user.cached_image" class="no-image user-no4">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
-
-                      </li>
-                      <!--{% set left = left + 20 %}-->
-                      <!--{% endfor %}-->
-
-                      <li class="users-arrow">
-                        <i *ngIf="goal.stats.doneBy == 0"></i>
-
-                        <a *ngIf="goal.stats.doneBy != 0" (click)="openUsersModal(goal.id, goal.stats.listedBy, 2)">
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <li class="col-xs-6">
-                <ul class="row no-gutter">
-                  <li class="col-xs-9 col-sm-5">
-                    {{ 'listed_by'|translate | uppercase }}
-                    <p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.listedBy }}</p>
-                  </li>
-                  <li class="col-xs-3 col-sm-7">
-                    <ul class="users">
-                      <!--{% set left = 80 %}-->
-                      <!--{#{{ dump(listedByUsers) }}#}-->
-                      <!--{% for listedByUser in listedByUsers %}-->
-                      <!--{% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}-->
-                      <!--{% set className = "user-no" ~ random(4) %}-->
-                      <li [style.right.px]="80 + (i + 1)*20" *ngFor="let user of listedByUsers;let i = index" class="hidden-xs">
-                        <figure *ngIf="user.cached_image">
-                          <img src="{{ user.cached_image }}" class="img-circle img-responsive" alt="{{ user.first_name }}">
-                        </figure>
-
-                        <p *ngIf="!user.cached_image" class="no-image user-no4">{{ (user.first_name | slice:0:1 | uppercase) + (user.last_name | slice:0:1 | uppercase) }}</p>
-
-                      </li>
-                      <!--{% set left = left + 20 %}-->
-                      <!--{% endfor %}-->
-                      <li class="users-arrow">
-                        <i *ngIf="goal.stats.listedBy == 0"></i>
-
-                        <a *ngIf="goal.stats.listedBy != 0" (click)="openUsersModal(goal.id, goal.stats.listedBy, 1)">
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && !isDesktop">
-              <map-single style="width: 99.8%; height: 215px" [locations]="[{latitude: goal.location.latitude, longitude: goal.location.longitude, status: goal.is_my_goal?goal.is_my_goal:0, title: goal.title}]" class="map-marker"></map-single>
-            </div>
-            <!--<div id="affiliate-right-mobile" class="right-menu-scroll bg-white" *ngIf="!isDesktop">-->
-              <!--<adds-affiliate class="affiliate-right-mobile" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
-            <!--</div>-->
-          </div>
-          <div class="col-md-4 hidden-xs"></div>
         </div>
 
         <div class="row padding-top bg-white" *ngIf="type != 'view'">
