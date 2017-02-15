@@ -123,11 +123,15 @@ class UserGoalController extends FOSRestController
      *
      * @Rest\Delete("/api/v1.0/usergoals/{userGoal}", name="rest_delete_usergoal", options={"method_prefix"=false})
      * @Security("has_role('ROLE_USER')")
+     *
+     * @param Request $request
      * @param $userGoal
      * @return Response
      */
-    public function deleteAction($userGoal)
+    public function deleteAction(Request $request, $userGoal)
     {
+        $request->getSession()->getFlashBag()->get('success');
+
         $userGoalService = $this->get('app.user.goal');
         $msg = $userGoalService->deleteUserGoal($userGoal, $this->getUser());
 
