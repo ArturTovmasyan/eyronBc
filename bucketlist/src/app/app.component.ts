@@ -241,7 +241,7 @@ export class AppComponent implements OnInit  {
                                   this.angulartics2.eventTrack.next({ action: 'Goal unlisted', properties: { category: 'Goal', label: 'Goal unlisted from angular2'}});
                               }
                               
-                              this.broadcaster.broadcast('removeUserGoal_' + result.remove, result.remove);
+                              this.broadcaster.broadcast('removeUserGoal_' + result.remeove, result.remove);
                               this.broadcaster.broadcast('removeGoal', result.remove);
                               this.broadcaster.broadcast('removeGoal'+data.userGoal.goal.id, data.userGoal.goal.id);
                           } else {
@@ -301,7 +301,6 @@ export class AppComponent implements OnInit  {
                     this.appUser.draft_count -= 1;
                 }
             );
-       
     }
 
     purgeFresh(){

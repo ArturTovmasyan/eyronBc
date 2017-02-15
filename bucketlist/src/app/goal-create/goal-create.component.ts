@@ -248,26 +248,46 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
                                 this._cacheService.set('flash_massage', messages, {maxAge: 3 * 24 * 60 * 60});
                                 this.router.navigate(['/profile/my/all']);
                             });
+                        this.broadcaster.on<any>('removeGoal' + d.id)
+                            .subscribe(data => {
+                                this.goal = null;
+                                this.isPublic = true;
+                                this.title = '';
+                                this.description = '';
+                                this.changeDescription();
+                                this.language = 'en';
+                                this.existingFiles = [];
+                                this.files = [];
+                                this.videos_array = [];
+                            });
+
                     });
                 });
     }
     
-    getGoals(){
-      clearTimeout(this.writeTimeout);
-      this.goals = [];
-      let self = this;
-      if(self.title){
-         this.writeTimeout = setTimeout(() =>{
-              self._projectService.getIdeaGoals(self.start, self.count, self.title )
-                  .subscribe(
-                      goals => {
-                          self.goals = goals;
-                          this.config.loop = (goals.length > 3);
-                          self.isMore = goals.length > 0;
-                          self.haveIdeas = (goals.length &&self.title)?true:false;
-                      });
-          }, 600);
-      }
+    getGoals(ev){
+        if(ev == ''){
+            this.goals = [];
+            this.haveIdeas = false;
+        }
+        else {
+            clearTimeout(this.writeTimeout);
+            this.goals = [];
+            let self = this;
+            if(self.title){
+                this.writeTimeout = setTimeout(() =>{
+                    self._projectService.getIdeaGoals(self.start, self.count, self.title )
+                        .subscribe(
+                            goals => {
+                                self.goals = goals;
+                                this.config.loop = (goals.length > 3);
+                                self.isMore = goals.length > 0;
+                                self.haveIdeas = (goals.length && self.title) ? true : false;
+                            });
+                }, 600);
+            }
+        }
+
 
   }
 
