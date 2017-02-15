@@ -4060,15 +4060,17 @@ md-progress-spinner{
 }
 
 
-.md-ripple-foreground{
-  background-color: rgba(119, 36, 246, 0.3);
-}
-
 a[md-button],button[md-button]{
   font-family: 'Open Sans', sans-serif;
 
-  &:active,&:focus,&:visited{
-    background-image: none;
+  .md-ripple-foreground{
+    background-color: rgba(180, 180, 180, 0.5);
   }
 }
+
+.md-button-focus{
+    .md-button-focus-overlay{
+      background: transparent;
+    }
+ }
 
