@@ -52,34 +52,7 @@ fdescribe('SettingsComponent', () => {
             fixture.detectChanges();
         });
 
-        // it('Authorization user', inject([ProjectService], (service) => {
-        //     let loginData;
-        //     loginData = {
-        //         username: 'test@test.am',
-        //         password: 'asasas1',
-        //         apikey: true
-        //     };
-        //
-        //     service.auth(loginData).subscribe((res) => {
-        //         if (res.apiKey) {
-        //             localStorage.setItem('apiKey', res.apiKey);
-        //         }
-        //     });
-        //     // expect(user).toEqual('Login failure!x');
-        // }));
-
-        // it('should greet (with fakeAsync)', inject([ProjectService], fakeAsync((service) => {
-        //     let user:any;
-        //     service.getUser().then((value) => {
-        //         user = value;
-        //     });
-        //
-        //     tick(2000);
-        //
-        //     console.log(user);
-        //     // expect(user).toEqual('Login failure!x');
-        // })));
-
+        //TODO must be fix authorization part for create secure(user sign in) components
         it('should create', () => {
             expect(true).toBe(true);
         });
