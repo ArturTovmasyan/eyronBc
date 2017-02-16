@@ -81,6 +81,7 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
                 this.id = this.route.snapshot.params['id'];console.log(this.id);
                 this.slug = this.route.snapshot.params['status'];
                 this.isPrivate = (this.slug && this.slug != 'drafts');
+                window.scrollTo(0,0);
                 if(this.id){
                     this._projectService.getGoalMyId(this.id)
                         .subscribe(

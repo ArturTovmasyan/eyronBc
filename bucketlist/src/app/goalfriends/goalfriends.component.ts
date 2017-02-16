@@ -37,6 +37,7 @@ export class GoalfriendsComponent implements OnInit, OnDestroy {
         this.users = null;
         this.reserve = null;
         this.noItem = false;
+        window.scrollTo(0,0);
         this.getUserList();
         this.busy = false;
       }

@@ -88,6 +88,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
             if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
 
                 this.eventId = val.id;
+                window.scrollTo(0,0);
                 this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'profile';
 
                 this.form = null;
