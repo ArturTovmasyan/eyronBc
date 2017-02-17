@@ -7,7 +7,7 @@
   filter: blur(20px);
 }
 .stories-place {
-  padding: 10px 19px 0;
+  padding: 10px 19px 10px;
   font-size: 17px;
   position: relative;
   margin: 0 0 9px;
@@ -23,6 +23,9 @@
 }
 .stories-place figure img {
   width: 100%;
+}
+.stories-place figure p {
+  text-align: center;
 }
 .stories-place figure.user-image {
   margin: 0 10px 8px 0;
@@ -85,7 +88,7 @@
 }
 @media (min-width: 768px) {
   .stories-place {
-    padding: 15px 25px 5px;
+    padding: 15px 25px 10px;
     margin-bottom: 10px;
   }
   .stories-place figure.user-image {
@@ -107,7 +110,7 @@
 }
 @media (min-width: 992px) {
   .stories-place {
-    padding: 20px 30px 30px;
+    padding: 20px 30px 10px;
     margin-bottom: 20px;
   }
   .stories-place figure.user-image {

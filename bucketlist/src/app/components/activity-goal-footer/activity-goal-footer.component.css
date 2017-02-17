@@ -20,6 +20,7 @@ figcaption ul li a:focus {
 figcaption ul li i {
   font-size: 25px;
   vertical-align: middle;
+  margin-right: 0;
 }
 figcaption ul li i.comment-icon {
   vertical-align: middle;
@@ -27,7 +28,7 @@ figcaption ul li i.comment-icon {
   background: url('../../../assets/images/comment-icon.svg') no-repeat center center;
   width: 21px;
   height: 20px;
-  margin: 0;
+  margin: 0 0 0 -16px;
 }
 figcaption ul li i.icon-green-ok,
 figcaption ul li .icon-green-plus {
@@ -35,7 +36,6 @@ figcaption ul li .icon-green-plus {
   vertical-align: middle;
 }
 figcaption ul li:hover {
-  background-color: #7724f6;
   color: #fff;
 }
 figcaption ul li:hover a .text {
@@ -83,16 +83,7 @@ figcaption ul .transparent:hover .text {
   }
 }
 @media (min-width: 992px) {
-  figcaption ul li:hover {
-    background-color: #7724F6;
-    color: #ffffff;
-  }
-  figcaption ul li:focus,
-  figcaption ul li:active {
-    background-color: #6108EA;
-  }
-  figcaption ul li:focus a,
-  figcaption ul li:active a {
+  figcaption ul li:not(.transparent):hover {
     color: #ffffff;
   }
 }

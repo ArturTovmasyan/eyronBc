@@ -429,7 +429,7 @@
                                     </a>
                                 </li>
 
-                                <li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">
+                                <li [ngClass]="{'col-xs-3 col-sm-4': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">
                                     <a md-button *ngIf="!goal.is_my_goal" (click)="add(goal.id)">
                                         <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span
                                                 class="path3"></span></i>
@@ -442,7 +442,7 @@
                                   </span>
                                 </li>
 
-                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal == 2">
+                                <li class="col-xs-6 col-sm-5" [class.transparent]="goal.is_my_goal == 2">
                                     <a md-button (click)="completeGoal(goal.id)" *ngIf="goal.is_my_goal != 2">
                                         <i class="icon-ok-icon"><span class="path1"></span><span
                                                 class="path2"></span></i>

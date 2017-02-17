@@ -39,7 +39,7 @@ export class ValidationService {
     //function for checking plain password validation
     static passwordsEqualValidator(c:FormControl) {
 
-        if ((c.value.password.length > 0 && c.value.plainPassword.length == 0) ||
+        if (c.value.password.length > 0 &&
             (c.value.plainPassword.length > 0 &&
             c.value.password != c.value.plainPassword)) {
             return {'invalidConfirmPassword' :true};
