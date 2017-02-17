@@ -7,6 +7,7 @@ import { ComponentModule } from '../components/components.module';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { ProjectService } from '../project.service';
+import { SwiperModule }     from 'angular2-useful-swiper';
 
 import { GoalfriendsRouting } from './goal-friends-routing';
 
@@ -18,7 +19,8 @@ import { GoalfriendsRouting } from './goal-friends-routing';
     GoalfriendsRouting,
     TranslateModule,
     InfiniteScrollModule,
-    ActivityBlockModule
+    ActivityBlockModule,
+    SwiperModule
   ],
   declarations: [GoalfriendsComponent],
   providers: [

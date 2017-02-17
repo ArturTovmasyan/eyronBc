@@ -16,16 +16,19 @@ export class GoalfriendsComponent implements OnInit, OnDestroy {
   public reserve:User[];
   public eventId: number = 0;
   public busy: boolean = false;
-
+  public filterVisibility: boolean = false;
   public start: number = 0;
   public count: number = 20;
+  public sliderCount: number;
   public search: string = '';
 
   public type:string = '';
   public noItem:boolean = false;
   public isDestroy: boolean = false;
+  public isDesktop: boolean = false;
   public serverPath:string = '';
   public errorMessage:string;
+  public config: Object;
 
   constructor(private route: ActivatedRoute, private _projectService: ProjectService, private router:Router) {
     router.events.subscribe((val) => {
@@ -51,7 +54,36 @@ export class GoalfriendsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.serverPath = this._projectService.getPath();
     this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
+    this.initSlide();
   }
+
+  initSlide(){
+    if(window.innerWidth < 376){
+      this.sliderCount = 2;
+    }
+    else if(window.innerWidth < 766){
+      this.sliderCount = 3;
+    }
+    else if(window.innerWidth < 992){
+      this.sliderCount = 4;
+    }
+    else {
+      this.sliderCount = 5;
+      this.isDesktop = true;
+      return;
+    }
+
+    this.config  = {
+      observer: true,
+      autoHeight: true,
+      slidesPerView: this.sliderCount,
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev',
+      spaceBetween: 10
+    };
+    this.filterVisibility = true;
+  }
+
 
   getUserList() {
     this._projectService.getUserList(this.start, this.count, this.search, this.type)
@@ -99,7 +131,9 @@ export class GoalfriendsComponent implements OnInit, OnDestroy {
   }
 
   onScroll(){
-    if(this.busy || !this.reserve || !this.reserve.length)return;
+    if(this.busy || !this.reserve || !this.reserve.length){
+      return;
+    }
     this.busy = true;
     this.getReserve();
   }
