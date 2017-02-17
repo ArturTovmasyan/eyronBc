@@ -36,6 +36,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     router.events.subscribe((val) => {
       if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
         this.eventId = val.id;
+        window.scrollTo(0,0);
         this.category = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'innovator';
         this.metadataService.setTitle('Leaderboard');
         this.metadataService.setTag('description', 'Leaderboard for ' + this.category);

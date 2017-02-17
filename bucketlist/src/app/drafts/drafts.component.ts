@@ -36,6 +36,7 @@ export class DraftsComponent implements OnInit, OnDestroy {
             this.start = 0;
             this.goals = null;
             this.reserve = null;
+              window.scrollTo(0,0);
             this.getGoals();
           }
         })

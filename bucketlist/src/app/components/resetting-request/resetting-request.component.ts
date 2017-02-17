@@ -3,7 +3,7 @@ import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@an
 import { ProjectService } from '../../project.service';
 import {CacheService} from 'ng2-cache/ng2-cache';
 import { Broadcaster } from '../../tools/broadcaster';
-import { ValidationService } from 'app/validation.service';
+import { ValidationService } from '../../validation.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({

@@ -63,6 +63,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
       router.events.subscribe((val) => {
           if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
               this.eventId = val.id;
+              window.scrollTo(0,0);
               this.start = 0;
               this.locationsIds = [];
               this.locations = [];

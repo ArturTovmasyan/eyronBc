@@ -2,6 +2,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { TranslateModule} from 'ng2-translate';
+import { ComponentModule } from '../components/components.module';
+import { ActivityBlockModule } from '../block/activityBlock.module';
+import { RouterTestingModule} from "@angular/router/testing/router_testing_module";
+import { Broadcaster} from '../tools/broadcaster';
+import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { TranslateService,TranslateLoader, TranslateParser} from 'ng2-translate';
+
 
 import { NotificationComponent } from './notification.component';
 
@@ -11,7 +20,21 @@ describe('NotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotificationComponent ]
+      declarations: [ NotificationComponent ],
+      imports: [
+        InfiniteScrollModule,
+        TranslateModule,
+        ComponentModule,
+        ActivityBlockModule,
+        RouterTestingModule
+      ],
+      providers:[
+        Broadcaster,
+        CacheService,
+        TranslateService,
+        TranslateLoader,
+        TranslateParser
+      ]
     })
     .compileComponents();
   }));
@@ -22,7 +45,7 @@ describe('NotificationComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
 });

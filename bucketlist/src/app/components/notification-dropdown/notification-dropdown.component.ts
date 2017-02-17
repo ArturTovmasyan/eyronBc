@@ -172,8 +172,6 @@ export class NotificationDropdownComponent implements OnInit {
           this.router.navigate([notify.notification.link]);
           this.hideNote();
       }
-    
-
   }
   hideNote(){
     this.noteHideEmitter.emit(null)

@@ -3,6 +3,7 @@ import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 import { ConfirmComponent} from '../../modals/confirm/confirm.component';
 import {ProjectService} from '../../project.service';
 import {Goal} from "../../interface/goal";
+import {Broadcaster} from "../../tools/broadcaster"
 
 
 @Component({
@@ -21,7 +22,8 @@ export class DraftFooterComponent implements OnInit {
   constructor(
         private _projectService : ProjectService,
         private viewContainerRef: ViewContainerRef,
-        public dialog: MdDialog
+        public dialog: MdDialog,
+        private broadcaster: Broadcaster
   ){}
 
   ngOnInit() {}
@@ -39,6 +41,7 @@ export class DraftFooterComponent implements OnInit {
                  .subscribe(
                      () => {}
                  );
+             this.broadcaster.broadcast('removeDraft');
              this.goals.splice(this.index,1);
          }
      });

@@ -118,6 +118,7 @@ export class AddComponent implements OnInit {
     }
   }
 
+  
   closeModal(){
     if(!this.isOpen)return;
     this.isOpen = false;
