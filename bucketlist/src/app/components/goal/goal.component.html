@@ -11,7 +11,7 @@
             val:'hide_nearby'})">
       </span>
 
-      <h3 [ngClass]="{'nearby': (type== 'nearby' && goal.location && goal.distance > 0)}">
+      <h3 [ngClass]="{'nearby': (type== 'nearby')}">
           <a *ngIf="goal.publish" routerLink="/goal/{{ goal.slug }}">{{ goal.title }}</a>
           <a *ngIf="!goal.publish">{{ goal.title }}</a>
       </h3>
