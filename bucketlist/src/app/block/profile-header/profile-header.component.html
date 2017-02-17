@@ -14,7 +14,6 @@
         <div class="col-sm-4">
           <figure>
 
-            <a routerLink="/edit/profile" routerLinkActive="active" *ngIf="!userInfo || userInfo == 'my' && type != 'settings'" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
             <form>
               <div>
 
@@ -123,9 +122,6 @@
 
         <!--{% if profileUser.id == app.user.id %}-->
         <div class="col-sm-4 relative" [class.bg-white]="isMobile" *ngIf="!userInfo || userInfo == 'my'">
-          <div class="text-right hidden-xs" *ngIf="type != 'settings'">
-            <a routerLink="/edit/profile" class="settings-icon"></a>
-          </div>
 
           <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->
           <div class="profile-information" *ngIf="appUser.completed_percent != 100">
