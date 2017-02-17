@@ -112,6 +112,7 @@ export class InnerComponent implements OnInit {
             this.type = params['page']
         }
 
+        window.scrollTo(0,0);
       // load data
       this.getProject(goalSlug);
     });

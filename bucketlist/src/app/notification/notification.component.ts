@@ -40,6 +40,7 @@ export class NotificationComponent implements OnInit {
 
 
     ngOnInit() {
+        window.scrollTo(0,0);
     this.serverPath = this._projectService.getPath();
     this.getNotifications();
         this.broadcaster.on<any>('markAllAsReAD')

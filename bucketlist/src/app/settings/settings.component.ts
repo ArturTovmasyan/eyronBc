@@ -4,7 +4,7 @@ import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import {TranslateService} from 'ng2-translate';
 import { Broadcaster } from '../tools/broadcaster';
-import { ValidationService } from 'app/validation.service';
+import { ValidationService } from '../validation.service';
 import {FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
@@ -88,6 +88,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
             if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
 
                 this.eventId = val.id;
+                window.scrollTo(0,0);
                 this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'profile';
 
                 this.form = null;

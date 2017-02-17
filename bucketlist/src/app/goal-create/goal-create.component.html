@@ -62,7 +62,7 @@
                                 <input type="text" name="title" required="required" maxlength="64" pattern=".{3,}"
                                        class="form-control title" placeholder="Title" autocomplete="off"
                                        [(ngModel)]="title"
-                                       (ngModelChange)="getGoals()">
+                                       (ngModelChange)="getGoals($event)">
 
                             </div>
                             <div *ngIf="haveIdeas && showIdeas" class="padding-top"></div>

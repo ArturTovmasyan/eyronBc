@@ -81,6 +81,7 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
                 this.id = this.route.snapshot.params['id'];console.log(this.id);
                 this.slug = this.route.snapshot.params['status'];
                 this.isPrivate = (this.slug && this.slug != 'drafts');
+                window.scrollTo(0,0);
                 if(this.id){
                     this._projectService.getGoalMyId(this.id)
                         .subscribe(
@@ -194,6 +195,7 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
                 () => {
                     this.router.navigate(['/goal/my-ideas/drafts']);
                 });
+        this.broadcaster.broadcast('draftCount');
     }
 
     isVideoLink(url){
@@ -247,26 +249,46 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
                                 this._cacheService.set('flash_massage', messages, {maxAge: 3 * 24 * 60 * 60});
                                 this.router.navigate(['/profile/my/all']);
                             });
+                        this.broadcaster.on<any>('removeGoal' + d.id)
+                            .subscribe(data => {
+                                this.goal = null;
+                                this.isPublic = true;
+                                this.title = '';
+                                this.description = '';
+                                this.changeDescription();
+                                this.language = 'en';
+                                this.existingFiles = [];
+                                this.files = [];
+                                this.videos_array = [];
+                            });
+
                     });
                 });
     }
     
-    getGoals(){
-      clearTimeout(this.writeTimeout);
-      this.goals = [];
-      let self = this;
-      if(self.title){
-         this.writeTimeout = setTimeout(() =>{
-              self._projectService.getIdeaGoals(self.start, self.count, self.title )
-                  .subscribe(
-                      goals => {
-                          self.goals = goals;
-                          this.config.loop = (goals.length > 3);
-                          self.isMore = goals.length > 0;
-                          self.haveIdeas = (goals.length &&self.title)?true:false;
-                      });
-          }, 600);
-      }
+    getGoals(ev){
+        if(ev == ''){
+            this.goals = [];
+            this.haveIdeas = false;
+        }
+        else {
+            clearTimeout(this.writeTimeout);
+            this.goals = [];
+            let self = this;
+            if(self.title){
+                this.writeTimeout = setTimeout(() =>{
+                    self._projectService.getIdeaGoals(self.start, self.count, self.title )
+                        .subscribe(
+                            goals => {
+                                self.goals = goals;
+                                this.config.loop = (goals.length > 3);
+                                self.isMore = goals.length > 0;
+                                self.haveIdeas = (goals.length && self.title) ? true : false;
+                            });
+                }, 600);
+            }
+        }
+
 
   }
 
