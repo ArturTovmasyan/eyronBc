@@ -275,6 +275,24 @@
   vertical-align: middle;
   margin: 0 -5px 0 0;
 }
+.goal-icons li.bordered-list a[md-button] {
+  min-width: 35px;
+  height: 22px;
+  padding: 0;
+  line-height: 21px;
+}
+.goal-icons li.bordered-list a[md-button] span {
+  display: inline-block;
+}
+.goal-icons li.bordered-list a[md-button] i {
+  margin: -4px 0 0 0;
+}
+.goal-icons li.bordered-list a[md-button] i.icon-green-ok {
+  margin: -5px 0 0 0;
+}
+.goal-icons li.bordered-list a[md-button] i.icon-ok-icon {
+  margin: -3px 0 0 0;
+}
 .goal-icons li.bordered-list a.manage-modal i {
   font-size: 28px;
   padding: 0 4px 2px 3px;
@@ -306,6 +324,9 @@
   display: block;
   color: #a4a4a4;
   font-size: 12px;
+}
+.goal-links li a[md-button] {
+  line-height: 33px;
 }
 .goal-links li a:focus {
   text-decoration: none;
@@ -627,6 +648,10 @@
   }
   .goal-links li a {
     font-size: 13px;
+  }
+  .goal-links li a[md-button] {
+    padding: 6px 0 8px;
+    line-height: 36px;
   }
   .goal-links li.clone {
     text-align: center;
