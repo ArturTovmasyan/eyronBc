@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public serverPath:string = '';
   public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
   public isMobile:Boolean= (window.innerWidth < 768);
-
+  public goalID: number;
   public start: number = 0;
   public count: number = 10;
   public locations:Location[] = [];
@@ -117,7 +117,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     //   UserGoalDataManager.overall($scope.currentPage, function (data) {
     //     $scope.overallProgress = data.progress;
     //   });
-    // });    
+    // });
+    this.broadcaster.on<any>('removeGoal')
+        .subscribe( data =>{
+          this.goalID = data;
+          for( let i of this.userGoals){
+           if(i.id == this.goalID){
+             this.userGoals.splice(+i,1);
+             break;
+           }
+          }
+
+        });
     
     this.broadcaster.on<User>('pageUser')
         .subscribe(user => {
