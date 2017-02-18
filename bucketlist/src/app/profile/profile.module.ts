@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TranslateModule} from 'ng2-translate';
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent } from './components';
 import { ProjectService } from '../project.service';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { FormsModule } from '@angular/forms';

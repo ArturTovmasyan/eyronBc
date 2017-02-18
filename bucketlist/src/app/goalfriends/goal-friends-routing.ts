@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { GoalfriendsComponent }    from './goalfriends.component';
+import { GoalfriendsComponent }    from './components';
 
 const GoalfriendsRoutes: Routes = [
   { path: '',  component: GoalfriendsComponent,
