@@ -7,51 +7,49 @@ import 'rxjs/add/operator/map';
 import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { LoginComponent } from './login.component';
 import { ProjectService } from '../project.service';
-import { User } from '../interface/user';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterModule, Routes } from '@angular/router';
+import { ViewportRuler} from '@angular/material/core/overlay/position/viewport-ruler'
 
 import { AngularFire } from 'angularfire2';
-import { FirebaseAuthState } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
+import { AuthProviders } from 'angularfire2';
+import { AuthMethods } from 'angularfire2';
 
-import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-
-
-// beforeEach(() => {
-//     addProviders([
-//         MockBackend,
-//         BaseRequestOptions,
-//         {
-//             provide: Http,
-//             useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-//                 return new Http(backendInstance, defaultOptions);
-//             },
-//             deps: [MockBackend, BaseRequestOptions]
-//         },
-//         UserService
-//     ]);
-// });
+import { BaseRequestOptions } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 const LoginRoute: Routes = [
     { path: '',  component: LoginComponent }
 ];
 
-describe('SettingsComponent', () => {
+// Must export the config
+export const firebaseConfig = {
+    apiKey: "AIzaSyDS4TuFB7Uj-M0exn1qWHVpaUhUwwKanlQ",
+    authDomain: "bucketlist-f143c.firebaseapp.com",
+    databaseURL: "https://bucketlist-f143c.firebaseio.com",
+    storageBucket: "bucketlist-f143c.appspot.com",
+    messagingSenderId: "264286375978"
+};
+const myFirebaseAuthConfig = {
+    provider: AuthProviders.Google,
+    method: AuthMethods.Popup
+};
 
+fdescribe('LoginComponent', () => {
+
+        //set variables
         let component: LoginComponent;
         let fixture: ComponentFixture<LoginComponent>;
-        let user:User;
-        let authState: FirebaseAuthState;
-        let backend: MockBackend = null;
-        let service: ProjectService;
+        let user:any = {};
 
         beforeEach(async(() => {
 
                 TestBed.configureTestingModule({
-                    declarations: [ LoginComponent],
-                    providers: [ProjectService, MockBackend, BaseRequestOptions, AngularFire, CacheService, TranslateService, TranslateLoader, TranslateParser, Broadcaster],
-                    imports: [MaterialModule, TranslateModule, RouterModule, FormsModule, ReactiveFormsModule, RouterTestingModule.withRoutes(LoginRoute)],
+                    declarations: [LoginComponent],
+                    providers: [ProjectService, ViewportRuler, MockBackend, BaseRequestOptions, AngularFire, CacheService, TranslateService, TranslateLoader, TranslateParser, Broadcaster],
+                    imports: [MaterialModule,  AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig), TranslateModule,
+                        RouterModule, FormsModule, ReactiveFormsModule, RouterTestingModule.withRoutes(LoginRoute)],
                 })
                     .compileComponents();
             }
@@ -63,50 +61,36 @@ describe('SettingsComponent', () => {
             fixture.detectChanges();
         });
 
-    beforeEach(inject([MockBackend], (mockBackend: MockBackend) => {
-        backend = mockBackend;
-    }));
+        beforeEach(inject([ProjectService, CacheService], (projectService: ProjectService) => {
+            projectService.initPaths('http://behat.bucketlist.loc/');
+        }));
 
-    it('#login should call endpoint and return it\'s result', (done) => {
-        backend.connections.subscribe((connection: MockConnection) => {
-            let options = new ResponseOptions({
-                body: JSON.stringify({ success: true })
-            });
-            connection.mockRespond(new Response(options));
-        });
+        //check login user functionality
+        it('Authorization user', inject([ProjectService, CacheService, Broadcaster], (projectService, cacheService, broadcast) => {
 
-        let loginData;
-
-            loginData = {
-                username: 'test@test.am',
-                password: 'asasas1',
+            let loginData = {
+                username: 'user1@user.com',
+                password: 'Test1234',
                 apikey: true
             };
 
-        component.login(loginData);
-                            done();
-    });
+            projectService.auth(loginData).subscribe((res) => {
 
-        // it('Authorization user', inject([ProjectService], (service) => {
-        //     let loginData;
-        //
-        //     loginData = {
-        //         username: 'test@test.am',
-        //         password: 'asasas1',
-        //         apikey: true
-        //     };
-        //
-        //     service.auth(loginData).subscribe((res) => {
-        //         console.log(res);
-        //         if (res.apiKey) {
-        //             localStorage.setItem('apiKey', res.apiKey);
-        //         }
-        //     });
-        //     // expect(user).toEqual('Login failure!x');
-        // }));
+                if (res.apiKey) {
+                    localStorage.setItem('apiKey', res.apiKey);
+                }
 
-        // it('should create', () => {
-        //     expect(true).toBe(true);
-        // });
+                this.user = res.userInfo;
+
+                cacheService.set('user_',  this.user, {maxAge: 3 * 24 * 60 * 60});
+                broadcast.broadcast('getUser', this.user);
+
+                expect(this.user.first_name).toEqual('user1');
+                expect(this.user.last_name).toEqual('useryan');
+
+             }
+        );
+        }
+    ));
     }
 );
