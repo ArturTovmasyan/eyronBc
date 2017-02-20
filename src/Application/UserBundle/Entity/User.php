@@ -2168,7 +2168,7 @@ class User extends BaseUser
     public function addFollowing(\Application\UserBundle\Entity\User $following)
     {
         $this->followings[] = $following;
-        $followings = apc_fetch(self::FOLLOWERS . $this->getId());
+        $followings = apc_fetch(sha1(__FILE__) . self::FOLLOWERS . $this->getId());
 
         if(is_array($followings)){
             $followings[] = $following->getId();
@@ -2176,7 +2176,7 @@ class User extends BaseUser
             $followings = [$following->getId()];
         }
 
-        apc_store(self::FOLLOWERS . $this->getId(), $followings, 3600);
+        apc_store(sha1(__FILE__) . self::FOLLOWERS . $this->getId(), $followings, 3600);
 
         return $this;
     }
@@ -2188,7 +2188,7 @@ class User extends BaseUser
      */
     public function removeFollowing(\Application\UserBundle\Entity\User $following)
     {
-        apc_delete(self::FOLLOWERS . $this->getId());
+        apc_delete(sha1(__FILE__) . self::FOLLOWERS . $this->getId());
         $this->followings->removeElement($following);
     }
 
@@ -2251,11 +2251,11 @@ class User extends BaseUser
      */
     public function getFollowingIds()
     {
-        $followingIds = apc_fetch(self::FOLLOWERS . $this->getId());
+        $followingIds = apc_fetch(sha1(__FILE__) . self::FOLLOWERS . $this->getId());
         if(!$followingIds){
             if($followings = $this->getFollowings()){
                 $followingIds = array_keys($followings->toArray());
-                apc_store(self::FOLLOWERS . $this->getId(), $followingIds, 3600);
+                apc_store(sha1(__FILE__) . self::FOLLOWERS . $this->getId(), $followingIds, 3600);
             }
         }
 

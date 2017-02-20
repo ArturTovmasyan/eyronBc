@@ -21,6 +21,15 @@
   border-top: 0;
   text-align: center;
 }
+#draft-delete .modal-footer a[md-button] {
+  padding: 3px 35px;
+}
+#draft-delete .modal-footer .btn-transparent[md-button]:focus,
+#draft-delete .modal-footer .btn-transparent[md-button]:active {
+  background-color: #fff;
+  border: 1px solid #e3e3e3;
+  color: #999999;
+}
 @media (min-width: 768px) {
   #draft-delete {
     top: 15%;

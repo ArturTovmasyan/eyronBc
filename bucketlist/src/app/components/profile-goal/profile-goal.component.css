@@ -241,6 +241,9 @@
   font-size: 30px;
   vertical-align: middle;
 }
+.goals-information .information a.manage-modal[md-button] {
+  padding: 0 16px 0 0;
+}
 .goals-information .information a:hover,
 .goals-information .information a:focus {
   text-decoration: none;
@@ -365,7 +368,7 @@
   }
   .goals-information .information h3 {
     margin: 10px 0 0;
-    height: 75px;
+    height: 68px;
     overflow: hidden;
     font-size: 18px;
     line-height: 23px;

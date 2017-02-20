@@ -114,7 +114,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
     
     initSlide(){
         if(window.innerWidth < 766){
-            this.sliderCount = 3;
+            this.sliderCount = 4;
             //$scope.isMobile = true;
             //$scope.placeholder = '';
         }
@@ -135,7 +135,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
             slidesPerView: this.sliderCount,
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
-            spaceBetween: 10
+            spaceBetween: 0
         };
         this.filterVisibility = true;
     }

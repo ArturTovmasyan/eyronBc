@@ -110,7 +110,7 @@
   }
 
   .inner{
-    padding:0 15px 5px;
+    padding: 0 0 5px;
     margin: 0 0 5px 0;
 
     .goal-info{
@@ -225,7 +225,7 @@
   padding: 0 5px;
 
   hr{
-    margin:0 !important;
+    //margin:0 !important;
     border-color:#eee;
   }
 
@@ -382,6 +382,18 @@
       font-size:12px;
       &[md-button]{
         line-height: 33px;
+
+        &:hover, &:focus{
+          background-color: #5e1dc3;
+        }
+
+        &:focus,&:active{
+          background-color: #4f3576;
+        }
+
+        .md-ripple-foreground{
+          background-color: rgba(75, 23, 156, 0.62);
+        }
       }
 
       &:focus{
@@ -407,7 +419,7 @@
     }
 
     &:hover{
-      background-color: #7724F6;
+      //background-color: #7724F6;
       a{
         color: #ffffff;
 
@@ -423,7 +435,7 @@
 
       a{
         font-size:11px;
-        padding-right:10px;
+        padding-right: 3px;
       }
     }
 
@@ -481,7 +493,7 @@
       }
 
       p{
-        font-size: 23px;
+        font-size: 16px;
       }
 
       &:first-child{
@@ -568,10 +580,12 @@
     }
 
     .swiper-button-prev{
-      left:25px;
+      left: 10px;
+      background-size: 70%;
     }
     .swiper-button-next{
-      right:20px;
+      right: 10px;
+      background-size: 70%;
     }
   }
 
@@ -591,7 +605,7 @@
 
 
 .addthis_counter{
-  width:113px;
+  width: 113px;
   height:31px;
   background: url('../../assets/images/share-new.png') no-repeat center center;
   background-size: 100%;
@@ -634,6 +648,12 @@
 }
 
 @media (min-width: @screen-sm) {
+
+  .addthis_counter{
+    width:113px;
+    height:31px;
+  }
+
   .inner-container{
 
     hr{
@@ -697,7 +717,7 @@
       }
     }
     .inner{
-      padding:0 34px 5px;
+      padding:0 15px 5px;
       margin: 0 0 10px 0;
 
       .goal-info {
@@ -771,7 +791,8 @@
   }
 
   .goal-icons{
-    padding: 0 20px;
+    padding: 8px 20px 12px;
+
     li{
       margin: 0 6px;
     }
@@ -798,9 +819,14 @@
         a{
           font-size:13px;
           padding-right:0;
-          //span{
-          //  margin-right:5px;
-          //}
+          padding-left: 5px;
+
+        }
+
+        &:hover{
+          a{
+            color: #a4a4a4;
+          }
         }
       }
       &:last-child{
@@ -829,6 +855,11 @@
         &:first-child{
           border-right: 0;
         }
+
+        p{
+          font-size: 23px;
+        }
+
         ul{
           li{
             font-size: 14px;
@@ -878,6 +909,15 @@
       .swiper-slide{
         height:414px;
       }
+
+      .swiper-button-prev{
+        left:25px;
+        background-size: 100%;
+      }
+      .swiper-button-next{
+        right:20px;
+        background-size: 100%;
+      }
     }
     .goal-preview{
       height:414px;
@@ -886,7 +926,7 @@
 
 
   .addthis_counter{
-    margin-right: 17px;
+    margin: 6px 17px 0 0;
 
     .sb-container{
       right: 32px;
@@ -946,7 +986,7 @@
     }
 
     .inner{
-      padding:0 15px 10px 54px;
+      padding: 0 0 10px 40px;
     }
 
     h4{
@@ -976,6 +1016,40 @@
       font-size:18px;
     }
 
+    .goal-links{
+      height: 83px;
+      li{
+        height: 83px;
+        line-height: 83px;
+
+        a{
+          font-size: 13px;
+          .rounded-corners(0);
+          &[md-button]{
+            padding: 11px 0 8px;
+            line-height: 62px;
+          }
+        }
+      }
+    }
+
+    .goal-icons{
+      padding: 22px 20px 20px;
+      height: 78px;
+      margin-bottom: 28px;
+
+      li{
+        i{
+          &.icon-eye-icon{
+            margin: 3px 0 0;
+          }
+          &.icon-eye{
+            margin: -8px -5px 0 0;
+            vertical-align: top;
+          }
+        }
+      }
+    }
   }
 
   .users-lists{
@@ -1053,7 +1127,7 @@
   }
 
   .goal-information{
-    width: 374px;
+    width: 353px;
     p{
       font-size:20px;
     }

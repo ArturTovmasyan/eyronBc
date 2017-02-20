@@ -7,7 +7,7 @@ body, html{
 }
 
 body{
-  padding-top:80px;
+  padding-top: 61px;
   background-color: #f4f4f4;
 }
 
@@ -292,7 +292,7 @@ header{
   }
 
   .navbar{
-    min-height: 81px;
+    min-height: 60px;
   }
 
   .navbar-fixed-top .navbar-collapse{
@@ -307,7 +307,8 @@ header{
     .navbar-brand{
       width: 150px;
       display: block;
-      padding: 19px 30px 21px 20px;
+      padding: 10px 30px 21px 20px;
+      margin-left: -20px;
     }
 
     .navbar-toggle{
@@ -366,12 +367,12 @@ header{
           color: #E5E5E5;
           font-weight: 700;
           font-size: 16px;
-          padding:25px 15px;
+          padding: 14px 13px;
 
           i{
-            display:inline-block;
+            //display:inline-block;
             vertical-align: middle;
-            font-size: 30px;
+            //font-size: 30px;
           }
 
           span{
@@ -408,8 +409,8 @@ header{
         text-align: center;
 
         a{
-          padding-top:25px;
-          padding-bottom:25px;
+          padding-top: 13px;
+          padding-bottom: 14px;
 
           &.mobile-user{
             padding: 21px 15px 16px 0;
@@ -431,11 +432,12 @@ header{
             display: block;
             padding: 19px 5px 19px 15px;
             position: relative;
+            width: 45px;
 
             .navbar-brand{
               width: 120px;
               padding: 0 10px 0 0;
-
+              margin-left: 0;
             }
 
             figure{
@@ -474,8 +476,8 @@ header{
               width: 25px;
               height: 25px;
               position: absolute;
-              top: 27px;
-              right:18px;
+              top: 15px;
+              right: 14px;
 
               &.menu-hamburger{
                 background: url('assets/images/grey-burger.svg') no-repeat center center;
@@ -654,7 +656,7 @@ header{
   }
 
   .activity-icon{
-    width: 30px !important;
+    //width: 30px;
     background: url('assets/images/activity.svg') no-repeat center center;
     background-size: 100%;
   }
@@ -684,21 +686,22 @@ header{
 
     a.relative{
       display: block;
-      padding: 15px 19px 21px !important;
+      //padding: 15px 19px 21px !important;
+      padding: 5px 26px 17px  19px !important;
     }
 
     .bell{
       display: block;
-      width: 25px;
-      height: 41px;
+      width: 20px;
+      height: 36px;
       background: url('assets/images/bell.png') no-repeat center 11px;
       background-size: 100%;
     }
 
     sup{
       position: absolute;
-      top: 16px;
-      right: 10px;
+      top: 6px;
+      right: 17px;
       padding: 3px 4px;
       color: #ffffff;
       background-color: #7724F6;
@@ -885,13 +888,13 @@ header{
 }
 
 .join-icon{
-  width: 30px;
+  width: 25px;
   background: url('assets/images/join-icon.svg') no-repeat center center;
   //background-size: 100%;
 }
 
 .ideas-icon{
-  width: 30px !important;
+  //width: 30px !important;
   background: url('assets/images/ideas.svg') no-repeat center center;
   background-size: 100%;
 }
@@ -1122,6 +1125,8 @@ figure.img-circle{
 .icon-user-small{
   font-size: 28px;
   vertical-align: middle;
+  display: inline-block;
+  margin: -2px 0 0;
 }
 
 .ok-icon-green{
@@ -1349,6 +1354,10 @@ figure.img-circle{
 
   &:focus,&:active{
     background-color: #4f3576;
+  }
+
+  .md-ripple-foreground{
+    background-color: rgba(75, 23, 156, 0.62);
   }
 }
 
@@ -2676,6 +2685,26 @@ md-select{
 
 @media (min-width: @screen-sm) {
 
+  body{
+    padding-top: 80px;
+  }
+
+  .icon-user-small{
+    margin: -1px 0 0;
+  }
+
+  .icons{
+    width: 30px;
+  }
+
+  .mybucketlist-icon{
+    width: 25px;
+  }
+
+  .join-icon{
+    width: 30px;
+  }
+
   .email{
     padding: 15px 5px;
     font-size:14px;
@@ -2711,8 +2740,9 @@ md-select{
           border-bottom:0;
           a{
             font-size:16px;
-            padding-top:24px;
-            padding-bottom:24px;
+            //padding-top:24px;
+            //padding-bottom:24px;
+            padding: 24px 15px;
           }
         }
       }
@@ -2720,6 +2750,7 @@ md-select{
       .navbar-brand{
         height:78px;
         padding: 15px 20px 18px 5px;
+        margin-left: 0;
       }
 
       .navbar-right{
@@ -2735,6 +2766,7 @@ md-select{
 
             .user{
               padding: 15px 5px 13px 15px;
+              width: auto;
 
               figure{
                 width:50px;
@@ -2753,6 +2785,11 @@ md-select{
               span.name{
                 padding:15px 0 4px 8px;
                 font-size:16px;
+              }
+
+              i{
+                top: 27px;
+                right: 18px;
               }
             }
 
@@ -2802,6 +2839,8 @@ md-select{
 
     .bell{
       background-position: center center;
+      width: 25px;
+      height: 41px;
     }
 
     #notification{
@@ -2811,7 +2850,14 @@ md-select{
       }
 
       .bell{
+        width: 25px;
+        height: 41px;
         background-position: center center;
+      }
+
+      sup{
+        top: 16px;
+        right: 10px;
       }
 
       ul.dropdown-menu{
@@ -3343,19 +3389,17 @@ md-select{
 
     .bell{
       width: 25px;
-      height:30px;
+      height: 30px;
       background-position: center bottom;
     }
 
     #notification{
 
       a.relative{
-        padding: 25px 20px !important;
+        padding: 14px 20px 25px !important;
       }
 
       .bell{
-        width: 25px;
-        height:30px;
         background-position: center bottom;
       }
 
@@ -4064,11 +4108,17 @@ md-progress-spinner{
 }
 
 
-.md-ripple-foreground{
-  background-color: rgba(119, 36, 246, 0.3);
-}
-
 a[md-button],button[md-button]{
   font-family: 'Open Sans', sans-serif;
+
+  .md-ripple-foreground{
+    background-color: rgba(180, 180, 180, 0.5);
+  }
 }
+
+.md-button-focus{
+    .md-button-focus-overlay{
+      background: transparent;
+    }
+ }
 

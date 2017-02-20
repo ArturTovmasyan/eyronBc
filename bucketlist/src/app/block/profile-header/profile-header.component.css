@@ -441,7 +441,13 @@
   font-weight: normal;
   cursor: pointer;
   font-size: 14px;
-  padding: 22px 5px;
+  padding: 30px 5px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.64);
 }
 @media (min-width: 768px) {
   .content-header {
@@ -565,7 +571,12 @@
     padding: 0 0 5px;
   }
   .profile .profile-information {
-    margin-top: 85px;
+    margin: 0;
+    bottom: 5px;
+    position: absolute;
+  }
+  .profile .profile-information a.text-gray {
+    margin-left: 4px;
   }
   .bucketlist {
     padding: 10px 0 0;
@@ -631,7 +642,7 @@
   }
   .image-label {
     font-size: 15px;
-    padding: 30px 15px;
+    padding: 39px 15px;
   }
 }
 @media (min-width: 992px) {
@@ -737,10 +748,10 @@
     font-size: 20px;
   }
   .profile .profile-information {
-    margin: 110px auto 0;
+    bottom: 10px;
   }
   .profile .profile-information a.text-gray {
-    margin-left: 30px;
+    margin-left: 22px;
   }
   .bucketlist {
     padding: 20px 0 0;
@@ -790,7 +801,7 @@
   }
   .image-label {
     font-size: 16px;
-    padding: 41px 15px;
+    padding: 48px 15px;
   }
 }
 @media (min-width: 1200px) {

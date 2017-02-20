@@ -108,7 +108,7 @@
 }
 
 .ideas-top{
-  min-height: 114px;
+  min-height: 105px;
   .search{
     height:51px;
   }
@@ -119,7 +119,7 @@ hr{
 }
 
 .filters-slider{
-  height: 60px;
+  height: 50px;
   .bg-left,.bg-right{
     position: absolute;
     z-index: 10;
@@ -131,11 +131,13 @@ hr{
   }
 
   .bg-left{
-    left: 0;
+    left: -7px;
+    top: 4px;
   }
 
   .bg-right{
-    right: 0;
+    right: -7px;
+    top: 4px;
   }
 
   .swiper-button-prev,.swiper-button-next{
@@ -173,7 +175,7 @@ ul.filter{
       display: block;
       vertical-align: middle;
       font-weight: 500;
-      font-size: 12px;
+      font-size: 11px;
       padding: 0;
       text-align: center;
 
@@ -187,12 +189,12 @@ ul.filter{
       }
 
       img{
-        height: 30px;
+        height: 25px;
       }
 
       .svg{
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
       }
 
       &:hover,&:active,&:focus{
@@ -301,11 +303,12 @@ ul.filter{
   .filters-slider{
     height: 70px;
     .bg-left{
-      left: -7px;
+      top: 0;
     }
 
     .bg-right{
-      right: 1px;
+      right: -1px;
+      top: 0;
     }
   }
 
@@ -326,6 +329,15 @@ ul.filter{
         font-size:13px;
         span{
           padding: 3px 0 0;
+        }
+
+        img{
+          height: 30px;
+        }
+
+        .svg{
+          width: 30px;
+          height: 30px;
         }
       }
     }

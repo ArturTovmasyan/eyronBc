@@ -9,48 +9,50 @@
 .buttons {
   margin: 0 0 5px 0;
 }
-.buttons button,
-.buttons a {
+.buttons button[md-button],
+.buttons a[md-button] {
   display: inline-block;
-  padding: 4px 7px;
+  padding: 3px 7px 4px;
   margin-left: 1px;
   font-size: 12px;
+  line-height: 20px;
   margin-bottom: 8px;
+  min-width: 60px;
 }
-.buttons button span,
-.buttons a span {
+.buttons button[md-button] span,
+.buttons a[md-button] span {
   line-height: 20px;
 }
-.buttons button i.icon-arrow-right,
-.buttons a i.icon-arrow-right,
-.buttons button i.icon-arrow-left,
-.buttons a i.icon-arrow-left {
+.buttons button[md-button] i.icon-arrow-right,
+.buttons a[md-button] i.icon-arrow-right,
+.buttons button[md-button] i.icon-arrow-left,
+.buttons a[md-button] i.icon-arrow-left {
   font-size: 20px;
   vertical-align: middle;
 }
-.buttons button:first-child,
-.buttons a:first-child {
+.buttons button[md-button]:first-child,
+.buttons a[md-button]:first-child {
   border: 1px solid #e3e3e3;
   color: #999999;
 }
-.buttons button:hover,
-.buttons a:hover {
+.buttons button[md-button]:hover,
+.buttons a[md-button]:hover {
   background-color: #5e1dc3;
   color: #ffffff;
   box-shadow: none;
 }
-.buttons button:active,
-.buttons a:active,
-.buttons button:focus,
-.buttons a:focus,
-.buttons button:visited,
-.buttons a:visited {
+.buttons button[md-button]:active,
+.buttons a[md-button]:active,
+.buttons button[md-button]:focus,
+.buttons a[md-button]:focus,
+.buttons button[md-button]:visited,
+.buttons a[md-button]:visited {
   box-shadow: none;
   outline: 0;
   background-color: #4f3576;
 }
-.buttons button:focus,
-.buttons a:focus {
+.buttons button[md-button]:focus,
+.buttons a[md-button]:focus {
   color: #ffffff;
 }
 .buttons .btn-transparent {
@@ -148,21 +150,20 @@
   .buttons {
     margin: 5px 0 20px;
   }
-  .buttons button,
-  .buttons a {
+  .buttons button[md-button],
+  .buttons a[md-button] {
     margin-bottom: 0;
     padding: 5px 15px;
     margin-left: 5px;
-    font-size: 12px;
   }
-  .buttons button span,
-  .buttons a span {
+  .buttons button[md-button] span,
+  .buttons a[md-button] span {
     line-height: 27px;
   }
-  .buttons button i.icon-arrow-right,
-  .buttons a i.icon-arrow-right,
-  .buttons button i.icon-arrow-left,
-  .buttons a i.icon-arrow-left {
+  .buttons button[md-button] i.icon-arrow-right,
+  .buttons a[md-button] i.icon-arrow-right,
+  .buttons button[md-button] i.icon-arrow-left,
+  .buttons a[md-button] i.icon-arrow-left {
     font-size: 25px;
   }
   .buttons .btn-transparent {
@@ -228,11 +229,10 @@
   .buttons {
     margin: 40px 0;
   }
-  .buttons button,
-  .buttons a {
+  .buttons button[md-button],
+  .buttons a[md-button] {
     padding: 6px 25px;
     margin-left: 10px;
-    font-size: 12px;
   }
   .buttons .btn-transparent {
     padding: 5px 25px;
