@@ -39,12 +39,12 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li id="notification" *ngIf="appUser && (!isMobile || !joinToggle1)">
 
-                                <a (click)="toogleNote()" class="relative notify">
+                                <a routerLink="/notifications" class="relative notify">
                                     <i class="bell"></i>
                                     <sup *ngIf="newNotCount && newNotCount != 0">{{ newNotCount }}</sup>
                                 </a>
 
-                                <notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)" [hidden]="!show" (clickOutside)="closeDropdown()"></notification-dropdown>
+                                <!--<notification-dropdown  (count)="newCount($event)" (changeNote)="hideNote($event)" [hidden]="!show" (clickOutside)="closeDropdown()"></notification-dropdown>-->
 
                             </li>
                             <li *ngIf="appUser" [class.block]="isMobile && joinToggle1">
