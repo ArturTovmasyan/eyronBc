@@ -6,8 +6,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { RegistrationConfirmComponent } from './components/registration-confirm/registration-confirm.component';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { AuthGuard }      from './common/auth.guard';
-import {PageComponent} from './page/page.component';
-import {ErrorComponent} from "./components/error/error.component";
+import { PageComponent} from './page/page.component';
+import { ErrorComponent} from "./components/error/error.component";
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
