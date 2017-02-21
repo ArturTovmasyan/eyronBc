@@ -54,7 +54,7 @@ export class ProjectService {
     private discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
     private baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
     private ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
-    private activityUrl = this.baseOrigin + this.envprefix + 'api/v2.0/activities/';  // URL to activity
+    private activityUrl = this.base2Url + 'activities/';  // URL to activity
     private goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
     private topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
     private featuredIdeasUrl = this.baseUrl + 'goal/featured'; //URL to get featured iteas
@@ -96,6 +96,65 @@ export class ProjectService {
             .subscribe(user => {
                 this.appUser = user;
             });
+    }
+
+    initPaths(prefix: string){
+        this.baseUrl = prefix + 'api/v1.0/' ;
+        this.base2Url = prefix + 'api/v2.0/' ;
+        this.goalUrl =  this.baseUrl + 'goal/by-slug/';  // URL to web API
+        this.userUrl  = this.baseUrl + 'user';  // URL to web API
+        this.socialLoginUrl  = this.baseUrl + 'users/social-login/';  // URL to web API
+        this.registrationUrl  = this.baseUrl + 'users';  // URL to web API
+
+        //modals
+        this.reportUrl = this.baseUrl + 'report';
+        this.commonUrl = '/common';
+        this.usersUrl = this.baseUrl + 'user-list/';
+        // this.friendsUrl = this.baseUrl + 'goals/';
+
+        this.userGoalsUrl = this.baseUrl + 'usergoals/';  // URL to web API
+        this.getStoryUrl = this.baseUrl + 'story/';  // URL to web API
+        this.addVoteUrl = this.baseUrl + 'success-story/add-vote/';  // URL to web API
+        this.removeVoteUrl = this.baseUrl + 'success-story/remove-vote/';  // URL to web API
+        this.removeStoryUrl = this.baseUrl + 'success-story/remove/';  // URL to web API
+        this.discoverGoalsUrl = this.baseUrl + 'goals/discover';  // URL to discover goal
+        this.baseStoryUrl = this.baseUrl + 'success-story/inspire';  // URL to discover goal
+        this.ideasUrl = this.baseUrl + 'goals/';  // URL to discover goal
+        this.activityUrl = this.base2Url + 'activities/';  // URL to activity
+        this.goalFriendsUrl = this.baseUrl + 'goal/random/friends'; //URL to get goalFriends
+        this.topIdeasUrl = this.baseUrl + 'top-ideas/1'; //URL to get top iteas
+        this.featuredIdeasUrl = this.baseUrl + 'goal/featured'; //URL to get featured iteas
+        this.badgesUrl = this.baseUrl + 'badges';
+        this.bottomMenuUrl = this.baseUrl + 'bottom/menu';
+        this.categoriesUrl = this.baseUrl + 'goal/categories';
+        this.notificationUrl = this.baseUrl + 'notifications';
+        this.notificationAllReadUrl = this.baseUrl + 'notification';
+        this.completeProfileUrl = this.baseUrl + 'user';
+        this.PageUrl = this.baseUrl + 'pages/';
+        this.sendEmailUrl = this.baseUrl + 'contact/send-email';
+        this.sendResettingEmailUrl = this.baseUrl + 'users/';
+        this.checkResetTokenUrl = this.baseUrl + 'user/check/reset-token/';
+        this.changePasswordUrl = this.baseUrl + 'users/news/passwords';
+        this.removeEmailUrl = this.baseUrl + 'settings/email';
+        this.changeSettingsUrl = this.baseUrl + 'user/update';
+        this.changeNotifySettingsUrl = this.baseUrl + 'notify-settings/update';
+        this.getNotifySettingsUrl = this.baseUrl + 'user/notify-settings';
+        this.activationAddedEmailUrl = this.baseUrl + 'user/activation-email/';
+        this.confirmRegUrl = this.baseUrl + 'user/confirm';
+        this.updateConfirmRegEmailUrl = this.baseUrl + 'user/update/activation-email';
+        this.checkConfirmRegEmailUrl = this.baseUrl + 'user/check/registration-token';
+
+        //profile page urls
+        this.profileGoalsUrl = this.base2Url + 'usergoals/bucketlists?';
+        this.overallUrl = this.baseUrl + 'user/overall?';
+        this.followToggleUrl = this.baseUrl + 'users/';
+        this.followToggleUrl2 = '/toggles/followings';
+        this.calendarUrl = this.baseUrl + 'usergoal/calendar/data';
+
+        this.nearByUrl = this.baseUrl + 'goals/nearby/';
+        this.resetNearByUrl = prefix + 'usergoals/';
+        this.getCommentsUrl = this.baseUrl + 'comments/goal_';
+        this.putCommentUrl = this.baseUrl + 'comments/';
     }
 
     /**
