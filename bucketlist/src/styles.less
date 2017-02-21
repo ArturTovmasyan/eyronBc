@@ -2685,7 +2685,34 @@ md-select{
   }
 }
 
+.md-dialog-container{
+  padding: 0;
+  overflow: hidden;
+  box-shadow: none;
+  background: transparent;
+  .rounded-corners(6px);
+}
+
+.cdk-overlay-container{
+  z-index: 10001;
+}
+
+.cdk-focus-trap-content{
+  //position: fixed;
+  //left: 0;
+  //right: 0;
+  //top: 25px;
+  //bottom: 0;
+  //overflow: auto;
+  padding-top: 5%;
+  .rounded-corners(8px);
+}
+
 @media (min-width: @screen-sm) {
+
+  .cdk-focus-trap-content{
+    padding-top: 8%;
+  }
 
   body{
     padding-top: 80px;
@@ -3308,6 +3335,10 @@ md-select{
 }
 
 @media (min-width: @screen-md) {
+
+  .cdk-focus-trap-content{
+    padding-top: 20%;
+  }
 
   header{
 
@@ -4058,31 +4089,7 @@ md-radio-button.md-radio-checked{
 
 }
 
-.md-dialog-container{
-  padding: 0;
-  overflow: hidden;
-  box-shadow: none;
-  background: transparent;
-  .rounded-corners(6px);
-}
 
-.cdk-overlay-container{
-  z-index: 10001;
-}
-
-.cdk-global-overlay-wrapper, .cdk-overlay-container{
-  //overflow: auto;
-}
-
-.cdk-focus-trap-content{
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 25px;
-  bottom: 0;
-  overflow: auto;
-  .rounded-corners(8px);
-}
 
 md-progress-spinner{
   margin: 70px auto 0;
