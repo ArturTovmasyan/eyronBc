@@ -59,11 +59,11 @@ export class GoalFriend implements OnInit, OnDestroy {
             this.sliderCount = 2;
         }
         else if(window.innerWidth < 766){
-            this.sliderCount = 3;
-        }
-        else if(window.innerWidth < 992){
             this.sliderCount = 4;
         }
+        //else if(window.innerWidth < 992){
+        //    this.sliderCount = 4;
+        //}
         else {
             this.sliderCount = 5;
             this.isDesktop = true;
@@ -73,7 +73,6 @@ export class GoalFriend implements OnInit, OnDestroy {
         this.config  = {
             observer: true,
             autoHeight: true,
-            autoWidth: true,
             slidesPerView: this.sliderCount,
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
