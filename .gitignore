@@ -7,7 +7,8 @@
 /app/phpunit.xml
 /bin/*
 !/bin/behat.sh
-!/bin/angularTest.sh
+!/bin/angular-unit-test.sh
+!/bin/angular-e2e-test.sh
 !/bin/test.sh
 /composer.phar
 /vendor/
@@ -30,3 +31,5 @@ app/cache/
 app/logs/
 src/node/tmp/
 web/uploads/
+bin/angular-e2e-test.sh
+bin/angular-unit-test.sh
