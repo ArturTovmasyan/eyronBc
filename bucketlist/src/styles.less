@@ -2698,12 +2698,12 @@ md-select{
 }
 
 .cdk-focus-trap-content{
-  //position: fixed;
-  //left: 0;
-  //right: 0;
-  //top: 25px;
-  //bottom: 0;
-  //overflow: auto;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 25px;
+  bottom: 0;
+  overflow: auto;
   padding-top: 5%;
   .rounded-corners(8px);
 }
@@ -2711,7 +2711,9 @@ md-select{
 @media (min-width: @screen-sm) {
 
   .cdk-focus-trap-content{
-    padding-top: 8%;
+    //padding-top: 8%;
+    position: relative;
+    top: 5px;
   }
 
   body{
