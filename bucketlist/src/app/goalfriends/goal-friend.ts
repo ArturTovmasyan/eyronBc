@@ -73,10 +73,11 @@ export class GoalFriend implements OnInit, OnDestroy {
         this.config  = {
             observer: true,
             autoHeight: true,
+            autoWidth: true,
             slidesPerView: this.sliderCount,
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
-            spaceBetween: 10
+            spaceBetween: 0
         };
     }
     
