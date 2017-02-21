@@ -1126,7 +1126,7 @@ figure.img-circle{
   font-size: 28px;
   vertical-align: middle;
   display: inline-block;
-  margin: -2px 0 0;
+  margin: -2px 0 0 -10px;
 }
 
 .ok-icon-green{
@@ -1393,6 +1393,7 @@ figure.img-circle{
   color:#333333;
   font-weight:300;
   font-size:14px;
+  padding: 10px 15px;
 }
 
 h1{
@@ -1684,6 +1685,7 @@ figure{
 
     ul{
       padding-left:0;
+      text-align: left;
 
       li{
         display: inline-block;
@@ -2683,14 +2685,41 @@ md-select{
   }
 }
 
+.md-dialog-container{
+  padding: 0;
+  overflow: hidden;
+  box-shadow: none;
+  background: transparent;
+  .rounded-corners(6px);
+}
+
+.cdk-overlay-container{
+  z-index: 10001;
+}
+
+.cdk-focus-trap-content{
+  //position: fixed;
+  //left: 0;
+  //right: 0;
+  //top: 25px;
+  //bottom: 0;
+  //overflow: auto;
+  padding-top: 5%;
+  .rounded-corners(8px);
+}
+
 @media (min-width: @screen-sm) {
+
+  .cdk-focus-trap-content{
+    padding-top: 8%;
+  }
 
   body{
     padding-top: 80px;
   }
 
   .icon-user-small{
-    margin: -1px 0 0;
+    margin: -1px 0 0 -10px;
   }
 
   .icons{
@@ -3306,6 +3335,10 @@ md-select{
 }
 
 @media (min-width: @screen-md) {
+
+  .cdk-focus-trap-content{
+    padding-top: 20%;
+  }
 
   header{
 
@@ -4056,31 +4089,7 @@ md-radio-button.md-radio-checked{
 
 }
 
-.md-dialog-container{
-  padding: 0;
-  overflow: hidden;
-  box-shadow: none;
-  background: transparent;
-  .rounded-corners(6px);
-}
 
-.cdk-overlay-container{
-  z-index: 10001;
-}
-
-.cdk-global-overlay-wrapper, .cdk-overlay-container{
-  //overflow: auto;
-}
-
-.cdk-focus-trap-content{
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 25px;
-  bottom: 0;
-  overflow: auto;
-  .rounded-corners(8px);
-}
 
 md-progress-spinner{
   margin: 70px auto 0;
