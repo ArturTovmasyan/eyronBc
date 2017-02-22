@@ -13,6 +13,9 @@ export class GoalFriend implements OnInit, OnDestroy {
     public reserve:User[];
     public eventId: number = 0;
     public busy: boolean = false;
+    public sliderCount: number;
+    public isDesktop: boolean = false;
+    public config: Object;
 
     public start: number = 0;
     public count: number = 20;
@@ -48,8 +51,35 @@ export class GoalFriend implements OnInit, OnDestroy {
     ngOnInit() {
         this.serverPath = this._projectService.getPath();
         this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
+        this.initSlide();
     }
 
+    initSlide(){
+        if(window.innerWidth < 560){
+            this.sliderCount = 3;
+        }
+        //else if(window.innerWidth < 560){
+        //    this.sliderCount = 4;
+        //}
+        //else if(window.innerWidth < 992){
+        //    this.sliderCount = 4;
+        //}
+        else {
+            this.sliderCount = 5;
+            this.isDesktop = true;
+            return;
+        }
+
+        this.config  = {
+            observer: true,
+            autoHeight: true,
+            slidesPerView: this.sliderCount,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 10
+        };
+    }
+    
     getUserList() {
         this._projectService.getUserList(this.start, this.count, this.search, this.type)
             .subscribe(
