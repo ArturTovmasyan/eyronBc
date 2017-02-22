@@ -11,6 +11,7 @@
 !/bin/angular-e2e-test.sh
 !/bin/test.sh
 /composer.phar
+/bucketlist/e2e/output/
 /vendor/
 /web/bundles/
 /web/app
