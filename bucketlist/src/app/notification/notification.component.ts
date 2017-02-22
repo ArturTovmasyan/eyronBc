@@ -22,6 +22,7 @@ export class NotificationComponent implements OnInit {
     public reserve: any[];
     public serverPath:string = '';
     public time: any[];
+    public isMobile:Boolean= (window.innerWidth < 768);
 
 
     constructor(
