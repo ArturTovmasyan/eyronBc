@@ -52,9 +52,13 @@ fdescribe('SettingsComponent', () => {
             fixture.detectChanges();
         });
 
-        //TODO must be fix authorization part for create secure(user sign in) components
-        it('should create', () => {
-            expect(true).toBe(true);
-        });
+        // beforeEach(inject([ProjectService], (projectService: ProjectService) => {
+        //     projectService.initPaths('http://behat.bucketlist.loc/');
+        // }));
+
+        it('Get User', inject([CacheService], (cache) => {
+            let appUser = cache.get('user_');
+            console.log(appUser);
+        }));
     }
 );
