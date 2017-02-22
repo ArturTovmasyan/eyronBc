@@ -55,12 +55,12 @@ export class GoalFriend implements OnInit, OnDestroy {
     }
 
     initSlide(){
-        if(window.innerWidth < 376){
+        if(window.innerWidth < 560){
             this.sliderCount = 3;
         }
-        else if(window.innerWidth < 766){
-            this.sliderCount = 4;
-        }
+        //else if(window.innerWidth < 560){
+        //    this.sliderCount = 4;
+        //}
         //else if(window.innerWidth < 992){
         //    this.sliderCount = 4;
         //}
