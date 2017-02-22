@@ -39,8 +39,9 @@ const myFirebaseAuthConfig = {
 };
 
 import { AppComponent } from './appCopmonent';
-import { AuthGuard }      from './common/auth.guard';
-import { appRouting } from './app-routing';
+import { AuthGuard }    from './common/auth.guard';
+import { LoginGuard }    from './common/login.guard';
+import { appRouting }   from './app-routing';
 import { ProjectService } from './project.service';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -124,6 +125,7 @@ export function createTranslateLoader(http: Http) {
   providers: [
     ProjectService,
     AuthGuard,
+    LoginGuard,
     Broadcaster,
     ValidationService,
     CacheService,

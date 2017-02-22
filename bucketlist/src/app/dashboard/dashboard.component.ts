@@ -12,9 +12,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0,0);
-    if(localStorage.getItem('apiKey')){
-      this.router.navigate(['/activity']);
-    }
+    // if(localStorage.getItem('apiKey')){
+    //   this.router.navigate(['/activity']);
+    // }
   }
 
 }
