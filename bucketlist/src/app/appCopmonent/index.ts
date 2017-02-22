@@ -1,2 +1,2 @@
-export * from './app.component';
-// export * from './api.app.component';
+// export * from './app.component';
+export * from './api.app.component';

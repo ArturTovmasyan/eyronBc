@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
-import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import { Component, OnInit, Input, ViewContainerRef,ViewChild } from '@angular/core';
+import {MdDialog, MdDialogRef, MdDialogConfig, MdSidenav} from '@angular/material';
 import { TranslateService} from 'ng2-translate';
 import { Broadcaster} from '../tools/broadcaster';
 import { ProjectService} from '../project.service';
@@ -20,7 +20,8 @@ import { App} from '../app';
 })
 
 export class AppComponent extends App {
-    
+    @ViewChild('sidenav') sidenav: MdSidenav;
+    public userDrop : boolean = false;
     constructor(
         protected angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
         protected angulartics2: Angulartics2,
@@ -41,5 +42,18 @@ export class AppComponent extends App {
             router, 
             viewContainerRef,
             dialog);
+    }
+    sidenavOpenClose(){
+        this.userDrop = !this.userDrop;
+        if(this.userDrop){
+            this.sidenav.open()
+        }
+        else this.sidenav.close();
+    }
+    check(){
+        if(this.sidenav._isOpened){
+            this.sidenav.close()
+        }
+        else return;
     }
 }
