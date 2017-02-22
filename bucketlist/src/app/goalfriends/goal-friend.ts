@@ -56,7 +56,7 @@ export class GoalFriend implements OnInit, OnDestroy {
 
     initSlide(){
         if(window.innerWidth < 376){
-            this.sliderCount = 2;
+            this.sliderCount = 3;
         }
         else if(window.innerWidth < 766){
             this.sliderCount = 4;
@@ -76,7 +76,7 @@ export class GoalFriend implements OnInit, OnDestroy {
             slidesPerView: this.sliderCount,
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
-            spaceBetween: 0
+            spaceBetween: 10
         };
     }
     

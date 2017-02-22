@@ -1,3 +1,6 @@
+/**
+ * Created by ani on 2/22/17.
+ */
 import { Component, OnInit, Input, Output, EventEmitter , ViewEncapsulation, OnChanges } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -7,13 +10,7 @@ import { MyUploadItem }  from '../../components/my-dropzone/my-upload';
 
 import {User} from "../../interface/user";
 
-@Component({
-  selector: 'profile-header',
-  templateUrl: './profile-header.component.html',
-  styleUrls: ['./profile-header.component.less'],
-  encapsulation: ViewEncapsulation.None
-})
-export class ProfileHeaderComponent implements OnInit {
+export class ProfileHeader implements OnInit {
     @Input() userInfo: string ;
     @Input() type: string;
     @Output('onHover') hoverEmitter: EventEmitter<any> = new EventEmitter();
@@ -35,10 +32,10 @@ export class ProfileHeaderComponent implements OnInit {
     public isMobile:Boolean= (window.innerWidth < 768);
     public isFollow:Boolean;
     constructor(
-      private broadcaster: Broadcaster,
-      private _projectService: ProjectService,
-      private _cacheService: CacheService,
-      public uploaderService: Uploader) { }
+        protected broadcaster: Broadcaster,
+        protected _projectService: ProjectService,
+        protected _cacheService: CacheService,
+        protected uploaderService: Uploader) { }
 
     ngOnChanges(){
         if(this.userInfo && this.current != this.userInfo){
@@ -51,21 +48,21 @@ export class ProfileHeaderComponent implements OnInit {
         this.imgPath = this.serverPath + '/bundles/app/images/cover3.jpg';
 
         if(localStorage.getItem('apiKey')){
-          this.appUser = this._projectService.getMyUser();
-          if (!this.appUser) {
-            this.appUser = this._cacheService.get('user_');
-            if(!this.appUser) {
-              this._projectService.getUser()
-                  .subscribe(
-                      user => {
-                        this.appUser = user;
-                        this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
-                        this.broadcaster.broadcast('getUser', user);
-                      })
+            this.appUser = this._projectService.getMyUser();
+            if (!this.appUser) {
+                this.appUser = this._cacheService.get('user_');
+                if(!this.appUser) {
+                    this._projectService.getUser()
+                        .subscribe(
+                            user => {
+                            this.appUser = user;
+                            this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                            this.broadcaster.broadcast('getUser', user);
+                        })
+                }
             }
-          }
         } else {
-          this.broadcaster.broadcast('logout', 'some message');
+            this.broadcaster.broadcast('logout', 'some message');
         }
 
         // this.init();
@@ -89,24 +86,24 @@ export class ProfileHeaderComponent implements OnInit {
         this._projectService.getUserByUId(this.userInfo)
             .subscribe(
                 user => {
-                    if(this.userInfo == 'my'){
-                        this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
-                    } else {
-                        this._cacheService.set('user'+this.userInfo, user, {maxAge: 3 * 24 * 60 * 60});
-                    }
-                    this.profileUser = user;
-                    this.badges = user.badges;
-                    this.broadcaster.broadcast('pageUser', this.profileUser);
-                    this.active = this.profileUser.stats.active;
-                    this.listedBy = this.profileUser.stats.listedBy;
-                    this.doneBy = this.profileUser.stats.doneBy;
-                });
+                if(this.userInfo == 'my'){
+                    this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                } else {
+                    this._cacheService.set('user'+this.userInfo, user, {maxAge: 3 * 24 * 60 * 60});
+                }
+                this.profileUser = user;
+                this.badges = user.badges;
+                this.broadcaster.broadcast('pageUser', this.profileUser);
+                this.active = this.profileUser.stats.active;
+                this.listedBy = this.profileUser.stats.listedBy;
+                this.doneBy = this.profileUser.stats.doneBy;
+            });
     }
 
     toggleFollow(){
         this._projectService.toggleFollow(1).subscribe(
-            user => {
-              this.isFollow = !this.isFollow;
+                user => {
+                this.isFollow = !this.isFollow;
             });
     }
 
