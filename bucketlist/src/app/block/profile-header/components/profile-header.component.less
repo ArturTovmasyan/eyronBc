@@ -4,16 +4,18 @@
 .content-header{
   position: relative;
   overflow: hidden;
-  min-height: 230px;
+  //min-height: 230px;
+  min-height: 153px;
 
   &>figure{
     position: absolute;
     width: 100%;
-    height: 261px;
+    //height: 261px;
+    height: 153px;
     overflow:hidden;
 
     &.my-profile{
-      height: 229px;
+      //height: 229px;
     }
 
     img{
@@ -24,7 +26,8 @@
 
   .overlay{
     background: rgba(0, 0, 0, 0.6);
-    height:270px;
+    //height:270px;
+    height: 153px;
 
     &:hover{
       background: rgba(0, 0, 0, 0.8);
@@ -42,8 +45,8 @@
   h2{
     background-color: #021523;
     color:#ffffff;
-    padding:10px 40px;
-    margin:100px 0 5px;
+    padding: 10px 40px;
+    margin: 100px 0 5px;
   }
 
   h1{
@@ -63,30 +66,41 @@
     margin-right:-9px;
   }
 
+  .camera-icon{
+    position: absolute;
+    z-index: 10;
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: url('../../../../assets/images/camera.svg') no-repeat center center rgba(0, 0, 0, 0.55);
+    .rounded-corners;
+    background-size: 48%;
+  }
+
   .close-friends{
     cursor: pointer;
-    height: 32px;
-    line-height: 32px;
+    height: 30px;
+    line-height: 30px;
     background-color: #f4f4f4;
     .rounded-corners(6px);
     color: #666666;
-    padding: 6px 17px;
+    padding: 2px 12px 3px 8px;
 
     i{
       display: inline-block;
       width: 16px;
       height: 14px;
-      margin-right: 5px;
+      margin-right: 2px;
 
       vertical-align: middle;
       &.follow-icon{
         background: url('../../../../assets/images/follow.svg') no-repeat center center;
-        background-size: 100%;
+        background-size: 90%;
       }
 
       &.closefriend-icon{
         background: url('../../../../assets/images/closefriend.svg') no-repeat center center;
-        background-size: 100%;
+        background-size: 90%;
       }
 
     }
@@ -94,6 +108,7 @@
     span{
       display: inline-block;
       text-transform: uppercase;
+      font-size: 11px;
     }
 
     &:hover{
@@ -101,11 +116,11 @@
       i{
         &.follow-icon{
           background: url('../../../../assets/images/follow-hover.svg') no-repeat center center;
-          background-size: 100%;
+          background-size: 90%;
         }
         &.closefriend-icon{
           background: url('../../../../assets/images/follow-hover.svg') no-repeat center center;
-          background-size: 100%;
+          background-size: 90%;
         }
       }
     }
@@ -147,49 +162,52 @@
     position:relative;
     padding: 10px 0 7px;
 
-    div{
-      width:100px;
-      height:100px;
-      margin:0 auto;
+    .user-image{
+      width: 60px;
+      height: 60px;
+      margin: 0 13px 0 25px;
       overflow:hidden;
       position: relative;
     }
 
     span.profile-image{
       display: block;
-      width:100px;
-      height:100px;
-      font-size: 45px;
+      width: 60px;
+      height: 60px;
+      font-size: 25px;
       font-weight:600;
-      line-height: 90px;
+      line-height: 57px;
       color:#ffffff;
     }
 
     img{
-      height:100px;
+      height: 60px;
       width: 100%;
     }
 
+    h3{
+      color: #ffffff;
+      font-size:18px;
+      margin: 0 0 3px;
+      line-height: normal;
+      span{
+        white-space: nowrap;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: block;
+      }
+      &.user-name{
+        line-height: 53px;
+      }
+    }
+
     figcaption{
-      margin-top:11px;
+      margin-top: 10px;
       background-color: transparent;
 
-      h3{
-        color: #ffffff;
-        font-size:18px;
-        margin:0 10px 3px;
-        line-height: normal;
-        span{
-          white-space: nowrap;
-          width: 100%;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          display: block;
-        }
-      }
-
       ul{
-        padding-top: 10px;
+        padding-top: 5px;
 
         li{
           display: inline-block;
@@ -205,8 +223,8 @@
             line-height: 21px;
 
             &:last-child{
-              font-size: 22px;
-              line-height: 33px;
+              font-size: 20px;
+              line-height: 30px;
             }
           }
 
@@ -568,6 +586,10 @@
       i{
         width: 18px;
         height: 16px;
+      }
+
+      span{
+        font-size: 13px;
       }
     }
 

@@ -1,2 +1,2 @@
-//export * from './goalfriends.component';
- export * from './api.goalfriends.component';
+export * from './goalfriends.component';
+// export * from './api.goalfriends.component';
