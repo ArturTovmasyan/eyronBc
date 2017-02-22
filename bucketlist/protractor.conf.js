@@ -3,6 +3,7 @@ var SpecReporter = require('jasmine-spec-reporter');
 
 exports.config = {
     allScriptsTimeout: 11000,
+    seleniumAddress: 'http://web.bucketlist.loc',
     specs: [
         './e2e/**/*.e2e-spec.ts'
     ],
@@ -13,7 +14,7 @@ exports.config = {
         }
     },
     directConnect: true,
-    baseUrl: 'http://web.bucketlist.loc:4200',
+    baseUrl: 'http://web.bucketlist.loc',
     framework: 'jasmine',
     jasmineNodeOpts: {
         showColors: true,
