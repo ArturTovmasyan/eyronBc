@@ -29,7 +29,6 @@ testem.log
 # e2e
 /e2e/*.map
 /e2e/output
-test
 #System Files
 .DS_Store
 Thumbs.db
