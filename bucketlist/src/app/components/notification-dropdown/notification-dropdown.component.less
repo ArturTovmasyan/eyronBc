@@ -5,7 +5,7 @@
   min-width: 310px;
   position: absolute;
   z-index: 1000;
-  top: 78px;
+  top: 58px;
 
   #notification-list{
     margin-bottom: 0;
@@ -46,6 +46,7 @@
               width: 60px;
               line-height: 55px;
               color: #ffffff;
+              padding: 0;
             }
             img{
               height: 60px;
@@ -53,16 +54,13 @@
           }
 
           p{
+            padding: 0 5px 0 10px;
             span{
               text-align: left;
-              padding: 0 15px 0 0;
+              padding: 0 10px 0 0;
+            }
           }
 
-          }
-          //a{
-          //  padding:0;
-          //  background-color: transparent;
-          //}
           &:nth-child(1){
             a{
               padding: 0;
@@ -86,19 +84,12 @@
 
         a{
           display:inline-block;
-          font-weight: 400;
           padding: 3px 25px 0 5px;
           &:hover{
             text-decoration: none;
             background-color: transparent;
           }
         }
-      }
-
-      &:nth-child(2){
-        //height: 284px;
-        //overflow: hidden;
-        //overflow-y: auto;
       }
 
       &.text-center{
@@ -119,16 +110,14 @@
   }
 }
 
-#container {
-  position: relative;
-  height: 100%; /* Or whatever you want (eg. 400px) */
-}
-
 @media (min-width: @screen-sm) {
   #notdrop{
     right: -122px;
     left: auto;
     border:1px solid #e5e5e5;
+    top: 78px;
+    width: 430px;
+    overflow: hidden;
 
     #notification-list{
       position: relative;
@@ -165,18 +154,15 @@
 
   }
 }
-.content {
-  //background-image: url('https://noraesae.github.io/perfect-scrollbar/azusa.jpg');
-  //width: 1280px;
-  height: 400px;
 
+.content{
+  height: 400px;
 }
 
-.container {
+.notification-container {
   position: relative;
-  margin: 0px auto;
-  padding: 0px;
+  margin: 0 auto;
+  padding: 0;
   width: auto;
-  //height: 284px;
-  max-height: 385px;
+  max-height: 354px;
 }

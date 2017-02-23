@@ -121,7 +121,7 @@ export class LoginComponent {
     setData(type, token, secter?) {
         this.ProjectService.socialLogin(type, token, secter)
             .subscribe(
-                res => {console.log(res);
+                res => {
                     if(res.apiKey) {
                         localStorage.setItem('apiKey', res.apiKey);
                         this.broadcaster.broadcast('login', res.userInfo);
@@ -155,7 +155,6 @@ export class LoginComponent {
 
                         if(res.userInfo.activity) {
                             this.router.navigate(['/activity']);
-
                         }else{
                             this.router.navigate(['/ideas']);
                         }

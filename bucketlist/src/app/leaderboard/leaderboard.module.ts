@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LeaderboardComponent } from './leaderboard.component';
-import {TranslateModule} from 'ng2-translate';
+import { LeaderboardComponent } from './../indexes';
+import { TranslateModule} from 'ng2-translate';
 import { ComponentModule } from '../components/components.module';
 import { ProjectService } from '../project.service';
 
