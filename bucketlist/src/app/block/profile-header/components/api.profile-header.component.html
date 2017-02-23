@@ -1,4 +1,4 @@
-<div class="content-header">
+<div class="api-content-header">
     <md-progress-spinner mode="indeterminate" *ngIf="!profileUser"></md-progress-spinner>
     <figure [class.my-profile]="!userInfo || userInfo == 'my'" *ngIf="profileUser">
 
@@ -8,7 +8,7 @@
 
     </figure>
 
-    <div class="profile" *ngIf="appUser && profileUser">
+    <div class="profile api-profile" *ngIf="appUser && profileUser">
         <div class="container">
 
             <div class="row">
@@ -16,7 +16,7 @@
                     <figure>
 
                         <form class="row no-gutter">
-                            <div class="col-xs-5 user-image">
+                            <div class="col-xs-5 api-user-image">
                                 <!--<span class="camera-icon" *ngIf="type == 'settings' && !profileUser.cached_image"></span>-->
                                 <label class="camera-icon" for="file" *ngIf="type == 'settings'"></label>
                                 <div class="hide" *ngIf="type == 'settings'">

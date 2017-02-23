@@ -61,35 +61,38 @@
 
     <div class="container slide" *ngIf="myProfile && type != 'activity'">
         <div class="row">
-
             <div class="col-sm-12">
-                <form class="form-inline" action="#">
-                    <!--{# dream filter #}-->
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (isDream == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="isDream" (change)="getData()"></md-checkbox>
-                        {{ 'filter.dream'|translate}}
-                    </label>
+                <button md-button (click)="toogleSelect()">{{ 'goal.priority' | translate}}</button>
 
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentImportant == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentImportant" (change)="getData()"></md-checkbox>
-                        {{ 'filter.import_urgent'|translate}}
-                    </label>
+                <div [hidden]="!show" (clickOutside)="hideSelect()">
+                    <form class="form-inline" action="#">
+                        <!--{# dream filter #}-->
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (isDream == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="isDream" (change)="getData()"></md-checkbox>
+                            {{ 'filter.dream'|translate}}
+                        </label>
 
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentNotImportant == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentNotImportant" (change)="getData()"></md-checkbox>
-                        {{ 'filter.not_import_urgent'|translate}}
-                    </label>
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentImportant == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentImportant" (change)="getData()"></md-checkbox>
+                            {{ 'filter.import_urgent'|translate}}
+                        </label>
 
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentImportant == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentImportant" (change)="getData()"></md-checkbox>
-                        {{ 'filter.import_not_urgent'|translate}}
-                    </label>
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentNotImportant == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentNotImportant" (change)="getData()"></md-checkbox>
+                            {{ 'filter.not_import_urgent'|translate}}
+                        </label>
 
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentNotImportant == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentNotImportant" (change)="getData()"></md-checkbox>
-                        {{ 'filter.not_import_not_urgent'|translate}}
-                    </label>
-                </form>
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentImportant == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentImportant" (change)="getData()"></md-checkbox>
+                            {{ 'filter.import_not_urgent'|translate}}
+                        </label>
+
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentNotImportant == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentNotImportant" (change)="getData()"></md-checkbox>
+                            {{ 'filter.not_import_not_urgent'|translate}}
+                        </label>
+                    </form>
+                </div>
                 <overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>
             </div>
         </div>
