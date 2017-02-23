@@ -10,15 +10,15 @@
       </ul>
     </div>
 
-    <hr class="hidden-xs"/>
+    <hr class="hidden-xs hidden-sm"/>
 
-    <p class="hidden-xs">
+    <p class="hidden-xs hidden-sm">
       <span class="text-gray">{{ "achievment" | translate }}</span>
       <span class="text-dark-gray">{{ overall }}%</span>
     </p>
 
     <div class="bg-grey">
-      <p class="achievement-percent hidden-sm hidden-md hidden-lg">
+      <p class="achievement-percent  hidden-md hidden-lg">
         <span class="text-white">{{ "achievment" | translate }}</span>
         <span class="text-white">{{ overall }}%</span>
       </p>
@@ -27,11 +27,11 @@
       <div *ngIf="overall < 100" class="falling-progress"></div>
     </div>
 
-    <small class="text-gray hidden-xs" *ngIf="overall == 100">{{ "overall.good" | translate }}</small>
+    <small class="text-gray hidden-xs hidden-sm" *ngIf="overall == 100">{{ "overall.good" | translate }}</small>
 
-    <small class="text-gray hidden-xs" *ngIf="overall > 100">{{ "overall.excellent" | translate }}</small>
+    <small class="text-gray hidden-xs hidden-sm" *ngIf="overall > 100">{{ "overall.excellent" | translate }}</small>
 
-    <small class="text-gray hidden-xs" *ngIf="overall < 100">{{ "overall.falling" | translate }}</small>
+    <small class="text-gray hidden-xs hidden-sm" *ngIf="overall < 100">{{ "overall.falling" | translate }}</small>
 
   </div>
 </div>
