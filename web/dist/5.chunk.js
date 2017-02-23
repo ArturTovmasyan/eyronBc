@@ -1,0 +1,1354 @@
+webpackJsonp([5,13],{
+
+/***/ 1120:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__settings_component__ = __webpack_require__(1201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(570);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_material__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_translate__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__block_activityBlock_module__ = __webpack_require__(1124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__project_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__settings_routing__ = __webpack_require__(1225);
+/* harmony export (binding) */ __webpack_require__.d(exports, "SettingsModule", function() { return SettingsModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+var SettingsModule = (function () {
+    function SettingsModule() {
+    }
+    SettingsModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
+                __WEBPACK_IMPORTED_MODULE_4__components_components_module__["a" /* ComponentModule */],
+                __WEBPACK_IMPORTED_MODULE_6_ng2_translate__["a" /* TranslateModule */],
+                __WEBPACK_IMPORTED_MODULE_9__settings_routing__["a" /* SettingsRouting */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["e" /* ReactiveFormsModule */],
+                __WEBPACK_IMPORTED_MODULE_7__block_activityBlock_module__["a" /* ActivityBlockModule */],
+                __WEBPACK_IMPORTED_MODULE_5__angular_material__["MaterialModule"].forRoot(),
+            ],
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_3__settings_component__["a" /* SettingsComponent */]
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_8__project_service__["a" /* ProjectService */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SettingsModule);
+    return SettingsModule;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/settings.module.js.map
+
+/***/ },
+
+/***/ 1124:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_translate__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_components_module__ = __webpack_require__(570);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__goal_friends_goal_friends_component__ = __webpack_require__(1127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__leaderboards_leaderboards_component__ = __webpack_require__(1128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__my_list_my_list_component__ = __webpack_require__(1129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__top_ideas_top_ideas_component__ = __webpack_require__(1133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__complete_profile_complete_profile_component__ = __webpack_require__(1125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__profile_header_components__ = __webpack_require__(1130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__create_goal_create_goal_component__ = __webpack_require__(1126);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ActivityBlockModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ActivityBlockModule = (function () {
+    function ActivityBlockModule() {
+    }
+    ActivityBlockModule = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
+                __WEBPACK_IMPORTED_MODULE_2_ng2_translate__["a" /* TranslateModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_router__["RouterModule"],
+                __WEBPACK_IMPORTED_MODULE_5__components_components_module__["a" /* ComponentModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_material__["MaterialModule"].forRoot()
+            ],
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_6__goal_friends_goal_friends_component__["a" /* GoalFriendsBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__leaderboards_leaderboards_component__["a" /* LeaderboardsBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__my_list_my_list_component__["a" /* MyListBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__top_ideas_top_ideas_component__["a" /* TopIdeasBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__complete_profile_complete_profile_component__["a" /* CompleteProfileBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__profile_header_components__["a" /* ProfileHeaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__create_goal_create_goal_component__["a" /* CreateGoalComponent */],
+            ],
+            exports: [__WEBPACK_IMPORTED_MODULE_6__goal_friends_goal_friends_component__["a" /* GoalFriendsBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__leaderboards_leaderboards_component__["a" /* LeaderboardsBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__my_list_my_list_component__["a" /* MyListBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__top_ideas_top_ideas_component__["a" /* TopIdeasBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__complete_profile_complete_profile_component__["a" /* CompleteProfileBlockComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__profile_header_components__["a" /* ProfileHeaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__create_goal_create_goal_component__["a" /* CreateGoalComponent */],
+            ]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ActivityBlockModule);
+    return ActivityBlockModule;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/activityBlock.module.js.map
+
+/***/ },
+
+/***/ 1125:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__ = __webpack_require__(30);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CompleteProfileBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CompleteProfileBlockComponent = (function () {
+    function CompleteProfileBlockComponent(_projectService, _cacheService) {
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.locale = 'ru';
+    }
+    CompleteProfileBlockComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.appUser = this._projectService.getMyUser();
+        if (!this.appUser) {
+            this.appUser = this._cacheService.get('user_');
+            if (!this.appUser) {
+                this._projectService.getUser()
+                    .subscribe(function (user) {
+                    _this.appUser = user;
+                    _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+                });
+            }
+        }
+    };
+    CompleteProfileBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'complete-profile-block',
+            template: __webpack_require__(1149),
+            styles: [__webpack_require__(1142)],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */],
+                __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object])
+    ], CompleteProfileBlockComponent);
+    return CompleteProfileBlockComponent;
+    var _a, _b;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/complete-profile.component.js.map
+
+/***/ },
+
+/***/ 1126:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CreateGoalComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CreateGoalComponent = (function () {
+    function CreateGoalComponent() {
+    }
+    CreateGoalComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], CreateGoalComponent.prototype, "myProfile", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], CreateGoalComponent.prototype, "myIdeasCount", void 0);
+    CreateGoalComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'create-goal',
+            template: __webpack_require__(1150),
+            styles: [__webpack_require__(1143)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], CreateGoalComponent);
+    return CreateGoalComponent;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/create-goal.component.js.map
+
+/***/ },
+
+/***/ 1127:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(9);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return GoalFriendsBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var GoalFriendsBlockComponent = (function () {
+    function GoalFriendsBlockComponent(_projectService, _cacheService, renderer) {
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.renderer = renderer;
+        this.degree = 360;
+    }
+    GoalFriendsBlockComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.appUser = this._cacheService.get('user_');
+        if (!this.appUser) {
+            this._projectService.getUser()
+                .subscribe(function (user) {
+                _this.appUser = user;
+                _this.getData();
+            });
+        }
+        else {
+            this.getData();
+        }
+    };
+    GoalFriendsBlockComponent.prototype.getData = function () {
+        var data = this._cacheService.get('goalFriendBox' + this.appUser.id);
+        if (data) {
+            this.users = data[1];
+            this.length = data.length;
+            this.goalReserve();
+        }
+        else {
+            this.goalFriends();
+        }
+    };
+    GoalFriendsBlockComponent.prototype.goalFriends = function () {
+        var _this = this;
+        this._projectService.getGaolFriends()
+            .subscribe(function (data) {
+            _this.users = data[1];
+            _this.length = data.length;
+            _this._cacheService.set('goalFriendBox' + _this.appUser.id, data, { maxAge: 2 * 24 * 60 * 60 });
+        }, function (error) { return _this.errorMessage = error; });
+        this.goalReserve();
+    };
+    GoalFriendsBlockComponent.prototype.goalReserve = function () {
+        var _this = this;
+        this._projectService.getGaolFriends()
+            .subscribe(function (data) {
+            _this.reserve = data;
+            for (var _i = 0, _a = data[1]; _i < _a.length; _i++) {
+                var item = _a[_i];
+                var img = void 0;
+                if (item.cached_image) {
+                    img = new Image();
+                    img.src = item.cached_image;
+                }
+            }
+            _this._cacheService.set('goalFriendBox' + _this.appUser.id, _this.reserve, { maxAge: 2 * 24 * 60 * 60 });
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    GoalFriendsBlockComponent.prototype.refreshGoalFriends = function () {
+        this.renderer.setElementStyle(this.rotateElementRef.nativeElement, 'transform', 'rotate(' + this.degree + 'deg)');
+        this.users = this.reserve[1];
+        this.length = this.reserve.length;
+        this.goalReserve();
+        this.degree += 360;
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])("rotate"), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
+    ], GoalFriendsBlockComponent.prototype, "rotateElementRef", void 0);
+    GoalFriendsBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'goal-friends-block',
+            template: __webpack_require__(1151),
+            styles: [__webpack_require__(1144)],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */],
+                __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
+            ]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]) === 'function' && _d) || Object])
+    ], GoalFriendsBlockComponent);
+    return GoalFriendsBlockComponent;
+    var _a, _b, _c, _d;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/goal-friends.component.js.map
+
+/***/ },
+
+/***/ 1128:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(9);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return LeaderboardsBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var LeaderboardsBlockComponent = (function () {
+    function LeaderboardsBlockComponent(_projectService, renderer) {
+        this._projectService = _projectService;
+        this.renderer = renderer;
+        this.index = 0;
+        this.degree = 360;
+    }
+    LeaderboardsBlockComponent.prototype.ngOnInit = function () {
+        this.users = [];
+        this.getBadges();
+    };
+    LeaderboardsBlockComponent.prototype.getBadges = function () {
+        var _this = this;
+        this._projectService.getBadges()
+            .subscribe(function (data) {
+            _this.badges = data.badges;
+            _this.maxUpdate = data.maxUpdate;
+            _this.min = data.min;
+            _this.topUsers = data.users;
+            _this.normOfTop = +_this.min.innovator + +_this.min.motivator + +_this.min.traveller;
+            _this.initUsers();
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    LeaderboardsBlockComponent.prototype.initUsers = function () {
+        var i = 0;
+        for (var index in this.badges) {
+            this.users[i++] = (this.index < this.badges[index].length) ? this.badges[index][this.index] : this.badges[index][(this.index % this.badges[index].length)];
+        }
+    };
+    ;
+    LeaderboardsBlockComponent.prototype.refreshLeaderboards = function () {
+        this.renderer.setElementStyle(this.rotateElementRef.nativeElement, 'transform', 'rotate(' + this.degree + 'deg)');
+        if (this.normOfTop > 0) {
+            this.index = (this.index == 9) ? 0 : this.index + 1;
+            this.initUsers();
+        }
+        this.degree += 360;
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('rotate'), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
+    ], LeaderboardsBlockComponent.prototype, "rotateElementRef", void 0);
+    LeaderboardsBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'leaderboards-block',
+            template: __webpack_require__(1152),
+            styles: [__webpack_require__(1145)],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]) === 'function' && _c) || Object])
+    ], LeaderboardsBlockComponent);
+    return LeaderboardsBlockComponent;
+    var _a, _b, _c;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/leaderboards.component.js.map
+
+/***/ },
+
+/***/ 1129:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__ = __webpack_require__(30);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return MyListBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var MyListBlockComponent = (function () {
+    function MyListBlockComponent(_projectService, _cacheService) {
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+    }
+    MyListBlockComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.appUser = this._projectService.getMyUser();
+        if (!this.appUser) {
+            this.appUser = this._cacheService.get('user_');
+            if (!this.appUser) {
+                this._projectService.getUser()
+                    .subscribe(function (user) {
+                    _this.appUser = user;
+                    console.log(user);
+                    _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+                });
+            }
+        }
+    };
+    MyListBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'my-list-block',
+            template: __webpack_require__(1153),
+            styles: [__webpack_require__(1146)]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _b) || Object])
+    ], MyListBlockComponent);
+    return MyListBlockComponent;
+    var _a, _b;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/my-list.component.js.map
+
+/***/ },
+
+/***/ 1130:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__profile_header_component__ = __webpack_require__(1131);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__profile_header_component__["a"]; });
+
+//export * from './api.profile-header.component';
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/index.js.map
+
+/***/ },
+
+/***/ 1131:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__project_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_http_file_upload__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_http_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_angular2_http_file_upload__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__profile_header__ = __webpack_require__(1132);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileHeaderComponent; });
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var ProfileHeaderComponent = (function (_super) {
+    __extends(ProfileHeaderComponent, _super);
+    //@Input() userInfo: string ;
+    //@Input() type: string;
+    //@Output('onHover') hoverEmitter: EventEmitter<any> = new EventEmitter();
+    //public profileUser:User;
+    //public file:any;
+    //public current:any;
+    //public appUser:User;
+    //public serverPath:string = '';
+    //public imgPath: string = '';
+    //path:string = '/api/v1.0/user/upload-file';
+    //// public nameOnImage: string = '';
+    //public listedBy;
+    //public active;
+    //public doneBy;
+    //public errorMessage:any;
+    //public flashBag:any;
+    //public badges: any[];
+    //public isTouchdevice:Boolean = (window.innerWidth > 600 && window.innerWidth < 992);
+    //public isMobile:Boolean= (window.innerWidth < 768);
+    //public isFollow:Boolean;
+    function ProfileHeaderComponent(broadcaster, _projectService, _cacheService, uploaderService) {
+        _super.call(this, broadcaster, _projectService, _cacheService, uploaderService);
+        this.broadcaster = broadcaster;
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.uploaderService = uploaderService;
+    }
+    ProfileHeaderComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'profile-header',
+            template: __webpack_require__(1154),
+            styles: [__webpack_require__(1147)],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__project_service__["a" /* ProjectService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_angular2_http_file_upload__["Uploader"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4_angular2_http_file_upload__["Uploader"]) === 'function' && _d) || Object])
+    ], ProfileHeaderComponent);
+    return ProfileHeaderComponent;
+    var _a, _b, _c, _d;
+}(__WEBPACK_IMPORTED_MODULE_5__profile_header__["a" /* ProfileHeader */]));
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile-header.component.js.map
+
+/***/ },
+
+/***/ 1132:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_my_dropzone_my_upload__ = __webpack_require__(333);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ProfileHeader; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ProfileHeader = (function () {
+    function ProfileHeader(broadcaster, _projectService, _cacheService, uploaderService) {
+        this.broadcaster = broadcaster;
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.uploaderService = uploaderService;
+        this.hoverEmitter = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.serverPath = '';
+        this.imgPath = '';
+        this.path = '/api/v1.0/user/upload-file';
+        this.isTouchdevice = (window.innerWidth > 600 && window.innerWidth < 992);
+        this.isMobile = (window.innerWidth < 768);
+    }
+    ProfileHeader.prototype.ngOnChanges = function () {
+        if (this.userInfo && this.current != this.userInfo) {
+            this.profileUser = null;
+            this.init();
+        }
+    };
+    ProfileHeader.prototype.ngOnInit = function () {
+        var _this = this;
+        this.serverPath = this._projectService.getPath();
+        this.imgPath = this.serverPath + '/bundles/app/images/cover3.jpg';
+        if (localStorage.getItem('apiKey')) {
+            this.appUser = this._projectService.getMyUser();
+            if (!this.appUser) {
+                this.appUser = this._cacheService.get('user_');
+                if (!this.appUser) {
+                    this._projectService.getUser()
+                        .subscribe(function (user) {
+                        _this.appUser = user;
+                        _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+                        _this.broadcaster.broadcast('getUser', user);
+                    });
+                }
+            }
+        }
+        else {
+            this.broadcaster.broadcast('logout', 'some message');
+        }
+        // this.init();
+    };
+    ProfileHeader.prototype.init = function () {
+        var _this = this;
+        this.current = this.userInfo;
+        if (this.userInfo == 'my') {
+            this.flashBag = this._cacheService.get('flash_massage');
+            this._cacheService.set('flash_massage', [], { maxAge: 3 * 24 * 60 * 60 });
+            setTimeout(function () {
+                _this.flashBag = 0;
+            }, 6000);
+            this.profileUser = this._cacheService.get('user_');
+        }
+        else {
+            this.profileUser = this._cacheService.get('user' + this.userInfo);
+        }
+        this._projectService.getUserByUId(this.userInfo)
+            .subscribe(function (user) {
+            if (_this.userInfo == 'my') {
+                _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+            }
+            else {
+                _this._cacheService.set('user' + _this.userInfo, user, { maxAge: 3 * 24 * 60 * 60 });
+            }
+            _this.profileUser = user;
+            _this.badges = user.badges;
+            _this.broadcaster.broadcast('pageUser', _this.profileUser);
+            _this.active = _this.profileUser.stats.active;
+            _this.listedBy = _this.profileUser.stats.listedBy;
+            _this.doneBy = _this.profileUser.stats.doneBy;
+        });
+    };
+    ProfileHeader.prototype.toggleFollow = function () {
+        var _this = this;
+        this._projectService.toggleFollow(1).subscribe(function (user) {
+            _this.isFollow = !_this.isFollow;
+        });
+    };
+    ProfileHeader.prototype.showUploadedImage = function (event) {
+        var _this = this;
+        var input = event.target;
+        if (input.files && input.files[0]) {
+            this.file = input.files[0];
+            this.saveImage();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                if (e && e.target) {
+                    _this.profileUser.cached_image = e.target.result;
+                    var user = _this._cacheService.get('user_');
+                    user.cached_image = e.target.result;
+                    _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+                }
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+    ProfileHeader.prototype.saveImage = function () {
+        var _this = this;
+        if (this.file) {
+            var myUploadItem = new __WEBPACK_IMPORTED_MODULE_1__components_my_dropzone_my_upload__["a" /* MyUploadItem */](this.file, this._projectService.getPath() + this.path);
+            // myUploadItem.formData = { FormDataKey: 'Form Data Value' };  // (optional) form data can be sent with file
+            this.uploaderService.onSuccessUpload = function (item, response, status, headers) {
+            };
+            this.uploaderService.onErrorUpload = function (item, response, status, headers) {
+                _this.errorMessage = response;
+            };
+            this.uploaderService.onCompleteUpload = function (item, response, status, headers) {
+            };
+            this.uploaderService.upload(myUploadItem);
+        }
+    };
+    ProfileHeader.prototype.closeFlashBug = function (index) {
+        this.flashBag.splice(index, 1);
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], ProfileHeader.prototype, "userInfo", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], ProfileHeader.prototype, "type", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])('onHover'), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === 'function' && _a) || Object)
+    ], ProfileHeader.prototype, "hoverEmitter", void 0);
+    return ProfileHeader;
+    var _a;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/profile-header.js.map
+
+/***/ },
+
+/***/ 1133:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__project_service__ = __webpack_require__(9);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return TopIdeasBlockComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var TopIdeasBlockComponent = (function () {
+    function TopIdeasBlockComponent(broadcaster, _projectService, _cacheService, renderer) {
+        this.broadcaster = broadcaster;
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.renderer = renderer;
+        this.goals = null;
+        this.categories = ['top', 'suggest', 'featured'];
+        this.degree = 360;
+    }
+    TopIdeasBlockComponent.prototype.ngOnInit = function () {
+        this.appUser = this._cacheService.get('user_');
+        this.fresh = this.appUser ? this._cacheService.get('fresh' + this.appUser.id) : null;
+        if (this.type == this.categories[2]) {
+            var data = this._cacheService.get('featuredIdea');
+            if (data && (!this.fresh || this.fresh['featuredIdea'])) {
+                this.goals = data;
+                this.refreshListener();
+            }
+            else {
+                this.getFeaturedIdeas();
+            }
+        }
+        else {
+            var data = this._cacheService.get('topIdea');
+            if (data && (!this.fresh || this.fresh['topIdea'])) {
+                this.goals = data;
+                this.refreshListener();
+            }
+            else {
+                this.getTopIdeas();
+            }
+        }
+    };
+    TopIdeasBlockComponent.prototype.getTopIdeas = function () {
+        var _this = this;
+        this._projectService.getTopIdeas()
+            .subscribe(function (goals) {
+            _this.goals = goals;
+            _this.refreshListener();
+            _this._cacheService.set('topIdea', goals, { maxAge: 24 * 60 * 60 });
+            if (_this.fresh) {
+                _this.fresh['topIdea'] = true;
+                _this._cacheService.set('fresh' + _this.appUser.id, _this.fresh);
+            }
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    TopIdeasBlockComponent.prototype.getFeaturedIdeas = function () {
+        var _this = this;
+        this._projectService.getFeaturedIdeas()
+            .subscribe(function (goals) {
+            _this.goals = goals;
+            _this.refreshListener();
+            _this._cacheService.set('featuredIdea', goals, { maxAge: 24 * 60 * 60 });
+            if (_this.fresh) {
+                _this.fresh['featuredIdea'] = true;
+                _this._cacheService.set('fresh' + _this.appUser.id, _this.fresh);
+            }
+        }, function (error) { return _this.errorMessage = error; });
+    };
+    TopIdeasBlockComponent.prototype.refreshListener = function () {
+        var _this = this;
+        for (var _i = 0, _a = this.goals; _i < _a.length; _i++) {
+            var goal = _a[_i];
+            this.broadcaster.on('add_my_goal' + goal.id)
+                .subscribe(function () {
+                _this.refreshIdeas();
+            });
+        }
+    };
+    TopIdeasBlockComponent.prototype.refreshIdeas = function () {
+        this.renderer.setElementStyle(this.rotateElementRef.nativeElement, 'transform', 'rotate(' + this.degree + 'deg)');
+        this.degree += 360;
+        if (this.type == this.categories[2]) {
+            this.getFeaturedIdeas();
+        }
+        else {
+            this.getTopIdeas();
+        }
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('rotate'), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === 'function' && _a) || Object)
+    ], TopIdeasBlockComponent.prototype, "rotateElementRef", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
+        __metadata('design:type', String)
+    ], TopIdeasBlockComponent.prototype, "type", void 0);
+    TopIdeasBlockComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'top-ideas-block',
+            template: __webpack_require__(1155),
+            styles: [__webpack_require__(1148)],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */],
+                __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]
+            ],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None
+        }), 
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"]) === 'function' && _e) || Object])
+    ], TopIdeasBlockComponent);
+    return TopIdeasBlockComponent;
+    var _a, _b, _c, _d, _e;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/top-ideas.component.js.map
+
+/***/ },
+
+/***/ 1142:
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.complete-profile {\n  margin-bottom: 10px;\n}\n.complete-profile em {\n  padding: 0 0 5px 15px;\n  display: block;\n  font-size: 14px;\n}\n.complete-profile ol {\n  padding: 10px 35px;\n  background-color: #e6e6e6;\n}\n.complete-profile ol li {\n  color: #7d7d7d;\n  clear: both;\n}\n.complete-profile ol li i {\n  cursor: default;\n}\n.complete-profile ol li a,\n.complete-profile ol li span {\n  color: #666666;\n  font-size: 14px;\n}\n.complete-profile ol li a i,\n.complete-profile ol li span i {\n  margin-left: 25px;\n}\n.complete-profile ol li a i.question-icon,\n.complete-profile ol li span i.question-icon {\n  float: right;\n}\n.complete-profile ol li a i {\n  cursor: pointer;\n}\n.complete-profile ol li a:hover {\n  color: #666666;\n}\n.complete-profile ol li a:hover i {\n  color: #7724f6;\n}\n.complete-profile i {\n  font-size: 25px;\n  vertical-align: middle;\n}\n@media (min-width: 768px) {\n  .complete-profile {\n    margin-bottom: 20px;\n  }\n  .complete-profile em {\n    padding: 0 0 5px 15px;\n    font-size: 16px;\n  }\n  .complete-profile ol {\n    padding: 20px 15px 20px 50px;\n  }\n  .complete-profile ol li a,\n  .complete-profile ol li bdi {\n    font-size: 16px;\n  }\n  .complete-profile ol li a i,\n  .complete-profile ol li bdi i {\n    margin-left: 25px;\n  }\n  .complete-profile i {\n    font-size: 30px;\n  }\n}\n"
+
+/***/ },
+
+/***/ 1143:
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+
+/***/ 1144:
+/***/ function(module, exports) {
+
+module.exports = ""
+
+/***/ },
+
+/***/ 1145:
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n#leaderboard-list {\n  margin: 0 0 20px 0;\n}\n#leaderboard-list ul li {\n  margin-bottom: 10px;\n}\n#leaderboard-list ul li:first-child {\n  border-bottom: 1px solid #eeeeee;\n}\n#leaderboard-list ul li ul li {\n  margin-bottom: 0;\n}\n#leaderboard-list ul li ul li:first-child {\n  border-bottom: 0;\n}\n"
+
+/***/ },
+
+/***/ 1146:
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.horizontal-menu {\n  padding: 0 5px 0 0;\n}\n.horizontal-menu li {\n  display: inline-block;\n  border-right: 1px solid #cccccc;\n  padding: 0 15px 0 10px;\n}\n.horizontal-menu li strong {\n  display: block;\n  color: #666666;\n  font-size: 13px;\n}\n.horizontal-menu li span {\n  display: block;\n  color: #7d7d7d;\n}\n.horizontal-menu li span:last-child {\n  font-size: 18px;\n}\n.horizontal-menu li:last-child {\n  border: 0;\n}\n.horizontal-menu li:hover {\n  background-color: transparent;\n}\n@media (min-width: 768px) {\n  .horizontal-menu {\n    padding: 0 10px 0 0;\n  }\n  .horizontal-menu li strong {\n    font-size: 14px;\n  }\n  .horizontal-menu li span:last-child {\n    font-size: 22px;\n  }\n  .en li {\n    padding: 0 14px 0 10px;\n  }\n  .ru li {\n    padding: 0 9px;\n  }\n}\n"
+
+/***/ },
+
+/***/ 1147:
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.content-header {\n  position: relative;\n  overflow: hidden;\n  min-height: 153px;\n}\n.content-header > figure {\n  position: absolute;\n  width: 100%;\n  height: 153px;\n  overflow: hidden;\n}\n.content-header > figure img {\n  width: 100%;\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.content-header .overlay {\n  background: rgba(0, 0, 0, 0.6);\n  height: 153px;\n}\n.content-header .overlay:hover {\n  background: rgba(0, 0, 0, 0.8);\n}\n.content-header a {\n  color: #ffffff;\n}\n.content-header a:hover,\n.content-header a:focus {\n  text-decoration: none;\n}\n.content-header h2 {\n  background-color: #021523;\n  color: #ffffff;\n  padding: 10px 40px;\n  margin: 100px 0 5px;\n}\n.content-header h1 {\n  margin: 25px 0 10px;\n}\n.content-header h1 span {\n  padding: 10px 40px;\n}\n.profile {\n  padding: 10px 0 0 0;\n  background-color: #f4f4f4;\n}\n.profile i.icon-settings {\n  margin-right: -9px;\n}\n.profile .camera-icon {\n  position: absolute;\n  z-index: 10;\n  display: block;\n  width: 60px;\n  height: 60px;\n  background: url('../../../../assets/images/camera.svg') no-repeat center center rgba(0, 0, 0, 0.55);\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n  background-size: 48%;\n}\n.profile .close-friends {\n  cursor: pointer;\n  height: 30px;\n  line-height: 30px;\n  background-color: #f4f4f4;\n  border-radius: 6px;\n  -webkit-border-radius: 6px;\n  -moz-border-radius: 6px;\n  -ms-border-radius: 6px;\n  -o-border-radius: 6px;\n  color: #666666;\n  padding: 2px 12px 3px 8px;\n}\n.profile .close-friends i {\n  display: inline-block;\n  width: 16px;\n  height: 14px;\n  margin-right: 2px;\n  vertical-align: middle;\n}\n.profile .close-friends i.follow-icon {\n  background: url('../../../../assets/images/follow.svg') no-repeat center center;\n  background-size: 90%;\n}\n.profile .close-friends i.closefriend-icon {\n  background: url('../../../../assets/images/closefriend.svg') no-repeat center center;\n  background-size: 90%;\n}\n.profile .close-friends span {\n  display: inline-block;\n  text-transform: uppercase;\n  font-size: 11px;\n}\n.profile .close-friends:hover {\n  background-color: #ffffff;\n}\n.profile .close-friends:hover i.follow-icon {\n  background: url('../../../../assets/images/follow-hover.svg') no-repeat center center;\n  background-size: 90%;\n}\n.profile .close-friends:hover i.closefriend-icon {\n  background: url('../../../../assets/images/follow-hover.svg') no-repeat center center;\n  background-size: 90%;\n}\n.profile .mobile-follow {\n  position: absolute;\n  right: 20px;\n  overflow: initial;\n}\n.profile .question-icon-new {\n  display: inline-block;\n  width: 25px;\n  height: 25px;\n  margin: 2px 0 2px 3px;\n  background: url('../../../../assets/images/question.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .question-icon-new:hover {\n  background: url('../../../../assets/images/question_hover.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile .mobile-settings {\n  position: absolute;\n  right: 20px;\n  overflow: initial;\n  display: inline-block;\n  width: 43px;\n  height: 43px;\n  background: url('../../../../assets/images/settings_hover.png') no-repeat center center;\n  background-size: 100%;\n}\n.profile figure {\n  background-color: rgba(207, 207, 207, 0.34);\n  text-align: center;\n  position: relative;\n  padding: 10px 0 7px;\n}\n.profile figure .user-image {\n  width: 60px;\n  height: 60px;\n  margin: 0 13px 0 25px;\n  overflow: hidden;\n  position: relative;\n}\n.profile figure span.profile-image {\n  display: block;\n  width: 60px;\n  height: 60px;\n  font-size: 25px;\n  font-weight: 600;\n  line-height: 57px;\n  color: #ffffff;\n}\n.profile figure img {\n  height: 60px;\n  width: 100%;\n}\n.profile figure h3 {\n  color: #ffffff;\n  font-size: 18px;\n  margin: 0 0 3px;\n  line-height: normal;\n}\n.profile figure h3 span {\n  white-space: nowrap;\n  width: 100%;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  display: block;\n}\n.profile figure h3.user-name {\n  line-height: 53px;\n}\n.profile figure figcaption {\n  margin-top: 10px;\n  background-color: transparent;\n}\n.profile figure figcaption ul {\n  padding-top: 5px;\n}\n.profile figure figcaption ul li {\n  display: inline-block;\n  border-right: 1px solid #eeeeee;\n  padding: 0 20px;\n  height: auto;\n  line-height: inherit;\n}\n.profile figure figcaption ul li span {\n  display: block;\n  color: #ffffff;\n  font-size: 14px;\n  line-height: 21px;\n}\n.profile figure figcaption ul li span:last-child {\n  font-size: 20px;\n  line-height: 30px;\n}\n.profile figure figcaption ul li:last-child {\n  border: 0;\n}\n.profile figure figcaption ul li:hover {\n  background-color: transparent;\n}\n.profile #settings-form figure {\n  background: transparent;\n  padding: 0;\n}\n.profile #settings-form figure .upload {\n  width: 120px;\n  height: 120px;\n  padding: 40px 15px;\n  font-size: 13px;\n}\n.profile #settings-form figure figcaption {\n  position: absolute;\n  top: 0;\n  background: rgba(0, 0, 0, 0.3);\n  width: 100px;\n  height: 100px;\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n  margin: 0;\n  padding: 22px 5px;\n}\n.profile #settings-form figure figcaption label {\n  color: #ffffff !important;\n  text-transform: uppercase;\n  padding: 0 15px;\n  font-size: 14px;\n}\n.profile ol {\n  padding: 20px 20px 0;\n  font-size: 13px;\n}\n.profile ol li {\n  margin-bottom: 5px;\n}\n.profile ol li a {\n  color: #666666;\n  font-size: 13px;\n}\n.profile ol li a:hover i {\n  color: #7724f6;\n}\n.profile ol li .profile-title {\n  color: #666666;\n  font-size: 13px;\n  font-weight: normal;\n}\n.profile ol li span {\n  display: block;\n  font-size: 12px;\n  font-weight: 600;\n}\n.profile ol li i {\n  font-size: 30px;\n  vertical-align: middle;\n}\n.profile ol:last-child {\n  padding: 0 20px 0;\n}\n.profile h1 {\n  margin: 7px 0 5px;\n  font-weight: lighter;\n}\n.profile h1 span {\n  display: inline;\n  line-height: normal;\n  padding: 2px 10px;\n  font-size: 25px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  overflow: hidden;\n}\n.profile h1 span.title-smaller,\n.profile figcaption span.title-smaller {\n  font-size: 18px;\n  line-height: normal;\n}\n.profile h1 span.title-smaller span,\n.profile figcaption span.title-smaller span {\n  padding: 5px 10px;\n}\n.profile p {\n  background-color: #021523;\n  color: #ffffff;\n  padding: 2px 10px 3px;\n  display: inline-block;\n  margin-bottom: 5px;\n  font-weight: 600;\n  line-height: normal;\n}\n.profile em {\n  display: block;\n  color: #666666;\n  padding: 10px 0 5px;\n}\n.profile .profile-information {\n  width: 90%;\n  margin: 17px auto 10px;\n}\n.profile .profile-information i {\n  font-size: 30px;\n  cursor: pointer;\n}\n.profile .profile-information a.text-gray {\n  margin-left: 14px;\n  display: block;\n}\n.bucketlist {\n  padding: 5px 0 0;\n  background-color: #ffffff;\n  margin-bottom: 7px;\n}\n.bucketlist ul {\n  padding-left: 0;\n  margin-bottom: 1px;\n}\n.bucketlist ul li {\n  display: inline-block;\n  padding: 8px 3px 7px;\n  font-size: 13px;\n}\n.bucketlist ul li a {\n  color: #666666;\n  font-size: 12px;\n  line-height: 18px;\n}\n.bucketlist ul li a:hover,\n.bucketlist ul li a:focus {\n  text-decoration: none;\n  color: #7724f6;\n}\n.bucketlist ul li a:hover i,\n.bucketlist ul li a:focus i {\n  color: #7724f6;\n}\n.bucketlist ul li a i {\n  font-size: 20px;\n  vertical-align: middle;\n}\n.bucketlist ul li:hover a {\n  color: #7724F6;\n}\n.bucketlist ul li:first-child {\n  padding: 8px 3px 7px 10px;\n}\n.bucketlist ul li:last-child {\n  padding: 3px 2px 2px;\n}\n.bucketlist ul li:last-child a {\n  display: inline-block;\n}\n.bucketlist ul li:last-child a .svg {\n  display: inline-block;\n  height: 25px;\n  width: 21px;\n}\n.bucketlist ul li:last-child:hover {\n  border-bottom: 0;\n}\n.bucketlist ul .active {\n  border-bottom: 1px solid #7724f6;\n}\n.bucketlist ul .active a {\n  color: #7724f6;\n}\n.bucketlist nav {\n  border-bottom: 0;\n}\n.bucketlist nav a {\n  font-size: 13px;\n  opacity: 1;\n  color: #666666;\n}\n.bucketlist nav a:hover,\n.bucketlist nav a:focus {\n  text-decoration: none;\n  color: #7724f6;\n}\n.bucketlist hr {\n  margin: -2px 0 0;\n}\n.bucketlist form {\n  padding: 12px 0 5px;\n}\n.bucketlist form .checked-label {\n  color: #6108EA;\n}\n.bucketlist form label {\n  display: block;\n  font-size: 13px;\n  margin-bottom: 5px;\n}\n.bucketlist form label label {\n  display: inline-block;\n}\n.bucketlist form label:hover,\n.bucketlist form label:active,\n.bucketlist form label:focus {\n  color: #6108EA;\n}\n.bucketlist form label:first-child {\n  padding-left: 30px;\n}\n.settings-menu {\n  padding: 0;\n}\n.settings-menu ul.menu li:last-child.active {\n  padding: 8px 6px;\n}\n.settings-menu ul.menu li:last-child.active:hover {\n  border-bottom: 1px solid #7724f6;\n}\n.md-slide-toggle-content {\n  padding-left: 15px;\n  min-width: 245px;\n  max-width: 300px;\n  text-align: left;\n}\n.image-label {\n  position: absolute;\n  left: 0;\n  top: 0;\n  color: #ffffff;\n  text-transform: uppercase;\n  font-weight: normal;\n  cursor: pointer;\n  font-size: 14px;\n  height: 100px;\n  padding: 20px 5px;\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n  background-color: rgba(0, 0, 0, 0.64);\n}\n@media (min-width: 768px) {\n  .content-header {\n    min-height: 236px;\n  }\n  .content-header > figure {\n    height: 260px;\n  }\n  .content-header > figure.my-profile {\n    height: 260px;\n  }\n  .content-header .overlay {\n    height: 260px;\n  }\n  .profile {\n    margin-top: 10px;\n    padding: 20px 0 0 0;\n  }\n  .profile figure {\n    padding: 20px 0 10px;\n  }\n  .profile figure div {\n    width: 120px;\n    height: 120px;\n  }\n  .profile figure span.profile-image {\n    width: 120px;\n    height: 120px;\n    font-size: 44px;\n    line-height: 110px;\n  }\n  .profile figure img {\n    height: 120px;\n  }\n  .profile figure figcaption {\n    margin-top: 11px;\n  }\n  .profile figure figcaption ul {\n    padding-top: 0;\n  }\n  .profile figure figcaption ul li {\n    padding: 0 8px;\n  }\n  .profile figure figcaption ul li span {\n    font-size: 13px;\n  }\n  .profile figure figcaption ul li span:last-child {\n    font-size: 16px;\n    line-height: 24px;\n  }\n  .profile .close-friends {\n    height: 40px;\n    line-height: 40px;\n    padding: 10px 17px;\n  }\n  .profile .close-friends i {\n    width: 18px;\n    height: 16px;\n  }\n  .profile .close-friends span {\n    font-size: 13px;\n  }\n  .profile .relative {\n    height: 200px;\n  }\n  .profile .relative .badge-place {\n    position: absolute;\n    bottom: 0;\n  }\n  .profile #settings-form figure figcaption {\n    width: 120px;\n    height: 120px;\n    padding: 30px 15px;\n  }\n  .profile #settings-form figure figcaption label {\n    font-size: 15px;\n  }\n  .profile ol {\n    padding: 30px 30px 20px;\n    font-size: 14px;\n  }\n  .profile ol li {\n    margin-bottom: 10px;\n  }\n  .profile ol li a,\n  .profile ol li .profile-title {\n    font-size: 15px;\n  }\n  .profile ol li span {\n    font-size: 13px;\n  }\n  .profile ol:last-child {\n    padding: 30px 30px 20px;\n  }\n  .profile h1 {\n    margin: 25px 0 5px;\n  }\n  .profile h1 span {\n    font-size: 30px;\n    padding: 3px 15px 5px;\n    white-space: normal;\n    max-height: 87px;\n  }\n  .profile h1 span.title-smaller,\n  .profile figcaption span.title-smaller {\n    font-size: 16px;\n    line-height: 35px;\n    display: inline-block;\n  }\n  .profile h1 span.title-smaller span,\n  .profile figcaption span.title-smaller span {\n    padding: 3px 7px 5px;\n  }\n  .profile p {\n    padding: 4px 15px 5px;\n    margin-bottom: 10px;\n    font-size: 17px;\n  }\n  .profile em {\n    color: #ffffff;\n    padding: 0 0 5px;\n  }\n  .profile .profile-information {\n    margin: 0;\n    bottom: 5px;\n    position: absolute;\n  }\n  .profile .profile-information a.text-gray {\n    margin-left: 4px;\n  }\n  .bucketlist {\n    padding: 10px 0 0;\n    margin-bottom: 10px;\n  }\n  .bucketlist ul {\n    padding-left: 0;\n    margin-bottom: 1px;\n  }\n  .bucketlist ul li {\n    padding: 10px 15px;\n    font-size: 15px;\n  }\n  .bucketlist ul li a {\n    font-size: 18px;\n    line-height: 26px;\n  }\n  .bucketlist ul li a i {\n    font-size: 22px;\n  }\n  .bucketlist ul li:last-child {\n    padding: 2px 5px 4px;\n  }\n  .bucketlist ul li:last-child a .svg {\n    width: 35px;\n    height: 30px;\n  }\n  .bucketlist nav a {\n    height: auto;\n    padding: 15px;\n    font-size: 18px;\n    line-height: 26px;\n  }\n  .bucketlist .map-marker-new {\n    width: 25px;\n    height: 33px;\n  }\n  .bucketlist hr {\n    margin: -2px 0 0;\n  }\n  .bucketlist form {\n    padding: 7px 0 2px;\n  }\n  .bucketlist form label {\n    display: inline-block;\n    font-size: 12px;\n    padding-left: 0;\n  }\n  .bucketlist form label:first-child {\n    padding-left: 0;\n  }\n  .settings-menu {\n    padding: 0;\n  }\n  .settings-menu ul.menu li {\n    padding: 15px;\n  }\n  .settings-menu ul.menu li:last-child.active {\n    padding: 15px;\n  }\n  .md-slide-toggle-content {\n    max-width: 600px;\n  }\n  .image-label {\n    height: 120px;\n    font-size: 15px;\n    padding: 28px 15px;\n  }\n}\n@media (min-width: 992px) {\n  .content-header {\n    min-height: 264px;\n  }\n  .content-header > figure {\n    height: 266px;\n  }\n  .content-header > figure.my-profile {\n    height: 266px;\n  }\n  .content-header .overlay {\n    height: 266px;\n  }\n  .profile {\n    margin-top: 10px;\n    padding: 20px 0 0 0;\n  }\n  .profile figure {\n    padding: 20px 0 9px;\n  }\n  .profile figure div {\n    width: 140px;\n    height: 140px;\n  }\n  .profile figure span.profile-image {\n    width: 140px;\n    height: 140px;\n    font-size: 52px;\n    line-height: 130px;\n  }\n  .profile figure img {\n    height: 140px;\n  }\n  .profile figure figcaption {\n    margin-top: 17px;\n  }\n  .profile figure figcaption ul li {\n    padding: 0 20px;\n  }\n  .profile figure figcaption ul li span {\n    font-size: 14px;\n    line-height: 21px;\n  }\n  .profile figure figcaption ul li span:last-child {\n    font-size: 18px;\n    line-height: 27px;\n  }\n  .profile .relative {\n    height: 232px;\n  }\n  .profile #settings-form figure .upload {\n    width: 140px;\n    height: 140px;\n    padding: 47px 15px;\n    font-size: 14px;\n  }\n  .profile #settings-form figure figcaption {\n    width: 140px;\n    height: 140px;\n    padding: 41px 15px;\n  }\n  .profile #settings-form figure figcaption label {\n    font-size: 16px;\n    line-height: 24px;\n    font-weight: normal;\n  }\n  .profile ol {\n    padding: 40px 40px 30px;\n    font-size: 16px;\n  }\n  .profile ol li {\n    margin-bottom: 15px;\n  }\n  .profile ol li a,\n  .profile ol li .profile-title {\n    font-size: 16px;\n  }\n  .profile ol li span {\n    font-size: 14px;\n  }\n  .profile h1 span {\n    font-size: 45px;\n    padding: 0 20px 2px;\n    white-space: nowrap;\n  }\n  .profile h1 span.title-smaller,\n  .profile figcaption span.title-smaller {\n    font-size: 26px;\n    line-height: 51px;\n  }\n  .profile h1 span.title-smaller span,\n  .profile figcaption span.title-smaller span {\n    padding: 7px 20px 14px;\n  }\n  .profile p {\n    padding: 3px 20px 6px;\n    margin-bottom: 15px;\n    font-size: 20px;\n  }\n  .profile .profile-information {\n    bottom: 10px;\n  }\n  .profile .profile-information a.text-gray {\n    margin-left: 22px;\n  }\n  .bucketlist {\n    padding: 20px 0 0;\n    margin-bottom: 20px;\n  }\n  .bucketlist ul {\n    padding-left: 0;\n    margin-bottom: 1px;\n  }\n  .bucketlist ul li {\n    padding: 10px 15px;\n    font-size: 15px;\n  }\n  .bucketlist ul li a {\n    font-size: 22px;\n    line-height: 33px;\n  }\n  .bucketlist ul li a i {\n    font-size: 28px;\n  }\n  .bucketlist ul li:last-child {\n    padding: 2px 15px 4px;\n  }\n  .bucketlist nav a {\n    padding: 25px 15px;\n    font-size: 22px;\n    line-height: 33px;\n  }\n  .bucketlist hr {\n    margin: -2px 0 0;\n  }\n  .bucketlist form {\n    padding: 27px 0 20px;\n  }\n  .bucketlist form label {\n    font-size: 14px;\n    padding-left: 20px;\n  }\n  .settings-menu {\n    padding: 0;\n  }\n  .settings-menu ul.menu li {\n    padding: 25px 15px;\n  }\n  .settings-menu ul.menu li:last-child.active {\n    padding: 25px 15px;\n  }\n  .image-label {\n    height: 140px;\n    font-size: 16px;\n    padding: 37px 15px;\n  }\n}\n@media (min-width: 1200px) {\n  .profile h1 span {\n    font-size: 52px;\n    line-height: 78px;\n  }\n}\n"
+
+/***/ },
+
+/***/ 1148:
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.top-ideas {\n  margin: 0 0 20px 0;\n}\n.top-ideas .idea-item figure {\n  margin-bottom: 15px;\n}\n.featured-icon {\n  display: inline-block;\n  width: 27px;\n  height: 27px;\n  background: url('../../../assets/images/featured.svg') no-repeat center center;\n  margin-right: 5px;\n  vertical-align: middle;\n}\n.suggested-icon {\n  display: inline-block;\n  width: 27px;\n  height: 28px;\n  background: url('../../../assets/images/suggested-icon.svg') no-repeat center center;\n  vertical-align: middle;\n}\n"
+
+/***/ },
+
+/***/ 1149:
+/***/ function(module, exports) {
+
+module.exports = "<!--{% if user is defined and user.profileCompletedPercent != 100 %}-->\n<div class=\"complete-profile\" *ngIf=\"appUser && appUser.completed_percent !== 100\">\n\n    <div class=\"bg-white round padding\">\n        <!--*ngIf=\"{{ user.getCompletedPercent()|round(1, 'floor') }} != 100\"-->\n        <div class=\"row\">\n            <em>{{ 'complete_message'|translate }}</em>\n\n            <div class=\"col-xs-10\">\n\n                <div class=\"progress\">\n                    <section class=\"progress-section\">\n                       <span *ngIf=\"locale == 'ru' \">\n                         {{ 'account.complete'|translate }}\n                         {{appUser.completed_percent| round}}%\n                        </span>\n                        <span *ngIf=\"locale == 'en'\">\n                            {{appUser.completed_percent| round}}%\n                             {{'account.complete'|translate}}\n                        </span>\n                        <md-progress-bar\n                                class=\"example-margin\"\n                                [value]=\"appUser.completed_percent\">\n                        </md-progress-bar>\n                    </section>\n                </div>\n\n            </div>\n\n            <div class=\"col-xs-2\">\n                <a class=\"text-gray\"\n                   (click)=\"completeProfileProperties=!completeProfileProperties\">\n                    <i class=\"icon-question-icon \" *ngIf=\"!completeProfileProperties\"><span class=\"path1\"></span><span\n                            class=\"path2\"></span></i>\n                    <i class=\"icon-icon-up \" *ngIf=\"completeProfileProperties\"><span class=\"path1\"></span><span\n                            class=\"path2\"></span></i>\n                </a>\n            </div>\n        </div>\n\n    </div>\n\n    <ol class=\"slide\" *ngIf=\"completeProfileProperties\">\n        <li>\n            <span>\n                {{ 'security.login.sign_up'|translate }}\n                <i class=\"icon-ok-only\"></i>\n            </span>\n        </li>\n        <li>\n            <span>{{ 'account.complete_text'|translate }}\n                <!--{% if user.registrationToken is null %}-->\n                    <i *ngIf=\"appUser.is_confirmed == true\" class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i *ngIf=\"appUser.is_confirmed !== true\" class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n\n        </li>\n        <li>\n            <!--{% if user.socialPhotoLink or  user.fileName %}-->\n        <span *ngIf=\"appUser.social_photo_link || appUser.file_name || appUser.image_path\">{{ 'image_complete_text'|translate }}\n            <i class=\"icon-ok-only\"></i>\n        </span>\n            <!--{% else %}-->\n\n            <a *ngIf=\"!appUser.social_photo_link && !appUser.file_name && !appUser.image_path\"\n               routerLink='/edit/profile'>\n                <strong>{{ 'image_complete_text'|translate }}</strong>\n                <i class=\"icon-question-only\"></i>\n            </a>\n            <!--{% endif %}-->\n        </li>\n        <li>\n            <a routerLink=\"/goal/create\"><strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>\n                <!--{% if user.userGoalCount > 0 %}-->\n                <i *ngIf=\"appUser.draft_count > 0\" class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                <i *ngIf=\"appUser.draft_count == 0 \" class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </a>\n        </li>\n        <li>\n            <span>{{ 'deadline.complete_text'|translate }}\n                <!--{% if user.checkDeadLines() %}-->\n                    <i *ngIf=\"appUser.check_deadline == true\" class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i *ngIf=\"appUser.check_deadline !== true\" class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n        </li>\n        <li>\n            <span>{{ 'goal.complete_text'|translate }}\n                <!--{% if user.checkCompletedGoals() %}-->\n                    <i *ngIf=\"appUser.check_completed_goals == true\" class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i *ngIf=\"appUser.check_completed_goals !== true\" class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n        </li>\n\n        <li>\n            <span>{{ 'success_story.complete_text'|translate }}\n                <!--{% if user.checkSuccessStory() %}-->\n                    <i *ngIf=\"appUser.check_success_story == true\" class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i *ngIf=\"appUser.check_success_story !== true\" class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n        </li>\n    </ol>\n</div>\n<!--{% endif %}-->"
+
+/***/ },
+
+/***/ 1150:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"right-menu\">\n  <div class=\"padding padding-bottom bg-white round\">\n    <ul class=\"row\">\n      <li class=\"col-xs-7\">\n        <i class=\"icon-creat-icon\"></i>\n        <a routerLink=\"/goal/create\">{{ 'right_menu.create'|translate }}</a>\n      </li>\n    </ul>\n  </div>\n</div>"
+
+/***/ },
+
+/***/ 1151:
+/***/ function(module, exports) {
+
+module.exports = "<div *ngIf=\"users\">\n  <div class=\"bg-white padding round margin-top\">\n\n  <div class=\"row\">\n      <div class=\"col-xs-10\">\n\n        <a routerLink=\"/goal-friends\" class=\"heading text-gray\">\n          <i class=\"goalfrined-icon\"></i>\n          <span class=\"text\">{{ 'goalfriends'|translate }} {{length}}</span>\n        </a>\n      </div>\n\n      <div *ngIf=\"length > 3\" class=\"col-xs-2 text-right\">\n        <a (click)=\"refreshGoalFriends()\" class=\"load\" id=\"goalFriendLoad\" #rotate></a>\n      </div>\n    </div>\n\n    <hr class=\"hr-margin\"/>\n\n    <ul class=\"list\">\n      <li class=\"clearfix\" *ngFor=\"let user of users\">\n        <goal-friend [user]=\"user\"></goal-friend>\n      </li>\n    </ul>\n  </div>\n</div>\n"
+
+/***/ },
+
+/***/ 1152:
+/***/ function(module, exports) {
+
+module.exports = "<div id=\"leaderboard-list\" *ngIf=\"normOfTop > 0\">\n\n  <div class=\"bg-white padding round margin-top\">\n    <div class=\"row\">\n      <div class=\"col-xs-10\">\n        <a routerLink=\"/leaderboard\" routerLinkActive=\"active\" class=\"heading text-gray\">\n          <i class=\"icon-suggest-icon\"></i>\n          <span class=\"text\">{{ 'leaderboard.name'|translate }}</span>\n        </a>\n      </div>\n\n      <div class=\"col-xs-2 text-right\">\n        <a (click)=\"refreshLeaderboards($event)\" class=\"load\" id=\"goalFriendLoad\" #rotate></a>\n      </div>\n    </div>\n\n    <hr class=\"hr-margin\"/>\n\n    <ul>\n      <li *ngFor=\"let badge of users;let i = index\">\n        <leaderboard [badge]=\"badge\" [index]=\"i\">\n          <!--<leaderboard ></leaderboard>-->\n        </leaderboard>\n      </li>\n    </ul>\n\n  </div>\n</div>\n"
+
+/***/ },
+
+/***/ 1153:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"bg-white round padding\">\n\n  <a routerLink=\"/profile\" routerLinkActive=\"active\" class=\"heading text-gray\">\n    <i class=\"mybuucketlist\"></i>\n    {{ 'my_bucketlist'|translate}}\n  </a>\n\n  <hr class=\"hr-margin\"/>\n\n  <ul class=\"horizontal-menu {{ 'lng'| translate}}\" *ngIf=\"appUser\">\n    <li>\n      <a routerLink=\"/profile/my/active\" routerLinkActive=\"active\">\n        <strong>{{ 'user_goal.active'|translate}}</strong>\n        <span *ngIf=\"true\">{{ appUser.stats.active}}</span>\n      </a>\n    </li>\n\n    <li>\n      <a routerLink=\"/profile/my/all\" routerLinkActive=\"active\">\n        <strong>{{ 'block_listed'|translate}}</strong>\n        <span *ngIf=\"true\">{{ appUser.stats.doneBy}}</span>\n      </a>\n    </li>\n\n    <li>\n      <a routerLink=\"/profile/my/completed\" routerLinkActive=\"active\">\n        <strong>{{ 'block_completed'|translate}}</strong>\n        <span *ngIf=\"true\">{{ appUser.stats.listedBy}}</span>\n      </a>\n    </li>\n  </ul>\n</div>\n\n"
+
+/***/ },
+
+/***/ 1154:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"content-header\">\n  <md-progress-spinner mode=\"indeterminate\" *ngIf=\"!profileUser\"></md-progress-spinner>\n  <figure [class.my-profile]=\"!userInfo || userInfo == 'my'\" *ngIf=\"profileUser\">\n\n    <span class=\"overlay\"></span>\n    <img src=\"{{ (profileUser && profileUser.cached_image)?profileUser.cached_image: imgPath}}\" alt=\"Profile Cover Photo\" class=\"img-responsive\" />\n\n  </figure>\n\n  <div class=\"profile\"  *ngIf=\"appUser && profileUser\">\n    <div class=\"container\">\n\n      <div class=\"row\">\n        <div class=\"col-sm-4\">\n          <figure>\n\n            <form>\n              <div>\n\n              <label class=\"image-label\" for=\"file\" *ngIf=\"type == 'settings' && !profileUser.cached_image\">Upload a photo</label>\n              <label class=\"image-label\" for=\"file\" *ngIf=\"type == 'settings' && profileUser.cached_image\">CHANGE PROFILE PICTURE</label>\n              <div class=\"hide\" *ngIf=\"type == 'settings'\">\n                <input type=\"file\" id=\"file\" name=\"file\" (change)=\"showUploadedImage($event)\">\n              </div>\n\n              <!--<span *ngIf=\"errorMessage && errorMessage.file\" style=\"text-align: center;color: red\">{{ errorMessage.file }}</span>-->\n              <p *ngIf=\"errorMessage && errorMessage.file\" [innerHTML]=\"errorMessage.file\"></p>\n\n                <img src=\"{{ profileUser.cached_image }}\" *ngIf=\"profileUser.cached_image\" alt=\"Profile image\" class=\"img-responsive img-circle\"/>\n                <!--{{ profileUser.cached_image|blImageFilter('user_image') }}-->\n                <span class=\"no-image profile-image profile-image1\" *ngIf=\"!profileUser.cached_image\">\n                  {{ profileUser.first_name |slice:0:1 |uppercase }} {{ profileUser.last_name |slice:0:1 |uppercase }}</span>\n              </div>\n            </form>\n\n            <figcaption>\n\n              <h3>\n                <span  *ngIf=\"isMobile && profileUser.show_name\" [class.title-smaller]=\"profileUser.show_name && profileUser.show_name.length > 12\">\n                    {{ profileUser.show_name }}\n                </span>\n              </h3>\n\n              <!--{% if profileUser.id != app.user.id %}-->\n              <!--data-ls-follow-manage-->\n\n              <span class=\"close-friends hidden-sm hidden-md hidden-lg\"\n                    *ngIf=\"userInfo && userInfo != 'my'\"\n                    (click)=\"toggleFollow()\"\n                    [mdTooltip]=\"(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate\">\n\n                <i class=\"follow-icon\" *ngIf=\"!isFollow\" title=\"{{ 'my_bucket_list.follow'|translate }}\"></i>\n                <i class=\"closefriend-icon\" *ngIf=\"isFollow\" title=\"{{ 'my_bucket_list.un_follow'|translate }}\"></i>\n                <span *ngIf=\"!isFollow\">{{ 'my_bucket_list.follow' | translate | uppercase }}</span>\n                <span *ngIf=\"isFollow\">{{ 'my_bucket_list.un_follow' | translate | uppercase }}</span>\n              </span>\n              <!--{% endif %}-->\n\n              <ul>\n                <li>\n                  <span>{{ 'block_listed'|translate | capitalize }}</span>\n                  <span>{{ listedBy }}</span>\n                </li>\n\n                <li>\n                  <span>{{ 'user_goal.active'|translate | capitalize }}</span>\n                  <span>{{ active }}</span>\n                </li>\n\n                <li>\n                  <span>{{ 'block_completed'|translate |capitalize }}</span>\n                  <span>{{ doneBy }}</span>\n                </li>\n              </ul>\n            </figcaption>\n          </figure>\n        </div>\n        <div class=\"col-sm-4 hidden-xs relative\">\n\n          <!--{% if profileUser.show_name %}-->\n          <h1 *ngIf=\"!isMobile && profileUser.show_name\">\n            <span class=\"bg-blue\" [class.title-smaller]=\"profileUser.show_name.length > 11\">{{ profileUser.show_name }}</span>\n          </h1>\n          <!--{% endif %}-->\n\n          <span class=\"close-friends hidden-xs\"\n                *ngIf=\"userInfo && userInfo != 'my'\"\n                (click)=\"toggleFollow()\"\n                [mdTooltip]=\"(isFollow?'my_bucket_list.un_follow':'my_bucket_list.follow')|translate\">\n\n                <i class=\"follow-icon\" *ngIf=\"!isFollow\" title=\"{{ 'my_bucket_list.follow'|translate }}\"></i>\n                <i class=\"closefriend-icon\" *ngIf=\"isFollow\" title=\"{{ 'my_bucket_list.un_follow'|translate }}\"></i>\n                <span *ngIf=\"!isFollow\">{{ 'my_bucket_list.follow' | translate | uppercase }}</span>\n                <span *ngIf=\"isFollow\">{{ 'my_bucket_list.un_follow' | translate | uppercase }}</span>\n          </span>\n\n          <!--{% set badges = profileUser.getBadges %}-->\n\n          <ul class=\"badge-place\">\n\n            <!--{% set badgeTitles = {-->\n            <!--1 : 'leaderboard.traveler'|translate,-->\n            <!--2 : 'leaderboard.writer'|translate,-->\n            <!--3 : 'leaderboard.innovator'|translate-->\n            <!--} %}-->\n\n            <!--{% for badge in badges %}-->\n\n            <!--{% set score = badgeNormalizer(badge.type, badge.Score) %}-->\n\n            <!--{% if score  > 0 %}-->\n            <li *ngFor=\"let badge of badges\">\n              <i title=\"{{ (badge.type == 1?'leaderboard.traveler': badge.type == 2?'leaderboard.writer':'leaderboard.innovator')|translate }}\" class=\"badge-{{ badge.type }}\"></i>\n               <a routerLink=\"/leaderboard/{{ (badge.type == 2?'mentor':'innovator')}}\" routerLinkActive=\"active\">{{ badge.points }}</a>\n              <!--{{ score|round(0, 'ceil')}}-->\n            </li>\n            <!--{% endif %}-->\n\n            <!--{% endfor %}-->\n          </ul>\n        </div>\n\n        <!--{% if profileUser.id == app.user.id %}-->\n        <div class=\"col-sm-4 relative\" [class.bg-white]=\"isMobile\" *ngIf=\"!userInfo || userInfo == 'my'\">\n\n          <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->\n          <div class=\"profile-information\" *ngIf=\"appUser.completed_percent != 100\">\n            <em>{{ 'complete_message'|translate }}</em>\n\n            <div class=\"row no-gutter\">\n              <div class=\"col-xs-10\">\n                <div class=\"progress\">\n                  <section class=\"progress-section\">\n                     <span>\n                       {{ appUser.completed_percent|round }}%\n                     </span>\n                    <md-progress-bar\n                            class=\"example-margin\"\n                            [value]=\"appUser.completed_percent\">\n                    </md-progress-bar>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col-xs-2\">\n                <a class=\"text-gray\" (click)=\"completeProfileMyBucketList=!completeProfileMyBucketList\">\n                  <i class=\"question-icon-new\" *ngIf=\"!completeProfileMyBucketList && !isMobile\"></i>\n                  <i class=\"icon-question-icon\" *ngIf=\"!completeProfileMyBucketList && isMobile\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n                  <i class=\"icon-icon-up\" *ngIf=\"completeProfileMyBucketList\"><span class=\"path1\"></span><span class=\"path2\"></span></i>\n                </a>\n              </div>\n            </div>\n\n          </div>\n          <!--{% endif %}-->\n        </div>\n      </div>\n      <div *ngIf=\"flashBag && flashBag.length\">\n        <div *ngFor=\"let msg of flashBag;let i = index\" class=\"accordion alert alert-success alert-dismissible \">\n          {{ msg | translate}}\n          <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" (click)=\"closeFlashBug(i)\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n      </div>\n\n\n      <!--{% if user.getCompletedPercent()|round(1, 'floor') != 100 %}-->\n      <div class=\"row slide\" *ngIf=\"appUser.completed_percent != 100 && completeProfileMyBucketList\">\n        <!--data-ng-cloak *ngIf=\"completeProfileMyBucketList\" style=\"display: none\"-->\n        <div class=\"col-sm-6\">\n          <ol style=\"position: relative;\">\n            <li>\n              <span class=\"profile-title\">\n                  {{ 'security.login.sign_up'|translate }}\n                  <i class=\"icon-ok-only\"></i>\n              </span>\n              <span class=\"text-gray\">{{ 'my_list.signed_up'|translate }}</span>\n            </li>\n            <li>\n              <span class=\"profile-title\">{{ 'account.complete_text'|translate }}\n                  <i *ngIf=\"appUser.is_confirmed == true\" class=\"icon-ok-only\"></i>\n                    <i *ngIf=\"appUser.is_confirmed !== true\" class=\"icon-question-only\"></i>\n              </span>\n              <span class=\"text-gray\">{{ 'my_list.verification'|translate }}</span>\n              <span class=\"text-gray\">{{ 'my_list.confirm'|translate }}</span>\n            </li>\n            <li>\n              <!--{% if user.socialPhotoLink or  user.fileName %}-->\n                <span class=\"profile-title\" *ngIf=\"appUser.social_photo_link || appUser.file_name || appUser.image_path\">{{ 'image_complete_text'|translate }}\n                    <i class=\"icon-ok-only\"></i>\n                </span>\n              <!--{% else %}-->\n\n              <a  *ngIf=\"!appUser.social_photo_link && !appUser.file_name && !appUser.image_path\" routerLink='/edit/profile'>\n                <strong>{{ 'image_complete_text'|translate }}</strong>\n                <i class=\"icon-question-only\"></i>\n              </a>\n\n              <!--{% endif %}-->\n              <span class=\"text-gray\">{{ 'my_list.add_image'|translate }}</span>\n\n            </li>\n            <li>\n              <a routerLink=\"/goal/create\"><strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>\n                <!--{% if user.userGoalCount > 0 %}-->\n                <i *ngIf=\"appUser.draft_count > 0\" class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                <i  *ngIf=\"appUser.draft_count == 0 \" class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n              </a>\n\n              <span class=\"text-gray\">{{ 'my_list.want_control'|translate }}</span>\n              <span class=\"text-gray\">{{ 'my_list.follow_link'|translate }}</span>\n            </li>\n          </ol>\n\n        </div>\n\n        <div class=\"col-sm-6\">\n          <ol style=\"position: relative\" start=\"5\">\n            <li>\n              <span class=\"profile-title\">{{ 'deadline.complete_text'|translate }}\n                <!--{% if user.checkDeadLines() %}-->\n                    <i *ngIf=\"appUser.check_deadline == true\" class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i *ngIf=\"appUser.check_deadline !== true\" class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n              <span class=\"text-gray\">{{ 'my_list.dream_text'|translate }}</span>\n            </li>\n            <li>\n              <span class=\"profile-title\">{{ 'goal.complete_text'|translate }}\n                <!--{% if user.checkCompletedGoals() %}-->\n                    <i *ngIf=\"appUser.check_completed_goals == true\" class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i  *ngIf=\"appUser.check_completed_goals !== true\" class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n              </span>\n              <span class=\"text-gray\">{{ 'my_list.have_goal'|translate }}</span>\n            </li>\n\n            <li>\n              <span class=\"profile-title\">{{ 'success_story.complete_text'|translate }}\n                <!--{% if user.checkSuccessStory() %}-->\n                    <i *ngIf=\"appUser.check_success_story == true\" class=\"icon-ok-only\"></i>\n                <!--{% else %}-->\n                    <i *ngIf=\"appUser.check_success_story !== true\" class=\"icon-question-only\"></i>\n                <!--{% endif %}-->\n            </span>\n              <span class=\"text-gray\">{{ 'my_list.complete_goal'|translate }}</span>\n            </li>\n          </ol>\n\n        </div>\n      </div>\n      <!--{% endif %}-->\n\n    </div>\n  </div>\n</div>"
+
+/***/ },
+
+/***/ 1155:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"top-ideas\">\n    <div class=\"bg-white padding round margin-top\" *ngIf=\"goals && goals.length\">\n        <div class=\"row\">\n          <div class=\"col-xs-10\">\n            <a routerLink=\"/ideas/most-popular\" class=\"heading text-gray\">\n              <i [ngClass]=\"{'icon-top-idea': type == categories[0],'featured-icon': type == categories[2],'suggested-icon': type == categories[1]}\"></i>\n              <span class=\"text\">{{ (type == categories[0])?('right_menu.ideas'|translate ): (type == categories[2])? ('featured_ideas'|translate):('right_menu.suggested'|translate) }}</span>\n            </a>\n          </div>\n\n          <div class=\"col-xs-2 text-right\">\n            <a  (click)=\"refreshIdeas()\" class=\"load\" id=\"topIdeasLoad\" #rotate></a>\n          </div>\n        </div>\n\n        <hr class=\"hr-margin\"/>\n\n        <div *ngFor=\"let goal of goals\" class=\"row idea-item goals-animate\">\n            <div class=\"col-sm-6 col-md-12\">\n                <figure>\n                    <app-goal [goal]=\"goal\"></app-goal>\n                    <figcaption class=\"footer-bordered\">\n                        <app-goal-footer [goal]=\"goal\"></app-goal-footer>\n                    </figcaption>\n                </figure>\n            </div>\n        </div>\n\n    </div>\n</div>"
+
+/***/ },
+
+/***/ 1201:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_translate__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tools_broadcaster__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__validation_service__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_forms__ = __webpack_require__(28);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SettingsComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var SettingsComponent = (function () {
+    function SettingsComponent(_translate, route, _projectService, _cacheService, broadcaster, router, fb) {
+        var _this = this;
+        this._translate = _translate;
+        this.route = route;
+        this._projectService = _projectService;
+        this._cacheService = _cacheService;
+        this.broadcaster = broadcaster;
+        this.router = router;
+        this.fb = fb;
+        this.eventId = 0;
+        this.isDestroy = false;
+        this.arrayDay = [];
+        this.arrayYear = [];
+        this.token = true;
+        this.ready = false;
+        this.lng = 'en';
+        this.item = [];
+        this.addMail = null;
+        this.secret = null;
+        this.day = 0;
+        this.month = 0;
+        this.year = 0;
+        this.show = false;
+        this.languages = [
+            {
+                value: 'en',
+                name: 'English'
+            },
+            {
+                value: 'ru',
+                name: 'Russian'
+            }
+        ];
+        this.plainPassword = {
+            first: '',
+            second: ''
+        };
+        //create date value
+        this.arrayMonth = [
+            'form.birth_date_month',
+            'form.month_january',
+            'form.month_february',
+            'form.month_march',
+            'form.month_april',
+            'form.month_may',
+            'form.month_june',
+            'form.month_july',
+            'form.month_august',
+            'form.month_september',
+            'form.month_october',
+            'form.month_november',
+            'form.month_december'
+        ];
+        router.events.subscribe(function (val) {
+            if (!_this.isDestroy && _this.eventId != val.id && val instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["NavigationEnd"]) {
+                _this.eventId = val.id;
+                window.scrollTo(0, 0);
+                _this.type = _this.route.snapshot.params['type'] ? _this.route.snapshot.params['type'] : 'profile';
+                _this.form = null;
+                _this.ready = false;
+                if (_this.type == 'profile') {
+                    _this.saveMessage = false;
+                    _this.removeMessage = false;
+                    _this.initProfileForm();
+                    _this.ready = true;
+                }
+                if (_this.type == 'notification') {
+                    _this.saveMessage = false;
+                    _this.removeMessage = false;
+                    _this.getNotifySettings();
+                }
+                if (_this.type == 'add-email') {
+                    if (_this.errorMessage) {
+                        _this.router.navigate(['/error']);
+                        _this.errorMessage = null;
+                    }
+                    _this.secret = _this.route.snapshot.params['secret'] ? _this.route.snapshot.params['secret'] : null;
+                    _this.addMail = _this.route.snapshot.params['addMail'] ? _this.route.snapshot.params['addMail'] : null;
+                    _this.activationUserAddEmail(_this.secret, _this.addMail);
+                }
+                _this.getUserInfoByType();
+            }
+        });
+        this.createDays(31);
+        this.createYears(1917, 2017);
+        //get current user data
+        if (localStorage.getItem('apiKey')) {
+            this.appUser = this._projectService.getMyUser();
+            if (!this.appUser) {
+                this.appUser = this._cacheService.get('user_');
+                if (!this.appUser) {
+                    this._projectService.getUser()
+                        .subscribe(function (user) {
+                        _this.appUser = user;
+                        _this._cacheService.set('user_', user, { maxAge: 3 * 24 * 60 * 60 });
+                        _this.broadcaster.broadcast('getUser', user);
+                    });
+                }
+            }
+        }
+    }
+    SettingsComponent.prototype.initNotifyForm = function () {
+        // create form validation
+        this.form = this.fb.group({
+            'isCommentOnGoalNotify': [(this.notifySettings ? this.notifySettings.is_comment_on_goal_notify : false), null],
+            'isCommentOnIdeaNotify': [(this.notifySettings ? this.notifySettings.is_comment_on_idea_notify : false), null],
+            'isSuccessStoryOnGoalNotify': [(this.notifySettings ? this.notifySettings.is_success_story_on_goal_notify : false), null],
+            'isSuccessStoryOnIdeaNotify': [(this.notifySettings ? this.notifySettings.is_success_story_on_idea_notify : false), null],
+            'isSuccessStoryLikeNotify': [(this.notifySettings ? this.notifySettings.is_success_story_like_notify : false), null],
+            'isGoalPublishNotify': [(this.notifySettings ? this.notifySettings.is_goal_publish_notify : false), null],
+            'isCommentReplyNotify': [(this.notifySettings ? this.notifySettings.is_comment_reply_notify : false), null],
+            'isDeadlineExpNotify': [(this.notifySettings ? this.notifySettings.is_deadline_exp_notify : false), null],
+            'isNewGoalFriendNotify': [(this.notifySettings ? this.notifySettings.is_new_goal_friend_notify : false), null],
+            'isNewIdeaNotify': [(this.notifySettings ? this.notifySettings.is_new_idea_notify : false), null]
+        });
+    };
+    SettingsComponent.prototype.initProfileForm = function () {
+        if (this.appUser.user_emails) {
+            this.userEmails = Object.keys(this.appUser.user_emails);
+            this.checkEmailToken(this.appUser);
+        }
+        else {
+            this.userEmails = null;
+        }
+        if (this.appUser.social_email) {
+            this.socialEmail = this.appUser.social_email;
+        }
+        else {
+            this.socialEmail = null;
+        }
+        this.email = this.appUser.username;
+        if (this.appUser.birth_date) {
+            this.birthDate = new Date(this.appUser.birth_date);
+            this.year = this.birthDate.getFullYear();
+            this.month = this.birthDate.getMonth() + 1;
+            this.day = this.birthDate.getDate();
+        }
+        if (this.appUser.language) {
+            this.lng = this.appUser.language;
+        }
+        this.email = this.appUser.username;
+        //create form validation
+        this.form = this.fb.group({
+            'firstName': [this.appUser.first_name, [__WEBPACK_IMPORTED_MODULE_7__angular_forms__["f" /* Validators */].required]],
+            'lastName': [this.appUser.last_name, [__WEBPACK_IMPORTED_MODULE_7__angular_forms__["f" /* Validators */].required]],
+            'email': [this.email, [__WEBPACK_IMPORTED_MODULE_6__validation_service__["a" /* ValidationService */].emailValidator, __WEBPACK_IMPORTED_MODULE_7__angular_forms__["f" /* Validators */].required]],
+            'currentPassword': ['', [__WEBPACK_IMPORTED_MODULE_7__angular_forms__["f" /* Validators */].minLength(6)]],
+            'password': ['', [__WEBPACK_IMPORTED_MODULE_7__angular_forms__["f" /* Validators */].minLength(6)]],
+            'plainPassword': ['', [__WEBPACK_IMPORTED_MODULE_7__angular_forms__["f" /* Validators */].minLength(6)]],
+            'primary': [this.email, null],
+            'language': [this.lng, [__WEBPACK_IMPORTED_MODULE_7__angular_forms__["f" /* Validators */].required]],
+            'addEmail': ['', null],
+            'month': [this.month, null],
+            'year': [this.year, null],
+            'day': [this.day, null]
+        }, { validator: __WEBPACK_IMPORTED_MODULE_6__validation_service__["a" /* ValidationService */].passwordsEqualValidator });
+    };
+    SettingsComponent.prototype.ngOnDestroy = function () {
+        this.isDestroy = true;
+    };
+    SettingsComponent.prototype.ngOnInit = function () {
+    };
+    SettingsComponent.prototype.createDays = function (number) {
+        for (var i = 1; i <= number; i++) {
+            this.arrayDay.push(i);
+        }
+    };
+    SettingsComponent.prototype.createYears = function (number1, number2) {
+        for (var i = number2; i >= number1; i--) {
+            this.arrayYear.push(i);
+        }
+    };
+    SettingsComponent.prototype.getUserInfoByType = function () {
+        this.currentLang = this._translate.currentLang;
+    };
+    /**
+     * This function is used to refresh user data and form
+     *
+     * @param data
+     */
+    SettingsComponent.prototype.refreshUserAndForm = function (data) {
+        this._projectService.setMyUser(null);
+        this.appUser = data;
+        this.broadcaster.broadcast('login', this.appUser);
+        this.form = null;
+    };
+    /**
+     *
+     * @param form
+     */
+    SettingsComponent.prototype.saveUserData = function (form) {
+        var _this = this;
+        this.show = true;
+        this.removeMessage = false;
+        if (this.type == 'profile') {
+            var birthday = void 0;
+            // generate birthday value
+            if (form.day != 0 && form.month != 0 && form.year != 0) {
+                birthday = form.year + '/' + form.month + '/' + form.day;
+            }
+            else {
+                birthday = null;
+            }
+            var firstPassword = form['password'];
+            var secondPassword = form['plainPassword'];
+            // add birthday in form data
+            form['birthDate'] = birthday;
+            delete form.plainPassword;
+            delete form.password;
+            // remove day,month,year
+            delete form.day;
+            delete form.year;
+            delete form.month;
+            if (firstPassword && secondPassword) {
+                this.plainPassword.first = firstPassword;
+                this.plainPassword.second = secondPassword;
+                form.plainPassword = this.plainPassword;
+            }
+            this._projectService.saveUserData(form)
+                .subscribe(function (data) {
+                _this.saveMessage = true;
+                _this.errorMessage = null;
+                _this.refreshUserAndForm(data);
+                _this.initProfileForm();
+                _this.show = false;
+                setTimeout(function () {
+                    _this.saveMessage = null;
+                }, 4000);
+            }, function (error) {
+                _this.errorMessage = JSON.parse(error._body);
+                _this.show = false;
+            });
+        }
+        if (this.type == 'notification') {
+            this._projectService.postNotifySettings(form)
+                .subscribe(function () {
+                _this.saveMessage = true;
+                _this.show = false;
+                setTimeout(function () {
+                    _this.saveMessage = null;
+                }, 4000);
+            }, function (error) {
+                _this.errorMessage = error._body;
+            });
+        }
+    };
+    /**
+     *
+     * @param user
+     */
+    SettingsComponent.prototype.checkEmailToken = function (user) {
+        var emailKey = Object.keys(user.user_emails);
+        for (var _i = 0, emailKey_1 = emailKey; _i < emailKey_1.length; _i++) {
+            var key = emailKey_1[_i];
+            var emailsData = this.appUser.user_emails[key];
+            if (emailsData && emailsData.token) {
+                this.token = false;
+                break;
+            }
+        }
+    };
+    /**
+     *
+     * @param email
+     * @param secret
+     */
+    SettingsComponent.prototype.activationUserAddEmail = function (secret, email) {
+        var _this = this;
+        this._projectService.activationUserAddEmail(secret, email)
+            .subscribe(function () {
+            _this.router.navigate(['/ideas']);
+        }, function (error) {
+            _this.errorMessage = error._body;
+            console.log(_this.errorMessage);
+            if (_this.errorMessage) {
+                _this.broadcaster.broadcast('error', _this.errorMessage);
+                _this.router.navigate(['/error']);
+            }
+        });
+    };
+    /**
+     * This function is used to get notify settings data
+     *
+     */
+    SettingsComponent.prototype.getNotifySettings = function () {
+        var _this = this;
+        this._projectService.getNotifySettings()
+            .subscribe(function (data) {
+            _this.notifySettings = data;
+            _this.ready = true;
+            _this.initNotifyForm();
+            _this.errorMessage = null;
+        }, function (error) {
+            _this.errorMessage = error._body;
+        });
+    };
+    /**
+     *
+     * @param email
+     */
+    SettingsComponent.prototype.removeEmail = function (email) {
+        var _this = this;
+        this.show = true;
+        this._projectService.removeUserEmail(email)
+            .subscribe(function (data) {
+            _this.removeMessage = true;
+            _this.refreshUserAndForm(data);
+            _this.initProfileForm();
+            _this.show = false;
+            setTimeout(function () {
+                _this.removeMessage = null;
+            }, 3000);
+        }, function (error) {
+            _this.errorMessage = error;
+        });
+    };
+    SettingsComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-settings',
+            template: __webpack_require__(1261),
+            styles: [__webpack_require__(1244)]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4_ng2_translate__["b" /* TranslateService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4_ng2_translate__["b" /* TranslateService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["ActivatedRoute"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["ActivatedRoute"]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__project_service__["a" /* ProjectService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_ng2_cache_ng2_cache__["a" /* CacheService */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__tools_broadcaster__["a" /* Broadcaster */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__tools_broadcaster__["a" /* Broadcaster */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["Router"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["Router"]) === 'function' && _f) || Object, (typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_7__angular_forms__["g" /* FormBuilder */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_7__angular_forms__["g" /* FormBuilder */]) === 'function' && _g) || Object])
+    ], SettingsComponent);
+    return SettingsComponent;
+    var _a, _b, _c, _d, _e, _f, _g;
+}());
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/settings.component.js.map
+
+/***/ },
+
+/***/ 1225:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings_component__ = __webpack_require__(1201);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SettingsRouting; });
+
+
+var SettingsRoutes = [
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__settings_component__["a" /* SettingsComponent */] },
+    { path: ':type', component: __WEBPACK_IMPORTED_MODULE_1__settings_component__["a" /* SettingsComponent */] },
+    { path: ':type/:secret/:addMail', component: __WEBPACK_IMPORTED_MODULE_1__settings_component__["a" /* SettingsComponent */] }
+];
+var SettingsRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["RouterModule"].forChild(SettingsRoutes);
+//# sourceMappingURL=/var/www/html/bucketlist/bucketlist/src/settings-routing.js.map
+
+/***/ },
+
+/***/ 1244:
+/***/ function(module, exports) {
+
+module.exports = "/* radius functions */\n.blur {\n  -webkit-filter: blur(20px);\n  -moz-filter: blur(20px);\n  -o-filter: blur(20px);\n  -ms-filter: blur(20px);\n  filter: blur(20px);\n}\n.text-grey-dark {\n  line-height: 14px;\n}\n.text-muted {\n  font-size: 12px;\n  line-height: 18px;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  white-space: normal;\n}\nmd-slide-toggle {\n  height: auto;\n  margin: 10px 15px;\n}\nmd-radio-button {\n  margin: 7px 2px 0;\n}\n"
+
+/***/ },
+
+/***/ 1261:
+/***/ function(module, exports) {
+
+module.exports = "<profile-header type=\"settings\" [userInfo]=\"'my'\"></profile-header>\n<div xmlns=\"http://www.w3.org/1999/html\">\n    <div class=\"bucketlist settings-menu\">\n        <div class=\"container\">\n            <div class=\"row\">\n                <ul class=\"menu\">\n                    <li [class.active]=\"type == 'profile'\">\n                        <a routerLink=\"/edit/profile\">{{ 'user.profile'|translate }}</a>\n                    </li>\n                    <li [class.active]=\"type == 'notification'\">\n                        <a routerLink=\"/edit/notification\">{{ 'user.notification'|translate }}</a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n        <hr/>\n    </div>\n    <div class=\"container\">\n        <div class=\"row\">\n            <div class=\"col-md-8\">\n                <div class=\"settings bg-white round\" *ngIf=\"ready\">\n                    <form action=\"#\" method=\"POST\" [formGroup]=\"form\" enctype=\"multipart/form-data\" (ngSubmit)=\"saveUserData(form.value)\" class=\"form-horizontal text-center\">\n\n                        <div *ngIf=\"type == 'profile'\" class=\"row\">\n                            <div class=\"col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-0\">\n\n                                <div *ngIf=\"saveMessage && !errorMessage\" class=\"alert alert-success\" role=\"alert\">\n                                    {{ 'updated_user_data'|translate }}\n                                </div>\n\n                                <div *ngIf=\"removeMessage\" class=\"alert alert-success\" role=\"alert\">\n                                    {{ 'remove_email'|translate }}\n                                </div>\n\n                                <div class=\"form-group row no-padding\">\n                                    <div class=\"col-sm-6\">\n                                        <input type=\"text\" class=\"form-control\" formControlName=\"firstName\" placeholder=\"{{ 'form.firstName'|translate }}\">\n                                        <control-messages [control]=\"form.controls.firstName\"></control-messages>\n                                    </div>\n\n                                    <div class=\"col-sm-6\">\n                                        <input type=\"text\" class=\"form-control\" formControlName=\"lastName\" placeholder=\"{{ 'form.lastName'|translate }}\">\n                                        <control-messages [control]=\"form.controls.lastName\"></control-messages>\n                                    </div>\n                                </div>\n\n                                <span *ngIf=\"errorMessage && errorMessage.bl_user_angular_settings\" style=\"text-align: center;color: red\">{{ errorMessage.bl_user_angular_settings }}</span>\n\n                                <div class=\"form-group row no-padding emails\" *ngIf=\"!socialEmail || socialEmail != appUser.username\">\n\n                                    <div class=\"col-sm-3 primary\">\n                                        <label for=\"bl_user_settings_email\">{{ 'primary_email'|translate }}</label>\n                                    </div>\n\n                                    <div class=\"col-sm-9\">\n                                        <div class=\"row\">\n                                            <div class=\"col-xs-2 text-center\" *ngIf=\"ready\">\n                                                <md-radio-group formControlName=\"primary\" name=\"primary\">\n                                                    <md-radio-button value=\"{{ email }}\" checked=\"true\"></md-radio-button>\n                                                </md-radio-group>\n                                            </div>\n\n                                            <div class=\"col-xs-10\">\n                                                <input type=\"email\" class=\"form-control\" formControlName=\"email\" value=\"{{ email }}\" id=\"bl_user_settings_email\" readonly placeholder=\"{{ 'form.email'|translate }}\">\n                                            </div>\n                                        </div>\n                                        <span *ngIf=\"errorMessage && errorMessage.primary\" style=\"text-align: center;color: red\">{{ errorMessage.primary }}</span>\n                                    </div>\n\n                                </div>\n\n                                <div *ngIf=\"userEmails\">\n                                    <div *ngFor=\"let item of userEmails\" class=\"form-group row emails\">\n\n                                        <!--TODO must fix token error after add Email-->\n                                        <div *ngIf=\"appUser.user_emails[item] && !appUser.user_emails[item].token\">\n                                            <div class=\"col-sm-3\"></div>\n                                            <div class=\"col-sm-9\">\n                                                <div class=\"row\">\n                                                    <div class=\"col-xs-2 text-right\">\n                                                        <md-radio-group formControlName=\"primary\" name=\"primary\">\n                                                            <md-radio-button value=\"{{ item }}\"></md-radio-button>\n                                                        </md-radio-group>\n                                                    </div>\n\n                                                    <div class=\"col-xs-10\">\n                                                        <div class=\"delete-email\">\n                                                            <a (click)=\"removeEmail(item)\" class=\"delete-link icon\">x</a>\n                                                            <input name=\"userEmail\" class=\"form-control\" readonly type=\"text\" value=\"{{ item }}\" />\n                                                        </div>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <!--{% else %}-->\n\n                                        <!--{% set token = true %}-->\n\n                                        <!--{% endif %}-->\n                                    </div>\n                                    <!--{% endfor %}-->\n                                </div>\n                                <!--{% endif %}-->\n\n                                <div class=\"form-group row\" *ngIf=\"token\">\n                                    <div class=\"col-sm-4\"></div>\n                                    <div class=\"col-sm-8\">\n                                        <input type=\"text\" class=\"form-control\" formControlName=\"addEmail\" placeholder=\"{{ 'form.add_email'|translate }}\">\n                                        <control-messages [control]=\"form.controls.addEmail\"></control-messages>\n                                        <span *ngIf=\"errorMessage && errorMessage.addEmail\" style=\"text-align: center;color: red\">{{ errorMessage.addEmail }}</span>\n                                    </div>\n                                </div>\n\n                                <div class=\"form-group row\" *ngIf=\"!socialEmail || (socialEmail !== email)\">\n                                    <div class=\"col-sm-12\">\n                                        <input type=\"password\" class=\"form-control\" formControlName=\"currentPassword\" placeholder=\"{{ 'form.current_password'|translate }}\">\n                                        <control-messages [control]=\"form.controls.currentPassword\"></control-messages>\n                                        <span *ngIf=\"errorMessage && errorMessage.currentPassword\" style=\"text-align: center;color: red\">{{ errorMessage.currentPassword }}</span>\n                                    </div>\n                                </div>\n\n                                <div class=\"form-group row no-padding\" *ngIf=\"!socialEmail || (socialEmail !== email)\">\n                                    <div class=\"col-sm-6\">\n                                        <input type=\"password\" class=\"form-control\" formControlName=\"password\" placeholder=\"{{ 'form.new_password'|translate }}\">\n                                        <control-messages [control]=\"form.controls.password\"></control-messages>\n                                    </div>\n                                    <div class=\"col-sm-6\">\n                                        <input type=\"password\" class=\"form-control\" formControlName=\"plainPassword\" placeholder=\"{{ 'form.re_new_password'|translate }}\">\n                                        <control-messages [control]=\"form\"></control-messages>\n                                    </div>\n                                </div>\n\n                                <br/>\n                                <div class=\"form-group row\">\n\n                                    <div class=\"col-xs-4\">\n                                        <md-select placeholder=\"{{ 'form.birth_date_month'|translate }}\" name=\"month\" formControlName=\"month\">\n                                            <md-option *ngFor=\"let month of arrayMonth; let i=index\" [value]=\"i\">\n                                                {{ month|translate }}\n                                            </md-option>\n                                        </md-select>\n\n                                        <control-messages [control]=\"form.controls.month\"></control-messages>\n                                    </div>\n\n                                    <div class=\"col-xs-4\">\n\n                                        <md-select placeholder=\"{{ 'form.birth_date_day'|translate }}\" name=\"day\" formControlName=\"day\">\n                                            <md-option [value]=\"0\">\n                                                {{ 'form.birth_date_day'|translate }}\n                                            </md-option>\n                                            <md-option *ngFor=\"let day of arrayDay\" [value]=\"day\">\n                                                {{ day }}\n                                            </md-option>\n                                        </md-select>\n\n                                        <control-messages [control]=\"form.controls.day\"></control-messages>\n                                    </div>\n\n                                    <div class=\"col-xs-4\">\n\n                                        <md-select placeholder=\"{{ 'form.birth_date_year'|translate }}\" name=\"year\" formControlName=\"year\">\n                                            <md-option [value]=\"0\">\n                                                {{ 'form.birth_date_year'|translate }}\n                                            </md-option>\n                                            <md-option *ngFor=\"let year of arrayYear\" [value]=\"year\">\n                                                {{ year }}\n                                            </md-option>\n                                        </md-select>\n\n                                        <control-messages [control]=\"form.controls.year\"></control-messages>\n                                    </div>\n\n                                </div>\n\n                                <br />\n\n                                <div class=\"form-group row\">\n                                    <div class=\"col-sm-12 language lng\">\n                                        <md-select placeholder=\"Language\" style=\"width: 100%\" formControlName=\"language\">\n                                            <md-option *ngFor=\"let language of languages\" [value]=\"language.value\">\n                                                {{ language.name }}\n                                            </md-option>\n                                        </md-select>\n                                    </div>\n                                </div>\n\n                            </div>\n                            <div class=\"col-md-4\"></div>\n                        </div>\n\n                        <div *ngIf=\"type == 'notification'\">\n\n                            <div *ngIf=\"saveMessage\" class=\"alert alert-success\" role=\"alert\">\n                                {{ 'updated_user_data'|translate }}\n                            </div>\n\n                            <h3 class=\"text-left\">{{ 'user.notify_settings_text'|translate }}</h3>\n                            <hr />\n\n                            <div class=\"row\">\n\n                                <md-slide-toggle formControlName=\"isCommentOnGoalNotify\">\n                                    <strong class=\"text-grey-dark center-block\">{{ 'notify_settings.comment_goal'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.comment_goal_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                                <md-slide-toggle formControlName=\"isCommentOnIdeaNotify\">\n                                    <strong class=\"text-grey-dark center-block\">{{ 'notify_settings.comment_idea'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.comment_idea_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                                <md-slide-toggle formControlName=\"isSuccessStoryOnGoalNotify\">\n                                    <strong class=\"text-grey-dark center-block\">{{ 'notify_settings.success_story_goal'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.success_story_goal_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                                <md-slide-toggle formControlName=\"isSuccessStoryOnIdeaNotify\">\n                                    <strong class=\"text-grey-dark center-block\">{{ 'notify_settings.success_story_idea'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.success_story_idea_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                                <md-slide-toggle formControlName=\"isSuccessStoryLikeNotify\">\n                                    <strong class=\"text-grey-dark center-block\">{{ 'notify_settings.success_story_like'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.success_story_like_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                                <md-slide-toggle formControlName=\"isGoalPublishNotify\">\n                                    <strong class=\"text-grey-dark center-block\">{{ 'notify_settings.publish_goal'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.publish_goal_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                                <md-slide-toggle formControlName=\"isCommentReplyNotify\">\n                                    <strong class=\"text-grey-dark text-left center-block\">{{ 'notify_settings.reply_comment'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.reply_comment_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                                <md-slide-toggle formControlName=\"isDeadlineExpNotify\">\n                                    <strong class=\"text-grey-dark center-block\">{{ 'notify_settings.deadline'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.deadline_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                                <md-slide-toggle formControlName=\"isNewGoalFriendNotify\">\n                                    <strong class=\"text-grey-dark center-block\">{{ 'notify_settings.new_goalfriend'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.new_goalfriend_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                                <md-slide-toggle formControlName=\"isNewIdeaNotify\">\n                                    <strong class=\"text-grey-dark center-block\">{{ 'notify_settings.new_idea'|translate }}</strong>\n                                    <strong class=\"text-muted\">{{ 'notify_settings.new_idea_desc'|translate }}</strong>\n                                </md-slide-toggle>\n\n                            </div>\n\n                        </div>\n\n                        <hr />\n\n                        <div class=\"text-left\">\n                            <button md-button type=\"submit\" name=\"save\" [disabled]=\"form.invalid\" class=\"btn btn-purple button-lg\">{{ 'btn_save'|translate }}</button>\n                        </div>\n                    </form>\n\n                    <div *ngIf=\"show\" style=\"position: absolute;top:20%;left: 42%\">\n                        <md-progress-spinner mode=\"indeterminate\"></md-progress-spinner>\n                    </div>\n\n                </div>\n\n            </div>\n        </div>\n    </div>\n</div>\n\n"
+
+/***/ }
+
+});
+//# sourceMappingURL=5.bundle.map

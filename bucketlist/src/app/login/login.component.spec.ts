@@ -61,7 +61,7 @@ fdescribe('LoginComponent', () => {
             fixture.detectChanges();
         });
 
-        beforeEach(inject([ProjectService, CacheService], (projectService: ProjectService) => {
+        beforeEach(inject([ProjectService], (projectService: ProjectService) => {
             projectService.initPaths('http://behat.bucketlist.loc/');
         }));
 
@@ -87,7 +87,6 @@ fdescribe('LoginComponent', () => {
 
                 expect(this.user.first_name).toEqual('user1');
                 expect(this.user.last_name).toEqual('useryan');
-
              }
         );
         }

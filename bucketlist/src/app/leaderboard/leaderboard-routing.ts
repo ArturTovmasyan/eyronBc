@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LeaderboardComponent }    from './components';
+import { LeaderboardComponent }    from './../indexes';
 
 const LeaderboardRoutes: Routes = [
   { path: '',  component: LeaderboardComponent },
