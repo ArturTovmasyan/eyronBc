@@ -39,7 +39,7 @@
                 </li>
 
                 <li class="pull-right">
-                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar;showMap = false">
+                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="clendarShow();showMap = false">
                         <img src="assets/images/calendar-icon.svg" class="svg"/>
                     </a>
 

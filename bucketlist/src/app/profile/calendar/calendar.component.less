@@ -54,16 +54,15 @@
   }
 
   h3,caption{
-    margin-top: 0;
+    margin: 0;
     font-size: 17px;
     line-height: 25px;
     color: #333333;
     font-weight: 700;
+    padding-top: 5px;
   }
 
-  caption{
-    background-color: #ffffff;
-  }
+
 
   .calendar-tooltip{
     position: absolute;
@@ -99,8 +98,15 @@
   }
 
   .month-calendar{
+    margin: 0 auto;
+    width: 100%;
     th,td{
       width: 45px;
+    }
+
+    td{
+      height: 80px;
+      vertical-align: top;
     }
 
     span.goal-count{
@@ -110,9 +116,16 @@
   }
 
   .year-calendar{
+    margin: 0 auto;
+    width: 100%;
+
     th,td{
       width: 95px;
       height: 60px;
+    }
+
+    td{
+      vertical-align: top;
     }
   }
 
@@ -186,8 +199,10 @@
     color:#ffffff;
     display: inline-block;
     vertical-align: middle;
-    margin: 0 5px 5px;
+    margin: 0 5px 5px 0;
     cursor: pointer;
+    font-size: 11px;
+    line-height: 19px;
   }
 }
 
@@ -206,6 +221,10 @@
     h3,caption{
       font-size: 22px;
       line-height: 33px;
+    }
+
+    caption{
+      background-color: #ffffff;
     }
 
     .table-bordered{
@@ -247,6 +266,8 @@
 
     span.goal-count{
       margin: 0 5px 0 0;
+      font-size: 12px;
+      line-height: 20px;
     }
   }
 }
