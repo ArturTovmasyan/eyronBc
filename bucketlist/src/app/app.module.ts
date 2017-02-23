@@ -11,9 +11,10 @@ import { MaterialModule } from '@angular/material';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { ValidationService } from './validation.service';
 import { Broadcaster} from './tools/broadcaster';
-import { ClickOutsideDirective} from './tools/outside';
+// import { ClickOutsideDirective} from './tools/outside';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
+import { ToolsSharingModule} from './tools/tools-sharing.module';
 import { AngularFireModule } from 'angularfire2';
 import { AuthProviders } from 'angularfire2';
 import { AuthMethods } from 'angularfire2';
@@ -87,7 +88,7 @@ export function createTranslateLoader(http: Http) {
     UsersComponent,
     AddComponent,
     DoneComponent,
-    ClickOutsideDirective,
+    // ClickOutsideDirective,
     ErrorComponent,
     RegistrationConfirmComponent
 
@@ -103,6 +104,7 @@ export function createTranslateLoader(http: Http) {
     appRouting,
     MetadataModule.forRoot(),
     SwiperModule,
+    ToolsSharingModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
@@ -128,7 +130,7 @@ export function createTranslateLoader(http: Http) {
     ValidationService,
     CacheService,
     Uploader,
-    ClickOutsideDirective
+    // ClickOutsideDirective
   ],
   bootstrap: [AppComponent]
 })

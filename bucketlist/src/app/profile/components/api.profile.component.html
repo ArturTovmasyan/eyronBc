@@ -61,8 +61,9 @@
 
     <div class="container slide" *ngIf="myProfile && type != 'activity'">
         <div class="row">
+            <button md-button (click)="toogleSelect()">Click</button>
 
-            <div class="col-sm-12">
+            <div class="col-sm-12" [hidden]="!show" (clickOutside)="hideSelect()">
                 <form class="form-inline" action="#">
                     <!--{# dream filter #}-->
                     <label class="checkbox-inline" [ngClass]="{'checked-label': (isDream == true)}">
