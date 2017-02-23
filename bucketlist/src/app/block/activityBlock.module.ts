@@ -11,7 +11,7 @@ import {LeaderboardsBlockComponent} from './leaderboards/leaderboards.component'
 import {MyListBlockComponent} from './my-list/my-list.component';
 import {TopIdeasBlockComponent} from './top-ideas/top-ideas.component';
 import {CompleteProfileBlockComponent} from './complete-profile/complete-profile.component';
-import {ProfileHeaderComponent} from './profile-header/components';
+import {ProfileHeaderComponent} from './../indexes';
 import {CreateGoalComponent} from './create-goal/create-goal.component';
 
 @NgModule({

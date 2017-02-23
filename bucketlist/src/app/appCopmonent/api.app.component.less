@@ -1,0 +1,114 @@
+.user-menu{
+  position: absolute;
+}
+
+body{
+  padding-top: 0;
+}
+
+#api-mainframe{
+  padding-top: 62px;
+}
+
+md-sidenav{
+  width: 250px;
+  background: #021523;
+}
+
+.api-user-menu{
+  //width: 250px;
+  //padding-right: 10px;
+
+  li{
+    display: block;
+    border-left: 0;
+    text-align: left;
+    margin-bottom: 0;
+    padding: 0 10px;
+    a{
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      color: #e5e5e5;
+      font-family: 'Open Sans',sans-serif;
+
+      i{
+        vertical-align: middle;
+        width: 25px;
+        height: 25px;
+        margin: 0 5px 0 0;
+
+        &.activity-icon{
+          background: url('../../assets/images/activity.svg') no-repeat left center;
+          background-size: 100%;
+        }
+
+        &.mybucketlist-icon{
+          background: url('../../assets/images/my-bucketlist.svg') no-repeat left center;
+          //margin-right: 0;
+          background-size: 100%;
+        }
+
+        &.my-ideas-icon{
+          margin: 0 5px 0 -1px;
+        }
+
+        &.icon-suggest-icon{
+          width: 27px;
+          height:  27px;
+          color: #e5e5e5;
+          margin: 0 0 0 -3px;
+        }
+
+        &.icon-goalfrined-icon{
+          margin: 0 -2px 0 -3px;
+        }
+
+        &.menu-goalfrinds{
+          background-size: 90%;
+        }
+
+        &.menu-leaderbord{
+          background: url('../../assets/images/leaderboard-blog.svg') no-repeat left center;
+          background-size: 91%;
+        }
+
+        &.logout{
+          background: url('../../assets/images/logout.svg') no-repeat left center;
+          background-size: 100%;
+        }
+
+        &.settings-icon{
+          background: url('../../assets/images/settings.svg') no-repeat left center;
+          background-size: 85%;
+          margin: 0 3px 0 3px;
+        }
+
+        &.add-goal{
+          background: url('../../assets/images/add-goal.svg') no-repeat left center;
+          background-size: 100%;
+        }
+      }
+
+      &:hover,&:focus{
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.amp-close-image {
+  top: 15px;
+  left: 225px;
+  cursor: pointer;
+}
+
+.close-menu{
+  position: absolute;
+  right: 15px;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: url('../../assets/images/white-remove.svg') no-repeat right center;
+}

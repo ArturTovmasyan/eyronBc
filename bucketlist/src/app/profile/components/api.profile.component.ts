@@ -15,7 +15,8 @@ import { MetadataService } from 'ng2-metadata';
 })
 
 export class ProfileComponent extends Profile{
-  
+  public show:boolean = false;
+  public writeTimeout:any;
   constructor(
       protected metadataService: MetadataService,
       protected route: ActivatedRoute,
@@ -26,5 +27,17 @@ export class ProfileComponent extends Profile{
       protected renderer: Renderer
   ) {
     super(metadataService, route, _projectService, _cacheService, broadcaster, router, renderer);
+  }
+  toogleSelect(){
+    if(this.show != true){
+      this.writeTimeout = setTimeout(() =>{
+        this.show = !this.show;
+      }, 100)
+    }
+  }
+  hideSelect(){
+    console.log(this.show);
+    if(this.show)this.show = false;
+    console.log(this.show);
   }
 }
