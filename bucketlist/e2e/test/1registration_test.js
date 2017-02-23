@@ -1,3 +1,4 @@
+/// <reference path="../steps.d.ts" />
 Feature('Check registration');
 
 Before(function(I) {
@@ -12,6 +13,6 @@ Scenario('Test registration form and all process', function(I) {
     I.click('SIGN UP');
     I.seeCurrentUrlEquals('/register');
     I.see('Sign up and discover great ideas');
-    I.registration();
+    I.registrationUser();
     I.saveScreenshot('homepage.png');
 });

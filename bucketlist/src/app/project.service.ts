@@ -23,14 +23,14 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class ProjectService {
 
-    private baseOrigin = environment.production?'http://stage.bucketlist127.com':'http://bucketlist.loc';
+    private baseOrigin = environment.production?'http://stage.bucketlist127.com':environment.test?'http://behat.bucketlist.loc':'http://bucketlist.loc';
     private angularOrigin = environment.production?'http://stage2.bucketlist127.com':'http://ang.bucketlist.loc';
     //private baseOrigin = 'http://stage.bucketlist127.com';
 
     private headers = new Headers();
     private appUser:User;
 
-    private envprefix = environment.production?'/':'/app_dev.php/';
+    private envprefix = environment.production?'/':environment.test?'/':'/app_dev.php/';
     //private envprefix = '/';
 
     private baseUrl = this.baseOrigin + this.envprefix + 'api/v1.0/' ;

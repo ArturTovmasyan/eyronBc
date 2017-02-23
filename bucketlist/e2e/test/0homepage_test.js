@@ -1,3 +1,4 @@
+/// <reference path="../steps.d.ts" />
 Feature('Test homepage');
 
 Before(function(I) {
