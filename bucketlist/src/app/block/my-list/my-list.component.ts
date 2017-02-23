@@ -23,7 +23,7 @@ export class MyListBlockComponent implements OnInit {
         this._projectService.getUser()
             .subscribe(
                 user => {
-                  this.appUser = user;console.log(user);
+                  this.appUser = user;
                   this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                 })
       }

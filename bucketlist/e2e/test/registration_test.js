@@ -13,4 +13,5 @@ Scenario('Test registration form and all process', function(I) {
     I.seeCurrentUrlEquals('/register');
     I.see('Sign up and discover great ideas');
     I.registration();
+    I.saveScreenshot('homepage.png');
 });
