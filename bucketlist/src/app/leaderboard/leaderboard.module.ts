@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LeaderboardComponent } from './components';
+import { LeaderboardComponent } from './../indexes';
 import { TranslateModule} from 'ng2-translate';
 import { ComponentModule } from '../components/components.module';
 import { ProjectService } from '../project.service';

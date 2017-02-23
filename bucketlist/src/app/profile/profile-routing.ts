@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ProfileComponent }    from './components';
+import { ProfileComponent }    from './../indexes';
 
 const ProfileRoutes: Routes = [
   { path: '',  component: ProfileComponent },

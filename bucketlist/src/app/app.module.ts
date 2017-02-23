@@ -38,7 +38,7 @@ const myFirebaseAuthConfig = {
   method: AuthMethods.Popup
 };
 
-import { AppComponent } from './appCopmonent';
+import { AppComponent } from './indexes';
 import { AuthGuard }    from './common/auth.guard';
 import { LoginGuard }    from './common/login.guard';
 import { appRouting }   from './app-routing';
