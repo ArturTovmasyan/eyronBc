@@ -14,7 +14,8 @@ Scenario('Check Homepage', function(I) {
     I.click('DISCOVER MORE');
     I.seeCurrentUrlEquals('/ideas');
     I.see('your Browser Location Service or enter your location');
-    I.amOnPage('/');
+    I.backPage();
+    I.refresh();
     I.waitForText('Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.');
     I.click('Add');
     I.waitForText('CONNECT WITH');

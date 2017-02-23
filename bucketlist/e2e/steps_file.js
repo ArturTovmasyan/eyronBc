@@ -7,12 +7,10 @@ module.exports = function() {
     // It is recommended to place a general 'login' function here.
 
         loginUser: function(username, password) {
-            this.click('JOIN');
             this.waitForText('CONNECT WITH');
             this.fillField('_username', username);
             this.fillField('_password', password);
             this.click('SIGN IN');
-            this.seeCurrentUrlEquals('/ideas');
         },
         registrationUser: function() {
             this.attachFile('form input[name=file]', 'e2e/output/homepage.png');

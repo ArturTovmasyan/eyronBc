@@ -13,7 +13,7 @@
 
               <p class="error-message text-center" *ngIf="errorMessage && errorMessage.email">{{ errorMessage.email }}</p>
 
-              <input type="email" formControlName="email" class="form-control" placeholder="{{ 'resetting.request.username'|translate }}"/>
+              <input type="email" formControlName="email" name="email" class="form-control" placeholder="{{ 'resetting.request.username'|translate }}"/>
               <control-messages [control]="form.controls.email"></control-messages>
               <span *ngIf="errorMessage && errorMessage.user" style="text-align: center;color: red">{{ errorMessage.user }}</span>
               <span *ngIf="errorMessage && errorMessage.expires" style="text-align: center;color: red">{{ errorMessage.expires }}</span>
