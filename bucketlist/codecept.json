@@ -4,7 +4,7 @@
   "output": "./e2e/output",
   "helpers": {
     "Protractor": {
-      "url": "http://web.bucketlist.loc",
+      "url": "http://test.bucketlist.loc",
       "driver": "hosted",
       "browser": "chrome",
       "rootElement": "body"
