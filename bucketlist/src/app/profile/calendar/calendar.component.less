@@ -105,13 +105,13 @@
     }
 
     td{
-      height: 80px;
+      height: 40px;
       vertical-align: top;
     }
 
     span.goal-count{
-      display: block;
-      margin: 0 auto 5px;
+      //display: block;
+      margin: 0 0 2px;
     }
   }
 
@@ -127,6 +127,11 @@
     td{
       vertical-align: top;
     }
+
+    .absolute{
+      left: 10px;
+    }
+
   }
 
   sup{
@@ -146,11 +151,16 @@
       display: block;
       text-align: right;
     }
+
+    .absolute{
+      left: 10px;
+    }
   }
 
   .absolute{
     text-align: left;
     bottom: 1px;
+    left: 1px;
   }
 
   .table-bordered{
@@ -170,7 +180,7 @@
     }
 
     td{
-      padding: 14px 11px;
+      padding: 8px 11px;
       position: relative;
     }
 
@@ -192,8 +202,8 @@
   }
 
   span.goal-count{
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     .rounded-corners;
     text-align: center;
     color:#ffffff;
@@ -201,8 +211,8 @@
     vertical-align: middle;
     margin: 0 5px 5px 0;
     cursor: pointer;
-    font-size: 11px;
-    line-height: 19px;
+    font-size: 10px;
+    line-height: 17px;
   }
 }
 
@@ -231,6 +241,9 @@
       th,td{
         width: 102px;
       }
+      td{
+        padding: 14px 11px;
+      }
     }
 
     .lifetime{
@@ -258,6 +271,7 @@
 
     .absolute{
       bottom: 8px;
+      left: auto;
     }
 
     caption{
@@ -268,8 +282,11 @@
       margin: 0 5px 0 0;
       font-size: 12px;
       line-height: 20px;
+      width: 20px;
+      height: 20px;
     }
   }
+
 }
 
 @media (min-width: @screen-md) {

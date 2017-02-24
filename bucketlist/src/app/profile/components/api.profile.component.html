@@ -1,6 +1,6 @@
 <profile-header (onHover)="hideJoin($event)" [userInfo]="uId"></profile-header>
 
-<div class="bucketlist">
+<div class="bucketlist api-bucketlist">
 
     <div class="container">
         <div class="row">
@@ -104,7 +104,7 @@
             <div class="col-xs-3">
                 <ul>
                     <li>
-                        <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar;showMap = false">
+                        <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="clendarShow();showMap = false">
                             <img src="assets/images/calendar-icon.svg" class="svg"/>
                         </a>
 
