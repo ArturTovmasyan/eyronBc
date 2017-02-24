@@ -132,7 +132,7 @@
 
 
                                     <a class="user user-popover clearfix"
-                                       (click)="sidenavOpenClose()"
+                                       (click)="sidenav.open()"
                                        [ngClass]="{'join-class': joinToggle1}"
                                        (clickOutside)="joinToggle1 = false">
                                         <figure class="img-circle hidden-xs" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
