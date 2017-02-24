@@ -4,7 +4,7 @@ imports:
 parameters:
     node_path: /usr/local/bin/node
     matches_user_maximum_number: 100
-    angular2host: 'http://localhost:9876'
+    angular2host: '*'
     locale: en
     languages:
        en: English

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewContainerRef,ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef,ViewChild, ViewEncapsulation } from '@angular/core';
 import {MdDialog, MdDialogRef, MdDialogConfig, MdSidenav} from '@angular/material';
 import { TranslateService} from 'ng2-translate';
 import { Broadcaster} from '../tools/broadcaster';
@@ -11,12 +11,13 @@ import { App} from '../app';
 @Component({
   selector: 'app-root',
   templateUrl: './api.app.component.html',
-  styleUrls: ['./app.component.less'],
+  styleUrls: ['./api.app.component.less'],
   providers: [
     ProjectService,
     Broadcaster,
     CacheService
-  ]
+  ],
+    encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent extends App {

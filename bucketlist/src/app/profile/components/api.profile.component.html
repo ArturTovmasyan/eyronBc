@@ -4,7 +4,8 @@
 
     <div class="container">
         <div class="row">
-            <ul class="menu">
+            <div class="col-sm-12">
+                <ul class="menu">
                 <li [ngClass]="{'active': type == 'activity' }">
                     <a routerLink="/profile/{{ uId?uId:'my'}}/activity">
                         {{ 'menu.activity'|translate }}
@@ -38,17 +39,18 @@
                     </a>
                 </li>
 
-                <li class="pull-right">
-                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="clendarShow();showMap = false">
-                        <img src="assets/images/calendar-icon.svg" class="svg"/>
-                    </a>
+                <!--<li class="pull-right">-->
+                    <!--<a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar;showMap = false">-->
+                        <!--<img src="assets/images/calendar-icon.svg" class="svg"/>-->
+                    <!--</a>-->
 
-                    <a [ngClass]="{'map-marker-active': showMap}"
-                       (click)="showMap=!showMap;showCalendar = false">
-                        <img src="assets/images/map-icon.svg" class="svg"/>
-                    </a>
-                </li>
+                    <!--<a [ngClass]="{'map-marker-active': showMap}"-->
+                       <!--(click)="showMap=!showMap;showCalendar = false">-->
+                        <!--<img src="assets/images/map-icon.svg" class="svg"/>-->
+                    <!--</a>-->
+                <!--</li>-->
             </ul>
+            </div>
         </div>
     </div>
 
@@ -59,42 +61,70 @@
     <hr/>
     <calendar *ngIf="showCalendar"></calendar>
 
-    <div class="container slide" *ngIf="myProfile && type != 'activity'">
+    <div class="container slide api-priority" *ngIf="myProfile && type != 'activity'">
         <div class="row">
-            <button md-button (click)="toogleSelect()">Click</button>
+            <div class="col-xs-9">
+                <button md-button (click)="toogleSelect()">
+                    {{ 'goal.priority' | translate}}
+                    <i class="arrow-down"></i>
+                </button>
 
-            <div class="col-sm-12" [hidden]="!show" (clickOutside)="hideSelect()">
-                <form class="form-inline" action="#">
-                    <!--{# dream filter #}-->
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (isDream == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="isDream" (change)="getData()"></md-checkbox>
-                        {{ 'filter.dream'|translate}}
-                    </label>
+                <div [hidden]="!show" (clickOutside)="hideSelect()" class="subfilter">
+                    <form class="form-inline" action="#">
+                        <!--{# dream filter #}-->
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (isDream == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="isDream" (change)="getData()"></md-checkbox>
+                            {{ 'filter.dream'|translate}}
+                        </label>
 
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentImportant == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentImportant" (change)="getData()"></md-checkbox>
-                        {{ 'filter.import_urgent'|translate}}
-                    </label>
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentImportant == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentImportant" (change)="getData()"></md-checkbox>
+                            {{ 'filter.import_urgent'|translate}}
+                        </label>
 
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentNotImportant == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentNotImportant" (change)="getData()"></md-checkbox>
-                        {{ 'filter.not_import_urgent'|translate}}
-                    </label>
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentNotImportant == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentNotImportant" (change)="getData()"></md-checkbox>
+                            {{ 'filter.not_import_urgent'|translate}}
+                        </label>
 
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentImportant == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentImportant" (change)="getData()"></md-checkbox>
-                        {{ 'filter.import_not_urgent'|translate}}
-                    </label>
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentImportant == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentImportant" (change)="getData()"></md-checkbox>
+                            {{ 'filter.import_not_urgent'|translate}}
+                        </label>
 
-                    <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentNotImportant == true)}">
-                        <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentNotImportant" (change)="getData()"></md-checkbox>
-                        {{ 'filter.not_import_not_urgent'|translate}}
-                    </label>
-                </form>
-                <overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>
+                        <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentNotImportant == true)}">
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentNotImportant" (change)="getData()"></md-checkbox>
+                            {{ 'filter.not_import_not_urgent'|translate}}
+                        </label>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-xs-3">
+                <ul>
+                    <li>
+                        <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="clendarShow();showMap = false">
+                            <img src="assets/images/calendar-icon.svg" class="svg"/>
+                        </a>
+
+                        <a [ngClass]="{'map-marker-active': showMap}"
+                           (click)="showMap=!showMap;showCalendar = false">
+                            <img src="assets/images/map-icon.svg" class="svg"/>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
+
     </div>
+
+    <hr/>
+
+    <div class="container overall-place">
+        <overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>
+    </div>
+
 </div>
 
 <div class="container">

@@ -30,6 +30,7 @@ export class ProfileComponent extends Profile{
       protected dialog: MdDialog
   ) {
     super(metadataService, route, _projectService, _cacheService, broadcaster, router, renderer);
+
   }
   toogleSelect(){
     if(this.show != true){
@@ -44,5 +45,9 @@ export class ProfileComponent extends Profile{
   clendarShow(){
     let dialogRef: MdDialogRef<CalendarComponent>;
     dialogRef = this.dialog.open(CalendarComponent);
+    this.broadcaster.on<any>('closeDialog')
+        .subscribe( () =>{
+          dialogRef.close()
+        });
   }
 }
