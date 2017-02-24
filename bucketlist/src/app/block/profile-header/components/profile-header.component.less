@@ -398,26 +398,10 @@
       height: 60px;
     }
 
-    //h3 {
-    //  color: #ffffff;
-    //  font-size: 18px;
-    //  margin: 0 0 3px;
-    //  line-height: normal;
-    //  span {
-    //    white-space: nowrap;
-    //    width: 100%;
-    //    text-overflow: ellipsis;
-    //    overflow: hidden;
-    //    display: block;
-    //  }
-    //  &.user-name {
-    //    line-height: 53px;
-    //  }
-    //}
-
     figcaption{
+      min-height: 53px;
       ul{
-        padding-top:5px;
+        padding-top: 2px;
       }
     }
   }
@@ -437,7 +421,7 @@
       font-size:13px;
       a{
         color:#666666;
-        font-size: 12px;
+        font-size: 11px;
         line-height: 18px;
 
         &:hover,&:focus{
@@ -505,7 +489,7 @@
   }
 
   hr{
-    margin: -2px 0 0;
+      margin: -2px 0 0;
   }
 
   form{
@@ -532,6 +516,61 @@
         padding-left:30px;
       }
     }
+  }
+}
+
+.api-priority{
+  padding: 5px 15px;
+
+  .arrow-down{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #666666;
+    margin: 0 0 0 3px;
+  }
+
+  .md-button-focus-overlay{
+    background-color: transparent;
+  }
+
+  .md-button-wrapper{
+    font-size: 12px;
+  }
+
+  ul{
+    padding-top: 2px;
+  }
+}
+
+.subfilter{
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow:0 5px 5px -3px rgba(0,0,0,.2),
+             0 8px 10px 1px rgba(0,0,0,.14),
+             0 3px 14px 2px rgba(0,0,0,.12);
+  .rounded-corners(4px);
+  form{
+    label{
+      padding-left: 10px;
+
+      &:first-child{
+        padding-left: 10px;
+      }
+    }
+    .checkbox-inline + .checkbox-inline{
+      margin-left: 0;
+    }
+  }
+}
+
+.overall-place{
+  .overall-icon{
+    margin: 0 6px 0 14px;
   }
 }
 
