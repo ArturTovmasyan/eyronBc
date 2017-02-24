@@ -1,11 +1,11 @@
 /// <reference path="../steps.d.ts" />
 Feature('Test add goal functionality');
 
-Before(function(I) {
+Before((I) => {
     I.resizeWindow('maximize');
 });
 
-Scenario('Test add goal', function(I) {
+Scenario('Test add goal', (I) => {
     I.amOnPage('/');
     I.see('JOIN');
     I.click('JOIN');
@@ -14,29 +14,19 @@ Scenario('Test add goal', function(I) {
     I.wait(1);
     I.amOutsideAngularApp();
     I.click('Discover');
-    I.waitForText('goal1');
+    I.waitForText('goal1', 2);
     I.click('Add');
     I.amOutsideAngularApp();
-    I.waitForText('CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED');
+    I.waitForText('CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED', 3);
     I.click('Completed');
     I.click('Active');
     I.see('Deadline');
     I.see('Priority');
     I.click('urgent');
     I.click('important');
-    I.fillField('note', 'TEST DATA');
+    I.fillField('note', 'Write test data for note field');
     // I.fillField('stepText-0', 'STEP1');
     I.see('Visibility');
     I.click('Invisible');
     I.click('Visible');
-    // I.pressKey('Esc');
-    // I.amOutsideAngularApp();
-    // I.click('MY BUCKETLIST');
-    // I.wait(1);
-    // I.seeCurrentUrlEquals('/profile/my/all');
-    // I.click('Manage');
-    // I.click('REMOVE');
-    // I.click('REMOVE');
-    // I.dontSee('goal1');
-    pause();
 });

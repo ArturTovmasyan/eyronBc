@@ -7,11 +7,11 @@
       "url": "http://test.bucketlist.loc",
       "driver": "hosted",
       "browser": "chrome",
-      "rootElement": "html"
+      "rootElement": "html",
+      "maxSessions": 2
     },
-    "My": {
-      "require": "./e2e/my_helper.js",
-      "defaultHost": "http://test.bucketlist.loc"
+    "MyHelper": {
+      "require": "./e2e/my_helper.js"
     }
   },
   "include": {

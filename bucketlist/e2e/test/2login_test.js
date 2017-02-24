@@ -1,11 +1,11 @@
 /// <reference path="../steps.d.ts" />
 Feature('Test login functionality');
 
-Before(function(I) {
+Before((I) => {
     I.resizeWindow('maximize');
 });
 
-Scenario('Check login functionality', function(I) {
+Scenario('Check login functionality', (I) => {
     I.amOnPage('/');
     I.see('JOIN');
     I.click('JOIN');
@@ -13,8 +13,9 @@ Scenario('Check login functionality', function(I) {
     I.see('Bad credentials');
     I.loginUser('testuser@test.com', 'Test1234');
     I.seeCurrentUrlEquals('/ideas');
-    I.executeScript('window.localStorage.clear();window.history.back();');
-    I.refresh();
+    I.amOutsideAngularApp();
+    I.click('a.user-popover');
+    I.click('Logout');
     I.seeCurrentUrlEquals('/');
     I.click('JOIN');
     I.waitForText('CONNECT WITH');
@@ -27,11 +28,22 @@ Scenario('Check login functionality', function(I) {
     I.see('User not found');
     I.fillField('email', 'testuser@test.com');
     I.click('Send');
+    I.wait(1);
     I.seeCurrentUrlEquals('/resetting/check-email');
     I.see('Check your email');
     I.click('JOIN');
     I.waitForText('CONNECT WITH');
     I.click('.mat-button-ripple', '#login-page');
-    I.wait(2);
-    I.saveScreenshot('login.png');
+    I.amOutsideAngularApp();
+    I.switchToWindow(1);
+    I.waitForText('Facebook', 15);
+    I.fillField('email', 'test2test.am');
+    I.fillField('pass', 'test1324');
+    I.click('login');
+    I.switchToWindow(0);
+    I.click('a.google');
+    I.wait(5);
+    I.click('a.twitter');
+    I.wait(6);
+    I.saveScreenshot('login.jpg');
 });
