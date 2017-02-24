@@ -1,10 +1,11 @@
 <profile-header (onHover)="hideJoin($event)" [userInfo]="uId"></profile-header>
 
-<div class="bucketlist">
+<div class="bucketlist api-bucketlist">
 
     <div class="container">
         <div class="row">
-            <ul class="menu">
+            <div class="col-sm-12">
+                <ul class="menu">
                 <li [ngClass]="{'active': type == 'activity' }">
                     <a routerLink="/profile/{{ uId?uId:'my'}}/activity">
                         {{ 'menu.activity'|translate }}
@@ -38,17 +39,18 @@
                     </a>
                 </li>
 
-                <li class="pull-right">
-                    <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar;showMap = false">
-                        <img src="assets/images/calendar-icon.svg" class="svg"/>
-                    </a>
+                <!--<li class="pull-right">-->
+                    <!--<a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="showCalendar = !showCalendar;showMap = false">-->
+                        <!--<img src="assets/images/calendar-icon.svg" class="svg"/>-->
+                    <!--</a>-->
 
-                    <a [ngClass]="{'map-marker-active': showMap}"
-                       (click)="showMap=!showMap;showCalendar = false">
-                        <img src="assets/images/map-icon.svg" class="svg"/>
-                    </a>
-                </li>
+                    <!--<a [ngClass]="{'map-marker-active': showMap}"-->
+                       <!--(click)="showMap=!showMap;showCalendar = false">-->
+                        <!--<img src="assets/images/map-icon.svg" class="svg"/>-->
+                    <!--</a>-->
+                <!--</li>-->
             </ul>
+            </div>
         </div>
     </div>
 
@@ -59,12 +61,15 @@
     <hr/>
     <calendar *ngIf="showCalendar"></calendar>
 
-    <div class="container slide" *ngIf="myProfile && type != 'activity'">
+    <div class="container slide api-priority" *ngIf="myProfile && type != 'activity'">
         <div class="row">
-            <div class="col-sm-12">
-                <button md-button (click)="toogleSelect()">{{ 'goal.priority' | translate}}</button>
+            <div class="col-xs-8">
+                <button md-button (click)="toogleSelect()">
+                    {{ 'goal.priority' | translate}}
+                    <i class="arrow-down"></i>
+                </button>
 
-                <div [hidden]="!show" (clickOutside)="hideSelect()">
+                <div [hidden]="!show" (clickOutside)="hideSelect()" class="subfilter">
                     <form class="form-inline" action="#">
                         <!--{# dream filter #}-->
                         <label class="checkbox-inline" [ngClass]="{'checked-label': (isDream == true)}">
@@ -93,10 +98,33 @@
                         </label>
                     </form>
                 </div>
-                <overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>
+
+            </div>
+
+            <div class="col-xs-4 text-right">
+                <ul>
+                    <li>
+                        <a *ngIf="myProfile" class="calendar" [ngClass]="{'calendar-active': showCalendar}" (click)="clendarShow();showMap = false">
+                            <img src="assets/images/calendar-icon.svg" class="svg"/>
+                        </a>
+
+                        <a [ngClass]="{'map-marker-active': showMap}"
+                           (click)="showMap=!showMap;showCalendar = false">
+                            <img src="assets/images/map-icon.svg" class="svg"/>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
+
     </div>
+
+    <hr/>
+
+    <div class="container overall-place">
+        <overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>
+    </div>
+
 </div>
 
 <div class="container">

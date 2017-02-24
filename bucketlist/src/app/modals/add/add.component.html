@@ -1,4 +1,4 @@
-<div class="my-modal goal-modal" (clickOutside)="closeModal()">
+<div class="my-modal goal-modal" >
     <div class="goal-container">
         <div *ngIf="newAdded" class="email">
             {{ "goal.create_goal" | translate }}
@@ -54,7 +54,7 @@
                                     {{ "goal.status"|translate }}
                                 </h3>
 
-                                <!--<p>{{ "goal.in_proces"|translate }}</p>-->
+                                <p>{{ "goal.in_proces"|translate }}</p>
 
                                 <div class="clearfix purple-checkbox">
                                     <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">

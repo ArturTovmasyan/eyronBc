@@ -5,8 +5,10 @@ import { Broadcaster } from '../../tools/broadcaster';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { ProjectService} from '../../project.service';
 import { Profile} from '../profile';
+import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 
 import { MetadataService } from 'ng2-metadata';
+import {CalendarComponent} from "../calendar/calendar.component";
 
 @Component({
   selector: 'app-profile',
@@ -24,9 +26,11 @@ export class ProfileComponent extends Profile{
       protected _cacheService: CacheService,
       protected broadcaster: Broadcaster,
       protected router:Router,
-      protected renderer: Renderer
+      protected renderer: Renderer,
+      protected dialog: MdDialog
   ) {
     super(metadataService, route, _projectService, _cacheService, broadcaster, router, renderer);
+
   }
   toogleSelect(){
     if(this.show != true){
@@ -36,8 +40,14 @@ export class ProfileComponent extends Profile{
     }
   }
   hideSelect(){
-    console.log(this.show);
     if(this.show)this.show = false;
-    console.log(this.show);
+  }
+  clendarShow(){
+    let dialogRef: MdDialogRef<CalendarComponent>;
+    dialogRef = this.dialog.open(CalendarComponent);
+    this.broadcaster.on<any>('closeDialog')
+        .subscribe( () =>{
+          dialogRef.close()
+        });
   }
 }
