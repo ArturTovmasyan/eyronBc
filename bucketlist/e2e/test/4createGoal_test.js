@@ -9,7 +9,6 @@ Scenario('Check create goal functionality', (I) => {
     I.amOnPage('/');
     I.see('JOIN');
     I.click('JOIN');
-    I.clearCookie();
     I.loginUser('user1@user.com', 'Test1234');
     I.seeCurrentUrlEquals('/ideas');
     I.wait(1);
@@ -30,14 +29,17 @@ Scenario('Check create goal functionality', (I) => {
     I.click('.goal-view-submit');
     I.wait(1);
     I.seeCurrentUrlEquals('/goal/test-goals/view');
-    I.amOutsideAngularApp();
-    // I.click('div.mat-button-ripple');
-    // I.wait(1);
-    // I.click('btn_save_draft');
-    // I.wait(1);
-    // I.click('Edit');
-    // I.wait(1);
-    // I.click('btn_publish');
-    // I.click('mat-button-wrapper');
+    I.waitForText('TEST GOALS');
+    I.click('//div[@class="buttons"]/a[1]');
+    I.clearField('description');
+    I.fillField('description', 'DESCRIPTION FOR #test HELLO MY #GOALS FRIENDS #GOALS');
 
+    // I.click('//div[@class="buttons"]/button[2]');
+    // I.amOutsideAngularApp();
+    // I.click('Edit');
+    // I.seeInCurrentUrl('drafts');
+    // I.click('//div[@class="buttons"]/button[3]');
+    // I.waitForText('CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY CREATE');
+    // I.click('//div[@class="modal-bottom"]/a[1]');
+    // pause()
 });

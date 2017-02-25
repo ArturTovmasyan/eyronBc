@@ -31,11 +31,5 @@ exports.config = {
     onPrepare: function() {
         jasmine.getEnv().addReporter(new SpecReporter());
         browser.ignoreSynchronization = false;
-    },
-    params: {
-        login: {
-            user: 'test@test.am',
-            password: 'test1234'
-        }
     }
 };

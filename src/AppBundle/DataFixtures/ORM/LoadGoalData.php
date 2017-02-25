@@ -251,6 +251,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal15->setTitle('goal15');
         $goal15->setStatus(1);
         $goal15->setVideoLink(null);
+        $goal15->setLat(40.17941);
+        $goal15->setLng(4.54084);
         $goal15->setReadinessStatus(Goal::TO_PUBLISH);
         $goal15->setAuthor($user1);
         $goal15->setPublish(true);
@@ -975,6 +977,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('goal4', $goal4);
         $this->addReference('goal5', $goal5);
         $this->addReference('goal14', $goal14);
+        $this->addReference('goal15', $goal15);
         $this->addReference('userGoal1', $userGoal1);
         $this->addReference('userGoal2', $userGoal2);
         $this->addReference('userGoal3', $userGoal3);
