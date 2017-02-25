@@ -5,7 +5,7 @@ Before((I) => {
     I.resizeWindow('maximize');
 });
 
-Scenario.only('test my bucket list page functionality', (I) => {
+Scenario('test my bucket list page functionality', (I) => {
     I.amOnPage('/');
     I.see('JOIN');
     I.click('JOIN');
