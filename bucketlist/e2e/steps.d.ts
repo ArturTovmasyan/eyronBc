@@ -66,13 +66,15 @@ declare namespace CodeceptJS {
     wait: (sec) => any; 
     debug: (msg) => any; 
     debugSection: (section, msg) => any;
+    switchToWindow: (param) => any;
     loginUser: (username, password) => any;
     registrationUser: () => any;
-    say: (msg) => any; 
+    setDateFields: () => any;
+    say: (msg) => any;
 
   }
 }
 
 declare module "codeceptjs" {
-    export = CodeceptJS;
+  export = CodeceptJS;
 }
