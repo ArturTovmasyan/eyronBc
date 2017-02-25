@@ -8,7 +8,7 @@
   <div class="pull-left text-gray">
     <h4 class="text-dark-gray">
       <span class="text-dark-gray" title="{{ name }}">
-          {{ name.length < 27 ? name: ((name | slice:0:24)  + '...')}}
+          {{ name.length < 22 ? name: ((name | slice:0:19)  + '...')}}
       </span>
       <i class="leaderboard-small" *ngIf="user.innovator || user.mentor || user.traveler"></i>
     </h4>

@@ -22,7 +22,7 @@ import { App} from '../app';
 
 export class AppComponent extends App {
     @ViewChild('sidenav') sidenav: MdSidenav;
-    public userDrop : boolean = false;
+    //public userDrop : boolean = false;
     constructor(
         protected angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
         protected angulartics2: Angulartics2,
@@ -44,17 +44,18 @@ export class AppComponent extends App {
             viewContainerRef,
             dialog);
     }
-    sidenavOpenClose(){
-        this.userDrop = !this.userDrop;
-        if(this.userDrop){
-            this.sidenav.open()
-        }
-        else this.sidenav.close();
-    }
+    //sidenavOpenClose(){
+    //    this.userDrop = !this.userDrop;
+    //    if(this.userDrop){
+    //        this.sidenav.open()
+    //    } else {
+    //        this.sidenav.close();
+    //    }
+    //}
+
     check(){
         if(this.sidenav._isOpened){
             this.sidenav.close()
         }
-        else return;
     }
 }

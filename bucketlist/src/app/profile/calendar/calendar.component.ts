@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {ProjectService} from '../../project.service';
+import {Broadcaster} from '../../tools/broadcaster';
 
 @Component({
   selector: 'calendar',
@@ -16,7 +17,7 @@ export class CalendarComponent implements OnInit {
   public dayDifferent:number;
   public prevMonthDay:number;
   public noShowLast:boolean;
-  
+  public isMobile:Boolean= (window.innerWidth < 768);
   public now = new Date();
   public type = 'month';
   public days = [];
@@ -27,7 +28,10 @@ export class CalendarComponent implements OnInit {
   public currentMonth = this.now.getMonth();
   public currentYear = this.now.getFullYear();
 
-  constructor(private _projectService: ProjectService) { }
+  constructor(
+      private _projectService: ProjectService,
+      private broadcaster: Broadcaster
+  ) { }
 
   ngOnInit() {
     this.initDate();
@@ -175,4 +179,7 @@ export class CalendarComponent implements OnInit {
       return 1;
     }
   };
+  dialogClose(){
+    this.broadcaster.broadcast('closeDialog');
+  }
 }

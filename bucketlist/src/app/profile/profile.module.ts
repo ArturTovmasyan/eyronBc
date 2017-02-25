@@ -10,7 +10,7 @@ import { MaterialModule } from '@angular/material';
 import { ActivitySharingModule } from '../activity/activity-sharing.module';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import {ToolsSharingModule} from '../tools/tools-sharing.module';
- 
+
 import { ProfileRouting } from './profile-routing';
 import { ComponentModule } from '../components/components.module';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -30,8 +30,8 @@ import { OverallComponent } from '../block/overall/overall.component';
     MapModule,
     ActivitySharingModule,
     InfiniteScrollModule,
-    MaterialModule.forRoot(),
-    ToolsSharingModule
+    ToolsSharingModule,
+    MaterialModule.forRoot()
   ],
   declarations: [
     ProfileComponent,
@@ -43,6 +43,9 @@ import { OverallComponent } from '../block/overall/overall.component';
   ],
   providers: [
     ProjectService
+  ],
+  entryComponents: [
+    CalendarComponent
   ]
 })
 export class ProfileModule { }
