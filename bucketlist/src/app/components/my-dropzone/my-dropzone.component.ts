@@ -91,7 +91,8 @@ export class MyDropzoneComponent implements OnInit {
     this.process = false;
   }
 
-  cancel(i){
+  cancel(i, e){
+    e.preventDefault();
     if(this.existing && this.existing[i].id){
       let index = this.files.indexOf(this.existing[i].id);
       if(index !== -1){

@@ -1,11 +1,11 @@
 <md-sidenav-container>
-    <md-sidenav align="end" mode="over"  #sidenav>
+    <md-sidenav align="end" mode="over"  #sidenav *ngIf="appUser">
         <span class="close-menu" (click)="sidenav.close()"></span>
 
         <ul class="api-user-menu">
 
             <!--{% if app.user and app.user.activity %}-->
-            <li *ngIf="appUser && appUser.activity">
+            <li *ngIf="appUser.activity">
                 <a routerLink="/activity" (click)="sidenav.close()">
                     <i  class="icons activity-icon"></i>
                     <span>{{ 'activity'|translate }}</span>
@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li>
-                <a routerLink="/goal/my-ideas/private" *ngIf=" appUser.draft_count && appUser.draft_count !=0" (click)="sidenav.close()">
+                <a routerLink="/goal/my-ideas/private" *ngIf="appUser.draft_count && appUser.draft_count !=0" (click)="sidenav.close()">
                     <i class="icons my-ideas-icon"></i>
                     <span>{{ 'right_menu.my_ideas'|translate | capitalize }}</span>
                 </a>
@@ -132,7 +132,7 @@
 
 
                                     <a class="user user-popover clearfix"
-                                       (click)="sidenavOpenClose()"
+                                       (click)="sidenav.open()"
                                        [ngClass]="{'join-class': joinToggle1}"
                                        (clickOutside)="joinToggle1 = false">
                                         <figure class="img-circle hidden-xs" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
