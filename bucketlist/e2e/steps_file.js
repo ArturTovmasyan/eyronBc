@@ -43,7 +43,19 @@ module.exports = function() {
             this.click('//div[@class="col-xs-4"][3]');
             this.wait(1);
             this.click('//md-option[2]');
-        }
+        },
+      changeNotifySettings: function () {
+        this.click('//md-slide-toggle[1]');
+        this.click('//md-slide-toggle[2]');
+        this.click('//md-slide-toggle[3]');
+        this.click('//md-slide-toggle[4]');
+        this.click('//md-slide-toggle[5]');
+        this.click('//md-slide-toggle[6]');
+        this.click('//md-slide-toggle[7]');
+        this.click('//md-slide-toggle[8]');
+        this.click('//md-slide-toggle[9]');
+        this.click('//md-slide-toggle[10]');
+      }
 
   });
 };

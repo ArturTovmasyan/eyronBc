@@ -1,7 +1,7 @@
 /// <reference path="../steps.d.ts" />
 Feature('Test mybucketlist page');
 
-Before((I) => {
+BeforeSuite((I) => {
     I.resizeWindow('maximize');
 });
 
@@ -24,7 +24,7 @@ Scenario('test my bucket list page functionality', (I) => {
 
     I.click('Activity');
     I.click('Active');
-    I.waitForText('goal9');
+    I.waitForText('goal9', 5);
     I.click('Completed');
     I.waitForText('goal3');
     I.click('Created');

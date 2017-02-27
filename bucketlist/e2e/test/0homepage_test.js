@@ -1,7 +1,7 @@
 /// <reference path="../steps.d.ts" />
 Feature('Test homepage');
 
-Before((I) => {
+BeforeSuite((I) => {
     I.resizeWindow('maximize');
 });
 

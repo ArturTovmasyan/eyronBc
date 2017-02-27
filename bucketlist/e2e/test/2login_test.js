@@ -1,7 +1,7 @@
 /// <reference path="../steps.d.ts" />
 Feature('Test login functionality');
 
-Before((I) => {
+BeforeSuite((I) => {
     I.resizeWindow('maximize');
 });
 

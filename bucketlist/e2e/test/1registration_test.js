@@ -1,7 +1,7 @@
 /// <reference path="../steps.d.ts" />
 Feature('Check registration');
 
-Before((I) => {
+BeforeSuite((I) => {
     I.resizeWindow('maximize');
 });
 
