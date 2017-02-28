@@ -24,4 +24,5 @@ Scenario('Test leader board page functionality', (I) => {
   I.waitForText('user1 useryan');
   I.click('Innovator');
   I.waitForText('userToo useryan');
+  I.saveScreenshot('leaderBoard.jpg');
 });

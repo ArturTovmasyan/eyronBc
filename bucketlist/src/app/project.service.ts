@@ -224,7 +224,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param id
      * @returns {Observable<R>}
      */
@@ -277,7 +277,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param goalId
      * @param data
      * @returns {Observable<R>}
@@ -289,7 +289,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param goalId
      * @param data
      * @returns {Observable<R>}
@@ -345,7 +345,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param id
      * @returns {Observable<R>}
      */
@@ -725,6 +725,7 @@ export class ProjectService {
      *
      */
     getCommons(id:number, start?:number, count?:number):Observable<any> {
+        this.headers.set('apikey', localStorage.getItem('apiKey'));
         let end = count?('/' + start + '/' + count):'';
         return this.http.get(this.ideasUrl + id + this.commonUrl + end, {headers: this.headers})
             .map((r:Response) => r.json())
@@ -791,7 +792,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param condition
      * @param count
      * @param first
@@ -807,7 +808,7 @@ export class ProjectService {
      */
     getOverall(condition:number, count:number, first:number, isDream:boolean,
              notUrgentImportant:boolean, notUrgentNotImportant:boolean,
-             urgentImportant:boolean, urgentNotImportant:boolean, status:string, 
+             urgentImportant:boolean, urgentNotImportant:boolean, status:string,
              userId?:number, owned?:boolean):Observable<any> {
         let path = owned?('owned=true'):('condition=' + condition +
         '&count=' + count + '&first=' + first + '&isDream=' + isDream + '&notUrgentImportant=' + notUrgentImportant +

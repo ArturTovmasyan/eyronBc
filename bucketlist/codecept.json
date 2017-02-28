@@ -7,8 +7,7 @@
       "url": "http://test.bucketlist.loc",
       "driver": "hosted",
       "browser": "chrome",
-      "rootElement": "html",
-      "maxSessions": 2
+      "rootElement": "html"
     },
     "MyHelper": {
       "require": "./e2e/my_helper.js"

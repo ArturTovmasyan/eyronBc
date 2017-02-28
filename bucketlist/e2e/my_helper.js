@@ -1,5 +1,6 @@
 'use strict';
 let chai = require('chai');
+let protractor = require('protractor');
 let expect = chai.expect;
 
 class MyHelper extends Helper {
@@ -40,6 +41,14 @@ class MyHelper extends Helper {
     itm.count().then(function(originalCount) {
       expect(originalCount).to.be.equal(11);
     });
+  }
+
+  /**
+   * This function is used to press ENTER
+   *
+   */
+  pressEnter() {
+    element(by.xpath('//input[@name="search"]')).sendKeys(protractor.Key.ENTER);
   }
 }
 

@@ -11,7 +11,7 @@ module.exports = function() {
             this.click('SIGN IN');
         },
         registrationUser: function() {
-            this.attachFile('form input[name=file]', 'e2e/output/homepage.png');
+            this.attachFile('form input[name=file]', 'e2e/output/homepage.jpg');
             this.fillField('firstName', '');
             this.fillField('lastName', '');
             this.fillField('email', '');

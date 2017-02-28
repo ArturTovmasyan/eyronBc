@@ -75,4 +75,5 @@ Scenario('test my bucket list page functionality', (I) => {
     I.waitForText('ALL');
     I.click('i.icon-arrow-right');
     I.click('i.icon-arrow-left');
+    I.saveScreenshot('myBucketList.jpg');
 });

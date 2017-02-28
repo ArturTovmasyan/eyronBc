@@ -52,5 +52,6 @@ Scenario('Test Settings all functionality', (I) => {
   I.wait(1);
   I.click('//md-option[1]');
   I.click('save');
+  I.saveScreenshot('settings.jpg');
 
 });

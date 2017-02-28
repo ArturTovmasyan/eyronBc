@@ -17,7 +17,8 @@ Scenario('Test add goal', (I) => {
     I.waitForText('goal1', 2);
     I.click('Add');
     I.amOutsideAngularApp();
-    I.waitForText('CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED', 3);
+    I.waitForText('CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED', 5);
+    I.wait(1);
     I.click('Completed');
     I.click('Active');
     I.see('Deadline');
