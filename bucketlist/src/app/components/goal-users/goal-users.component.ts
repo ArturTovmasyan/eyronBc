@@ -19,6 +19,7 @@ export class GoalUsersComponent implements OnInit {
   voters_count: number;
   is_vote: boolean;
   appUser:User;
+  busy:boolean = false;
   
   constructor(
       private _projectService: ProjectService,
@@ -61,19 +62,27 @@ export class GoalUsersComponent implements OnInit {
   }
   
   manageVote(id) {
+    if(this.busy == true) return;
+    this.busy = true;
     if(this.isMy())return;
     let type = (!this.is_vote)?'add':'remove';
+    if(type == 'add'){
+      this.voters_count += 1;
+    }
+    else this.voters_count -= 1;
     this._projectService[type + 'Vote'](id)
         .subscribe(
             () => {
               if(!this.is_vote){
-                    this.voters_count++;
+
                     this.is_vote = true;
                   } else {
-                    this.voters_count--;
+
                     this.is_vote = false;
                   }
+              this.busy = false;
             });
+
         // 'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
 
   }
