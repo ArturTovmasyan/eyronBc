@@ -119,7 +119,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
             //$scope.placeholder = '';
         }
         else if(window.innerWidth < 992){
-            this.sliderCount = (this.categories.length < 8)?this.categories.length + 1 : 8;
+            this.sliderCount = (this.categories.length < 7)?this.categories.length + 1 : 7;
             //$scope.isMobile = false;
             //$scope.placeholder = $scope.placeholderText;
         }

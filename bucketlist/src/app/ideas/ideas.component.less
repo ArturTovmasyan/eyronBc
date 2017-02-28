@@ -126,7 +126,8 @@ hr{
     height: 100%;
     width: 20px;
     top: 0;
-    background: rgba(255, 255, 255, 0.6);
+    //background: rgba(255, 255, 255, 0.6);
+    background: #ffffff;
     cursor: pointer;
   }
 
@@ -149,26 +150,27 @@ hr{
 
   .swiper-button-prev{
     background: url('../../assets/images/left-slide.png') no-repeat center center;
-    background-size: 100%;
+    background-size: 80%;
     left: 7px;
   }
 
   .swiper-button-next{
     background: url('../../assets/images/right-slide.png') no-repeat center center;
-    background-size: 100%;
+    background-size: 80%;
     right:7px;
   }
 }
 
 ul.filter{
-  padding: 7px 5px 10px;
+  padding: 7px 0 10px;
   margin-bottom:0;
-  min-width:125px;
+  //min-width:125px;
   height: 60px;
 
   li{
     display:inline-block;
     cursor: pointer;
+    padding: 0 10px 0 0;
 
     a{
       color:#666666;
@@ -310,6 +312,14 @@ ul.filter{
       right: -1px;
       top: 0;
     }
+
+    .swiper-button-prev{
+      background-size: 100%;
+    }
+
+    .swiper-button-next{
+      background-size: 100%;
+    }
   }
 
   .ideas-top{
@@ -324,7 +334,8 @@ ul.filter{
     padding: 8px 0 11px;
 
     li{
-
+      padding: 0;
+      
       a{
         font-size:13px;
         span{
