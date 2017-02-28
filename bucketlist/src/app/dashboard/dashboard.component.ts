@@ -11,9 +11,10 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    if(localStorage.getItem('apiKey')){
-      this.router.navigate(['/activity']);
-    }
+    window.scrollTo(0,0);
+    // if(localStorage.getItem('apiKey')){
+    //   this.router.navigate(['/activity']);
+    // }
   }
 
 }

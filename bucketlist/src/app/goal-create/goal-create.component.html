@@ -62,7 +62,7 @@
                                 <input type="text" name="title" required="required" maxlength="64" pattern=".{3,}"
                                        class="form-control title" placeholder="Title" autocomplete="off"
                                        [(ngModel)]="title"
-                                       (ngModelChange)="getGoals()">
+                                       (ngModelChange)="getGoals($event)">
 
                             </div>
                             <div *ngIf="haveIdeas && showIdeas" class="padding-top"></div>
@@ -150,6 +150,7 @@
                             </div>
 
                             <br/>
+                            <label class="text-dark-gray">Video</label>
                             <input-video *ngFor="let video of videos_array; let i = index"
                                          [key]="i"
                                          [limit]="3"

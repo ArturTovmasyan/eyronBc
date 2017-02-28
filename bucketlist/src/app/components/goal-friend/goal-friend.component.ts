@@ -13,7 +13,7 @@ export class GoalFriendComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.name = this.user.first_name + '' + this.user.last_name;
+    this.name = this.user.first_name + ' ' + this.user.last_name;
   }
 
 }

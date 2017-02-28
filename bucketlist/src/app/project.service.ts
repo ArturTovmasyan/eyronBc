@@ -91,6 +91,8 @@ export class ProjectService {
     private putCommentUrl = this.baseUrl + 'comments/';
 
     constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
+
+        if(!environment.production)console.log('you are in development mode');
         this.headers.append('apikey', localStorage.getItem('apiKey'));
         this.broadcaster.on<User>('getUser')
             .subscribe(user => {

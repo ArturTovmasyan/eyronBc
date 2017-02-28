@@ -165,6 +165,10 @@
             <argument type="service" id="serializer" />
         </service>
 
+        <service id="bl.apc" class="AppBundle\Services\ApcService">
+            <argument/>
+        </service>
+
     </services>
 
 </container>

@@ -6,8 +6,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { RegistrationConfirmComponent } from './components/registration-confirm/registration-confirm.component';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { AuthGuard }      from './common/auth.guard';
-import {PageComponent} from './page/page.component';
-import {ErrorComponent} from "./components/error/error.component";
+import { LoginGuard }      from './common/login.guard';
+import { PageComponent} from './page/page.component';
+import { ErrorComponent} from "./components/error/error.component";
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -27,7 +28,7 @@ const appRoutes: Routes = [
   { path: 'edit', loadChildren: './settings/settings.module#SettingsModule', canActivate: [AuthGuard]},
   { path: 'goal/:slug', loadChildren: './inner/inner.module#InnerModule'},
   { path: 'ideas', loadChildren: './ideas/ideas.module#IdeasModule'},
-  { path: '', component: DashboardComponent },
+  { path: '', component: DashboardComponent, canActivate: [LoginGuard] },
   { path: 'error', component: ErrorComponent },
   { path: '**', component: ErrorComponent }
 ];

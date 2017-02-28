@@ -11,6 +11,7 @@ import { SwiperModule } from 'angular2-useful-swiper';
 import { ModalsModule} from '../modals/modals.module';
 import {ShareButtonsModule} from "ng2-sharebuttons";
 import { MetadataModule } from 'ng2-metadata';
+import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
 import { InnerRouting } from './inner-routing';
 import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
@@ -25,6 +26,7 @@ import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
     SwiperModule,
     FormsModule,
     ModalsModule,
+    MarkdownToHtmlModule,
     MetadataModule.forRoot(),
     MaterialModule.forRoot(),
     ShareButtonsModule

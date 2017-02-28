@@ -8,6 +8,7 @@
 
 namespace Application\UserBundle\Services;
 use AppBundle\Services\AbstractProcessService;
+use AppBundle\Services\ApcService;
 use AppBundle\Services\PutNotificationService;
 use AppBundle\Services\UserNotifyService;
 use Application\UserBundle\Entity\Badge;
@@ -55,24 +56,31 @@ class BadgeService extends AbstractProcessService
     private $liipManager;
 
     /**
+     * @var
+     */
+    private $apc;
+
+    /**
      * BadgeService constructor.
      * @param EntityManager $em
      * @param UserNotifyService $notifyService
      * @param PutNotificationService $pushNote
      * @param NotificationService $notification
      * @param $router
+     * @param $liipManager
      */
     public function __construct(EntityManager $em, UserNotifyService $notifyService,
                                 PutNotificationService $pushNote,
                                 NotificationService $notification,
-                                $router, $liipManager)
+                                $router, $liipManager, ApcService $apc)
     {
-        $this->em = $em;
-        $this->notifyService = $notifyService;
-        $this->pushNote= $pushNote;
-        $this->notification= $notification;
-        $this->router= $router;
-        $this->liipManager = $liipManager;
+        $this->em               = $em;
+        $this->notifyService    = $notifyService;
+        $this->pushNote         = $pushNote;
+        $this->notification     = $notification;
+        $this->router           = $router;
+        $this->liipManager      = $liipManager;
+        $this->apc              = $apc;
     }
 
     /**
@@ -199,7 +207,7 @@ class BadgeService extends AbstractProcessService
             'maxUpdate' => $minUpdate
         );
 
-        apc_store(self::TOP_BADGES_USERS, $result);
+        $this->apc->apc_store(self::TOP_BADGES_USERS, $result);
 
         return $result;
     }
@@ -270,8 +278,8 @@ class BadgeService extends AbstractProcessService
             $maxScore[$type] = $newScore;
 
             // add to cache
-            apc_delete(self::BADGE_MAX_SCORE);
-            apc_store(self::BADGE_MAX_SCORE, $maxScore);
+            $this->apc->apc_delete(self::BADGE_MAX_SCORE);
+            $this->apc->apc_store(self::BADGE_MAX_SCORE, $maxScore);
         }
 
         // check has changed
@@ -404,8 +412,8 @@ class BadgeService extends AbstractProcessService
                 $maxScore[$type] = $newScore;
 
                 // add to cache
-                apc_delete(self::BADGE_MAX_SCORE);
-                apc_store(self::BADGE_MAX_SCORE, $maxScore);
+                $this->apc->apc_delete(self::BADGE_MAX_SCORE);
+                $this->apc->apc_store(self::BADGE_MAX_SCORE, $maxScore);
             }
 
             // check has changed
@@ -424,7 +432,7 @@ class BadgeService extends AbstractProcessService
      */
     public function getMaxScore($score = 0, $type = 0)
     {
-        $badgeMaxScore = apc_fetch(self::BADGE_MAX_SCORE);
+        $badgeMaxScore = $this->apc->apc_fetch(self::BADGE_MAX_SCORE);
 
         $getNewFromDb = true;
         if(is_array($badgeMaxScore) &&
@@ -436,7 +444,7 @@ class BadgeService extends AbstractProcessService
         if(!$badgeMaxScore || $getNewFromDb){
 
             $badgeMaxScore = $this->em->getRepository('ApplicationUserBundle:Badge')->getMaxScores();
-            apc_store(self::BADGE_MAX_SCORE, $badgeMaxScore);
+            $this->apc->apc_store(self::BADGE_MAX_SCORE, $badgeMaxScore);
         }
 
         return $badgeMaxScore;

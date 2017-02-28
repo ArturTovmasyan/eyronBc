@@ -15,7 +15,7 @@
     font-size: 14px;
     line-height: 21px;
     text-transform: uppercase;
-    margin: 0 0 20px;
+    margin: 0 0 5px;
     padding: 2px 15px 2px 15px;
     color: #666666;
     background-color: #ffffff;
@@ -54,15 +54,15 @@
   }
 
   h3,caption{
-    margin-top: 0;
-    font-size: 22px;
+    margin: 0;
+    font-size: 17px;
+    line-height: 25px;
     color: #333333;
     font-weight: 700;
+    padding-top: 0;
   }
 
-  caption{
-    background-color: #ffffff;
-  }
+
 
   .calendar-tooltip{
     position: absolute;
@@ -89,7 +89,7 @@
   }
 
   .icon-arrow-left,.icon-arrow-right{
-    font-size: 30px;
+    font-size: 25px;
     color:#999999;
 
     &:hover{
@@ -98,21 +98,40 @@
   }
 
   .month-calendar{
+    margin: 0 auto;
+    width: 100%;
     th,td{
       width: 45px;
     }
 
+    td{
+      height: 40px;
+      vertical-align: top;
+    }
+
     span.goal-count{
-      display: block;
-      margin: 0 auto 5px;
+      //display: block;
+      margin: 0 0 2px;
     }
   }
 
   .year-calendar{
+    margin: 0 auto;
+    width: 100%;
+
     th,td{
       width: 95px;
-      height: 60px;
+      height: 45px;
     }
+
+    td{
+      vertical-align: top;
+    }
+
+    .absolute{
+      left: 10px;
+    }
+
   }
 
   sup{
@@ -132,11 +151,16 @@
       display: block;
       text-align: right;
     }
+
+    .absolute{
+      left: 10px;
+    }
   }
 
   .absolute{
     text-align: left;
     bottom: 1px;
+    left: 1px;
   }
 
   .table-bordered{
@@ -156,7 +180,7 @@
     }
 
     td{
-      padding: 14px 11px;
+      padding: 8px 9px;
       position: relative;
     }
 
@@ -178,15 +202,17 @@
   }
 
   span.goal-count{
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 13px;
     .rounded-corners;
     text-align: center;
     color:#ffffff;
     display: inline-block;
     vertical-align: middle;
-    margin: 0 5px 5px;
+    margin: 0 5px 5px 0;
     cursor: pointer;
+    font-size: 10px;
+    line-height: 15px;
   }
 }
 
@@ -194,13 +220,29 @@
   .calendar-place{
     padding: 43px 0 10px;
 
+    .groupX{
+      margin: 0 0 20px;
+    }
+
     h3.year{
       padding-left: 15px;
+    }
+
+    h3,caption{
+      font-size: 22px;
+      line-height: 33px;
+    }
+
+    caption{
+      background-color: #ffffff;
     }
 
     .table-bordered{
       th,td{
         width: 102px;
+      }
+      td{
+        padding: 14px 11px;
       }
     }
 
@@ -229,6 +271,7 @@
 
     .absolute{
       bottom: 8px;
+      left: auto;
     }
 
     caption{
@@ -237,8 +280,17 @@
 
     span.goal-count{
       margin: 0 5px 0 0;
+      font-size: 12px;
+      line-height: 20px;
+      width: 20px;
+      height: 20px;
     }
   }
+
+  .icon-arrow-left,.icon-arrow-right{
+    font-size: 30px;
+  }
+
 }
 
 @media (min-width: @screen-md) {

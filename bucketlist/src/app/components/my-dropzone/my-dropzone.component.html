@@ -39,13 +39,13 @@
                             <span>✔</span>
                         </div>
                         <div class="dz-error-mark" data-dz-remove *ngIf="!data.progress && data.error"
-                             (click)="cancel(i)">
+                             (click)="cancel(i, $event)">
                             <span>✘</span>
                         </div>
                         <div class="dz-error-message" *ngIf="data.error">
                             <span data-dz-errormessage> {{ data.error }}</span>
                         </div>
-                        <div (click)="cancel(i)" class="dz-remove"> Cancel</div>
+                        <div (click)="cancel(i, $event)" class="dz-remove"> Cancel</div>
                     </div>
                 </div>
             </div>

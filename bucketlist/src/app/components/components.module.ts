@@ -19,7 +19,6 @@ import { SliceEmailPipe } from '../pipes/sliceEmail.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
 import { MaterialModule } from '@angular/material';
 import { RemoveTagPipe } from '../pipes/removeTag.pipe';
-import { MarkdownToHtmlPipe} from 'markdown-to-html-pipe';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
 import { InputVideoComponent } from './embed-video/input-video.component';
 import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
@@ -45,7 +44,6 @@ import { PreloadImgComponent } from './preload-img/preload-img.component';
     SliceEmailPipe,
     RoundPipe,
     RemoveTagPipe,
-    MarkdownToHtmlPipe,
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
@@ -69,7 +67,6 @@ import { PreloadImgComponent } from './preload-img/preload-img.component';
     CommentComponent,
     ProfileGoalComponent,
     RemoveTagPipe,
-    MarkdownToHtmlPipe,
     ControlMessagesComponent,
     EmbedVideoComponent,
     InputVideoComponent,

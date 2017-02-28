@@ -22,6 +22,7 @@ export class NotificationComponent implements OnInit {
     public reserve: any[];
     public serverPath:string = '';
     public time: any[];
+    public isMobile:Boolean= (window.innerWidth < 768);
 
 
     constructor(
@@ -40,6 +41,7 @@ export class NotificationComponent implements OnInit {
 
 
     ngOnInit() {
+        window.scrollTo(0,0);
     this.serverPath = this._projectService.getPath();
     this.getNotifications();
         this.broadcaster.on<any>('markAllAsReAD')

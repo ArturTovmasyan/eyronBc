@@ -1,3 +1,5 @@
+@import "../../../assets/less/variables.less";
+
 .overall-progress{
   max-height: 204px;
 
@@ -52,6 +54,25 @@
   span{
     &:hover{
       color: #999999;
+    }
+  }
+}
+
+.achievement-percent{
+  position: absolute;
+  padding-left: 10px;
+
+    span{
+      font-size: 11px;
+      line-height: 18px;
+    }
+}
+
+@media (min-width: @screen-lg) {
+  .overall-progress{
+    small{
+      display: inline-block;
+      padding:0 0 15px 0;
     }
   }
 }
