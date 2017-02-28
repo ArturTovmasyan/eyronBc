@@ -49,7 +49,7 @@
 
         <service id="bl.user.mailer" class="Application\UserBundle\Services\Mailer" public="false">
             <argument type="service" id="translator"/>
-            <argument>%angular2host%</argument>
+            <argument>%apiHost%</argument>
             <argument type="service" id="mailer" />
             <argument type="service" id="router" />
             <argument type="service" id="templating" />
