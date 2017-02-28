@@ -16,12 +16,12 @@ class Mailer extends BaseMailer
 {
     protected $translator;
     protected $request;
-    protected $angular2host;
+    protected $apiHost;
 
-    public function __construct($translator, $angular2host, $mailer, RouterInterface $router, EngineInterface $templating, array $parameters)
+    public function __construct($translator, $apiHost, $mailer, RouterInterface $router, EngineInterface $templating, array $parameters)
     {
         $this->translator = $translator;
-        $this->angular2host = $angular2host;
+        $this->apiHost = $apiHost;
 
         parent::__construct($mailer, $router, $templating, $parameters);
     }
@@ -53,7 +53,7 @@ class Mailer extends BaseMailer
         $template = $this->parameters['resetting.template'];
 
         //generate activation token url 
-        $url = sprintf('%s/resetting/reset/%s', $this->angular2host, $user->getConfirmationToken());
+        $url = sprintf('%s/resetting/reset/%s', $this->apiHost, $user->getConfirmationToken());
 
         $rendered = $this->templating->render($template, [
             'user' => $user,
