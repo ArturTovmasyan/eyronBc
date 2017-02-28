@@ -42,12 +42,7 @@ class EmailSenderService
         $setFrom =  $this->container->getParameter('no_reply');
 
         //get apiHost in parameters
-        $apiHost = $this->container->getParameter('apiHost');
-
-        //check if angular2host not exist
-        if (!$apiHost) {
-            throw new NotFoundHttpException("apiHost not found in parameters.yml");
-        }
+        $apiHost = $this->container->getParameter('apihost');
 
         //get activate url
         $url = sprintf('%s/user/confirm/%s', $apiHost, $registrationToken);
@@ -83,13 +78,8 @@ class EmailSenderService
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
 
-        //get angular2 host in parameters
-        $apiHost = $this->container->getParameter('apiHost');
-
-        //check if angular2host not exist
-        if (!$apiHost) {
-            throw new NotFoundHttpException("apiHost not found in parameters.yml");
-        }
+        //get apiHost host in parameter
+        $apiHost = $this->container->getParameter('apihost');
 
         //generate url
         $url = sprintf('%s/edit/add-email/%s/%s', $apiHost, $emailToken, $newUserEmail);

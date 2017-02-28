@@ -57,6 +57,6 @@ parameters:
     cookie_domain: .bucketlist127.com
     session_name: AIzaSyBF1Id
     angular2host: https://web.bucketlist127.com
-    apiHost: http://stage2.bucketlist127.com
+    apihost: http://stage2.bucketlist127.com
 
 
