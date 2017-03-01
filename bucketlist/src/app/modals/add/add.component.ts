@@ -29,6 +29,7 @@ export class AddComponent implements OnInit {
   public defaultMonth:any;
   public imgPath:string = '';
   public serverPath:string = '';
+  public isMobile:Boolean= (window.innerWidth < 768);
   public newAdded:boolean;
   public newCreated:boolean;
   public dateChanged:boolean;
@@ -39,7 +40,22 @@ export class AddComponent implements OnInit {
   public complete:any = {
     switch: 0
   };
+  public months_3:Array<string> = [
+    'form.birth_date_month',
+    'form.month_january_3',
+    'form.month_february_3',
+    'form.month_march_3',
+    'form.month_april_3',
+    'form.month_may_3',
+    'form.month_june_3',
+    'form.month_july_3',
+    'form.month_august_3',
+    'form.month_september_3',
+    'form.month_october_3',
+    'form.month_november_3',
+    'form.month_december_3'
 
+  ];
   public months:Array<string> = [
     'form.birth_date_month',
     'form.month_january',
@@ -65,6 +81,9 @@ export class AddComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.isMobile){
+      this.months = this.months_3;
+    }
     if(!localStorage.getItem('apiKey')){
       this.router.navigate(['/']);
       this.isOpen = false;
