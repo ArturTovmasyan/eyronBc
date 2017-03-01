@@ -344,8 +344,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="row">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                                 <div *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false">
@@ -374,8 +372,12 @@
                         </div>
                     </md-tab>
                     <md-tab label="Page 2">
-                        <perfect-scrollbar class="modal-container" [config]="config">
+
+                            <perfect-scrollbar class="modal-container" [config]="config">
                             <div class="content">
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                                 <h3 *ngIf="userGoal.goal.location">Location</h3>
 
                                 <div class="form-group row" *ngIf="userGoal.goal.location">
@@ -516,8 +518,11 @@
 
 
                                 </div>
+                                    </div>
+                                </div>
                             </div>
                         </perfect-scrollbar>
+
                     </md-tab>
                 </md-tab-group>
 
