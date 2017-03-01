@@ -32,11 +32,12 @@ Scenario('Check login functionality', (I) => {
     I.seeCurrentUrlEquals('/resetting/check-email');
     I.see('Check your email');
     I.click('JOIN');
+    I.waitForText('Join');
     I.waitForText('CONNECT WITH');
     I.click('.mat-button-ripple', '#login-page');
     I.amOutsideAngularApp();
     I.switchToWindow(1);
-    I.waitForText('Facebook', 15);
+    I.waitForText('Facebook', 25);
     I.fillField('email', 'test2test.am');
     I.fillField('pass', 'test1324');
     I.click('login');

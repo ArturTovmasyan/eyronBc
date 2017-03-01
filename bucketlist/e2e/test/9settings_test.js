@@ -41,7 +41,7 @@ Scenario('Test Settings all functionality', (I) => {
   I.fillField('input[formControlName=currentPassword]', 'Test1234');
   I.fillField('input[formControlName=password]', 'Test1234');
   I.fillField('input[formControlName=plainPassword]', 'Test1234');
-  I.setDateFields();
+  I.setDateFields(2);
   I.click('//md-select[@formcontrolname="language"]');
   I.wait(1);
   I.click('//md-option[2]');

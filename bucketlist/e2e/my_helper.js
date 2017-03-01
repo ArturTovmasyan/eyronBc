@@ -50,6 +50,15 @@ class MyHelper extends Helper {
   pressEnter() {
     element(by.xpath('//input[@name="search"]')).sendKeys(protractor.Key.ENTER);
   }
+
+  /**
+   *
+   * @param data
+   */
+  ignoreSynchronize(data) {
+    browser.ignoreSynchronization = data;
+  }
+
 }
 
 module.exports = MyHelper;

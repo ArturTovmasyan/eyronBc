@@ -25,24 +25,22 @@ module.exports = function() {
             this.fillField('email', 'user1@user.com');
             this.fillField('password', 'Test1234');
             this.fillField('plainPassword', 'Test1234');
-            this.setDateFields();
+            this.setDateFields(2);
             this.click('register');
             this.see('Account with this email already exists, please, sign in.');
             this.fillField('email', 'testuser@test.com');
             this.click('register');
             this.wait(1.5);
-            this.amOutsideAngularApp();
-            this.waitForText('Browser Location Service or enter your location');
         },
-        setDateFields: function() {
+        setDateFields: function(data) {
             this.click('//div[@class="col-xs-4"][1]');
-            this.click('//md-option[2]');
+            this.click('//md-option['+data+']');
             this.click('//div[@class="col-xs-4"][2]');
             this.wait(1);
-            this.click('//md-option[2]');
+            this.click('//md-option['+data+']');
             this.click('//div[@class="col-xs-4"][3]');
             this.wait(1);
-            this.click('//md-option[2]');
+            this.click('//md-option['+data+']');
         },
       changeNotifySettings: function () {
         this.click('//md-slide-toggle[1]');
