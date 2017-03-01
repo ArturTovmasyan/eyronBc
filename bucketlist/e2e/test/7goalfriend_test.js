@@ -5,7 +5,7 @@ BeforeSuite((I) => {
   I.resizeWindow('maximize');
 });
 
-Scenario.only('Test goal friend page functionality', (I) => {
+Scenario('Test goal friend page functionality', (I) => {
   I.amOnPage('/');
   I.see('JOIN');
   I.click('JOIN');

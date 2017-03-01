@@ -1,5 +1,5 @@
 /// <reference path="../steps.d.ts" />
-Feature('Test mybucketlist page');
+Feature('Test my bucket list page');
 
 BeforeSuite((I) => {
     I.resizeWindow('maximize');
