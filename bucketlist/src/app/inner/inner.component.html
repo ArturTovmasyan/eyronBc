@@ -130,15 +130,16 @@
 
                             <ul class="row no-gutter goal-links">
 
-                                <li class="col-xs-3 clone" *ngIf="appUser && appUser.is_admin">
-                                    <a>
-                                        <!--<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">-->
-                                        <img src="assets/images/clone-icon.svg" width="25" height="25"/>
-                                        <span class="text">{{ 'clone'|translate }}</span>
-                                    </a>
-                                </li>
+                                <!--<li class="col-xs-3 clone" *ngIf="appUser && appUser.is_admin">-->
+                                    <!--<a>-->
+                                        <!--&lt;!&ndash;<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">&ndash;&gt;-->
+                                        <!--<img src="assets/images/clone-icon.svg" width="25" height="25"/>-->
+                                        <!--<span class="text">{{ 'clone'|translate }}</span>-->
+                                    <!--</a>-->
+                                <!--</li>-->
 
-                                <li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">
+                                <!--<li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">-->
+                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal">
                                     <a md-button *ngIf="!goal.is_my_goal" (click)="add(goal.id)">
                                         <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span
                                                 class="path3"></span></i>
