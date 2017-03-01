@@ -11,6 +11,10 @@
   .quote{
     position: relative;
     padding:5px 0;
+    min-height: 90px;
+    height: auto !important;
+    height:90px;
+
     i{
       height:30px;
       width:33px;
@@ -475,12 +479,13 @@
   }
 
   ul{
-    padding: 5px 0 0;
+    padding: 5px 0 ;
     margin-bottom: 0;
     &>li{
       color: #999999;
       border-right: 0;
-      font-size: 14px;
+      font-size: 13px;
+      text-align: center;
 
       ul{
         border-bottom:0;
@@ -492,8 +497,9 @@
         }
       }
 
-      p{
-        font-size: 16px;
+      a{
+        font-size: 13px;
+        padding: 0 5px;
       }
 
       &:first-child{
@@ -581,11 +587,11 @@
 
     .swiper-button-prev{
       left: 10px;
-      background-size: 70%;
+      background-size: 40%;
     }
     .swiper-button-next{
       right: 10px;
-      background-size: 70%;
+      background-size: 40%;
     }
   }
 
@@ -856,7 +862,7 @@
           border-right: 0;
         }
 
-        p{
+        a{
           font-size: 23px;
         }
 
