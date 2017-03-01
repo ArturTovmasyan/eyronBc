@@ -9,6 +9,8 @@ import {Goal} from '../interface/goal';
 import {User} from '../interface/user';
 import {Story} from '../interface/story';
 import {UserGoal} from "../interface/userGoal";
+import {MdDialog,MdDialogRef} from "@angular/material";
+import {ShareComponent} from "../modals/share/share.component";
 
 @Component({
   selector: 'app-inner',
@@ -45,13 +47,6 @@ export class InnerComponent implements OnInit {
   public appUser:User;
   public userGoal:UserGoal;
 
-  shareTitle = "Sharing is caring";
-  fbInner = "<img src='../../assets/images/facebook-share.svg'>";
-  twitterInner = "<img src='../../assets/images/twitter-share.svg'>";
-  pintInner = "<img src='../../assets/images/pinterest-share.svg'>";
-  inInner = "<img src='../../assets/images/linkedin-share.svg'>";
-  googleInner = "<img src='../../assets/images/google-plus-share.svg'>";
-
   public config: any = {
     pagination: '.swiper-pagination',
     paginationClickable: true,
@@ -77,7 +72,9 @@ export class InnerComponent implements OnInit {
       private _projectService: ProjectService,
       private _cacheService: CacheService,
       private broadcaster: Broadcaster,
-      private route: ActivatedRoute) {}
+      private route: ActivatedRoute,
+      private  dialog: MdDialog
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -423,4 +420,9 @@ export class InnerComponent implements OnInit {
     }
 
   }
+    openShare(){
+        let dialogRef: MdDialogRef<ShareComponent>;
+        dialogRef = this.dialog.open(ShareComponent);
+        dialogRef.componentInstance.linkToShare = this.linkToShare;
+    }
 }
