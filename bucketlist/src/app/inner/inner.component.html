@@ -139,7 +139,7 @@
                                 <!--</li>-->
 
                                 <!--<li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">-->
-                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal">
+                                <li class="col-xs-4" [class.transparent]="goal.is_my_goal">
                                     <a md-button *ngIf="!goal.is_my_goal" (click)="add(goal.id)">
                                         <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span
                                                 class="path3"></span></i>
@@ -166,60 +166,125 @@
                                   </span>
                                 </li>
 
+                                <li class="col-xs-2">
+                                    <md-menu #settingsMenu="mdMenu">
+                                        <!--<button md-menu-item> Settings </button>-->
+                                        <!--<button md-menu-item> Help </button>-->
+
+                                        <ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">
+                                            <!--data-ng-init="isAuthor=true"-->
+                                            <li *ngIf="goal.author && appUser && goal.author.id == appUser.id">
+                                                <a routerLink="/goal/create/{{goal.id}}/Public">
+                                                    <i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>
+                                                </a>
+                                            </li>
+
+                                            <li class="bordered-list">
+                                                <a md-button (click)="manageGoal()"
+                                                   class="text-gray manage-modal">
+                                                    <i class="icon-manage"></i>
+                                                </a>
+                                            </li>
+
+                                            <li class="bordered-list">
+                                                <div class="check_status">
+                                                    <a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">
+                                                        <i class="icon-ok-icon"><span class="path1"></span><span
+                                                                class="path2"></span></i>
+                                                    </a>
+                                                    <a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">
+                                                        <i class="icon-green-ok"><span class="path1"></span><span
+                                                                class="path2"></span><span class="path3"></span></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                            <li *ngIf="isLate(userGoal.do_date)">
+                                                <i title="{{ 'my_bucket_list.missed_deadline'|translate }}"
+                                                   class="icon-info text-purple"></i>
+                                            </li>
+
+                                            <li *ngIf="userGoal.note">
+                                                <i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>
+                                            </li>
+
+                                            <li *ngIf="userGoal.steps">
+                                                <i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>
+                                            </li>
+
+                                            <li *ngIf="userGoal.is_visible">
+                                                <i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>
+                                            </li>
+                                            <li *ngIf="!userGoal.is_visible">
+                                                <i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>
+                                            </li>
+
+                                            <li *ngIf="!goal.status">
+                                                <i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>
+                                            </li>
+                                        </ul>
+
+                                    </md-menu>
+
+                                    <button md-icon-button [mdMenuTriggerFor]="settingsMenu">
+                                        <md-icon>dot</md-icon>
+                                    </button>
+                                </li>
+
                             </ul>
 
-                            <ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">
-                                <!--data-ng-init="isAuthor=true"-->
-                                <li *ngIf="goal.author && appUser && goal.author.id == appUser.id">
-                                    <a routerLink="/goal/create/{{goal.id}}/Public">
-                                        <i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>
-                                    </a>
-                                </li>
+                            <!--<ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">-->
+                                <!--&lt;!&ndash;data-ng-init="isAuthor=true"&ndash;&gt;-->
+                                <!--<li *ngIf="goal.author && appUser && goal.author.id == appUser.id">-->
+                                    <!--<a routerLink="/goal/create/{{goal.id}}/Public">-->
+                                        <!--<i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>-->
+                                    <!--</a>-->
+                                <!--</li>-->
 
-                                <li class="bordered-list">
-                                    <a md-button (click)="manageGoal()"
-                                       class="text-gray manage-modal">
-                                        <i class="icon-manage"></i>
-                                    </a>
-                                </li>
+                                <!--<li class="bordered-list">-->
+                                    <!--<a md-button (click)="manageGoal()"-->
+                                       <!--class="text-gray manage-modal">-->
+                                        <!--<i class="icon-manage"></i>-->
+                                    <!--</a>-->
+                                <!--</li>-->
 
-                                <li class="bordered-list">
-                                    <div class="check_status">
-                                        <a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">
-                                            <i class="icon-ok-icon"><span class="path1"></span><span
-                                                    class="path2"></span></i>
-                                        </a>
-                                        <a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">
-                                            <i class="icon-green-ok"><span class="path1"></span><span
-                                                    class="path2"></span><span class="path3"></span></i>
-                                        </a>
-                                    </div>
-                                </li>
+                                <!--<li class="bordered-list">-->
+                                    <!--<div class="check_status">-->
+                                        <!--<a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">-->
+                                            <!--<i class="icon-ok-icon"><span class="path1"></span><span-->
+                                                    <!--class="path2"></span></i>-->
+                                        <!--</a>-->
+                                        <!--<a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">-->
+                                            <!--<i class="icon-green-ok"><span class="path1"></span><span-->
+                                                    <!--class="path2"></span><span class="path3"></span></i>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</li>-->
 
-                                <li *ngIf="isLate(userGoal.do_date)">
-                                    <i title="{{ 'my_bucket_list.missed_deadline'|translate }}"
-                                       class="icon-info text-purple"></i>
-                                </li>
+                                <!--<li *ngIf="isLate(userGoal.do_date)">-->
+                                    <!--<i title="{{ 'my_bucket_list.missed_deadline'|translate }}"-->
+                                       <!--class="icon-info text-purple"></i>-->
+                                <!--</li>-->
 
-                                <li *ngIf="userGoal.note">
-                                    <i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>
-                                </li>
+                                <!--<li *ngIf="userGoal.note">-->
+                                    <!--<i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>-->
+                                <!--</li>-->
 
-                                <li *ngIf="userGoal.steps">
-                                    <i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>
-                                </li>
+                                <!--<li *ngIf="userGoal.steps">-->
+                                    <!--<i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>-->
+                                <!--</li>-->
 
-                                <li *ngIf="userGoal.is_visible">
-                                    <i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>
-                                </li>
-                                <li *ngIf="!userGoal.is_visible">
-                                    <i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>
-                                </li>
+                                <!--<li *ngIf="userGoal.is_visible">-->
+                                    <!--<i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>-->
+                                <!--</li>-->
+                                <!--<li *ngIf="!userGoal.is_visible">-->
+                                    <!--<i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>-->
+                                <!--</li>-->
 
-                                <li *ngIf="!goal.status">
-                                    <i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>
-                                </li>
-                            </ul>
+                                <!--<li *ngIf="!goal.status">-->
+                                    <!--<i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>-->
+                                <!--</li>-->
+                            <!--</ul>-->
 
                             <!--{% if goal.lat is not null and goal.lng is not null %}-->
 
@@ -438,7 +503,7 @@
                                 <!--</li>-->
 
                                 <!--<li [ngClass]="{'col-xs-3 col-sm-4': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">-->
-                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal">
+                                <li class="col-xs-4" [class.transparent]="goal.is_my_goal">
                                     <a md-button *ngIf="!goal.is_my_goal" (click)="add(goal.id)">
                                         <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span
                                                 class="path3"></span></i>
@@ -464,61 +529,124 @@
                                            <span class="text">{{ 'completed'|translate | uppercase }}</span>
                                       </span>
                                 </li>
+                                <li class="col-xs-2">
+                                    <md-menu #settingsMenu="mdMenu">
+                                        <!--<button md-menu-item> Settings </button>-->
+                                        <!--<button md-menu-item> Help </button>-->
+                                        <ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">
+                                            <!--data-ng-init="isAuthor=true"-->
+                                            <li *ngIf="goal.author && appUser && goal.author.id == appUser.id">
+                                                <a routerLink="/goal/create/{{goal.id}}/Public">
+                                                    <i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>
+                                                </a>
+                                            </li>
+
+                                            <li class="bordered-list">
+                                                <a md-button (click)="manageGoal()"
+                                                   class="text-gray manage-modal">
+                                                    <i class="icon-manage"></i>
+                                                </a>
+                                            </li>
+
+                                            <li class="bordered-list">
+                                                <div class="check_status">
+                                                    <a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">
+                                                        <i class="icon-ok-icon"><span class="path1"></span><span
+                                                                class="path2"></span></i>
+                                                    </a>
+                                                    <a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">
+                                                        <i class="icon-green-ok"><span class="path1"></span><span
+                                                                class="path2"></span><span class="path3"></span></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                            <li *ngIf="isLate(userGoal.do_date)">
+                                                <i title="{{ 'my_bucket_list.missed_deadline'|translate }}"
+                                                   class="icon-info text-purple"></i>
+                                            </li>
+
+                                            <li *ngIf="userGoal.note">
+                                                <i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>
+                                            </li>
+
+                                            <li *ngIf="userGoal.steps">
+                                                <i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>
+                                            </li>
+
+                                            <li *ngIf="userGoal.is_visible">
+                                                <i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>
+                                            </li>
+                                            <li *ngIf="!userGoal.is_visible">
+                                                <i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>
+                                            </li>
+
+                                            <li *ngIf="!goal.status">
+                                                <i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>
+                                            </li>
+                                        </ul>
+
+                                    </md-menu>
+
+                                    <button md-icon-button [mdMenuTriggerFor]="settingsMenu">
+                                        <md-icon>dot</md-icon>
+                                    </button>
+                                </li>
 
                             </ul>
 
-                            <ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">
-                                <!--data-ng-init="isAuthor=true"-->
-                                <li *ngIf="goal.author && appUser && goal.author.id == appUser.id">
-                                    <a routerLink="/goal/create/{{goal.id}}/Public">
-                                        <i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>
-                                    </a>
-                                </li>
+                            <!--<ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">-->
+                                <!--&lt;!&ndash;data-ng-init="isAuthor=true"&ndash;&gt;-->
+                                <!--<li *ngIf="goal.author && appUser && goal.author.id == appUser.id">-->
+                                    <!--<a routerLink="/goal/create/{{goal.id}}/Public">-->
+                                        <!--<i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>-->
+                                    <!--</a>-->
+                                <!--</li>-->
 
-                                <li class="bordered-list">
-                                    <a md-button (click)="manageGoal()"
-                                       class="text-gray manage-modal">
-                                        <i class="icon-manage"></i>
-                                    </a>
-                                </li>
+                                <!--<li class="bordered-list">-->
+                                    <!--<a md-button (click)="manageGoal()"-->
+                                       <!--class="text-gray manage-modal">-->
+                                        <!--<i class="icon-manage"></i>-->
+                                    <!--</a>-->
+                                <!--</li>-->
 
-                                <li class="bordered-list">
-                                    <div class="check_status">
-                                        <a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">
-                                            <i class="icon-ok-icon"><span class="path1"></span><span
-                                                    class="path2"></span></i>
-                                        </a>
-                                        <a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">
-                                            <i class="icon-green-ok"><span class="path1"></span><span
-                                                    class="path2"></span><span class="path3"></span></i>
-                                        </a>
-                                    </div>
-                                </li>
+                                <!--<li class="bordered-list">-->
+                                    <!--<div class="check_status">-->
+                                        <!--<a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">-->
+                                            <!--<i class="icon-ok-icon"><span class="path1"></span><span-->
+                                                    <!--class="path2"></span></i>-->
+                                        <!--</a>-->
+                                        <!--<a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">-->
+                                            <!--<i class="icon-green-ok"><span class="path1"></span><span-->
+                                                    <!--class="path2"></span><span class="path3"></span></i>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</li>-->
 
-                                <li *ngIf="isLate(userGoal.do_date)">
-                                    <i title="{{ 'my_bucket_list.missed_deadline'|translate }}"
-                                       class="icon-info text-purple"></i>
-                                </li>
+                                <!--<li *ngIf="isLate(userGoal.do_date)">-->
+                                    <!--<i title="{{ 'my_bucket_list.missed_deadline'|translate }}"-->
+                                       <!--class="icon-info text-purple"></i>-->
+                                <!--</li>-->
 
-                                <li *ngIf="userGoal.note">
-                                    <i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>
-                                </li>
+                                <!--<li *ngIf="userGoal.note">-->
+                                    <!--<i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>-->
+                                <!--</li>-->
 
-                                <li *ngIf="userGoal.steps">
-                                    <i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>
-                                </li>
+                                <!--<li *ngIf="userGoal.steps">-->
+                                    <!--<i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>-->
+                                <!--</li>-->
 
-                                <li *ngIf="userGoal.is_visible">
-                                    <i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>
-                                </li>
-                                <li *ngIf="!userGoal.is_visible">
-                                    <i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>
-                                </li>
+                                <!--<li *ngIf="userGoal.is_visible">-->
+                                    <!--<i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>-->
+                                <!--</li>-->
+                                <!--<li *ngIf="!userGoal.is_visible">-->
+                                    <!--<i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>-->
+                                <!--</li>-->
 
-                                <li *ngIf="!goal.status">
-                                    <i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>
-                                </li>
-                            </ul>
+                                <!--<li *ngIf="!goal.status">-->
+                                    <!--<i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>-->
+                                <!--</li>-->
+                            <!--</ul>-->
 
                             <!--{% if goal.lat is not null and goal.lng is not null %}-->
                             <div *ngIf="goal.location && goal.location.latitude && goal.location.longitude && isDesktop">
