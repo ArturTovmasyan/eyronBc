@@ -67,7 +67,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
               this.start = 0;
               this.locationsIds = [];
               this.locations = [];
-              this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'nearby';
+              this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'discover';
               this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
               this.metadataService.setTitle('Ideas');
               this.metadataService.setTag('description', 'Ideas for ' + this.category);
@@ -119,7 +119,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
             //$scope.placeholder = '';
         }
         else if(window.innerWidth < 992){
-            this.sliderCount = (this.categories.length < 8)?this.categories.length + 1 : 8;
+            this.sliderCount = (this.categories.length < 7)?this.categories.length + 1 : 7;
             //$scope.isMobile = false;
             //$scope.placeholder = $scope.placeholderText;
         }

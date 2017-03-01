@@ -18,6 +18,11 @@ import {CalendarComponent} from "../calendar/calendar.component";
 
 export class ProfileComponent extends Profile{
   public show:boolean = false;
+  public isDream: boolean = true;
+  public notUrgentImportant: boolean = true;
+  public notUrgentNotImportant: boolean = true;
+  public urgentNotImportant: boolean = true;
+  public urgentImportant: boolean = true;
   public writeTimeout:any;
   constructor(
       protected metadataService: MetadataService,
