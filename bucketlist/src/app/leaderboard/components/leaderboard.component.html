@@ -56,6 +56,7 @@
 
           <div class="leaderboard-space">
             <div class="row no-gutter">
+              <md-progress-spinner mode="indeterminate" *ngIf="!data"></md-progress-spinner>
               <div class="col-xs-7 col-sm-9">
                 <ul [ngClass]="{'no-border-top-left': !i}" *ngFor="let user of data; let i = index" class="bg-white left-corner goals-animate">
                   <li class="text-orange">{{i + 1}}</li>

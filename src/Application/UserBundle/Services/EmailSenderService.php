@@ -40,13 +40,14 @@ class EmailSenderService
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
 
-        $angular2host = $this->container->getParameter('angular2host');
+        //get apiHost in parameters
+        $apiHost = $this->container->getParameter('apihost');
 
         //get activate url
-        $url = sprintf('%s/user/confirm/%s', $angular2host, $registrationToken);
+        $url = sprintf('%s/user/confirm/%s', $apiHost, $registrationToken);
 
         //get help center link
-        $helpLink = sprintf('%s/page/%s', $angular2host, 'contact-us');
+        $helpLink = sprintf('%s/page/%s', $apiHost, 'contact-us');
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your ' . $projectName . ' account')
@@ -76,14 +77,11 @@ class EmailSenderService
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
 
-        //get angular2 host in parameter
-        $angular2host = $this->container->getParameter('angular2host');
+        //get apiHost host in parameter
+        $apiHost = $this->container->getParameter('apihost');
 
         //generate url
-        $url = sprintf('%s/edit/add-email/%s/%s', $angular2host, $emailToken, $newUserEmail);
-
-        //get email activate url
-//        $url = $this->container->get('router')->generate('activation_user_email', array('emailToken' => $emailToken, 'email' => $newUserEmail), true);
+        $url = sprintf('%s/edit/add-email/%s/%s', $apiHost, $emailToken, $newUserEmail);
 
         //get help center link
         $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
