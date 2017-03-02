@@ -356,7 +356,13 @@
                             </div>
 
                             <div class="col-sm-4">
+                                <button md-button (click)="showComment()">
+                                    Comments
+                                </button>
+
+
                                 <div class="addthis_counter" (click)="openShare()">
+
                                      <!--(mouseleave)="isHover = false">-->
                                     <!--<share-buttons [url]="linkToShare"-->
                                                    <!--(mouseover)="isHover = true"-->
@@ -376,7 +382,13 @@
 
                         </div>
 
-                        <div class="inner">
+
+
+
+                            <div class="inner">
+                                <div class="comment goals-animate" [hidden]="!show">cd
+                                    <app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}" ></app-comment>
+                                </div>
                             <hr/>
                             <div class="text-dark-grey goal-info" *ngIf="goal.description && goal.description != ''"
                                  [innerHTML]="goal.description|removeTag|MarkdownToHtml"></div>

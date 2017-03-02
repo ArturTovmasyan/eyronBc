@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild, HostListener} from '@angular/core';
 import { ProjectService } from '../project.service';
 import { Broadcaster } from '../tools/broadcaster';
-import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { RouterModule, Routes, ActivatedRoute, Router, Params } from '@angular/router';
 import { MetadataService } from 'ng2-metadata';
 
@@ -46,6 +46,7 @@ export class InnerComponent implements OnInit {
   public stories:Story[];
   public appUser:User;
   public userGoal:UserGoal;
+  public show:boolean = false;
 
   public config: any = {
     pagination: '.swiper-pagination',
@@ -424,5 +425,11 @@ export class InnerComponent implements OnInit {
         let dialogRef: MdDialogRef<ShareComponent>;
         dialogRef = this.dialog.open(ShareComponent);
         dialogRef.componentInstance.linkToShare = this.linkToShare;
+    }
+    // closeDropdown(){
+    //     this.menu1 = false;
+    // }
+    showComment(){
+        this.show = !this.show;
     }
 }

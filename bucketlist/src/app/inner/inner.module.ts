@@ -15,6 +15,7 @@ import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { InnerRouting } from './inner-routing';
 import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +28,7 @@ import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
     ModalsModule,
     MarkdownToHtmlModule,
     MetadataModule.forRoot(),
-    MaterialModule.forRoot(),
+    MaterialModule.forRoot()
   ],
   declarations: [
     InnerComponent,

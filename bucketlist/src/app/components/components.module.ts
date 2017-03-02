@@ -24,6 +24,11 @@ import { InputVideoComponent } from './embed-video/input-video.component';
 import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
 import { FbShareComponent } from './fb-share/fb-share.component';
 import { PreloadImgComponent } from './preload-img/preload-img.component';
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+
+const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 
 @NgModule({
@@ -32,7 +37,8 @@ import { PreloadImgComponent } from './preload-img/preload-img.component';
     TranslateModule,
     RouterModule,
     MaterialModule.forRoot(),
-    FormsModule
+    FormsModule,
+    PerfectScrollbarModule.forChild(),
   ],
   declarations: [
     GoalUsersComponent,
