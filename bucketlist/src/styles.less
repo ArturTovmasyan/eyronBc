@@ -4092,16 +4092,19 @@ ul{
   background: #6108EA;
 }
 
-md-slide-toggle.md-checked:not(.md-disabled),md-slide-toggle.md-slide-toggle-focused {
-  .md-slide-toggle-thumb{
+md-slide-toggle.md-checked:not(.md-disabled),
+md-slide-toggle.mat-checked:not(.md-disabled),
+md-slide-toggle.md-slide-toggle-focused,
+md-slide-toggle.mat-slide-toggle-focused {
+  .md-slide-toggle-thumb,.mat-slide-toggle-thumb{
     background-color: #7724f6;
 
-    .md-ink-ripple,.md-slide-toggle-focused{
+    .md-ink-ripple,.md-slide-toggle-focused,.mat-ink-ripple,.mat-slide-toggle-focused{
       background-color: rgba(119, 36, 246, 0.3);
     }
   }
 
-  .md-slide-toggle-bar {
+  .md-slide-toggle-bar,.mat-slide-toggle-bar{
     background-color: rgba(119, 36, 246, 0.5);
   }
 }
@@ -4115,13 +4118,21 @@ md-radio-button.md-radio-checked,md-radio-button.mat-radio-checked{
   .md-radio-outer-circle,.mat-radio-outer-circle{
    border-color: #7724f6;
   }
-
-  .md-ripple-foreground,.mat-ripple-foreground{
+  .md-ripple-foreground{
     background-color: rgba(119, 36, 246, 0.3) !important;
   }
-
+}
+md-radio-button.mat-radio-focused.mat-radio-checked{
+  .mat-ripple{
+    background-color: rgba(119, 36, 246, 0.3) !important;
+  }
 }
 
+md-radio-button.mat-radio-button{
+  .mat-ripple{
+    background-color: transparent;
+  }
+}
 md-progress-spinner{
   margin: 70px auto 0;
   height: 30px !important;

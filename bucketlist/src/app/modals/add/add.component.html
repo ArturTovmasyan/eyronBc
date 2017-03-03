@@ -49,26 +49,24 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-                                <div class="clearfix " *ngIf="userGoal.id">
-                                    <div class="no-marginb">
+                                <div class="no-marginb" *ngIf="userGoal.id">
 
-                                        <h3 class="text-left">
-                                            {{ "goal.status"|translate }}
-                                        </h3>
-                                        <p>{{ "goal.in_proces"|translate }}</p>
+                                    <h3 class="text-left">
+                                        {{ "goal.status"|translate }}
+                                    </h3>
 
+                                    <p>{{ "goal.in_proces"|translate }}</p>
 
-                                        <div class="clearfix purple-checkbox">
-                                            <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
-                                                <md-radio-button value="0">{{ "user_goal.active"|translate }}</md-radio-button>
-                                                <md-radio-button value="1">{{ "user_goal.completed"|translate }}</md-radio-button>
-                                            </md-radio-group>
-
-                                        </div>
+                                    <div class="clearfix">
+                                        <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
+                                            <md-radio-button value="0" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
+                                            <md-radio-button value="1" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
+                                        </md-radio-group>
 
                                     </div>
 
                                 </div>
+
                             </div>
                         </div>
 
@@ -171,8 +169,8 @@
                                     <div class="clearfix purple-checkbox" id="goal-is-visible">
                                         <!--[(ngModel)]="userGoal.is_visible"-->
                                         <md-radio-group [(ngModel)]="userGoal.is_visible" name="visibility">
-                                            <md-radio-button [value]="true">{{ "goal.visible"|translate }}</md-radio-button>
-                                            <md-radio-button [value]="false">{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
+                                            <md-radio-button [value]="true" disableRipple>{{ "goal.visible"|translate }}</md-radio-button>
+                                            <md-radio-button [value]="false" disableRipple>{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
                                         </md-radio-group>
                                     </div>
 
@@ -238,14 +236,14 @@
                                         <div class="priority purple-checkbox">
 
                                             <label class="relative">
-                                                <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent">
+                                                <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent" disableRipple>
                                                     {{ 'goal.urgent'|translate }}
                                                 </md-checkbox>
 
                                             </label>
 
                                             <label class="relative">
-                                                <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important">
+                                                <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important" disableRipple>
                                                     {{ 'goal.important'|translate }}
                                                 </md-checkbox>
                                             </label>
