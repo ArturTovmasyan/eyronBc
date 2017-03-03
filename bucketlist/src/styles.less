@@ -2717,7 +2717,7 @@ md-dialog-container.md-dialog-container,md-dialog-container.mat-dialog-container
 //  .rounded-corners(8px);
 //}
 
-md-tab-header{
+md-tab-header.mat-tab-header{
   .mat-tab-label{
   height: 35px;
   line-height: 35px;
@@ -2735,6 +2735,11 @@ md-tab-header{
   md-select{
     .md-select-trigger,.mat-select-trigger{
       font-size: 14px;
+      min-width: 112px;
+
+      &:last-child{
+        min-width: 112px;
+      }
     }
   }
 
@@ -3310,7 +3315,7 @@ md-tab-header{
   .hr-margin{
     margin: 10px 0;
   }
-  md-tab-header{
+  md-tab-header.mat-tab-header{
     .mat-tab-label{
       height: 48px;
       line-height: 48px;

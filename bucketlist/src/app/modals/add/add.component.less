@@ -317,6 +317,13 @@
   }
 }
 
+.private-space{
+  padding: 7px 0 0;
+  i.icon-lock-white{
+    margin: -6px 0 0 -7px;
+  }
+}
+
 @media (min-width: @screen-sm) {
   .goal-modal{
     width: 530px;
@@ -327,7 +334,7 @@
     }
 
     hr{
-      margin: 25px 0 0;
+      margin: 20px 0 0;
     }
 
     .email{
@@ -350,11 +357,8 @@
 
     .private-space{
       padding: 10px 0 0;
-      font-size:13px;
+      font-size: 13px;
 
-      i{
-        margin: -6px 0 0 -7px;
-      }
     }
 
     .task-checkbox{
@@ -379,8 +383,8 @@
     }
 
     h3{
-      font-size: 22px;
-      margin-top: 20px;
+      font-size: 21px;
+      margin-top: 15px;
       margin-bottom: 10px;
 
       i{
@@ -393,8 +397,8 @@
     }
 
     p{
-      font-size:14px;
-      margin-bottom:10px;
+      font-size: 13px;
+      margin-bottom: 5px;
     }
 
     label.onoffswitch-label{
@@ -496,8 +500,6 @@
 @media (min-width: @screen-md) {
   .goal-modal{
     h2{
-      //font-size: 27px;
-      //line-height: 41px;
       margin: 0 0 5px 30px;
     }
   }
@@ -513,13 +515,10 @@
       }
     }
 
-    .private-space{
-      //padding: 30px 0 21px;
-    }
-
     strong{
       display:inline-block;
     }
+
 
     h4{
       font-size:20px;
@@ -551,9 +550,7 @@
   //}
 }
 
-//.content{
-//  overflow: scroll;
-//}
+
 
 .modal-container {
   position: relative;
@@ -561,4 +558,25 @@
   padding: 0;
   width: auto;
   max-height: 249px;
+}
+
+@media (min-width: @screen-lg) {
+  .goal-modal{
+    hr{
+      margin: 25px 0 0;
+    }
+  }
+
+  .goal-add{
+    h3{
+      font-size: 22px;
+      margin-top: 20px;
+    }
+
+    p{
+      font-size: 14px;
+      margin-bottom:10px;
+    }
+
+  }
 }
