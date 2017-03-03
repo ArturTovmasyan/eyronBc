@@ -125,13 +125,14 @@
 .goal-add{
   overflow: hidden;
   background-color: #ffffff;
-  padding: 10px 15px 0;
+  padding: 0 15px 0;
   //margin-bottom: 50px;
   .rounded-corners-bottom(8px);
 
   h3{
     font-size:17px;
     margin-top: 5px;
+    margin-bottom: 3px;
   }
 
   h4{
@@ -162,7 +163,7 @@
     margin: 4px 0 0;
   }
 
-  .md-radio-label,.example-margin{
+  .md-radio-label,.mat-radio-label,.example-margin{
     margin: 0 12px 0 0;
   }
 
@@ -175,7 +176,7 @@
       margin-right: 12px;
     }
 
-    &.md-radio-label{
+    &.md-radio-label,&.mat-radio-label{
       font-weight: normal;
       font-size: 14px;
     }
@@ -183,10 +184,10 @@
     //  top: 5px;
     //}
 
-    .md-radio-container{
+    .md-radio-container,.mat-radio-container{
       top: 6px;
 
-      .md-radio-outer-circle,.md-radio-inner-circle{
+      .md-radio-outer-circle,.mat-radio-outer-circle,.md-radio-inner-circle,.mat-radio-inner-circle{
         width: 16px;
         height: 16px;
       }
@@ -358,7 +359,7 @@
     label{
       padding-top: 3px !important;
 
-      .md-radio-label{
+      .md-radio-label,.mat-radio-label{
         margin-right: 12px;
       }
 
@@ -375,6 +376,7 @@
     h3{
       font-size: 22px;
       margin-top: 20px;
+      margin-bottom: 10px;
 
       i{
         margin-top: -5px;
