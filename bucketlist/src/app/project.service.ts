@@ -241,7 +241,7 @@ export class ProjectService {
      */
     createGoal(data, id?:number):Observable<any> {
         this.headers.set('apikey', localStorage.getItem('apiKey'));
-        return this.http.put(this.ideasUrl + 'create' + (id?('/' + id):''), data, {headers: this.headers})
+        return this.http.post(this.ideasUrl + 'create' + (id?('/' + id):''), data, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }

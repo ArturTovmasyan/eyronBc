@@ -18,12 +18,11 @@ Scenario('Test goal friend page functionality', (I) => {
   I.waitForText('Most Active');
   I.seeCurrentUrlEquals('/goal-friends');
   I.fillField('search', 'user10');
-  I.pressEnter();
+  I.pressEnterOnSearch();
   I.wait(1);
   I.waitForText('user10 user10');
   I.click('span.close-icon');
   I.waitForText('user3 user3');
-
   I.click('Recently Matched');
   I.waitForText('user3 user3', 5);
   I.click('Most Matching');

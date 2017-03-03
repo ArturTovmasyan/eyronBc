@@ -44,11 +44,19 @@ class MyHelper extends Helper {
   }
 
   /**
-   * This function is used to press ENTER
+   * This function is used to press ENTER on search field
    *
    */
-  pressEnter() {
+  pressEnterOnSearch() {
     element(by.xpath('//input[@name="search"]')).sendKeys(protractor.Key.ENTER);
+  }
+
+  /**
+   * This function is used to press ENTER on comment field
+   *
+   */
+  pressEnterOnComment() {
+    element(by.xpath('//textarea[@name="commentBody"]')).sendKeys(protractor.Key.ENTER);
   }
 
   /**

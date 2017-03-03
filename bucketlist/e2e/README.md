@@ -30,15 +30,22 @@
 4) Create virtual host for front test environment, add it in /etc/hosts
 
 `<VirtualHost *:80>
-    ServerName test.bucketlist.loc
-    DocumentRoot /var/www/html/bucketlist/web/test
-	<Directory /var/www/html/bucketlist/web/test> 
-		DirectoryIndex index.html 
-		Options Indexes FollowSymLinks MultiViews 
-		AllowOverride All 
-		Require all granted 
-	</Directory>
-</VirtualHost>`
+     ServerName test.bucketlist.loc
+     DocumentRoot /var/www/html/bucketlist/web/test
+ 	<Directory /var/www/html/bucketlist/web/test> 
+ 		DirectoryIndex index.html 
+ 		Options Indexes FollowSymLinks MultiViews 
+ 		AllowOverride All 
+ 		Require all granted 
+ 		RewriteEngine on
+             	RewriteCond %{REQUEST_FILENAME} -s [OR]
+ 	    	RewriteCond %{REQUEST_FILENAME} -l [OR]
+ 	    	RewriteCond %{REQUEST_FILENAME} -d
+ 	    	RewriteRule ^.*$ - [NC,L]
+ 	    	RewriteRule ^(.*) /index.html [NC,L]
+ 	</Directory>
+ </VirtualHost>
+ 	`
 
 5) Build project with test environment
 

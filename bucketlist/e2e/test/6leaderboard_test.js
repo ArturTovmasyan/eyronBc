@@ -15,7 +15,7 @@ Scenario('Test leader board page functionality', (I) => {
   I.amOutsideAngularApp();
   I.click('a.user-popover');
   I.click('Leaderboard');
-  I.waitForText('user9 user9');
+  I.waitForText('user9 user9', 3);
   I.seeCurrentUrlEquals('/leaderboard');
   I.wait(1);
   I.checkIfTextExist('text-dark-gray', 'user3 user3');
@@ -23,6 +23,6 @@ Scenario('Test leader board page functionality', (I) => {
   I.click('Mentor');
   I.waitForText('user1 useryan', 3);
   I.click('Innovator');
-  I.waitForText('userToo useryan', 3);
+  I.waitForText('user7 user7', 3);
   I.saveScreenshot('leaderBoard.jpg');
 });
