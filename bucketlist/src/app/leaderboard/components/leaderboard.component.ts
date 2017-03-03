@@ -6,7 +6,7 @@ import { MetadataService } from 'ng2-metadata';
 
 @Component({
   selector: 'app-leaderboard',
-  templateUrl: './leaderboard.component.html',
+  templateUrl: './api.leaderboard.component.html',
   styleUrls: ['./leaderboard.component.less'],
   providers: [
     ProjectService
