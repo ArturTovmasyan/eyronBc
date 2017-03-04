@@ -24,6 +24,13 @@ export class ProfileComponent extends Profile{
   public urgentNotImportant: boolean = true;
   public urgentImportant: boolean = true;
   public writeTimeout:any;
+  public priorities:any = {
+    'isDream': null,
+    'notUrgentImportant': null,
+    'notUrgentNotImportant': null,
+    'urgentNotImportant': null,
+    'urgentImportant': null
+  };
   constructor(
       protected metadataService: MetadataService,
       protected route: ActivatedRoute,
@@ -54,5 +61,29 @@ export class ProfileComponent extends Profile{
         .subscribe( () =>{
           dialogRef.close()
         });
+  }
+
+  changeByDeviceType(isGet?:boolean){
+    if(this.appUser){
+      if(isGet){
+        let data = this._cacheService.get('priority'+this.appUser.id);
+
+        if(data){
+          this.isDream = data.isDream;
+          this.notUrgentImportant = data.notUrgentImportant;
+          this.notUrgentNotImportant = data.notUrgentNotImportant;
+          this.urgentNotImportant = data.urgentNotImportant;
+          this.urgentImportant = data.urgentImportant;
+        }
+
+      } else{
+        this.priorities.isDream = this.isDream;
+        this.priorities.notUrgentImportant = this.notUrgentImportant;
+        this.priorities.notUrgentNotImportant = this.notUrgentNotImportant;
+        this.priorities.urgentNotImportant = this.urgentNotImportant;
+        this.priorities.urgentImportant = this.urgentImportant;
+        this._cacheService.set('priority'+this.appUser.id,this.priorities);
+      }
+    }
   }
 }

@@ -68,22 +68,19 @@ export class AppComponent extends App {
     @HostListener("window:scroll", [])
     onWindowScroll() {
         let number = this.document.body.scrollTop;
-        console.log(number);
         if(number < this.before){
             this.doScroll(0)
-        } else {
-            if(number > 1){
-                this.doScroll(1);
-                this.before = number;
-            }
         }
-
+        if(number > 1){
+            this.doScroll(1);
+            this.before = number;
+        }
 
         //we'll do some stuff here when the window is scrolled
         // console.log(number);
     }
 
     doScroll(type:number) {
-        this.scroll = (type == 1);
+        this.scroll = type == 1;
     }
 }
