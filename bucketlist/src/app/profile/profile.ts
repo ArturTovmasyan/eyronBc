@@ -83,6 +83,7 @@ export class Profile implements OnInit, OnDestroy {
                 this.reserveUserGoals = null;
                 if(this.oldUser == this.uId){
                     this.busyInitial = false;
+                    this.changeByDeviceType(true);
                     this.getData();
                 } else {
                     this.busyInitial = true;
@@ -123,6 +124,7 @@ export class Profile implements OnInit, OnDestroy {
                 if(this.busyInitial){
                     this.busyInitial = false;
                     this.oldUser = this.uId;
+                    this.changeByDeviceType(true);
                     this.getData();
                 }
             });
@@ -131,6 +133,7 @@ export class Profile implements OnInit, OnDestroy {
     getData(){
         this.start = 0;
         this.noItem = false;
+        this.changeByDeviceType();
         let index = this.categories.indexOf(this.type);
         if(index != -1){
             this.getGoals(index);
@@ -161,6 +164,9 @@ export class Profile implements OnInit, OnDestroy {
                     break;
             }
         }
+    }
+    
+    changeByDeviceType(isGet?:boolean){
     }
 
     getReserve(){
