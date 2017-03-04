@@ -38,13 +38,20 @@ export class GoalFooterComponent implements OnInit {
           .subscribe(data => {
             this.goal.is_my_goal = 0;
           });
-      
-      this.ProjectService.addUserGoal(id, {}).subscribe((data) => {
-          this.broadcaster.broadcast('addModal', {
-            'userGoal': data,
+
+        this.broadcaster.broadcast('addModal', {
+            'userGoal': {'goal':this.goal},
             'newAdded' : true,
             'newCreated' : false
-          });
+        });
+        
+      this.ProjectService.addUserGoal(id, {}).subscribe((data) => {
+          this.broadcaster.broadcast('addModalUserGoal', data);
+          // this.broadcaster.broadcast('addModal', {
+          //   'userGoal': data,
+          //   'newAdded' : true,
+          //   'newCreated' : false
+          // });
           this.broadcaster.broadcast('add_my_goal'+id, {});
       });
     }

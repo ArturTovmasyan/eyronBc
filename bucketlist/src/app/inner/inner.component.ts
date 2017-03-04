@@ -289,12 +289,20 @@ export class InnerComponent implements OnInit {
     } else {
 
       let oldStatus = this.goal.is_my_goal;
+
+      this.broadcaster.broadcast('addModal', {
+            'userGoal': {'goal': this.goal},
+            'newAdded' : true,
+            'newCreated' : false
+      });
+
       this._projectService.addUserGoal(id, {}).subscribe((data) => {
-        this.broadcaster.broadcast('addModal', {
-          'userGoal': data,
-          'newAdded' : true,
-          'newCreated' : false
-        });
+        this.broadcaster.broadcast('addModalUserGoal', data);
+        // this.broadcaster.broadcast('addModal', {
+        //   'userGoal': data,
+        //   'newAdded' : true,
+        //   'newCreated' : false
+        // });
 
         this.broadcaster.on<any>('addGoal' + this.goal.id)
             .subscribe(() => {
@@ -385,12 +393,18 @@ export class InnerComponent implements OnInit {
   }
   
   save(id){
-    this._projectService.addUserGoal(id, {}).subscribe((data) => {
       this.broadcaster.broadcast('addModal', {
-        'userGoal': data,
-        'newAdded' : true,
-        'newCreated' : true
+          'userGoal': {'goal':this.goal},
+          'newAdded' : true,
+          'newCreated' : true
       });
+    this._projectService.addUserGoal(id, {}).subscribe((data) => {
+        this.broadcaster.broadcast('addModalUserGoal', data);
+      // this.broadcaster.broadcast('addModal', {
+      //   'userGoal': data,
+      //   'newAdded' : true,
+      //   'newCreated' : true
+      // });
       this.broadcaster.on<any>('saveUserGoal_' + data.id)
           .subscribe(data => {
             let messages = this._cacheService.get('flash_massage');

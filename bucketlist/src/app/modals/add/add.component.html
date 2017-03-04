@@ -16,7 +16,7 @@
 
             <div *ngIf="userGoal.goal">
                 <h2>
-                    <span [ngClass]="{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}">{{ userGoal.goal.title }}</span>
+                    <span [ngClass]="{'title-smaller': (userGoal.goal.title && userGoal.goal.title.length > 25), 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}">{{ userGoal.goal.title }}</span>
                 </h2>
                 <!--{% if app.user %}-->
                 <p *ngIf="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id ">
@@ -44,32 +44,32 @@
 
         <form class="form-horizontal" method="post" #addForm="ngForm">
             <div class="goal-add bg-white">
-                <div *ngIf="newAdded">
+                <div *ngIf="newAdded && userGoal.id">
                     <div class="row">
-                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-                        <div class="clearfix " *ngIf="userGoal.id">
-                            <div class="no-marginb">
+                            <div class="clearfix" *ngIf="userGoal.id">
+                                <div class="no-marginb">
 
-                                <h3 class="text-left">
-                                    {{ "goal.status"|translate }}
-                                </h3>
-                                <p>{{ "goal.in_proces"|translate }}</p>
+                                    <h3 class="text-left">
+                                        {{ "goal.status"|translate }}
+                                    </h3>
+                                    <p>{{ "goal.in_proces"|translate }}</p>
 
 
-                                <div class="clearfix purple-checkbox">
-                                    <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
-                                        <md-radio-button value="0">{{ "user_goal.active"|translate }}</md-radio-button>
-                                        <md-radio-button value="1">{{ "user_goal.completed"|translate }}</md-radio-button>
-                                    </md-radio-group>
+                                    <div class="clearfix purple-checkbox">
+                                        <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
+                                            <md-radio-button value="0">{{ "user_goal.active"|translate }}</md-radio-button>
+                                            <md-radio-button value="1">{{ "user_goal.completed"|translate }}</md-radio-button>
+                                        </md-radio-group>
+
+                                    </div>
 
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
-                </div>
 
                     <hr/>
 
@@ -167,7 +167,7 @@
                                     <span>{{ "goal.visible_text"|translate }}</span>
                                 </p>
 
-                                <div class="clearfix purple-checkbox" id="goal-is-visible">
+                                <div class="clearfix purple-checkbox" id="goal-is-visible-first">
                                     <!--[(ngModel)]="userGoal.is_visible"-->
                                     <md-radio-group [(ngModel)]="userGoal.is_visible" name="visibility">
                                         <md-radio-button [value]="true">{{ "goal.visible"|translate }}</md-radio-button>
@@ -208,7 +208,7 @@
                         </div>
                     </div>
                 </div>
-                <md-tab-group *ngIf="!newAdded">
+                <md-tab-group *ngIf="!newAdded && userGoal.id">
                     <md-tab label="Page 1">
                         <div class="row">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">

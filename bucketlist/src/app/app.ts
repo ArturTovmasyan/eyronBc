@@ -40,6 +40,7 @@ export class App implements OnInit  {
     public reportData:any;
     public usersData:any;
     public fresh:any;
+    public currentDialogRef:any;
     public addData:any;
     public doneData:any;
     public writeTimeout:any;
@@ -193,7 +194,6 @@ export class App implements OnInit  {
                     this._projectService.getUser()
                         .subscribe(
                             user => {
-                                console.log(user);
                                 this.appUser = user;
                                 this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                                 this.broadcaster.broadcast('getUser', user);
@@ -215,6 +215,7 @@ export class App implements OnInit  {
                 config.viewContainerRef = this.viewContainerRef;
                 //config.height = '600px';
                 dialogRef = this.dialog.open(AddComponent, config);
+                this.currentDialogRef = dialogRef;
                 dialogRef.componentInstance.newCreated = data.newCreated;
                 dialogRef.componentInstance.newAdded = data.newAdded;
                 dialogRef.componentInstance.userGoal = data.userGoal;
@@ -244,6 +245,12 @@ export class App implements OnInit  {
                     this.testCache(data.userGoal.goal.id);
                 });
                 // this.addModal = true;
+            });
+
+        this.broadcaster.on<any>('addModalUserGoal')
+            .subscribe(data => {
+                this.currentDialogRef.componentInstance.userGoal = data;
+                this.currentDialogRef.componentInstance.dynamicChanges();
             });
 
         this.broadcaster.on<any>('doneModal')

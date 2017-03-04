@@ -103,12 +103,18 @@ export class ProfileGoalComponent implements OnInit {
   };
 
   manageGoal(id){
+    this.broadcaster.broadcast('addModal', {
+      'userGoal': {'goal':this.goal},
+      'newAdded' : false,
+      'newCreated' : false
+    });
     this._projectService.getUserGoal(id).subscribe((data) => {
-      this.broadcaster.broadcast('addModal', {
-        'userGoal': data,
-        'newAdded' : false,
-        'newCreated' : false
-      });
+      this.broadcaster.broadcast('addModalUserGoal', data);
+      // this.broadcaster.broadcast('addModal', {
+      //   'userGoal': data,
+      //   'newAdded' : false,
+      //   'newCreated' : false
+      // });
     });
   }
 
