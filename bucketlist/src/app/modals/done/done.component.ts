@@ -105,27 +105,50 @@ export class DoneComponent implements OnInit {
       this.day = (myDate.getDate());
       this.year = (myDate.getFullYear());
       
-      if(this.userGoal.story){
-        this.story = this.userGoal.story.story;
+      // if(this.userGoal.story){
+      //   this.story = this.userGoal.story.story;
+      //
+      //   if(this.userGoal.story.video_link.length > 0){
+      //     for(let link of this.userGoal.story.video_link){
+      //       this.videos_array.push(link);
+      //     }
+      //   }else {
+      //     this.videos_array.push('');
+      //   }
+      //
+      //   if(this.userGoal.story.files) {
+      //     this.existingFiles = this.userGoal.story.files;
+      //     for(let file of this.existingFiles){
+      //       this.files.push(file.id);
+      //     }
+      //   }
+      // }else {
+      //   this.videos_array.push('');
+      // }
 
-        if(this.userGoal.story.video_link.length > 0){
-          for(let link of this.userGoal.story.video_link){
-            this.videos_array.push(link);
-          }
-        }else {
-          this.videos_array.push('');
-        }
+    }
+  }
+  
+  dynamicChanges(){
+    if(this.userGoal.story){
+      this.story = this.userGoal.story.story;
 
-        if(this.userGoal.story.files) {
-          this.existingFiles = this.userGoal.story.files;
-          for(let file of this.existingFiles){
-            this.files.push(file.id);
-          }
+      if(this.userGoal.story.video_link.length > 0){
+        for(let link of this.userGoal.story.video_link){
+          this.videos_array.push(link);
         }
       }else {
         this.videos_array.push('');
       }
 
+      if(this.userGoal.story.files) {
+        this.existingFiles = this.userGoal.story.files;
+        for(let file of this.existingFiles){
+          this.files.push(file.id);
+        }
+      }
+    }else {
+      this.videos_array.push('');
     }
   }
   closeModal(){

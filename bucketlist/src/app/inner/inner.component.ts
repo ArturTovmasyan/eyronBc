@@ -243,7 +243,8 @@ export class InnerComponent implements OnInit {
       this.broadcaster.broadcast('addModal', {
         'userGoal': this.userGoal,
         'newAdded' : false,
-        'newCreated' : false
+        'newCreated' : false,
+        'haveData': true
       });
 
       this.broadcaster.on<any>('saveUserGoal_' + this.userGoal.id)
@@ -347,11 +348,16 @@ export class InnerComponent implements OnInit {
     this.goal.is_my_goal = 2;
 
     if(isManage){
-      this._projectService.getStory(id).subscribe((data)=> {
         this.broadcaster.broadcast('doneModal', {
-          'userGoal': data,
-          'newAdded' : false
+            'userGoal': {'goal':this.goal},
+            'newAdded' : false
         });
+      this._projectService.getStory(id).subscribe((data)=> {
+          this.broadcaster.broadcast('doneModalUserGoal', data);
+        // this.broadcaster.broadcast('doneModal', {
+        //   'userGoal': data,
+        //   'newAdded' : false
+        // });
         if(!this.userGoal){
           this._projectService.getUserGoal(this.goal.id)
               .subscribe(
@@ -371,12 +377,18 @@ export class InnerComponent implements OnInit {
           break;
       }
 
+        this.broadcaster.broadcast('doneModal', {
+            'userGoal': {'goal':this.goal},
+            'newAdded' : true
+        });
+        
       this._projectService.setDoneUserGoal(id).subscribe(() => {
         this._projectService.getStory(id).subscribe((data)=> {
-          this.broadcaster.broadcast('doneModal', {
-            'userGoal': data,
-            'newAdded' : true
-          });
+            this.broadcaster.broadcast('doneModalUserGoal', data);
+          // this.broadcaster.broadcast('doneModal', {
+          //   'userGoal': data,
+          //   'newAdded' : true
+          // });
 
           this.broadcaster.on<any>('doneGoal' + this.goal.id)
               .subscribe(() => {

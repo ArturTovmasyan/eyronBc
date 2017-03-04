@@ -63,13 +63,18 @@ export class GoalFooterComponent implements OnInit {
       this.broadcaster.broadcast('openLogin', 'message');
     } else {
       this.goal.is_my_goal = 2;
+        this.broadcaster.broadcast('doneModal', {
+            'userGoal': {'goal':this.goal},
+            'newAdded' : true
+        });
       this.ProjectService.setDoneUserGoal(id).subscribe(() => {
           this.broadcaster.broadcast('add_my_goal'+id, {});
           this.ProjectService.getStory(id).subscribe((data)=> {
-            this.broadcaster.broadcast('doneModal', {
-              'userGoal': data,
-              'newAdded' : true
-            });
+              this.broadcaster.broadcast('doneModalUserGoal', data);
+            // this.broadcaster.broadcast('doneModal', {
+            //   'userGoal': data,
+            //   'newAdded' : true
+            // });
           })
         });
     }

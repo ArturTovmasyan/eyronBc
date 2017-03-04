@@ -122,19 +122,29 @@ export class ProfileGoalComponent implements OnInit {
     this.success = true;
     
     if(isManage){
+      this.broadcaster.broadcast('doneModal', {
+        'userGoal': {'goal':this.goal},
+        'newAdded' : false
+      });
       this._projectService.getStory(id).subscribe((data)=> {
-        this.broadcaster.broadcast('doneModal', {
-          'userGoal': data,
-          'newAdded' : false
-        });
+        this.broadcaster.broadcast('doneModalUserGoal', data);
+        // this.broadcaster.broadcast('doneModal', {
+        //   'userGoal': data,
+        //   'newAdded' : false
+        // });
       })
     } else {
+      this.broadcaster.broadcast('doneModal', {
+        'userGoal': {'goal':this.goal},
+        'newAdded' : true
+      });
       this._projectService.setDoneUserGoal(id).subscribe(() => {
         this._projectService.getStory(id).subscribe((data)=> {
-          this.broadcaster.broadcast('doneModal', {
-            'userGoal': data,
-            'newAdded' : true
-          });
+          this.broadcaster.broadcast('doneModalUserGoal', data);
+          // this.broadcaster.broadcast('doneModal', {
+          //   'userGoal': data,
+          //   'newAdded' : true
+          // });
         })
       });
     }
