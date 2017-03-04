@@ -115,7 +115,7 @@ export class NotificationDropdownComponent implements OnInit {
         }
         this.count = 0;
         this.notCount.emit(this.count);
-        this.broadcaster.broadcast('markAllAsReAD');
+        this.broadcaster.broadcast('markAllAsRead');
     }
 
     singleRead(id,index){
