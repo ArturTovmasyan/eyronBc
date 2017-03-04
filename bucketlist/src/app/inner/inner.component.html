@@ -411,37 +411,49 @@
                                              data-share="false">
                                         </div>
                                     </div>
-                                    <div class="col-xs-8 col-sm-9 col-md-9">
-                                        <a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{goal.title}}"
-                                           class="twitter-hashtag-button" data-related="BucketList127"
-                                           [attr.data-url]="angularPath + goal.share_link" [attr.data-dnt]="true">Tweet
-                                            #BucketList127</a>
-                                    </div>
+                                    <!--<div class="col-xs-8 col-sm-9 col-md-9">-->
+                                        <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{goal.title}}"-->
+                                           <!--class="twitter-hashtag-button" data-related="BucketList127"-->
+                                           <!--[attr.data-url]="angularPath + goal.share_link" [attr.data-dnt]="true">Tweet-->
+                                            <!--#BucketList127</a>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
-                                <div class="addthis_counter" (mouseover)="isHover = true"
-                                     (mouseleave)="isHover = false">
-                                    <share-buttons [url]="linkToShare"
-                                                   (mouseover)="isHover = true"
-                                                   (mouseleave)="isHover = false"
-                                                   *ngIf="isHover"
-                                                   [facebook]="fbInner"
-                                                   [twitter]="twitterInner"
-                                                   [pinterest]="pintInner"
-                                                   [linkedIn]="inInner"
-                                                   [google]="googleInner"
-                                                   [tumblr]="false"
-                                                   [reddit]="false"
-                                                   [stumbleUpOn]="false">
-                                    </share-buttons>
-                                </div>
+                                <button md-button (click)="showComment()">
+                                    Comments
+                                </button>
+
+
+                                <div class="addthis_counter" (click)="openShare()">
+
+                                     <!--(mouseleave)="isHover = false">-->
+                                    <!--<share-buttons [url]="linkToShare"-->
+                                                   <!--(mouseover)="isHover = true"-->
+                                                   <!--(mouseleave)="isHover = false"-->
+                                                   <!--*ngIf="isHover"-->
+                                                   <!--[facebook]="fbInner"-->
+                                                   <!--[twitter]="twitterInner"-->
+                                                   <!--[pinterest]="pintInner"-->
+                                                   <!--[linkedIn]="inInner"-->
+                                                   <!--[google]="googleInner"-->
+                                                   <!--[tumblr]="false"-->
+                                                   <!--[reddit]="false"-->
+                                                   <!--[stumbleUpOn]="false">-->
+                                    <!--</share-buttons>-->
+
                             </div>
 
                         </div>
 
-                        <div class="inner">
+
+
+
+                            <div class="inner">
+                                <div class="comment goals-animate" [hidden]="!show">
+                                    <app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}" ></app-comment>
+                                </div>
                             <hr/>
                             <div class="text-dark-grey goal-info" *ngIf="goal.description && goal.description != ''"
                                  [innerHTML]="goal.description|removeTag|MarkdownToHtml"></div>

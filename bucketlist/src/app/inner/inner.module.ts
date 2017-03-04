@@ -6,15 +6,15 @@ import { MapModule } from '../tools/map/map.module';
 import { MaterialModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ProjectService } from '../project.service';
-import {TranslateModule} from 'ng2-translate';
+import { TranslateModule} from 'ng2-translate';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { ModalsModule} from '../modals/modals.module';
-import {ShareButtonsModule} from "ng2-sharebuttons";
 import { MetadataModule } from 'ng2-metadata';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
 import { InnerRouting } from './inner-routing';
 import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
+
 
 @NgModule({
   imports: [
@@ -28,8 +28,7 @@ import { InnerStoriesComponent } from './inner-stories/inner-stories.component';
     ModalsModule,
     MarkdownToHtmlModule,
     MetadataModule.forRoot(),
-    MaterialModule.forRoot(),
-    ShareButtonsModule
+    MaterialModule.forRoot()
   ],
   declarations: [
     InnerComponent,
