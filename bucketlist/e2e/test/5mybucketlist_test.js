@@ -10,7 +10,7 @@ Scenario('test my bucket list page functionality', (I) => {
     I.see('JOIN');
     I.click('JOIN');
     I.loginUser('user1@user.com', 'Test1234');
-    I.seeCurrentUrlEquals('/ideas');
+    I.seeCurrentUrlEquals('/activity');
     I.wait(1);
     I.amOutsideAngularApp();
     I.click('a.user-popover');

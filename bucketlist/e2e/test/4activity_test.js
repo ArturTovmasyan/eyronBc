@@ -86,8 +86,9 @@ Scenario('Test activity functionality', (I) => {
   I.wait(1);
   I.checkIfTextExist('text-dark-gray', 'user3 user3');
   I.amOutsideAngularApp();
+  I.wait(1);
   I.click('ACTIVITY');
-  I.wait(3);
+  I.wait(1);
   I.click('//a[@id="topIdeasLoad"]');
   I.wait(1);
   I.click('//a[@id="topIdeasLoad"]');

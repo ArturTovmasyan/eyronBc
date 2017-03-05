@@ -17,7 +17,6 @@ Scenario('Test add goal', (I) => {
     I.click('Add');
     I.amOutsideAngularApp();
     I.wait(1);
-    // I.see('CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED', 5);
     I.click('Completed');
     I.click('Active');
     I.see('Goal Status');
@@ -32,7 +31,6 @@ Scenario('Test add goal', (I) => {
     I.click('urgent');
     I.click('important');
     I.click('important');
-    I.see('Notes');
     I.fillField('note', 'Write test data for note field');
     I.wait(1);
     I.click('Save');

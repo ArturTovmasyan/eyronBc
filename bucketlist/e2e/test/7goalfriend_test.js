@@ -10,7 +10,7 @@ Scenario('Test goal friend page functionality', (I) => {
   I.see('JOIN');
   I.click('JOIN');
   I.loginUser('user1@user.com', 'Test1234');
-  I.seeCurrentUrlEquals('/ideas');
+  I.seeCurrentUrlEquals('/activity');
   I.wait(1);
   I.amOutsideAngularApp();
   I.click('a.user-popover');
@@ -45,7 +45,6 @@ Scenario('Test goal friend page functionality', (I) => {
   I.amOutsideAngularApp();
   I.waitForText('Added', 5);
   I.waitForText('Complete', 5);
-  I.see('goal4', '#common-modal');
   I.see('goal6', '#common-modal');
   I.see('goal7', '#common-modal');
 });
