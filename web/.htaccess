@@ -9,10 +9,11 @@
 
 SetEnvIf Origin ^(https?://.+\.bucketlist127\.com(?::\d{1,5})?)$   CORS_ALLOW_ORIGIN=$1
 Header append Access-Control-Allow-Origin  %{CORS_ALLOW_ORIGIN}e   env=CORS_ALLOW_ORIGIN
-Header append Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
-Header append Access-Control-Max-Age "1000"
-Header append Access-Control-Allow-Headers "x-requested-with, Content-Type, origin, authorization,$, apikey
 Header merge  Vary "Origin"
+
+Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
+Header always set Access-Control-Max-Age "1000"
+Header always set Access-Control-Allow-Headers "x-requested-with, Content-Type, origin, authorization,$, apikey"
 
 ExpiresActive on
 #ExpiresByType text/html "access plus 600 seconds"
