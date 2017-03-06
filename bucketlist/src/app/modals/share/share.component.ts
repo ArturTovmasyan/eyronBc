@@ -11,11 +11,11 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 export class ShareComponent implements OnInit {
 
   public linkToShare:string;
-  fbInner = "<img src='../../assets/images/facebook-share.svg'>";
-  twitterInner = "<img src='../../assets/images/twitter-share.svg'>";
-  pintInner = "<img src='../../assets/images/pinterest-share.svg'>";
-  inInner = "<img src='../../assets/images/linkedin-share.svg'>";
-  googleInner = "<img src='../../assets/images/google-plus-share.svg'>";
+  fbInner = "<img src='../../assets/images/facebook-share.svg'> <span>Facebook</span>";
+  twitterInner = "<img src='../../assets/images/twitter-share.svg'> <span>Twitter</span>";
+  pintInner = "<img src='../../assets/images/pinterest-share.svg'> <span>Pinterest</span>";
+  inInner = "<img src='../../assets/images/linkedin-share.svg'> <span>LinkedIn</span>";
+  googleInner = "<img src='../../assets/images/google-plus-share.svg'> <span>Google Plus</span>";
   constructor(
       public dialogRef: MdDialogRef<ShareComponent>
   ) {}
