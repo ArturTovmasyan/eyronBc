@@ -1,5 +1,26 @@
 @import "../../../assets/less/variables.less";
 @import "../../../assets/less/function.less";
-.modal{
-  background-color: white;
+
+.share-modal{
+
+  &>div{
+    left: 0;
+    right: 0;
+    max-width: 330px;
+    margin: 0 auto;
+    position: absolute;
+    -webkit-animation: shimmy 250ms;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+    animation: shimmy 250ms;
+    animation-fill-mode: forwards;
+    background-color: #ffffff;
+    .rounded-corners(4px);
+    padding: 0 15px;
+  }
+
+}
+
+@keyframes shimmy {
+  from {bottom: 0;}
+  to {bottom: 50%;}
 }

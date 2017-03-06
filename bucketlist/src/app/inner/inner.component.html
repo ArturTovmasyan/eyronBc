@@ -50,8 +50,7 @@
         <img src="{{ (goal && goal.cached_image)?goal.cached_image: imgPath}}" alt="Profile Cover Photo"
              class="img-responsive"/>
     </figure>
-    <div class="container">
-    </div>
+    <div class="container"></div>
     <!--data-ng-init="goal.public= {% if goal.status %} true {% else %} false {% endif %} "-->
     <div class="goal-content">
         <div class="container" #container>
@@ -166,7 +165,7 @@
                                   </span>
                                 </li>
 
-                                <li class="col-xs-2" *ngIf="appUser">
+                                <li class="col-xs-2 text-left" *ngIf="appUser">
                                     <md-menu #settingsMenu="mdMenu">
                                         <!--<button md-menu-item> Settings </button>-->
                                         <!--<button md-menu-item> Help </button>-->
@@ -227,7 +226,7 @@
                                     </md-menu>
 
                                     <button md-icon-button [mdMenuTriggerFor]="settingsMenu">
-                                        <md-icon>dot</md-icon>
+                                        <i></i>
                                     </button>
                                 </li>
 
@@ -300,7 +299,7 @@
 
                 <div class="row bg-white" *ngIf="type != 'view'">
 
-                    <div class="col-md-8">
+                    <div class="col-sm-12 col-md-8">
                         <!--{% if page == inner %}-->
                         <ul class="users-lists row" *ngIf="type == 'inner'">
                             <li class="col-xs-6">
@@ -400,9 +399,9 @@
 
                         <div class="row padding-top" *ngIf="type != 'view'">
 
-                            <div class="col-sm-8">
-                                <div class="row">
-                                    <div class="col-xs-4 col-sm-3 col-md-3">
+                            <!--<div class="col-sm-8">-->
+                                <!--<div class="row">-->
+                                    <div class="col-xs-8 col-sm-10">
                                         <div class="fb-like"
                                              [attr.data-href]="angularPath + goal.share_link"
                                              data-layout="button_count"
@@ -411,49 +410,83 @@
                                              data-share="false">
                                         </div>
                                     </div>
-                                    <!--<div class="col-xs-8 col-sm-9 col-md-9">-->
+
+                                    <div class="col-xs-2 col-sm-1">
+                                        <button md-button (click)="showComment()">
+                                            <i class="comment-new-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="col-xs-2 col-sm-1 text-right">
                                         <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{goal.title}}"-->
                                            <!--class="twitter-hashtag-button" data-related="BucketList127"-->
                                            <!--[attr.data-url]="angularPath + goal.share_link" [attr.data-dnt]="true">Tweet-->
                                             <!--#BucketList127</a>-->
-                                    <!--</div>-->
-                                </div>
+
+
+
+                                        <div class="addthis_counter" (click)="openShare()">
+
+                                            <!--(mouseleave)="isHover = false">-->
+                                            <!--<share-buttons [url]="linkToShare"-->
+                                            <!--(mouseover)="isHover = true"-->
+                                            <!--(mouseleave)="isHover = false"-->
+                                            <!--*ngIf="isHover"-->
+                                            <!--[facebook]="fbInner"-->
+                                            <!--[twitter]="twitterInner"-->
+                                            <!--[pinterest]="pintInner"-->
+                                            <!--[linkedIn]="inInner"-->
+                                            <!--[google]="googleInner"-->
+                                            <!--[tumblr]="false"-->
+                                            <!--[reddit]="false"-->
+                                            <!--[stumbleUpOn]="false">-->
+                                            <!--</share-buttons>-->
+
+                                        </div>
+
+                                    </div>
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="col-sm-4">-->
+                                <!--&lt;!&ndash;<button md-button (click)="showComment()">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;Comments&ndash;&gt;-->
+                                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+
+                                <!--<div class="addthis_counter" (click)="openShare()">-->
+
+                                     <!--&lt;!&ndash;(mouseleave)="isHover = false">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<share-buttons [url]="linkToShare"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;(mouseover)="isHover = true"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;(mouseleave)="isHover = false"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;*ngIf="isHover"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[facebook]="fbInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[twitter]="twitterInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[pinterest]="pintInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[linkedIn]="inInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[google]="googleInner"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[tumblr]="false"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[reddit]="false"&ndash;&gt;-->
+                                                   <!--&lt;!&ndash;[stumbleUpOn]="false">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</share-buttons>&ndash;&gt;-->
+
+                            <!--</div>-->
+
+                        <!--</div>-->
+
+
+
+
+
+
+
+                    </div>
+
+                        <div class="inner">
+                            <div class="comment goals-animate" [hidden]="!show">
+                                <app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}" ></app-comment>
                             </div>
-
-                            <div class="col-sm-4">
-                                <button md-button (click)="showComment()">
-                                    Comments
-                                </button>
-
-
-                                <div class="addthis_counter" (click)="openShare()">
-
-                                     <!--(mouseleave)="isHover = false">-->
-                                    <!--<share-buttons [url]="linkToShare"-->
-                                                   <!--(mouseover)="isHover = true"-->
-                                                   <!--(mouseleave)="isHover = false"-->
-                                                   <!--*ngIf="isHover"-->
-                                                   <!--[facebook]="fbInner"-->
-                                                   <!--[twitter]="twitterInner"-->
-                                                   <!--[pinterest]="pintInner"-->
-                                                   <!--[linkedIn]="inInner"-->
-                                                   <!--[google]="googleInner"-->
-                                                   <!--[tumblr]="false"-->
-                                                   <!--[reddit]="false"-->
-                                                   <!--[stumbleUpOn]="false">-->
-                                    <!--</share-buttons>-->
-
-                            </div>
-
-                        </div>
-
-
-
-
-                            <div class="inner">
-                                <div class="comment goals-animate" [hidden]="!show">
-                                    <app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}" ></app-comment>
-                                </div>
                             <hr/>
                             <div class="text-dark-grey goal-info" *ngIf="goal.description && goal.description != ''"
                                  [innerHTML]="goal.description|removeTag|MarkdownToHtml"></div>
@@ -497,8 +530,6 @@
                             <!--</app-comment>-->
                         </div>
 
-
-
                     </div>
                     <div class="col-md-4 hidden-xs hidden-sm">
 
@@ -507,11 +538,11 @@
                             <ul class="row no-gutter goal-links">
 
                                 <!--<li class="col-xs-3 clone" *ngIf="appUser && appUser.is_admin">-->
-                                    <!--<a>-->
-                                        <!--&lt;!&ndash;<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">&ndash;&gt;-->
-                                        <!--<img src="assets/images/clone-icon.svg" width="25" height="25"/>-->
-                                        <!--<span class="text">{{ 'clone'|translate }}</span>-->
-                                    <!--</a>-->
+                                <!--<a>-->
+                                <!--&lt;!&ndash;<a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">&ndash;&gt;-->
+                                <!--<img src="assets/images/clone-icon.svg" width="25" height="25"/>-->
+                                <!--<span class="text">{{ 'clone'|translate }}</span>-->
+                                <!--</a>-->
                                 <!--</li>-->
 
                                 <!--<li [ngClass]="{'col-xs-3 col-sm-4': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">-->
@@ -541,7 +572,7 @@
                                            <span class="text">{{ 'completed'|translate | uppercase }}</span>
                                       </span>
                                 </li>
-                                <li class="col-xs-2" *ngIf="appUser">
+                                <li class="col-xs-2 text-left" *ngIf="appUser">
                                     <md-menu #settingsMenu="mdMenu">
                                         <!--<button md-menu-item> Settings </button>-->
                                         <!--<button md-menu-item> Help </button>-->
@@ -601,63 +632,63 @@
                                     </md-menu>
 
                                     <button md-icon-button [mdMenuTriggerFor]="settingsMenu">
-                                        <md-icon>dot</md-icon>
+                                        <i></i>
                                     </button>
                                 </li>
 
                             </ul>
 
                             <!--<ul class="goal-icons" *ngIf="(goal.is_my_goal == 1 || goal.is_my_goal == 2) && userGoal">-->
-                                <!--&lt;!&ndash;data-ng-init="isAuthor=true"&ndash;&gt;-->
-                                <!--<li *ngIf="goal.author && appUser && goal.author.id == appUser.id">-->
-                                    <!--<a routerLink="/goal/create/{{goal.id}}/Public">-->
-                                        <!--<i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>-->
-                                    <!--</a>-->
-                                <!--</li>-->
+                            <!--&lt;!&ndash;data-ng-init="isAuthor=true"&ndash;&gt;-->
+                            <!--<li *ngIf="goal.author && appUser && goal.author.id == appUser.id">-->
+                            <!--<a routerLink="/goal/create/{{goal.id}}/Public">-->
+                            <!--<i title="{{ 'my_bucket_list.edit'|translate }}" class="icon-pencil"></i>-->
+                            <!--</a>-->
+                            <!--</li>-->
 
-                                <!--<li class="bordered-list">-->
-                                    <!--<a md-button (click)="manageGoal()"-->
-                                       <!--class="text-gray manage-modal">-->
-                                        <!--<i class="icon-manage"></i>-->
-                                    <!--</a>-->
-                                <!--</li>-->
+                            <!--<li class="bordered-list">-->
+                            <!--<a md-button (click)="manageGoal()"-->
+                            <!--class="text-gray manage-modal">-->
+                            <!--<i class="icon-manage"></i>-->
+                            <!--</a>-->
+                            <!--</li>-->
 
-                                <!--<li class="bordered-list">-->
-                                    <!--<div class="check_status">-->
-                                        <!--<a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">-->
-                                            <!--<i class="icon-ok-icon"><span class="path1"></span><span-->
-                                                    <!--class="path2"></span></i>-->
-                                        <!--</a>-->
-                                        <!--<a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">-->
-                                            <!--<i class="icon-green-ok"><span class="path1"></span><span-->
-                                                    <!--class="path2"></span><span class="path3"></span></i>-->
-                                        <!--</a>-->
-                                    <!--</div>-->
-                                <!--</li>-->
+                            <!--<li class="bordered-list">-->
+                            <!--<div class="check_status">-->
+                            <!--<a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">-->
+                            <!--<i class="icon-ok-icon"><span class="path1"></span><span-->
+                            <!--class="path2"></span></i>-->
+                            <!--</a>-->
+                            <!--<a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">-->
+                            <!--<i class="icon-green-ok"><span class="path1"></span><span-->
+                            <!--class="path2"></span><span class="path3"></span></i>-->
+                            <!--</a>-->
+                            <!--</div>-->
+                            <!--</li>-->
 
-                                <!--<li *ngIf="isLate(userGoal.do_date)">-->
-                                    <!--<i title="{{ 'my_bucket_list.missed_deadline'|translate }}"-->
-                                       <!--class="icon-info text-purple"></i>-->
-                                <!--</li>-->
+                            <!--<li *ngIf="isLate(userGoal.do_date)">-->
+                            <!--<i title="{{ 'my_bucket_list.missed_deadline'|translate }}"-->
+                            <!--class="icon-info text-purple"></i>-->
+                            <!--</li>-->
 
-                                <!--<li *ngIf="userGoal.note">-->
-                                    <!--<i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>-->
-                                <!--</li>-->
+                            <!--<li *ngIf="userGoal.note">-->
+                            <!--<i title="{{ 'my_bucket_list.notes'|translate }}" class="edit-note"></i>-->
+                            <!--</li>-->
 
-                                <!--<li *ngIf="userGoal.steps">-->
-                                    <!--<i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>-->
-                                <!--</li>-->
+                            <!--<li *ngIf="userGoal.steps">-->
+                            <!--<i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>-->
+                            <!--</li>-->
 
-                                <!--<li *ngIf="userGoal.is_visible">-->
-                                    <!--<i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>-->
-                                <!--</li>-->
-                                <!--<li *ngIf="!userGoal.is_visible">-->
-                                    <!--<i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>-->
-                                <!--</li>-->
+                            <!--<li *ngIf="userGoal.is_visible">-->
+                            <!--<i title="{{ 'goal.visible'|translate }}" class="icon-eye-icon"></i>-->
+                            <!--</li>-->
+                            <!--<li *ngIf="!userGoal.is_visible">-->
+                            <!--<i title="{{ 'my_bucket_list.invisible'|translate }}" class="icon-eye"></i>-->
+                            <!--</li>-->
 
-                                <!--<li *ngIf="!goal.status">-->
-                                    <!--<i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>-->
-                                <!--</li>-->
+                            <!--<li *ngIf="!goal.status">-->
+                            <!--<i title="{{ 'my_bucket_list.private'|translate }}" class="icon-lock-white"></i>-->
+                            <!--</li>-->
                             <!--</ul>-->
 
                             <!--{% if goal.lat is not null and goal.lng is not null %}-->
@@ -684,9 +715,9 @@
                             <!--</div>-->
                         </div>
                     </div>
-                </div>
 
-                <br class="hidden-xs"/>
+
+                    <br class="hidden-xs"/>
                 <!--{% endif %}-->
 
             </div>
@@ -696,4 +727,5 @@
     </div>
 
     <see-also *ngIf="seeAlsoShow"></see-also>
+</div>
 </div>

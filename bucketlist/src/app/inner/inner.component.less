@@ -79,6 +79,11 @@
     position: relative;
     z-index: 5;
 
+    .padding-top{
+      .mat-button{
+        min-width: 60px;
+      }
+    }
   }
 
   h2.goal-inner-title{
@@ -237,11 +242,14 @@
     font-size:14px;
     margin-bottom:0;
   }
+
+
 }
 
 .md-menu-panel{
   min-width: 80px !important;
 }
+
 
 .goal-icons{
   padding: 5px 15px;
@@ -438,18 +446,32 @@
 
     }
 
-    &.clone{
-      text-align:right;
-
-      a{
-        font-size:11px;
-        padding-right: 3px;
-      }
-    }
+    //&.clone{
+    //  text-align:right;
+    //
+    //  a{
+    //    font-size:11px;
+    //    padding-right: 3px;
+    //  }
+    //}
 
     &:last-child{
       border-right:0;
       margin-bottom:0;
+    }
+
+    button{
+      margin-left: 7px;
+
+      i{
+        display: inline-block;
+        vertical-align: top;
+        width: 32px;
+        height: 32px;
+        background: url('../../assets/images/menu-icon.svg') no-repeat left top;
+        background-size: 70%;
+        margin-right: 0;
+      }
     }
   }
 
@@ -467,7 +489,8 @@
 .users-lists{
   clear:both;
   margin-bottom: 0;
-  padding: 0 15px;
+  //padding: 0 15px;
+  padding: 0 10px;
   border-bottom: 1px solid #eee;
 
   li{
@@ -549,16 +572,16 @@
     margin: 8px 0 0 0;
     display:inline-block;
   }
-  .addthis_counter a.atc_s{
-    width:113px !important;
-    height:31px !important;
-    background: url('../../assets/images/share-new.png') no-repeat center center !important;
-    background-size: 100% !important;
-    &:hover{
-      background: url('../../assets/images/share-purple.png') no-repeat center center !important;
-      background-size: 100% !important;
-    }
-  }
+  //.addthis_counter a.atc_s{
+  //  width:113px !important;
+  //  height:31px !important;
+  //  background: url('../../assets/images/share-new.png') no-repeat center center !important;
+  //  background-size: 100% !important;
+  //  &:hover{
+  //    background: url('../../assets/images/share-purple.png') no-repeat center center !important;
+  //    background-size: 100% !important;
+  //  }
+  //}
 
   .addthis_counter.addthis_pill_style a.atc_s{
     font-size: 0;
@@ -613,19 +636,30 @@
   height: 100%;
 }
 
+.comment-new-icon{
+  display: inline-block;
+  height: 23px;
+  width: 23px;
+  background: url('../../assets/images/new-comment.svg') no-repeat center center;
+  background-size: 100%;
+}
 
 .addthis_counter{
-  width: 113px;
-  height:31px;
-  background: url('../../assets/images/share-new.png') no-repeat center center;
+  //width: 113px;
+  //height:31px;
+  //background: url('../../assets/images/share-new.png') no-repeat center center;
+  width: 16px;
+  height: 16px;
+  background: url('../../assets/images/button_share.svg') no-repeat center center;
   background-size: 100%;
-  float: right;
+  //float: right;
   cursor:pointer;
+  margin: 8px;
 
-  &:hover{
-    background: url('../../assets/images/share-purple.png') no-repeat center center ;
-    background-size: 100%;
-  }
+  //&:hover{
+  //  background: url('../../assets/images/share-purple.png') no-repeat center center ;
+  //  background-size: 100%;
+  //}
 
   .sb-btn{
     background-color: #0a001d;
@@ -659,10 +693,10 @@
 
 @media (min-width: @screen-sm) {
 
-  .addthis_counter{
-    width:113px;
-    height:31px;
-  }
+  //.addthis_counter{
+  //  width:113px;
+  //  height:31px;
+  //}
 
   .inner-container{
 
@@ -825,23 +859,30 @@
         }
       }
 
-      &.clone{
-        text-align: center;
-        padding-left: 13px;
-
-        a{
-          font-size:13px;
-          padding-right:0;
-          padding-left: 5px;
-
-        }
-
-        &:hover{
-          a{
-            color: #a4a4a4;
-          }
+      button{
+        i{
+          background: url('../../assets/images/menu-icon.svg') no-repeat center center;
+          background-size: 95%;
         }
       }
+
+      //&.clone{
+      //  text-align: center;
+      //  padding-left: 13px;
+      //
+      //  a{
+      //    font-size:13px;
+      //    padding-right:0;
+      //    padding-left: 5px;
+      //
+      //  }
+      //
+      //  &:hover{
+      //    a{
+      //      color: #a4a4a4;
+      //    }
+      //  }
+      //}
       &:last-child{
         text-align:left;
       }
@@ -939,7 +980,7 @@
 
 
   .addthis_counter{
-    margin: 6px 17px 0 0;
+    margin: 9px 17px 0 0;
 
     .sb-container{
       right: 32px;
