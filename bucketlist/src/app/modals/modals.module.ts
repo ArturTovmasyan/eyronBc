@@ -5,8 +5,10 @@ import { TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
 import { ComponentModule} from '../components/components.module';
 import { MaterialModule } from '@angular/material';
+import { ShareButtonsModule} from "ng2-sharebuttons";
 
 import { ConfirmComponent } from './confirm/confirm.component';
+import { ShareComponent } from './share/share.component';
 
 @NgModule({
     imports: [
@@ -15,16 +17,20 @@ import { ConfirmComponent } from './confirm/confirm.component';
         ComponentModule,
         RouterModule,
         FormsModule,
+        ShareButtonsModule,
         MaterialModule.forRoot()
     ],
     declarations: [
         ConfirmComponent,
+        ShareComponent
     ],
     entryComponents: [
-        ConfirmComponent
+        ConfirmComponent,
+        ShareComponent
     ],
     exports: [
-        ConfirmComponent
+        ConfirmComponent,
+        ShareComponent
     ],
 
 

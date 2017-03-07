@@ -40,6 +40,8 @@ export class App implements OnInit  {
     public reportData:any;
     public usersData:any;
     public fresh:any;
+    public currentAddedDialogRef:any;
+    public currentComlpetedDialogRef:any;
     public addData:any;
     public doneData:any;
     public writeTimeout:any;
@@ -193,7 +195,6 @@ export class App implements OnInit  {
                     this._projectService.getUser()
                         .subscribe(
                             user => {
-                                console.log(user);
                                 this.appUser = user;
                                 this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                                 this.broadcaster.broadcast('getUser', user);
@@ -215,9 +216,13 @@ export class App implements OnInit  {
                 config.viewContainerRef = this.viewContainerRef;
                 //config.height = '600px';
                 dialogRef = this.dialog.open(AddComponent, config);
+                this.currentAddedDialogRef = dialogRef;
                 dialogRef.componentInstance.newCreated = data.newCreated;
                 dialogRef.componentInstance.newAdded = data.newAdded;
                 dialogRef.componentInstance.userGoal = data.userGoal;
+                if(data.haveData){
+                    dialogRef.componentInstance.dynamicChanges();
+                }
                 dialogRef.afterClosed().subscribe(result => {
                     this.busy = false;
                     if(result){
@@ -246,6 +251,12 @@ export class App implements OnInit  {
                 // this.addModal = true;
             });
 
+        this.broadcaster.on<any>('addModalUserGoal')
+            .subscribe(data => {
+                this.currentAddedDialogRef.componentInstance.userGoal = data;
+                this.currentAddedDialogRef.componentInstance.dynamicChanges();
+            });
+
         this.broadcaster.on<any>('doneModal')
             .subscribe(data => {
                 if(!this.appUser.activity){
@@ -272,12 +283,23 @@ export class App implements OnInit  {
                 dialogRef = this.dialog.open(DoneComponent, config);
                 dialogRef.componentInstance.newAdded = data.newAdded;
                 dialogRef.componentInstance.userGoal = data.userGoal;
+                if(data.haveData){
+                    dialogRef.componentInstance.dynamicChanges();
+                }
+                this.currentComlpetedDialogRef = dialogRef;
                 dialogRef.afterClosed().subscribe(result => {
                     this.broadcaster.broadcast('doneGoal'+data.userGoal.goal.id, {});
                     this.testCache(data.userGoal.goal.id);
                 });
                 // this.doneModal = true;
             });
+
+        this.broadcaster.on<any>('doneModalUserGoal')
+            .subscribe(data => {
+                this.currentComlpetedDialogRef.componentInstance.userGoal = data;
+                this.currentComlpetedDialogRef.componentInstance.dynamicChanges();
+            });
+        
         this.broadcaster.on<any>('draftCount')
             .subscribe( () => {
                     this.appUser.draft_count += 1;

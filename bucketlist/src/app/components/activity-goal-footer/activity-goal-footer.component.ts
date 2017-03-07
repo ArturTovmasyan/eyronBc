@@ -39,12 +39,19 @@ export class ActivityGoalFooterComponent implements OnInit {
             this.goal.is_my_goal = 0;
           });
 
+      this.broadcaster.broadcast('addModal', {
+        'userGoal': {'goal':this.goal},
+        'newAdded' : true,
+        'newCreated' : false
+      });
+
       this.ProjectService.addUserGoal(id, {}).subscribe((data) => {
-        this.broadcaster.broadcast('addModal', {
-          'userGoal': data,
-          'newAdded' : true,
-          'newCreated' : false
-        });
+        this.broadcaster.broadcast('addModalUserGoal', data);
+        // this.broadcaster.broadcast('addModal', {
+        //   'userGoal': data,
+        //   'newAdded' : true,
+        //   'newCreated' : false
+        // });
         this.broadcaster.broadcast('add_my_goal'+id, {});
       });
     }
@@ -56,13 +63,18 @@ export class ActivityGoalFooterComponent implements OnInit {
       this.broadcaster.broadcast('openLogin', 'message');
     } else {
       this.goal.is_my_goal = 2;
+      this.broadcaster.broadcast('doneModal', {
+        'userGoal': {'goal':this.goal},
+        'newAdded' : true
+      });
       this.ProjectService.setDoneUserGoal(id).subscribe(() => {
         this.broadcaster.broadcast('add_my_goal'+id, {});
         this.ProjectService.getStory(id).subscribe((data)=> {
-          this.broadcaster.broadcast('doneModal', {
-            'userGoal': data,
-            'newAdded' : true
-          });
+          this.broadcaster.broadcast('doneModalUserGoal', data);
+          // this.broadcaster.broadcast('doneModal', {
+          //   'userGoal': data,
+          //   'newAdded' : true
+          // });
         })
       });
     }

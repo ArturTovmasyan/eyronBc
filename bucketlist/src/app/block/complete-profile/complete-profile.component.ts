@@ -1,6 +1,6 @@
 import { Component, OnInit , ViewEncapsulation, Input} from '@angular/core';
 import { ProjectService } from '../../project.service';
-import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 
 @Component({
