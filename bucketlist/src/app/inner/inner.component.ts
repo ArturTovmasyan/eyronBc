@@ -88,7 +88,6 @@ export class InnerComponent implements OnInit {
       this.broadcaster.on<any>('menuScroll')
           .subscribe( data => {
               this.scroll = data;
-              console.log(this.scroll);
           });
           
     this.angularPath = this._projectService.getAngularPath();
