@@ -39,7 +39,9 @@
 </div>
 
 <div id="fb-root"></div>
+
 <md-progress-spinner mode="indeterminate" *ngIf="!goal"></md-progress-spinner>
+
 <div class="inner-container" *ngIf="goal"
      [ngClass]="{'no-quote': !aphorisms, 'no-author': (!goal.author || goal.author.is_admin)}">
     <!--{% set cover = goal.getCoverPhotoDownloadLink %}-->
@@ -50,7 +52,8 @@
         <img src="{{ (goal && goal.cached_image)?goal.cached_image: imgPath}}" alt="Profile Cover Photo"
              class="img-responsive"/>
     </figure>
-    <div class="container"></div>
+
+    <!--<div class="container"></div>-->
     <!--data-ng-init="goal.public= {% if goal.status %} true {% else %} false {% endif %} "-->
     <div class="goal-content">
         <div class="container" #container>
