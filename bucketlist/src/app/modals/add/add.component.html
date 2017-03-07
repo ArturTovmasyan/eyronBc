@@ -59,8 +59,8 @@
 
                                     <div class="clearfix purple-checkbox">
                                         <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
-                                            <md-radio-button value="0">{{ "user_goal.active"|translate }}</md-radio-button>
-                                            <md-radio-button value="1">{{ "user_goal.completed"|translate }}</md-radio-button>
+                                            <md-radio-button value="0" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
+                                            <md-radio-button value="1" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
                                         </md-radio-group>
 
                                     </div>
@@ -170,8 +170,8 @@
                                 <div class="clearfix purple-checkbox" id="goal-is-visible-first">
                                     <!--[(ngModel)]="userGoal.is_visible"-->
                                     <md-radio-group [(ngModel)]="userGoal.is_visible" name="visibility">
-                                        <md-radio-button [value]="true">{{ "goal.visible"|translate }}</md-radio-button>
-                                        <md-radio-button [value]="false">{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
+                                        <md-radio-button [value]="true" disableRipple>{{ "goal.visible"|translate }}</md-radio-button>
+                                        <md-radio-button [value]="false" disableRipple>{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
                                     </md-radio-group>
                                 </div>
 
