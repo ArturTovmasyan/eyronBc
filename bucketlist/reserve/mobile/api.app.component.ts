@@ -37,7 +37,7 @@ export class AppComponent extends App {
         protected router: Router,
         protected viewContainerRef: ViewContainerRef,
         protected dialog: MdDialog,
-        @Inject(DOCUMENT) protected document: Document
+        @Inject(DOCUMENT) protected document: any
     ) { 
         super(
             angulartics2GoogleAnalytics, 
