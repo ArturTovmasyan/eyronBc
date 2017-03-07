@@ -397,7 +397,7 @@
                         <!--<adds-affiliate class="affiliate-right-mobile" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>-->
                         <!--</div>-->
 
-                        <div class="row padding-top" *ngIf="type != 'view'">
+                        <div class="row padding-top" *ngIf="(type != 'view') && isDesktop">
 
                             <!--<div class="col-sm-8">-->
                                 <!--<div class="row">-->
@@ -728,4 +728,91 @@
 
     <see-also *ngIf="seeAlsoShow"></see-also>
 </div>
+    <div class="container">
+        <div class="row padding-top" *ngIf="(type != 'view') && !isDesktop" [ngClass]="{'down1':scroll,'up1':!scroll}">
+
+            <!--<div class="col-sm-8">-->
+            <!--<div class="row">-->
+            <div class="col-xs-8 col-sm-10">
+                <div class="fb-like"
+                     [attr.data-href]="angularPath + goal.share_link"
+                     data-layout="button_count"
+                     data-action="like"
+                     data-show-faces="false"
+                     data-share="false">
+                </div>
+            </div>
+
+            <div class="col-xs-2 col-sm-1">
+                <button md-button (click)="showComment()">
+                    <i class="comment-new-icon"></i>
+                </button>
+            </div>
+
+            <div class="col-xs-2 col-sm-1 text-right">
+                <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{goal.title}}"-->
+                <!--class="twitter-hashtag-button" data-related="BucketList127"-->
+                <!--[attr.data-url]="angularPath + goal.share_link" [attr.data-dnt]="true">Tweet-->
+                <!--#BucketList127</a>-->
+
+
+
+                <div class="addthis_counter" (click)="openShare()">
+
+                    <!--(mouseleave)="isHover = false">-->
+                    <!--<share-buttons [url]="linkToShare"-->
+                    <!--(mouseover)="isHover = true"-->
+                    <!--(mouseleave)="isHover = false"-->
+                    <!--*ngIf="isHover"-->
+                    <!--[facebook]="fbInner"-->
+                    <!--[twitter]="twitterInner"-->
+                    <!--[pinterest]="pintInner"-->
+                    <!--[linkedIn]="inInner"-->
+                    <!--[google]="googleInner"-->
+                    <!--[tumblr]="false"-->
+                    <!--[reddit]="false"-->
+                    <!--[stumbleUpOn]="false">-->
+                    <!--</share-buttons>-->
+
+                </div>
+
+            </div>
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="col-sm-4">-->
+            <!--&lt;!&ndash;<button md-button (click)="showComment()">&ndash;&gt;-->
+            <!--&lt;!&ndash;Comments&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+
+            <!--<div class="addthis_counter" (click)="openShare()">-->
+
+            <!--&lt;!&ndash;(mouseleave)="isHover = false">&ndash;&gt;-->
+            <!--&lt;!&ndash;<share-buttons [url]="linkToShare"&ndash;&gt;-->
+            <!--&lt;!&ndash;(mouseover)="isHover = true"&ndash;&gt;-->
+            <!--&lt;!&ndash;(mouseleave)="isHover = false"&ndash;&gt;-->
+            <!--&lt;!&ndash;*ngIf="isHover"&ndash;&gt;-->
+            <!--&lt;!&ndash;[facebook]="fbInner"&ndash;&gt;-->
+            <!--&lt;!&ndash;[twitter]="twitterInner"&ndash;&gt;-->
+            <!--&lt;!&ndash;[pinterest]="pintInner"&ndash;&gt;-->
+            <!--&lt;!&ndash;[linkedIn]="inInner"&ndash;&gt;-->
+            <!--&lt;!&ndash;[google]="googleInner"&ndash;&gt;-->
+            <!--&lt;!&ndash;[tumblr]="false"&ndash;&gt;-->
+            <!--&lt;!&ndash;[reddit]="false"&ndash;&gt;-->
+            <!--&lt;!&ndash;[stumbleUpOn]="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;</share-buttons>&ndash;&gt;-->
+
+            <!--</div>-->
+
+            <!--</div>-->
+
+
+
+
+
+
+
+        </div>
+    </div>
 </div>
