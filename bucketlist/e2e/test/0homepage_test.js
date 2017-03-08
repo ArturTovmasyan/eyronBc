@@ -14,8 +14,8 @@ Scenario('Check Homepage', function(I) {
     I.click('DISCOVER MORE');
     I.seeCurrentUrlEquals('/ideas');
     I.executeScript('window.history.back();');
-    I.refresh();
-    I.waitForText('Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.');
+    I.waitForVisible('i.icon-ok-icon', 5);
+    I.see('Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.');
     I.click('Add');
     I.waitForText('CONNECT WITH');
     I.click('.close-icon');

@@ -21,8 +21,9 @@ Scenario('Test leader board page functionality', (I) => {
   I.checkIfTextExist('text-dark-gray', 'user3 user3');
   I.checkLeaderBoardList();
   I.click('Mentor');
-  I.waitForText('user1 useryan', 3);
+  I.waitForVisible('div.leaderboard-space', 5);
   I.click('Innovator');
+  I.waitForVisible('div.leaderboard-space', 5);
   I.waitForText('user7 user7', 3);
   I.saveScreenshot('leaderBoard.jpg');
 });
