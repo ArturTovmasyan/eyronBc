@@ -5,7 +5,7 @@
 
 `sudo npm install -g codeceptjs`
 
-`npm install -g webdriver-manager`
+`sudo npm install -g webdriver-manager`
 
 2) Install all npm packages
 
