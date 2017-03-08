@@ -5,8 +5,6 @@
 
 `sudo npm install -g codeceptjs`
 
-`sudo webdriver-manager update --versions.chrome 2.24`
-
 2) Install all npm packages
 
 `npm install`
@@ -53,11 +51,16 @@
 
 5) Build project with test environment
 
+`./bin/make-desc.sh`
+
 `ng build --env=test --output-pat=../web/test`
 	
 6) Run web driver manager for testing
 
 `webdriver-manager start`
+
+ if chrome version is 52 or less
+`webdriver-manager start --versions.standalone 2.53.1 --versions.chrome 2.24`
 
 7) Run e2e by sh file in project root directory => bin folder
 
