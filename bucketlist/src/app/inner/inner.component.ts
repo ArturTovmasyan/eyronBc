@@ -47,6 +47,7 @@ export class InnerComponent implements OnInit {
   public appUser:User;
   public userGoal:UserGoal;
   public show:boolean = false;
+  public scroll:boolean;
 
   public config: any = {
     pagination: '.swiper-pagination',
@@ -84,6 +85,11 @@ export class InnerComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.broadcaster.on<any>('menuScroll')
+          .subscribe( data => {
+              this.scroll = data;
+          });
+          
     this.angularPath = this._projectService.getAngularPath();
     if(localStorage.getItem('apiKey')){
       this.appUser = this._projectService.getMyUser();

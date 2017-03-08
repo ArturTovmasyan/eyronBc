@@ -39,7 +39,7 @@
     <span class="text-purple">
       0
     </span>
-    <button md-button (click)="manageVote(story.id)" *ngIf="story">
+    <button md-button (click)="manageVote(story.id)" *ngIf="story" [ngClass]="{'user-story1': isMy()}">
         <i [ngClass]="{'like-active': is_vote,'user-story': isMy()}"
            class="like-icon"></i>
     </button>
