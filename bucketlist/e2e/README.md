@@ -1,7 +1,11 @@
 # E2E TESTS RUN
-1) Install protractor globally
+1) Install protractor and codeceptjs globally
 
-`npm install  -g protractor`
+`sudo npm install -g protractor`
+
+`sudo npm install -g codeceptjs`
+
+`sudo webdriver-manager update --versions.chrome 2.24`
 
 2) Install all npm packages
 
@@ -51,11 +55,9 @@
 
 `ng build --env=test --output-pat=../web/test`
 	
-6) Download and run selenium server 2.53.1 version
+6) Run web driver manager for testing
 
-[selenium-server-standalone-2.53.1.jar](http://selenium-release.storage.googleapis.com/index.html?path=2.53/)
-
-`java -jar selenium-server-standalone-2.53.1.jar`
+`webdriver-manager start`
 
 7) Run e2e by sh file in root directory bin folder
 
