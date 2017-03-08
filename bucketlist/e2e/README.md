@@ -1,4 +1,4 @@
-# E2E TESTS RUN
+# E2E TESTS RUN, ALL COMMANDS MUST BE RUN IN /var/www/html/bucketlist/bucketlist - path
 1) Install protractor and codeceptjs globally
 
 `sudo npm install -g protractor`
@@ -59,6 +59,6 @@
 
 `webdriver-manager start`
 
-7) Run e2e by sh file in root directory bin folder
+7) Run e2e by sh file in project root directory => bin folder
 
 `./bin/angular-e2e-test.sh`
