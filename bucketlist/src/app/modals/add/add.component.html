@@ -161,9 +161,12 @@
 
                                 <h3 class="text-left">
                                     {{ "goal.visibility"|translate }}
+
+                                    <i class="icon-eye-icon hidden-sm hidden-md hidden-lg" *ngIf="userGoal.is_visible"></i>
+                                    <i class="icon-eye hidden-sm hidden-md hidden-lg" *ngIf="!userGoal.is_visible"></i>
                                 </h3>
 
-                                <p class="text-gray no-marginb">
+                                <p class="text-gray no-marginb hidden-xs">
                                     <i class="icon-eye-icon " *ngIf="userGoal.is_visible"></i>
                                     <i class="icon-eye" *ngIf="!userGoal.is_visible"></i>
                                     <span>{{ "goal.visible_text"|translate }}</span>
@@ -224,8 +227,8 @@
 
                                         <div class="clearfix purple-checkbox">
                                             <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
-                                                <md-radio-button value="0">{{ "user_goal.active"|translate }}</md-radio-button>
-                                                <md-radio-button value="1">{{ "user_goal.completed"|translate }}</md-radio-button>
+                                                <md-radio-button value="0" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
+                                                <md-radio-button value="1" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
                                             </md-radio-group>
 
                                         </div>
@@ -324,19 +327,21 @@
 
                                     <h3 class="text-left">
                                         {{ "goal.visibility"|translate }}
+                                        <i class="icon-eye-icon hidden-sm hidden-md hidden-lg" *ngIf="userGoal.is_visible"></i>
+                                        <i class="icon-eye hidden-sm hidden-md hidden-lg" *ngIf="!userGoal.is_visible "></i>
                                     </h3>
 
-                                    <p class="text-gray no-marginb">
-                                        <i class="icon-eye-icon " *ngIf="userGoal.is_visible && !isMobile"></i>
-                                        <i class="icon-eye" *ngIf="!userGoal.is_visible && !isMobile"></i>
+                                    <p class="text-gray no-marginb hidden-xs">
+                                        <i class="icon-eye-icon " *ngIf="userGoal.is_visible"></i>
+                                        <i class="icon-eye" *ngIf="!userGoal.is_visible "></i>
                                         <span *ngIf="!isMobile">{{ "goal.visible_text"|translate }}</span>
                                     </p>
 
                                     <div class="clearfix purple-checkbox" id="goal-is-visible">
                                         <!--[(ngModel)]="userGoal.is_visible"-->
                                         <md-radio-group [(ngModel)]="userGoal.is_visible" name="visibility">
-                                            <md-radio-button [value]="true">{{ "goal.visible"|translate }}</md-radio-button>
-                                            <md-radio-button [value]="false">{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
+                                            <md-radio-button [value]="true" disableRipple>{{ "goal.visible"|translate }}</md-radio-button>
+                                            <md-radio-button [value]="false" disableRipple>{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
                                         </md-radio-group>
                                     </div>
 
