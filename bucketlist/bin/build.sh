@@ -6,6 +6,6 @@ ng build --prod --aot true
 
 ./bin/make-mobile.sh
 
-ng build --prod --output-path=../web/mobile --aot true
+ng build --prod --output-path=../web/angular2/mobile --aot true
 
 ./bin/clean.sh
