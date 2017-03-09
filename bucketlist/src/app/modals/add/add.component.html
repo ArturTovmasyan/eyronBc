@@ -16,7 +16,7 @@
 
             <div *ngIf="userGoal.goal">
                 <h2>
-                    <span [ngClass]="{'title-smaller': (userGoal.goal.title && userGoal.goal.title.length > 25), 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}">{{ userGoal.goal.title }}</span>
+                    <span [ngClass]="{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}">{{ userGoal.goal.title }}</span>
                 </h2>
                 <!--{% if app.user %}-->
                 <p *ngIf="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id ">
@@ -44,6 +44,7 @@
 
         <form class="form-horizontal" method="post" #addForm="ngForm">
             <div class="goal-add bg-white">
+
                 <div *ngIf="newAdded && userGoal.id">
                     <div class="row">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -180,8 +181,6 @@
                         </div>
                     </div>
 
-
-
                     <div class="row">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <div *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false">
@@ -214,24 +213,26 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-                                <div class="no-marginb" *ngIf="userGoal.id">
+                                <div class="clearfix " *ngIf="userGoal.id">
+                                    <div class="no-marginb">
 
-                                    <h3 class="text-left">
-                                        {{ "goal.status"|translate }}
-                                    </h3>
+                                        <h3 class="text-left">
+                                            {{ "goal.status"|translate }}
+                                        </h3>
 
-                                    <p class="hidden-xs">{{ "goal.in_proces"|translate }}</p>
+                                        <p class="hidden-xs">{{ "goal.in_proces"|translate }}</p>
 
-                                    <div class="clearfix">
-                                        <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
-                                            <md-radio-button value="0" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
-                                            <md-radio-button value="1" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
-                                        </md-radio-group>
+                                        <div class="clearfix purple-checkbox">
+                                            <md-radio-group [(ngModel)]="complete.switch" name="status" (ngModelChange)="switchChanges()">
+                                                <md-radio-button value="0">{{ "user_goal.active"|translate }}</md-radio-button>
+                                                <md-radio-button value="1">{{ "user_goal.completed"|translate }}</md-radio-button>
+                                            </md-radio-group>
+
+                                        </div>
 
                                     </div>
 
                                 </div>
-
                             </div>
                         </div>
 
@@ -258,8 +259,8 @@
                                     {{ "goal.missed_deadline"|translate }}
                                 </p>
 
-                                <p [hidden]="userGoal.do_date || userGoal.completion_date || complete.switch == 1"
-                                   class="text-left hidden-xs hidden-sm">
+                                <p [hidden]="userGoal.do_date || userGoal.completion_date || complete.switch == 1 || isMobile"
+                                   class="text-left hidden-xs">
                                     {{ "dream"|translate }}
                                 </p>
 
@@ -326,22 +327,24 @@
                                     </h3>
 
                                     <p class="text-gray no-marginb">
-                                        <i class="icon-eye-icon " *ngIf="userGoal.is_visible"></i>
-                                        <i class="icon-eye" *ngIf="!userGoal.is_visible"></i>
-                                        <span>{{ "goal.visible_text"|translate }}</span>
+                                        <i class="icon-eye-icon " *ngIf="userGoal.is_visible && !isMobile"></i>
+                                        <i class="icon-eye" *ngIf="!userGoal.is_visible && !isMobile"></i>
+                                        <span *ngIf="!isMobile">{{ "goal.visible_text"|translate }}</span>
                                     </p>
 
                                     <div class="clearfix purple-checkbox" id="goal-is-visible">
                                         <!--[(ngModel)]="userGoal.is_visible"-->
                                         <md-radio-group [(ngModel)]="userGoal.is_visible" name="visibility">
-                                            <md-radio-button [value]="true" disableRipple>{{ "goal.visible"|translate }}</md-radio-button>
-                                            <md-radio-button [value]="false" disableRipple>{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
+                                            <md-radio-button [value]="true">{{ "goal.visible"|translate }}</md-radio-button>
+                                            <md-radio-button [value]="false">{{ "my_bucket_list.invisible"|translate }}</md-radio-button>
                                         </md-radio-group>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
+
+
 
                         <div class="row">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -371,12 +374,8 @@
                         </div>
                     </md-tab>
                     <md-tab label="Page 2">
-
-                            <perfect-scrollbar class="modal-container" [config]="config">
+                        <perfect-scrollbar class="modal-container" [config]="config">
                             <div class="content">
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                                 <h3 *ngIf="userGoal.goal.location">Location</h3>
 
                                 <div class="form-group row" *ngIf="userGoal.goal.location">
@@ -396,19 +395,20 @@
                                 <div class="form-group row">
                                     <div class="col-xs-12">
                                         <h3>{{ 'goal.priority'|translate }}</h3>
+
                                         <h6 class="hidden-xs">{{ "goal.deside"|translate }}</h6>
 
                                         <div class="priority purple-checkbox">
 
                                             <label class="relative">
-                                                <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent" disableRipple>
+                                                <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent">
                                                     {{ 'goal.urgent'|translate }}
                                                 </md-checkbox>
 
                                             </label>
 
                                             <label class="relative">
-                                                <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important" disableRipple>
+                                                <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important">
                                                     {{ 'goal.important'|translate }}
                                                 </md-checkbox>
                                             </label>
@@ -421,6 +421,7 @@
                                 <h3 class="no-marginb">{{ 'my_bucket_list.notes'|translate }}</h3>
 
                                 <p class="hidden-xs">
+
                                     <i class="icon-pencil"></i>
                                     {{ 'goal.take_note'|translate }}
                                 </p>
@@ -431,7 +432,8 @@
                                               name="note"
                                               [(ngModel)]="userGoal.note"
                                               rows="3"
-                                              placeholder="{{ 'goal.note_p'|translate }}">
+                                              placeholder="{{ 'goal.note_p'|translate }}"
+                                              [ngClass]="{'formHeight':isMobile}">
 
                                     </textarea>
                                     </div>
@@ -440,6 +442,7 @@
                                 <h3 class="no-marginb">{{ "tasks"|translate }}</h3>
 
                                 <p class="hidden-xs">
+
                                     <i title="Notes" class="icon-step-list"></i>
                                     {{ "goal.complete_step"|translate }}
                                 </p>
@@ -517,11 +520,8 @@
 
 
                                 </div>
-                                    </div>
-                                </div>
                             </div>
                         </perfect-scrollbar>
-
                     </md-tab>
                 </md-tab-group>
 
