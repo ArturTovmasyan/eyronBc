@@ -61,7 +61,8 @@
 
 `webdriver-manager start`
 
- if chrome version is less then 55 
+ if chrome version is less then 55 please run 
+ 
 `webdriver-manager start --versions.standalone 2.53.1 --versions.chrome 2.24`
 
 7) Run e2e by sh file in project root directory => bin folder
