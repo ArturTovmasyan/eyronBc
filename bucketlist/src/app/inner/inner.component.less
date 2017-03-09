@@ -11,8 +11,8 @@
   .quote{
     position: relative;
     padding:5px 0;
-    min-height: 90px;
-    height: auto !important;
+    //min-height: 90px;
+    //height: auto !important;
     height:90px;
 
     i{
@@ -525,8 +525,8 @@
       }
 
       a{
-        font-size: 13px;
-        padding: 0 5px;
+        font-size: 12px;
+        padding: 0 3px;
       }
 
       &:first-child{
@@ -557,6 +557,8 @@
 }
 
 .inner-content{
+
+  margin-bottom: 10px;
 
   .overlay{
     &:hover{
@@ -706,8 +708,8 @@
 
     .quote{
       padding: 10px 0 0;
-      min-height: 79px;
-      height: auto !important;
+      //min-height: 79px;
+      //height: auto !important;
       height: 79px;
       i{
         font-size:23px;
@@ -938,6 +940,8 @@
 
   .inner-content{
     overflow: hidden;
+    margin-bottom: 15px;
+
     .fb-like{
       margin: 13px 0 0 20px;
     }
@@ -996,9 +1000,10 @@
     }
 
     .quote{
-      min-height: 105px;
-      height: auto !important;
-      height: 105px;
+      //min-height: 80px;
+      //height: auto !important;
+      //height: 80px;
+      height: 115px;
 
       i{
         font-size:30px;
@@ -1217,5 +1222,31 @@
   position: absolute;
   z-index: 100;
   bottom: 0px;
+}
+
+button.mat-button{
+  &:hover{
+    .like-icon{
+      background: url('../../assets/images/like-hover.png') no-repeat center center;
+      background-size: 100%;
+    }
+  }
+}
+
+button.user-story1{
+
+  &:hover{
+    .mat-button-focus-overlay,.mat-button-ripple,.mat-ripple{
+      background: transparent;
+    }
+
+    .like-icon{
+      background: url('../../assets/images/like-icon.png') no-repeat center center;
+      background-size: 100%;
+      cursor: text;
+    }
+
+  }
+
 }
 

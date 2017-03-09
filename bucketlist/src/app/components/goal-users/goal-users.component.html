@@ -39,8 +39,12 @@
     <span class="text-purple">
       0
     </span>
-    <button md-button (click)="manageVote(story.id)" *ngIf="story" [ngClass]="{'user-story1': isMy()}">
-        <i [ngClass]="{'like-active': is_vote,'user-story': isMy()}"
+    <button md-button (click)="manageVote(story.id)" *ngIf="story && !isMy()">
+        <i [ngClass]="{'like-active': is_vote}"
            class="like-icon"></i>
+    </button>
+
+    <button md-button *ngIf="story && isMy()" class="user-story1" disableRipple>
+        <i class="like-icon"></i>
     </button>
 </span>

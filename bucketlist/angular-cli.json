@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "/var/www/html/bucketlist/web/dist",
+      "outDir": "/var/www/html/bucketlist/web/angular2/dist",
       "assets": [
         "assets",
         "favicon.ico"

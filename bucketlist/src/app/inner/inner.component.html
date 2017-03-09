@@ -39,7 +39,9 @@
 </div>
 
 <div id="fb-root"></div>
+
 <md-progress-spinner mode="indeterminate" *ngIf="!goal"></md-progress-spinner>
+
 <div class="inner-container" *ngIf="goal"
      [ngClass]="{'no-quote': !aphorisms, 'no-author': (!goal.author || goal.author.is_admin)}">
     <!--{% set cover = goal.getCoverPhotoDownloadLink %}-->
@@ -50,7 +52,8 @@
         <img src="{{ (goal && goal.cached_image)?goal.cached_image: imgPath}}" alt="Profile Cover Photo"
              class="img-responsive"/>
     </figure>
-    <div class="container"></div>
+
+    <!--<div class="container"></div>-->
     <!--data-ng-init="goal.public= {% if goal.status %} true {% else %} false {% endif %} "-->
     <div class="goal-content">
         <div class="container" #container>
@@ -302,7 +305,7 @@
                     <div class="col-sm-12 col-md-8">
                         <!--{% if page == inner %}-->
                         <ul class="users-lists row" *ngIf="type == 'inner'">
-                            <li class="col-xs-6">
+                            <li class="col-xs-7 col-sm-6">
                                 <ul class="row no-gutter">
                                     <li class="col-xs-12">
                                         {{ 'done_by'|translate | uppercase }}
@@ -346,7 +349,7 @@
                                 </ul>
                             </li>
 
-                            <li class="col-xs-6">
+                            <li class="col-xs-5 col-sm-6">
                                 <ul class="row no-gutter">
                                     <li class="col-xs-12">
                                         {{ 'listed_by'|translate | uppercase }}
