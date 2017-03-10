@@ -186,7 +186,7 @@
                                                 <a md-button (click)="manageGoal()"
                                                    class="text-gray manage-modal">
                                                     <i class="icon-manage"></i>
-                                                    <span>{{ 'manage'|translate }}</span>
+                                                    <span>{{ 'manage'|translate| capitalize }}</span>
                                                 </a>
                                             </li>
 
@@ -195,14 +195,14 @@
                                                     <a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">
                                                         <i class="icon-ok-icon"><span class="path1"></span><span
                                                                 class="path2"></span></i>
-                                                        <span>{{ 'done'|translate }}</span>
+                                                        <span>{{ 'done'|translate| capitalize }}</span>
 
                                                     </a>
 
                                                     <a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">
                                                         <i class="icon-green-ok"><span class="path1"></span><span
                                                                 class="path2"></span><span class="path3"></span></i>
-                                                        <span>{{ "completed"|translate }}</span>
+                                                        <span>{{ "completed"|translate| capitalize }}</span>
                                                     </a>
 
                                                 </div>
@@ -616,7 +616,9 @@
                                                     <a md-button *ngIf="goal.is_my_goal != 2" (click)="completeGoal(goal.id)">
                                                         <i class="icon-ok-icon"><span class="path1"></span><span
                                                                 class="path2"></span></i>
+                                                        <span class="text">{{ 'done'|translate | uppercase }}</span>
                                                     </a>
+
                                                     <a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">
                                                         <i class="icon-green-ok"><span class="path1"></span><span
                                                                 class="path2"></span><span class="path3"></span></i>
