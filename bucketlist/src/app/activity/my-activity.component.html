@@ -6,7 +6,7 @@
 
     <!--{% if not single%}-->
     <!--data-ng-init="activityPage = true"-->
-    <md-progress-spinner mode="indeterminate" *ngIf="!Activities && !noActivities"></md-progress-spinner>
+    <bl-loading mode="indeterminate" *ngIf="!Activities && !noActivities"></bl-loading>
     <div class="new-activity" *ngIf="newActivity && !single">
         <button md-button (click)="addNew()">{{ 'new_activity'|translate }}</button>
     </div>
