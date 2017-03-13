@@ -1,5 +1,5 @@
-# E2E TESTS RUN, ALL COMMANDS MUST BE RUN IN /var/www/html/bucketlist/bucketlist - path
-1) Install protractor and codeceptjs globally
+# E2E TESTS RUN
+1) Install protractor, codeceptjs and webdriver manager globally
 
 `sudo npm install -g protractor`
 
@@ -11,7 +11,7 @@
 
 `npm install`
 
-3) Create virtual host for backend test environment, add it in /etc/hosts
+3) Create virtual host for backend test environment and add it in /etc/hosts
 
 `<VirtualHost *:80>
      ServerName behat.bucketlist.loc
@@ -31,7 +31,7 @@
      </Directory>
  </VirtualHost>`
 
-4) Create virtual host for front test environment, add it in /etc/hosts
+4) Create virtual host for front test environment and add it in /etc/hosts
 
 `<VirtualHost *:80>
      ServerName test.bucketlist.loc
