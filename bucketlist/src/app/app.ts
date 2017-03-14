@@ -136,6 +136,7 @@ export class App implements OnInit  {
 
         this.broadcaster.on<string>('openLogin')
             .subscribe(message => {
+                window.scroll(0,0);
                 this.appUser = null;
                 this.joinShow = true;
             });

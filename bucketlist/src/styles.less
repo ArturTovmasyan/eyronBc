@@ -4101,7 +4101,7 @@ md-slide-toggle.md-checked:not(.md-disabled),
 md-slide-toggle.mat-checked:not(.md-disabled),
 md-slide-toggle.md-slide-toggle-focused,
 md-slide-toggle.mat-slide-toggle-focused {
-  .md-slide-toggle-thumb,.mat-slide-toggle-thumb{
+  .md-slide-toggle-thumb,.mat-slide-toggle-thumb-container{
     background-color: #7724f6;
 
     .md-ink-ripple,.md-slide-toggle-focused,.mat-ink-ripple,.mat-slide-toggle-focused{
@@ -4114,6 +4114,19 @@ md-slide-toggle.mat-slide-toggle-focused {
   }
 }
 
+md-slide-toggle.mat-slide-toggle{
+  .mat-slide-toggle-thumb-container{
+
+  }
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #7724f6;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: rgba(119, 36, 246, 0.3);
+}
 
 .mat-slide-toggle-content{
   text-align: left;

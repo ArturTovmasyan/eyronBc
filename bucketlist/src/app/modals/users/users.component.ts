@@ -38,9 +38,17 @@ export class UsersComponent implements OnInit {
     } else {
       if(this.data && this.data.itemId && this.data.category){
         this.getUsers();
+        document.addEventListener('ps-y-reach-end', () => {
+          this.onScroll();
+        });
       }
     }
   }
+    ngOnDestroy(){
+        document.removeEventListener('ps-y-reach-end', () => {
+            this.onScroll();
+        });
+    }
     closeModal(){
         if(!this.isOpen)return;
         this.isOpen = false;

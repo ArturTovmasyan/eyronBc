@@ -35,6 +35,8 @@ export class AddComponent implements OnInit {
   public dateChanged:boolean;
   public switchChanged:boolean = false;
   public complatedPercent: number;
+  public first:boolean = true;
+  public second:boolean = false;
   // public newAdded:boolean = userGoal.manage? false: true;
   public completedStepCount: number;
   public complete:any = {
