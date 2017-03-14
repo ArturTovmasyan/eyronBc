@@ -210,9 +210,22 @@
                             </p>
                         </div>
                     </div>
+                    <div class="row modal-bottom">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <a md-button  (click)="save()"
+                               class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
+                            <a md-button (click)="dialogRef.close(); isOpen = false;" id="cancel"
+                               class="btn btn-transparent">{{"cancel"|translate | uppercase}}</a>
+                            <a md-button (click)="showDetails = ! showDetails"
+                               class="btn btn-transparent">
+                                <span>{{ 'forget'|translate | uppercase}}</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <md-tab-group *ngIf="!newAdded && userGoal.id">
-                    <md-tab label="Page 1">
+
+                <div *ngIf="!newAdded && userGoal.id">
+                    <div  *ngIf="first">
                         <div class="row">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
@@ -377,174 +390,193 @@
                                 </p>
                             </div>
                         </div>
-                    </md-tab>
-                    <md-tab label="Page 2">
-                        <perfect-scrollbar class="modal-container" [config]="config">
-                            <div class="content">
-                                <h3 *ngIf="userGoal.goal.location">Location</h3>
+                        <hr/>
 
-                                <div class="form-group row" *ngIf="userGoal.goal.location">
-                                    <div class="col-sm-12">
-                                        <div class="location">
-                                            <i class="icon-location-icon"></i>
-                                            <input type="text"
-                                                   name="address"
-                                                   disabled
-                                                   [(ngModel)]="userGoal.goal.location.address"
-                                                   class="form-control place-autocomplete"
-                                                   placeholder="{{ 'goal.location_ex'|translate }}"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-xs-12">
-                                        <h3>{{ 'goal.priority'|translate }}</h3>
-
-                                        <h6 class="hidden-xs">{{ "goal.deside"|translate }}</h6>
-
-                                        <div class="priority purple-checkbox">
-
-                                            <label class="relative">
-                                                <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent">
-                                                    {{ 'goal.urgent'|translate }}
-                                                </md-checkbox>
-
-                                            </label>
-
-                                            <label class="relative">
-                                                <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important">
-                                                    {{ 'goal.important'|translate }}
-                                                </md-checkbox>
-                                            </label>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <h3 class="no-marginb">{{ 'my_bucket_list.notes'|translate }}</h3>
-
-                                <p class="hidden-xs">
-
-                                    <i class="icon-pencil"></i>
-                                    {{ 'goal.take_note'|translate }}
-                                </p>
-
-                                <div class="form-group row">
-                                    <div class="col-xs-12">
-                                    <textarea class="form-control"
-                                              name="note"
-                                              [(ngModel)]="userGoal.note"
-                                              rows="3"
-                                              placeholder="{{ 'goal.note_p'|translate }}"
-                                              [ngClass]="{'formHeight':isMobile}">
-
-                                    </textarea>
-                                    </div>
-                                </div>
-
-                                <h3 class="no-marginb">{{ "tasks"|translate }}</h3>
-
-                                <p class="hidden-xs">
-
-                                    <i title="Notes" class="icon-step-list"></i>
-                                    {{ "goal.complete_step"|translate }}
-                                </p>
-
-                                <div class="progress " *ngIf="!(complete.switch == 1)">
-                                    <section class="progress-section">
-                                        <span>{{ complatedPercent | round}} %</span>
-                                        <md-progress-bar
-                                                class="example-margin"
-                                                [value]="complatedPercent">
-                                        </md-progress-bar>
-                                    </section>
-                                </div>
-
-                                <div dnd-sortable-container [sortableData]="userGoal.formatted_steps">
-                                    <div class="form-group row"
-                                         *ngFor="let step of userGoal.formatted_steps; let i = index"
-                                         dnd-sortable
-                                         [sortableIndex]="i"
-                                         [hidden]="step.switch || (!step.text && complete.switch == 1)"
-                                         [ngClass]="{'noselect': !step.text}">
-
-                                        <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
-
-                                            <label class="relative">
-                                                <md-checkbox class="example-margin" name="switch{{i}}" [(ngModel)]="step.switch" *ngIf="step.text" (ngModelChange)="complatedPercent = getCompleted(userGoal)"></md-checkbox>
-                                            </label>
-
-                                        </div>
-
-                                        <div class="col-xs-10 col-sm-11">
-                                            <div class="to-do-list">
-
-                                                <input type="text"
-                                                       class="form-control"
-                                                       [ngClass]="{'market-step': step.switch}"
-                                                       [ngModel]="step.text"
-                                                       (ngModelChange)="generateStep($event, userGoal.formatted_steps, i)"
-                                                       name="stepText-{{i}}"
-                                                       placeholder="{{ 'goal.add_step'|translate }}">
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <p (click)="completedStepsShow = !completedStepsShow"
-                                       *ngIf="completedStepCount" class="text-purple">
-                                        <span *ngIf="!completedStepsShow">{{ "show" |translate }}</span>
-                                        <span *ngIf="completedStepsShow">{{ "hide" |translate }}</span> {{ completedStepCount}} {{ "completed" |translate }}
-                                    </p>
-
-                                    <div class="form-group row"
-                                         *ngFor="let step of userGoal.formatted_steps; let k = index"
-                                         [hidden]="!completedStepsShow || !step.switch">
-
-                                        <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
-
-                                            <label class="relative">
-                                                <md-checkbox class="example-margin" name="switch{{k}}" [(ngModel)]="step.switch" (ngModelChange)="complatedPercent = getCompleted(userGoal)"></md-checkbox>
-
-                                            </label>
-                                        </div>
-
-                                        <div class="col-xs-10 col-sm-11">
-                                            <div class="to-do-list">
-                                                <input type="text"
-                                                       class="form-control"
-                                                       [(ngModel)]="step.text"
-                                                       name="stepText{{ k }}"
-                                                       placeholder="{{ 'goal.add_step'|translate }}">
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
+                        <div class="row modal-bottom">
+                            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                <a md-button  (click)="save()"
+                                   class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
+                                <a md-button (click)="first=!first; second=!second" id="cancel"
+                                   class="btn btn-transparent">{{ "next"|translate }}</a>
+                                <a md-button (click)="showDetails = ! showDetails"
+                                   class="btn btn-transparent">
+                                    <span>{{ 'forget'|translate | uppercase}}</span>
+                                </a>
                             </div>
-                        </perfect-scrollbar>
-                    </md-tab>
-                </md-tab-group>
+                        </div>
+                    </div>
+                    <div  *ngIf="second">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                <perfect-scrollbar class="modal-container" [config]="config">
+                                    <div class="content">
+                                        <h3 *ngIf="userGoal.goal.location">Location</h3>
+
+                                        <div class="form-group row" *ngIf="userGoal.goal.location">
+                                            <div class="col-sm-12">
+                                                <div class="location">
+                                                    <i class="icon-location-icon"></i>
+                                                    <input type="text"
+                                                           name="address"
+                                                           disabled
+                                                           [(ngModel)]="userGoal.goal.location.address"
+                                                           class="form-control place-autocomplete"
+                                                           placeholder="{{ 'goal.location_ex'|translate }}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xs-12">
+                                                <h3>{{ 'goal.priority'|translate }}</h3>
+
+                                                <h6 class="hidden-xs">{{ "goal.deside"|translate }}</h6>
+
+                                                <div class="priority purple-checkbox">
+
+                                                    <label class="relative">
+                                                        <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent">
+                                                            {{ 'goal.urgent'|translate }}
+                                                        </md-checkbox>
+
+                                                    </label>
+
+                                                    <label class="relative">
+                                                        <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important">
+                                                            {{ 'goal.important'|translate }}
+                                                        </md-checkbox>
+                                                    </label>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <h3 class="no-marginb">{{ 'my_bucket_list.notes'|translate }}</h3>
+
+                                        <p class="hidden-xs">
+
+                                            <i class="icon-pencil"></i>
+                                            {{ 'goal.take_note'|translate }}
+                                        </p>
+
+                                        <div class="form-group row">
+                                            <div class="col-xs-12">
+                                            <textarea class="form-control"
+                                                      name="note"
+                                                      [(ngModel)]="userGoal.note"
+                                                      rows="3"
+                                                      placeholder="{{ 'goal.note_p'|translate }}"
+                                                      [ngClass]="{'formHeight':isMobile}">
+
+                                            </textarea>
+                                            </div>
+                                        </div>
+
+                                        <h3 class="no-marginb">{{ "tasks"|translate }}</h3>
+
+                                        <p class="hidden-xs">
+
+                                            <i title="Notes" class="icon-step-list"></i>
+                                            {{ "goal.complete_step"|translate }}
+                                        </p>
+
+                                        <div class="progress " *ngIf="!(complete.switch == 1)">
+                                            <section class="progress-section">
+                                                <span>{{ complatedPercent | round}} %</span>
+                                                <md-progress-bar
+                                                        class="example-margin"
+                                                        [value]="complatedPercent">
+                                                </md-progress-bar>
+                                            </section>
+                                        </div>
+
+                                        <div dnd-sortable-container [sortableData]="userGoal.formatted_steps">
+                                            <div class="form-group row"
+                                                 *ngFor="let step of userGoal.formatted_steps; let i = index"
+                                                 dnd-sortable
+                                                 [sortableIndex]="i"
+                                                 [hidden]="step.switch || (!step.text && complete.switch == 1)"
+                                                 [ngClass]="{'noselect': !step.text}">
+
+                                                <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
+
+                                                    <label class="relative">
+                                                        <md-checkbox class="example-margin" name="switch{{i}}" [(ngModel)]="step.switch" *ngIf="step.text" (ngModelChange)="complatedPercent = getCompleted(userGoal)"></md-checkbox>
+                                                    </label>
+
+                                                </div>
+
+                                                <div class="col-xs-10 col-sm-11">
+                                                    <div class="to-do-list">
+
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               [ngClass]="{'market-step': step.switch}"
+                                                               [ngModel]="step.text"
+                                                               (ngModelChange)="generateStep($event, userGoal.formatted_steps, i)"
+                                                               name="stepText-{{i}}"
+                                                               placeholder="{{ 'goal.add_step'|translate }}">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <p (click)="completedStepsShow = !completedStepsShow"
+                                               *ngIf="completedStepCount" class="text-purple">
+                                                <span *ngIf="!completedStepsShow">{{ "show" |translate }}</span>
+                                                <span *ngIf="completedStepsShow">{{ "hide" |translate }}</span> {{ completedStepCount}} {{ "completed" |translate }}
+                                            </p>
+
+                                            <div class="form-group row"
+                                                 *ngFor="let step of userGoal.formatted_steps; let k = index"
+                                                 [hidden]="!completedStepsShow || !step.switch">
+
+                                                <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
+
+                                                    <label class="relative">
+                                                        <md-checkbox class="example-margin" name="switch{{k}}" [(ngModel)]="step.switch" (ngModelChange)="complatedPercent = getCompleted(userGoal)"></md-checkbox>
+
+                                                    </label>
+                                                </div>
+
+                                                <div class="col-xs-10 col-sm-11">
+                                                    <div class="to-do-list">
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               [(ngModel)]="step.text"
+                                                               name="stepText{{ k }}"
+                                                               placeholder="{{ 'goal.add_step'|translate }}">
+                                                    </div>
+                                                </div>
+
+                                            </div>
 
 
-                <hr/>
+                                        </div>
+                                    </div>
+                                </perfect-scrollbar>
+                                <hr/>
 
-                <div class="row modal-bottom">
-                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                        <a md-button  (click)="save()"
-                           class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
-                        <a md-button (click)="dialogRef.close(); isOpen = false" id="cancel"
-                           class="btn btn-transparent">{{ 'btn_cancel'|translate }}</a>
-                        <a md-button (click)="showDetails = ! showDetails"
-                           class="btn btn-transparent">
-                            <span>{{ 'forget'|translate | uppercase}}</span>
-                        </a>
+
+                            </div>
+                        </div>
+                        <div class="row modal-bottom">
+                            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                <a md-button  (click)="save()"
+                                   class="btn btn-purple usergoal-save">{{ "btn_save"|translate }}</a>
+                                <a md-button (click)="first=!first; second=!second" id="cancel"
+                                   class="btn btn-transparent">{{"prev"|translate}}</a>
+                                <a md-button (click)="showDetails = ! showDetails"
+                                   class="btn btn-transparent">
+                                    <span>{{ 'forget'|translate | uppercase}}</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
 
                 <div *ngIf="showDetails">
                     <div class="delete-message">

@@ -40,7 +40,7 @@
 
 <div id="fb-root"></div>
 
-<md-progress-spinner mode="indeterminate" *ngIf="!goal"></md-progress-spinner>
+<bl-loading mode="indeterminate" *ngIf="!goal"></bl-loading>
 
 <div class="inner-container" *ngIf="goal"
      [ngClass]="{'no-quote': !aphorisms, 'no-author': (!goal.author || goal.author.is_admin)}">

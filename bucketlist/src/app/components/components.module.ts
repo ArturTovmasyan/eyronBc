@@ -25,6 +25,7 @@ import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
 import { FbShareComponent } from './fb-share/fb-share.component';
 import { PreloadImgComponent } from './preload-img/preload-img.component';
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+import { BlLoadingComponent } from './bl-loading/bl-loading.component';
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -59,7 +60,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SeeAlsoComponent,
     MyDropzoneComponent,
     FbShareComponent,
-    PreloadImgComponent
+    PreloadImgComponent,
+    BlLoadingComponent
   ],
   exports: [ GoalUsersComponent,
     GoalComponent,
@@ -79,7 +81,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SeeAlsoComponent,
     MyDropzoneComponent,
     FbShareComponent,
-    PreloadImgComponent
+    PreloadImgComponent,
+    BlLoadingComponent
   ]
 })
 export class ComponentModule { }
