@@ -1,5 +1,5 @@
 <div class="api-content-header">
-    <md-progress-spinner mode="indeterminate" *ngIf="!profileUser"></md-progress-spinner>
+    <bl-loading mode="indeterminate" *ngIf="!profileUser"></bl-loading>
     <figure [class.my-profile]="!userInfo || userInfo == 'my'" *ngIf="profileUser">
 
         <span class="overlay"></span>
