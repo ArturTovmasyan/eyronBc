@@ -504,7 +504,7 @@
                             <div class="comment goals-animate" [hidden]="!show">
                                 <app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}" ></app-comment>
                             </div>
-                            <hr/>
+                            <hr class="hidden-xs hidden-sm"/>
                             <div class="text-dark-grey goal-info" *ngIf="goal.description && goal.description != ''"
                                  [innerHTML]="goal.description|removeTag|MarkdownToHtml"></div>
 
