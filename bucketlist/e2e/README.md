@@ -59,7 +59,7 @@
 	
 6) Run web driver manager for testing
 
-`webdriver-manager --versions.chrome 2.24 start`
+`webdriver-manager start --versions.chrome 2.28 start`
 
  if chrome version is less then 55 please run 
  

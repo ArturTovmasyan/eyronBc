@@ -6,12 +6,11 @@ BeforeSuite((I) => {
 });
 
 Scenario('Test goal inner page', (I) => {
-
   I.amOnPage('/');
   I.see('JOIN');
   I.click('JOIN');
   I.loginUser('user1@user.com', 'Test1234');
-  I.seeCurrentUrlEquals('/activity');
+  I.seeCurrentUrlEquals('/ideas');
   I.wait(1);
   I.amOutsideAngularApp();
   I.click('a.user-popover');
