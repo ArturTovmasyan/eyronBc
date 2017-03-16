@@ -27,6 +27,8 @@ module.exports = function() {
             this.fillField('plainPassword', 'Test1234');
             this.setDateFields(2);
             this.click('register');
+            this.wait(1.5);
+            this.amOutsideAngularApp();
             this.see('Account with this email already exists, please, sign in.');
             this.fillField('email', 'testuser@test.com');
             this.click('register');

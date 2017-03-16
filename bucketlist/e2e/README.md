@@ -59,12 +59,13 @@
 	
 6) Run web driver manager for testing
 
-`webdriver-manager start --versions.chrome 2.28 start`
+`webdriver-manager start`
 
- if chrome version is less then 55 please run 
+ if test not run please run bellow commands
  
-`webdriver-manager start --versions.standalone 2.53.1 --versions.chrome 2.24`
-
+`sudo webdriver-manager update --versions.chrome 2.26 --versions.standalone 2.53.1`
+ 
+`webdriver-manager start --versions.chrome 2.26 --versions.standalone 2.53.1`
 7) Run e2e by sh file in project root directory => bin folder
 
 `./bin/angular-e2e-test.sh`

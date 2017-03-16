@@ -107,6 +107,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal4->setReadinessStatus(Goal::TO_PUBLISH);
         $goal4->setAuthor($user4);
         $goal4->setPublish(true);
+        $goal4->addTag($tag);
         $manager->persist($goal4);
 
         // create goal

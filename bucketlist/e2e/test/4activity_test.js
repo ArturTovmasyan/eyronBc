@@ -15,29 +15,23 @@ Scenario('Test activity functionality', (I) => {
   I.waitForVisible('a.mat-button', 5);
   I.click('Add');
   I.wait(1);
-  I.click('//div[@id="md-tab-label-0-1"]');
   I.click('Save');
-  I.waitForVisible('i.activity-icon');
+  I.click('Add');
+  I.wait(1);
+  I.click('Save');
+  I.waitForVisible('i.activity-icon', 5);
   I.click('ACTIVITY');
   I.waitForVisible('a.text-dark-gray', 5);
   I.seeCurrentUrlEquals('/activity');
-
-  //TODO Complete page part fix, after design change
-  // I.click('Complete');
-  // I.waitForText('Share your achievement', 5);
-  // I.fillField('story', 'My first story in TEST E2E');
-  // I.attachFile('form input[name=file]', 'e2e/output/homepage.jpg');
-  // I.attachFile('form input[name=file]', 'e2e/output/leaderBoard.jpg');
-  // I.attachFile('form input[name=file]', 'e2e/output/login.jpg');
-  // I.fillField('input[ng-reflect-name=videoLink0]', 'https://www.youtube.com/watch?v=9R30petM1k0');
-  // I.click('Save');
-
+  I.wait(2);
   I.click('Comments');
   I.fillField('commentBody', 'My first comment added');
   I.pressEnterOnComment();
+  I.wait(2);
   I.waitForText('My first comment added', 5);
   I.fillField('commentBody', 'My first REPLY TEXT added');
   I.pressEnterOnComment();
+  I.wait(2);
   I.waitForText('My first REPLY TEXT added', 5);
   I.executeScript('window.scrollTo(0, 0);');
   I.see('Active', 'ul.horizontal-menu');
@@ -74,14 +68,13 @@ Scenario('Test activity functionality', (I) => {
   I.click('//i[@class="icon-top-idea"]');
   I.waitForVisible('i.icon-ok-icon', 3);
   I.seeCurrentUrlEquals('/ideas/most-popular');
-  I.executeScript('window.history.back();');
-  I.waitForVisible('i.icon-ok-icon', 3);
   I.click('//span[contains(text(), "Listed by")]');
   I.waitForText('Completed', 5);
-  I.waitForVisible('div.cdk-focus-trap-content', 5);
+  I.wait(2);
   I.click('a.close-icon', 'div.cdk-focus-trap-content');
-  I.click('//i[@class="icon-suggest-icon"]');
-  I.waitForText('user7 user7');
+  I.executeScript('window.history.back();');
+  I.amOnPage('/leaderboard');
+  I.waitForText('user7 user7', 5);
   I.seeCurrentUrlEquals('/leaderboard');
   I.wait(1);
   I.checkIfTextExist('text-dark-gray', 'user3 user3');
@@ -96,6 +89,5 @@ Scenario('Test activity functionality', (I) => {
   I.wait(1);
   I.click('//div[@id="leaderboard-list"]//a[@id="goalFriendLoad"]');
   I.executeScript('window.scrollTo(0, document.body.scrollHeight);');
-  I.click('//a[contains(text(), "user9user9")]');
-  I.wait(2);
+  I.wait(1);
 });

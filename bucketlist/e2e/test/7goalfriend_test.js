@@ -30,7 +30,7 @@ Scenario('Test goal friend page functionality', (I) => {
   I.click('Most Active');
   I.waitForText('user9 user9', 5);
   I.click('Following');
-  I.waitForText('No result');
+  I.waitForText('No result', 5);
   I.click('All');
   I.waitForText('In Common 3', 5);
   I.wait(0.5);

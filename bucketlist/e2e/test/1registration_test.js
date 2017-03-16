@@ -14,5 +14,6 @@ Scenario('Test registration form and all process', (I) => {
     I.seeCurrentUrlEquals('/register');
     I.see('Sign up and discover great ideas');
     I.registrationUser();
+    I.wait(2);
     I.saveScreenshot('registration.jpg');
 });

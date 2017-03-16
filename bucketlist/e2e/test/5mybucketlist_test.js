@@ -15,34 +15,34 @@ Scenario('test my bucket list page functionality', (I) => {
     I.amOutsideAngularApp();
     I.click('a.user-popover');
     I.click('Leaderboard');
-    I.waitForText('user1 useryan');
+    I.waitForText('user1 useryan', 5);
     I.seeCurrentUrlEquals('/leaderboard');
     I.click('a.user-popover');
     I.click('My Bucketlist');
-    I.waitForText('user1 useryan');
+    I.waitForText('user1 useryan', 5);
     I.seeCurrentUrlEquals('/profile/my/all');
 
     I.click('Activity');
     I.click('Active');
     I.waitForText('goal9', 5);
     I.click('Completed');
-    I.waitForText('goal3');
+    I.waitForText('goal3', 5);
     I.click('Created');
-    I.waitForText('goal15');
+    I.waitForText('goal15', 5);
     I.click('My Bucketlist');
 
     I.click('Dreams');
-    I.waitForText('goal9');
+    I.waitForText('goal9', 5);
     I.click('Dreams');
 
     I.click('Important, urgent');
-    I.waitForText('goal9');
-    I.waitForText('goal6');
+    I.waitForText('goal9', 5);
+    I.waitForText('goal6', 5);
     I.click('Important, urgent');
 
     I.click('Not important, urgent');
-    I.waitForText('goal8');
-    I.waitForText('goal4');
+    I.waitForText('goal8', 5);
+    I.waitForText('goal4', 5);
     I.click('Not important, urgent');
 
     I.click('Important, not urgent');
@@ -67,8 +67,7 @@ Scenario('test my bucket list page functionality', (I) => {
     I.click('Not important, not urgent');
 
     I.click('//li[@class="pull-right"]/a[2]');
-    I.wait(2);
-    I.waitForText('Satellite');
+    I.waitForText('Satellite', 6);
     I.click('//li[@class="pull-right"]/a[1]');
     I.waitForText('MONTH');
     I.waitForText('YEAR');

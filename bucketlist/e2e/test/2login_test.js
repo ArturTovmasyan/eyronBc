@@ -18,7 +18,7 @@ Scenario('Check login functionality', (I) => {
     I.click('Logout');
     I.seeCurrentUrlEquals('/');
     I.click('JOIN');
-    I.waitForText('CONNECT WITH');
+    I.waitForText('CONNECT WITH', 3);
     I.click('Forgot password?');
     I.seeCurrentUrlEquals('/resetting/request');
     I.see('Reset your password');
@@ -33,7 +33,7 @@ Scenario('Check login functionality', (I) => {
     I.see('Check your email');
     I.click('JOIN');
     I.waitForText('Join');
-    I.waitForText('CONNECT WITH');
+    I.waitForText('CONNECT WITH', 3);
     I.click('.mat-button-ripple', '#login-page');
     I.amOutsideAngularApp();
     I.switchToWindow(1);

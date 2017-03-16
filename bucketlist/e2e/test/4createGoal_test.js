@@ -10,7 +10,7 @@ Scenario('Check create goal functionality', (I) => {
   I.see('JOIN');
   I.click('JOIN');
   I.loginUser('user1@user.com', 'Test1234');
-  I.seeCurrentUrlEquals('/ideas');
+  I.seeCurrentUrlEquals('/activity');
   I.wait(1);
   I.amOutsideAngularApp();
   I.click('a.user-popover');
@@ -41,14 +41,13 @@ Scenario('Check create goal functionality', (I) => {
   I.wait(2);
   I.click('.mat-checkbox-inner-container');
   I.clearField('description');
-  I.fillField('description', 'DESCRIPTION FOR #etery HELLO MY #ANKAX FRIENDS');
+  I.fillField('description', 'DESCRIPTION FOR #sev HELLO MY #spitak FRIENDS');
   I.click('//div[@class="buttons"]//button[3]');
   I.waitForText('TEST GOALS', 5);
   I.click('Invisible');
-  I.click('//div[@id="md-tab-label-0-1"]');
-  I.waitForText('Priority');
   I.click('Save');
   I.amOutsideAngularApp();
+  I.wait(1);
   I.click('a.user-popover');
   I.click('Create Goal');
   I.waitForText('By checking you suggest your goal to be listed in the Ideas list', 10);
@@ -60,7 +59,7 @@ Scenario('Check create goal functionality', (I) => {
   I.click('My Private Idea');
   I.waitForText('TEST GOALS', 5);
   I.executeScript('window.scrollTo(0, document.body.scrollHeight);');
-  I.waitForVisible('i.icon-delete-in-circle', 5);
+  I.wait(2);
   I.click('Remove');
   I.waitForText('Your goal will be permanently deleted');
   I.click('Delete');
