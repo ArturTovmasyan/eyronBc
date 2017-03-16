@@ -86,7 +86,7 @@
           </div>
 
           <!--{% if app.user %}-->
-          <h3 class="text-dark-gray" *ngIf="appUser && data.length > 10">{{ 'leaderboard.position'|translate }}</h3>
+          <h3 class="text-dark-gray" *ngIf="appUser && data &&  data.length > 10">{{ 'leaderboard.position'|translate }}</h3>
 
           <div class="round goals-animate" [hidden]="!appUser || !data || !data.length" [ngClass]="{'margin-top': i == 0,'bg-white': user.user.id == appUser.id}" *ngFor="let user of data |slice: 10: 15; let i = index">
 
