@@ -342,7 +342,7 @@ class BadgeService extends AbstractProcessService
             $message = "Oops! You went down on the leaderboard as an $typeAsString . To reach the top, devote more time to Bucket List..";
         }
 
-        $link = $this->router->generate('leaderboard');
+        $link = $this->router->generate('leaderboard') . ($type == Badge::TYPE_MOTIVATOR ? '/mentor' : '');
         $this->notification->sendNotification(null, $link, null, $message, $user);
 //        $this->notifyService->sendEmail($user->getEmail(), $message, 'increase-decrease on the leaderboard');
         $this->pushNote->sendPushNote($user, $message);
