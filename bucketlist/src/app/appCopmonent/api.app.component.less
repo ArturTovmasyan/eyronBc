@@ -8,12 +8,14 @@ body{
 
 #api-mainframe{
   padding-top: 62px;
+  min-height: 100%;
+  position: relative;
 
-  #wrap{
-    min-height: 350px;
-    height: auto !important;
-    height: 350px;
-  }
+  //#wrap{
+  //  min-height: 350px;
+  //  height: auto !important;
+  //  height: 350px;
+  //}
 }
 
 .down{
@@ -21,6 +23,26 @@ body{
 }
 .up{
   display: block;
+}
+
+.mat-sidenav-container{
+  background-color: transparent;
+  z-index: 1000001;
+  //top: 0;
+  //height: auto;
+}
+
+.mat-sidenav-backdrop.mat-sidenav-shown{
+  background-color: transparent;
+}
+
+.min-height{
+  min-height: 450px;
+
+  &+div#api-mainframe{
+    //padding-top:0;
+    margin: -640px 0 0 0;
+  }
 }
 
 md-sidenav.mat-sidenav{
