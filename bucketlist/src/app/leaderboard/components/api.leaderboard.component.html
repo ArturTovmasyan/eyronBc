@@ -58,7 +58,7 @@
           <div class="leaderboard-space">
             <div class="row no-gutter">
               <div class="col-xs-7 col-sm-9">
-                <ul [ngClass]="{'no-border-top-left': !i}" *ngFor="let user of data; let i = index" class="bg-white left-corner goals-animate">
+                <ul [ngClass]="{'no-border-top-left': !i}" *ngFor="let user of data  | slice:0:10; let i = index" class="bg-white left-corner goals-animate">
                   <li class="text-orange">{{i + 1}}</li>
                   <li>
                     <figure class="img-circle">
@@ -86,9 +86,9 @@
           </div>
 
           <!--{% if app.user %}-->
-          <h3 class="text-dark-gray" *ngIf="appUser && users.length > 10">{{ 'leaderboard.position'|translate }}</h3>
+          <h3 class="text-dark-gray" *ngIf="appUser && data.length > 10">{{ 'leaderboard.position'|translate }}</h3>
 
-          <div class="round goals-animate" [hidden]="!appUser || !users || !users.length" [ngClass]="{'margin-top': i == 0,'bg-white': user.user.id == appUser.id}" *ngFor="let user of users |slice: 10: 15; let i = index">
+          <div class="round goals-animate" [hidden]="!appUser || !data || !data.length" [ngClass]="{'margin-top': i == 0,'bg-white': user.user.id == appUser.id}" *ngFor="let user of data |slice: 10: 15; let i = index">
 
             <div class="leaderboard-space">
               <div class="row no-gutter">
@@ -119,7 +119,7 @@
                   </ul>
                 </div>
               </div>
-              <div [hidden]="user.user.id == appUser.id">
+              <div [hidden]="user.user.id != appUser.id">
                 <p class="text-gray leaderboard-text">{{ 'leaderboard.position_text'|translate }}</p>
               </div>
             </div>
