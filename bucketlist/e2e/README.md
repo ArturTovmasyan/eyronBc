@@ -53,6 +53,8 @@
 
 5) Build project with test environment
 
+`./bin/clean.sh`
+
 `./bin/make-desc.sh`
 
 `ng build --env=test --output-pat=../web/test`
