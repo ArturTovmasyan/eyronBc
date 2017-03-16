@@ -35,6 +35,8 @@ export class AddComponent implements OnInit {
   public dateChanged:boolean;
   public switchChanged:boolean = false;
   public complatedPercent: number;
+  public first:boolean = true;
+  public second:boolean = false;
   // public newAdded:boolean = userGoal.manage? false: true;
   public completedStepCount: number;
   public complete:any = {
@@ -108,7 +110,7 @@ export class AddComponent implements OnInit {
                   })
         }
       }
-      this.complete.switch = this.userGoal.status == 2?1:0;
+      
       let date = new Date();
       let currentYear = date.getFullYear();
       for(let i = 0 ; i < 50; i++){
@@ -119,20 +121,40 @@ export class AddComponent implements OnInit {
         }
       }
 
-      if(this.userGoal.completion_date && this.userGoal.status == 2){
-        this.updateDate(this.userGoal.completion_date);
-      } else{
-        if(this.userGoal.do_date){
-          this.updateDate(this.userGoal.do_date);
-          this.userGoal.do_date_status = this.userGoal.date_status;
-        }
+      // if(this.userGoal.completion_date && this.userGoal.status == 2){
+      //   this.updateDate(this.userGoal.completion_date);
+      // } else{
+      //   if(this.userGoal.do_date){
+      //     this.updateDate(this.userGoal.do_date);
+      //     this.userGoal.do_date_status = this.userGoal.date_status;
+      //   }
+      // }
+      // if(this.userGoal.formatted_steps && this.userGoal.formatted_steps[0]){
+      //   if(this.userGoal.formatted_steps[this.userGoal.formatted_steps.length - 1].text){
+      //     this.generateStep(true,this. userGoal.formatted_steps, this.userGoal.formatted_steps.length -1);
+      //   } else {
+      //     this.complatedPercent = this.getCompleted(this.userGoal);
+      //   }
+      // }
+    }
+  }
+  
+  dynamicChanges(){
+    this.complete.switch = this.userGoal.status == 2?1:0;
+    
+    if(this.userGoal.completion_date && this.userGoal.status == 2){
+      this.updateDate(this.userGoal.completion_date);
+    } else{
+      if(this.userGoal.do_date){
+        this.updateDate(this.userGoal.do_date);
+        this.userGoal.do_date_status = this.userGoal.date_status;
       }
-      if(this.userGoal.formatted_steps && this.userGoal.formatted_steps[0]){
-        if(this.userGoal.formatted_steps[this.userGoal.formatted_steps.length - 1].text){
-          this.generateStep(true,this. userGoal.formatted_steps, this.userGoal.formatted_steps.length -1);
-        } else {
-          this.complatedPercent = this.getCompleted(this.userGoal);
-        }
+    }
+    if(this.userGoal.formatted_steps && this.userGoal.formatted_steps[0]){
+      if(this.userGoal.formatted_steps[this.userGoal.formatted_steps.length - 1].text){
+        this.generateStep(true,this. userGoal.formatted_steps, this.userGoal.formatted_steps.length -1);
+      } else {
+        this.complatedPercent = this.getCompleted(this.userGoal);
       }
     }
   }

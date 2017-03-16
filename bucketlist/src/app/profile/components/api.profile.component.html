@@ -73,27 +73,27 @@
                     <form class="form-inline" action="#">
                         <!--{# dream filter #}-->
                         <label class="checkbox-inline" [ngClass]="{'checked-label': (isDream == true)}">
-                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="isDream" (change)="getData()"></md-checkbox>
+                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="isDream" (change)="getData()" disableRipple></md-checkbox>
                             {{ 'filter.dream'|translate}}
                         </label>
 
                         <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentImportant == true)}">
-                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentImportant" (change)="getData()"></md-checkbox>
+                            <md-checkbox class="example-margin" name="urgentImportant" [(ngModel)]="urgentImportant" (change)="getData()" disableRipple></md-checkbox>
                             {{ 'filter.import_urgent'|translate}}
                         </label>
 
                         <label class="checkbox-inline" [ngClass]="{'checked-label': (urgentNotImportant == true)}">
-                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="urgentNotImportant" (change)="getData()"></md-checkbox>
+                            <md-checkbox class="example-margin" name="urgentNotImportant" [(ngModel)]="urgentNotImportant" (change)="getData()" disableRipple></md-checkbox>
                             {{ 'filter.not_import_urgent'|translate}}
                         </label>
 
                         <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentImportant == true)}">
-                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentImportant" (change)="getData()"></md-checkbox>
+                            <md-checkbox class="example-margin" name="notUrgentImportant" [(ngModel)]="notUrgentImportant" (change)="getData()" disableRipple></md-checkbox>
                             {{ 'filter.import_not_urgent'|translate}}
                         </label>
 
                         <label class="checkbox-inline" [ngClass]="{'checked-label': (notUrgentNotImportant == true)}">
-                            <md-checkbox class="example-margin" name="dream" [(ngModel)]="notUrgentNotImportant" (change)="getData()"></md-checkbox>
+                            <md-checkbox class="example-margin" name="notUrgentNotImportant" [(ngModel)]="notUrgentNotImportant" (change)="getData()" disableRipple></md-checkbox>
                             {{ 'filter.not_import_not_urgent'|translate}}
                         </label>
                     </form>
@@ -176,7 +176,7 @@
 
                 </div>
 
-                <md-progress-spinner mode="indeterminate" *ngIf="busy || (!userGoals && !noItem)"></md-progress-spinner>
+                <bl-loading mode="indeterminate" *ngIf="busy || (!userGoals && !noItem)"></bl-loading>
             <p class="empty-text text-center"
                *ngIf="(!userGoals || !userGoals.length) && noItem">
                 <span *ngIf="myProfile && isDream == 'true'">

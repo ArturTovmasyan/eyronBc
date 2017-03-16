@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild, HostListener} from '@angular/core';
 import { ProjectService } from '../project.service';
 import { Broadcaster } from '../tools/broadcaster';
-import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { RouterModule, Routes, ActivatedRoute, Router, Params } from '@angular/router';
 import { MetadataService } from 'ng2-metadata';
 
@@ -9,6 +9,8 @@ import {Goal} from '../interface/goal';
 import {User} from '../interface/user';
 import {Story} from '../interface/story';
 import {UserGoal} from "../interface/userGoal";
+import {MdDialog,MdDialogRef} from "@angular/material";
+import {ShareComponent} from "../modals/share/share.component";
 
 @Component({
   selector: 'app-inner',
@@ -44,13 +46,8 @@ export class InnerComponent implements OnInit {
   public stories:Story[];
   public appUser:User;
   public userGoal:UserGoal;
-
-  shareTitle = "Sharing is caring";
-  fbInner = "<img src='../../assets/images/facebook-share.svg'>";
-  twitterInner = "<img src='../../assets/images/twitter-share.svg'>";
-  pintInner = "<img src='../../assets/images/pinterest-share.svg'>";
-  inInner = "<img src='../../assets/images/linkedin-share.svg'>";
-  googleInner = "<img src='../../assets/images/google-plus-share.svg'>";
+  public show:boolean = false;
+  public scroll:boolean;
 
   public config: any = {
     pagination: '.swiper-pagination',
@@ -77,7 +74,9 @@ export class InnerComponent implements OnInit {
       private _projectService: ProjectService,
       private _cacheService: CacheService,
       private broadcaster: Broadcaster,
-      private route: ActivatedRoute) {}
+      private route: ActivatedRoute,
+      private  dialog: MdDialog
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -86,6 +85,11 @@ export class InnerComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.broadcaster.on<any>('menuScroll')
+          .subscribe( data => {
+              this.scroll = data;
+          });
+          
     this.angularPath = this._projectService.getAngularPath();
     if(localStorage.getItem('apiKey')){
       this.appUser = this._projectService.getMyUser();
@@ -245,7 +249,8 @@ export class InnerComponent implements OnInit {
       this.broadcaster.broadcast('addModal', {
         'userGoal': this.userGoal,
         'newAdded' : false,
-        'newCreated' : false
+        'newCreated' : false,
+        'haveData': true
       });
 
       this.broadcaster.on<any>('saveUserGoal_' + this.userGoal.id)
@@ -291,12 +296,20 @@ export class InnerComponent implements OnInit {
     } else {
 
       let oldStatus = this.goal.is_my_goal;
+
+      this.broadcaster.broadcast('addModal', {
+            'userGoal': {'goal': this.goal},
+            'newAdded' : true,
+            'newCreated' : false
+      });
+
       this._projectService.addUserGoal(id, {}).subscribe((data) => {
-        this.broadcaster.broadcast('addModal', {
-          'userGoal': data,
-          'newAdded' : true,
-          'newCreated' : false
-        });
+        this.broadcaster.broadcast('addModalUserGoal', data);
+        // this.broadcaster.broadcast('addModal', {
+        //   'userGoal': data,
+        //   'newAdded' : true,
+        //   'newCreated' : false
+        // });
 
         this.broadcaster.on<any>('addGoal' + this.goal.id)
             .subscribe(() => {
@@ -341,11 +354,16 @@ export class InnerComponent implements OnInit {
     this.goal.is_my_goal = 2;
 
     if(isManage){
-      this._projectService.getStory(id).subscribe((data)=> {
         this.broadcaster.broadcast('doneModal', {
-          'userGoal': data,
-          'newAdded' : false
+            'userGoal': {'goal':this.goal},
+            'newAdded' : false
         });
+      this._projectService.getStory(id).subscribe((data)=> {
+          this.broadcaster.broadcast('doneModalUserGoal', data);
+        // this.broadcaster.broadcast('doneModal', {
+        //   'userGoal': data,
+        //   'newAdded' : false
+        // });
         if(!this.userGoal){
           this._projectService.getUserGoal(this.goal.id)
               .subscribe(
@@ -365,12 +383,18 @@ export class InnerComponent implements OnInit {
           break;
       }
 
+        this.broadcaster.broadcast('doneModal', {
+            'userGoal': {'goal':this.goal},
+            'newAdded' : true
+        });
+        
       this._projectService.setDoneUserGoal(id).subscribe(() => {
         this._projectService.getStory(id).subscribe((data)=> {
-          this.broadcaster.broadcast('doneModal', {
-            'userGoal': data,
-            'newAdded' : true
-          });
+            this.broadcaster.broadcast('doneModalUserGoal', data);
+          // this.broadcaster.broadcast('doneModal', {
+          //   'userGoal': data,
+          //   'newAdded' : true
+          // });
 
           this.broadcaster.on<any>('doneGoal' + this.goal.id)
               .subscribe(() => {
@@ -387,12 +411,18 @@ export class InnerComponent implements OnInit {
   }
   
   save(id){
-    this._projectService.addUserGoal(id, {}).subscribe((data) => {
       this.broadcaster.broadcast('addModal', {
-        'userGoal': data,
-        'newAdded' : true,
-        'newCreated' : true
+          'userGoal': {'goal':this.goal},
+          'newAdded' : true,
+          'newCreated' : true
       });
+    this._projectService.addUserGoal(id, {}).subscribe((data) => {
+        this.broadcaster.broadcast('addModalUserGoal', data);
+      // this.broadcaster.broadcast('addModal', {
+      //   'userGoal': data,
+      //   'newAdded' : true,
+      //   'newCreated' : true
+      // });
       this.broadcaster.on<any>('saveUserGoal_' + data.id)
           .subscribe(data => {
             let messages = this._cacheService.get('flash_massage');
@@ -423,4 +453,15 @@ export class InnerComponent implements OnInit {
     }
 
   }
+    openShare(){
+        let dialogRef: MdDialogRef<ShareComponent>;
+        dialogRef = this.dialog.open(ShareComponent);
+        dialogRef.componentInstance.linkToShare = this.linkToShare;
+    }
+    // closeDropdown(){
+    //     this.menu1 = false;
+    // }
+    showComment(){
+        this.show = !this.show;
+    }
 }

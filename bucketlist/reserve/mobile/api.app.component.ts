@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Angulartics2, Angulartics2GoogleAnalytics} from 'angulartics2';
 import { App} from '../app';
+import {  HostListener, Inject} from "@angular/core";
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +24,8 @@ import { App} from '../app';
 
 export class AppComponent extends App {
     @ViewChild('sidenav') sidenav: MdSidenav;
+    public scroll:boolean;
+    public before:number = 0;
     //public userDrop : boolean = false;
     constructor(
         protected angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
@@ -32,7 +36,8 @@ export class AppComponent extends App {
         protected _cacheService: CacheService,
         protected router: Router,
         protected viewContainerRef: ViewContainerRef,
-        protected dialog: MdDialog
+        protected dialog: MdDialog,
+        @Inject(DOCUMENT) protected document: any
     ) { 
         super(
             angulartics2GoogleAnalytics, 
@@ -57,5 +62,23 @@ export class AppComponent extends App {
         if(this.sidenav._isOpened){
             this.sidenav.close()
         }
+    }
+
+    @HostListener("window:scroll", [])
+    onWindowScroll() {
+        let number = this.document.body.scrollTop;
+        if(number < this.before){
+            this.doScroll(0);
+            this.before = number;
+        }
+        if(number > this.before){
+            this.doScroll(1);
+            this.before = number;
+        }
+    }
+
+    doScroll(type:number) {
+        this.scroll = (type == 1);
+        this.broadcaster.broadcast('menuScroll',this.scroll);
     }
 }

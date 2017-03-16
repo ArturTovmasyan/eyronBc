@@ -1,26 +1,32 @@
 <div class="bg-grey my-modal" id="goal-users-modal">
-    <md-progress-spinner mode="indeterminate" *ngIf="!users"></md-progress-spinner>
+
+    <bl-loading mode="indeterminate" *ngIf="!users"></bl-loading>
     <div class="bg-white relative text-left" *ngIf="users && users.length && data.category" (clickOutside)="closeModal()">
+
         <h3 *ngIf="data.category == 1"  >{{ 'home_listed_by'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
         <h3 *ngIf="data.category == 2"  >{{ 'home_complete'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
         <h3 *ngIf="data.category == 3"  >{{ 'home_voters'|translate }} {{ data.count }} {{ 'users'|translate }}</h3>
         <a class="close-icon" (click)="dialogRef.close();isOpen = false"></a>
     </div>
 
-    <div class="users-content"
-         infinite-scroll
-         [infiniteScrollDistance]="1"
-         [infiniteScrollThrottle]="500"
-         (scrolled)="onScroll()"
-         *ngIf="users">
-        <div [hidden]="!users.length"
-             class="row"
-             *ngFor="let user of users">
+    <perfect-scrollbar class="modal-container" [config]="config">
 
-            <div class="col-xs-12">
-                <app-user [user]="user"></app-user>
+        <div class="users-content"
+             infinite-scroll
+             [infiniteScrollDistance]="1"
+             [infiniteScrollThrottle]="500"
+             (scrolled)="onScroll()"
+             *ngIf="users">
+            <div [hidden]="!users.length"
+                 class="row"
+                 *ngFor="let user of users">
+
+                <div class="col-xs-12">
+                    <app-user [user]="user"></app-user>
+                </div>
+
             </div>
-
         </div>
-    </div>
+    </perfect-scrollbar>
+
 </div>

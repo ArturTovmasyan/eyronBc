@@ -13,8 +13,8 @@
 /composer.phar
 /vendor/
 /web/bundles/
-/web/mobile
-/web/dist
+/web/angular2/dist
+/web/angular2/mobile
 /web/app
 /angular/app/bower_components
 /angular/app/node_modules

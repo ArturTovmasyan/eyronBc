@@ -54,6 +54,7 @@
     </div>
 
     <div class="bg-white" *ngIf="userGoal">
+        <perfect-scrollbar class="modal-container" [config]="config">
 
         <div *ngIf="newAdded">
             <div class="row">
@@ -135,11 +136,13 @@
                 </div>
             </div>
 
-            <div class="text-center modal-bottom">
-                <a md-button (click)="save()" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</a>
-                <a md-button (click)="dialogRef.close(); isOpen = false" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|translate }}</a>
-            </div>
+
 
         </form>
+            </perfect-scrollbar>
+    </div>
+    <div class="text-center modal-bottom">
+        <a md-button (click)="save()" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</a>
+        <a md-button (click)="dialogRef.close(); isOpen = false" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|translate }}</a>
     </div>
 </div>

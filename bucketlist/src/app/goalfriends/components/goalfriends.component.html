@@ -13,7 +13,6 @@
            [infiniteScrollDistance]="1"
            [infiniteScrollThrottle]="500"
            (scrolled)="onScroll()">
-
         <!--{% if friend %}-->
 
         <div class="bg-white padding round">
@@ -74,7 +73,7 @@
         <!--{% endif %}-->
 
         <div class="row">
-          <md-progress-spinner mode="indeterminate" *ngIf="!users"></md-progress-spinner>
+          <bl-loading mode="indeterminate" *ngIf="!users"></bl-loading>
           <div class="col-sm-6 goals-animate" *ngFor="let user of users;let e = even, let i = index"
                [ngClass]="{'margin-top': i < 2}" >
 

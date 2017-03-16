@@ -83,6 +83,13 @@ export class ProfileHeader implements OnInit {
             this.profileUser = this._cacheService.get('user'+this.userInfo);
         }
 
+        if(this.profileUser){
+            this.badges = this.profileUser.badges;
+            this.active = this.profileUser.stats.active;
+            this.listedBy = this.profileUser.stats.listedBy;
+            this.doneBy = this.profileUser.stats.doneBy;
+        }
+
         this._projectService.getUserByUId(this.userInfo)
             .subscribe(
                 user => {
