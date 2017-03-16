@@ -34,5 +34,3 @@ app/cache/
 app/logs/
 src/node/tmp/
 web/uploads/
-bin/angular-e2e-test.sh
-bin/angular-unit-test.sh

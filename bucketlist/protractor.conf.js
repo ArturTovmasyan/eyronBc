@@ -1,5 +1,5 @@
 /*global jasmine */
-var SpecReporter = require('jasmine-spec-reporter');
+let SpecReporter = require('jasmine-spec-reporter');
 
 exports.config = {
     allScriptsTimeout: 11000,
@@ -30,12 +30,6 @@ exports.config = {
     },
     onPrepare: function() {
         jasmine.getEnv().addReporter(new SpecReporter());
-        browser.ignoreSynchronization = true;
-    },
-    params: {
-        login: {
-            user: 'test@test.am',
-            password: 'test1234'
-        }
+        browser.ignoreSynchronization = false;
     }
 };

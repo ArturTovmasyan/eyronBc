@@ -3,19 +3,15 @@
 module.exports = function() {
 
     return actor({
-    // Define custom steps here, use 'this' to access default methods of I.
-    // It is recommended to place a general 'login' function here.
 
         loginUser: function(username, password) {
-            this.click('JOIN');
             this.waitForText('CONNECT WITH');
             this.fillField('_username', username);
             this.fillField('_password', password);
             this.click('SIGN IN');
-            this.seeCurrentUrlEquals('/ideas');
         },
         registrationUser: function() {
-            this.attachFile('form input[name=file]', 'e2e/output/homepage.png');
+            this.attachFile('form input[name=file]', 'e2e/output/homepage.jpg');
             this.fillField('firstName', '');
             this.fillField('lastName', '');
             this.fillField('email', '');
@@ -29,12 +25,37 @@ module.exports = function() {
             this.fillField('email', 'user1@user.com');
             this.fillField('password', 'Test1234');
             this.fillField('plainPassword', 'Test1234');
+            this.setDateFields(2);
             this.click('register');
+            this.wait(1.5);
+            this.amOutsideAngularApp();
             this.see('Account with this email already exists, please, sign in.');
             this.fillField('email', 'testuser@test.com');
             this.click('register');
-            this.seeCurrentUrlEquals('/ideas');
+            this.wait(1.5);
+        },
+        setDateFields: function(data) {
+            this.click('//div[@class="col-xs-4"][1]');
+            this.click('//md-option['+data+']');
+            this.click('//div[@class="col-xs-4"][2]');
             this.wait(1);
-        }
+            this.click('//md-option['+data+']');
+            this.click('//div[@class="col-xs-4"][3]');
+            this.wait(1);
+            this.click('//md-option['+data+']');
+        },
+      changeNotifySettings: function () {
+        this.click('//md-slide-toggle[1]');
+        this.click('//md-slide-toggle[2]');
+        this.click('//md-slide-toggle[3]');
+        this.click('//md-slide-toggle[4]');
+        this.click('//md-slide-toggle[5]');
+        this.click('//md-slide-toggle[6]');
+        this.click('//md-slide-toggle[7]');
+        this.click('//md-slide-toggle[8]');
+        this.click('//md-slide-toggle[9]');
+        this.click('//md-slide-toggle[10]');
+      }
+
   });
 };

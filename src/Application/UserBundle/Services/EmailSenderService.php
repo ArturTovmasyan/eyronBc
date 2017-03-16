@@ -8,6 +8,7 @@
 namespace Application\UserBundle\Services;
 
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EmailSenderService
 {
@@ -56,7 +57,7 @@ class EmailSenderService
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($this->container->get('templating')->render(
                 'ApplicationUserBundle:Registration:emailConfirm.html.twig',
-                array('name' => $name, 'url' => $url, 'email' => $email, 'helpUrl' => $helpLink)
+                ['name' => $name, 'url' => $url, 'email' => $email, 'helpUrl' => $helpLink]
             ), "text/html");
 
         $this->container->get('mailer')->send($message);
@@ -84,7 +85,7 @@ class EmailSenderService
         $url = sprintf('%s/edit/add-email/%s/%s', $apiHost, $emailToken, $newUserEmail);
 
         //get help center link
-        $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
+        $helpLink = $this->container->get('router')->generate('page', ['slug' => 'contact-us'], true);
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your new email in ' . $projectName . ' account')
@@ -93,7 +94,7 @@ class EmailSenderService
             ->setContentType('text/html; charset=UTF-8')
             ->setBody($this->container->get('templating')->render(
                 'ApplicationUserBundle:Registration:userEmailsActivation.html.twig',
-                array('name' => $userName, 'url' => $url, 'email' => $newUserEmail, 'helpUrl' => $helpLink)
+                ['name' => $userName, 'url' => $url, 'email' => $newUserEmail, 'helpUrl' => $helpLink]
             ), 'text/html');
 
         $this->container->get('mailer')->send($message);
@@ -115,7 +116,7 @@ class EmailSenderService
         $fromEmail = 'confirmEmail@' . $this->container->getParameter('project_name') . '.com';
 
         // generate url
-        $helpLink = $this->container->get('router')->generate('homepage', array(), true);
+        $helpLink = $this->container->get('router')->generate('homepage', [], true);
 
         // calculate message
         $message = \Swift_Message::newInstance()
@@ -125,7 +126,7 @@ class EmailSenderService
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($this->container->get('templating')->render(
                 'AppBundle:Main:contactUsEmail.html.twig',
-                array('name' => $name, 'data' => $data, 'link'=>$helpLink)
+                ['name' => $name, 'data' => $data, 'link'=>$helpLink]
             ), "text/html");
         // send email
         $this->container->get('mailer')->send($message);
