@@ -141,7 +141,7 @@
                                 <!--</li>-->
 
                                 <!--<li [ngClass]="{'col-xs-3': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">-->
-                                <li [class.transparent]="goal.is_my_goal" [ngClass]="{'col-xs-4': appUser,'col-xs-6': !appUser}">
+                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal" [ngClass]="{'col-xs-4': appUser && userGoal}">
                                     <a md-button *ngIf="!goal.is_my_goal" (click)="add(goal.id)">
                                         <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span
                                                 class="path3"></span></i>
@@ -168,7 +168,7 @@
                                   </span>
                                 </li>
 
-                                <li class="col-xs-2 text-left" *ngIf="appUser">
+                                <li class="col-xs-2 text-left" *ngIf="appUser && userGoal">
                                     <md-menu #settingsMenu="mdMenu">
                                         <!--<button md-menu-item> Settings </button>-->
                                         <!--<button md-menu-item> Help </button>-->
@@ -563,7 +563,7 @@
                                 <!--</li>-->
 
                                 <!--<li [ngClass]="{'col-xs-3 col-sm-4': appUser && appUser.is_admin,'col-xs-6': !appUser || !appUser.is_admin,'transparent': goal.is_my_goal}">-->
-                                <li [class.transparent]="goal.is_my_goal" [ngClass]="{'col-xs-4': appUser,'col-xs-6': !appUser}">
+                                <li class="col-xs-6" [class.transparent]="goal.is_my_goal" [ngClass]="{'col-xs-4': appUser && userGoal}">
                                     <a md-button *ngIf="!goal.is_my_goal" (click)="add(goal.id)">
                                         <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span
                                                 class="path3"></span></i>
@@ -589,7 +589,7 @@
                                            <span class="text">{{ 'completed'|translate | uppercase }}</span>
                                       </span>
                                 </li>
-                                <li class="col-xs-2 text-left" *ngIf="appUser">
+                                <li class="col-xs-2 text-left" *ngIf="appUser && userGoal">
                                     <md-menu #settingsMenu="mdMenu">
                                         <!--<button md-menu-item> Settings </button>-->
                                         <!--<button md-menu-item> Help </button>-->
