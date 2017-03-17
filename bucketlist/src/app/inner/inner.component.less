@@ -660,12 +660,21 @@
   height: 100%;
 }
 
+.test{
+  .mat-button{
+    min-width: 30px !important;
+    padding: 0 6px;
+    line-height: 28px;
+  }
+}
+
 .comment-new-icon{
   display: inline-block;
   height: 23px;
   width: 23px;
   background: url('../../assets/images/new-comment.svg') no-repeat center center;
   background-size: 100%;
+  cursor:pointer;
 }
 
 .addthis_counter{
@@ -679,9 +688,9 @@
   //float: right;
   cursor:pointer;
   margin: 8px;
-
+  //
   //&:hover{
-  //  background: url('../../assets/images/share-purple.png') no-repeat center center ;
+  //  background: url('../../assets/images/button_share.svg') no-repeat center center rgba(0,0,0,.12);
   //  background-size: 100%;
   //}
 
@@ -715,12 +724,35 @@
   //}
 }
 
+//.down1{
+//  display:none;
+//}
+//.up1{
+//  display:block;
+//}
+
+.inner-bottom{
+  border-top: 1px solid #333;
+  z-index: 1000000;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background:#021523;
+  height: 50px;
+  padding: 6px 0 15px 0;
+
+  .fb-like{
+    line-height: 28px;
+  }
+}
+
 @media (min-width: @screen-sm) {
 
   //.addthis_counter{
   //  width:113px;
   //  height:31px;
   //}
+
 
   .inner-container{
 
@@ -1248,15 +1280,6 @@
 //  height: 300px;
 //}
 //test for dynamic menu
-.down1{
-  display:none;
-}
-.up1{
-  display:block;
-  position: absolute;
-  z-index: 100;
-  bottom: 0px;
-}
 
 button.mat-button{
   &:hover{

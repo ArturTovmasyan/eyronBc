@@ -107,6 +107,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal4->setReadinessStatus(Goal::TO_PUBLISH);
         $goal4->setAuthor($user4);
         $goal4->setPublish(true);
+        $goal4->addTag($tag);
         $manager->persist($goal4);
 
         // create goal
@@ -251,6 +252,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal15->setTitle('goal15');
         $goal15->setStatus(1);
         $goal15->setVideoLink(null);
+        $goal15->setLat(40.17941);
+        $goal15->setLng(4.54084);
         $goal15->setReadinessStatus(Goal::TO_PUBLISH);
         $goal15->setAuthor($user1);
         $goal15->setPublish(true);
@@ -588,6 +591,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal29->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal29);
 
+
         // create goal
         $userGoal30 = new UserGoal();
         $userGoal30->setUser($user11);
@@ -609,6 +613,17 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal31->setUrgent(true);
         $userGoal31->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal31);
+
+        // create goal
+        $userGoal32 = new UserGoal();
+        $userGoal32->setUser($user12);
+        $userGoal32->setGoal($goal12);
+        $userGoal32->setIsVisible(true);
+        $userGoal32->setNote('goal13');
+        $userGoal32->setImportant(true);
+        $userGoal32->setUrgent(true);
+        $userGoal32->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal32);
 
         $oldPhotoPath = __DIR__ . '/images/leon.jpg';
         $photoPath = __DIR__ . '/../../../../web/uploads/images/photo.jpg';
@@ -966,7 +981,15 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $newFeed->setDatetime(new \DateTime('now'));
         $newFeed->addGoal($goal13);
         $manager->persist($newFeed);
-        
+
+        //create newFeed object for activity json structure test
+        $newFeed1 = new NewFeed(null, null, $goal14);
+        $newFeed1->setUser($user12);
+        $newFeed1->setAction(true);
+        $newFeed1->setDatetime(new \DateTime('now'));
+        $newFeed1->addGoal($goal14);
+        $manager->persist($newFeed1);
+
         $manager->flush();
 
         $this->addReference('goal1', $goal1);
@@ -975,6 +998,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('goal4', $goal4);
         $this->addReference('goal5', $goal5);
         $this->addReference('goal14', $goal14);
+        $this->addReference('goal15', $goal15);
         $this->addReference('userGoal1', $userGoal1);
         $this->addReference('userGoal2', $userGoal2);
         $this->addReference('userGoal3', $userGoal3);

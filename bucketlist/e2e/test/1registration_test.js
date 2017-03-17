@@ -1,11 +1,11 @@
 /// <reference path="../steps.d.ts" />
 Feature('Check registration');
 
-Before(function(I) {
+BeforeSuite((I) => {
     I.resizeWindow('maximize');
 });
 
-Scenario('Test registration form and all process', function(I) {
+Scenario('Test registration form and all process', (I) => {
     I.amOnPage('/');
     I.see('JOIN');
     I.click('JOIN');
@@ -14,5 +14,6 @@ Scenario('Test registration form and all process', function(I) {
     I.seeCurrentUrlEquals('/register');
     I.see('Sign up and discover great ideas');
     I.registrationUser();
-    I.saveScreenshot('homepage.png');
+    I.wait(2);
+    I.saveScreenshot('registration.jpg');
 });
