@@ -26,6 +26,7 @@ export class AppComponent extends App {
     @ViewChild('sidenav') sidenav: MdSidenav;
     public scroll:boolean;
     public before:number = 0;
+    public sOpen:boolean = false;
     //public userDrop : boolean = false;
     constructor(
         protected angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
@@ -58,11 +59,6 @@ export class AppComponent extends App {
     //    }
     //}
 
-    check(){
-        if(this.sidenav._isOpened){
-            this.sidenav.close()
-        }
-    }
 
     @HostListener("window:scroll", [])
     onWindowScroll() {
@@ -75,10 +71,19 @@ export class AppComponent extends App {
             this.doScroll(1);
             this.before = number;
         }
+        if(number > 400 ){
+            this.sOpen = false;
+            this.check();
+        }
     }
 
     doScroll(type:number) {
         this.scroll = (type == 1);
         this.broadcaster.broadcast('menuScroll',this.scroll);
+    }
+    check(){
+        if(this.sidenav._isOpened){
+            this.sidenav.close()
+        }
     }
 }
