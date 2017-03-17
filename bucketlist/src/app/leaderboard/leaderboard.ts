@@ -6,6 +6,7 @@ import { ProjectService} from '../project.service';
 import { User} from '../interface/user';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MetadataService } from 'ng2-metadata';
+import { CacheService} from 'ng2-cache/ng2-cache';
 
 export class Leaderboard implements OnInit, OnDestroy {
 
@@ -26,6 +27,7 @@ export class Leaderboard implements OnInit, OnDestroy {
         protected metadataService: MetadataService,
         protected _projectService: ProjectService,
         protected router:Router,
+        protected _cacheService: CacheService,
         protected route: ActivatedRoute
     ) {
         router.events.subscribe((val) => {
@@ -47,6 +49,7 @@ export class Leaderboard implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.serverPath = this._projectService.getPath();
+        this.appUser = this._cacheService.get('user_');
     }
 
     getleaderBoard() {
