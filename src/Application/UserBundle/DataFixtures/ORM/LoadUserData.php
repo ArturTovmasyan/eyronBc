@@ -33,17 +33,17 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setFirstName('admin');
         $user->setLastName('adminyan');
         $user->setEmail('admin@admin.com');
-        $user->setRoles(array('ROLE_SUPER_ADMIN'));
+        $user->setRoles(['ROLE_SUPER_ADMIN']);
         $user->setIsAdmin(true);
         $user->setEnabled(true);
         $user->setPlainPassword('Test1234');
         $user->setDateOfBirth(new \DateTime('now'));
         $user->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1gad');
         $user->setCreatedAt(new \DateTime('now'));
-        $user->setUserEmails(array('admin1@test.ru'=>
-                array('userEmails'=>'admin1@test.ru',
+        $user->setUserEmails(['admin1@test.ru'=>
+                ['userEmails'=>'admin1@test.ru',
                     'token'=>'f1acf697a3a6477ec984b740701475d9',
-                    'primary'=>false))
+                    'primary'=>false]]
         );
         $manager->persist($user);
 
@@ -56,27 +56,30 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user1->setEnabled(true);
         $user1->setPlainPassword('Test1234');
         $user1->setDateOfBirth(new \DateTime('now'));
-        $user1->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1dag');
+        $user1->setRegistrationToken(null);
         $user1->setCreatedAt(new \DateTime('now'));
-        $user1->setUserEmails(array('test@test.ru'=>
-                                    array('userEmails'=>'test@test.ru',
+        $user1->setUserEmails(['test@test.ru'=>
+                                    ['userEmails'=>'test@test.ru',
                                         'token'=>'f1acf697a3a6477ec984b740701475d9',
-                                        'primary'=>false))
+                                        'primary'=>false]]
         );
 
         $manager->persist($user1);
 
         // create user
         $user2 = new User();
-        $user2->setFirstName('user2');
+        $user2->setFirstName('userToo');
         $user2->setLastName('useryan');
         $user2->setIsAdmin(false);
         $user2->setEmail('user2@user.com');
         $user2->setEnabled(true);
         $user2->setPlainPassword('Test1234');
-        $user2->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1dagd');
-        $user2->setCreatedAt(new \DateTime('now')
-        );
+        $user2->setRegistrationToken(null);
+        $user2->setCreatedAt(new \DateTime('now'));
+        $user2->setUserEmails(['testangular@ang.com'=>
+            ['userEmails' => 'testangular@ang.com',
+            'token' => null,
+            'primary' => false]]);
 
         $manager->persist($user2);
 
