@@ -2,7 +2,7 @@
 
 ./bin/make-desc.sh
 
-ng build --prod --aot true
+ng build --prod --output-path=../web/angular2/dist --aot true
 
 ./bin/make-mobile.sh
 
