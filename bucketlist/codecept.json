@@ -7,7 +7,10 @@
       "url": "http://test.bucketlist.loc",
       "driver": "hosted",
       "browser": "chrome",
-      "rootElement": "body"
+      "rootElement": "html"
+    },
+    "MyHelper": {
+      "require": "./e2e/my_helper.js"
     }
   },
   "include": {
