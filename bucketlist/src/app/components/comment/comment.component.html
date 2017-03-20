@@ -11,12 +11,12 @@
   <hr/>
 </div>
 
-<div class="comments-column padding">
-  <perfect-scrollbar class="comment-container" [config]="config">
+<div class="comments-column padding" id="scroll-container">
+  <perfect-scrollbar class="comment-container" [config]="config" #myScroll>
 
   <div *ngFor="let comment of comments; let i = index"
        [hidden]="!comments || !comment.visible"
-       class="comment-information">
+       class="comment-information" id="comment-{{i}}">
     <!--data-ng-init="comment.visible = ($index > comments.length - commentsDefaultCount - 1)"-->
 
     <div class="clearfix">

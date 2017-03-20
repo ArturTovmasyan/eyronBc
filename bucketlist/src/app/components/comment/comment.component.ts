@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ProjectService } from '../../project.service'
 import { Broadcaster } from '../../tools/broadcaster';
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ import { Comment } from '../../interface/comment';
   styleUrls: ['./comment.component.less']
 })
 export class CommentComponent implements OnInit {
+  @ViewChild('myScroll')
+  public myScroll: any;
   public serverPath:string = '';
   @Input() data: any;
   public isInner: boolean = false;
@@ -33,6 +35,13 @@ export class CommentComponent implements OnInit {
       private router: Router) { }
 
   ngOnInit() {
+    //   let p = 0;
+    // setInterval(()=>{
+    //   let containerPos = this.findPos(document.getElementById("scroll-container"));
+    //   let position = this.findPos(document.getElementById("comment-"+p)) - containerPos;
+    //   this.myScroll.scrollTo(position);
+    //   p +=1;
+    // },5000);
     if(!localStorage.getItem('apiKey')){
       // this.router.navigate(['/']);
     } else {
@@ -65,6 +74,16 @@ export class CommentComponent implements OnInit {
     }
     this.serverPath = this._projectService.getPath();
     this.isInner = this.data.inner;
+  }
+
+  findPos(obj) {
+    let curtop = 0;
+    if (obj.offsetParent) {
+      do {
+        curtop += obj.offsetTop;
+      } while (obj = obj.offsetParent);
+      return [curtop];
+    }
   }
 
   showMoreComment () {
