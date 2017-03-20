@@ -501,8 +501,8 @@
                     </div>
 
                         <div class="inner">
-                            <div class="comment goals-animate" [hidden]="!show">
-                                <app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}" ></app-comment>
+                            <div class="comment goals-animate" [hidden]="!show" *ngIf="isDesktop">
+                                <app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}"></app-comment>
                             </div>
                             <hr class="hidden-xs hidden-sm"/>
                             <div class="text-dark-grey goal-info" *ngIf="goal.description && goal.description != ''"
@@ -773,7 +773,7 @@
                     </div>
 
                     <div class="col-xs-3 col-sm-1">
-                        <button md-button (click)="showComment()">
+                        <button md-button (click)="openComment()">
                             <i class="comment-new-icon"></i>
                         </button>
                     </div>

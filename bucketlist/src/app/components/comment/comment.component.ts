@@ -63,6 +63,30 @@ export class CommentComponent implements OnInit {
         this._projectService.getComments(this.data.slug).subscribe(
             comments => {
               this.comments  = comments;
+              this.broadcaster.on<any>('commentshow')
+                  .subscribe( () =>{
+                    setTimeout(()=>{
+                      let p = this.comments.length - 1;
+                      let containerPos = this.findPos(document.getElementById("scroll-container"));
+                      let position: number = this.findPos(document.getElementById("comment-"+p));
+                      if(!containerPos && !position)return;
+                      position -= containerPos;
+                      this.myScroll.scrollTo(position);
+                    },1000);
+
+                    // let p = 0;
+                    // setInterval(()=>{
+                    //   let containerPos = this.findPos(document.getElementById("scroll-container"));
+                    //   let position = this.findPos(document.getElementById("comment-"+p)) - containerPos;
+                    //   this.myScroll.scrollTo(position);
+                      // p +=1;
+                      // console.log(p);
+                      // console.log(containerPos);
+                      // console.log(position);
+                    // },1000);
+
+                  });
+
               this.commentsLength = this.comments.length - this.commentsDefaultCount;
               for(let i = 0;i < this.comments.length; i++){
                 this.comments[i].visible = (i > this.comments.length - this.commentsDefaultCount - 1);
@@ -76,14 +100,16 @@ export class CommentComponent implements OnInit {
     this.isInner = this.data.inner;
   }
 
-  findPos(obj) {
+  findPos(obj:any){
     let curtop = 0;
     if (obj.offsetParent) {
       do {
         curtop += obj.offsetTop;
       } while (obj = obj.offsetParent);
-      return [curtop];
+      return curtop;
     }
+
+    return 0;
   }
 
   showMoreComment () {
