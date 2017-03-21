@@ -20,6 +20,8 @@ export class CommentComponent implements OnInit {
   public appUser: any;
   
   public busy: boolean = false;
+  public isModal: boolean = false;
+  public ready: boolean = false;
   public showStepCount: number = 5;
   public forEnd: number = 0;
   public commentsDefaultCount: number = 5;
@@ -63,6 +65,7 @@ export class CommentComponent implements OnInit {
         this._projectService.getComments(this.data.slug).subscribe(
             comments => {
               this.comments  = comments;
+              this.ready = true;
               this.broadcaster.on<any>('commentshow')
                   .subscribe( () =>{
                     setTimeout(()=>{
