@@ -464,9 +464,11 @@ export class InnerComponent implements OnInit {
         let data = {id: this.goal.id, slug:this.goal.slug,inner:true};
         dialogRef = this.dialog.open(CommentComponent);
         dialogRef.componentInstance.data = data;
+        dialogRef.componentInstance.isModal = true;
+
         setTimeout(() => {
             this.broadcaster.broadcast('commentshow');
-        },1000);
+        },800);
 
     }
     // closeDropdown(){
