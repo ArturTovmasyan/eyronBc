@@ -83,6 +83,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FbShareComponent,
     PreloadImgComponent,
     BlLoadingComponent
+  ],
+  entryComponents:[
+    CommentComponent
   ]
 })
 export class ComponentModule { }

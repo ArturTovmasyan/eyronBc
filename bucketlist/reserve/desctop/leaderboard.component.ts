@@ -3,6 +3,7 @@ import {ProjectService} from '../../project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Leaderboard } from '../leaderboard';
 import { MetadataService } from 'ng2-metadata';
+import { CacheService} from 'ng2-cache/ng2-cache';
 
 @Component({
   selector: 'app-leaderboard',
@@ -18,8 +19,9 @@ export class LeaderboardComponent extends Leaderboard {
       protected metadataService: MetadataService,
       protected _projectService: ProjectService,
       protected router:Router,
+      protected _cacheService: CacheService,
       protected route: ActivatedRoute
   ) {
-      super(metadataService, _projectService, router, route);
+      super(metadataService, _projectService, router, _cacheService,route);
   }
 }

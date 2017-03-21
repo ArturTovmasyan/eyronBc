@@ -11,6 +11,7 @@ import {Story} from '../interface/story';
 import {UserGoal} from "../interface/userGoal";
 import {MdDialog,MdDialogRef} from "@angular/material";
 import {ShareComponent} from "../modals/share/share.component";
+import {CommentComponent} from "../components/comment/comment.component";
 
 @Component({
   selector: 'app-inner',
@@ -458,10 +459,25 @@ export class InnerComponent implements OnInit {
         dialogRef = this.dialog.open(ShareComponent);
         dialogRef.componentInstance.linkToShare = this.linkToShare;
     }
+    openComment(){
+        let dialogRef: MdDialogRef<CommentComponent>;
+        let data = {id: this.goal.id, slug:this.goal.slug,inner:true};
+        dialogRef = this.dialog.open(CommentComponent);
+        dialogRef.componentInstance.data = data;
+        dialogRef.componentInstance.isModal = true;
+
+        setTimeout(() => {
+            this.broadcaster.broadcast('commentshow');
+        },800);
+
+    }
     // closeDropdown(){
     //     this.menu1 = false;
     // }
     showComment(){
         this.show = !this.show;
+        if(this.show){
+            this.broadcaster.broadcast('commentshow');
+        }
     }
 }

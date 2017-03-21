@@ -1,7 +1,7 @@
 /// <reference path="../steps.d.ts" />
 Feature('Test homepage');
 
-Before(function(I) {
+BeforeSuite((I) => {
     I.resizeWindow('maximize');
 });
 
@@ -13,9 +13,9 @@ Scenario('Check Homepage', function(I) {
     I.click('.close-icon');
     I.click('DISCOVER MORE');
     I.seeCurrentUrlEquals('/ideas');
-    I.see('your Browser Location Service or enter your location');
-    I.amOnPage('/');
-    I.waitForText('Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.');
+    I.executeScript('window.history.back();');
+    I.waitForVisible('i.icon-ok-icon', 5);
+    I.see('Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.');
     I.click('Add');
     I.waitForText('CONNECT WITH');
     I.click('.close-icon');
@@ -25,5 +25,5 @@ Scenario('Check Homepage', function(I) {
     I.click('JOIN NOW');
     I.waitForText('CONNECT WITH');
     I.click('.close-icon');
-    I.saveScreenshot('homepage.png');
+    I.saveScreenshot('homepage.jpg');
 });

@@ -11,7 +11,7 @@ import {User} from "../interface/user";
 @Component({
   selector: 'my-activity',
   templateUrl: './my-activity.component.html',
-  styleUrls: ['./my-activity.component.less','../components/comment/comment.component.less'],
+  styleUrls: ['./my-activity.component.less','../components/comment/comment.component.less','../components/goal/goal.component.less'],
   providers: [
     ProjectService,
     CacheService

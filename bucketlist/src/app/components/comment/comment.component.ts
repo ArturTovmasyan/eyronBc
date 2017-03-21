@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ProjectService } from '../../project.service'
 import { Broadcaster } from '../../tools/broadcaster';
 import { Router } from '@angular/router';
@@ -12,12 +12,16 @@ import { Comment } from '../../interface/comment';
   styleUrls: ['./comment.component.less']
 })
 export class CommentComponent implements OnInit {
+  @ViewChild('myScroll')
+  public myScroll: any;
   public serverPath:string = '';
   @Input() data: any;
   public isInner: boolean = false;
   public appUser: any;
   
   public busy: boolean = false;
+  public isModal: boolean = false;
+  public ready: boolean = false;
   public showStepCount: number = 5;
   public forEnd: number = 0;
   public commentsDefaultCount: number = 5;
@@ -33,6 +37,13 @@ export class CommentComponent implements OnInit {
       private router: Router) { }
 
   ngOnInit() {
+    //   let p = 0;
+    // setInterval(()=>{
+    //   let containerPos = this.findPos(document.getElementById("scroll-container"));
+    //   let position = this.findPos(document.getElementById("comment-"+p)) - containerPos;
+    //   this.myScroll.scrollTo(position);
+    //   p +=1;
+    // },5000);
     if(!localStorage.getItem('apiKey')){
       // this.router.navigate(['/']);
     } else {
@@ -54,6 +65,31 @@ export class CommentComponent implements OnInit {
         this._projectService.getComments(this.data.slug).subscribe(
             comments => {
               this.comments  = comments;
+              this.ready = true;
+              this.broadcaster.on<any>('commentshow')
+                  .subscribe( () =>{
+                    setTimeout(()=>{
+                      let p = this.comments.length - 1;
+                      let containerPos = this.findPos(document.getElementById("scroll-container"));
+                      let position: number = this.findPos(document.getElementById("comment-"+p));
+                      if(!containerPos && !position)return;
+                      position -= containerPos;
+                      this.myScroll.scrollTo(position);
+                    },1000);
+
+                    // let p = 0;
+                    // setInterval(()=>{
+                    //   let containerPos = this.findPos(document.getElementById("scroll-container"));
+                    //   let position = this.findPos(document.getElementById("comment-"+p)) - containerPos;
+                    //   this.myScroll.scrollTo(position);
+                      // p +=1;
+                      // console.log(p);
+                      // console.log(containerPos);
+                      // console.log(position);
+                    // },1000);
+
+                  });
+
               this.commentsLength = this.comments.length - this.commentsDefaultCount;
               for(let i = 0;i < this.comments.length; i++){
                 this.comments[i].visible = (i > this.comments.length - this.commentsDefaultCount - 1);
@@ -65,6 +101,19 @@ export class CommentComponent implements OnInit {
     }
     this.serverPath = this._projectService.getPath();
     this.isInner = this.data.inner;
+  }
+
+  findPos(obj:any){
+    if (!obj) return;
+    let curtop = 0;
+    if (obj.offsetParent) {
+      do {
+        curtop += obj.offsetTop;
+      } while (obj = obj.offsetParent);
+      return curtop;
+    }
+
+    return 0;
   }
 
   showMoreComment () {

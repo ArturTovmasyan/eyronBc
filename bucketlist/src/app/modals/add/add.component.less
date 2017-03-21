@@ -4,17 +4,27 @@
 .modal-bottom{
   background-color: #f0f0f0;
   text-align: center;
-  padding: 12px 0 10px;
+  padding: 11px 5px !important;
 }
 
 .goal-modal{
   width: 280px;
   margin: 0 auto;
   text-align: left;
+  height: 100%;
   .rounded-corners(8px);
 
   .email{
     .rounded-corners-top(8px);
+  }
+
+
+  .purple-checkbox{
+    margin-bottom: 10px;
+  }
+
+  .priority{
+    margin-bottom: 0;
   }
 
   i{
@@ -45,14 +55,15 @@
   }
 
   hr{
-    margin: 10px 0 0;
+    //margin: 10px 0 0;
+    margin: 0;
   }
 }
 
 .modal-top{
   position: relative;
   overflow: hidden;
-  height: 145px;
+  height: 112px;
 
   div{
     position: absolute;
@@ -117,7 +128,7 @@
   }
 
   .overlay{
-    height: 145px;
+    height: 112px;
     background: rgba(0,0,0,0.28);
   }
 }
@@ -125,15 +136,24 @@
 .goal-add{
   overflow: hidden;
   background-color: #ffffff;
-  padding: 0 15px 0;
+  padding: 9px 15px 0;
   //margin-bottom: 50px;
   .rounded-corners-bottom(8px);
 
 
   h3{
     font-size:17px;
-    margin-top: 5px;
-    margin-bottom: 3px;
+    //margin-top: 5px;
+    //margin-bottom: 3px;
+    margin: 13px 0;
+
+    //&:first-child{
+    //  margin: 24px 0 13px;
+    //}
+  }
+
+  md-select{
+    margin: 0 0 23px 0;
   }
 
   h4{
@@ -196,12 +216,18 @@
   }
 
 
+  textarea.form-control{
+    resize: none;
+    height: 43px;
+  }
+
   form{
     padding-bottom:10px;
 
     button.button-lg{
       padding:6px 15px;
     }
+
   }
 
   p{
@@ -223,12 +249,14 @@
   .rounded-corners-bottom(8px);
   button,a[md-button]{
     padding: 0;
-    min-width: 75px;
+    min-width: 74px;
     color: #666666;
     font-size:12px;
     text-transform: uppercase;
     margin-right: 3px;
     font-weight:bold;
+    line-height: 30px;
+    .rounded-corners(4px);
 
     &:hover,&:focus,&.btn-purple{
       color: #ffffff;
@@ -236,9 +264,9 @@
   }
 }
 
-.priority{
-  padding-top: 10px;
-}
+//.priority{
+//  padding-top: 10px;
+//}
 
 .goal-container{
   min-height: 525px;
@@ -319,10 +347,14 @@
 }
 
 .private-space{
-  padding: 7px 0 0;
+  padding: 15px 0 23px;
   i.icon-lock-white{
     margin: -6px 0 0 -7px;
   }
+}
+
+.to-do-list{
+  margin: 0 0 5px 0;
 }
 
 @media (min-width: @screen-sm) {
@@ -334,9 +366,9 @@
       margin-right: 0;
     }
 
-    hr{
-      margin: 20px 0 0;
-    }
+    //hr{
+    //  margin: 20px 0 0;
+    //}
 
     .email{
       padding: 9px 5px 12px;
@@ -352,9 +384,7 @@
   .goal-add{
     padding: 0;
     //margin-bottom:78px;
-    textarea{
-      resize: none;
-    }
+
 
     .private-space{
       padding: 10px 0 0;
@@ -364,6 +394,10 @@
 
     .task-checkbox{
       margin: 0;
+    }
+
+    textarea.form-control{
+      height: 74px;
     }
 
     label{
@@ -413,6 +447,7 @@
       padding: 2px 42px;
       font-size: 14px;
       margin-right: 5px;
+      line-height: 36px;
     }
   }
   .modal-top{
@@ -560,18 +595,25 @@
   width: auto;
   max-height: 249px;
 }
+.modal-Dcontainer{
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  width: auto;
+  max-height: 370px;
+}
 
 @media (min-width: @screen-lg) {
-  .goal-modal{
-    hr{
-      margin: 25px 0 0;
-    }
-  }
+  //.goal-modal{
+  //  hr{
+  //    margin: 25px 0 0;
+  //  }
+  //}
 
   .goal-add{
     h3{
       font-size: 22px;
-      margin-top: 20px;
+      //margin-top: 20px;
     }
 
     p{
@@ -580,4 +622,7 @@
     }
 
   }
+}
+.form-group{
+  margin-bottom: 0;
 }
