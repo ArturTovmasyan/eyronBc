@@ -148,6 +148,8 @@
 
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
 
@@ -182,32 +184,32 @@
                         </div>
                     </div>
 
-                    <!--<div class="row">-->
-                        <!--<div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
-                            <!--<div *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false">-->
-                                <!--<p class="text-gray clearfix private-space">-->
-                                    <!--<strong class="text-dark-gray">-->
-                                        <!--<i class="icon-lock-white"></i>-->
-                                        <!--<span>{{ 'user_goal.private' |translate }}</span>-->
-                                    <!--</strong>-->
-                                    <!--<span class="text-left">{{ 'goal.private_text'|translate }}</span>-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <div *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false">
+                                <p class="text-gray clearfix private-space">
+                                    <strong class="text-dark-gray">
+                                        <i class="icon-lock-white"></i>
+                                        <span>{{ 'user_goal.private' |translate }}</span>
+                                    </strong>
+                                    <span class="text-left">{{ 'goal.private_text'|translate }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
-                    <!--<div class="row">-->
-                        <!--<div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-                            <!--<p class="text-center error-message" *ngIf="invalidYear">-->
-                                <!--{{ 'success_story.error_day_in_month1'|translate }} {{dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}-->
-                            <!--</p>-->
+                            <p class="text-center error-message" *ngIf="invalidYear">
+                                {{ 'success_story.error_day_in_month1'|translate }} {{dayInMonth}} {{ 'success_story.error_day_in_month2'|translate }}
+                            </p>
 
-                            <!--<p class="text-center error-message"-->
-                               <!--*ngIf="uncompletedYear">{{ 'success_story.error_uncomplete_year'|translate }}-->
-                            <!--</p>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                            <p class="text-center error-message"
+                               *ngIf="uncompletedYear">{{ 'success_story.error_uncomplete_year'|translate }}
+                            </p>
+                        </div>
+                    </div>
 
                     <div class="row modal-bottom">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -224,7 +226,7 @@
                 </div>
 
                 <div *ngIf="!newAdded && userGoal.id">
-                    <div *ngIf="first">
+                    <div  *ngIf="first">
                         <div class="row">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
@@ -456,7 +458,7 @@
                                             </div>
                                         </div>
 
-                                        <h3 [ngClass]="{'no-marginb' : !isMobile}">{{ "tasks"|translate }}</h3>
+                                        <h3 class="no-marginb">{{ "tasks"|translate }}</h3>
 
                                         <p class="hidden-xs">
 
@@ -550,7 +552,7 @@
                             <a md-button *ngIf="first" (click)="first=!first; second=!second"
                                class="btn btn-transparent">{{ "next"|translate }}</a>
                             <a md-button *ngIf="second" (click)="first=!first; second=!second"
-                               class="btn btn-transparent">{{"prev"|translate}}</a>
+                               class="btn btn-transparent">{{ "prev"|translate }}</a>
                             <a md-button (click)="showDetails = ! showDetails"
                                class="btn btn-transparent">
                                 <span>{{ 'forget'|translate | uppercase}}</span>
