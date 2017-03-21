@@ -104,6 +104,7 @@ export class CommentComponent implements OnInit {
   }
 
   findPos(obj:any){
+    if (!obj) return;
     let curtop = 0;
     if (obj.offsetParent) {
       do {

@@ -1,4 +1,5 @@
-<div class="bg-white" [hidden]="isModal && !ready">
+<div class="comment-modal bg-white padding" [hidden]="isModal && !ready">
+
   <div class="story-count"  *ngIf="isInner">
     <div class="row">
       <div class="col-xs-12">
@@ -12,8 +13,9 @@
     <hr/>
   </div>
 
+  <perfect-scrollbar class="comment-container" [config]="config" #myScroll>
+
   <div class="comments-column padding" id="scroll-container">
-    <perfect-scrollbar class="comment-container" [config]="config" #myScroll>
 
     <div *ngFor="let comment of comments; let i = index"
          [hidden]="!comments || !comment.visible"
@@ -150,6 +152,6 @@
         </form>
       </div>
     </div>
-    </perfect-scrollbar>
   </div>
+  </perfect-scrollbar>
 </div>
