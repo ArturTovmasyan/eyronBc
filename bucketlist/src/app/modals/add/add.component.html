@@ -19,7 +19,7 @@
                     <span [ngClass]="{'title-smaller': userGoal.goal.title.length > 25, 'title-top': !userGoal.goal || !userGoal.goal.author || !userGoal.goal.author.show_name}">{{ userGoal.goal.title }}</span>
                 </h2>
                 <!--{% if app.user %}-->
-                <p *ngIf="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id ">
+                <p *ngIf="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == appUser.id " class="hidden-xs">
                     {{ userGoal.goal.author.show_name }}
                 </p>
                 <!--{% endif %}-->
@@ -210,6 +210,7 @@
                             </p>
                         </div>
                     </div>
+
                     <div class="row modal-bottom">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <a md-button  (click)="save()"
@@ -363,10 +364,10 @@
                         </div>
 
 
+                        <hr *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false"/>
 
-                        <div class="row">
+                        <div class="row" *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                                <div *ngIf="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == appUser.id && userGoal.goal.status == false">
                                     <p class="text-gray clearfix private-space">
                                         <strong class="text-dark-gray">
                                             <i class="icon-lock-white"></i>
@@ -374,7 +375,6 @@
                                         </strong>
                                         <span class="text-left">{{ 'goal.private_text'|translate }}</span>
                                     </p>
-                                </div>
                             </div>
                         </div>
 
@@ -390,7 +390,6 @@
                                 </p>
                             </div>
                         </div>
-                        <hr/>
 
                         <div class="row modal-bottom">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -435,14 +434,14 @@
                                                 <div class="priority purple-checkbox">
 
                                                     <label class="relative">
-                                                        <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent">
+                                                        <md-checkbox class="example-margin" name="urgent" [(ngModel)]="userGoal.urgent" disableRipple>
                                                             {{ 'goal.urgent'|translate }}
                                                         </md-checkbox>
 
                                                     </label>
 
                                                     <label class="relative">
-                                                        <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important">
+                                                        <md-checkbox class="example-margin" name="important" [(ngModel)]="userGoal.important" disableRipple>
                                                             {{ 'goal.important'|translate }}
                                                         </md-checkbox>
                                                     </label>
@@ -452,7 +451,7 @@
                                             </div>
                                         </div>
 
-                                        <h3 class="no-marginb">{{ 'my_bucket_list.notes'|translate }}</h3>
+                                        <h3 [ngClass]="{'no-marginb' : !isMobile}">{{ 'my_bucket_list.notes'|translate }}</h3>
 
                                         <p class="hidden-xs">
 
@@ -465,7 +464,6 @@
                                             <textarea class="form-control"
                                                       name="note"
                                                       [(ngModel)]="userGoal.note"
-                                                      rows="3"
                                                       placeholder="{{ 'goal.note_p'|translate }}"
                                                       [ngClass]="{'formHeight':isMobile}">
 
@@ -502,7 +500,7 @@
                                                 <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
 
                                                     <label class="relative">
-                                                        <md-checkbox class="example-margin" name="switch{{i}}" [(ngModel)]="step.switch" *ngIf="step.text" (ngModelChange)="complatedPercent = getCompleted(userGoal)"></md-checkbox>
+                                                        <md-checkbox class="example-margin" name="switch{{i}}" [(ngModel)]="step.switch" *ngIf="step.text" (ngModelChange)="complatedPercent = getCompleted(userGoal)" disableRipple></md-checkbox>
                                                     </label>
 
                                                 </div>
@@ -535,7 +533,7 @@
                                                 <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
 
                                                     <label class="relative">
-                                                        <md-checkbox class="example-margin" name="switch{{k}}" [(ngModel)]="step.switch" (ngModelChange)="complatedPercent = getCompleted(userGoal)"></md-checkbox>
+                                                        <md-checkbox class="example-margin" name="switch{{k}}" [(ngModel)]="step.switch" (ngModelChange)="complatedPercent = getCompleted(userGoal)" disableRipple></md-checkbox>
 
                                                     </label>
                                                 </div>
