@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild, ElementRef, Renderer, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer, OnDestroy, ViewEncapsulation, } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Broadcaster } from '../../tools/broadcaster';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -13,7 +13,9 @@ import {CalendarComponent} from "../calendar/calendar.component";
 @Component({
   selector: 'app-profile',
   templateUrl: './api.profile.component.html',
-  styleUrls: ['./profile.component.less']
+  styleUrls: ['./profile.component.less'],
+  encapsulation: ViewEncapsulation.None
+
 })
 
 export class ProfileComponent extends Profile{
@@ -24,6 +26,8 @@ export class ProfileComponent extends Profile{
   public urgentNotImportant: boolean = true;
   public urgentImportant: boolean = true;
   public writeTimeout:any;
+  public isMobile:Boolean= (window.innerWidth < 768);
+
   public priorities:any = {
     'isDream': null,
     'notUrgentImportant': null,

@@ -390,9 +390,10 @@
                         </div>
                     </div>
                     <div  *ngIf="second">
+                        <perfect-scrollbar [ngClass]="{'modal-container':isMobile,'modal-Dcontainer':!isMobile}" [config]="config">
+
                         <div class="row">
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                                <perfect-scrollbar [ngClass]="{'modal-container':isMobile,'modal-Dcontainer':!isMobile}" [config]="config">
                                     <div class="content">
                                         <h3 *ngIf="userGoal.goal.location">Location</h3>
 
@@ -538,10 +539,10 @@
 
                                         </div>
                                     </div>
-                                </perfect-scrollbar>
                                 <hr/>
                             </div>
                         </div>
+                        </perfect-scrollbar>
                     </div>
                     <div class="row modal-bottom">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">

@@ -23,6 +23,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
     @ViewChild("tooltip")
     public tooltipElementRef: ElementRef;
 
+    public isMobile=(window.innerWidth<768);
     public category: string;
     public errorMessage: string;
     public filterVisibility: boolean = false;
