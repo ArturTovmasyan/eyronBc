@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./activity.component.less']
 })
 export class ActivityComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {

@@ -381,6 +381,10 @@
     background-size: 48%;
   }
 
+  .user-name{
+    margin: 0 10px 3px;
+  }
+
   figure {
     .api-user-image {
       width: 60px;
@@ -395,8 +399,10 @@
       line-height: 57px;
     }
 
-    img {
-      height: 60px;
+    .api-user-image{
+      img {
+        height: 60px;
+      }
     }
 
     figcaption{
@@ -447,7 +453,7 @@
       }
 
       &:first-child{
-        padding: 8px 3px 7px 10px;
+        padding: 8px 3px 7px 9px;
       }
 
       &:last-child{
@@ -638,6 +644,18 @@
     }
   }
 
+  .api-content-header{
+    min-height: 236px;
+    &>figure {
+      height: 260px;
+    }
+
+    .overlay {
+      height: 260px;
+    }
+
+  }
+
   .profile{
     margin-top:10px;
     padding:20px 0 0 0;
@@ -785,6 +803,53 @@
     }
 
   }
+
+  .api-profile {
+    .camera-icon {
+      position: absolute;
+      z-index: 10;
+      display: block;
+      width: 120px;
+      height: 120px;
+      background: url('../../../../assets/images/camera.svg') no-repeat center center rgba(0, 0, 0, 0.55);
+      .rounded-corners;
+      background-size: 48%;
+    }
+
+    figure {
+      padding:20px 0 10px;
+
+      .api-user-image {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+
+        img {
+          height: 120px;
+        }
+      }
+
+      span.profile-image {
+        width: 120px;
+        height: 120px;
+        font-size: 44px;
+        line-height: 110px;
+        margin: 0 auto;
+      }
+
+      figcaption {
+        margin-top: 11px;
+        //min-height: 53px;
+        ul {
+          padding-top: 0;
+          li {
+            padding: 0 8px;
+          }
+        }
+      }
+    }
+  }
+
 
   .bucketlist{
     padding: 10px 0 0;
