@@ -10,7 +10,7 @@
 
         <div class="modal-top" *ngIf="userGoal">
 
-            <span class="close-modal" (click)="dialogRef.close(); isOpen = false;">
+            <span class="close-modal" (click)="dialogRef.close(); isOpen = false;" *ngIf="!newAdded">
                 <i></i>
             </span>
 
