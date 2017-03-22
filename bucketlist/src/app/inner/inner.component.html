@@ -428,18 +428,21 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-2 col-sm-1">
-                                        <button md-button (click)="showComment()">
-                                            <i class="comment-new-icon"></i>
-                                        </button>
-                                    </div>
+                                    <!--<div class="col-xs-2 col-sm-1">-->
+                                        <!--<button md-button (click)="showComment()">-->
+                                            <!--<i class="comment-new-icon"></i>-->
+                                        <!--</button>-->
+                                    <!--</div>-->
 
-                                    <div class="col-xs-2 col-sm-1 text-right">
+                                    <div class="col-xs-4 col-sm-2 text-right">
                                         <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{goal.title}}"-->
                                            <!--class="twitter-hashtag-button" data-related="BucketList127"-->
                                            <!--[attr.data-url]="angularPath + goal.share_link" [attr.data-dnt]="true">Tweet-->
                                             <!--#BucketList127</a>-->
 
+                                        <button md-button (click)="showComment()">
+                                            <i class="comment-new-icon"></i>
+                                        </button>
 
                                         <button md-button (click)="openShare()">
                                             <i class="share-new-icon"></i>
@@ -774,20 +777,22 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-2 col-sm-1">
-                        <button md-button (click)="openComment()">
-                            <i class="comment-new-icon"></i>
-                        </button>
-                    </div>
 
-                    <div class="col-xs-2 col-sm-1 text-right">
+                    <div class="col-xs-4 col-sm-2 text-right">
                         <!--<a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{goal.title}}"-->
                         <!--class="twitter-hashtag-button" data-related="BucketList127"-->
                         <!--[attr.data-url]="angularPath + goal.share_link" [attr.data-dnt]="true">Tweet-->
                         <!--#BucketList127</a>-->
+                        <button md-button (click)="openComment()">
+                            <i class="comment-new-icon"></i>
+                        </button>
+
+                        <button md-button (click)="openShare()">
+                            <i class="share-new-icon"></i>
+                        </button>
 
 
-                        <div class="addthis_counter" (click)="openShare()">
+                        <!--<div class="addthis_counter" (click)="openShare()">-->
 
                             <!--(mouseleave)="isHover = false">-->
                             <!--<share-buttons [url]="linkToShare"-->
@@ -806,7 +811,7 @@
 
                         <!--</div>-->
 
-                    </div>
+                    <!--</div>-->
                     <!--</div>-->
                     <!--</div>-->
 
