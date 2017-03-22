@@ -7,6 +7,11 @@
         </div>
 
         <div class="modal-top" *ngIf="userGoal">
+
+            <span class="close-modal" (click)="dialogRef.close(); isOpen = false;">
+                <i></i>
+            </span>
+
             <figure>
                 <img src="{{ userGoal.goal.cached_image?userGoal.goal.cached_image:imgPath}}"
                      alt="{{ userGoal.goal.title }}" class="img-responsive"/>

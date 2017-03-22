@@ -39,6 +39,28 @@
     }
   }
 
+  .close-modal{
+    position: absolute;
+    right: 15px;
+    top: 7px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    .rounded-corners;
+    padding: 4px;
+    //background: url('assets/images/white-remove.svg') no-repeat right center;
+
+    i{
+      display: block;
+      width: 13px;
+      height: 13px;
+      background: url('../../../assets/images/white-remove.svg') no-repeat center center;
+      margin: 0 auto;
+    }
+  }
+
   .location {
     position: relative;
     z-index: inherit;
@@ -108,6 +130,8 @@
 
   ul{
     padding: 0 0 0 15px;
+    margin-bottom: 0;
+
     li{
       display: inline-block;
     }
