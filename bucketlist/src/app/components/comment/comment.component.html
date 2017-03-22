@@ -150,9 +150,10 @@
                   placeholder="{{'leave_comment'|translate}}">
                 </textarea>
           </form>
+          <button class="pull-right" *ngIf="isMobile" md-button (click)="writeComment($event, true)">Post</button>
         </div>
       </div>
-    </div>
+      </div>
     </perfect-scrollbar>
   </div>
 </div>
