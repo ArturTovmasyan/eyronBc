@@ -498,7 +498,7 @@
                                                     <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
 
                                                         <label class="relative">
-                                                            <md-checkbox class="example-margin" name="switch{{i}}" [(ngModel)]="step.switch" *ngIf="step.text" (ngModelChange)="complatedPercent = getCompleted(userGoal)" disableRipple></md-checkbox>
+                                                            <md-checkbox class="example-margin" name="switch{{i}}" [(ngModel)]="step.switch" *ngIf="step.text" (ngModelChange)="complatedPercent = getCompleted(userGoal)" disableRipple [disabled]="complete.switch == 1"></md-checkbox>
                                                         </label>
 
                                                     </div>
@@ -510,6 +510,7 @@
                                                                    class="form-control"
                                                                    [ngClass]="{'market-step': step.switch}"
                                                                    [ngModel]="step.text"
+                                                                   [disabled]="complete.switch == 1"
                                                                    (ngModelChange)="generateStep($event, userGoal.formatted_steps, i)"
                                                                    name="stepText-{{i}}"
                                                                    placeholder="{{ 'goal.add_step'|translate }}">
@@ -531,7 +532,7 @@
                                                     <div class="col-xs-2 col-sm-1 task-checkbox purple-checkbox">
 
                                                         <label class="relative">
-                                                            <md-checkbox class="example-margin" name="switch{{k}}" [(ngModel)]="step.switch" (ngModelChange)="complatedPercent = getCompleted(userGoal)" disableRipple></md-checkbox>
+                                                            <md-checkbox class="example-margin" name="switch{{k}}" [(ngModel)]="step.switch" (ngModelChange)="complatedPercent = getCompleted(userGoal)" disableRipple [disabled]="complete.switch == 1"></md-checkbox>
 
                                                         </label>
                                                     </div>
@@ -541,6 +542,7 @@
                                                             <input type="text"
                                                                    class="form-control"
                                                                    [(ngModel)]="step.text"
+                                                                   [disabled]="complete.switch == 1"
                                                                    name="stepText{{ k }}"
                                                                    placeholder="{{ 'goal.add_step'|translate }}">
                                                         </div>
