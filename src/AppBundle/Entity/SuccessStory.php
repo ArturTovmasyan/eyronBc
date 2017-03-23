@@ -87,9 +87,10 @@ class SuccessStory implements ActivityableInterface
     /**
      * @ORM\Column(name="story", type="text")
      * @Groups({"successStory"})
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"successStoryValidate"})
      * @Assert\Length(
-     *     min=3,
+     *     min=3, 
+     *     groups={"successStoryValidate"},
      *     minMessage="Story must have at least {{ limit }} characters."
      * )
      */
