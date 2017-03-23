@@ -770,15 +770,16 @@ angular.module('goalComponents', ['Interpolation',
           if(!angular.isUndefined($scope.userGoal.story) && !angular.isUndefined($scope.userGoal.story.files) && $scope.userGoal.story.files) {
             var existingFiles = $scope.userGoal.story.files;
 
-            angular.forEach(existingFiles, function (value) {
+            angular.forEach(existingFiles, function (value, kay) {
+              if(kay < 6){
+                $scope.files.push(value.id);
 
-              $scope.files.push(value.id);
+                var mockFile = {name: value.file_original_name, accepted : true, size: value.file_size, fileName: value.file_name, xhr: {responseText: value.id}};
 
-              var mockFile = {name: value.file_original_name, accepted : true, size: value.file_size, fileName: value.file_name, xhr: {responseText: value.id}};
-
-              $scope.goalDropzone.files.push(mockFile);
-              $scope.goalDropzone.emit("addedfile", mockFile);
-              $scope.goalDropzone.emit("thumbnail", mockFile, value.image_path);
+                $scope.goalDropzone.files.push(mockFile);
+                $scope.goalDropzone.emit("addedfile", mockFile);
+                $scope.goalDropzone.emit("thumbnail", mockFile, value.image_path);
+              }
             });
           }
         }, 500);
