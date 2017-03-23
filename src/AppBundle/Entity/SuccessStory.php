@@ -50,6 +50,7 @@ class SuccessStory implements ActivityableInterface
      * @Assert\Valid()
      * @Assert\Count(
      *      max = "6",
+     *      groups={"successStoryValidate"},
      *      maxMessage = "success_story.max_files"
      * )
      */
