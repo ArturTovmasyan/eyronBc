@@ -204,11 +204,11 @@
         </div>
         </div>
 
-        <div class="col-md-4" >
-            <!--<create-goal [myProfile]="myProfile" [myIdeasCount]="appUser?appUser.draft_count:'0'"></create-goal>-->
-            <!--<overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>-->
-            <!--<top-ideas-block [type]="'suggest'"></top-ideas-block>-->
-            <!--<top-ideas-block [type]="'featured'"></top-ideas-block>-->
+        <div class="col-md-4 hidden-xs">
+            <create-goal [myProfile]="myProfile" [myIdeasCount]="appUser?appUser.draft_count:'0'"></create-goal>
+            <overall-block *ngIf="uId && uId == 'my' && overall" [overall]="overall"></overall-block>
+            <top-ideas-block [type]="'suggest'"></top-ideas-block>
+            <top-ideas-block [type]="'featured'"></top-ideas-block>
         </div>
     </div>
 </div>

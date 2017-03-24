@@ -37,6 +37,7 @@ export class AddComponent implements OnInit {
   public complatedPercent: number;
   public first:boolean = true;
   public second:boolean = false;
+  public load:boolean = false;
   // public newAdded:boolean = userGoal.manage? false: true;
   public completedStepCount: number;
   public complete:any = {
@@ -140,6 +141,7 @@ export class AddComponent implements OnInit {
   }
   
   dynamicChanges(){
+    this.load = true;
     this.complete.switch = this.userGoal.status == 2?1:0;
     
     if(this.userGoal.completion_date && this.userGoal.status == 2){

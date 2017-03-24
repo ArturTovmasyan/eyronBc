@@ -52,6 +52,7 @@ class SuccessStory implements ActivityableInterface
      * @Assert\Valid()
      * @Assert\Count(
      *      max = "6",
+     *      groups={"successStoryValidate"},
      *      maxMessage = "success_story.max_files"
      * )
      */
@@ -89,9 +90,10 @@ class SuccessStory implements ActivityableInterface
     /**
      * @ORM\Column(name="story", type="text")
      * @Groups({"successStory", "inspireStory"})
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"successStoryValidate"})
      * @Assert\Length(
-     *     min=3,
+     *     min=3, 
+     *     groups={"successStoryValidate"},
      *     minMessage="Story must have at least {{ limit }} characters."
      * )
      */

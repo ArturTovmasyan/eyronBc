@@ -18,7 +18,7 @@ export class CommentComponent implements OnInit {
   @Input() data: any;
   public isInner: boolean = false;
   public appUser: any;
-  
+  public isMobile = (window.innerWidth < 768);
   public busy: boolean = false;
   public isModal: boolean = false;
   public ready: boolean = false;
@@ -163,8 +163,8 @@ export class CommentComponent implements OnInit {
     }
   };
 
-  writeComment = function (ev) {
-    if(ev.which == 13 && this.commentBody.length){
+  writeComment = function (ev, isClick?) {
+    if((ev.which == 13 || isClick) && this.commentBody.length){
       ev.preventDefault();
       ev.stopPropagation();
       if(!this.busy){

@@ -1,6 +1,11 @@
-<div class="my-modal goal-modal" (clickOutside)="closeModal()">
+<div class="my-modal goal-modal done-modal" (clickOutside)="closeModal()">
     <div *ngIf="newAdded" class="email">{{ "message_on_top_of_the_page" | translate | uppercase }}</div>
     <div class="modal-top" *ngIf="userGoal">
+
+         <span class="close-modal" (click)="dialogRef.close(); isOpen = false;">
+                <i></i>
+         </span>
+
         <figure>
             <img src="{{ userGoal.goal.cached_image?userGoal.goal.cached_image:imgPath }}" alt="{{ userGoal.goal.title }}" class="img-responsive"/>
         </figure>
@@ -34,12 +39,12 @@
     </div>
     <div id="fb-root"></div>
     <div class="row bg-grey" *ngIf="userGoal">
-        <div class="col-xs-10 col-xs-offset-1">
-            <div class="row">
-                <div class="col-sm-8">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <div class="row no-gutter">
+                <div class="col-xs-9 col-sm-8">
                     <h2 class="text-grey-dark">{{ 'share_title'|translate }}</h2>
                 </div>
-                <div class="col-sm-4" >
+                <div class="col-xs-3 col-sm-4">
                     <fb-share
                          [name]="userGoal.goal.slug"
                          [link]="goalLink"
@@ -62,7 +67,7 @@
 
                     <h3 class="story-title text-grey-dark">{{ "success_story.completion_date"|translate }}</h3>
 
-                    <p class="complete-text">{{ "success_story.complete_edit_text"|translate }}</p>
+                    <p class="complete-text hidden-xs">{{ "success_story.complete_edit_text"|translate }}</p>
 
                     <div class="form-group row">
                         <div class="col-xs-4">
