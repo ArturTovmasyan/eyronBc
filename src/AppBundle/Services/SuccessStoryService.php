@@ -222,7 +222,7 @@ class SuccessStoryService extends AbstractProcessService
             }
         }
 
-        $errors = $validator->validate($successStory);
+        $errors = $validator->validate($successStory, null, ['successStoryValidate', 'Defaults']);
         if(count($errors) > 0) {
             $errorsString = (string)$errors;
 
