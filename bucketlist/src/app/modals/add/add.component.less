@@ -41,7 +41,7 @@
 
   .close-modal{
     position: absolute;
-    right: 15px;
+    right: 7px;
     top: 7px;
     width: 23px;
     height: 23px;
@@ -51,7 +51,7 @@
     .rounded-corners;
     padding: 4px;
     cursor:pointer;
-    
+
     i{
       display: block;
       width: 13px;
@@ -163,7 +163,7 @@
   padding: 9px 15px 0;
   //margin-bottom: 50px;
   .rounded-corners-bottom(8px);
-
+   min-height: 330px;
 
   h3{
     font-size:17px;
@@ -407,6 +407,7 @@
 
   .goal-add{
     padding: 0;
+    min-height: 390px;
     //margin-bottom:78px;
 
 
@@ -565,7 +566,8 @@
   }
 
   .goal-add{
-    padding-bottom:3px;
+    padding-bottom:0;
+    min-height: 405px;
 
     label.text-purple{
       font-size:24px;
@@ -609,15 +611,41 @@
   //  height:925px;
   //}
 }
+@keyframes shimmy {
+  from {left: 200px;}
+  to {left: 0px;}
+}
+.second{
+  &>div{
+    position: relative;
+    -webkit-animation: shimmy 450ms;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+    animation: shimmy 450ms;
+    animation-fill-mode: forwards;
 
+  }
+}
+@keyframes shimmy1 {
+  from {right: 200px;}
+  to {right: 0px;}
+}
+.first{
+  &>div{
+    position: relative;
+    -webkit-animation: shimmy1 450ms;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+    animation: shimmy1 450ms;
+    animation-fill-mode: forwards;
 
+  }
+}
 
 .modal-container {
   position: relative;
   margin: 0 auto;
   padding: 0;
   width: auto;
-  max-height: 249px;
+  max-height: 267px;
 }
 .modal-Dcontainer{
   position: relative;

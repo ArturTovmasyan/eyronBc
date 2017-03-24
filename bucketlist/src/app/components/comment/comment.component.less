@@ -38,8 +38,28 @@
   }
 }
 
+@keyframes shimmy {
+  from {bottom: 0;}
+  to {bottom: 40%;}
+}
 
 .comment-modal{
+
+  &>div{
+    left: 5px;
+    right: 5px;
+    max-width: 330px;
+    margin: 0 auto;
+    position: absolute;
+    -webkit-animation: shimmy 250ms;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+    animation: shimmy 250ms;
+    animation-fill-mode: forwards;
+    background-color: #ffffff;
+    .rounded-corners(4px);
+    padding: 0 15px;
+  }
+
   hr{
     margin:2px 0;
   }
@@ -217,6 +237,8 @@
 }
 
 @media (min-width: @screen-sm) {
+
+
   .comments-column{
     .leave-comment{
       width: 90%;
@@ -226,6 +248,15 @@
     .report{
       color: #666666;
       font-size:14px;
+    }
+  }
+
+  .comment-modal{
+    .comments-column{
+      .leave-comment{
+        width: 76%;
+        margin: 0 0 0 10px;
+      }
     }
   }
 
