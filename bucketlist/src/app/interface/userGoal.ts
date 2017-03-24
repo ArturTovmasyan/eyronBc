@@ -8,5 +8,7 @@ export interface UserGoal {
     user: User,
     date_status?: number,
     do_date?:any,
+    steps?:any,
+    formatted_steps?:any,
     completion_date?:any
 }

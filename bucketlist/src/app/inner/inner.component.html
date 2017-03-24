@@ -220,7 +220,7 @@
                                                 <span>{{ 'my_bucket_list.notes'|translate | capitalize }}</span>
                                             </li>
 
-                                            <li *ngIf="userGoal.steps">
+                                            <li *ngIf="!isEmpty(userGoal.steps)">
                                                 <i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>
                                                 <span>{{ "tasks"|translate | capitalize }}</span>
                                             </li>
@@ -624,9 +624,10 @@
                                                         <span class="text">{{ 'done'|translate | capitalize }}</span>
                                                     </a>
 
-                                                    <a md-button *ngIf="goal.is_my_goal == 2" (click)="completeGoal(goal.id, true)">
+                                                    <a md-button *ngIf="goal.is_my_goal == 2"  disabled>
                                                         <i class="icon-green-ok"><span class="path1"></span><span
                                                                 class="path2"></span><span class="path3"></span></i>
+                                                        <span class="text">{{ 'done'|translate | capitalize }}</span>
                                                     </a>
                                                 </div>
                                             </li>
@@ -642,7 +643,7 @@
                                                 <span>{{ 'my_bucket_list.notes'|translate| capitalize }}</span>
                                             </li>
 
-                                            <li *ngIf="userGoal.steps">
+                                            <li *ngIf="!isEmpty(userGoal.steps)">
                                                 <i title="{{ 'goal.steps'|translate }}" class="icon-step-list"></i>
                                                 <span>{{ "tasks"|translate | capitalize }}</span>
                                             </li>

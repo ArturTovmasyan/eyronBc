@@ -74,22 +74,20 @@ export class CommentComponent implements OnInit {
                       let position: number = this.findPos(document.getElementById("comment-"+p));
                       if(!containerPos && !position)return;
                       position -= containerPos;
+                      console.log(this.myScroll);
                       this.myScroll.scrollTo(position);
                     },1000);
 
-                    // let p = 0;
-                    // setInterval(()=>{
-                    //   let containerPos = this.findPos(document.getElementById("scroll-container"));
-                    //   let position = this.findPos(document.getElementById("comment-"+p)) - containerPos;
-                    //   this.myScroll.scrollTo(position);
-                      // p +=1;
-                      // console.log(p);
-                      // console.log(containerPos);
-                      // console.log(position);
-                    // },1000);
-
                   });
-
+              setTimeout(()=> {
+                let k = 0;
+                for(let i = 0;i<500; i++){
+                  setTimeout(()=>{
+                    this.myScroll.scrollTo(k);
+                    k +=2;
+                  },1)
+                }
+              },500);
               this.commentsLength = this.comments.length - this.commentsDefaultCount;
               for(let i = 0;i < this.comments.length; i++){
                 this.comments[i].visible = (i > this.comments.length - this.commentsDefaultCount - 1);
@@ -139,8 +137,8 @@ export class CommentComponent implements OnInit {
     }
   };
   
-  writeReply(ev, comment){
-    if(ev.which == 13 && comment.replyBody.length) {
+  writeReply(ev, comment,isClick?){
+    if((ev.which == 13 || isClick) && comment.replyBody.length) {
       ev.preventDefault();
       ev.stopPropagation();
       if(!this.busy) {
