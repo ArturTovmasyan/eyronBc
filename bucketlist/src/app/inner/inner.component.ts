@@ -186,6 +186,7 @@ export class InnerComponent implements OnInit {
                       .subscribe(
                           data => {
                             this.userGoal = data;
+                              console.log(this.userGoal.formatted_steps,this.userGoal.formatted_steps.length);
                           });
                 }
               }
@@ -444,6 +445,10 @@ export class InnerComponent implements OnInit {
     });
     
   }
+
+    isEmpty(object){
+        return (!object || !Object.keys(object).length);
+    };
   
   openUsersModal(id:number, count:number, category: number){
     if(!localStorage.getItem('apiKey') || !this.appUser){

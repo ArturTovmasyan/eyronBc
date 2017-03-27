@@ -1,4 +1,4 @@
-<div class="comment-modal bg-white padding" [hidden]="isModal && !ready">
+<div class="bg-white padding" [hidden]="isModal && !ready" [class.comment-modal]="isModal && !ready">
   <div>
     <div class="story-count"  *ngIf="isInner">
       <div class="row">
@@ -112,6 +112,7 @@
                             placeholder="{{'reply_comment'|translate}}">
                         </textarea>
                   </form>
+                  <button class="pull-right" *ngIf="isMobile" md-button (click)="writeReply($event, comment,true)">Reply</button>
                 </div>
               </div>
             </div>
