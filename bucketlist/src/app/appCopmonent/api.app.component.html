@@ -1,13 +1,13 @@
 
-<md-sidenav-container [ngClass]="{'min-height': sOpen}">
-    <md-sidenav align="end" mode="over"  #sidenav *ngIf="appUser">
-        <span class="close-menu" (click)="sidenav.close();sOpen=false"></span>
+<md-sidenav-container [ngClass]="{'min-height': sOpen}" [ngStyle]="{'top': myTop+'px'}">
+    <md-sidenav align="end" mode="side"  #sidenav *ngIf="appUser" (close)="onClose()">
+        <span class="close-menu" (click)="sidenav.close()"></span>
 
         <ul class="api-user-menu">
 
             <!--{% if app.user and app.user.activity %}-->
             <li *ngIf="appUser.activity">
-                <a routerLink="/activity" (click)="sidenav.close();sOpen=false">
+                <a routerLink="/activity" (click)="sidenav.close()">
                     <i  class="icons activity-icon"></i>
                     <span>{{ 'activity'|translate }}</span>
                 </a>
@@ -15,27 +15,27 @@
             <!--{% endif %}-->
 
             <li>
-                <a routerLink="/leaderboard" (click)="sidenav.close();sOpen=false">
+                <a routerLink="/leaderboard" (click)="sidenav.close()">
                     <i class="icons menu-leaderbord"></i>
                     <span class="text">{{ 'leaderboard.name'|translate | capitalize}}</span>
                 </a>
             </li>
 
             <li>
-                <a routerLink="/goal-friends" (click)="sidenav.close();sOpen=false">
+                <a routerLink="/goal-friends" (click)="sidenav.close()">
                     <i class="menu-goalfrinds"></i>
                     <span class="text">{{ 'goalfriends'|translate }}</span>
                 </a>
             </li>
 
             <li>
-                <a routerLink="/ideas" (click)="sidenav.close();sOpen=false">
+                <a routerLink="/ideas" (click)="sidenav.close()">
                     <i class="icons ideas-icon"></i>
                     <span>{{ 'ideas'|translate | capitalize }}</span>
                 </a>
             </li>
             <li>
-                <a routerLink="/goal/my-ideas/private" *ngIf="appUser.draft_count && appUser.draft_count !=0" (click)="sidenav.close();sOpen=false">
+                <a routerLink="/goal/my-ideas/private" *ngIf="appUser.draft_count && appUser.draft_count !=0" (click)="sidenav.close()">
                     <i class="icons my-ideas-icon"></i>
                     <span>{{ 'right_menu.my_ideas'|translate | capitalize }}</span>
                 </a>
@@ -43,28 +43,28 @@
 
 
             <li>
-                <a routerLink="/profile/my/all" (click)="sidenav.close();sOpen=false">
+                <a routerLink="/profile/my/all" (click)="sidenav.close()">
                     <i class="icons mybucketlist-icon"></i>
                     <span>{{ 'my_bucketlist'|translate }}</span>
                 </a>
             </li>
 
             <li>
-                <a routerLink="/goal/create" (click)="sidenav.close();sOpen=false">
+                <a routerLink="/goal/create" (click)="sidenav.close()">
                     <i class="icons add-goal"></i>
                     <span>{{ 'create_goal'|translate }}</span>
                 </a>
             </li>
 
             <li>
-                <a routerLink="/edit/profile" (click)="sidenav.close();sOpen=false">
+                <a routerLink="/edit/profile" (click)="sidenav.close()">
                     <i class="icons settings-icon"></i>
                     <span>{{ 'settings'|translate }}</span>
                 </a>
             </li>
 
             <li>
-                <a (click)="logout(); sidenav.close();sOpen=false">
+                <a (click)="logout(); sidenav.close()">
                     <i class="icons logout"></i>
                     <span>{{ 'logout'|translate }}</span>
                 </a>
@@ -139,7 +139,7 @@
 
 
                                 <a class="user user-popover clearfix"
-                                   (click)="sidenav.open();sOpen=!sOpen"
+                                   (click)="sidenav.open();sOpen=true"
                                    [ngClass]="{'join-class': joinToggle1}"
                                    (clickOutside)="joinToggle1 = false">
                                     <figure class="img-circle hidden-xs" *ngIf="appUser.cached_image && (!isMobile || !joinToggle1)">
