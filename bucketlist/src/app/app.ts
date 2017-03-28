@@ -23,6 +23,7 @@ export class App implements OnInit  {
     public joinShow:boolean = false;
     public show:boolean = false;
     public newNotCount:number = 0;
+    public myTop:number = 0;
     public menus: any[];
     public privacyMenu: any;
     public serverPath:string = '';

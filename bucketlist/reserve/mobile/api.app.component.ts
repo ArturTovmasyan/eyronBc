@@ -63,6 +63,7 @@ export class AppComponent extends App {
     @HostListener("window:scroll", [])
     onWindowScroll() {
         let number = this.document.body.scrollTop;
+        this.myTop = number;
         if(number < this.before){
             this.doScroll(0);
             this.before = number;
@@ -85,5 +86,8 @@ export class AppComponent extends App {
         if(this.sidenav._isOpened){
             this.sidenav.close()
         }
+    }
+    onClose(){
+        this.sOpen=false;
     }
 }

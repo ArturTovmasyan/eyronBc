@@ -18,6 +18,7 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
     public disablePreview:boolean = false;
     public isPrivate:boolean = false;
     public invalidDescription:boolean = false;
+    public isMobile = (window.innerWidth < 768);
     public id:number;
     public tags:any[];
     public files:any[] = [];
