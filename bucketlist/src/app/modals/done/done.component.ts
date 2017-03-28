@@ -25,6 +25,7 @@ export class DoneComponent implements OnInit {
   public imgPath:string = '';
   public dayInMonth:number;
   public serverPath:string = '';
+  public load:boolean = false;
 
   public imageCount:number = 6;
   public uploadingFiles: any[] = [];
@@ -130,6 +131,7 @@ export class DoneComponent implements OnInit {
   }
   
   dynamicChanges(){
+    this.load = true;
     if(this.userGoal.story){
       this.story = this.userGoal.story.story;
 

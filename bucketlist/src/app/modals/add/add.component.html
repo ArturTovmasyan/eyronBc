@@ -449,7 +449,7 @@
                                                 </div>
                                             </div>
 
-                                            <h3 [ngClass]="{'no-marginb' : !isMobile}">{{ 'my_bucket_list.notes'|translate }}</h3>
+                                            <h3 [ngClass]="{'no-marginb' : !isMobile}" >{{ 'my_bucket_list.notes'|translate }}</h3>
 
                                             <p class="hidden-xs">
 
@@ -468,10 +468,11 @@
                                                 </textarea>
                                                 </div>
                                             </div>
+                                            <br *ngIf="(complete.switch == 1)"/>
 
-                                            <h3 class="no-marginb">{{ "tasks"|translate }}</h3>
+                                            <h3 class="no-marginb" *ngIf="!(complete.switch == 1)">{{ "tasks"|translate }}</h3>
 
-                                            <p class="hidden-xs">
+                                            <p class="hidden-xs" *ngIf="!(complete.switch == 1)">
 
                                                 <i title="Notes" class="icon-step-list"></i>
                                                 {{ "goal.complete_step"|translate }}
