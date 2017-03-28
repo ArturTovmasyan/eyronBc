@@ -1,11 +1,6 @@
 <div class="my-modal goal-modal done-modal" (clickOutside)="closeModal()" *ngIf="load">
     <div *ngIf="newAdded" class="email">{{ "message_on_top_of_the_page" | translate | uppercase }}</div>
     <div class="modal-top" *ngIf="userGoal">
-
-         <span class="close-modal" (click)="dialogRef.close(); isOpen = false;">
-                <i></i>
-         </span>
-
         <figure>
             <img src="{{ userGoal.goal.cached_image?userGoal.goal.cached_image:imgPath }}" alt="{{ userGoal.goal.title }}" class="img-responsive"/>
         </figure>
