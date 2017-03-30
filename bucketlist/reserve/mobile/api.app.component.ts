@@ -83,7 +83,7 @@ export class AppComponent extends App {
         this.broadcaster.broadcast('menuScroll',this.scroll);
     }
     check(){
-        if(this.sidenav._isOpened){
+        if(this.sidenav && this.sidenav._isOpened){
             this.sidenav.close()
         }
     }
