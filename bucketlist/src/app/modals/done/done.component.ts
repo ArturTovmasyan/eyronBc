@@ -26,6 +26,7 @@ export class DoneComponent implements OnInit {
   public dayInMonth:number;
   public serverPath:string = '';
   public load:boolean = false;
+  public isMobile = (window.innerWidth < 720);
 
   public imageCount:number = 6;
   public uploadingFiles: any[] = [];

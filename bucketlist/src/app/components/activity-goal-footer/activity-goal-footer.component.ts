@@ -82,6 +82,10 @@ export class ActivityGoalFooterComponent implements OnInit {
 
   showComment(activity, goal){
     if(activity){
+      console.log(goal.slug);
+      if(activity.createComment && !activity.showComment){
+        this.broadcaster.broadcast('activityComment'+goal.slug, '')
+      }
       activity.createComment = true;
       // $timeout(function () {
       activity.showComment = !activity.showComment;

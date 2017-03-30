@@ -35,9 +35,9 @@
     <div id="fb-root"></div>
     <div class="row bg-grey" *ngIf="userGoal">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-            <div class="row no-gutter">
-                <div class="col-xs-9 col-sm-8">
-                    <h2 class="text-grey-dark">{{ 'share_title'|translate }}</h2>
+            <div class="row " [ngClass]="{'no-gutter':!isMobile}">
+                <div class="col-xs-9 col-sm-8 hidden-xs">
+                    <h2 class="text-grey-dark ">{{ 'share_title'|translate }}</h2>
                 </div>
                 <div class="col-xs-3 col-sm-4">
                     <fb-share
