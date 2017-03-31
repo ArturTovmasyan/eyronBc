@@ -83,7 +83,6 @@ export class CommentComponent implements OnInit {
                     .subscribe(data =>{
                       setTimeout(()=> {
                         if(this.comments.length > 0){
-                          console.log(this.findPos(document.getElementById(this.data.slug)));
                           window.scroll(0,this.findPos(document.getElementById(this.data.slug)));
                         }
                         else{

@@ -231,7 +231,8 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
                         this.broadcaster.broadcast('addModal', {
                             'userGoal': data,
                             'newAdded' : true,
-                            'newCreated' : true
+                            'newCreated' : true,
+                            'haveData': true
                         });
                         this.broadcaster.on<any>('saveUserGoal_' + data.id)
                             .subscribe(data => {
