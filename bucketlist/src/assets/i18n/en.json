@@ -53,6 +53,7 @@
         "publish": "Save as a Goal",
         "edit": "Update Goal",
         "description_title": "Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag. <br /> You can use simple Markdown elements for emphasizing a snippet of text with a <strong>heavier font-weight</strong> and <em>italics</em>: **bold**, *italics*",
+        "description_title_mob": "Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag.",
         "search_title": "Bucket List 127-search result-",
         "search_description": "Here is the list of goal you searched for. Search bucketlist, share ideas and examples from your goalfriends. Search Things To Do In Bucket Lists.",
         "successfully_add": "Your idea has been added successfully.",

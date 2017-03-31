@@ -1,4 +1,4 @@
-<div class="bg-white padding" [hidden]="isModal && !ready" [class.comment-modal]="isModal && !ready">
+<div class="bg-white padding" [hidden]="isModal && !ready" [ngClass]="{'comment-modal':isModal && ready}">
   <div>
     <div class="story-count"  *ngIf="isInner">
       <div class="row">
@@ -15,11 +15,11 @@
 
     <perfect-scrollbar class="comment-container" [config]="config" #myScroll>
 
-    <div class="comments-column padding" id="scroll-container">
+    <div class="comments-column padding scroll-container" [attr.id]="data.slug">
 
       <div *ngFor="let comment of comments; let i = index"
            [hidden]="!comments || !comment.visible"
-           class="comment-information" id="comment-{{i}}">
+           class="comment-information" id="comment-{{i}}-{{data.slug}}">
         <!--data-ng-init="comment.visible = ($index > comments.length - commentsDefaultCount - 1)"-->
 
         <div class="clearfix">

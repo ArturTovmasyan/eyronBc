@@ -70,16 +70,31 @@ export class CommentComponent implements OnInit {
                   .subscribe( () =>{
                     setTimeout(()=>{
                       let p = this.comments.length - 1;
-                      let containerPos = this.findPos(document.getElementById("scroll-container"));
-                      let position: number = this.findPos(document.getElementById("comment-"+p));
+                      let containerPos = this.findPos(document.getElementById(this.data.slug));
+                      let position: number = this.findPos(document.getElementById("comment-"+p+this.data.slug));
                       if(!containerPos && !position)return;
                       position -= containerPos;
-                      console.log(this.myScroll);
                       this.myScroll.scrollTo(position);
                     },1000);
 
                   });
               setTimeout(()=> {
+                this.broadcaster.on<any>('activityComment'+this.data.slug)
+                    .subscribe(data =>{
+                      setTimeout(()=> {
+                        if(this.comments.length > 0){
+                          window.scroll(0,this.findPos(document.getElementById(this.data.slug)));
+                        }
+                        else{
+                          window.scroll(0,window.scrollY + 50);
+                        }
+                      },500);
+                      });
+                if(this.comments.length > 0){
+                  window.scroll(0,this.findPos(document.getElementById(this.data.slug)));
+                }
+                else
+                  window.scroll(0,window.scrollY + 50);
                 let k = 0;
                 for(let i = 0;i<500; i++){
                   setTimeout(()=>{

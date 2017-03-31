@@ -121,7 +121,7 @@
 
   .bg-white{
     overflow: hidden;
-    .rounded-corners(5px);
+    .box-shadow( 0, 1px, 4px, rgba(0,0,0,0.14));
   }
 
   figure{
@@ -276,6 +276,11 @@
     a{
       &.manage-modal[md-button]{
         padding: 0 16px 0 0;
+        line-height: 34px;
+
+        &:hover{
+          background-color: transparent;
+        }
       }
 
       &:hover,&:focus{
@@ -407,6 +412,11 @@
 
   .goals-information{
 
+    .bg-white{
+      .rounded-corners(5px);
+      box-shadow: none;
+    }
+
     figure{
       .rounded-corners-top(0);
       img{
@@ -422,6 +432,13 @@
     }
 
     .information{
+      position: relative;
+      height: 180px;
+
+      .absolute{
+        bottom: 10px;
+        width: 100%;
+      }
 
       h3{
         margin:10px 0 0;
