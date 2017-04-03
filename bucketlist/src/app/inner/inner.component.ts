@@ -186,7 +186,6 @@ export class InnerComponent implements OnInit {
                       .subscribe(
                           data => {
                             this.userGoal = data;
-                              console.log(this.userGoal.formatted_steps,this.userGoal.formatted_steps.length);
                           });
                 }
               }
