@@ -10,7 +10,7 @@
     <div class="new-activity" *ngIf="newActivity && !single">
         <button md-button (click)="addNew()">{{ 'new_activity'|translate }}</button>
     </div>
-    <h3 class="text-dark-gray " *ngIf="noActivities && !single" id="non-activity" >{{ 'active.not_have'|translate }}
+    <h3 class="text-dark-gray empty-text" *ngIf="noActivities && !single" id="non-activity" >{{ 'active.not_have'|translate }}
         <a routerLink="/ideas" class="text-purple">adding</a>
     </h3>
     <!--{% else %}-->

@@ -6,7 +6,7 @@
 
                     <div class="row">
                         <div  class="suggest-input">
-                            <md-checkbox class="example-margin" name="isPublic" [(ngModel)]="isPublic">
+                            <md-checkbox class="example-margin" name="isPublic" [(ngModel)]="isPublic" disableRipple>
                                 <span class="text-purple">
                                     {{ 'goal.public'|translate }}
                                 </span>
@@ -14,10 +14,8 @@
                         </div>
                     </div>
 
-                    <div class="row hidden-xs">
-                        <div class="col-sm-10 col-sm-offset-1">
-                            <p class="text-gray">{{ 'goal.agree'|translate }}</p>
-                        </div>
+                    <div class="suggest-test hidden-xs">
+                        <p class="text-gray">{{ 'goal.agree'|translate }}</p>
                     </div>
 
                 </div>
@@ -128,10 +126,8 @@
                                     </button>
                                 </div>
 
-                                <p *ngIf="!isMobile" class="text-gray" [innerHTML]="'goal.description_title' | translate">
-                                </p>
-                                <p *ngIf="isMobile" class="text-gray" [innerHTML]="'goal.description_title_mob' | translate">
-                                </p>
+                                <p class="text-gray hidden-xs" [innerHTML]="'goal.description_title' | translate"></p>
+                                <p class="text-gray hidden-sm hidden-md hidden-lg" [innerHTML]="'goal.description_title_mob' | translate"></p>
 
 
                             </div>
@@ -149,7 +145,7 @@
                                 </md-select>
                             </div>
 
-                            <br/>
+                            <br class="hidden-xs"/>
                             <label class="text-dark-gray">Video</label>
                             <input-video *ngFor="let video of videos_array; let i = index"
                                          [key]="i"
