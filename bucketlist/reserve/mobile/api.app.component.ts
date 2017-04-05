@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewContainerRef,ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef,ViewChild, ViewEncapsulation,ElementRef } from '@angular/core';
 import {MdDialog, MdDialogRef, MdDialogConfig, MdSidenav} from '@angular/material';
 import { TranslateService} from 'ng2-translate';
 import { Broadcaster} from '../tools/broadcaster';
@@ -24,9 +24,12 @@ import { DOCUMENT } from '@angular/platform-browser';
 
 export class AppComponent extends App {
     @ViewChild('sidenav') sidenav: MdSidenav;
+    @ViewChild('footer')
+    public footer: ElementRef;
     public scroll:boolean;
     public before:number = 0;
     public sOpen:boolean = false;
+    public nearbyscroll:boolean = false;
     //public userDrop : boolean = false;
     constructor(
         protected angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
@@ -62,7 +65,16 @@ export class AppComponent extends App {
 
     @HostListener("window:scroll", [])
     onWindowScroll() {
+        this.broadcaster.on<any>('ideaShowMore')
+            .subscribe(() =>{
+                this.nearbyscroll = false;
+            });
+        this.nearbyscroll = false;
+        let footerOffset =  this.footer.nativeElement.offsetTop -200;
         let number = this.document.body.scrollTop;
+        if(number + 380 > footerOffset){
+            this.nearbyscroll = true;
+        }
         this.myTop = number;
         if(number < this.before){
             this.doScroll(0);

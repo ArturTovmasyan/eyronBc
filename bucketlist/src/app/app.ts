@@ -33,6 +33,7 @@ export class App implements OnInit  {
     public appUser:User;
     public updatedEmail:any;
     public busy:boolean = false;
+    public inIdeasPage:boolean = false;
     public projectName:any;
 
     //  modal
@@ -58,7 +59,16 @@ export class App implements OnInit  {
         protected router: Router,
         protected viewContainerRef: ViewContainerRef,
         protected dialog: MdDialog
-    ) { }
+    ) {
+        router.events.subscribe((val) => {
+            if(val.url.indexOf('/ideas') == 0) {
+                this.inIdeasPage = true;
+            }
+            else {
+                this.inIdeasPage = false;
+            }
+        });
+    }
 
     ngOnInit() {
         this.projectName = this._projectService.getAngularPath();

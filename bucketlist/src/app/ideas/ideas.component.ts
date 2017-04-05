@@ -22,7 +22,6 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 export class IdeasComponent implements OnInit, OnDestroy {
     @ViewChild("tooltip")
     public tooltipElementRef: ElementRef;
-
     public isMobile=(window.innerWidth<768);
     public category: string;
     public errorMessage: string;
@@ -212,6 +211,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
   }
 
     getReserve(){
+        this.broadcaster.broadcast('ideaShowMore');
         this.angulartics2.eventTrack.next({ action: 'Load more in select category', properties: { category: 'Goal', label: 'Load more in category ' + this.category + ' from angular2'}});
         this.ideas = this.ideas.concat(this.reserve);
           if(this.category == 'nearby'){

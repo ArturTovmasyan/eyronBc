@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef, ViewChild,ElementRef } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 // import { AddComponent} from './modals/add/add.component';
 // import { DoneComponent} from './modals/done/done.component';
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Angulartics2, Angulartics2GoogleAnalytics} from 'angulartics2';
 import { App} from '../app';
-
+import {  HostListener, Inject} from "@angular/core";
+import { DOCUMENT } from '@angular/platform-browser';
 // import {User} from './interface/user';
 
 @Component({
@@ -27,6 +28,9 @@ import { App} from '../app';
 })
 
 export class AppComponent extends App {
+    @ViewChild('footer')
+    public footer: ElementRef;
+    public nearbyscroll:boolean = false;
     // @Input() count:number;
     // public translatedText: string;
     // public supportedLanguages: any[];
@@ -64,7 +68,8 @@ export class AppComponent extends App {
         protected _cacheService: CacheService,
         protected router: Router,
         protected viewContainerRef: ViewContainerRef,
-        protected dialog: MdDialog
+        protected dialog: MdDialog,
+        @Inject(DOCUMENT) protected document: any
     ) { 
         super(
             angulartics2GoogleAnalytics, 
@@ -75,6 +80,19 @@ export class AppComponent extends App {
             router, 
             viewContainerRef,
             dialog);
+    }
+    @HostListener("window:scroll", [])
+    onWindowScroll() {
+        this.broadcaster.on<any>('ideaShowMore')
+            .subscribe(() =>{
+                this.nearbyscroll = false;
+            });
+        this.nearbyscroll = false;
+        let footerOffset =  this.footer.nativeElement.offsetTop -200;
+        let number = this.document.body.scrollTop;
+        if(number + 380 > footerOffset){
+            this.nearbyscroll = true;
+        }
     }
 
     // ngOnInit() {
