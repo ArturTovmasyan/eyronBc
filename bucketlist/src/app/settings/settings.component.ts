@@ -41,6 +41,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     year:any = 0;
     notifySettings:any;
     show:boolean = false;
+    public isMobile:Boolean= (window.innerWidth < 768);
 
     languages: any[] = [
         {
@@ -73,6 +74,22 @@ export class SettingsComponent implements OnInit, OnDestroy {
         'form.month_october',
         'form.month_november',
         'form.month_december'
+    ];
+    public months_3:Array<string> = [
+        'form.birth_date_month',
+        'form.month_january_3',
+        'form.month_february_3',
+        'form.month_march_3',
+        'form.month_april_3',
+        'form.month_may_3',
+        'form.month_june_3',
+        'form.month_july_3',
+        'form.month_august_3',
+        'form.month_september_3',
+        'form.month_october_3',
+        'form.month_november_3',
+        'form.month_december_3'
+
     ];
 
     constructor(
@@ -216,6 +233,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
+        if(this.isMobile){
+            this.arrayMonth = this.months_3;
+        }
     }
 
     createDays(number) {

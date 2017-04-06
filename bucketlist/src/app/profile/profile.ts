@@ -2,7 +2,7 @@
  * Created by gevor on 2/18/17.
  */
 
-import { OnInit, ViewChild, ElementRef, Renderer, OnDestroy } from '@angular/core';
+import { OnInit, ViewChild, ElementRef, Renderer, OnDestroy,ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Broadcaster } from '../tools/broadcaster';
 import {CacheService} from 'ng2-cache/ng2-cache';
@@ -11,6 +11,8 @@ import {ProjectService} from '../project.service';
 import {Location} from '../interface/location';
 import {User} from "../interface/user";
 import { MetadataService } from 'ng2-metadata';
+import {MdSnackBar, MdSnackBarConfig} from '@angular/material';
+import { TranslateService} from 'ng2-translate';
 
 export class Profile implements OnInit, OnDestroy {
     @ViewChild("tooltip") public tooltipElementRef: ElementRef;
@@ -53,6 +55,7 @@ export class Profile implements OnInit, OnDestroy {
 
     public overall:number;
     public appUser:User;
+    public message:any = "Your goal has been succecfully  removed";
 
     constructor(
         protected metadataService: MetadataService,
@@ -61,7 +64,9 @@ export class Profile implements OnInit, OnDestroy {
         protected _cacheService: CacheService,
         protected broadcaster: Broadcaster,
         protected router:Router,
-        protected renderer: Renderer
+        protected renderer: Renderer,
+        protected snackBar: MdSnackBar,
+        protected _translate: TranslateService
     ) {
         this.sub = router.events.subscribe((val) => {
             if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
@@ -127,6 +132,18 @@ export class Profile implements OnInit, OnDestroy {
                     this.changeByDeviceType(true);
                     this.getData();
                 }
+            });
+        this.broadcaster.on<any>('snackbar')
+            .subscribe( data =>{
+               if(data == 0){
+                   this.message = this._translate.instant('goal.was_deleted');
+                   this.snackBar.open(this.message, '', {
+                       duration : 2000
+                   });
+                   document.querySelector('.cdk-global-overlay-wrapper').className += " flex-md-left";
+               }
+                 // document.querySelector('.cdk-global-overlay-wrapper').className += "flex-md-left";
+                   // document.getElementsByTagName("snack-bar-container")[0].className += "snackbar_style";
             });
     }
 

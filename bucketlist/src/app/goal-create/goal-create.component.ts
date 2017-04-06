@@ -227,13 +227,20 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
         }, this.id)
             .subscribe(
                 (d) => {
+                    this.broadcaster.broadcast('addModal', {
+                        'userGoal': {'goal':d},
+                        'newAdded' : true,
+                        'newCreated' : true
+                    });
                     this._projectService.addUserGoal(d.id, {}).subscribe((data) => {
-                        this.broadcaster.broadcast('addModal', {
-                            'userGoal': data,
-                            'newAdded' : true,
-                            'newCreated' : true,
-                            'haveData': true
-                        });
+                        this.broadcaster.broadcast('addModalUserGoal', data);
+                        this.broadcaster.broadcast('add_my_goal'+d.id, {});
+                        // this.broadcaster.broadcast('addModal', {
+                        //     'userGoal': data,
+                        //     'newAdded' : true,
+                        //     'newCreated' : true,
+                        //     'haveData': true
+                        // });
                         this.broadcaster.on<any>('saveUserGoal_' + data.id)
                             .subscribe(data => {
                                 let messages = this._cacheService.get('flash_massage');

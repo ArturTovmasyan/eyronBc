@@ -11,22 +11,24 @@
          [infiniteScrollDistance]="1"
          [infiniteScrollThrottle]="500"
          (scrolled)="onScroll()">
-        <div [hidden]="!goals.length"
-             class=" row"
-             *ngFor="let goal of goals">
+        <perfect-scrollbar [ngClass]="{'modal-container':isMobile,'modal-Dcontainer':!isMobile}" [config]="config">
+            <div [hidden]="!goals.length"
+                 class=" row"
+                 *ngFor="let goal of goals">
 
-            <div class="col-sm-12">
-                <div class="idea-item">
-                    <figure>
-                        <app-goal [goal]="goal"></app-goal>
-                        <app-goal-footer [goal]="goal"></app-goal-footer>
-                    </figure>
+                <div class="col-sm-12">
+                    <div class="idea-item">
+                        <figure>
+                            <app-goal [goal]="goal"></app-goal>
+                            <app-goal-footer [goal]="goal"></app-goal-footer>
+                        </figure>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-        <div *ngIf="!goals.length" >
-            <p>{{ 'no_common'| translate  }}</p>
-        </div>
+            </div>
+            <div *ngIf="!goals.length" >
+                <p>{{ 'no_common'| translate  }}</p>
+            </div>
+    </perfect-scrollbar>
     </div>
 </div>
