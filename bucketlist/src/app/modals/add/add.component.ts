@@ -362,5 +362,6 @@ export class AddComponent implements OnInit {
 
     });
     this.dialogRef.close({'remove': this.userGoal.id});
+    this.broadcaster.broadcast('snackbar',0);
   }
 }
