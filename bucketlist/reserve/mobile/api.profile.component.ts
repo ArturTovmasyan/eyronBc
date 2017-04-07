@@ -5,7 +5,8 @@ import { Broadcaster } from '../../tools/broadcaster';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { ProjectService} from '../../project.service';
 import { Profile} from '../profile';
-import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import { MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
+import { TranslateService} from 'ng2-translate';
 
 import { MetadataService } from 'ng2-metadata';
 import {CalendarComponent} from "../calendar/calendar.component";
@@ -43,9 +44,11 @@ export class ProfileComponent extends Profile{
       protected broadcaster: Broadcaster,
       protected router:Router,
       protected renderer: Renderer,
-      protected dialog: MdDialog
+      protected dialog: MdDialog,
+      protected snackBar: MdSnackBar,
+      protected _translate: TranslateService
   ) {
-    super(metadataService, route, _projectService, _cacheService, broadcaster, router, renderer);
+    super(metadataService, route, _projectService, _cacheService, broadcaster, router, renderer, snackBar,_translate);
 
   }
   toogleSelect(){

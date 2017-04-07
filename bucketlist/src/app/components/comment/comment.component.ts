@@ -67,14 +67,14 @@ export class CommentComponent implements OnInit {
               this.comments  = comments;
               this.ready = true;
               this.broadcaster.on<any>('commentshow')
-                  .subscribe( () =>{
+                  .subscribe( () => {
                     setTimeout(()=>{
                       let p = this.comments.length - 1;
                       let containerPos = this.findPos(document.getElementById(this.data.slug));
-                      let position: number = this.findPos(document.getElementById("comment-"+p+this.data.slug));
+                      let position: number = this.findPos(document.getElementById("comment-"+p+'-'+this.data.slug));
                       if(!containerPos && !position)return;
                       position -= containerPos;
-                      this.myScroll.scrollTo(position);
+                      this.doScroll();
                     },1000);
 
                   });
@@ -82,26 +82,11 @@ export class CommentComponent implements OnInit {
                 this.broadcaster.on<any>('activityComment'+this.data.slug)
                     .subscribe(data =>{
                       setTimeout(()=> {
-                        if(this.comments.length > 0){
-                          window.scroll(0,this.findPos(document.getElementById(this.data.slug)));
-                        }
-                        else{
-                          window.scroll(0,window.scrollY + 50);
-                        }
+                       this.doScroll();
                       },500);
                       });
-                if(this.comments.length > 0){
-                  window.scroll(0,this.findPos(document.getElementById(this.data.slug)));
-                }
-                else
-                  window.scroll(0,window.scrollY + 50);
-                let k = 0;
-                for(let i = 0;i<500; i++){
-                  setTimeout(()=>{
-                    this.myScroll.scrollTo(k);
-                    k +=2;
-                  },1)
-                }
+
+                this.doScroll()
               },500);
               this.commentsLength = this.comments.length - this.commentsDefaultCount;
               for(let i = 0;i < this.comments.length; i++){
@@ -205,6 +190,22 @@ export class CommentComponent implements OnInit {
       this.broadcaster.broadcast('openLogin', 'some message');
     } else {
       this.broadcaster.broadcast('reportModal', {contentType,contentId});
+    }
+  }
+  doScroll(){
+    if(this.comments.length > 0){
+      window.scroll(0,this.findPos(document.getElementById(this.data.slug)));
+    }
+    else {
+      window.scroll(0,window.scrollY + 50);
+    }
+
+    let k = 0;
+    for(let i = 0;i<500; i++){
+      setTimeout(()=>{
+        this.myScroll.scrollTo(k);
+        k +=2;
+      },1)
     }
   }
 }

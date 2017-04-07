@@ -4,6 +4,8 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Broadcaster } from '../../../tools/broadcaster';
 import { Uploader }      from 'angular2-http-file-upload';
 import { ProfileHeader }  from '../profile-header';
+import {MdSnackBar, MdSnackBarConfig} from '@angular/material';
+import { TranslateService} from 'ng2-translate';
 
 import {User} from "../../../interface/user";
 
@@ -19,9 +21,12 @@ export class ProfileHeaderComponent extends ProfileHeader{
         protected broadcaster: Broadcaster,
         protected _projectService: ProjectService,
         protected _cacheService: CacheService,
-        protected uploaderService: Uploader)
+        protected uploaderService: Uploader,
+        protected snackBar: MdSnackBar,
+        protected _translate: TranslateService
+    )
     {
-        super(broadcaster, _projectService, _cacheService, uploaderService);
+        super(broadcaster, _projectService, _cacheService, uploaderService,snackBar,_translate);
     }
 
 }

@@ -41,6 +41,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
     year:any = 0;
     notifySettings:any;
     show:boolean = false;
+    public loading:boolean = false;
+    public isMobile:Boolean= (window.innerWidth < 768);
 
     languages: any[] = [
         {
@@ -74,6 +76,22 @@ export class SettingsComponent implements OnInit, OnDestroy {
         'form.month_november',
         'form.month_december'
     ];
+    public months_3:Array<string> = [
+        'form.birth_date_month',
+        'form.month_january_3',
+        'form.month_february_3',
+        'form.month_march_3',
+        'form.month_april_3',
+        'form.month_may_3',
+        'form.month_june_3',
+        'form.month_july_3',
+        'form.month_august_3',
+        'form.month_september_3',
+        'form.month_october_3',
+        'form.month_november_3',
+        'form.month_december_3'
+
+    ];
 
     constructor(
         private _translate: TranslateService,
@@ -99,6 +117,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
                     this.removeMessage = false;
                     this.initProfileForm();
                     this.ready = true;
+                    this.loading = false;
                 }
 
                 if(this.type == 'notification'){
@@ -216,6 +235,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
+        if(this.isMobile){
+            this.arrayMonth = this.months_3;
+        }
     }
 
     createDays(number) {
@@ -384,6 +406,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
                 this.ready = true;
                 this.initNotifyForm();
                 this.errorMessage = null;
+                setTimeout(() =>{
+                    this.loading = true;
+                },200)
             },
             error => {
                 this.errorMessage = error._body;

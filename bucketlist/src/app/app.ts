@@ -22,6 +22,7 @@ export class App implements OnInit  {
     public supportedLanguages: any[];
     public joinShow:boolean = false;
     public show:boolean = false;
+    public readyBurger:boolean = false;
     public newNotCount:number = 0;
     public myTop:number = 0;
     public menus: any[];
@@ -33,6 +34,7 @@ export class App implements OnInit  {
     public appUser:User;
     public updatedEmail:any;
     public busy:boolean = false;
+    public inIdeasPage:boolean = false;
     public projectName:any;
 
     //  modal
@@ -58,7 +60,16 @@ export class App implements OnInit  {
         protected router: Router,
         protected viewContainerRef: ViewContainerRef,
         protected dialog: MdDialog
-    ) { }
+    ) {
+        router.events.subscribe((val) => {
+            if(val.url.indexOf('/ideas') == 0) {
+                this.inIdeasPage = true;
+            }
+            else {
+                this.inIdeasPage = false;
+            }
+        });
+    }
 
     ngOnInit() {
         this.projectName = this._projectService.getAngularPath();
@@ -357,6 +368,11 @@ export class App implements OnInit  {
         }
     }
 
+    timeStep(value:boolean){
+        setTimeout(()=>{
+            this.readyBurger = value;
+        },300)
+    }
     toogleNote(){
         if(this.show != true){
             this.writeTimeout = setTimeout(() =>{

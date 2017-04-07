@@ -203,7 +203,12 @@
 
         <router-outlet></router-outlet>
     </div>
-    <footer>
+    <div  *ngIf="inIdeasPage" [ngClass]="{'nearby-button':!nearbyscroll,'nearby-button-stop':nearbyscroll}" #nearbybutton>
+        <button  md-fab routerLink="/ideas/nearby" routerLinkActive="active">
+            <img src="assets/images/nearby_new.svg" class="svg"/>
+        </button>
+    </div>
+    <footer #footer>
         <div class="container">
 
             <ul class="apps clearfix">

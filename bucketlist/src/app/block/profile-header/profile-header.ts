@@ -7,6 +7,8 @@ import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Broadcaster } from '../../tools/broadcaster';
 import { Uploader }      from 'angular2-http-file-upload';
 import { MyUploadItem }  from '../../components/my-dropzone/my-upload';
+import {MdSnackBar, MdSnackBarConfig} from '@angular/material';
+import { TranslateService} from 'ng2-translate';
 
 import {User} from "../../interface/user";
 
@@ -19,6 +21,7 @@ export class ProfileHeader implements OnInit {
     public current:any;
     public appUser:User;
     public serverPath:string = '';
+    public message:string = 'hello';
     public imgPath: string = '';
     path:string = '/api/v1.0/user/upload-file';
     // public nameOnImage: string = '';
@@ -35,7 +38,10 @@ export class ProfileHeader implements OnInit {
         protected broadcaster: Broadcaster,
         protected _projectService: ProjectService,
         protected _cacheService: CacheService,
-        protected uploaderService: Uploader) { }
+        protected uploaderService: Uploader,
+        protected snackBar: MdSnackBar,
+        protected _translate: TranslateService
+    ) { }
 
     ngOnChanges(){
         if(this.userInfo && this.current != this.userInfo){
@@ -73,6 +79,15 @@ export class ProfileHeader implements OnInit {
         this.current = this.userInfo;
         if(this.userInfo == 'my'){
             this.flashBag = this._cacheService.get('flash_massage');
+            if(this.flashBag && this.flashBag.length > 0){
+                setTimeout(() => {
+                    this.message = this._translate.instant('goal.was_created.public');
+                    this.snackBar.open(this.message, '', {
+                        duration : 2000
+                    });
+                    document.querySelector('.cdk-global-overlay-wrapper').className += " flex-md-left";
+                },500);
+            }
             this._cacheService.set('flash_massage', [], {maxAge: 3 * 24 * 60 * 60});
             setTimeout(()=>{
                 this.flashBag = 0;
