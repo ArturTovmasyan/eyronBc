@@ -45,7 +45,6 @@ export class ProfileComponent extends Profile{
       protected router:Router,
       protected renderer: Renderer,
       protected dialog: MdDialog,
-      protected renderer: Renderer,
       protected snackBar: MdSnackBar,
       protected _translate: TranslateService
   ) {
