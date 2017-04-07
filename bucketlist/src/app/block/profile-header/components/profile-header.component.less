@@ -605,11 +605,16 @@
   }
 }
 
-.md-slide-toggle-content{
-  padding-left: 15px;
+.mat-slide-toggle-container{
+  display: inline-table;
+}
+
+.mat-slide-toggle-content{
+  //padding-left: 5px;
   min-width: 245px;
   max-width: 300px;
   text-align: left;
+  padding: 0 15px 0 0;
 }
 
 .image-label{
@@ -931,8 +936,9 @@
     }
   }
 
-  .md-slide-toggle-content{
+  .mat-slide-toggle-content{
     max-width: 600px;
+    padding-left: 5px;
   }
 
   .image-label{
@@ -944,6 +950,7 @@
 }
 
 @media (min-width: @screen-md) {
+
   .content-header{
     min-height: 264px;
     &>figure{

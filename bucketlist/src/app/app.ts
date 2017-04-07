@@ -22,6 +22,7 @@ export class App implements OnInit  {
     public supportedLanguages: any[];
     public joinShow:boolean = false;
     public show:boolean = false;
+    public readyBurger:boolean = false;
     public newNotCount:number = 0;
     public myTop:number = 0;
     public menus: any[];
@@ -367,6 +368,11 @@ export class App implements OnInit  {
         }
     }
 
+    timeStep(value:boolean){
+        setTimeout(()=>{
+            this.readyBurger = value;
+        },300)
+    }
     toogleNote(){
         if(this.show != true){
             this.writeTimeout = setTimeout(() =>{
