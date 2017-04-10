@@ -79,7 +79,7 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
         router.events.subscribe((val) => {
             if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
                 this.eventId = val.id;
-                this.id = this.route.snapshot.params['id'];console.log(this.id);
+                this.id = this.route.snapshot.params['id'];
                 this.slug = this.route.snapshot.params['status'];
                 this.isPrivate = (this.slug && this.slug != 'drafts');
                 window.scrollTo(0,0);

@@ -141,9 +141,10 @@ export class Profile implements OnInit, OnDestroy {
                        duration : 2000
                    });
                    document.querySelector('.cdk-global-overlay-wrapper').className += " flex-md-left";
+                   document.getElementsByTagName("snack-bar-container")[0].className += "snackbar_style";
                }
                  // document.querySelector('.cdk-global-overlay-wrapper').className += "flex-md-left";
-                   // document.getElementsByTagName("snack-bar-container")[0].className += "snackbar_style";
+                  
             });
     }
 

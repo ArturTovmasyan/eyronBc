@@ -113,7 +113,7 @@
             "public": "Your goal has been successfully created",
                 "private": "Your private goal has been successfully created"
         },
-        "was_deleted" : "Your goal has been successfully deleted",
+        "was_deleted" : "Your goal has been successfully removed",
         "existing": "Existing similar goals",
         "importance": "Importance",
         "important": "important",

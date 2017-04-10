@@ -3,8 +3,6 @@ import { ProjectService } from '../../project.service';
 import { Router } from '@angular/router';
 import {MdDialog, MdDialogRef} from '@angular/material';
 
-
-
 @Component({
   selector: 'report-modal',
   templateUrl: './report.component.html',
@@ -15,9 +13,11 @@ export class ReportComponent implements OnInit {
   // @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
   public data: any;
   public isReported:boolean = false;
-  public isOpen:boolean = false;
+  public isOpen:boolean = true;
+  public modalClose:boolean = false;
   public reportText:string;
   public reportOption:any;
+  public isMobile = (window.innerWidth < 768);
   constructor(private ProjectService: ProjectService,
               private router: Router,
               private dialogRef: MdDialogRef<ReportComponent>
@@ -59,9 +59,10 @@ export class ReportComponent implements OnInit {
     })
   }
   closeModal(){
-    if(!this.isOpen)return;
     this.isOpen = false;
-    this.dialogRef.close();
+    setTimeout(() => {
+      this.dialogRef.close();
+    },200);
   }
 
 }

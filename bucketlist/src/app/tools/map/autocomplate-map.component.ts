@@ -161,6 +161,8 @@ export class AutocomplateMapComponent implements OnInit {
           this.notAllowed = false;
           this.setPosition(position);
           this._cacheService.set('location', position, {maxAge: 3 * 24 * 60 * 60});
+        },() =>{
+          this.notAllowed = false;
         });
       }
     }
