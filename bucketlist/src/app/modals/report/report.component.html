@@ -13,17 +13,15 @@
         <form class="form-horizontal" *ngIf="!isReported">
 
             <div class="radio">
-                <label>
-                    <input type="radio" [(ngModel)]="reportOption" name="optionsRadios" id="optionsRadios1" [value]="2" checked>
+                <md-radio-button [(ngModel)]="reportOption" name="optionsRadios" id="optionsRadios1" value="2" disableRipple ngDefaultControl>
                     {{ 'report.spam'|translate }}
-                </label>
+                </md-radio-button>
             </div>
 
             <div class="radio">
-                <label>
-                    <input type="radio" [(ngModel)]="reportOption" name="optionsRadios" id="optionsRadios2" [value]="3">
-                    {{ 'report.opinion'|translate }}
-                </label>
+                <md-radio-button [(ngModel)]="reportOption" name="optionsRadios" id="optionsRadios2" value="3" disableRipple ngDefaultControl>
+                    <span>{{ 'report.opinion'|translate }}</span>
+                </md-radio-button>
             </div>
 
             <textarea class="form-control" rows="3" name="reportText" [(ngModel)]='reportText' placeholder="{{ 'report.other'|translate }}"></textarea>

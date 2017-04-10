@@ -18,6 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+                <bl-loading mode="indeterminate" *ngIf="!loading && (type != 'profile')"></bl-loading>
                 <div class="settings bg-white round" *ngIf="ready">
                     <form action="#" method="POST" [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="saveUserData(form.value)" class="form-horizontal text-center">
 
@@ -188,8 +189,7 @@
                             </div>
                             <div class="col-md-4"></div>
                         </div>
-
-                        <div *ngIf="type == 'notification'">
+                        <div *ngIf="(type == 'notification') && loading">
 
                             <div *ngIf="saveMessage" class="alert alert-success" role="alert">
                                 {{ 'updated_user_data'|translate }}

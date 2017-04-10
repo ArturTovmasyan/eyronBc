@@ -13,6 +13,7 @@ import {UserGoal} from "./interface/userGoal";
 import {Activity} from "./interface/activity";
 
 import {Observable}     from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 
 // Operators
 import 'rxjs/add/operator/catch';

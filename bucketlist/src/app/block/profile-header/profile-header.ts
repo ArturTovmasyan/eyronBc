@@ -79,7 +79,7 @@ export class ProfileHeader implements OnInit {
         this.current = this.userInfo;
         if(this.userInfo == 'my'){
             this.flashBag = this._cacheService.get('flash_massage');
-            if(this.flashBag.length > 0){
+            if(this.flashBag && this.flashBag.length > 0){
                 setTimeout(() => {
                     this.message = this._translate.instant('goal.was_created.public');
                     this.snackBar.open(this.message, '', {

@@ -41,6 +41,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     year:any = 0;
     notifySettings:any;
     show:boolean = false;
+    public loading:boolean = false;
     public isMobile:Boolean= (window.innerWidth < 768);
 
     languages: any[] = [
@@ -116,6 +117,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
                     this.removeMessage = false;
                     this.initProfileForm();
                     this.ready = true;
+                    this.loading = false;
                 }
 
                 if(this.type == 'notification'){
@@ -404,6 +406,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
                 this.ready = true;
                 this.initNotifyForm();
                 this.errorMessage = null;
+                setTimeout(() =>{
+                    this.loading = true;
+                },200)
             },
             error => {
                 this.errorMessage = error._body;
