@@ -154,15 +154,16 @@ export class App implements OnInit  {
             });
 
         //modals
-        this.broadcaster.on<number>('commonModal')
-            .subscribe(id => {
-                this.commonId = id;
+        this.broadcaster.on<any>('commonModal')
+            .subscribe(data => {
+                this.commonId = data.id;
                 let dialogRef: MdDialogRef<CommonComponent>;
                 let config = new MdDialogConfig();
                 // config.height = '600px';
                 config.viewContainerRef = this.viewContainerRef;
                 dialogRef = this.dialog.open(CommonComponent, config);
-                dialogRef.componentInstance.id = id;
+                dialogRef.componentInstance.id = data.id;
+                dialogRef.componentInstance.commonCount = data.count;
                 dialogRef.afterClosed().subscribe(result => {
 
                 });

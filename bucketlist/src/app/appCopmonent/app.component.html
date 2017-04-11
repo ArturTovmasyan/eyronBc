@@ -91,12 +91,18 @@
                                     <!--{% endif %}-->
 
                                     <li>
-                                        <a routerLink="/leaderboard" (click)="joinToggle1 = false;timeStep(false)">
-                                            <i class="icon-suggest-icon"></i>
-                                            <span class="text">{{ 'leaderboard.name'|translate | capitalize}}</span>
+                                        <a routerLink="/profile/my/all" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="icons mybucketlist-icon"></i>
+                                            <span>{{ 'my_bucketlist'|translate }}</span>
                                         </a>
                                     </li>
 
+                                    <li>
+                                        <a routerLink="/goal/my-ideas/private" *ngIf=" appUser.draft_count && appUser.draft_count !=0" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="icons my-ideas-icon"></i>
+                                            <span>{{ 'right_menu.my_ideas'|translate | capitalize }}</span>
+                                        </a>
+                                    </li>
                                     <li>
                                         <a routerLink="/goal-friends" (click)="joinToggle1 = false;timeStep(false)">
                                             <i class="menu-goalfrinds"></i>
@@ -111,27 +117,19 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a routerLink="/goal/my-ideas/private" *ngIf=" appUser.draft_count && appUser.draft_count !=0" (click)="joinToggle1 = false;timeStep(false)">
-                                            <i class="icons my-ideas-icon"></i>
-                                            <span>{{ 'right_menu.my_ideas'|translate | capitalize }}</span>
-                                        </a>
-                                    </li>
-
-
-                                    <li>
-                                        <a routerLink="/profile/my/all" (click)="joinToggle1 = false;timeStep(false)">
-                                            <i class="icons mybucketlist-icon"></i>
-                                            <span>{{ 'my_bucketlist'|translate }}</span>
-                                        </a>
-                                    </li>
-
-                                    <li>
                                         <a routerLink="/goal/create" (click)="joinToggle1 = false;timeStep(false)">
                                             <i class="icons add-goal"></i>
                                             <span>{{ 'create_goal'|translate }}</span>
                                         </a>
                                     </li>
 
+
+                                    <li>
+                                        <a routerLink="/leaderboard" (click)="joinToggle1 = false;timeStep(false)">
+                                            <i class="icon-suggest-icon"></i>
+                                            <span class="text">{{ 'leaderboard.name'|translate | capitalize}}</span>
+                                        </a>
+                                    </li>
                                     <li>
                                         <a routerLink="/edit/profile" (click)="joinToggle1 = false;timeStep(false)">
                                             <i class="icons settings-icon"></i>

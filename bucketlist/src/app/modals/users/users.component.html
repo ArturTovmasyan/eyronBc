@@ -12,10 +12,6 @@
     <perfect-scrollbar class="modal-container" [config]="config">
 
         <div class="users-content"
-             infinite-scroll
-             [infiniteScrollDistance]="1"
-             [infiniteScrollThrottle]="500"
-             (scrolled)="onScroll()"
              *ngIf="users">
             <div [hidden]="!users.length"
                  class="row"

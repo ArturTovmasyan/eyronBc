@@ -12,4 +12,5 @@ export interface User {
     badges?:any,
     completed_percent?:any,
     language?:string
+    common_goals_count?:number
 }
