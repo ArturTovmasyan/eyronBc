@@ -28,7 +28,7 @@
                        class="form-control"
                        id="searchInput"
                        [(ngModel)]="search"
-                       (keyup.enter)="doSearch($event)"
+                       (keyup.enter)="doSearch()"
                        placeholder="{{ 'search_placeholder'|translate }}">
 
                 <span class="close-icon" [hidden] = "!search || !search.length" (click)="resetFriends()"></span>
