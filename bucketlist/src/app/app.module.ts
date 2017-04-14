@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate';
@@ -106,6 +107,7 @@ export function createTranslateLoader(http: Http) {
     MetadataModule.forRoot(),
     SwiperModule,
     ToolsSharingModule,
+    BrowserAnimationsModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
