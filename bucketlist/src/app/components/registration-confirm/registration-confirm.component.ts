@@ -30,15 +30,16 @@ export class RegistrationConfirmComponent implements OnInit, OnDestroy {
               private router:Router,
               private _cacheService: CacheService) {
 
-      this.sub = router.events.subscribe((val) => {
+      this.sub = router.events.subscribe((event) => {
+          if(event instanceof NavigationEnd ) {
+              if (!this.isDestroy && this.eventId != event.id) {
 
-          if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd) {
+                  this.eventId = event.id;
+                  this.secret = this.route.snapshot.params['secret'] ? this.route.snapshot.params['secret'] : null;
 
-              this.eventId = val.id;
-              this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']: null;
-
-              if(this.secret) {
-                  this.confirmUserRegistration(this.secret);
+                  if (this.secret) {
+                      this.confirmUserRegistration(this.secret);
+                  }
               }
           }
         }

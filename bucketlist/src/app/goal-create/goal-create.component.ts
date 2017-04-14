@@ -39,6 +39,7 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
     public appUser: User;
     public eventId: any;
     public slug: any;
+    public sub: any;
     public config: any = {
         observer: true,
         autoHeight: true,
@@ -76,43 +77,46 @@ export class GoalCreateComponent implements OnInit, OnDestroy {
       private _projectService: ProjectService,
       private _cacheService: CacheService
     ) {
-        router.events.subscribe((val) => {
-            if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
-                this.eventId = val.id;
-                this.id = this.route.snapshot.params['id'];
-                this.slug = this.route.snapshot.params['status'];
-                this.isPrivate = (this.slug && this.slug != 'drafts');
-                window.scrollTo(0,0);
-                if(this.id){
-                    this._projectService.getGoalMyId(this.id)
-                        .subscribe(
-                        data => {
-                            this.goal = data.goal;
-                            this.isPublic = this.goal.status;
-                            this.title = this.goal.title;
-                            this.description = this.goal.description;
-                            this.changeDescription();
-                            this.language = this.goal.language;
-                            this.existingFiles = this.goal.images;
-                            for(let file of this.existingFiles){
-                                this.files.push(file.id);
-                            }
+        this.sub = router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd ) {
+                if (!this.isDestroy && this.eventId != event.id) {
+                    this.eventId = event.id;
+                    this.id = this.route.snapshot.params['id'];
+                    this.slug = this.route.snapshot.params['status'];
+                    this.isPrivate = (this.slug && this.slug != 'drafts');
+                    window.scrollTo(0, 0);
+                    if (this.id) {
+                        this._projectService.getGoalMyId(this.id)
+                            .subscribe(
+                                data => {
+                                    this.goal = data.goal;
+                                    this.isPublic = this.goal.status;
+                                    this.title = this.goal.title;
+                                    this.description = this.goal.description;
+                                    this.changeDescription();
+                                    this.language = this.goal.language;
+                                    this.existingFiles = this.goal.images;
+                                    for (let file of this.existingFiles) {
+                                        this.files.push(file.id);
+                                    }
 
-                            if(this.goal.video_link && this.goal.video_link.length){
-                                this.videos_array = this.goal.video_link;
-                            }
+                                    if (this.goal.video_link && this.goal.video_link.length) {
+                                        this.videos_array = this.goal.video_link;
+                                    }
 
-                            this.videos_array.push('');
+                                    this.videos_array.push('');
 
-                        })
-                } else {
-                    this.videos_array.push('');
+                                })
+                    } else {
+                        this.videos_array.push('');
+                    }
                 }
             }
         })
     }
 
     ngOnDestroy(){
+        this.sub.unsubscribe();
         this.isDestroy = true;
     }
     

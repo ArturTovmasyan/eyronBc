@@ -11,7 +11,7 @@ import { ReportComponent} from './modals/report/report.component';
 import { TranslateService} from 'ng2-translate';
 import { Broadcaster} from './tools/broadcaster';
 import { ProjectService} from './project.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Angulartics2, Angulartics2GoogleAnalytics} from 'angulartics2';
 
@@ -21,6 +21,7 @@ export class App implements OnInit  {
     public translatedText: string;
     public supportedLanguages: any[];
     public joinShow:boolean = false;
+    public joinToggle1:boolean = false;
     public show:boolean = false;
     public readyBurger:boolean = false;
     public newNotCount:number = 0;
@@ -61,12 +62,9 @@ export class App implements OnInit  {
         protected viewContainerRef: ViewContainerRef,
         protected dialog: MdDialog
     ) {
-        router.events.subscribe((val) => {
-            if(val.url.indexOf('/ideas') == 0) {
-                this.inIdeasPage = true;
-            }
-            else {
-                this.inIdeasPage = false;
+        router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd ) {
+                this.inIdeasPage = (event.url.indexOf('/ideas') == 0);
             }
         });
     }

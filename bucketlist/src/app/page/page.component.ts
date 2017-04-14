@@ -23,6 +23,7 @@ export class PageComponent implements OnInit, OnDestroy {
     public isDestroy: boolean = false;
     public description: any ;
     public data: any;
+    public sub: any;
     public locale: string = 'en';
     public show: boolean = false;
     public emailData:any;
@@ -36,16 +37,18 @@ export class PageComponent implements OnInit, OnDestroy {
         private formBuilder: FormBuilder,
         private sanitizer: DomSanitizer
     ) {
-        router.events.subscribe((val) => {
-            if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
-                this.eventId = val.id;
-                window.scrollTo(0,0);
-                this.name = this.route.snapshot.params['name'] ? this.route.snapshot.params['name'] : 'how-it-works';
-                if(this.name == 'contact-us') {
-                    this.isSend = false;
-                }
+        this.sub = router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd ) {
+                if (!this.isDestroy && this.eventId != event.id) {
+                    this.eventId = event.id;
+                    window.scrollTo(0, 0);
+                    this.name = this.route.snapshot.params['name'] ? this.route.snapshot.params['name'] : 'how-it-works';
+                    if (this.name == 'contact-us') {
+                        this.isSend = false;
+                    }
 
-                this.getPage(this.name, this.locale);
+                    this.getPage(this.name, this.locale);
+                }
             }
         });
 
@@ -58,6 +61,7 @@ export class PageComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(){
+        this.sub.unsubscribe();
         this.isDestroy = true;
     }
 

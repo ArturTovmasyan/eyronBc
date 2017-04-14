@@ -11,6 +11,7 @@ import { CacheService} from 'ng2-cache/ng2-cache';
 export class Leaderboard implements OnInit, OnDestroy {
 
     public data:any;
+    public sub: any;
     public appUser:User;
     public type:number = 1;
     public category:string;
@@ -30,20 +31,23 @@ export class Leaderboard implements OnInit, OnDestroy {
         protected _cacheService: CacheService,
         protected route: ActivatedRoute
     ) {
-        router.events.subscribe((val) => {
-            if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
-                this.eventId = val.id;
-                window.scrollTo(0,0);
-                this.category = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'innovator';
-                this.metadataService.setTitle('Leaderboard');
-                this.metadataService.setTag('description', 'Leaderboard for ' + this.category);
-                this.type = this.categories.indexOf(this.category);
-                this.getleaderBoard();
+        this.sub = router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd ) {
+                if (!this.isDestroy && this.eventId != event.id) {
+                    this.eventId = event.id;
+                    window.scrollTo(0, 0);
+                    this.category = this.route.snapshot.params['type'] ? this.route.snapshot.params['type'] : 'innovator';
+                    this.metadataService.setTitle('Leaderboard');
+                    this.metadataService.setTag('description', 'Leaderboard for ' + this.category);
+                    this.type = this.categories.indexOf(this.category);
+                    this.getleaderBoard();
+                }
             }
         })
     }
 
     ngOnDestroy(){
+        this.sub.unsubscribe();
         this.isDestroy = true;
     }
 

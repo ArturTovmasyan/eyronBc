@@ -22,6 +22,7 @@ export class Profile implements OnInit, OnDestroy {
     public type: string;
     public errorMessage: string;
     public filterVisibility: boolean = false;
+    public showMap: boolean = false;
     public myProfile: boolean = false;
     public isDream: boolean = false;
     public showCalendar: boolean = false;
@@ -68,30 +69,32 @@ export class Profile implements OnInit, OnDestroy {
         protected snackBar: MdSnackBar,
         protected _translate: TranslateService
     ) {
-        this.sub = router.events.subscribe((val) => {
-            if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
-                this.eventId = val.id;
-                window.scrollTo(0,0);
-                this.start = 0;
-                this.locationsIds = [];
-                this.locations = [];
-                this.uId = this.route.snapshot.params['uId']?this.route.snapshot.params['uId']:'my';
-                this.myProfile = this.uId == 'my';
-                this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:this.myProfile?'all':'activity';
-                this.metadataService.setTitle((this.myProfile?'My Profile':'Profile'));
-                this.metadataService.setTag('description', 'Profile for ' + this.type);
-                // this.goals = null;
-                this.noItem = false;
-                this.showCalendar = false;
-                this.userGoals = null;
-                // this.reserveGoals = null;
-                this.reserveUserGoals = null;
-                if(this.oldUser == this.uId){
-                    this.busyInitial = false;
-                    this.changeByDeviceType(true);
-                    this.getData();
-                } else {
-                    this.busyInitial = true;
+        this.sub = router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd ) {
+                if (!this.isDestroy && this.eventId != event.id) {
+                    this.eventId = event.id;
+                    window.scrollTo(0, 0);
+                    this.start = 0;
+                    this.locationsIds = [];
+                    this.locations = [];
+                    this.uId = this.route.snapshot.params['uId'] ? this.route.snapshot.params['uId'] : 'my';
+                    this.myProfile = this.uId == 'my';
+                    this.type = this.route.snapshot.params['type'] ? this.route.snapshot.params['type'] : this.myProfile ? 'all' : 'activity';
+                    this.metadataService.setTitle((this.myProfile ? 'My Profile' : 'Profile'));
+                    this.metadataService.setTag('description', 'Profile for ' + this.type);
+                    // this.goals = null;
+                    this.noItem = false;
+                    this.showCalendar = false;
+                    this.userGoals = null;
+                    // this.reserveGoals = null;
+                    this.reserveUserGoals = null;
+                    if (this.oldUser == this.uId) {
+                        this.busyInitial = false;
+                        this.changeByDeviceType(true);
+                        this.getData();
+                    } else {
+                        this.busyInitial = true;
+                    }
                 }
             }
         })
@@ -137,7 +140,7 @@ export class Profile implements OnInit, OnDestroy {
             .subscribe( data =>{
                if(data == 0){
                    this.message = this._translate.instant('goal.was_deleted');
-                   this.snackBar.open(this.message, '', {
+                   this.snackBar.open(this.message, '', <any>{
                        duration : 2000
                    });
                    document.querySelector('.cdk-global-overlay-wrapper').className += " flex-md-left";
@@ -313,7 +316,7 @@ export class Profile implements OnInit, OnDestroy {
     calculateLocations(items){
         for(let data of items){
             let item = data.goal?data.goal:data;
-            let location:Location = {
+            let location:any = {
                 id: 0,
                 latitude: 0,
                 lat: 0,

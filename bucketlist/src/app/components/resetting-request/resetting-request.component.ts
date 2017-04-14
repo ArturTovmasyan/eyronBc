@@ -18,6 +18,7 @@ export class ResettingRequestComponent implements OnInit {
     secret: any = null;
     form: FormGroup;
     errorMessage:any;
+    sub:any;
     ready:boolean = false;
     show:boolean = false;
     appUser:any;
@@ -38,22 +39,23 @@ export class ResettingRequestComponent implements OnInit {
                 private _cacheService: CacheService
     ) {
 
-        router.events.subscribe((val) => {
-                if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
-                    this.eventId = val.id;
+        this.sub = router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd ) {
+                if (!this.isDestroy && this.eventId != event.id) {
+                    this.eventId = event.id;
 
-                    this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'request';
-                    this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']: null;
+                    this.type = this.route.snapshot.params['type'] ? this.route.snapshot.params['type'] : 'request';
+                    this.secret = this.route.snapshot.params['secret'] ? this.route.snapshot.params['secret'] : null;
 
-                    if(this.type == 'request') {
+                    if (this.type == 'request') {
 
                         this.initSendEmailForm();
                         this.ready = true;
                     }
 
-                    if(this.type == 'reset' && this.secret) {
+                    if (this.type == 'reset' && this.secret) {
 
-                        if(this.errorMessage && this.errorMessage.email_token) {
+                        if (this.errorMessage && this.errorMessage.email_token) {
                             this.router.navigate(['/error']);
                             this.errorMessage = null;
                         }
@@ -61,22 +63,23 @@ export class ResettingRequestComponent implements OnInit {
                         this.checkResetToken(this.secret);
                     }
 
-                    if(this.type == 'check-email') {
+                    if (this.type == 'check-email') {
 
-                        if(!this.email) {
+                        if (!this.email) {
                             this.router.navigate(['/resetting/request']);
                         }
                     }
 
-                    if(this.type == 'resend-message') {
+                    if (this.type == 'resend-message') {
                         this.checkRegisterToken(this.appUser.id);
                     }
 
-                    if(this.type == 'update-email') {
+                    if (this.type == 'update-email') {
                         this.checkRegisterToken(this.appUser.id);
                     }
 
                 }
+            }
             }
         );
     }
@@ -105,6 +108,7 @@ export class ResettingRequestComponent implements OnInit {
     }
 
     ngOnDestroy(){
+        this.sub.unsubscribe();
         this.isDestroy = true;
         this.broadcaster.broadcast('regConfirmMenu', true);
     }
