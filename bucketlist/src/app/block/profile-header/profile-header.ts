@@ -15,7 +15,7 @@ import {User} from "../../interface/user";
 export class ProfileHeader implements OnInit {
     @Input() userInfo: string ;
     @Input() type: string;
-    @Output('onHover') hoverEmitter: EventEmitter<any> = new EventEmitter();
+    // @Output('onHover') hoverEmitter: EventEmitter<any> = new EventEmitter();
     public profileUser:User;
     public file:any;
     public current:any;
@@ -82,10 +82,11 @@ export class ProfileHeader implements OnInit {
             if(this.flashBag && this.flashBag.length > 0){
                 setTimeout(() => {
                     this.message = this._translate.instant('goal.was_created.public');
-                    this.snackBar.open(this.message, '', {
+                    this.snackBar.open(this.message, '', <any>{
                         duration : 2000
                     });
                     document.querySelector('.cdk-global-overlay-wrapper').className += " flex-md-left";
+                    document.getElementsByTagName("snack-bar-container")[0].className += "snackbar_style";
                 },500);
             }
             this._cacheService.set('flash_massage', [], {maxAge: 3 * 24 * 60 * 60});

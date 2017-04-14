@@ -9,7 +9,7 @@ import { LoginComponent } from './login.component';
 import { ProjectService } from '../project.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterModule, Routes } from '@angular/router';
-import { ViewportRuler} from '@angular/material/core/overlay/position/viewport-ruler'
+import { ɵh } from '@angular/material/typings'
 
 import { AngularFire } from 'angularfire2';
 import { AngularFireModule } from 'angularfire2';
@@ -47,7 +47,7 @@ fdescribe('LoginComponent', () => {
 
                 TestBed.configureTestingModule({
                     declarations: [LoginComponent],
-                    providers: [ProjectService, ViewportRuler, MockBackend, BaseRequestOptions, AngularFire, CacheService, TranslateService, TranslateLoader, TranslateParser, Broadcaster],
+                    providers: [ProjectService, ɵh, MockBackend, BaseRequestOptions, AngularFire, CacheService, TranslateService, TranslateLoader, TranslateParser, Broadcaster],
                     imports: [MaterialModule,  AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig), TranslateModule,
                         RouterModule, FormsModule, ReactiveFormsModule, RouterTestingModule.withRoutes(LoginRoute)],
                 })

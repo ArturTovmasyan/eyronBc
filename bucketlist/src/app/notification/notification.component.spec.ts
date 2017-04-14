@@ -6,7 +6,7 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { TranslateModule} from 'ng2-translate';
 import { ComponentModule } from '../components/components.module';
 import { ActivityBlockModule } from '../block/activityBlock.module';
-import { RouterTestingModule} from "@angular/router/testing/router_testing_module";
+import { RouterTestingModule} from "@angular/router/testing";
 import { Broadcaster} from '../tools/broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { TranslateService,TranslateLoader, TranslateParser} from 'ng2-translate';

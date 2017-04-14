@@ -23,7 +23,7 @@ export class UserComponent implements OnInit {
     if(!localStorage.getItem('apiKey')){
       this.broadcaster.broadcast('openLogin', 'some message');
     } else {
-      this.broadcaster.broadcast('commonModal', id);
+      this.broadcaster.broadcast('commonModal', {id:this.user.id, count: this.user.common_goals_count });
     }
   }
 

@@ -33,6 +33,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     saveMessage:any;
     removeMessage:any;
     birthDate:any;
+    sub:any;
     addMail:any = null;
     secret:any = null;
     email:any;
@@ -102,43 +103,45 @@ export class SettingsComponent implements OnInit, OnDestroy {
         private router:Router,
         private fb: FormBuilder
     ) {
-        router.events.subscribe((val) => {
-            if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
+        this.sub = router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd ) {
+                if (!this.isDestroy && this.eventId != event.id) {
 
-                this.eventId = val.id;
-                window.scrollTo(0,0);
-                this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'profile';
+                    this.eventId = event.id;
+                    window.scrollTo(0, 0);
+                    this.type = this.route.snapshot.params['type'] ? this.route.snapshot.params['type'] : 'profile';
 
-                this.form = null;
-                this.ready = false;
+                    this.form = null;
+                    this.ready = false;
 
-                if(this.type == 'profile') {
-                    this.saveMessage = false;
-                    this.removeMessage = false;
-                    this.initProfileForm();
-                    this.ready = true;
-                    this.loading = false;
-                }
-
-                if(this.type == 'notification'){
-                    this.saveMessage = false;
-                    this.removeMessage = false;
-                    this.getNotifySettings();
-                }
-
-                if(this.type == 'add-email'){
-
-                    if(this.errorMessage) {
-                        this.router.navigate(['/error']);
-                        this.errorMessage = null;
+                    if (this.type == 'profile') {
+                        this.saveMessage = false;
+                        this.removeMessage = false;
+                        this.initProfileForm();
+                        this.ready = true;
+                        this.loading = false;
                     }
 
-                    this.secret = this.route.snapshot.params['secret']?this.route.snapshot.params['secret']:null;
-                    this.addMail = this.route.snapshot.params['addMail']?this.route.snapshot.params['addMail']:null;
-                    this.activationUserAddEmail(this.secret, this.addMail);
-                }
+                    if (this.type == 'notification') {
+                        this.saveMessage = false;
+                        this.removeMessage = false;
+                        this.getNotifySettings();
+                    }
 
-                this.getUserInfoByType();
+                    if (this.type == 'add-email') {
+
+                        if (this.errorMessage) {
+                            this.router.navigate(['/error']);
+                            this.errorMessage = null;
+                        }
+
+                        this.secret = this.route.snapshot.params['secret'] ? this.route.snapshot.params['secret'] : null;
+                        this.addMail = this.route.snapshot.params['addMail'] ? this.route.snapshot.params['addMail'] : null;
+                        this.activationUserAddEmail(this.secret, this.addMail);
+                    }
+
+                    this.getUserInfoByType();
+                }
             }
         });
 
@@ -231,6 +234,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(){
+        this.sub.unsubscribe();
         this.isDestroy = true;
     }
     

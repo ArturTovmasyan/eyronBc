@@ -10,7 +10,7 @@
         <!--<my-component>-->
           <swiper [config]="config" class="swiper-container" id="story-slider-homepage-container">
             <div class="swiper-wrapper">
-              <div *ngFor="let story of stories; let i = index; trackBy: trackByFn" class="swiper-slide comment-place story-fade-in">
+              <div *ngFor="let story of stories; let i = index" class="swiper-slide comment-place story-fade-in">
                 <!--data-ng-init="count[{{ story.id }}] = {{ story.voters_count }}">-->
 
                 <div class="row no-gutter">

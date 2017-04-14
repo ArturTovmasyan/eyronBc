@@ -13,7 +13,7 @@ import { Uploader } from 'angular2-http-file-upload';
 import {MockBackend} from '@angular/http/testing';
 import 'rxjs/add/operator/map';
 
-import { ProfileHeaderComponent } from '../block/profile-header/profile-header.component';
+import { ProfileHeaderComponent } from '../block/profile-header/components/profile-header.component';
 import { ControlMessagesComponent } from '../components/control-messages/control-messages.component';
 import { SettingsComponent } from './settings.component';
 

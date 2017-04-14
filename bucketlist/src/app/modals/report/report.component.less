@@ -15,6 +15,11 @@
     color: #021523;
   }
 
+  .close-icon{
+    top: 20px;
+    right: 15px;
+  }
+
   .report-content{
     border-top:1px solid #cccccc;
     padding: 10px;
@@ -48,6 +53,30 @@
   white-space: normal;
 }
 
+.radio{
+  label{
+    padding-left: 0;
+    &.mat-radio-label{
+      font-weight: normal;
+      font-size: 12px;
+    }
+    .mat-radio-container{
+      top: 7px;
+
+      .md-radio-outer-circle,.mat-radio-outer-circle,.md-radio-inner-circle,.mat-radio-inner-circle{
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .mat-radio-label-content{
+      padding-left: 0;
+    }
+  }
+}
+.mobileHeight{
+  height: 55px !important;
+}
 @media (min-width: @screen-sm) {
   #report-modal{
     width: 390px;
@@ -57,6 +86,11 @@
       font-size: 22px;
     }
 
+    .close-icon{
+      top: 24px;
+      right: 20px;
+    }
+    
     .report-content{
       padding: 20px;
       i{
@@ -66,6 +100,22 @@
 
     .padding{
       padding: 20px;
+    }
+  }
+
+  .radio {
+    label {
+      padding-left: 0;
+      &.mat-radio-label {
+        font-size: 14px;
+      }
+      .mat-radio-container {
+        top: 7px;
+      }
+
+      .mat-radio-label-content{
+        padding-left: 8px;
+      }
     }
   }
 }

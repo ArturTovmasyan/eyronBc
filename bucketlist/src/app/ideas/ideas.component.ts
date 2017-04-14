@@ -23,6 +23,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
     @ViewChild("tooltip")
     public tooltipElementRef: ElementRef;
     public isMobile=(window.innerWidth<768);
+    public sub: any;
     public category: string;
     public errorMessage: string;
     public filterVisibility: boolean = false;
@@ -60,26 +61,29 @@ export class IdeasComponent implements OnInit, OnDestroy {
       private router:Router,
       public renderer: Renderer
     ) {
-      router.events.subscribe((val) => {
-          if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
-              this.eventId = val.id;
-              window.scrollTo(0,0);
-              this.start = 0;
-              this.locationsIds = [];
-              this.locations = [];
-              this.category = this.route.snapshot.params['category']?this.route.snapshot.params['category']:'discover';
-              this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
-              this.metadataService.setTitle('Ideas');
-              this.metadataService.setTag('description', 'Ideas for ' + this.category);
-              this.ideas = null;
-              this.reserve = null;
-              this.ideasTitle = false;
-              this.getGoals();
+      this.sub = router.events.subscribe((event) => {
+          if(event instanceof NavigationEnd ) {
+              if (!this.isDestroy && this.eventId != event.id) {
+                  this.eventId = event.id;
+                  window.scrollTo(0, 0);
+                  this.start = 0;
+                  this.locationsIds = [];
+                  this.locations = [];
+                  this.category = this.route.snapshot.params['category'] ? this.route.snapshot.params['category'] : 'discover';
+                  this.search = this.route.snapshot.params['search'] ? this.route.snapshot.params['search'] : '';
+                  this.metadataService.setTitle('Ideas');
+                  this.metadataService.setTag('description', 'Ideas for ' + this.category);
+                  this.ideas = null;
+                  this.reserve = null;
+                  this.ideasTitle = false;
+                  this.getGoals();
+              }
           }
       })
     }
 
     ngOnDestroy(){
+        this.sub.unsubscribe();
         this.isDestroy = true;
     }
     
@@ -158,12 +162,15 @@ export class IdeasComponent implements OnInit, OnDestroy {
         .subscribe(
             goals => {
               this.noIdeas = (this.noIdeas && this.search.length == 0 && this.category == 'discover') || (!goals || !goals.length);
-
                 if(this.noIdeas && (this.search.length > 0 || this.category != 'discover')){
-                    this.category = 'discover';
                     this.searchError = this.search;
                     this.search = '';
                     this.getGoals();
+                    setTimeout(() => {
+                        this.category = 'discover';
+                        this.noIdeas = false;
+                    },3000);
+
                 } else{
                     this.ideas = goals;
                     this.start += this.count;
@@ -241,7 +248,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
     
     calculateLocations(items){
        for(let item of items){
-           let location:Location = {
+           let location:any = {
                id: 0,
                latitude: 0,
                lat: 0,

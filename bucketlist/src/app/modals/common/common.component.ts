@@ -16,6 +16,7 @@ import { Goal } from '../../interface/goal';
 export class CommonComponent implements OnInit {
   // @Output('changeModal') modalHideEmitter: EventEmitter<any> = new EventEmitter();
   public id: number;
+  public commonCount: number;
   public goals:Goal[];
   public reserve:Goal[];
   public start:number = 0;
@@ -46,9 +47,18 @@ export class CommonComponent implements OnInit {
               this.start += this.count;
               this.setReserve();
         });
+        document.addEventListener('ps-y-reach-end', () => {
+          this.onScroll();
+        });
       }
     }
   }
+  ngOnDestroy() {
+    document.removeEventListener('ps-y-reach-end', () => {
+      this.onScroll();
+    });
+  }
+
   closeModal(){
     if(!this.isOpen)return;
     this.isOpen = false;

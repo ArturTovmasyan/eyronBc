@@ -16,6 +16,7 @@ export class GoalFriend implements OnInit, OnDestroy {
     public sliderCount: number;
     public isDesktop: boolean = false;
     public config: Object;
+    public sub: any;
 
     public start: number = 0;
     public count: number = 20;
@@ -28,23 +29,26 @@ export class GoalFriend implements OnInit, OnDestroy {
     public errorMessage:string;
 
     constructor(protected route: ActivatedRoute, protected _projectService: ProjectService, protected router:Router) {
-        router.events.subscribe((val) => {
-            if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
-                this.eventId = val.id;
-                this.start = 0;
-                this.type = this.route.snapshot.params['type']?this.route.snapshot.params['type']:'all';
-                // this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
-                this.users = null;
-                this.reserve = null;
-                this.noItem = false;
-                window.scrollTo(0,0);
-                this.getUserList();
-                this.busy = false;
+        this.sub = router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd ) {
+                if (!this.isDestroy && this.eventId != event.id) {
+                    this.eventId = event.id;
+                    this.start = 0;
+                    this.type = this.route.snapshot.params['type'] ? this.route.snapshot.params['type'] : 'all';
+                    // this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
+                    this.users = null;
+                    this.reserve = null;
+                    this.noItem = false;
+                    window.scrollTo(0, 0);
+                    this.getUserList();
+                    this.busy = false;
+                }
             }
         })
     }
 
     ngOnDestroy(){
+        this.sub.unsubscribe();
         this.isDestroy = true;
     }
 

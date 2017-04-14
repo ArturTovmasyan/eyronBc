@@ -1,7 +1,7 @@
 <div id="login-page">
 <div id="signin">
     <h2>Join</h2>
-    <a class="close-icon" (click)="joinHide($event)"></a>
+    <a class="close-icon" (click)="joinHide()"></a>
     <form enctype="multipart/form-data" method="post" id="login-form" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
         <!--<input type="hidden" name="_csrf_token" value="[[ csrfToken ]] "/>-->
         <div class="form-group">

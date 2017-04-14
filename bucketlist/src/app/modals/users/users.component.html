@@ -9,13 +9,9 @@
         <a class="close-icon" (click)="dialogRef.close();isOpen = false"></a>
     </div>
 
-    <perfect-scrollbar class="modal-container" [config]="config">
+    <perfect-scrollbar class="modal-container">
 
         <div class="users-content"
-             infinite-scroll
-             [infiniteScrollDistance]="1"
-             [infiniteScrollThrottle]="500"
-             (scrolled)="onScroll()"
              *ngIf="users">
             <div [hidden]="!users.length"
                  class="row"

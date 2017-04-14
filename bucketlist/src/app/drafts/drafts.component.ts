@@ -12,6 +12,7 @@ import { MetadataService } from 'ng2-metadata';
 export class DraftsComponent implements OnInit, OnDestroy {
     public eventId: number = 0;
     public type: string ;
+    public sub: any ;
     public start: number = 0;
     public count: number = 9;
     public goals: Goal[];
@@ -27,21 +28,24 @@ export class DraftsComponent implements OnInit, OnDestroy {
       private router:Router,
       private route: ActivatedRoute
     ){
-        router.events.subscribe((val) => {
-          if(!this.isDestroy && this.eventId != val.id && val instanceof NavigationEnd){
-            this.eventId = val.id;
-            this.type = (this.route.snapshot.params['slug'] && this.route.snapshot.params['slug'] == 'drafts')?'drafts':'private';
-            this.metadataService.setTitle(this.type);
-            this.metadataService.setTag('description', this.type);
-            this.start = 0;
-            this.goals = null;
-            this.reserve = null;
-              window.scrollTo(0,0);
-            this.getGoals();
-          }
+        this.sub = router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd ) {
+                if (!this.isDestroy && this.eventId != event.id) {
+                    this.eventId = event.id;
+                    this.type = (this.route.snapshot.params['slug'] && this.route.snapshot.params['slug'] == 'drafts') ? 'drafts' : 'private';
+                    this.metadataService.setTitle(this.type);
+                    this.metadataService.setTag('description', this.type);
+                    this.start = 0;
+                    this.goals = null;
+                    this.reserve = null;
+                    window.scrollTo(0, 0);
+                    this.getGoals();
+                }
+            }
         })
     }
     ngOnDestroy(){
+        this.sub.unsubscribe();
         this.isDestroy = true;
     }
     
