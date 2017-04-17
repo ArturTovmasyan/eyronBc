@@ -127,24 +127,24 @@ export class AutocomplateMapComponent implements OnInit {
   }
 
   setPosition(position){
-    this.latitude = position.coords.latitude;
-    this.longitude = position.coords.longitude;
+    this.latitude = parseFloat(position.coords.latitude);
+    this.longitude = parseFloat(position.coords.longitude);
     let marker:Marker = {
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
+      latitude: this.latitude,
+      longitude: this.longitude,
       iconUrl: this.passiveMarkerIcon,
       title: "Your Position"
     };
-
-    this.bounds.extend({
-      'latitude':this.latitude,
-      'longitude': this.longitude
-    });
 
     this.broadcaster.broadcast('location_changed', marker);
     this.markers = [marker];
     this.notAllowed = false;
     this.zoom = 10;
+
+    this.bounds.extend({
+      'latitude': this.latitude,
+      'longitude': this.longitude
+    });
   }
 
   clickMarker(marker){
@@ -157,14 +157,19 @@ export class AutocomplateMapComponent implements OnInit {
       this.setPosition(position);
     }else {
       if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.notAllowed = false;
-          this.setPosition(position);
-          this._cacheService.set('location', position, {maxAge: 3 * 24 * 60 * 60});
-        },() =>{
+        navigator.geolocation.getCurrentPosition(this.getposBind,() =>{
           this.notAllowed = false;
         });
       }
     }
   }
+  getpos(position){
+      this.notAllowed = false;
+      this.setPosition(position);
+      this._cacheService.set('location', position, {maxAge: 3 * 24 * 60 * 60});
+  };
+
+  getposBind = this.getpos.bind(this);
+
+
 }

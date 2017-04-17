@@ -169,7 +169,8 @@ export class IdeasComponent implements OnInit, OnDestroy {
                     setTimeout(() => {
                         this.category = 'discover';
                         this.noIdeas = false;
-                    },3000);
+                        this.setReserve();
+                    },1300);
 
                 } else{
                     this.ideas = goals;
