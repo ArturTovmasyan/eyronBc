@@ -11,6 +11,7 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 export class ShareComponent implements OnInit {
 
   public linkToShare:string;
+  public isOpen:boolean = false;
   fbInner = "<img src='../../assets/images/facebook-share.svg'> <span>Facebook</span>";
   twitterInner = "<img src='../../assets/images/twitter-share.svg'> <span>Twitter</span>";
   pintInner = "<img src='../../assets/images/pinterest-share.svg'> <span>Pinterest</span>";
@@ -20,8 +21,16 @@ export class ShareComponent implements OnInit {
       public dialogRef: MdDialogRef<ShareComponent>
   ) {}
 
-  ngOnInit() {};
-
+  ngOnInit() {
+    setTimeout(()=>{
+      this.isOpen = true;
+    },1000)
+  }
+  closeModal1(){
+    if(!this.isOpen)return;
+    this.isOpen = false;
+    this.dialogRef.close();
+  }
 }
 
   

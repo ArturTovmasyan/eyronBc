@@ -71,13 +71,15 @@
         </div>
     </div>
 
-    <div class="slide map-marker accordion"  *ngIf="showMap">
+    <div class="slide map-marker accordion burger"  [ngClass]="{'close-burger':!showMap,'burger':showMap}" *ngIf="showMap">
         <map-single [locations]="locations"></map-single>
          <!--style="width: 100%; height: 300px">-->
     </div>
 
     <hr/>
-    <calendar *ngIf="showCalendar"></calendar>
+    <div [ngClass]="{'close-burger':!showCalendar,'burger':showCalendar}" *ngIf="showCalendar">
+        <calendar></calendar>
+    </div>
 
     <!--{% if myProfile %}-->
 

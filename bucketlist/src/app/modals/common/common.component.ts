@@ -47,16 +47,12 @@ export class CommonComponent implements OnInit {
               this.start += this.count;
               this.setReserve();
         });
-        document.addEventListener('ps-y-reach-end', () => {
-          this.onScroll();
-        });
+        document.addEventListener('ps-y-reach-end', this.onScrollBind);
       }
     }
   }
   ngOnDestroy() {
-    document.removeEventListener('ps-y-reach-end', () => {
-      this.onScroll();
-    });
+    document.removeEventListener('ps-y-reach-end', this.onScrollBind);
   }
 
   closeModal(){
@@ -92,6 +88,7 @@ export class CommonComponent implements OnInit {
     this.busy = true;
     this.getReserve();
   }
-  
+
+  onScrollBind = this.onScroll.bind(this);
 
 }

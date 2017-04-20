@@ -17,6 +17,7 @@ export class CalendarComponent implements OnInit {
   public dayDifferent:number;
   public prevMonthDay:number;
   public noShowLast:boolean;
+  public animation:boolean;
   public isMobile:Boolean= (window.innerWidth < 768);
   public now = new Date();
   public type = 'month';
@@ -34,6 +35,7 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.animation = true;
     this.initDate();
     this._projectService.getCalendarData()
         .subscribe(
