@@ -86,7 +86,7 @@ export class ProfileHeader implements OnInit {
                         duration : 2000
                     });
                     document.querySelector('.cdk-global-overlay-wrapper').className += " flex-md-left";
-                    document.getElementsByTagName("snack-bar-container")[0].className += "snackbar_style";
+                    document.getElementsByTagName("snack-bar-container")[0].className += " snackbar_style";
                 },500);
             }
             this._cacheService.set('flash_massage', [], {maxAge: 3 * 24 * 60 * 60});
