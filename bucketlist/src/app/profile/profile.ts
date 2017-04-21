@@ -143,7 +143,7 @@ export class Profile implements OnInit, OnDestroy {
                        this.message = this._translate.instant('goal.was_deleted');
                        this.snackBar.open(this.message, '', <any>{
                            duration : 2000
-                       });
+                       });it 
                        document.querySelector('.cdk-global-overlay-wrapper').className += " flex-md-left";
                        document.getElementsByTagName("snack-bar-container")[0].className += "snackbar_style";
                    },500);
