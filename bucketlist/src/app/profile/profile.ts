@@ -140,13 +140,14 @@ export class Profile implements OnInit, OnDestroy {
             .subscribe( data =>{
                if(data == 0){
                    setTimeout(() => {
-                       this.message = this._translate.instant('goal.was_created.public');
+                       this.message = this._translate.instant('goal.was_deleted');
                        this.snackBar.open(this.message, '', <any>{
                            duration : 2000
                        });
                        document.querySelector('.cdk-global-overlay-wrapper').className += " flex-md-left";
                        document.getElementsByTagName("snack-bar-container")[0].className += "snackbar_style";
                    },500);
+
                }
                  // document.querySelector('.cdk-global-overlay-wrapper').className += "flex-md-left";
                   
