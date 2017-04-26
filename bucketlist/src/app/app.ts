@@ -36,6 +36,10 @@ export class App implements OnInit  {
     public updatedEmail:any;
     public busy:boolean = false;
     public inIdeasPage:boolean = false;
+    public inSettings:boolean = false;
+    public inLeaderboard:boolean = false;
+    public inCreateGoal:boolean = false;
+    public upButton:boolean = false;
     public projectName:any;
 
     //  modal
@@ -65,6 +69,11 @@ export class App implements OnInit  {
         router.events.subscribe((event) => {
             if(event instanceof NavigationEnd ) {
                 this.inIdeasPage = (event.url.indexOf('/ideas') == 0);
+                this.inSettings = (event.url.indexOf('/edit') == 0);
+                this.inLeaderboard = (event.url.indexOf('/leaderboard') == 0);
+                this.inCreateGoal = (event.url.indexOf('/goal/create') == 0);
+                console.log(this.inSettings ,this.inLeaderboard,this.inCreateGoal);
+                console.log(event.url);
             }
         });
     }
@@ -396,6 +405,10 @@ export class App implements OnInit  {
     selectLang(lang: string) {
         // set default;
         this._translate.use(lang);
+    }
+    goUp(){
+        window.scroll(0,0);
+        this.upButton = false;
     }
 
     closeDropdown(){

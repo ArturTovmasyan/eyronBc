@@ -185,6 +185,11 @@
             <img src="assets/images/nearby_new.svg" class="svg"/>
         </button>
     </div>
+    <div  *ngIf="!inSettings && !inLeaderboard && !inCreateGoal" [ngClass]="{'up-button':upButton,'up-button-hide':!upButton}" #nearbybutton>
+        <button  md-fab (click)="goUp()">
+            <img src="assets/images/nearby_new.svg" class="svg"/>
+        </button>
+    </div>
     <footer #footer>
         <div class="container">
 

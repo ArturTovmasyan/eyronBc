@@ -93,6 +93,9 @@ export class AppComponent extends App {
         if(number + 380 > footerOffset){
             this.nearbyscroll = true;
         }
+        if(number > 250){
+            this.upButton = true;
+        } else {this.upButton = false;}
     }
 
     // ngOnInit() {
