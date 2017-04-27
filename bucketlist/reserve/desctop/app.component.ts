@@ -97,6 +97,19 @@ export class AppComponent extends App {
             this.upButton = true;
         } else {this.upButton = false;}
     }
+    goUp(){
+        let k = this.document.body.scrollTop;
+        let point = Math.round(k/500) + 8;
+        for(let i = 0; i < 500 ; i++){
+            setTimeout(()=>{
+                window.scroll(0,k);
+                k -= point;
+            },10)
+        }
+        setTimeout(() =>{
+            this.upButton = false;
+        },200);
+    }
 
     // ngOnInit() {
     //     this.projectName = this._projectService.getAngularPath();

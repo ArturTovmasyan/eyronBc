@@ -207,6 +207,19 @@
             <img src="assets/images/nearby_new.svg" class="svg"/>
         </button>
     </div>
+    <div *ngIf="!inSettings && !inLeaderboard && !inCreateGoal && !inInner"
+          [ngClass]="{'up-button':upButton && !inIdeasPage && !nearbyscroll,'up-button-stop': upButton && !inIdeasPage && nearbyscroll ,'up-button-hide':!upButton,
+          'up-button-inIdeas':inIdeasPage && upButton && !nearbyscroll,'up-button-inIdeas-stop':upButton && inIdeasPage && nearbyscroll}">
+        <button class="up-button_btn"  md-mini-fab (click)="goUp()">
+            <img  src="assets/images/left-slide.png" class="svg up_img"/>
+        </button>
+    </div>
+    <div *ngIf="inInner"
+         [ngClass]="{'up-button-inInner':upButton && !nearbyscroll,'up-button-stop-inInner': upButton && nearbyscroll ,'up-button-hide':!upButton }">
+        <button class="up-button_btn"  md-mini-fab (click)="goUp()">
+            <img  src="assets/images/left-slide.png" class="svg up_img"/>
+        </button>
+    </div>
     <footer #footer>
         <div class="container">
 

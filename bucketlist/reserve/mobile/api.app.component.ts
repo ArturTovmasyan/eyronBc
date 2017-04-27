@@ -92,6 +92,19 @@ export class AppComponent extends App {
             this.check();
         }
     }
+    goUp(){
+        let k = this.document.body.scrollTop;
+        let point = Math.round(k/500) + 8;
+        for(let i = 0; i < 500 ; i++){
+            setTimeout(()=>{
+                window.scroll(0,k);
+                k -= point;
+            },10)
+        }
+        setTimeout(() =>{
+            this.upButton = false;
+        },200);
+    }
 
     doScroll(type:number) {
         this.scroll = (type == 1);

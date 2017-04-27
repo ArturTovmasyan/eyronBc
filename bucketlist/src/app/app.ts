@@ -39,6 +39,7 @@ export class App implements OnInit  {
     public inSettings:boolean = false;
     public inLeaderboard:boolean = false;
     public inCreateGoal:boolean = false;
+    public inInner:boolean = false;
     public upButton:boolean = false;
     public projectName:any;
 
@@ -72,8 +73,7 @@ export class App implements OnInit  {
                 this.inSettings = (event.url.indexOf('/edit') == 0);
                 this.inLeaderboard = (event.url.indexOf('/leaderboard') == 0);
                 this.inCreateGoal = (event.url.indexOf('/goal/create') == 0);
-                console.log(this.inSettings ,this.inLeaderboard,this.inCreateGoal);
-                console.log(event.url);
+                this.inInner = ((event.url.indexOf('/goal/create') != 0) && (event.url.indexOf('/goal') == 0) && (event.url.indexOf('/goal/my-ideas') != 0));
             }
         });
     }
@@ -406,10 +406,7 @@ export class App implements OnInit  {
         // set default;
         this._translate.use(lang);
     }
-    goUp(){
-        window.scroll(0,0);
-        this.upButton = false;
-    }
+ 
 
     closeDropdown(){
         if(this.show)this.show = false
