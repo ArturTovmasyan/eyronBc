@@ -42,6 +42,7 @@ export class App implements OnInit  {
     public inInner:boolean = false;
     public upButton:boolean = false;
     public projectName:any;
+    public scrollInner:boolean;
 
     //  modal
     public reportModal:boolean = false;
@@ -73,7 +74,7 @@ export class App implements OnInit  {
                 this.inSettings = (event.url.indexOf('/edit') == 0);
                 this.inLeaderboard = (event.url.indexOf('/leaderboard') == 0);
                 this.inCreateGoal = (event.url.indexOf('/goal/create') == 0);
-                this.inInner = ((event.url.indexOf('/goal/create') != 0) && (event.url.indexOf('/goal') == 0) && (event.url.indexOf('/goal/my-ideas') != 0));
+                this.inInner = ((event.url.indexOf('/goal/create') != 0) && (event.url.indexOf('/goal') == 0) && (event.url.indexOf('/goal/my-ideas') != 0) && (event.url.indexOf('/goal-friends') != 0));
             }
         });
     }
@@ -133,6 +134,10 @@ export class App implements OnInit  {
                 this.updatedEmail = this.appUser.username;
             }
         }
+        this.broadcaster.on<any>('menuScroll')
+            .subscribe( data => {
+                this.scrollInner = data;
+            });
 
         this.broadcaster.on<any>('updateNoteCount')
             .subscribe(count => {

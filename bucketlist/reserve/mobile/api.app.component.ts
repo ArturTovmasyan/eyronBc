@@ -99,7 +99,7 @@ export class AppComponent extends App {
             setTimeout(()=>{
                 window.scroll(0,k);
                 k -= point;
-            },10)
+            },1)
         }
         setTimeout(() =>{
             this.upButton = false;

@@ -142,7 +142,7 @@ export class Profile implements OnInit, OnDestroy {
                if(data == 0){
                    this.message = this._translate.instant('goal.was_deleted');
                    this.snackBar.open(this.message, '', <any>{
-                       duration : 4000
+                       duration : 2000
                    });
                    setTimeout(() => {
                        (<any>document.querySelectorAll('.cdk-global-overlay-wrapper')).forEach(function(element) {

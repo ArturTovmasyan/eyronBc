@@ -215,7 +215,10 @@
         </button>
     </div>
     <div *ngIf="inInner"
-         [ngClass]="{'up-button-inInner':upButton && !nearbyscroll,'up-button-stop-inInner': upButton && nearbyscroll ,'up-button-hide':!upButton }">
+         [ngClass]="{'up-button-inInner':upButton && !nearbyscroll && scrollInner,
+         'up-button-stop-inInner': upButton && nearbyscroll ,
+         'up-button-hide':!upButton,
+          'up-button-inInner-menu':upButton && !nearbyscroll && !scrollInner}">
         <button class="up-button_btn"  md-mini-fab (click)="goUp()">
             <img  src="assets/images/left-slide.png" class="svg up_img"/>
         </button>
