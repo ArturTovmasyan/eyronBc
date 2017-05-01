@@ -20,6 +20,7 @@ export class CalendarAllYearComponent implements OnInit {
     for(let i of this.myTouch._results){
       if(i._elementRef.nativeElement.id == id){
         i.showDelay = 300;
+        i.position = 'right';
         i.show();
       }
     }

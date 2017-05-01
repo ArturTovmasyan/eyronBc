@@ -36,7 +36,13 @@ export class App implements OnInit  {
     public updatedEmail:any;
     public busy:boolean = false;
     public inIdeasPage:boolean = false;
+    public inSettings:boolean = false;
+    public inLeaderboard:boolean = false;
+    public inCreateGoal:boolean = false;
+    public inInner:boolean = false;
+    public upButton:boolean = false;
     public projectName:any;
+    public scrollInner:boolean;
 
     //  modal
     public reportModal:boolean = false;
@@ -65,6 +71,10 @@ export class App implements OnInit  {
         router.events.subscribe((event) => {
             if(event instanceof NavigationEnd ) {
                 this.inIdeasPage = (event.url.indexOf('/ideas') == 0);
+                this.inSettings = (event.url.indexOf('/edit') == 0);
+                this.inLeaderboard = (event.url.indexOf('/leaderboard') == 0);
+                this.inCreateGoal = (event.url.indexOf('/goal/create') == 0);
+                this.inInner = ((event.url.indexOf('/goal/create') != 0) && (event.url.indexOf('/goal') == 0) && (event.url.indexOf('/goal/my-ideas') != 0) && (event.url.indexOf('/goal-friends') != 0));
             }
         });
     }
@@ -124,6 +134,10 @@ export class App implements OnInit  {
                 this.updatedEmail = this.appUser.username;
             }
         }
+        this.broadcaster.on<any>('menuScroll')
+            .subscribe( data => {
+                this.scrollInner = data;
+            });
 
         this.broadcaster.on<any>('updateNoteCount')
             .subscribe(count => {
@@ -397,6 +411,7 @@ export class App implements OnInit  {
         // set default;
         this._translate.use(lang);
     }
+ 
 
     closeDropdown(){
         if(this.show)this.show = false

@@ -865,18 +865,30 @@ class GoalRepository extends EntityRepository
      */
     public function findCommonGoals($user1Id, $user2Id, $first, $count)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT g, img
+        $queryIds = $this->getEntityManager()
+            ->createQuery("SELECT DISTINCT g.id
                            FROM AppBundle:Goal g
-                           INDEX BY g.id
                            JOIN g.userGoal ug WITH ug.user = :user1Id
                            JOIN g.userGoal ug1 WITH ug1.user = :user2Id
                            LEFT JOIN g.images img")
             ->setParameter('user1Id', $user1Id)
             ->setParameter('user2Id', $user2Id)
-            ->setFirstResult($first)
-            ->setMaxResults($count)
-            ->getResult();
+            ->getArrayResult();
+
+        $currentIds = array_map(function ($a) { return $a['id']; }, array_slice($queryIds, $first, $count));
+
+        if (count($currentIds) == 0){
+            return [];
+        }
+
+        return $this->getEntityManager()
+                    ->createQuery("SELECT g, img
+                                   FROM AppBundle:Goal g
+                                   INDEX BY g.id
+                                   LEFT JOIN g.images img
+                                   WHERE g.id in (:ids)")
+                    ->setParameter('ids', $currentIds)
+                    ->getResult();
     }
 
 

@@ -75,6 +75,9 @@ export class AppComponent extends App {
         if(number + 380 > footerOffset){
             this.nearbyscroll = true;
         }
+        if(number > 250){
+            this.upButton = true;
+        } else {this.upButton = false;}
         this.myTop = number;
         if(number < this.before){
             this.doScroll(0);
@@ -88,6 +91,19 @@ export class AppComponent extends App {
             this.sOpen = false;
             this.check();
         }
+    }
+    goUp(){
+        let k = this.document.body.scrollTop;
+        let point = Math.round(k/500) + 8;
+        for(let i = 0; i < 500 ; i++){
+            setTimeout(()=>{
+                window.scroll(0,k);
+                k -= point;
+            },1)
+        }
+        setTimeout(() =>{
+            this.upButton = false;
+        },200);
     }
 
     doScroll(type:number) {
