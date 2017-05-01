@@ -16,6 +16,7 @@ class ContactUsType extends AbstractType
     {
 
         $builder
+            ->setAction('#')
             ->add('fullName', TextType::class, array('required' => true, 'label'=>'page.contacr_us.form.full_name'))
             ->add('email', EmailType::class, array('required' => true, 'label'=>'page.contacr_us.form.email'))
             ->add('subject', TextType::class, array('required' => true, 'label'=>'page.contacr_us.form.subject'))

@@ -381,6 +381,9 @@ delete_message: |
   You are about to remove your goal. <br />
   Are you sure?
 
+delet_profile: Delete Profile
+delet_profile_message: Are you sure you want to delete your account?
+
 complete_message: Complete your profile
 
 most-popular: Most popular
