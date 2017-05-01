@@ -224,6 +224,12 @@ angular.module('profile')
         });
       });
 
+      $scope.removeProfile = function () {
+        $http.delete('/api/v1.0/user/profile')
+          .success(function(res){
+            window.location.href = '/app_dev.php/logout';
+          });
+      }
     }
   ])
   .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData', '$location',

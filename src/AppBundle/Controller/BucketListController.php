@@ -44,6 +44,10 @@ class BucketListController extends Controller
             $user = $this->getUser();
         }
 
+        if(!$user->isEnabled()) {
+            return $this->redirectToRoute('user_profile_no_active');
+        }
+
         $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
 
         // create filter
@@ -67,5 +71,15 @@ class BucketListController extends Controller
             'myIdeasCount' => $myIdeasCount,
             'filters'      => $filters
         );
+    }
+
+    /**
+     * @Route("/no-active", name="user_profile_no_active")
+     * @Template()
+     * @return array
+     */
+    public function noActiveAction()
+    {
+        return array();
     }
 }
