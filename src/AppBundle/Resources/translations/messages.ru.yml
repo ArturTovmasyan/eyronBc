@@ -344,6 +344,8 @@ delete_message: |
   Вы собираетесь удалить свою цель. <br />
   Вы уверены?
 
+delet_profile: Удалить аккаунт
+delet_profile_message: Вы уверены, что хотите удалит ваш аккаунт?
 complete_message: Дополните ваш профиль
 
 added: Добавлено
