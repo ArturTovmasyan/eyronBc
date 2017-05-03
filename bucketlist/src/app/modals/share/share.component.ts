@@ -22,6 +22,9 @@ export class ShareComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if(document.querySelector('.mat-dialog-container')){
+      (<any>document.querySelector('.mat-dialog-container')).position = "static";
+    }
     setTimeout(()=>{
       this.isOpen = true;
     },1000)

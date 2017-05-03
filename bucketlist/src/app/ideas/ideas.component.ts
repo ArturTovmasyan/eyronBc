@@ -165,7 +165,6 @@ export class IdeasComponent implements OnInit, OnDestroy {
                 if(this.noIdeas && (this.search.length > 0 || this.category != 'discover')){
                     this.searchError = this.search;
                     this.search = '';
-                    this.getGoals();
                     setTimeout(() => {
                         this.category = 'discover';
                         this.noIdeas = false;
