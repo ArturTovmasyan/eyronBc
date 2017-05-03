@@ -109,7 +109,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
                     this.eventId = event.id;
                     window.scrollTo(0, 0);
-                    this.type = this.route.snapshot.params['type'] ? this.route.snapshot.params['type'] : 'profile';
+                    this.type = this.route.snapshot.paramMap.has('type') ? this.route.snapshot.paramMap.get('type') : 'profile';
 
                     this.form = null;
                     this.ready = false;
@@ -135,8 +135,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
                             this.errorMessage = null;
                         }
 
-                        this.secret = this.route.snapshot.params['secret'] ? this.route.snapshot.params['secret'] : null;
-                        this.addMail = this.route.snapshot.params['addMail'] ? this.route.snapshot.params['addMail'] : null;
+                        this.secret = this.route.snapshot.paramMap.has('secret') ? this.route.snapshot.paramMap.get('secret') : null;
+                        this.addMail = this.route.snapshot.paramMap.has('addMail') ? this.route.snapshot.paramMap.get('addMail') : null;
                         this.activationUserAddEmail(this.secret, this.addMail);
                     }
 

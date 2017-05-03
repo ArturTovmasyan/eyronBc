@@ -14,12 +14,7 @@ import { DOCUMENT } from '@angular/platform-browser';
   selector: 'app-root',
   templateUrl: './api.app.component.html',
   styleUrls: ['./api.app.component.less'],
-  providers: [
-    ProjectService,
-    Broadcaster,
-    CacheService
-  ],
-    encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent extends App {

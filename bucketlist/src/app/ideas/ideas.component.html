@@ -9,7 +9,7 @@
                  name="search"
                  [(ngModel)]="search"
                  autocomplete="off"
-                 placeholder="{{ 'search'|translate | capitalize}}"
+                 placeholder="{{ 'search'|translate | titlecase}}"
                  (keyup.enter)="doSearch()"
                  class="form-control">
 

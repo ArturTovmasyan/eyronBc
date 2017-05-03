@@ -44,8 +44,8 @@ export class ResettingRequestComponent implements OnInit {
                 if (!this.isDestroy && this.eventId != event.id) {
                     this.eventId = event.id;
 
-                    this.type = this.route.snapshot.params['type'] ? this.route.snapshot.params['type'] : 'request';
-                    this.secret = this.route.snapshot.params['secret'] ? this.route.snapshot.params['secret'] : null;
+                    this.type = this.route.snapshot.paramMap.has('type') ? this.route.snapshot.paramMap.get('type') : 'request';
+                    this.secret = this.route.snapshot.paramMap.has('secret') ? this.route.snapshot.paramMap.get('secret') : null;
 
                     if (this.type == 'request') {
 

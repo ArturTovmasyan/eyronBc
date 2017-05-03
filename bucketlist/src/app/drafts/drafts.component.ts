@@ -32,7 +32,7 @@ export class DraftsComponent implements OnInit, OnDestroy {
             if(event instanceof NavigationEnd ) {
                 if (!this.isDestroy && this.eventId != event.id) {
                     this.eventId = event.id;
-                    this.type = (this.route.snapshot.params['slug'] && this.route.snapshot.params['slug'] == 'drafts') ? 'drafts' : 'private';
+                    this.type = (this.route.snapshot.paramMap.has('slug') && this.route.snapshot.paramMap.get('slug') == 'drafts') ? 'drafts' : 'private';
                     this.metadataService.setTitle(this.type);
                     this.metadataService.setTag('description', this.type);
                     this.start = 0;

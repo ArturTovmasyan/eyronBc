@@ -159,7 +159,7 @@
             <div class="col-xs-5">
               <a md-button class="text-gray btn-transparent manage-modal" (click)="manageGoal(goal.id)">
                 <i class="icon-manage"></i>
-                <span>{{ 'manage'|translate| capitalize }}</span>
+                <span>{{ 'manage'|translate| titlecase }}</span>
               </a>
 
             </div>
@@ -172,12 +172,12 @@
                    (click)="completeGoal(goal.id)" class="btn btn-transparent ">
                   <!--id="done{{ goal.id }}"-->
                   <i class="icon done-icon"></i>
-                  {{ 'done'|translate| capitalize }}
+                  {{ 'done'|translate| titlecase }}
                 </a>
                 <a md-button *ngIf="success" class="btn btn-transparent successtory" (click)="completeGoal(goal.id, true)">
                   <!--id="success{{ goal.id }}">-->
                   <i class="icon ok-icon-green"></i>
-                  {{ 'successtory'|translate| capitalize }}
+                  {{ 'successtory'|translate| titlecase }}
                 </a>
               </div>
             </div>

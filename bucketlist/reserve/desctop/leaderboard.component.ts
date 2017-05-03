@@ -8,10 +8,7 @@ import { CacheService} from 'ng2-cache/ng2-cache';
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.less'],
-  providers: [
-    ProjectService
-  ]
+  styleUrls: ['./leaderboard.component.less']
 })
 export class LeaderboardComponent extends Leaderboard {
 

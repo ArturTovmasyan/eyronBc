@@ -37,6 +37,9 @@ export class CommentComponent implements OnInit {
       private router: Router) { }
 
   ngOnInit() {
+    if(document.querySelector('.mat-dialog-container')){
+      (<any>document.querySelector('.mat-dialog-container')).style.height = "62%";
+    }
     //   let p = 0;
     // setInterval(()=>{
     //   let containerPos = this.findPos(document.getElementById("scroll-container"));

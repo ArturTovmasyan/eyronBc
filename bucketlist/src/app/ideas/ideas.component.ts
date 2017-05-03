@@ -69,8 +69,8 @@ export class IdeasComponent implements OnInit, OnDestroy {
                   this.start = 0;
                   this.locationsIds = [];
                   this.locations = [];
-                  this.category = this.route.snapshot.params['category'] ? this.route.snapshot.params['category'] : 'discover';
-                  this.search = this.route.snapshot.params['search'] ? this.route.snapshot.params['search'] : '';
+                  this.category = this.route.snapshot.paramMap.has('category') ? this.route.snapshot.paramMap.get('category') : 'discover';
+                  this.search = this.route.snapshot.paramMap.has('search') ? this.route.snapshot.paramMap.get('search') : '';
                   this.metadataService.setTitle('Ideas');
                   this.metadataService.setTag('description', 'Ideas for ' + this.category);
                   this.ideas = null;
@@ -97,7 +97,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
           this.getCategories();
         }
     
-        this.search = this.route.snapshot.params['search']?this.route.snapshot.params['search']:'';
+        this.search = this.route.snapshot.paramMap.has('search')?this.route.snapshot.paramMap.get('search'):'';
           
         this.broadcaster.on<Marker>('location_changed')
               .subscribe(marker => {
@@ -165,7 +165,6 @@ export class IdeasComponent implements OnInit, OnDestroy {
                 if(this.noIdeas && (this.search.length > 0 || this.category != 'discover')){
                     this.searchError = this.search;
                     this.search = '';
-                    this.getGoals();
                     setTimeout(() => {
                         this.category = 'discover';
                         this.noIdeas = false;

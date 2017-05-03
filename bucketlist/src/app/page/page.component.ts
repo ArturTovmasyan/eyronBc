@@ -42,7 +42,7 @@ export class PageComponent implements OnInit, OnDestroy {
                 if (!this.isDestroy && this.eventId != event.id) {
                     this.eventId = event.id;
                     window.scrollTo(0, 0);
-                    this.name = this.route.snapshot.params['name'] ? this.route.snapshot.params['name'] : 'how-it-works';
+                    this.name = this.route.snapshot.paramMap.has('name') ? this.route.snapshot.paramMap.get('name') : 'how-it-works';
                     if (this.name == 'contact-us') {
                         this.isSend = false;
                     }

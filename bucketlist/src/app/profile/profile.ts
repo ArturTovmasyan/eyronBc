@@ -77,9 +77,9 @@ export class Profile implements OnInit, OnDestroy {
                     this.start = 0;
                     this.locationsIds = [];
                     this.locations = [];
-                    this.uId = this.route.snapshot.params['uId'] ? this.route.snapshot.params['uId'] : 'my';
+                    this.uId = this.route.snapshot.paramMap.has('uId') ? this.route.snapshot.paramMap.get('uId') : 'my';
                     this.myProfile = this.uId == 'my';
-                    this.type = this.route.snapshot.params['type'] ? this.route.snapshot.params['type'] : this.myProfile ? 'all' : 'activity';
+                    this.type = this.route.snapshot.paramMap.has('type') ? this.route.snapshot.paramMap.get('type') : this.myProfile ? 'all' : 'activity';
                     this.metadataService.setTitle((this.myProfile ? 'My Profile' : 'Profile'));
                     this.metadataService.setTag('description', 'Profile for ' + this.type);
                     // this.goals = null;

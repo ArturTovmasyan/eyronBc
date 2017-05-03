@@ -1053,6 +1053,37 @@ class UserController extends FOSRestController
 //    }
 
     /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to remove User profile",
+     *  statusCodes={
+     *         204="There is no information to send back",
+     *         401="Access allowed only for registered users",
+     *         400="Bad request"
+     *     },
+     * )
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @Secure(roles="ROLE_USER")
+     */
+    public function deleteProfileAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $currentUser = $this->getUser();
+
+        if(!$currentUser){
+            throw new HttpException(Response::HTTP_BAD_REQUEST, "User Not Found");
+        }
+
+        $currentUser->setEnabled(false);
+        
+        $em->flush();
+
+        return new JsonResponse(Response::HTTP_NO_CONTENT);
+    }
+    /**
      * This function is used to get my followings users
      *
      * @ApiDoc(

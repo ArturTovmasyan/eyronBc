@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TranslateModule} from 'ng2-translate';
 import { ProfileComponent } from './../indexes';
-import { ProjectService } from '../project.service';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { FormsModule } from '@angular/forms';
 import { MapModule }        from '../tools/map/map.module';
@@ -40,9 +39,6 @@ import { OverallComponent } from '../block/overall/overall.component';
     CalendarMonthComponent,
     CalendarYearComponent,
     OverallComponent,
-  ],
-  providers: [
-    ProjectService
   ],
   entryComponents: [
     CalendarComponent

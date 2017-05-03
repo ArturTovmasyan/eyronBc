@@ -4,7 +4,6 @@ import { DraftsComponent } from './drafts.component';
 import { TranslateModule} from 'ng2-translate';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { ComponentModule} from '../components/components.module'
-import { ProjectService } from '../project.service';
 import { DraftFooterComponent } from '../components/draft-footer/draft-footer.component';
 import { ModalsModule} from '../modals/modals.module';
 import { MaterialModule } from '@angular/material';
@@ -26,9 +25,6 @@ import { DraftRouting } from './draft-routing';
   declarations: [
     DraftsComponent,
     DraftFooterComponent
-  ],
-  providers: [
-    ProjectService
   ]
 })
 export class DraftsModule { }

@@ -9,10 +9,7 @@ import {Broadcaster} from "../../tools/broadcaster"
 @Component({
   selector: 'draft-footer',
   templateUrl: './draft-footer.component.html',
-  styleUrls: ['../goal-footer/goal-footer.component.less'],
-  providers: [
-    ProjectService
-  ]
+  styleUrls: ['../goal-footer/goal-footer.component.less']
 })
 export class DraftFooterComponent implements OnInit {
     @Input() slug: string;

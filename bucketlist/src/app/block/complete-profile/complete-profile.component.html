@@ -72,7 +72,7 @@
             <!--{% endif %}-->
         </li>
         <li>
-            <a routerLink="/goal/create"><strong>{{ 'my_bucket_list.add_goal'|translate |capitalize }}</strong>
+            <a routerLink="/goal/create"><strong>{{ 'my_bucket_list.add_goal'|translate |titlecase }}</strong>
                 <!--{% if user.userGoalCount > 0 %}-->
                 <i *ngIf="appUser.draft_count > 0" class="icon-ok-only"></i>
                 <!--{% else %}-->

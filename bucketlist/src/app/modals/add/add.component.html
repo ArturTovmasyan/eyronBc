@@ -32,14 +32,14 @@
                 <ul *ngIf="userGoal.goal.stats">
                     <li>
                         <a>
-                            {{ 'block_listed'|translate | capitalize }}
+                            {{ 'block_listed'|translate | titlecase }}
                             <span>{{ userGoal.goal.stats.listedBy | number }}</span>
                             <i class="icon-user-small"></i>
                         </a>
                     </li>
                     <li>
                         <a>
-                            {{ 'block_completed'|translate | capitalize }}
+                            {{ 'block_completed'|translate | titlecase }}
                             <span>{{ userGoal.goal.stats.doneBy | number }}</span>
                             <i class="icon-user-small"></i>
                         </a>

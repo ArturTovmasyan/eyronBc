@@ -63,17 +63,17 @@
                         <figcaption>
                             <ul>
                                 <li>
-                                    <span>{{ 'block_listed'|translate | capitalize }}</span>
+                                    <span>{{ 'block_listed'|translate | titlecase }}</span>
                                     <span>{{ listedBy }}</span>
                                 </li>
 
                                 <li>
-                                    <span>{{ 'user_goal.active'|translate | capitalize }}</span>
+                                    <span>{{ 'user_goal.active'|translate | titlecase }}</span>
                                     <span>{{ active }}</span>
                                 </li>
 
                                 <li>
-                                    <span>{{ 'block_completed'|translate |capitalize }}</span>
+                                    <span>{{ 'block_completed'|translate |titlecase }}</span>
                                     <span>{{ doneBy }}</span>
                                 </li>
                             </ul>
@@ -214,7 +214,7 @@
 
                         </li>
                         <li>
-                            <a routerLink="/goal/create"><strong>{{ 'my_bucket_list.add_goal'|translate |capitalize
+                            <a routerLink="/goal/create"><strong>{{ 'my_bucket_list.add_goal'|translate |titlecase
                                 }}</strong>
                                 <!--{% if user.userGoalCount > 0 %}-->
                                 <i *ngIf="appUser.draft_count > 0" class="icon-ok-only"></i>

@@ -12,10 +12,6 @@ import {User} from "../interface/user";
   selector: 'my-activity',
   templateUrl: './my-activity.component.html',
   styleUrls: ['./my-activity.component.less','../components/comment/comment.component.less','../components/goal/goal.component.less'],
-  providers: [
-    ProjectService,
-    CacheService
-  ],
   encapsulation: ViewEncapsulation.None
 })
 export class MyActivityComponent implements OnInit,OnDestroy {

@@ -10,11 +10,7 @@ import {User} from '../../interface/user';
 @Component({
   selector: 'goal-friends-block',
   templateUrl: './goal-friends.component.html',
-  styleUrls: ['./goal-friends.component.less'],
-  providers: [
-    ProjectService,
-    CacheService
-  ]
+  styleUrls: ['./goal-friends.component.less']
 })
 export class GoalFriendsBlockComponent implements OnInit {
   @ViewChild("rotate")

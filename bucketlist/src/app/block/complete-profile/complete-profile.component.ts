@@ -7,11 +7,7 @@ import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
   selector: 'complete-profile-block',
   templateUrl: './complete-profile.component.html',
   styleUrls: ['./complete-profile.component.less'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-    ProjectService,
-    CacheService
-  ]
+  encapsulation: ViewEncapsulation.None
 })
 export class CompleteProfileBlockComponent implements OnInit {
   public appUser: any;

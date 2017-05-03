@@ -18,8 +18,7 @@ const GOOGLE = 4;
 @Component({
     selector: 'my-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.less'],
-    providers: [ProjectService]
+    styleUrls: ['./login.component.less']
 })
 
 export class LoginComponent {

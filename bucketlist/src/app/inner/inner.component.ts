@@ -5,19 +5,19 @@ import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { RouterModule, Routes, ActivatedRoute, Router, Params } from '@angular/router';
 import { MetadataService } from 'ng2-metadata';
 
-import {Goal} from '../interface/goal';
-import {User} from '../interface/user';
-import {Story} from '../interface/story';
-import {UserGoal} from "../interface/userGoal";
-import {MdDialog,MdDialogRef} from "@angular/material";
-import {ShareComponent} from "../modals/share/share.component";
-import {CommentComponent} from "../components/comment/comment.component";
+import { Goal} from '../interface/goal';
+import { User} from '../interface/user';
+import { Story} from '../interface/story';
+import { UserGoal} from "../interface/userGoal";
+import { MdDialog,MdDialogRef} from "@angular/material";
+import { ShareComponent} from "../modals/share/share.component";
+import { CommentComponent} from "../components/comment/comment.component";
+import { Meta } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-inner',
   templateUrl: './inner.component.html',
   styleUrls: ['./inner.component.less','../goal-create/goal-create.component.less'],
-  providers: [ProjectService],
   encapsulation: ViewEncapsulation.None
 })
 export class InnerComponent implements OnInit {
@@ -71,6 +71,7 @@ export class InnerComponent implements OnInit {
 
   constructor(
       private metadataService: MetadataService,
+      private meta: Meta,
       private router: Router,
       private _projectService: ProjectService,
       private _cacheService: CacheService,
@@ -143,10 +144,16 @@ export class InnerComponent implements OnInit {
               });
               if(this.goal){
                   this.metadataService.setTitle(this.goal.title);
-                  this.metadataService.setTag('og:image', this.goal.cached_image);
-                  this.metadataService.setTag('description', this.goal.description);
-                  this.metadataService.setTag('og:description', this.goal.description);
-                  this.metadataService.setTag('og:title', this.goal.title);
+
+                  this.meta.addTag({ name: 'og:image', content: this.goal.cached_image });
+                  this.meta.addTag({ name: 'description', content: this.goal.description });
+                  this.meta.addTag({ name: 'og:description', content: this.goal.description });
+                  this.meta.addTag({ name: 'og:title', content: this.goal.title });
+                  this.meta.addTag({ name: 'title', content: this.goal.title });
+                  // this.meta.setTag('og:image', this.goal.cached_image);
+                  // this.meta.setTag('description', this.goal.description);
+                  // this.meta.setTag('og:description', this.goal.description);
+                  // this.meta.setTag('og:title', this.goal.title);
                 // var allMetaElements = document.getElementsByTagName('meta');
                 // for (var i=0; i<allMetaElements.length; i++) {
                 //   if (allMetaElements[i].getAttribute("name") == "og:title" || allMetaElements[i].getAttribute("name") == "title") {

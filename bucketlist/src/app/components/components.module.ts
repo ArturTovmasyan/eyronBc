@@ -14,7 +14,6 @@ import { ProfileGoalComponent } from './profile-goal/profile-goal.component';
 import { ControlMessagesComponent } from './control-messages/control-messages.component';
 import { SeeAlsoComponent } from './see-also/see-also.component';
 
-import { CapitalizePipe } from '../pipes/capitalize.pipe';
 import { SliceEmailPipe } from '../pipes/sliceEmail.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
 import { MaterialModule } from '@angular/material';
@@ -47,7 +46,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GoalFooterComponent,
     LeaderboardComponent,
     GoalFriendComponent,
-    CapitalizePipe,
     SliceEmailPipe,
     RoundPipe,
     RemoveTagPipe,
@@ -68,7 +66,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GoalFooterComponent,
     LeaderboardComponent,
     GoalFriendComponent,
-    CapitalizePipe,
     SliceEmailPipe,
     RoundPipe,
     UserComponent,

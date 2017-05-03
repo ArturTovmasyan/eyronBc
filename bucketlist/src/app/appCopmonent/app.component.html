@@ -100,7 +100,7 @@
                                     <li>
                                         <a routerLink="/goal/my-ideas/private" *ngIf=" appUser.draft_count && appUser.draft_count !=0" (click)="joinToggle1 = false;timeStep(false)">
                                             <i class="icons my-ideas-icon"></i>
-                                            <span>{{ 'right_menu.my_ideas'|translate | capitalize }}</span>
+                                            <span>{{ 'right_menu.my_ideas'|translate | titlecase }}</span>
                                         </a>
                                     </li>
                                     <li>
@@ -113,7 +113,7 @@
                                     <li>
                                         <a routerLink="/ideas" (click)="joinToggle1 = false;timeStep(false)">
                                             <i class="icons ideas-icon"></i>
-                                            <span>{{ 'ideas'|translate | capitalize }}</span>
+                                            <span>{{ 'ideas'|translate | titlecase }}</span>
                                         </a>
                                     </li>
                                     <li>
@@ -127,7 +127,7 @@
                                     <li>
                                         <a routerLink="/leaderboard" (click)="joinToggle1 = false;timeStep(false)">
                                             <i class="icon-suggest-icon"></i>
-                                            <span class="text">{{ 'leaderboard.name'|translate | capitalize}}</span>
+                                            <span class="text">{{ 'leaderboard.name'|translate | titlecase}}</span>
                                         </a>
                                     </li>
                                     <li>
@@ -189,7 +189,7 @@
           [ngClass]="{'up-button':upButton && !inIdeasPage && !nearbyscroll,'up-button-stop': upButton && !inIdeasPage && nearbyscroll ,'up-button-hide':!upButton,
           'up-button-inIdeas':inIdeasPage && upButton && !nearbyscroll,'up-button-inIdeas-stop':upButton && inIdeasPage && nearbyscroll}">
         <button class="up-button_btn"  md-mini-fab (click)="goUp()">
-            <img  src="assets/images/left-slide.png" class="svg up_img"/>
+            <img  src="assets/images/top_grey.png" class="svg up_img"/>
         </button>
     </div>
     <footer #footer>

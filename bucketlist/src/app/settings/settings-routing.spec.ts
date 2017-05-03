@@ -13,7 +13,6 @@ import { ProfileHeaderComponent } from '../block/profile-header/components/profi
 import { ControlMessagesComponent } from '../components/control-messages/control-messages.component';
 import { SettingsComponent } from './settings.component';
 
-import { CapitalizePipe } from '../pipes/capitalize.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
 
 import { ProjectService } from '../project.service';
@@ -34,7 +33,7 @@ describe('Router tests', () => {
     beforeEach(async(() => {
 
             TestBed.configureTestingModule({
-                declarations: [ SettingsComponent, ProfileHeaderComponent, ControlMessagesComponent, CapitalizePipe, RoundPipe],
+                declarations: [ SettingsComponent, ProfileHeaderComponent, ControlMessagesComponent, RoundPipe],
                 providers: [ValidationService, Location, ProjectService, CacheService, Uploader, TranslateService, TranslateLoader, TranslateParser, Broadcaster],
                 imports: [MaterialModule, TranslateModule, FormsModule, ReactiveFormsModule, RouterModule, RouterTestingModule.withRoutes(SettingsRoutes)],
             })
