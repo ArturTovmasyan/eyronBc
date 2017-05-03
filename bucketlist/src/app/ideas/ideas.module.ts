@@ -4,7 +4,6 @@ import { FormsModule }      from '@angular/forms';
 import {TranslateModule}    from 'ng2-translate';
 import { ComponentModule }  from '../components/components.module';
 import { MapModule }        from '../tools/map/map.module';
-import { ProjectService }   from '../project.service';
 import { SwiperModule }     from 'angular2-useful-swiper';
 import { MaterialModule } from '@angular/material';
 import { Angulartics2Module } from 'angulartics2';
@@ -28,9 +27,6 @@ import { IdeasRouting } from './ideas-routing';
   ],
   declarations: [
     IdeasComponent
-  ],
-  providers: [
-    ProjectService
-  ],
+  ]
 })
 export class IdeasModule {}

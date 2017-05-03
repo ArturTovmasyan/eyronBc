@@ -9,11 +9,7 @@ import {Goal} from '../../interface/goal';
 @Component({
   selector: 'app-discover-goal',
   templateUrl: './discover-goal.component.html',
-  styleUrls: ['./discover-goal.component.less'],
-  providers: [
-    ProjectService,
-    CacheService
-  ]
+  styleUrls: ['./discover-goal.component.less']
 })
 export class DiscoverGoalComponent implements OnInit {
   goals:Goal[] = null;

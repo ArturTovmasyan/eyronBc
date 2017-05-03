@@ -6,7 +6,6 @@ import { ActivityComponent } from './../indexes';
 import { ActivitySharingModule } from './activity-sharing.module';
 import { ComponentModule } from '../components/components.module';
 import { ActivityBlockModule } from '../block/activityBlock.module';
-import { ProjectService } from '../project.service';
 
 import { ActivityRouting } from './activity-routing';
 
@@ -21,9 +20,6 @@ import { ActivityRouting } from './activity-routing';
   ],
   declarations: [
     ActivityComponent
-  ],
-  providers: [
-    ProjectService
   ]
 })
 export class ActivityModule { }

@@ -160,6 +160,9 @@ export class ProjectService {
         this.putCommentUrl = this.baseUrl + 'comments/';
     }
 
+    updateApiKeyInHeader() {
+        this.headers.set('apikey', localStorage.getItem('apiKey'));
+    }
     /**
      *
      * @param loginData

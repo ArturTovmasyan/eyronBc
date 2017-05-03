@@ -6,10 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'notification-dropdown',
   templateUrl: './notification-dropdown.component.html',
-  styleUrls: ['./notification-dropdown.component.less'],
-  providers:[
-      ProjectService
-  ]
+  styleUrls: ['./notification-dropdown.component.less']
 })
 export class NotificationDropdownComponent implements OnInit {
     @Output('changeNote') noteHideEmitter: EventEmitter<any> = new EventEmitter();

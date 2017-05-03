@@ -36,7 +36,7 @@ export class Leaderboard implements OnInit, OnDestroy {
                 if (!this.isDestroy && this.eventId != event.id) {
                     this.eventId = event.id;
                     window.scrollTo(0, 0);
-                    this.category = this.route.snapshot.params['type'] ? this.route.snapshot.params['type'] : 'innovator';
+                    this.category = this.route.snapshot.paramMap.has('type') ? this.route.snapshot.paramMap.get('type') : 'innovator';
                     this.metadataService.setTitle('Leaderboard');
                     this.metadataService.setTag('description', 'Leaderboard for ' + this.category);
                     this.type = this.categories.indexOf(this.category);

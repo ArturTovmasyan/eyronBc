@@ -9,11 +9,7 @@ import {Story} from '../../interface/story';
 @Component({
   selector: 'app-base-stories',
   templateUrl: './base-stories.component.html',
-  styleUrls: ['./base-stories.component.less'],
-  providers: [
-    ProjectService,
-    CacheService
-  ]
+  styleUrls: ['./base-stories.component.less']
 })
 export class BaseStoriesComponent implements OnInit {
   stories:Story[] = null;

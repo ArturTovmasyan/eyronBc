@@ -12,10 +12,6 @@ import {User} from "../../interface/user";
   selector: 'top-ideas-block',
   templateUrl: './top-ideas.component.html',
   styleUrls: ['./top-ideas.component.less'],
-  providers: [
-    ProjectService,
-    CacheService
-  ],
   encapsulation: ViewEncapsulation.None
 })
 

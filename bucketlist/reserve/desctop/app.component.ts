@@ -19,12 +19,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less'],
-  providers: [
-    ProjectService,
-    Broadcaster,
-    CacheService
-  ]
+  styleUrls: ['./app.component.less']
 })
 
 export class AppComponent extends App {

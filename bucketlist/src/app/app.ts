@@ -150,6 +150,7 @@ export class App implements OnInit  {
                 this.purgeFresh();
                 this.selectLang((this.appUser.language)?this.appUser.language:'en');
                 this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
+                this._projectService.updateApiKeyInHeader();
                 this.broadcaster.broadcast('getUser', user);
             });
 

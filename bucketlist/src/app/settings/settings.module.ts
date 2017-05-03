@@ -7,7 +7,6 @@ import { MaterialModule } from '@angular/material';
 
 import {TranslateModule} from 'ng2-translate';
 import { ActivityBlockModule } from '../block/activityBlock.module';
-import { ProjectService } from '../project.service';
 import { SettingsRouting } from './settings-routing';
 
 @NgModule({
@@ -23,9 +22,6 @@ import { SettingsRouting } from './settings-routing';
   ],
   declarations: [
     SettingsComponent
-  ],
-  providers: [
-    ProjectService
   ]
 })
 export class SettingsModule { }

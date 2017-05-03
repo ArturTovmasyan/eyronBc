@@ -35,7 +35,7 @@ export class RegistrationConfirmComponent implements OnInit, OnDestroy {
               if (!this.isDestroy && this.eventId != event.id) {
 
                   this.eventId = event.id;
-                  this.secret = this.route.snapshot.params['secret'] ? this.route.snapshot.params['secret'] : null;
+                  this.secret = this.route.snapshot.paramMap.has('secret') ? this.route.snapshot.paramMap.get('secret') : null;
 
                   if (this.secret) {
                       this.confirmUserRegistration(this.secret);

@@ -24,7 +24,7 @@
             <li>
                 <a routerLink="/goal/my-ideas/private" *ngIf="appUser.draft_count && appUser.draft_count !=0" (click)="sidenav.close()">
                     <i class="icons my-ideas-icon"></i>
-                    <span>{{ 'right_menu.my_ideas'|translate | capitalize }}</span>
+                    <span>{{ 'right_menu.my_ideas'|translate | titlecase }}</span>
                 </a>
             </li>
 
@@ -38,7 +38,7 @@
             <li>
                 <a routerLink="/ideas" (click)="sidenav.close()">
                     <i class="icons ideas-icon"></i>
-                    <span>{{ 'ideas'|translate | capitalize }}</span>
+                    <span>{{ 'ideas'|translate | titlecase }}</span>
                 </a>
             </li>
 
@@ -51,7 +51,7 @@
             <li>
                 <a routerLink="/leaderboard" (click)="sidenav.close()">
                     <i class="icons menu-leaderbord"></i>
-                    <span class="text">{{ 'leaderboard.name'|translate | capitalize}}</span>
+                    <span class="text">{{ 'leaderboard.name'|translate | titlecase}}</span>
                 </a>
             </li>
 

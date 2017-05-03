@@ -6,7 +6,6 @@ import { TranslateModule} from 'ng2-translate';
 import { ComponentModule } from '../components/components.module';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import { ProjectService } from '../project.service';
 import { SwiperModule }     from 'angular2-useful-swiper';
 import { MaterialModule } from '@angular/material';
 
@@ -24,9 +23,6 @@ import { GoalfriendsRouting } from './goal-friends-routing';
     SwiperModule,
     MaterialModule.forRoot()
   ],
-  declarations: [GoalfriendsComponent],
-  providers: [
-    ProjectService
-  ]
+  declarations: [GoalfriendsComponent]
 })
 export class GoalfriendsModule { }

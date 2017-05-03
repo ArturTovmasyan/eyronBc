@@ -7,11 +7,7 @@ import { CacheService} from 'ng2-cache/ng2-cache';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.less'],
-  providers: [
-    ProjectService,
-    CacheService
-  ]
+  styleUrls: ['./notification.component.less']
 })
 export class NotificationComponent implements OnInit {
     public notifications: any[];
