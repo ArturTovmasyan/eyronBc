@@ -158,6 +158,10 @@ export class App implements OnInit  {
             .subscribe(message => {
                 this.appUser = null;
             });
+        this.broadcaster.on<any>('log-Out')
+            .subscribe( ()=> {
+              this.logout();
+            });
 
         this.broadcaster.on<string>('openLogin')
             .subscribe(message => {

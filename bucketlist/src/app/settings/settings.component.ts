@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit,ViewContainerRef, OnDestroy } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import {ProjectService} from '../project.service';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
@@ -6,6 +6,8 @@ import {TranslateService} from 'ng2-translate';
 import { Broadcaster } from '../tools/broadcaster';
 import { ValidationService } from '../validation.service';
 import {FormBuilder, Validators, FormGroup } from '@angular/forms';
+import {ConfirmComponent} from "../modals/confirm/confirm.component";
+import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 
 @Component({
   selector: 'app-settings',
@@ -23,6 +25,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     arrayDay:number[] = [];
     arrayYear:number[] = [];
     currentLang: string;
+    message: string = '';
     token:boolean = true;
     ready:boolean = false;
     userEmails:any;
@@ -101,7 +104,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
         private _cacheService: CacheService,
         private broadcaster: Broadcaster,
         private router:Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private viewContainerRef: ViewContainerRef,
+        public dialog: MdDialog
     ) {
         this.sub = router.events.subscribe((event) => {
             if(event instanceof NavigationEnd ) {
@@ -444,5 +449,22 @@ export class SettingsComponent implements OnInit, OnDestroy {
                     this.errorMessage = error;
                 }
             );
+    }
+    removeProfile(){
+        let dialogRef: MdDialogRef<ConfirmComponent>;
+        let config = new MdDialogConfig();
+        config.viewContainerRef = this.viewContainerRef;
+        dialogRef = this.dialog.open(ConfirmComponent, config);
+        this.message = this._translate.instant('remove_profile-message');
+        dialogRef.componentInstance.lsText = this.message;
+        dialogRef.afterClosed().subscribe(result => {
+            if(result == 'yes'){
+                this._projectService.removeProfile()
+                    .subscribe(
+                        () => {}
+                    );
+                this.broadcaster.broadcast('log-Out');
+            }
+        });
     }
 }
