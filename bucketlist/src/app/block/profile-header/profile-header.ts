@@ -21,7 +21,7 @@ export class ProfileHeader implements OnInit {
     public current:any;
     public appUser:User;
     public serverPath:string = '';
-    public message:string = 'hello';
+    public message:string = '';
     public imgPath: string = '';
     path:string = '/api/v1.0/user/upload-file';
     // public nameOnImage: string = '';
