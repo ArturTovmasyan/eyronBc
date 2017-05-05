@@ -461,9 +461,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
             if(result == 'yes'){
                 this._projectService.removeProfile()
                     .subscribe(
-                        () => {}
+                        () => {
+                            this.broadcaster.broadcast('log-Out')
+                        }
                     );
-                this.broadcaster.broadcast('log-Out');
             }
         });
     }
