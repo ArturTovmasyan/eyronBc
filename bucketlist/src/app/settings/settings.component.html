@@ -44,7 +44,6 @@
                                         <control-messages [control]="form.controls.lastName"></control-messages>
                                     </div>
                                 </div>
-
                                 <span *ngIf="errorMessage && errorMessage.bl_user_angular_settings" style="text-align: center;color: red">{{ errorMessage.bl_user_angular_settings }}</span>
 
                                 <div class="form-group row no-padding emails" *ngIf="!socialEmail || socialEmail != appUser.username">
@@ -187,7 +186,10 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                    <div class="col-xs-4">
+                                    </div>
+                            </div>
                         </div>
                         <div *ngIf="(type == 'notification') && loading" class="text-left">
 
@@ -258,7 +260,7 @@
                             <button md-button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</button>
                         </div>
                     </form>
-
+                    <button md-button  name="save" (click)="removeProfile()" class="prof-del btn-danger">{{ 'remove_profile'|translate }}</button>
                     <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
                         <bl-loading mode="indeterminate"></bl-loading>
                     </div>

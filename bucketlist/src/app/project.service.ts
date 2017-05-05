@@ -90,6 +90,7 @@ export class ProjectService {
     private resetNearByUrl = this.baseOrigin + this.envprefix + 'usergoals/';
     private getCommentsUrl = this.baseUrl + 'comments/goal_';
     private putCommentUrl = this.baseUrl + 'comments/';
+    private removeProfileUrl = this.baseUrl + 'user/profile';
 
     constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
 
@@ -869,6 +870,17 @@ export class ProjectService {
     saveUserData(data:any) {
         return this.http.post(this.changeSettingsUrl, {'bl_user_angular_settings':data}, {headers: this.headers})
             .map((r:Response) => r.json());
+    }
+    /**
+     *
+     * This service is used to save user data
+     *
+     * @param data
+     */
+    removeProfile(){
+        return this.http.delete(this.removeProfileUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
     }
 
     /**

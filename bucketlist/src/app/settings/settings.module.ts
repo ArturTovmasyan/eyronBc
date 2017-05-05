@@ -8,6 +8,8 @@ import { MaterialModule } from '@angular/material';
 import {TranslateModule} from 'ng2-translate';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { SettingsRouting } from './settings-routing';
+import {ConfirmComponent} from '../modals/confirm/confirm.component';
+import {ModalsModule} from '../modals/modals.module';
 
 @NgModule({
   imports: [
@@ -18,10 +20,14 @@ import { SettingsRouting } from './settings-routing';
     FormsModule,
     ReactiveFormsModule,
     ActivityBlockModule,
+    ModalsModule,
     MaterialModule.forRoot(),
   ],
   declarations: [
     SettingsComponent
+  ],
+  entryComponents: [
+    ConfirmComponent
   ]
 })
 export class SettingsModule { }

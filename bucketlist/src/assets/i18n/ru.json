@@ -25,6 +25,8 @@
     "bucketlist": "Bucket List 127",
     "featured_ideas": "Избранное",
     "featured": "Избранное",
+    "remove_profile": "Удалить аккаунт",
+    "remove_profile-message": "Вы уверены, что хотите удалит ваш аккаунт?",
     "setting": {
         "invalid_user_name": "Имя не может быть цифры или символы, пожалуйста, введите правильное имя"
     },
