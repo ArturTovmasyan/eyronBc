@@ -42,6 +42,7 @@ class RequestListener //implements EventSubscriberInterface
      * @param EntityManager $entityManager
      * @param $translator
      * @param Stopwatch $stopwatch
+     * @param $angular2Host
      */
     public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion,
                                 TokenStorage $tokenStorage, EntityManager $entityManager, $translator, Stopwatch $stopwatch, $angular2Host)
@@ -122,14 +123,13 @@ class RequestListener //implements EventSubscriberInterface
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
-     {
-         $contentType =$event->getResponse()->headers->get('content-type');
-         if($contentType == 'application/json'){
-             $responseHeaders = $event->getResponse()->headers;
-             $responseHeaders->set('Access-Control-Allow-Headers', 'origin, content-type, accept');
-             $responseHeaders->set('Access-Control-Allow-Origin', $this->angular2Host);
-             $responseHeaders->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
-         }
-
+    {
+//        $contentType =$event->getResponse()->headers->get('content-type');
+//        if($contentType == 'application/json'){
+//            $responseHeaders = $event->getResponse()->headers;
+//            $responseHeaders->set('Access-Control-Allow-Headers', 'origin, content-type, accept,Authorization, X-Requested-With, apikey');
+//            $responseHeaders->set('Access-Control-Allow-Origin', $this->angular2Host);
+//            $responseHeaders->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
+//        }
     }
 }

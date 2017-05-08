@@ -11,15 +11,17 @@ use Application\UserBundle\Entity\User;
 use AppBundle\Entity\UserGoal;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\UserBundle\Model\UserInterface;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\Serializer\SerializationContext;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
@@ -29,6 +31,112 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 class UserController extends FOSRestController
 {
+    /**
+     * This function is used to get current user overall progress
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to to get current user overall progress",
+     *  statusCodes={
+     *         200="Returned when status changed",
+     *         401="Access allowed only for registered users"
+     *     },
+     * )
+     * @Secure(roles="ROLE_USER")
+     * @Rest\View()
+     */
+    public function getOverallAction(Request $request)
+    {
+        //disable listener for stats count
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $sendNoteService = $this->get('bl_put_notification_service');
+
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+
+        //check if not logged in user
+        if(!is_object($currentUser)) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
+        }
+
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        // check conditions
+        switch($request->get('condition')){
+            case UserGoal::ACTIVE:
+                $condition = UserGoal::ACTIVE;
+                break;
+            case UserGoal::COMPLETED:
+                $condition = UserGoal::COMPLETED;
+                break;
+            default:
+                $condition = null;
+        }
+
+        $dream = $this->toBool($request->query->get('isDream'));
+        $first = 0;
+        $count = null;
+        $owned = $request->get('owned');
+
+        $requestFilter = [];
+        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $this->toBool($request->get('urgentImportant'));
+        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->get('urgentNotImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->get('notUrgentImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->get('notUrgentNotImportant'));
+
+
+        if($owned){
+            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
+                ->findOwnedUserGoals($currentUser, true);
+        } else{
+            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
+                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count, true);
+        }
+
+        if(is_null($lastUpdated)){
+            return array('progress' => 0);
+        }
+
+        $response = new Response();
+
+        $lastDeleted = $currentUser->getUserGoalRemoveDate();
+        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
+
+        $response->setLastModified($lastModified);
+
+        $response->headers->set('cache-control', 'private, must-revalidate');
+
+        // check is modified
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        if($owned){
+            $userGoals = $em->getRepository('AppBundle:UserGoal')
+                ->findOwnedUserGoals($currentUser);
+        } else{
+            $userGoals = $em->getRepository('AppBundle:UserGoal')
+                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count);
+        }
+
+        $progress = $sendNoteService->calculateProgress($userGoals);
+        if ($progress) {
+            $result = array('progress' => $progress);
+            $response->setContent(json_encode($result));
+
+            return $response;
+        }
+
+        return array('progress' => 0);
+    }
+
     /**
      * @ApiDoc(
      *  resource=true,
@@ -57,7 +165,24 @@ class UserController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
 
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        //get all data in request
         $data = $request->request->all();
+
+        $returnResult = [];
+        $tr = $this->get('translator');
+
+        //check if plain password is not valid
+        if($data['plainPassword'] !== $data['password']) {
+            $returnResult['password'] = $tr->trans('fos_user.password.mismatch', [], 'validators');
+        }
 
         $user = new User();
         $user->setUsername(array_key_exists('email', $data) ? $data['email'] : null);
@@ -68,15 +193,13 @@ class UserController extends FOSRestController
         $user->setDateOfBirth(array_key_exists('birthday', $data) ? \DateTime::createFromFormat('d/m/Y', $data['birthday'])  : null);
 
         $validator = $this->get('validator');
-        $errors = $validator->validate($user, null, array('Register', 'Default'));
+        $errors = $validator->validate($user, null, ['Register', 'Default']);
 
+        if(count($errors) > 0 || count($returnResult) > 0){
 
-        if(count($errors) > 0){
-            $returnResult = [];
-            if(count($errors) > 0){
-                foreach($errors as $error){
-                    $returnResult[$error->getPropertyPath()] = $error->getMessage();
-                }
+            foreach($errors as $error)
+            {
+                $returnResult[$error->getPropertyPath()] = $error->getMessage();
             }
 
             return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
@@ -86,10 +209,10 @@ class UserController extends FOSRestController
 
         if($profileImage){
             $user->setFile($profileImage);
+            $blService = $this->container->get('bl_service');
+            $blService->uploadFile($user);
         }
 
-        $blService = $this->container->get('bl_service');
-        $blService->uploadFile($user);
         $token = md5(microtime());
         $user->setRegistrationToken($token);
 
@@ -98,7 +221,7 @@ class UserController extends FOSRestController
         $em->persist($user);
         $em->flush();
 
-        $response = $this->loginAction($user, array('user'));
+        $response = $this->loginAction($user, ['user']);
 
         return $response;
     }
@@ -119,6 +242,7 @@ class UserController extends FOSRestController
             $params = ['path' => ltrim($user->getImagePath(), '/'), 'filter' => 'user_goal'];
             $filterUrl = $route->generate('liip_imagine_filter', $params);
             $user->setMobileImagePath($filterUrl);
+            $user->setCachedImage($liipManager->getBrowserPath($user->getImagePath(), 'user_image'));;
         }
 
         $request     = $this->get('request_stack')->getCurrentRequest();
@@ -169,6 +293,20 @@ class UserController extends FOSRestController
 
 
         $serializer = $this->get('serializer');
+        if(!$request->query->get('mobileAppPlatform')){
+            $group = array_merge($group, ["completed_profile", "image_info"]);
+
+            $states = $content['userInfo']->getStats();
+
+            $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($content['userInfo']->getId(), false);
+
+            $content['userInfo']->setStats($states);
+
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyIdeasCount($content['userInfo']);
+            $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($content['userInfo']->getId(), null, $goalFriendsCount, true);
+            $content['userInfo']->setGoalFriendsCount($goalFriendsCount);
+        }
         $contentJson = $serializer->serialize($content, 'json', SerializationContext::create()->setGroups($group));
 
         $response->setContent($contentJson);
@@ -196,7 +334,7 @@ class UserController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "badge"})
      * @param $request
      * @return Response
      */
@@ -205,6 +343,14 @@ class UserController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $username = $request->get('username');
         $password = $request->get('password');
+
+        if(!$username && !$password){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+            $username = $request->get('username');
+            $password = $request->get('password');
+        }
+
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('username' => $username));
 
         if($user){
@@ -244,7 +390,7 @@ class UserController extends FOSRestController
      * @param $accessToken
      * @param $tokenSecret
      * @return Response
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "badge"})
      * @Rest\Get("/users/social-login/{type}/{accessToken}/{tokenSecret}", defaults={"tokenSecret"=null}, name="application_user_rest_user_getsociallogin", options={"method_prefix"=false})
      */
     public function getSocialLoginAction($type, $accessToken, $tokenSecret)
@@ -499,7 +645,7 @@ class UserController extends FOSRestController
      *
      * @Rest\View()
      * @param $email
-     * @return array
+     * @return array|JsonResponse
      */
     public function getResetAction($email)
     {
@@ -507,11 +653,11 @@ class UserController extends FOSRestController
         $trans = $this->get('translator');
 
         if (null === $user) {
-            return new Response($trans->trans('resetting.user_not_found', [], 'FOSUserBundle'), Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['user' => $trans->trans('resetting.user_not_found', [], 'FOSUserBundle')], Response::HTTP_NOT_FOUND);
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return new Response($trans->trans('resetting.password_already_requested', [], 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse(['expires' => $trans->trans('resetting.password_already_requested', [], 'FOSUserBundle')], Response::HTTP_BAD_REQUEST);
         }
 
         if (null === $user->getConfirmationToken()) {
@@ -521,10 +667,11 @@ class UserController extends FOSRestController
         }
 
         $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
+
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
-        return new Response('', Response::HTTP_OK);
+        return new JsonResponse('', Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -539,20 +686,32 @@ class UserController extends FOSRestController
      *         401="Access allowed only for registered users"
      *     },
      * )
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info", "badge"})
+     * @Rest\Get("/user/{uid}", name="get_user", defaults={"uid" = null}, options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
+     * @param $uid
+     * @return array
      */
-    public function getAction(Request $request)
+    public function getAction(Request $request, $uid = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
         //get current user
-        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+        $currentUser = $uid?$em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId'=>$uid)) :$this->get('security.token_storage')->getToken()->getUser();
 
-        // get drafts
-        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
-
+        if(!$request->query->get('mobileAppPlatform')){
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyIdeasCount($currentUser);
+            $goalFriendsCount = 0;
+            $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($currentUser->getId(), null, $goalFriendsCount, true);
+            $currentUser->setGoalFriendsCount($goalFriendsCount);
+        } else {
+            // get drafts
+            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
+        }
 
         //check if not logged in user
         if(!is_object($currentUser)) {
@@ -560,8 +719,14 @@ class UserController extends FOSRestController
         }
 
         $states = $currentUser->getStats();
+
         $states['created'] = $em->getRepository('AppBundle:Goal')->findOwnedGoalsCount($currentUser->getId(), false);
+
         $currentUser->setStats($states);
+
+        if($currentUser->getImagePath()){
+            $currentUser->setCachedImage($liipManager->getBrowserPath($currentUser->getImagePath(), 'user_image'));
+        }
 
         return $currentUser;
     }
@@ -577,113 +742,6 @@ class UserController extends FOSRestController
 
         return false;
     }
-
-    /**
-     * This function is used to get current user overall progress
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  section="User",
-     *  description="This function is used to to get current user overall progress",
-     *  statusCodes={
-     *         200="Returned when status changed",
-     *         401="Access allowed only for registered users"
-     *     },
-     * )
-     * @Secure(roles="ROLE_USER")
-     * @Rest\View()
-     */
-    public function getOverallAction(Request $request)
-    {
-        //disable listener for stats count
-        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $sendNoteService = $this->get('bl_put_notification_service');
-
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        //get current user
-        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
-
-        //check if not logged in user
-        if(!is_object($currentUser)) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
-        }
-
-        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
-            $content = $request->getContent();
-            $request->request->add(json_decode($content, true));
-        }
-
-        // check conditions
-        switch($request->get('condition')){
-            case UserGoal::ACTIVE:
-                $condition = UserGoal::ACTIVE;
-                break;
-            case UserGoal::COMPLETED:
-                $condition = UserGoal::COMPLETED;
-                break;
-            default:
-                $condition = null;
-        }
-
-        $dream = $this->toBool($request->query->get('isDream'));
-        $first = 0;
-        $count = null;
-        $owned = $request->get('owned');
-
-        $requestFilter = [];
-        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $this->toBool($request->get('urgentImportant'));
-        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->get('urgentNotImportant'));
-        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->get('notUrgentImportant'));
-        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->get('notUrgentNotImportant'));
-
-
-        if($owned){
-            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
-                ->findOwnedUserGoals($currentUser, true);
-        } else{
-            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
-                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count, true);
-        }
-
-        if(is_null($lastUpdated)){
-            return array('progress' => 0);
-        }
-
-        $response = new Response();
-
-        $lastDeleted = $currentUser->getUserGoalRemoveDate();
-        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
-
-        $response->setLastModified($lastModified);
-
-        $response->headers->set('cache-control', 'private, must-revalidate');
-
-        // check is modified
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
-        if($owned){
-            $userGoals = $em->getRepository('AppBundle:UserGoal')
-                ->findOwnedUserGoals($currentUser);
-        } else{
-            $userGoals = $em->getRepository('AppBundle:UserGoal')
-                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count);
-        }
-
-        $progress = $sendNoteService->calculateProgress($userGoals);
-        if ($progress) {
-            $result = array('progress' => $progress);
-            $response->setContent(json_encode($result));
-
-            return $response;
-        }
-
-        return array('progress' => 0);
-    }
-
 
     /**
      * This function is used to get apps string for mobile
@@ -1047,6 +1105,375 @@ class UserController extends FOSRestController
         $goalFriends = $currentUser->getFollowings();
 
         return $goalFriends;
+    }
+
+    /**
+     * This function is used to to post file for current user
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to to post file for current user",
+     *  statusCodes={
+     *         204="No content",
+     *         400="Bad Request",
+     *         401="Access allowed only for registered users"
+     *     },
+     *  parameters={
+     *      {"name"="file", "dataType"="file", "required"=true, "description"="File for current user"}
+     * }
+     * )
+     * @Rest\View()
+     * @Rest\Post("/user/upload-file", name="application_user_rest_user_postuploadfile", options={"method_prefix"=false})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function postUploadFileAction(Request $request)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        
+        //get current user
+        $currentUser = $this->getUser();
+
+        //get file
+        $file = $request->files->get('file');
+
+        if(!$file) {
+            return new JsonResponse('File not found', Response::HTTP_BAD_REQUEST);
+        }
+
+        $currentUser->setFile($file);
+
+        //get validator
+        $validator = $this->get('validator');
+
+
+        //get errors
+        $errors = $validator->validate($currentUser, null, ['File']);
+
+        $returnResult = [];
+
+        if(count($errors) > 0){
+
+            foreach($errors as $error)
+            {
+                $returnResult[$error->getPropertyPath()] = $error->getMessage();
+            }
+
+            return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
+        }
+
+        //get uploadFile service
+        $this->get('bl_service')->uploadFile($currentUser);
+        $imagePath = $liipManager->getBrowserPath($currentUser->getImagePath(), 'user_image');
+        $currentUser->setCachedImage($imagePath);
+        
+        $em->persist($currentUser);
+        $em->flush();
+
+        return new Response($imagePath, Response::HTTP_OK);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to create new password",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found",
+     *         400="Bad request"
+     *     },
+     * )
+     *
+     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info"})
+     */
+    public function postNewPasswordAction(Request $request)
+    {
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        //get post data in request
+        $token = $request->request->get('token');
+        $password = $request->request->get('password');
+        $plainPassword = $request->request->get('plainPassword');
+
+        //get user by token
+        $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+
+        //check if user not exist
+        if(!$user){
+            return new JsonResponse("The user with confirmation token does not exist for value $token", Response::HTTP_NOT_FOUND);
+        }
+
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+
+        if($password && $plainPassword && $password == $plainPassword) {
+            $user->setPlainPassword($plainPassword);
+            $user->setConfirmationToken(null);
+            $user->setPasswordRequestedAt(null);
+            $user->setEnabled(true);
+            $this->container->get('fos_user.user_manager')->updateUser($user);
+        }else{
+            return new JsonResponse(['password' => 'Passwords is not equals'] , Response::HTTP_BAD_REQUEST);
+        }
+
+       $response = $this->loginAction($user, ['user']);
+
+        return $response;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to check reset password token",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found"
+     *     },
+     * )
+     *
+     * @Rest\View()
+     * @Rest\Get("/user/check/reset-token/{token}", name="application_user_rest_user_checkresettoken_1", options={"method_prefix"=false})
+     * @param $token
+     * @return array|JsonResponse
+     */
+    public function checkResetTokenAction($token)
+    {
+        //get user by token
+        $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+
+        $t = $this->container->getParameter('fos_user.resetting.token_ttl');
+
+        if (!$user || (!$user->isPasswordRequestNonExpired($t))) {
+            return new JsonResponse(['email_token' => 'Invalid email token for this user'], Response::HTTP_BAD_REQUEST);
+        }
+
+        return  ['confirm' => true];
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to check reset password token",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found"
+     *     },
+     * )
+     *
+     * @Rest\View()
+     * @Rest\Post("/user/check/registration-token", name="application_user_rest_user_checkregistrationtoken", options={"method_prefix"=false})
+     * @return array|JsonResponse
+     */
+    public function checkRegistrationTokenAction(Request $request)
+    {
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        $userId = $request->request->get('id');
+
+        $em = $this->getDoctrine()->getManager();
+
+        //get user by token
+        $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
+
+        if(!$user) {
+            new JsonResponse('User not found', Response::HTTP_NOT_FOUND);
+        }
+
+        $registrationToken = $user->getRegistrationToken();
+
+        if($registrationToken) {
+            $tokeExist = true;
+        }else{
+            $tokeExist = false;
+        }
+
+        return  ['confirm' => $tokeExist];
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to confirm user registartion",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found"
+     *     },
+     * )
+     *
+     * @Rest\View(serializerGroups={"user", "completed_profile", "image_info"})
+     * @Rest\Post("/user/confirm", name="application_user_rest_user_confirmregistration", options={"method_prefix"=false})
+     * @return array|JsonResponse
+     */
+    public function confirmRegistrationAction(Request $request)
+    {
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        $token = $request->request->get('token');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(['registrationToken'=>$token]);
+
+        if (!$user) {
+            return new JsonResponse(['user_confirm' => "The user with confirmation token $token does not exist"], Response::HTTP_NOT_FOUND);
+        }
+
+        //set user data
+        $user->setRegistrationToken(null);
+        $user->setEnabled(true);
+        $user->setLastLogin(new \DateTime());
+        $em->persist($user);
+        $em->flush();
+
+        $response = $this->loginAction($user, ['user']);
+
+        return $response;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to check reset password token",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found",
+     *         400="Bad request"
+     *     },
+     * )
+     *
+     * @Rest\View()
+     * @Rest\Get("/user/activation-email/{emailToken}/{email}", name="application_user_rest_user_activationuseremails", options={"method_prefix"=false})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function activationUserEmailsAction($emailToken, $email)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $user = $this->getUser();
+
+        //check if user not exist
+        if (!$user) {
+            return new JsonResponse('User not found', Response::HTTP_BAD_REQUEST);
+        }
+
+        //get user emails
+        $userEmails = $user->getUserEmails();
+
+        //check new email not exist in user emails
+        if(!array_key_exists($email, $userEmails)) {
+            return new JsonResponse('User not found', Response::HTTP_BAD_REQUEST);
+        }
+
+        //get current email data
+        $data = $userEmails[$email];
+
+        //get userEmail value in array
+        $currentEmailToken = $data['token'];
+
+        //check if tokens is equal
+        if ($currentEmailToken == $emailToken) {
+
+            //set token null in userEmails by key
+            $userEmails[$email]['token'] = null;
+
+            //set activation email token null
+            $user->setUserEmails($userEmails);
+
+            if ($user->getSocialFakeEmail() == $user->getEmail()){
+                $user->primary = $email;
+            }
+        }
+        else {
+           return new JsonResponse('Invalid email token for this user', Response::HTTP_BAD_REQUEST);
+        }
+
+        $em->persist($user);
+        $em->flush($user);
+
+       return new JsonResponse('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to update confirm registration email",
+     *  statusCodes={
+     *         400="Bad request",
+     *         204="Np content"
+     *     },
+     * )
+     * @Rest\View()
+     * @Rest\Post("/user/update/activation-email", name="application_user_rest_user_postupdateconfirmemail", options={"method_prefix"=false})
+     * @Secure(roles="ROLE_USER")
+     * @param Request $request
+     * @return JsonResponse|Response
+     */
+    public function postUpdateConfirmEmailAction(Request $request)
+    {
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        //get email
+        $email = $request->request->get('email');
+        $user = $this->getUser();
+
+        //get registration token
+        $regToken = $user->getRegistrationToken();
+
+        if(!$regToken) {
+            new JsonResponse('Bad request', Response::HTTP_BAD_REQUEST);
+        }
+
+        //check if email not exist
+        if(!$email) {
+            $email = $user->getEmail();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $token = md5(microtime());
+        $user->setRegistrationToken($token);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->container->get('bl.email.sender')->sendConfirmEmail($email, $token, $user->getFirstName());
+
+        return $email;
     }
 }
 

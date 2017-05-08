@@ -53,6 +53,7 @@
         "liuggio/excelbundle": "^2.0",
         "beberlei/DoctrineExtensions": "1.0",
         "j7mbo/twitter-api-php": "1.0.*",
+        "nelmio/cors-bundle": "^1.4",
         "w3docs/log-viewer-bundle": "^1.0"
     },
     "require-dev": {

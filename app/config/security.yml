@@ -46,6 +46,7 @@ security:
                 authenticator: bl_user_api_authenticator
             provider: bl_user_api_provider
             entry_point: authentication_entry_point
+            stateless: true
             pattern: ^/
             form_login:
                 provider: fos_userbundle

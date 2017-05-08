@@ -23,7 +23,7 @@ trait File
 //*     minHeight = 540,
     /**
      * @Assert\Image(
-     *     groups={"Registration", "Profile", "Default", "Register"},
+     *     groups={"Registration", "Profile", "Default", "Register", "File"},
      *     minWidth = 400,
      *     minHeight = 400,
      *     mimeTypes = {
@@ -65,7 +65,7 @@ trait File
 
     /**
      * @ORM\Column(name="file_name", type="string", length=70, nullable=true)
-     * @Groups({"image"})
+     * @Groups({"image", "image_info"})
      */
     protected $fileName;
 
