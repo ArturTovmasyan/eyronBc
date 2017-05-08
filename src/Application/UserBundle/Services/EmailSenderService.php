@@ -8,6 +8,7 @@
 namespace Application\UserBundle\Services;
 
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EmailSenderService
 {
@@ -40,11 +41,14 @@ class EmailSenderService
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
 
+        //get apiHost in parameters
+        $apiHost = $this->container->getParameter('apihost');
+
         //get activate url
-        $url = $this->container->get('router')->generate('registration_confirm', array('token' => $registrationToken), true);
+        $url = sprintf('%s/user/confirm/%s', $apiHost, $registrationToken);
 
         //get help center link
-        $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
+        $helpLink = sprintf('%s/page/%s', $apiHost, 'contact-us');
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your ' . $projectName . ' account')
@@ -53,7 +57,7 @@ class EmailSenderService
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($this->container->get('templating')->render(
                 'ApplicationUserBundle:Registration:emailConfirm.html.twig',
-                array('name' => $name, 'url' => $url, 'email' => $email, 'helpUrl' => $helpLink)
+                ['name' => $name, 'url' => $url, 'email' => $email, 'helpUrl' => $helpLink]
             ), "text/html");
 
         $this->container->get('mailer')->send($message);
@@ -74,11 +78,14 @@ class EmailSenderService
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
 
-        //get email activate url
-        $url = $this->container->get('router')->generate('activation_user_email', array('emailToken' => $emailToken, 'email' => $newUserEmail), true);
+        //get apiHost host in parameter
+        $apiHost = $this->container->getParameter('apihost');
+
+        //generate url
+        $url = sprintf('%s/edit/add-email/%s/%s', $apiHost, $emailToken, $newUserEmail);
 
         //get help center link
-        $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
+        $helpLink = $this->container->get('router')->generate('page', ['slug' => 'contact-us'], true);
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your new email in ' . $projectName . ' account')
@@ -87,7 +94,7 @@ class EmailSenderService
             ->setContentType('text/html; charset=UTF-8')
             ->setBody($this->container->get('templating')->render(
                 'ApplicationUserBundle:Registration:userEmailsActivation.html.twig',
-                array('name' => $userName, 'url' => $url, 'email' => $newUserEmail, 'helpUrl' => $helpLink)
+                ['name' => $userName, 'url' => $url, 'email' => $newUserEmail, 'helpUrl' => $helpLink]
             ), 'text/html');
 
         $this->container->get('mailer')->send($message);
@@ -109,7 +116,7 @@ class EmailSenderService
         $fromEmail = 'confirmEmail@' . $this->container->getParameter('project_name') . '.com';
 
         // generate url
-        $helpLink = $this->container->get('router')->generate('homepage', array(), true);
+        $helpLink = $this->container->get('router')->generate('homepage', [], true);
 
         // calculate message
         $message = \Swift_Message::newInstance()
@@ -119,7 +126,7 @@ class EmailSenderService
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($this->container->get('templating')->render(
                 'AppBundle:Main:contactUsEmail.html.twig',
-                array('name' => $name, 'data' => $data, 'link'=>$helpLink)
+                ['name' => $name, 'data' => $data, 'link'=>$helpLink]
             ), "text/html");
         // send email
         $this->container->get('mailer')->send($message);

@@ -76,6 +76,11 @@ class Page
     protected $locale;
 
     /**
+     * @ORM\Column(name="is_term", type="boolean", nullable=false)
+     */
+    protected $isTerm = false;
+
+    /**
      * @var
      *
      * @Gedmo\Timestampable(on="create")
@@ -301,5 +306,29 @@ class Page
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * Set isTerm
+     *
+     * @param boolean $isTerm
+     *
+     * @return Page
+     */
+    public function setIsTerm($isTerm)
+    {
+        $this->isTerm = $isTerm;
+
+        return $this;
+    }
+
+    /**
+     * Get isTerm
+     *
+     * @return boolean
+     */
+    public function getIsTerm()
+    {
+        return $this->isTerm;
     }
 }

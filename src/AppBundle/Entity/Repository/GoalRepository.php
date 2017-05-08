@@ -645,12 +645,17 @@ class GoalRepository extends EntityRepository
      */
     public function findBySlugWithTinyRelations($slug)
     {
+        //check if slug is array
+        if(is_array($slug)) {
+            $slug = $slug['slug'];
+        }
+
         return $this->getEntityManager()
             ->createQuery("SELECT g, i
                            FROM AppBundle:Goal g
                            LEFT JOIN g.images i
                            WHERE g.slug = :slug")
-            ->setParameter('slug', $slug['slug'])
+            ->setParameter('slug', $slug)
             ->getOneOrNullResult();
     }
 
@@ -668,7 +673,7 @@ class GoalRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('u, ug')
             ->from('ApplicationUserBundle:User', 'u', 'u.id')
-            ->join('u.userGoal', 'ug', 'WITH', 'ug.status = :status')
+            ->join('u.userGoal', 'ug', 'WITH', '(ug.status = :status) OR (:status IS NULL AND ug.status IN (1, 2))')
             ->join('ug.goal', 'g', 'WITH', 'g.id = :goalId')
             ->setParameter('status', $status)
             ->setParameter('goalId', $goalId);
@@ -818,9 +823,11 @@ class GoalRepository extends EntityRepository
 
     /**
      * @param $user
-     * @return array
+     * @param null $first
+     * @param null $count
+     * @return mixed
      */
-    public function findMyPrivateGoals($user)
+    public function findMyPrivateGoals($user, $first = null, $count = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
@@ -837,6 +844,15 @@ class GoalRepository extends EntityRepository
             ->setParameter('readinessStatus', Goal::TO_PUBLISH)
         ;
 
+        if (!is_null($first) && !is_null($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
+        }
+        
         return $query->getQuery();
     }
 
@@ -849,18 +865,30 @@ class GoalRepository extends EntityRepository
      */
     public function findCommonGoals($user1Id, $user2Id, $first, $count)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT g, img
+        $queryIds = $this->getEntityManager()
+            ->createQuery("SELECT DISTINCT g.id
                            FROM AppBundle:Goal g
-                           INDEX BY g.id
                            JOIN g.userGoal ug WITH ug.user = :user1Id
                            JOIN g.userGoal ug1 WITH ug1.user = :user2Id
                            LEFT JOIN g.images img")
             ->setParameter('user1Id', $user1Id)
             ->setParameter('user2Id', $user2Id)
-            ->setFirstResult($first)
-            ->setMaxResults($count)
-            ->getResult();
+            ->getArrayResult();
+
+        $currentIds = array_map(function ($a) { return $a['id']; }, array_slice($queryIds, $first, $count));
+
+        if (count($currentIds) == 0){
+            return [];
+        }
+
+        return $this->getEntityManager()
+                    ->createQuery("SELECT g, img
+                                   FROM AppBundle:Goal g
+                                   INDEX BY g.id
+                                   LEFT JOIN g.images img
+                                   WHERE g.id in (:ids)")
+                    ->setParameter('ids', $currentIds)
+                    ->getResult();
     }
 
 

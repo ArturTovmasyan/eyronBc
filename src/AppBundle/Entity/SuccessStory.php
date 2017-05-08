@@ -12,6 +12,7 @@ namespace AppBundle\Entity;
 use AppBundle\Model\ActivityableInterface;
 use Application\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -41,6 +42,7 @@ class SuccessStory implements ActivityableInterface
      *
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="successStories", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id", nullable=false)
+     * @Groups({"inspireStory"})
      */
     protected $goal;
 
@@ -59,7 +61,7 @@ class SuccessStory implements ActivityableInterface
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="SuccessStories")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     * @Groups({"successStory_user"})
+     * @Groups({"successStory_user", "inspireStory"})
      **/
     protected $user;
 
@@ -73,7 +75,7 @@ class SuccessStory implements ActivityableInterface
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"successStory"})
+     * @Groups({"successStory", "inspireStory"})
      */
     protected $created;
 
@@ -87,7 +89,7 @@ class SuccessStory implements ActivityableInterface
 
     /**
      * @ORM\Column(name="story", type="text")
-     * @Groups({"successStory"})
+     * @Groups({"successStory", "inspireStory"})
      * @Assert\NotBlank(groups={"successStoryValidate"})
      * @Assert\Length(
      *     min=3, 
@@ -99,7 +101,7 @@ class SuccessStory implements ActivityableInterface
 
     /**
      * @ORM\Column(name="video_link", type="json_array", nullable=true)
-     * @Groups({"successStory"})
+     * @Groups({"successStory", "inspireStory"})
      */
     protected $videoLink;
 
@@ -109,13 +111,13 @@ class SuccessStory implements ActivityableInterface
     protected $isInspire;
 
     /**
-     * @Groups({"successStory"})
+     * @Groups({"successStory", "inspireStory"})
      */
     protected $isVote;
 
     /**
      * @VirtualProperty()
-     * @Groups({"successStory"})
+     * @Groups({"successStory", "inspireStory"})
      *
      * @return int
      */

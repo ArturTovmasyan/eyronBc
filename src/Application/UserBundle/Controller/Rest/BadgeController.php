@@ -46,7 +46,7 @@ class BadgeController extends Controller
 
         $badgeService = $this->get('bl.badge.service'); // get badge service
 
-        $badges = apc_fetch(BadgeService::TOP_BADGES_USERS);
+        $badges = $this->get('bl.apc')->apc_fetch(BadgeService::TOP_BADGES_USERS);
         if(!$badges){
             $badges = $badgeService->findTopUsers();
             return $badges;

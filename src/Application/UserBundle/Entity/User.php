@@ -11,6 +11,7 @@ namespace Application\UserBundle\Entity;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Services\UserNotifyService;
 use AppBundle\Traits\File;
+use JMS\Serializer\Annotation as Serializer;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\SerializedName;
@@ -115,6 +116,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToMany(targetEntity="Badge", mappedBy="user", cascade={"persist", "remove"})
+     * @Groups({"badge"})
      */
     protected $badges;
 
@@ -138,7 +140,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings", "badge"})
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
      * @SerializedName("first_name")
      */
     protected $firstname;
@@ -179,7 +181,7 @@ class User extends BaseUser
     /**
      * @var
      * @Assert\Date
-     * @Groups({"settings"})
+     * @Groups({"settings", "user"})
      * @SerializedName("birth_date")
      * @Type("DateTime<'Y-m-d'>")
      */
@@ -187,7 +189,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings", "badge"})
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
      * @SerializedName("last_name")
      */
     protected $lastname;
@@ -208,18 +210,21 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"image_info"})
      */
     protected $socialPhotoLink;
 
     /**
      * @var
      * @ORM\Column(name="registration_token", type="string", nullable=true, unique=true)
+     * @Groups({"user"})
      */
     protected $registrationToken;
 
     /**
      * @var
      * @ORM\Column(name="user_emails", type="array", nullable=true)
+     * @Groups({"user"})
      */
     protected $userEmails;
 
@@ -253,6 +258,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(name="activity", type="boolean", nullable=false)
+     * @Groups({"user"})
      */
     protected $activity = false;
 
@@ -298,7 +304,7 @@ class User extends BaseUser
     protected $factorCommandDate;
 
     /**
-     * @Groups({"tiny_user"})
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
      */
     private $cachedImage;
 
@@ -789,6 +795,7 @@ class User extends BaseUser
 
     /**
      * @return string
+     * @Groups({"inspireStory"})
      * @VirtualProperty()
      */
     public function getPhotoLink()
@@ -807,7 +814,7 @@ class User extends BaseUser
 
     /**
      * @return string
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "inspireStory"})
      * @VirtualProperty()
      */
     public function showName()
@@ -923,6 +930,9 @@ class User extends BaseUser
     /**
      * This function is used to check percent of completed profile
      *
+     * @VirtualProperty()
+     * @SerializedName("completed_percent")
+     * @Groups({"completed_profile"})
      * @return int
      */
     public function getCompletedPercent()
@@ -965,6 +975,9 @@ class User extends BaseUser
     /**
      * This function is used to check hav user add deadline
      *
+     * @VirtualProperty()
+     * @SerializedName("check_deadline")
+     * @Groups({"completed_profile"})
      * @return bool
      */
     public function checkDeadLines()
@@ -994,6 +1007,9 @@ class User extends BaseUser
     /**
      * This function is used to check have user complete goal
      *
+     * @VirtualProperty()
+     * @SerializedName("check_completed_goals")
+     * @Groups({"completed_profile"})
      * @return bool
      */
     public function checkCompletedGoals()
@@ -1023,6 +1039,10 @@ class User extends BaseUser
 
     /**
      * This function is used to check have user add success story
+     *
+     * @VirtualProperty()
+     * @SerializedName("check_success_story")
+     * @Groups({"completed_profile"})
      *
      * @return bool
      */
@@ -1212,6 +1232,9 @@ class User extends BaseUser
 
     /**
      * @return null|string
+     * @VirtualProperty()
+     * @SerializedName("social_email")
+     * @Groups({"user"})
      */
     public function getSocialFakeEmail()
     {
@@ -1230,6 +1253,9 @@ class User extends BaseUser
 
     /**
      * @return mixed
+     * @VirtualProperty()
+     * @SerializedName("language")
+     * @Groups({"user"})
      */
     public function getLanguage()
     {
@@ -1482,7 +1508,7 @@ class User extends BaseUser
      * @return mixed
      *
      * @VirtualProperty
-     * @Groups({"user", "tiny_user", "settings"})
+     * @Groups({"user", "tiny_user", "settings", "inspireStory"})
      */
     public function getCachedImage()
     {
@@ -1546,12 +1572,15 @@ class User extends BaseUser
     }
 
     /**
+     * @VirtualProperty()
+     * @SerializedName("user_goal_count")
+     * @Groups({"completed_profile"})
      * @return null
      */
     public function getUserGoalCount()
     {
         if (is_null($this->userGoalCount)){
-            $this->userGoalCount = $this->userGoal->count();
+            $this->userGoalCount = $this->userGoal ? $this->userGoal->count() : 0;
         }
 
         return $this->userGoalCount;
@@ -2139,7 +2168,7 @@ class User extends BaseUser
     public function addFollowing(\Application\UserBundle\Entity\User $following)
     {
         $this->followings[] = $following;
-        $followings = apc_fetch(self::FOLLOWERS . $this->getId());
+        $followings = apc_fetch(sha1(__FILE__) . self::FOLLOWERS . $this->getId());
 
         if(is_array($followings)){
             $followings[] = $following->getId();
@@ -2147,7 +2176,7 @@ class User extends BaseUser
             $followings = [$following->getId()];
         }
 
-        apc_store(self::FOLLOWERS . $this->getId(), $followings, 3600);
+        apc_store(sha1(__FILE__) . self::FOLLOWERS . $this->getId(), $followings, 3600);
 
         return $this;
     }
@@ -2159,7 +2188,7 @@ class User extends BaseUser
      */
     public function removeFollowing(\Application\UserBundle\Entity\User $following)
     {
-        apc_delete(self::FOLLOWERS . $this->getId());
+        apc_delete(sha1(__FILE__) . self::FOLLOWERS . $this->getId());
         $this->followings->removeElement($following);
     }
 
@@ -2222,11 +2251,11 @@ class User extends BaseUser
      */
     public function getFollowingIds()
     {
-        $followingIds = apc_fetch(self::FOLLOWERS . $this->getId());
+        $followingIds = apc_fetch(sha1(__FILE__) . self::FOLLOWERS . $this->getId());
         if(!$followingIds){
             if($followings = $this->getFollowings()){
                 $followingIds = array_keys($followings->toArray());
-                apc_store(self::FOLLOWERS . $this->getId(), $followingIds, 3600);
+                apc_store(sha1(__FILE__) . self::FOLLOWERS . $this->getId(), $followingIds, 3600);
             }
         }
 
@@ -2256,6 +2285,7 @@ class User extends BaseUser
             $this->lastname,
             $this->fileName,
             $this->mobileImagePath,
+            $this->cachedImage,
             $this->uId
         ));
     }
@@ -2286,6 +2316,7 @@ class User extends BaseUser
             $this->lastname,
             $this->fileName,
             $this->mobileImagePath,
+            $this->cachedImage,
             $this->uId
             ) = $data;
     }

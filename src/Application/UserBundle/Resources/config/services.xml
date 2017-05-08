@@ -49,6 +49,7 @@
 
         <service id="bl.user.mailer" class="Application\UserBundle\Services\Mailer" public="false">
             <argument type="service" id="translator"/>
+            <argument>%apihost%</argument>
             <argument type="service" id="mailer" />
             <argument type="service" id="router" />
             <argument type="service" id="templating" />
@@ -75,6 +76,8 @@
             <argument type="service" id="bl_put_notification_service" />
             <argument type="service" id="bl_notification" />
             <argument type="service" id="router" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="bl.apc" />
         </service>
 
     </services>

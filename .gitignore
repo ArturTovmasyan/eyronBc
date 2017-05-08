@@ -7,10 +7,14 @@
 /app/phpunit.xml
 /bin/*
 !/bin/behat.sh
+!/bin/angular-unit-test.sh
+!/bin/angular-e2e-test.sh
 !/bin/test.sh
 /composer.phar
 /vendor/
 /web/bundles/
+/web/angular2/dist
+/web/angular2/mobile
 /web/app
 /angular/app/bower_components
 /angular/app/node_modules
@@ -22,6 +26,11 @@ app/SymfonyRequirements.php
 /web/js/
 /web/uploads/*
 /web/media/
+/web/test/
 /web/jquery_components/
 /src/node/node_modules/
 .DS_Store
+app/cache/
+app/logs/
+src/node/tmp/
+web/uploads/

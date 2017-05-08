@@ -8,6 +8,7 @@
 
 namespace Application\UserBundle\Services;
 use AppBundle\Services\AbstractProcessService;
+use AppBundle\Services\ApcService;
 use AppBundle\Services\PutNotificationService;
 use AppBundle\Services\UserNotifyService;
 use Application\UserBundle\Entity\Badge;
@@ -48,6 +49,16 @@ class BadgeService extends AbstractProcessService
      * @var
      */
     private $router;
+    
+    /**
+     * @var
+     */
+    private $liipManager;
+
+    /**
+     * @var
+     */
+    private $apc;
 
     /**
      * BadgeService constructor.
@@ -56,17 +67,20 @@ class BadgeService extends AbstractProcessService
      * @param PutNotificationService $pushNote
      * @param NotificationService $notification
      * @param $router
+     * @param $liipManager
      */
     public function __construct(EntityManager $em, UserNotifyService $notifyService,
                                 PutNotificationService $pushNote,
                                 NotificationService $notification,
-                                $router)
+                                $router, $liipManager, ApcService $apc)
     {
-        $this->em = $em;
-        $this->notifyService = $notifyService;
-        $this->pushNote= $pushNote;
-        $this->notification= $notification;
-        $this->router= $router;
+        $this->em               = $em;
+        $this->notifyService    = $notifyService;
+        $this->pushNote         = $pushNote;
+        $this->notification     = $notification;
+        $this->router           = $router;
+        $this->liipManager      = $liipManager;
+        $this->apc              = $apc;
     }
 
     /**
@@ -99,6 +113,11 @@ class BadgeService extends AbstractProcessService
                 $badge->normalizedScore = $normalizedScore;
                 $userIds[] = $badge->getUser()->getId();
 
+                $user = $badge->getUser();
+                if($user->getImagePath()){
+                    $user->setCachedImage($this->liipManager->getBrowserPath($user->getImagePath(), 'user_icon'));
+                }
+
                 $update = $badge->getUpdated();
                 $minUpdate = $update > $minUpdate ? $update :  $minUpdate;
 
@@ -125,6 +144,11 @@ class BadgeService extends AbstractProcessService
                 $badge->normalizedScore = $normalizedScore;
                 $userIds[] = $badge->getUser()->getId();
 
+                $user = $badge->getUser();
+                if($user->getImagePath()){
+                    $user->setCachedImage($this->liipManager->getBrowserPath($user->getImagePath(), 'user_icon'));
+                }
+
                 $update = $badge->getUpdated();
                 $minUpdate = $update > $minUpdate ? $update :  $minUpdate;
 
@@ -149,6 +173,11 @@ class BadgeService extends AbstractProcessService
                 $normalizedScore = ceil($normalizedScore);
                 $badge->normalizedScore = $normalizedScore;
                 $userIds[] = $badge->getUser()->getId();
+
+                $user = $badge->getUser();
+                if($user->getImagePath()){
+                    $user->setCachedImage($this->liipManager->getBrowserPath($user->getImagePath(), 'user_icon'));
+                }
 
                 $update = $badge->getUpdated();
                 $minUpdate =  $update > $minUpdate ? $update :  $minUpdate;
@@ -178,7 +207,7 @@ class BadgeService extends AbstractProcessService
             'maxUpdate' => $minUpdate
         );
 
-        apc_store(self::TOP_BADGES_USERS, $result);
+        $this->apc->apc_store(self::TOP_BADGES_USERS, $result);
 
         return $result;
     }
@@ -249,8 +278,8 @@ class BadgeService extends AbstractProcessService
             $maxScore[$type] = $newScore;
 
             // add to cache
-            apc_delete(self::BADGE_MAX_SCORE);
-            apc_store(self::BADGE_MAX_SCORE, $maxScore);
+            $this->apc->apc_delete(self::BADGE_MAX_SCORE);
+            $this->apc->apc_store(self::BADGE_MAX_SCORE, $maxScore);
         }
 
         // check has changed
@@ -313,7 +342,7 @@ class BadgeService extends AbstractProcessService
             $message = "Oops! You went down on the leaderboard as an $typeAsString . To reach the top, devote more time to Bucket List..";
         }
 
-        $link = $this->router->generate('leaderboard');
+        $link = $this->router->generate('leaderboard') . ($type == Badge::TYPE_MOTIVATOR ? '/mentor' : '');
         $this->notification->sendNotification(null, $link, null, $message, $user);
 //        $this->notifyService->sendEmail($user->getEmail(), $message, 'increase-decrease on the leaderboard');
         $this->pushNote->sendPushNote($user, $message);
@@ -383,8 +412,8 @@ class BadgeService extends AbstractProcessService
                 $maxScore[$type] = $newScore;
 
                 // add to cache
-                apc_delete(self::BADGE_MAX_SCORE);
-                apc_store(self::BADGE_MAX_SCORE, $maxScore);
+                $this->apc->apc_delete(self::BADGE_MAX_SCORE);
+                $this->apc->apc_store(self::BADGE_MAX_SCORE, $maxScore);
             }
 
             // check has changed
@@ -403,7 +432,7 @@ class BadgeService extends AbstractProcessService
      */
     public function getMaxScore($score = 0, $type = 0)
     {
-        $badgeMaxScore = apc_fetch(self::BADGE_MAX_SCORE);
+        $badgeMaxScore = $this->apc->apc_fetch(self::BADGE_MAX_SCORE);
 
         $getNewFromDb = true;
         if(is_array($badgeMaxScore) &&
@@ -415,7 +444,7 @@ class BadgeService extends AbstractProcessService
         if(!$badgeMaxScore || $getNewFromDb){
 
             $badgeMaxScore = $this->em->getRepository('ApplicationUserBundle:Badge')->getMaxScores();
-            apc_store(self::BADGE_MAX_SCORE, $badgeMaxScore);
+            $this->apc->apc_store(self::BADGE_MAX_SCORE, $badgeMaxScore);
         }
 
         return $badgeMaxScore;
