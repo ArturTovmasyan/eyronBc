@@ -90,9 +90,9 @@ export class LoginComponent {
                 });
                 break;
             case GOOGLE:
-                this.googleLogin().then((socialUser:any) => {console.log(socialUser);
-                    if(socialUser.google && socialUser.google.accessToken){
-                        this.setData('google', socialUser.google.accessToken);
+                this.googleLogin().then((socialUser:any) => {
+                    if(socialUser.credential && socialUser.credential.accessToken){
+                        this.setData('google', socialUser.credential.accessToken);
                     }
                     // this.setData(user);
                 }).catch((error) => {

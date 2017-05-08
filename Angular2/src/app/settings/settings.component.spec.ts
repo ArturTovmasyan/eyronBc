@@ -57,7 +57,6 @@ fdescribe('SettingsComponent', () => {
 
         it('Get User', inject([CacheService], (cache) => {
             let appUser = cache.get('user_');
-            console.log(appUser);
         }));
     }
 );

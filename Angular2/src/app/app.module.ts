@@ -28,6 +28,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
+import { AgmCoreModule } from "angular2-google-maps/core";
+
 // Must export the config
 export const firebaseConfig = {
   apiKey: "AIzaSyDS4TuFB7Uj-M0exn1qWHVpaUhUwwKanlQ",
@@ -96,6 +98,10 @@ export function createTranslateLoader(http: Http) {
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyBN9sWpmv-6mArNqz_oSStVdpuCTt-lu6g",
+      libraries: ["places"]
+    }),
     ComponentModule,
     InfiniteScrollModule,
     HttpModule,

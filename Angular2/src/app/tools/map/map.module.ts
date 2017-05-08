@@ -10,10 +10,7 @@ import { AutocomplateMapComponent } from './autocomplate-map.component';
 
 @NgModule({
   imports: [
-    AgmCoreModule.forRoot({
-      apiKey: "AIzaSyBN9sWpmv-6mArNqz_oSStVdpuCTt-lu6g",
-      libraries: ["places"]
-    }),
+    AgmCoreModule,
     CommonModule,
     TranslateModule,
     RouterModule,

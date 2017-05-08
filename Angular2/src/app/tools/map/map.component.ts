@@ -101,7 +101,7 @@ export class MapComponent implements OnInit {
         });
 
     this.broadcaster.on<string>('doneGoal')
-        .subscribe(data => {console.log(data);
+        .subscribe(data => {
           // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
           //     var icon = {
           //         url: scope.activeGoalMarkerIcon2,
