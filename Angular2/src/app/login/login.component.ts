@@ -5,11 +5,8 @@ import { ProjectService } from '../project.service';
 import { Broadcaster } from '../tools/broadcaster';
 import { User } from '../interface/user';
 
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { AuthProviders } from 'angularfire2';
-import { AuthMethods } from 'angularfire2';
-import { EmailPasswordCredentials } from 'angularfire2/auth';
-import { FirebaseAuthState } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 const TWITTER = 2;
 const FACEBOOK = 3;
@@ -26,13 +23,13 @@ export class LoginComponent {
     loginForm;
     user:User;
     error:string;
-    authState: FirebaseAuthState;
+    authState: any;
 
     constructor(
         private ProjectService: ProjectService,
         private router: Router,
         private broadcaster: Broadcaster,
-        private angularFire: AngularFire
+        private afAuth: AngularFireAuth
     ) {
 
         this.loginForm = {
@@ -41,38 +38,29 @@ export class LoginComponent {
             apikey: true
         };
 
-        this.angularFire.auth.subscribe(state => {
+        this.afAuth.authState.subscribe(state => {
             this.authState = state;
         });
     }
 
-    getAuthState(): FirebaseAuthState {
+    getAuthState(): any {
         return this.authState;
     }
 
     googleLogin() {
-        return this.angularFire.auth.login({
-            provider: AuthProviders.Google,
-            method: AuthMethods.Popup
-        });
+        return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     }
 
     facebookLogin() {
-        return this.angularFire.auth.login({
-            provider: AuthProviders.Facebook,
-            method: AuthMethods.Popup
-        });
+        return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
     }
 
     twitterLogin() {
-        return this.angularFire.auth.login({
-            provider: AuthProviders.Twitter,
-            method: AuthMethods.Popup
-        });
+        return this.afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider());
     }
 
     logoutSocial() {
-        this.angularFire.auth.logout();
+        this.afAuth.auth.signOut();
     }
 
     loginSocial(index:number){
