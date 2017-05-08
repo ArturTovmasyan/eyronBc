@@ -17,8 +17,9 @@ import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { ToolsSharingModule} from './tools/tools-sharing.module';
 import { AngularFireModule } from 'angularfire2';
-import { AuthProviders } from 'angularfire2';
-import { AuthMethods } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+
 import { SwiperModule } from 'angular2-useful-swiper';
 import { Uploader }      from 'angular2-http-file-upload';
 import { MetadataModule } from 'ng2-metadata';
@@ -34,10 +35,6 @@ export const firebaseConfig = {
   databaseURL: "https://bucketlist-f143c.firebaseio.com",
   storageBucket: "bucketlist-f143c.appspot.com",
   messagingSenderId: "264286375978"
-};
-const myFirebaseAuthConfig = {
-  provider: AuthProviders.Google,
-  method: AuthMethods.Popup
 };
 
 import { AppComponent } from './indexes';
@@ -109,7 +106,9 @@ export function createTranslateLoader(http: Http) {
     ToolsSharingModule,
     BrowserAnimationsModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),
     MaterialModule.forRoot(),

@@ -8,6 +8,7 @@ import { Location } from '../../interface/location';
 import { Broadcaster } from '../broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
+declare var google;
 @Component({
   selector: 'map-single',
   templateUrl: './map.component.html',

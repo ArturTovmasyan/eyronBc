@@ -11,10 +11,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RouterModule, Routes } from '@angular/router';
 import { ɵh } from '@angular/material/typings'
 
-import { AngularFire } from 'angularfire2';
+// import { AngularFire } from 'angularfire2';
 import { AngularFireModule } from 'angularfire2';
-import { AuthProviders } from 'angularfire2';
-import { AuthMethods } from 'angularfire2';
+// import { AuthProviders } from 'angularfire2';
+// import { AuthMethods } from 'angularfire2';
 
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -31,10 +31,10 @@ export const firebaseConfig = {
     storageBucket: "bucketlist-f143c.appspot.com",
     messagingSenderId: "264286375978"
 };
-const myFirebaseAuthConfig = {
-    provider: AuthProviders.Google,
-    method: AuthMethods.Popup
-};
+// const myFirebaseAuthConfig = {
+//     provider: AuthProviders.Google,
+//     method: AuthMethods.Popup
+// };
 
 fdescribe('LoginComponent', () => {
 
@@ -47,8 +47,8 @@ fdescribe('LoginComponent', () => {
 
                 TestBed.configureTestingModule({
                     declarations: [LoginComponent],
-                    providers: [ProjectService, ɵh, MockBackend, BaseRequestOptions, AngularFire, CacheService, TranslateService, TranslateLoader, TranslateParser, Broadcaster],
-                    imports: [MaterialModule,  AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig), TranslateModule,
+                    providers: [ProjectService, ɵh, MockBackend, BaseRequestOptions, CacheService, TranslateService, TranslateLoader, TranslateParser, Broadcaster],
+                    imports: [MaterialModule,  AngularFireModule.initializeApp(firebaseConfig), TranslateModule,
                         RouterModule, FormsModule, ReactiveFormsModule, RouterTestingModule.withRoutes(LoginRoute)],
                 })
                     .compileComponents();

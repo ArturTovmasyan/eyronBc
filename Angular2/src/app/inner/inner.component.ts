@@ -150,10 +150,11 @@ export class InnerComponent implements OnInit {
                   this.meta.addTag({ name: 'og:description', content: this.goal.description });
                   this.meta.addTag({ name: 'og:title', content: this.goal.title });
                   this.meta.addTag({ name: 'title', content: this.goal.title });
-                  // this.meta.setTag('og:image', this.goal.cached_image);
-                  // this.meta.setTag('description', this.goal.description);
-                  // this.meta.setTag('og:description', this.goal.description);
-                  // this.meta.setTag('og:title', this.goal.title);
+                  // this.metadataService.setTag('title', this.goal.title);
+                  // this.metadataService.setTag('og:image', this.goal.cached_image);
+                  // this.metadataService.setTag('description', this.goal.description);
+                  // this.metadataService.setTag('og:description', this.goal.description);
+                  // this.metadataService.setTag('og:title', this.goal.title);
                 // var allMetaElements = document.getElementsByTagName('meta');
                 // for (var i=0; i<allMetaElements.length; i++) {
                 //   if (allMetaElements[i].getAttribute("name") == "og:title" || allMetaElements[i].getAttribute("name") == "title") {
