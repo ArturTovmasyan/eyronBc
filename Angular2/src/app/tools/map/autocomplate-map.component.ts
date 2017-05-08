@@ -8,6 +8,7 @@ import { Location } from '../../interface/location';
 import { Broadcaster } from '../broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
+declare var google;
 @Component({
   selector: 'map-autocomplate',
   templateUrl: './autocomplate-map.component.html',
@@ -59,8 +60,8 @@ export class AutocomplateMapComponent implements OnInit {
       this.bounds = new google.maps.LatLngBounds(null);
       this.autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
+          //get the place result :google.maps.places.PlaceResult
+          let place: any = this.autocomplete.getPlace();
 
           let marker:Marker = {
             latitude: place.geometry.location.lat(),

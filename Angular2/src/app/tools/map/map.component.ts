@@ -8,6 +8,7 @@ import { Location } from '../../interface/location';
 import { Broadcaster } from '../broadcaster';
 import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
+declare var google;
 @Component({
   selector: 'map-single',
   templateUrl: './map.component.html',
@@ -100,7 +101,7 @@ export class MapComponent implements OnInit {
         });
 
     this.broadcaster.on<string>('doneGoal')
-        .subscribe(data => {console.log(data);
+        .subscribe(data => {
           // if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
           //     var icon = {
           //         url: scope.activeGoalMarkerIcon2,

@@ -17,8 +17,9 @@ import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 
 import { ToolsSharingModule} from './tools/tools-sharing.module';
 import { AngularFireModule } from 'angularfire2';
-import { AuthProviders } from 'angularfire2';
-import { AuthMethods } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+
 import { SwiperModule } from 'angular2-useful-swiper';
 import { Uploader }      from 'angular2-http-file-upload';
 import { MetadataModule } from 'ng2-metadata';
@@ -27,6 +28,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
+import { AgmCoreModule } from "angular2-google-maps/core";
+
 // Must export the config
 export const firebaseConfig = {
   apiKey: "AIzaSyDS4TuFB7Uj-M0exn1qWHVpaUhUwwKanlQ",
@@ -34,10 +37,6 @@ export const firebaseConfig = {
   databaseURL: "https://bucketlist-f143c.firebaseio.com",
   storageBucket: "bucketlist-f143c.appspot.com",
   messagingSenderId: "264286375978"
-};
-const myFirebaseAuthConfig = {
-  provider: AuthProviders.Google,
-  method: AuthMethods.Popup
 };
 
 import { AppComponent } from './indexes';
@@ -99,6 +98,10 @@ export function createTranslateLoader(http: Http) {
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyBN9sWpmv-6mArNqz_oSStVdpuCTt-lu6g",
+      libraries: ["places"]
+    }),
     ComponentModule,
     InfiniteScrollModule,
     HttpModule,
@@ -109,7 +112,9 @@ export function createTranslateLoader(http: Http) {
     ToolsSharingModule,
     BrowserAnimationsModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),
     MaterialModule.forRoot(),
