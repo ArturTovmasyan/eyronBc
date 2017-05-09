@@ -34,7 +34,7 @@ export class InnerComponent implements OnInit {
   public goal:Goal = null;
   public errorMessage:string;
   public linkToShare:string;
-  public angularPath:string;
+  public sharePath:string;
   public serverPath:string = '';
   public type:string = 'inner';
   public imgPath:string = '';
@@ -92,7 +92,7 @@ export class InnerComponent implements OnInit {
               this.scroll = data;
           });
           
-    this.angularPath = this._projectService.getAngularPath();
+    this.sharePath = this._projectService.getPath();
     if(localStorage.getItem('apiKey')){
       this.appUser = this._projectService.getMyUser();
       if (!this.appUser) {
@@ -167,7 +167,7 @@ export class InnerComponent implements OnInit {
                 //     allMetaElements[i].setAttribute('content', this.goal.cached_image);
                 //   }
                 // }
-                this.linkToShare = this.angularPath + '/goal/' + this.goal.slug;
+                this.linkToShare = this.sharePath + '/goal/' + this.goal.slug;
                 setTimeout(()=>{
                   //twitter
                   var js,fjs=document.getElementsByTagName('script')[0],p=(location.protocol.indexOf('https') == -1?'http':'https');
