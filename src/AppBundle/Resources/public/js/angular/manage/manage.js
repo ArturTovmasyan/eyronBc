@@ -27,6 +27,7 @@ angular.module('manage', ['Interpolation',
             commonUrl = envPrefix + "user/common",
             reportUrl = envPrefix + "user/report",
             goalUsersUrl = envPrefix + "goal/users",
+            removeProfileUrl = envPrefix + "remove-profile/template",
             id = UserContext.id,
             locale = UserContext.locale,
             changedLanguage = false,
@@ -47,6 +48,7 @@ angular.module('manage', ['Interpolation',
                 commonTemplate = templateCache.get('common-template'+id),
                 reportTemplate = templateCache.get('report-template'+id),
                 goalUsersTemplate = templateCache.get('goal-users-template'+id),
+                removeProfileTemplate = templateCache.get('goal-remove-profile-template'+id),
                 localeInCache = templateCache.get('locale-language'+id);
 
             if (localeInCache && localeInCache != locale) {
@@ -98,6 +100,15 @@ angular.module('manage', ['Interpolation',
                 })
             }else {
                 template.goalUsersTemplate = goalUsersTemplate;
+            }
+            
+            if (!removeProfileTemplate || changedLanguage) {
+                $http.get(removeProfileUrl).success(function(data){
+                    template.removeProfileTemplate = data;
+                    templateCache.put('goal-remove-profile-template'+id, data);
+                })
+            }else {
+                template.removeProfileTemplate = removeProfileTemplate;
             }
 
         }
@@ -533,7 +544,47 @@ angular.module('manage', ['Interpolation',
               }
           }
       }
-  }]);
+  }])
+  .directive('bgRemoveProfile',['$compile',
+    '$http',
+    '$rootScope',
+    'template',
+    function($compile, $http, $rootScope, template){
+        return {
+            restrict: 'EA',
+            scope: {
+            },
+            link: function(scope, el){
+
+                el.bind('click', function(){
+                    scope.run();
+                });
+
+                scope.run = function(){
+                    $(".modal-loading").show();
+                    var sc = $rootScope.$new();
+                    var tmp = $compile(template.removeProfileTemplate)(sc);
+                    scope.openModal(tmp);
+                    $(".modal-loading").hide();
+                };
+
+                scope.openModal = function(tmp){
+
+                    angular.element('body').append(tmp);
+                    tmp.modal({
+                        fadeDuration: 300
+                    });
+
+                    tmp.on($.modal.CLOSE, function(){
+                        tmp.remove();
+                    })
+                }
+
+            }
+        }
+    }
+  ]);
+
 
 $(function(){
     jQuery('img.svg').each(function(){

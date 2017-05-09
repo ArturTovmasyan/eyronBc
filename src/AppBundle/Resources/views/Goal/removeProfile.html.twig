@@ -1,0 +1,193 @@
+<div data-ng-controller="removeProfileController" class="bg-grey" id="remove-profile-modal">
+    <div class="bg-white">
+        <a href="javascript:void(0)" rel="modal:close" class="close-icon"></a>
+    </div>
+
+    <div class="remove-profile-content">
+        <div>
+            <div class="col-sm-12">
+                {{ 'delet_profile_message' | trans }}
+            </div>
+            <div class="clearfix purple-checkbox" data-ng-show="step == 1">
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container" data-ng-class="{'my-md-checked': complaintType == complaintTypes.notificationsOf}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-model="complaintType" data-ng-value="[[ complaintTypes.notificationsOf ]]" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "goal.visible"|trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': complaintType == complaintTypes.privateGoal}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ complaintTypes.privateGoal ]]" data-ng-model="complaintType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': complaintType == complaintTypes.googleSearch}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ complaintTypes.googleSearch ]]" data-ng-model="complaintType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': complaintType == complaintTypes.signOut}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ complaintTypes.signOut ]]" data-ng-model="complaintType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': complaintType == complaintTypes.deleteAccount}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ complaintTypes.deleteAccount ]]" data-ng-model="complaintType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                        </span>
+
+                    </label>
+                </div>
+            </div>
+            <div class="clearfix purple-checkbox" data-ng-show="step == 2">
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container" data-ng-class="{'my-md-checked': deleteType == deleteTypes.elswhere}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-model="deleteType" data-ng-value="[[ deleteTypes.elswhere ]]" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "goal.visible"|trans }}</span>
+                        </span>
+
+                    </label>
+                    <div data-ng-if="deleteType == deleteTypes.elswhere">Some text</div>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': deleteType == deleteTypes.moreNotification}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ deleteTypes.moreNotification ]]" data-ng-model="deleteType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                        </span>
+
+                    </label>
+                    <div data-ng-if="deleteType == deleteTypes.moreNotification">Some text</div>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': deleteType == deleteTypes.notExpected}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ deleteTypes.notExpected ]]" data-ng-model="deleteType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                        </span>
+
+                    </label>
+                    <div data-ng-if="deleteType == deleteTypes.notExpected">Some text</div>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': deleteType == deleteTypes.doneEverything}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ deleteTypes.doneEverything ]]" data-ng-model="deleteType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                        </span>
+
+                    </label>
+                    <div data-ng-if="deleteType == deleteTypes.doneEverything">Some text</div>
+                </div>
+                <div>
+                    <label class="relative">
+                        <span class="my-md-container"  data-ng-class="{'my-md-checked': deleteType == deleteTypes.other}">
+                            <span class="md-off"></span>
+                            <span class="md-on"></span>
+                        </span>
+
+                        <input type="radio" data-ng-value="[[ deleteTypes.other ]]" data-ng-model="deleteType" style="display: none">
+
+                        <span class="my-md-label">
+                            <span class="ng-scope">{{ "my_bucket_list.invisible"|trans }}</span>
+                        </span>
+
+                    </label>
+                    <div data-ng-if="deleteType == deleteTypes.other">Some text</div>
+                </div>
+                <div>
+                    <label class="relative">
+                        <textarea data-ng-show="deleteType == deleteTypes.other" data-ng-model="deleteReason"
+                                  data-ng-class="{'invalid-reason': isInvalid && !deleteReason}">
+                        </textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="clearfix purple-checkbox" data-ng-show="step == 3">
+                <div>
+                    Current Password
+                    <input type="password" data-ng-model="password">
+                    <a href="{{ path("fos_user_resetting_check_email") }}">{{ 'security.login.forgot_password'|trans({}, 'FOSUserBundle') }}</a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="bth btn-purple" data-ng-click="stay()">Stay on Bucketlist127</div>
+            <div class="continue-button" data-ng-show="complaintType == complaintTypes.deleteAccount && step != 3" data-ng-click="continue()">continue</div>
+            <div class="continue-button" data-ng-show="complaintType == complaintTypes.deleteAccount && step == 3" data-ng-click="deleteAccount()">Delete Account</div>
+        </div>
+    </div>
+</div>

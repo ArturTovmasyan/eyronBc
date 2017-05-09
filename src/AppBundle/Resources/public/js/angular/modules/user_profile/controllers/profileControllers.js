@@ -224,12 +224,12 @@ angular.module('profile')
         });
       });
 
-      $scope.removeProfile = function () {
-        $http.delete('/api/v1.0/user/profile')
-          .success(function(res){
-            window.location.href = '/app_dev.php/logout';
-          });
-      }
+      // $scope.removeProfile = function () {
+      //   $http.delete('/api/v1.0/user/profile')
+      //     .success(function(res){
+      //       window.location.href = '/logout';
+      //     });
+      // }
     }
   ])
   .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData', '$location',
@@ -304,5 +304,69 @@ angular.module('profile')
       $scope.castInt = function(value){
         return parseInt(value);
       };
+    }
+  ])
+  .controller('removeProfileController',['$scope', 'complaintType', 'deleteType',
+    function ($scope, complaintType, deleteType) {
+        $scope.step = 1;
+        $scope.complaintTypes = complaintType;
+        $scope.deleteTypes = deleteType;
+        $scope.complaintType = null;
+        $scope.deleteType = null;
+        $scope.deleteReason = null;
+        $scope.isInvalid = false;
+        $scope.password = '';
+
+        $scope.nextStep = function () {
+          $scope.step++;
+        };
+
+        $scope.stay = function () {
+          if($scope.complaintType == $scope.complaintTypes.deleteAccount) {
+            $.modal.close();
+          } else {
+            switch ($scope.complaintType) {
+              case $scope.complaintTypes.notificationsOf:
+                //todo
+                break;
+              case $scope.complaintTypes.privateGoal:
+                //todo
+                break;
+              case $scope.complaintTypes.googleSearch:
+                //todo
+                break;
+              case $scope.complaintTypes.signOut:
+                window.location.href = '/logout';
+                break;
+              default: $.modal.close();
+            }
+          }
+        };
+
+        $scope.continue = function () {
+          if($scope.step) {
+            if($scope.step == 1) {
+              if($scope.complaintType == $scope.complaintTypes.deleteAccount) {
+                $scope.nextStep();
+              }
+            } else {
+              if($scope.deleteType) {
+                if($scope.deleteType == $scope.deleteTypes.other && !$scope.deleteReason) {
+                  $scope.isInvalid = true;
+                } else {
+                  $scope.nextStep();
+                }
+              }
+            }
+          }
+        };
+
+        $scope.deleteAccount = function () {
+          //todo
+          // $http.delete('/api/v1.0/user/profile')
+          //     .success(function(res){
+          //       window.location.href = '/logout';
+          //     });
+        }
     }
   ]);

@@ -8,6 +8,7 @@ import { MaterialModule } from '@angular/material';
 import { ShareButtonsModule} from "ng2-sharebuttons";
 
 import { ConfirmComponent } from './confirm/confirm.component';
+import { RemoveProfileComponent } from './remove-profile/remove-profile.component';
 import { ShareComponent } from './share/share.component';
 
 @NgModule({
@@ -22,14 +23,17 @@ import { ShareComponent } from './share/share.component';
     ],
     declarations: [
         ConfirmComponent,
+        RemoveProfileComponent,
         ShareComponent
     ],
     entryComponents: [
         ConfirmComponent,
+        RemoveProfileComponent,
         ShareComponent
     ],
     exports: [
         ConfirmComponent,
+        RemoveProfileComponent,
         ShareComponent
     ],
 

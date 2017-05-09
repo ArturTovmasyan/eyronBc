@@ -80,6 +80,15 @@ class GoalController extends Controller
     {
         return $this->render('AppBundle:Goal:common.html.twig');
     }
+    
+    /**
+     * @Route("remove-profile/template", name="remove_profile_modal")
+     * @return array
+     */
+    public function removeProfileAction()
+    {
+        return $this->render('AppBundle:Goal:removeProfile.html.twig');
+    }
 
     /**
      * @Route("user/report", name="report_modal")
