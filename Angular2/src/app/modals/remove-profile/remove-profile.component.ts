@@ -24,7 +24,7 @@ export enum deleteTypes {
   styleUrls: ['./remove-profile.component.less']
 })
 export class RemoveProfileComponent implements OnInit {
-
+  public isMobile:boolean = (window.innerWidth < 768);
   public isOpen:boolean = false;
   public step = 1;
   public complaintTypes: typeof complaintTypes = complaintTypes;

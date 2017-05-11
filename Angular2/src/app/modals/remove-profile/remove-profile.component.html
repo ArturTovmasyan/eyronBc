@@ -1,59 +1,91 @@
-<div id="remove-profile" class="bg-white" (clickOutside)="closeModal()">
-  <div class="modal-content">
-    <div class="bg-white">
+<div id="remove-profile" class="bg-white my-modal goal-modal">
+  <div  [ngClass]="{'min-modal-container':step == 3,'modal-container':step !=3}">
+    <div [ngClass]="{'modal-top-pad': isMobile && (step == 3),'modal-top': isMobile || !isMobile}">
       <a  (click)="dialogRef.close(); isOpen = false" class="close-icon"></a>
+      <h2  *ngIf="step == 1">{{"delete_profile.title_1" | translate}}</h2>
+      <h2  *ngIf="step == 2">{{"delete_profile.title_2" | translate}}</h2>
+      <h2 class="modal-title" *ngIf="step == 3">{{"delete_profile.title_3" | translate}}</h2>
+      <div class="modal-top-content" *ngIf="step == 1">
+        <p>
+          {{"delete_profile.top_content" | translate}}
+        </p>
+      </div>
     </div>
-    <div class="modal-body text-center">
+    <div class="modal-body text-left">
       <div class="clearfix purple-checkbox" *ngIf="step == 1">
         <md-radio-group [(ngModel)]="complaintType" name="status">
-          <md-radio-button [value]="complaintTypes.notificationsOf" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
-          <md-radio-button [value]="complaintTypes.privateGoal" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
-          <md-radio-button [value]="complaintTypes.googleSearch" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
-          <md-radio-button [value]="complaintTypes.signOut" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
-          <md-radio-button [value]="complaintTypes.deleteAccount" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
+          <md-radio-button [value]="complaintTypes.notificationsOf" disableRipple>{{"delete_profile.notifications" | translate}}</md-radio-button>
+          <md-radio-button [ngClass]="{'large-radio': isMobile  }"  [value]="complaintTypes.privateGoal" disableRipple>{{"delete_profile.goals" | translate}}</md-radio-button>
+          <!--<md-radio-button  class="large-radio" [value]="complaintTypes.googleSearch" disableRipple>Get removed from Google search results, son no one can find you by name</md-radio-button>-->
+          <md-radio-button [value]="complaintTypes.signOut" disableRipple>{{"delete_profile.sign_out" | translate}}</md-radio-button>
+          <md-radio-button [value]="complaintTypes.deleteAccount" disableRipple>{{"delete_profile.delete_prof" | translate}}</md-radio-button>
         </md-radio-group>
 
       </div>
       <div class="clearfix purple-checkbox" *ngIf="step == 2">
         <md-radio-group [(ngModel)]="deleteType" name="status">
-          <md-radio-button [value]="deleteTypes.elswhere" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
-          <div *ngIf="deleteType == deleteTypes.elswhere">Some text</div>
-          <md-radio-button [value]="deleteTypes.moreNotification" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
-          <div *ngIf="deleteType == deleteTypes.moreNotification">Some text</div>
-          <md-radio-button [value]="deleteTypes.notExpected" disableRipple>{{ "user_goal.active"|translate }}</md-radio-button>
-          <div *ngIf="deleteType == deleteTypes.notExpected">Some text</div>
-          <md-radio-button [value]="deleteTypes.doneEverything" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
-          <div *ngIf="deleteType == deleteTypes.doneEverything">Some text</div>
-          <md-radio-button [value]="deleteTypes.other" disableRipple>{{ "user_goal.completed"|translate }}</md-radio-button>
-          <div *ngIf="deleteType == deleteTypes.other">Some text</div>
+          <md-radio-button [value]="deleteTypes.elswhere" disableRipple>{{"delete_profile.something_else" | translate}}</md-radio-button>
+          <div *ngIf="deleteType == deleteTypes.elswhere" class="helper row">
+            <div class="helper-icon col-xs-2"><i class="icons ideas-icon"></i></div>
+            <div class="helper-text col-xs-10">
+              <p>{{"delete_profile.something_else_text" | translate}}</p>
+            </div>
+          </div>
+          <md-radio-button [value]="deleteTypes.moreNotification" disableRipple>{{"delete_profile.many_notify" | translate}}</md-radio-button>
+          <div *ngIf="deleteType == deleteTypes.moreNotification" class="helper row">
+            <div class="helper-icon col-xs-2"><i class="icons ideas-icon"></i></div>
+            <div class="helper-text col-xs-10">
+              <p>{{"delete_profile.many_notify_text" | translate}}</p>
+            </div>
+          </div>
+          <md-radio-button [ngClass]="{'large-radio-2':isMobile }" [value]="deleteTypes.notExpected" disableRipple>{{"delete_profile.not_expected" | translate}}</md-radio-button>
+          <div *ngIf="deleteType == deleteTypes.notExpected" class="helper row">
+            <div class="helper-icon col-xs-2"><i class="icons ideas-icon"></i></div>
+            <div class="helper-text col-xs-10">
+              <p>{{"delete_profile.not_expected_text" | translate}}</p>
+            </div>
+          </div>
+          <md-radio-button [ngClass]="{'large-radio-2':isMobile }" [value]="deleteTypes.doneEverything" disableRipple>{{"delete_profile.done_everything" | translate}}</md-radio-button>
+          <div *ngIf="deleteType == deleteTypes.doneEverything" class="helper row">
+            <div class="helper-icon col-xs-2"><i class="icons ideas-icon"></i></div>
+            <div class="helper-text col-xs-10">
+              <p>{{"delete_profile.done_everything_text" | translate}} </p>
+            </div>
+          </div>
+          <md-radio-button [value]="deleteTypes.other" disableRipple>{{"delete_profile.other" | translate}}</md-radio-button>
         </md-radio-group>
 
         <div>
           <label class="relative">
-              <textarea *ngIf="deleteType == deleteTypes.other" [(ngModel)]="deleteReason"
-                        [ngClass]="{'invalid-reason': isInvalid && !deleteReason}">
+              <textarea [(ngModel)]="deleteReason" class="form-control"
+                        [ngClass]="{'invalid-reason': isInvalid && !deleteReason && deleteType == deleteTypes.other}"
+                        [placeholder]=" ((deleteType == deleteTypes.other)? ('delete_profile.other_placeholder' | translate) : ('delete_profile.placeholder' | translate))">
               </textarea>
           </label>
         </div>
 
       </div>
 
-      <div class="clearfix purple-checkbox" *ngIf="step == 3">
+      <div class="clearfix purple-checkbox pass-content" *ngIf="step == 3">
         <div>
-          Current Password
+          <span>{{"delete_profile.password" | translate}}</span>
           <label class="relative">
-            <input type="password" [(ngModel)]="password">
+            <input type="password" [(ngModel)]="password" class="pass-input">
           </label>
-
-          <a routerLink="/resetting/request" class="text-dark-gray">Forgot password?</a>
+          <div class="tooltip">
+            <i class="icons ideas-icon"></i>
+            <div class="link-pass">
+              <a routerLink="/resetting/request">{{"delete_profile.forgot_pass" | translate}}</a>
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
     <div class="modal-footer">
-      <div class="bth btn-purple" (click)="stay()">Stay on Bucketlist127</div>
-      <div class="continue-button" *ngIf="complaintType == complaintTypes.deleteAccount && step != 3" (click)="continue()">continue</div>
-      <div class="continue-button" *ngIf="complaintType == complaintTypes.deleteAccount && step == 3" (click)="deleteAccount()">Delete Account</div>
+      <div class="btn btn-purple" (click)="stay()">{{"delete_profile.stay" | translate}}</div>
+      <div class="continue-button" *ngIf="complaintType == complaintTypes.deleteAccount && step != 3" (click)="continue()"><p>{{"delete_profile.continue" | translate}}</p></div>
+      <div class="continue-button" *ngIf="complaintType == complaintTypes.deleteAccount && step == 3" (click)="deleteAccount()"><p>{{"delete_profile.delete_acc" | translate}}</p></div>
     </div>
   </div>
 </div>
