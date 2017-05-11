@@ -260,7 +260,7 @@
                             <button md-button type="submit" name="save" [disabled]="form.invalid" class="btn btn-purple button-lg">{{ 'btn_save'|translate }}</button>
                         </div>
                     </form>
-                    <button md-button  name="save" (click)="removeProfile()" class="prof-del btn-danger">{{ 'remove_profile'|translate }}</button>
+                    <button md-button  name="save" (click)="removeProfile()" class="prof-del">{{ 'remove_profile'|translate }}</button>
                     <div *ngIf="show" style="position: absolute;top:20%;left: 42%">
                         <bl-loading mode="indeterminate"></bl-loading>
                     </div>
