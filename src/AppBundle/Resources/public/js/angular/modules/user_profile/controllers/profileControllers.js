@@ -306,8 +306,8 @@ angular.module('profile')
       };
     }
   ])
-  .controller('removeProfileController',['$scope', 'complaintType', 'deleteType',
-    function ($scope, complaintType, deleteType) {
+  .controller('removeProfileController',['$scope', 'complaintType', 'deleteType', '$http', 'socialInfo',
+    function ($scope, complaintType, deleteType, $http, socialInfo) {
         $scope.step = 1;
         $scope.complaintTypes = complaintType;
         $scope.deleteTypes = deleteType;
@@ -316,6 +316,7 @@ angular.module('profile')
         $scope.deleteReason = null;
         $scope.isInvalid = false;
         $scope.password = '';
+        $scope.badPassword = false;
 
         $scope.nextStep = function () {
           $scope.step++;
@@ -327,10 +328,20 @@ angular.module('profile')
           } else {
             switch ($scope.complaintType) {
               case $scope.complaintTypes.notificationsOf:
-                //todo
+                $(".modal-loading").show();
+                $http.get('/api/v1.0/user/notify-settings/switch-off')
+                    .success(function(){
+                      $(".modal-loading").hide();
+                      window.location.href = '/ideas';
+                    });
                 break;
               case $scope.complaintTypes.privateGoal:
-                //todo
+                $(".modal-loading").show();
+                $http.get('/api/v1.0/usergoals/invisible-all')
+                  .success(function(){
+                    $(".modal-loading").hide();
+                    window.location.href = '/ideas';
+                  });
                 break;
               case $scope.complaintTypes.googleSearch:
                 //todo
@@ -354,19 +365,57 @@ angular.module('profile')
                 if($scope.deleteType == $scope.deleteTypes.other && !$scope.deleteReason) {
                   $scope.isInvalid = true;
                 } else {
-                  $scope.nextStep();
+                  if (socialInfo.isSocial) {
+                    $scope.deleteAccount('');
+                  } else {
+                    $scope.nextStep();
+                  }
                 }
               }
             }
           }
         };
 
-        $scope.deleteAccount = function () {
-          //todo
-          // $http.delete('/api/v1.0/user/profile')
-          //     .success(function(res){
-          //       window.location.href = '/logout';
-          //     });
+        $scope.deleteAccount = function (password) {
+          var data = {
+            'password' : password,
+            'reasone' : 'no Reason'
+          };
+
+          switch ($scope.deleteType) {
+            case $scope.deleteTypes.elswhere:
+              //todo translation texts
+              data.reasone = '';
+              break;
+            case $scope.deleteTypes.moreNotification:
+              data.reasone = '';
+              break;
+            case $scope.deleteTypes.notExpected:
+              data.reasone = '';
+              break;
+            case $scope.deleteTypes.doneEverything:
+              data.reasone = '';
+              break;
+            case $scope.deleteTypes.other:
+              data.reasone = $scope.deleteReason;
+              break;
+          }
+          $(".modal-loading").show();
+          $http.put('/api/v1.0/user/delete/profile', data)
+              .success(function(res){
+                $(".modal-loading").hide();
+                window.location.href = '/logout';
+              })
+            .error(function () {
+              $(".modal-loading").hide();
+              $scope.badPassword = true;
+              toastr.error('Password is wrong');
+          });
+        };
+      
+        $scope.checkAccount = function () {
+          $scope.badPassword = false;
+          $scope.deleteAccount($scope.password);
         }
     }
   ]);

@@ -501,4 +501,40 @@ class SettingsController extends FOSRestController
 
         return $notifySettings;
     }
+
+    /**
+     * @Rest\Get("/user/notify-settings/switch-off")
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Settings",
+     *  description="This function is used to switch off all user notification settings",
+     *  statusCodes={
+     *         200="OK",
+     *     },
+     * )
+     * @Secure("ROLE_USER")
+     */
+    public function getUserNotifySettingsSwitchOffAction()
+    {
+        //get current user
+        $user = $this->getUser();
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get user notify
+        $userNotify = $user->getUserNotifySettings();
+
+        if(!$userNotify) {
+            $userNotify = new UserNotify();
+        }
+
+        $userNotify->notifySwitchesOff();
+
+        $user->setUserNotifySettings($userNotify);
+        $em->persist($user);
+        $em->flush();
+
+        return new JsonResponse('', Response::HTTP_NO_CONTENT);
+    }
 }

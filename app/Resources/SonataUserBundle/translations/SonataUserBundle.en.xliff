@@ -115,6 +115,10 @@
                 <source>form.label_enabled</source>
                 <target>Enabled</target>
             </trans-unit>
+            <trans-unit id="form.delete_reason">
+                            <source>form.delete_reason</source>
+                            <target>Delete Reason</target>
+            </trans-unit>
             <trans-unit id="form.label_credentials_expired">
                 <source>form.label_credentials_expired</source>
                 <target>Credentials expired</target>

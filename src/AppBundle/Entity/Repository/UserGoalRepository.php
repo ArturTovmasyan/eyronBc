@@ -48,6 +48,25 @@ class UserGoalRepository extends EntityRepository
     }
 
     /**
+     * @param $userId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function setInvisibleAllUserGoals($userId)
+    {
+        $query =  $this->getEntityManager()
+            ->createQuery("UPDATE AppBundle:UserGoal ug
+                           SET ug.isVisible = false
+                           WHERE ug.user = :uid
+                            ")
+            ->setParameter('uid', $userId)
+            ->execute()
+        ;
+
+        return $query;
+    }
+
+    /**
      * This function is used to get user goals by user and goal id
      *
      * @param $userIds

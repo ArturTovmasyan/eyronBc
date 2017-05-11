@@ -71,6 +71,7 @@ class UserAdmin extends AbstractAdmin
             ->add('userMobileOs', null, ['label' => 'show.label_user_mobile', 'template' => 'ApplicationUserBundle:Admin:user_mobile_os_icon_show.html.twig'])
             ->add('registrationIds', null, ['label' => 'show.label_registration_ids', 'template' => 'ApplicationUserBundle:Admin:registration_ids_show.html.twig'])
             ->add('enabled', null, ['label' => 'form.label_enabled'])
+            ->add('deleteReason', null, ['label' => 'form.delete_reason'])
             ->add('listedGoals', null, ['label' => 'show.label_listed_goal', 'template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'])
             ->add('createdGoals', null, ['label' => 'show.label_created_goal', 'template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'])
             ->add('successStory', null, ['label' => 'show.label_story_count', 'template' => 'ApplicationUserBundle:Admin:user_show_goal_story.html.twig'])
@@ -133,6 +134,7 @@ class UserAdmin extends AbstractAdmin
                 'label'=>'show.label_registration_ids'
             ], 'text')
             ->add('email', null, ['label'=>'show.label_email_username','show_filter' => true])
+            ->add('enabled', null, ['label'=>'form.label_enabled','show_filter' => true])
             ->add('firstname', null, ['label'=>'show.label_firstname','show_filter' => true])
             ->add('lastname', null, ['label'=>'show.label_lastname','show_filter' => true])
             ->add('createdAt','doctrine_orm_date_range', ['label' => 'form.label_created_at', 'show_filter' => true], 'sonata_type_date_range_picker',
