@@ -12,6 +12,9 @@ angular.module('manage', ['Interpolation',
     'Authenticator',
     'angular-cache'
     ])
+    .value('socialInfo', {
+        isSocial: '0'   
+    })
     .config(function(CacheFactoryProvider){
       angular.extend(CacheFactoryProvider.defaults, {
           maxAge: 24 * 60 * 60 * 1000, // Items added to this cache expire after 15 minutes.
@@ -545,14 +548,16 @@ angular.module('manage', ['Interpolation',
           }
       }
   }])
-  .directive('bgRemoveProfile',['$compile',
+  .directive('blRemoveProfile',['$compile',
     '$http',
     '$rootScope',
     'template',
-    function($compile, $http, $rootScope, template){
+    'socialInfo',
+    function($compile, $http, $rootScope, template, socialInfo){
         return {
             restrict: 'EA',
             scope: {
+                blIsSocial: '='
             },
             link: function(scope, el){
 
@@ -560,6 +565,7 @@ angular.module('manage', ['Interpolation',
                     scope.run();
                 });
 
+                socialInfo.isSocial = scope.blIsSocial;
                 scope.run = function(){
                     $(".modal-loading").show();
                     var sc = $rootScope.$new();

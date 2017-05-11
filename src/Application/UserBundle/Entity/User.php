@@ -209,6 +209,12 @@ class User extends BaseUser
 
     /**
      * @var
+     * @ORM\Column(name="delete_reason", type="string", nullable=true)
+     */
+    protected $deleteReason;
+
+    /**
+     * @var
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"image_info"})
      */
@@ -588,6 +594,29 @@ class User extends BaseUser
     public function getAboutMe()
     {
         return $this->aboutMe;
+    }
+
+    /**
+     * Set deleteReason
+     *
+     * @param string $deleteReason
+     * @return User
+     */
+    public function setDeleteReason($deleteReason)
+    {
+        $this->deleteReason = $deleteReason;
+
+        return $this;
+    }
+
+    /**
+     * Get deleteReason
+     *
+     * @return string
+     */
+    public function getDeleteReason()
+    {
+        return $this->deleteReason;
     }
 
     public function getAge()

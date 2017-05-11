@@ -207,7 +207,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="btn btn-danger" data-bg-remove-profile>{{ 'delet_profile'|trans({}, 'messages') }}</div>
+                        <div class="btn btn-danger" data-bl-remove-profile data-bl-is-social="{{ (user.facebookUid or user.twitterUid or user.gplusUid) ? 1 : 0 }}">{{ 'delet_profile'|trans({}, 'messages') }}</div>
                     </div>
                 </div>
         </div>
