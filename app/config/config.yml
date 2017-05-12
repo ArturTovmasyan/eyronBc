@@ -99,7 +99,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ AppBundle]
+    bundles:        [AppBundle, ApplicationUserBundle ]
     #java: /usr/bin/java
     filters:
         uglifyjs2:
