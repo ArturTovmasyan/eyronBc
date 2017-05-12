@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialog, MdDialogRef} from '@angular/material';
-import {Broadcaster} from "../../tools/broadcaster";
+import { MdDialog, MdDialogRef} from '@angular/material';
+import { Broadcaster} from "../../tools/broadcaster";
+import { User} from "../../interface/user";
+import { TranslateService} from 'ng2-translate';
+import { ProjectService} from "../../project.service";
+import { Router } from '@angular/router';
 
 export enum complaintTypes {
   notificationsOf = 1,
@@ -26,6 +30,7 @@ export enum deleteTypes {
 export class RemoveProfileComponent implements OnInit {
   public isMobile:boolean = (window.innerWidth < 768);
   public isOpen:boolean = false;
+  public appUser: User;
   public step = 1;
   public complaintTypes: typeof complaintTypes = complaintTypes;
   public deleteTypes: typeof deleteTypes = deleteTypes;
@@ -34,8 +39,16 @@ export class RemoveProfileComponent implements OnInit {
   public deleteReason = null;
   public isInvalid: boolean = false;
   public password: string = '';
+  public badPassword: boolean = false;
+  public isLoad: boolean = false;
 
-  constructor(public dialogRef: MdDialogRef<RemoveProfileComponent>, private broadcaster: Broadcaster) { }
+  constructor(
+      public dialogRef: MdDialogRef<RemoveProfileComponent>,
+      private broadcaster: Broadcaster,
+      private _translate: TranslateService,
+      private _projectService: ProjectService,
+      private router: Router
+  ) { }
 
   ngOnInit() {
     setTimeout(()=>{
@@ -53,13 +66,18 @@ export class RemoveProfileComponent implements OnInit {
     } else {
       switch (this.complaintType) {
         case this.complaintTypes.notificationsOf:
-          //todo
+            this._projectService.switchNotificationsOff()
+                .subscribe(
+                    () => {
+                      this.router.navigate(['/ideas']);
+                    });
           break;
         case this.complaintTypes.privateGoal:
-          //todo
-          break;
-        case this.complaintTypes.googleSearch:
-          //todo
+          this._projectService.invisibleAllGoals()
+              .subscribe(
+                  () => {
+                    this.router.navigate(['/ideas']);
+                  });
           break;
         case this.complaintTypes.signOut:
           this.broadcaster.broadcast('log-Out');
@@ -81,21 +99,59 @@ export class RemoveProfileComponent implements OnInit {
           if(this.deleteType == this.deleteTypes.other && !this.deleteReason ) {
             this.isInvalid = true;
           } else {
-            this.nextStep();
+            console.log(this.appUser);
+            //todo
+            // if (socialInfo.isSocial) {
+            //   this.deleteAccount('');
+            // } else {
+              this.nextStep();
+            // }
           }
         }
       }
     }
   }
 
-  deleteAccount = function () {
-  //todo
-    //   this._projectService.removeProfile()
-    //         .subscribe(
-    //             () => {
-    //                 this.broadcaster.broadcast('log-Out')
-    //             }
-    //         );
+  deleteAccount = function (password) {
+    let data = {
+      'password' : password,
+      'reasone' : 'no Reason'
+    };
+
+    switch (this.deleteType) {
+      case this.deleteTypes.elswhere:
+        data.reasone = this._translate.instant('delete_profile.something_else');
+        break;
+      case this.deleteTypes.moreNotification:
+        data.reasone = this._translate.instant('delete_profile.many_notify');
+        break;
+      case this.deleteTypes.notExpected:
+        data.reasone = this._translate.instant('delete_profile.not_expected');
+        break;
+      case this.deleteTypes.doneEverything:
+        data.reasone = this._translate.instant('delete_profile.done_everything');
+        break;
+      case this.deleteTypes.other:
+        data.reasone = this.deleteReason;
+        break;
+    }
+
+    this.isLoad = true;
+    this._projectService.removeProfile(data)
+      .subscribe(
+          () => {
+              this.broadcaster.broadcast('log-Out');
+              this.isLoad = false;
+          }, () => {
+            this.isLoad = false;
+            this.badPassword = true;
+          }
+      );
+  };
+
+  checkAccount = function () {
+    this.badPassword = false;
+    this.deleteAccount(this.password);
   };
   
   closeModal(){

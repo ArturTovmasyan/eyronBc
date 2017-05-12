@@ -353,7 +353,7 @@ class UserController extends FOSRestController
 
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('username' => $username));
 
-        if($user){
+        if($user && $user->isEnabled()){
             $encoderService = $this->get('security.encoder_factory');
             $encoder = $encoderService->getEncoder($user);
 

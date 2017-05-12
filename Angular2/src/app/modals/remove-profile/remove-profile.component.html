@@ -72,6 +72,9 @@
           <label class="relative">
             <input type="password" [(ngModel)]="password" class="pass-input">
           </label>
+          <div *ngIf="badPassword" class="error-message">
+            <p>Password is wrong</p>
+          </div>
           <div class="tooltip">
             <i class="icons ideas-icon"></i>
             <div class="link-pass">
@@ -80,12 +83,12 @@
           </div>
         </div>
       </div>
-
+      <bl-loading mode="indeterminate" *ngIf="isLoad"></bl-loading>
     </div>
     <div class="modal-footer">
       <div class="btn btn-purple" (click)="stay()">{{"delete_profile.stay" | translate}}</div>
       <div class="continue-button" *ngIf="complaintType == complaintTypes.deleteAccount && step != 3" (click)="continue()"><p>{{"delete_profile.continue" | translate}}</p></div>
-      <div class="continue-button" *ngIf="complaintType == complaintTypes.deleteAccount && step == 3" (click)="deleteAccount()"><p>{{"delete_profile.delete_acc" | translate}}</p></div>
+      <div class="continue-button" *ngIf="complaintType == complaintTypes.deleteAccount && step == 3" (click)="checkAccount()"><p>{{"delete_profile.delete_acc" | translate}}</p></div>
     </div>
   </div>
 </div>
