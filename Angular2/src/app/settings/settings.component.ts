@@ -455,6 +455,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         let config = new MdDialogConfig();
         config.viewContainerRef = this.viewContainerRef;
         dialogRef = this.dialog.open(RemoveProfileComponent, config);
+        dialogRef.componentInstance.appUser = this.appUser;
         
         dialogRef.afterClosed().subscribe(result => {
             // if(result == 'yes'){

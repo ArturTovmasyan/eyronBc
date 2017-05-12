@@ -308,6 +308,7 @@ angular.module('profile')
   ])
   .controller('removeProfileController',['$scope', 'complaintType', 'deleteType', '$http', 'socialInfo',
     function ($scope, complaintType, deleteType, $http, socialInfo) {
+        $scope.isMobile = (window.innerWidth < 768);
         $scope.step = 1;
         $scope.complaintTypes = complaintType;
         $scope.deleteTypes = deleteType;
@@ -342,9 +343,6 @@ angular.module('profile')
                     $(".modal-loading").hide();
                     window.location.href = '/ideas';
                   });
-                break;
-              case $scope.complaintTypes.googleSearch:
-                //todo
                 break;
               case $scope.complaintTypes.signOut:
                 window.location.href = '/logout';
