@@ -479,7 +479,7 @@ class User extends BaseUser
      */
     public function getImagePath()
     {
-        return $this->getDownloadLink();
+        return $this->isEnabled() ? $this->getDownloadLink(): $this->getDefaultDownloadLink();
     }
 
     /**
