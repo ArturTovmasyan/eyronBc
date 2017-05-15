@@ -99,13 +99,11 @@ export class RemoveProfileComponent implements OnInit {
           if(this.deleteType == this.deleteTypes.other && !this.deleteReason ) {
             this.isInvalid = true;
           } else {
-            console.log(this.appUser);
-            //todo
-            // if (socialInfo.isSocial) {
-            //   this.deleteAccount('');
-            // } else {
+            if (this.appUser.gplus_uid || this.appUser.facebook_uid || this.appUser.twitter_uid) {
+              this.deleteAccount('');
+            } else {
               this.nextStep();
-            // }
+            }
           }
         }
       }

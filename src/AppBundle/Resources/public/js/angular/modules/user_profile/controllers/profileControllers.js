@@ -382,17 +382,16 @@ angular.module('profile')
 
           switch ($scope.deleteType) {
             case $scope.deleteTypes.elswhere:
-              //todo translation texts
-              data.reasone = '';
+              data.reasone = 'I found something elswhere';
               break;
             case $scope.deleteTypes.moreNotification:
-              data.reasone = '';
+              data.reasone = 'I receive too many notifications';
               break;
             case $scope.deleteTypes.notExpected:
-              data.reasone = '';
+              data.reasone = 'Bucket List 127 is just not what I expected';
               break;
             case $scope.deleteTypes.doneEverything:
-              data.reasone = '';
+              data.reasone = "I've done everything on my bucket list";
               break;
             case $scope.deleteTypes.other:
               data.reasone = $scope.deleteReason;

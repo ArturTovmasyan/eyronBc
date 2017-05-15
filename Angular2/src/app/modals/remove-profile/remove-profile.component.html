@@ -28,14 +28,14 @@
           <div *ngIf="deleteType == deleteTypes.elswhere" class="helper row">
             <div class="helper-icon col-xs-2"><i class="icons ideas-icon"></i></div>
             <div class="helper-text col-xs-10">
-              <p>{{"delete_profile.something_else_text" | translate}}</p>
+              <p>{{"delete_profile.something_else_text1" | translate}} <a routerLink='/page/how-it-works'>{{ "delete_profile.guide" | translate }}</a> {{ "delete_profile.something_else_text2" | translate }}</p>
             </div>
           </div>
-          <md-radio-button [value]="deleteTypes.moreNotification" disableRipple>{{"delete_profile.many_notify" | translate}}</md-radio-button>
+          <md-radio-button [value]="deleteTypes.moreNotification" disableRipple>{{"delete_profile.many_notify" | translate }}</md-radio-button>
           <div *ngIf="deleteType == deleteTypes.moreNotification" class="helper row">
             <div class="helper-icon col-xs-2"><i class="icons ideas-icon"></i></div>
             <div class="helper-text col-xs-10">
-              <p>{{"delete_profile.many_notify_text" | translate}}</p>
+              <p>{{"delete_profile.many_notify_text" | translate}} <a routerLink='/edit/notification'>{{ "delete_profile.here" | translate }}</a></p>
             </div>
           </div>
           <md-radio-button [ngClass]="{'large-radio-2':isMobile }" [value]="deleteTypes.notExpected" disableRipple>{{"delete_profile.not_expected" | translate}}</md-radio-button>
