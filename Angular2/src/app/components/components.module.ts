@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslateModule} from 'ng2-translate';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from '@angular/material';
+
 import {GoalUsersComponent} from './goal-users/goal-users.component';
 import {GoalFooterComponent} from './goal-footer/goal-footer.component';
 import {GoalComponent} from './goal/goal.component';
@@ -16,8 +18,9 @@ import { SeeAlsoComponent } from './see-also/see-also.component';
 
 import { SliceEmailPipe } from '../pipes/sliceEmail.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
-import { MaterialModule } from '@angular/material';
 import { RemoveTagPipe } from '../pipes/removeTag.pipe';
+import { SafeHtmlPipe } from '../pipes/safeHtml.pipe';
+import { HtmlDirective } from '../tools/html.directive';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
 import { InputVideoComponent } from './embed-video/input-video.component';
 import { MyDropzoneComponent } from './my-dropzone/my-dropzone.component';
@@ -49,6 +52,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SliceEmailPipe,
     RoundPipe,
     RemoveTagPipe,
+    SafeHtmlPipe,
+    HtmlDirective,
     UserComponent,
     CommentComponent,
     ProfileGoalComponent,
@@ -72,6 +77,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CommentComponent,
     ProfileGoalComponent,
     RemoveTagPipe,
+    SafeHtmlPipe,
+    HtmlDirective,
     ControlMessagesComponent,
     EmbedVideoComponent,
     InputVideoComponent,

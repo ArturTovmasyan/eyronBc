@@ -209,6 +209,24 @@ class User extends BaseUser
 
     /**
      * @var
+     * @Groups({"user"})
+     */
+    protected $twitterUid;
+
+    /**
+     * @var
+     * @Groups({"user"})
+     */
+    protected $facebookUid;
+
+    /**
+     * @var
+     * @Groups({"user"})
+     */
+    protected $gplusUid;
+
+    /**
+     * @var
      * @ORM\Column(name="delete_reason", type="string", nullable=true)
      */
     protected $deleteReason;

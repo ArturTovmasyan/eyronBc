@@ -63,3 +63,14 @@
     </div>
 </form>
 {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets output='css/layout_settings.css'
+    'bundles/app/less/settings.less'
+    filter='less,cssrewrite'
+    %}
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
