@@ -5,8 +5,9 @@
   width: 280px;
   margin: 0 auto;
   text-align: left;
-  height: 100%;
   padding: 0 15px;
+  min-height: 430px;
+  //height:auto;
   .rounded-corners(8px);
 
   .email {
@@ -23,15 +24,18 @@
     vertical-align: middle;
     color: #a3a3a3;
   }
+  &.min-modal-container{
+    min-height: 290px;
+  }
 }
 .modal-container{
-  min-height: 430px;
-  height:auto !important;
-  height: 510px;
+  //min-height: 430px;
+  //height:auto !important;
+  //height: 510px;
   .rounded-corners(8px);
   overflow: hidden;
 }
-.modal-top{
+.remove-modal-top{
   padding: 0 5px 5px 5px;
   h2{
     width: auto;
@@ -143,6 +147,7 @@
 }
 .tooltip:hover{
   .link-pass{
+    text-align: center;
     display: block;
     position: absolute;
     text-decoration: underline;
@@ -184,21 +189,30 @@
         }
       }
     }
-  }
-  .goal-modal{
+
     width: 530px;
+    min-height:500px;
+    //height:500px;
+    &.min-modal-container{
+      min-height: 320px;
+    }
   }
   .modal-container{
-    min-height:500px;
-    height:auto !important;
-    height:500px;
+    //min-height:500px;
+    //height:auto !important;
+    //height:500px;
   }
-  .modal-top{
+  .remove-modal-top{
     padding: 40px 0 20px 0;
     h2{
       line-height: 38px;
       font-size: 25px;
       padding: 0;
+      color: black;
+    }
+    p{
+      background-color: transparent;
+      color: black;
     }
     .close-icon{
       top: 20px;
@@ -210,10 +224,6 @@
       margin: 0 40px;
       font-size: 15px;
     }
-  }
-
-  .min-modal-container{
-    height: 320px;
   }
 
   .modal-body{
@@ -246,5 +256,13 @@
     .link-pass{
       margin-left: -220px;
     }
+  }
+}
+@media( max-width: @screen-sm){
+  .pass-content{
+    text-align: center;
+  }
+  .tooltip{
+    margin-left: 200px;
   }
 }
