@@ -1,6 +1,6 @@
-<div data-ng-controller="removeProfileController" class="bg-grey" id="remove-profile-modal">
+<div data-ng-controller="removeProfileController" class="bg-grey" id="remove-profile-modal" data-ng-class="{'min-modal-container': step == 3}">
     <div  data-ng-class="{'min-modal-container': step == 3,'modal-container': step !=3}">
-        <div data-ng-class="{'modal-top-pad': isMobile && (step == 3),'modal-top': isMobile || !isMobile}">
+        <div data-ng-class="{'modal-top-pad': isMobile && (step == 3),'remove-modal-top': isMobile || !isMobile}">
             <a href="javascript:void(0)" rel="modal:close" class="close-icon"></a>
             <h2  data-ng-show="step == 1">{{"delete_profile.title_1" | trans }}</h2>
             <h2  data-ng-show="step == 2">{{"delete_profile.title_2" | trans }}</h2>
