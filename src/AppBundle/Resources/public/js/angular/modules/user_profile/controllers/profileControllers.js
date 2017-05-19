@@ -318,6 +318,7 @@ angular.module('profile')
         $scope.isInvalid = false;
         $scope.password = '';
         $scope.badPassword = false;
+        $scope.deleted = false;
 
         $scope.nextStep = function () {
           $scope.step++;
@@ -401,7 +402,10 @@ angular.module('profile')
           $http.put('/api/v1.0/user/delete/profile', data)
               .success(function(res){
                 $(".modal-loading").hide();
-                window.location.href = '/logout';
+                $scope.deleted = true;
+                setTimeout(function(){
+                  window.location.href = '/logout';
+                },5000);
               })
             .error(function () {
               $(".modal-loading").hide();

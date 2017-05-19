@@ -57,6 +57,8 @@ delete_profile:
         stay: Остаться на  Bucketlist127
         continue: Продолжить
         delete_acc: Удалить Ваш аккаунт
+        profile_was_deleted_title: Ваш аккаунт был удален.
+        profile_was_deleted: Вы можете восстоновить Ваш аккаунт в течении года, просто войдите в Ваш аккаунт. Мы надеемся на Ваше скорое возвращение.
 
 #Share
 message_on_top_of_the_page: Поздравляем, вы успешно достигли своей цели!

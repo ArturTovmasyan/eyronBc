@@ -180,6 +180,29 @@
 .modal-top-pad{
   padding: 5px;
 }
+.helper-del {
+  padding: 10px 10px 10px 0;
+  margin: 0 0 10px 0;
+  background-color: #f9e99b;
+  .rounded-corners(8px);
+  .helper-text-del{
+    text-align: left;
+    padding: 0 5px 0 15px;
+  }
+  .helper-text-del{
+    p:first-child{
+      font-size: 15px;
+      font-weight: bold;
+    }
+    p:nth-child(2){
+      font-size: 15px;
+    }
+  }
+}
+.back-transparent{
+  background-color: transparent;
+  box-shadow: none;
+}
 @media (min-width: @screen-sm) {
   #remove-profile-modal{
     .large-radio {
@@ -257,8 +280,28 @@
       margin-left: -220px;
     }
   }
+  .helper-del {
+    padding: 10px 5px 10px 0;
+    margin-left: 100px;
+    background-color: #f9e99b;
+    width: 350px;
+    .rounded-corners(8px);
+    .helper-text-del{
+      text-align: left;
+      padding: 0 5px 0 15px;
+    }
+    .helper-text-del{
+      p:first-child{
+        font-size: 15px;
+        font-weight: bold;
+      }
+      p:nth-child(2){
+        font-size: 15px;
+      }
+    }
+  }
 }
-@media( max-width: @screen-sm){
+@media( max-width: 767px){
   .pass-content{
     text-align: center;
   }

@@ -48,6 +48,7 @@ export class InnerComponent implements OnInit {
   public appUser:User;
   public userGoal:UserGoal;
   public show:boolean = false;
+  public lightbox:boolean = false;
   public scroll:boolean;
 
   public config: any = {
@@ -91,6 +92,11 @@ export class InnerComponent implements OnInit {
           .subscribe( data => {
               this.scroll = data;
           });
+      this.broadcaster.on<any>('closeLightbox')
+          .subscribe( () => {
+              this.lightbox = false;
+          });
+
           
     this.sharePath = this._projectService.getPath();
     if(localStorage.getItem('apiKey')){
@@ -491,5 +497,8 @@ export class InnerComponent implements OnInit {
         if(this.show){
             this.broadcaster.broadcast('commentshow');
         }
+    }
+    openLightBox(){
+        this.lightbox = true;
     }
 }

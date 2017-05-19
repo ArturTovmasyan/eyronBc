@@ -1,5 +1,5 @@
-<div data-ng-controller="removeProfileController" class="bg-grey" id="remove-profile-modal" data-ng-class="{'min-modal-container': step == 3}">
-    <div  data-ng-class="{'min-modal-container': step == 3,'modal-container': step !=3}">
+<div data-ng-controller="removeProfileController" data-ng-class="{'bg-grey': !deleted, 'min-modal-container': step == 3, 'back-transparent':deleted}" id="remove-profile-modal">
+    <div  data-ng-class="{'min-modal-container': step == 3,'modal-container': step !=3}" data-ng-show="!deleted">
         <div data-ng-class="{'modal-top-pad': isMobile && (step == 3),'remove-modal-top': isMobile || !isMobile}">
             <a href="javascript:void(0)" rel="modal:close" class="close-icon"></a>
             <h2  data-ng-show="step == 1">{{"delete_profile.title_1" | trans }}</h2>
@@ -164,7 +164,7 @@
                         <input type="radio" data-ng-value="[[ deleteTypes.doneEverything ]]" data-ng-model="deleteType" style="display: none">
 
                         <span class="my-md-label">
-                            <span class="ng-scope">{{ "delete_profile.done_everything_text" | trans }}</span>
+                            <span class="ng-scope">{{ "delete_profile.done_everything" | trans }}</span>
                         </span>
 
                     </label>
@@ -221,6 +221,13 @@
             <div class="btn btn-purple" data-ng-click="stay()">{{"delete_profile.stay" | trans }}</div>
             <div class="continue-button" data-ng-show="complaintType == complaintTypes.deleteAccount && step != 3" data-ng-click="continue()"><p>{{"delete_profile.continue" | trans }}</p></div>
             <div class="continue-button" data-ng-show="complaintType == complaintTypes.deleteAccount && step == 3" data-ng-click="checkAccount()"><p>{{"delete_profile.delete_acc" | trans }}</p></div>
+        </div>
+    </div>
+    <div class="helper-del row burger" data-ng-if="deleted">
+        <div class="helper-icon col-xs-2"><i class="icons delete_prof_info"></i></div>
+        <div class="helper-text-del col-xs-10">
+            <p>{{"delete_profile.profile_was_deleted_title" | trans}}</p>
+            <p>{{"delete_profile.profile_was_deleted" | trans}}</p>
         </div>
     </div>
 </div>

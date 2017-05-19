@@ -176,6 +176,26 @@ border-color: red;
 .error-message{
   position: absolute;
 }
+.helper-del {
+  padding: 10px 10px 10px 0;
+  margin: 0 0 10px 0;
+  background-color: #f9e99b;
+  width: 285px;
+  .rounded-corners(8px);
+  .helper-text-del{
+    text-align: left;
+    padding: 0 5px 0 15px;
+  }
+  .helper-text-del{
+    p:first-child{
+      font-size: 15px;
+      font-weight: bold;
+    }
+    p:nth-child(2){
+      font-size: 15px;
+    }
+  }
+}
 @media (min-width: @screen-sm) {
   /deep/ #remove-profile{
     .large-radio {
@@ -246,8 +266,28 @@ border-color: red;
       margin-left: -220px;
     }
   }
+  .helper-del {
+    padding: 10px 5px 10px 0;
+    margin: 0 0 10px 0;
+    background-color: #f9e99b;
+    width: 350px;
+    .rounded-corners(8px);
+    .helper-text-del{
+      text-align: left;
+      padding: 0 5px 0 15px;
+    }
+    .helper-text-del{
+      p:first-child{
+        font-size: 15px;
+        font-weight: bold;
+      }
+      p:nth-child(2){
+        font-size: 15px;
+      }
+    }
+  }
 }
-@media( max-width: @screen-sm){
+@media( max-width: 767px){
   .pass-content{
     text-align: center;
   }

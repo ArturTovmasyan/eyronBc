@@ -1,4 +1,4 @@
-<div id="remove-profile" class="bg-white my-modal">
+<div id="remove-profile" class="bg-white my-modal" *ngIf="!deleted">
   <div  [ngClass]="{'min-modal-container':step == 3,'modal-container':step !=3}">
     <div [ngClass]="{'modal-top-pad': isMobile && (step == 3),'modal-top': isMobile || !isMobile}">
       <a  (click)="dialogRef.close(); isOpen = false" class="close-icon"></a>
@@ -90,5 +90,12 @@
       <div class="continue-button" *ngIf="complaintType == complaintTypes.deleteAccount && step != 3" (click)="continue()"><p>{{"delete_profile.continue" | translate}}</p></div>
       <div class="continue-button" *ngIf="complaintType == complaintTypes.deleteAccount && step == 3" (click)="checkAccount()"><p>{{"delete_profile.delete_acc" | translate}}</p></div>
     </div>
+  </div>
+</div>
+<div class="helper-del row burger" *ngIf="deleted">
+  <div class="helper-icon col-xs-2"><i class="icons delete_prof_info"></i></div>
+  <div class="helper-text-del col-xs-10">
+    <p>{{"profile_was_deleted_title" | translate}}</p>
+    <p>{{"profile_was_deleted" | translate}}</p>
   </div>
 </div>

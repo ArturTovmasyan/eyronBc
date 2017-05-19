@@ -6,10 +6,12 @@ import { RouterModule } from '@angular/router';
 import { ComponentModule} from '../components/components.module';
 import { MaterialModule } from '@angular/material';
 import { ShareButtonsModule} from "ng2-sharebuttons";
+import { SwiperModule } from 'angular2-useful-swiper';
 
 import { ConfirmComponent } from './confirm/confirm.component';
 import { RemoveProfileComponent } from './remove-profile/remove-profile.component';
 import { ShareComponent } from './share/share.component';
+import { LightboxComponent } from './lightbox/lightbox.component';
 
 @NgModule({
     imports: [
@@ -19,12 +21,14 @@ import { ShareComponent } from './share/share.component';
         RouterModule,
         FormsModule,
         ShareButtonsModule,
+        SwiperModule,
         MaterialModule.forRoot()
     ],
     declarations: [
         ConfirmComponent,
         RemoveProfileComponent,
-        ShareComponent
+        ShareComponent,
+        LightboxComponent
     ],
     entryComponents: [
         ConfirmComponent,
@@ -34,7 +38,8 @@ import { ShareComponent } from './share/share.component';
     exports: [
         ConfirmComponent,
         RemoveProfileComponent,
-        ShareComponent
+        ShareComponent,
+        LightboxComponent
     ],
 
 
