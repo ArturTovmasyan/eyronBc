@@ -510,6 +510,15 @@ class UserController extends FOSRestController
 
             //set reg status for mobile
             $isRegistred = true;
+        } else {
+            if($user->isEnabled() || date_diff($user->getUpdatedAt(), (new \DateTime('now')))->y == 0){
+                if(!$user->isEnabled()) {
+                    $user->setEnabled(true);
+                    $em->flush();
+                }
+            } else {
+                return new JsonResponse("User has been Deleted", Response::HTTP_BAD_REQUEST);
+            }
         }
 
         //get response
