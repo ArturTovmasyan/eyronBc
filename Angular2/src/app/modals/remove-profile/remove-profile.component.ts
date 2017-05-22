@@ -41,6 +41,7 @@ export class RemoveProfileComponent implements OnInit {
   public password: string = '';
   public badPassword: boolean = false;
   public isLoad: boolean = false;
+  public deleted: boolean = false;
 
   constructor(
       public dialogRef: MdDialogRef<RemoveProfileComponent>,
@@ -138,8 +139,12 @@ export class RemoveProfileComponent implements OnInit {
     this._projectService.removeProfile(data)
       .subscribe(
           () => {
+            this.deleted = true;
+            this.broadcaster.broadcast('isDeleted');
+            this.isLoad = false;
+            setTimeout(() =>{
               this.broadcaster.broadcast('log-Out');
-              this.isLoad = false;
+            },5000);
           }, () => {
             this.isLoad = false;
             this.badPassword = true;
@@ -159,6 +164,9 @@ export class RemoveProfileComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    if(this.deleted){
+      this.broadcaster.broadcast('log-Out');
+    }
     this.dialogRef.close();
   }
 }

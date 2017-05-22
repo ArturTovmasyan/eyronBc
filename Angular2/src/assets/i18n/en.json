@@ -30,6 +30,8 @@
     "featured": "Featured",
     "remove_profile": "Delete Profile",
     "remove_profile-message": "Are you sure you want to delete your account?",
+    "profile_was_deleted_title": "Your account has been deleted.",
+    "profile_was_deleted": "You can recover your account within a year, just log in like you used to. We hope you come back soon.",
     "delete_profile":{
         "title_1": "Are you sure you want to delete your account?",
         "title_2": "We're sad you're leaving. Why do you want to delete your account?",

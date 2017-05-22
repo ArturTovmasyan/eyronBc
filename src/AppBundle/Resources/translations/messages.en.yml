@@ -60,6 +60,8 @@ delete_profile:
         stay: Stay on Bucketlist127
         continue: Continue
         delete_acc: Delete Account
+        profile_was_deleted_title:  Your account has been deleted.
+        profile_was_deleted: You can recover your account within a year, just log in like you used to. We hope you come back soon.
 
 #Share
 message_on_top_of_the_page: Congrats! You have successfully completed the goal!

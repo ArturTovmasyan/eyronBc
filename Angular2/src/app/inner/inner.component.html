@@ -1,3 +1,4 @@
+<lightbox *ngIf="lightbox" [goal]="goal"></lightbox>
 <div class="goal-preview" *ngIf="goal && type == 'view'">
     <div class="container">
         <div class="row">
@@ -93,20 +94,21 @@
             <div class="inner-content">
 
                 <div class="row no-gutter">
-                    <div class="col-md-8" *ngIf="seeAlsoShow">
+                    <div class="col-md-8" *ngIf="seeAlsoShow" (click)="openLightBox()">
 
                         <swiper [config]="config" id="main-slider" #mainSlider class="swiper-container"
                                 *ngIf="goal.images && goal.images.length">
                             <!-- Slides Container -->
                             <div style="height: 435px" class="swiper-wrapper">
 
-                                <div class="swiper-slide" [style.height]="slideHeight+'px'"
+                                <div class="swiper-slide" [style.height]="slideHeight+'px'" (click)="openLightBox()"
                                      *ngFor="let image of goal.images">
                                     <a class="swipebox-main">
                                         <!--data-title="{{ goal.title }}"-->
                                         <!--href="{{ image.downloadLink|blImageFilter('slide_max_size') }}"-->
                                         <img #sliderImage class="img-responsive" src="{{ image.image_path }}"
-                                             alt="{{ goal.title }}" [class.fullHeight]="fullHeight"/>
+                                             alt="{{ goal.title }}" [class.fullHeight]="fullHeight"
+                                        />
                                         <!--{% if image.imageSize["height"] < 435 %}style="height: 100%;" fullHeight = height 100% {% endif %}-->
                                     </a>
                                 </div>
@@ -848,4 +850,5 @@
 
         </div>
     </div>
+</div>
 </div>
