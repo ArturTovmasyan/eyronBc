@@ -124,12 +124,10 @@ class RequestListener //implements EventSubscriberInterface
 
     public function onKernelResponse(FilterResponseEvent $event)
     {
-//        $contentType =$event->getResponse()->headers->get('content-type');
-//        if($contentType == 'application/json'){
-//            $responseHeaders = $event->getResponse()->headers;
-//            $responseHeaders->set('Access-Control-Allow-Headers', 'origin, content-type, accept,Authorization, X-Requested-With, apikey');
-//            $responseHeaders->set('Access-Control-Allow-Origin', $this->angular2Host);
-//            $responseHeaders->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
-//        }
+        $request = $event->getRequest();
+        if ($request->getPathInfo() == '/logout') {
+            $response = $event->getResponse();
+            $response->headers->clearCookie('REMEMBERME');
+        }
     }
 }
