@@ -5,27 +5,27 @@
     {% set notifySettings = form.children.userNotifySettings %}
     {% set notifyValues = user.getUserNotifySettings() %}
     {% if notifyValues %}
-        {% set commentGoalValue = notifyValues.isCommentOnGoalNotify %}
-        {% set commentIdeaValue = notifyValues.isCommentOnIdeaNotify %}
-        {% set successStoryGoalValue = notifyValues.IsSuccessStoryOnGoalNotify %}
-        {% set successStoryIdeaValue = notifyValues.IsSuccessStoryOnIdeaNotify %}
-        {% set successStoryLikeValue = notifyValues.IsSuccessStoryLikeNotify %}
-        {% set publishGoalValue = notifyValues.IsGoalPublishNotify %}
-        {% set commentReplyValue = notifyValues.IsCommentReplyNotify %}
-        {% set deadlineExpValue = notifyValues.IsDeadlineExpNotify %}
-        {% set newGoalFriendValue = notifyValues.IsNewGoalFriendNotify %}
-        {% set newIdeaValue = notifyValues.IsNewIdeaNotify %}
+        {% set commentGoalValue = notifyValues.isCommentOnGoalNotify ? 1 : 0 %}
+        {% set commentIdeaValue = notifyValues.isCommentOnIdeaNotify ? 1 : 0%}
+        {% set successStoryGoalValue = notifyValues.IsSuccessStoryOnGoalNotify ? 1 : 0 %}
+        {% set successStoryIdeaValue = notifyValues.IsSuccessStoryOnIdeaNotify ? 1 : 0 %}
+        {% set successStoryLikeValue = notifyValues.IsSuccessStoryLikeNotify ? 1 : 0 %}
+        {% set publishGoalValue = notifyValues.IsGoalPublishNotify ? 1 : 0 %}
+        {% set commentReplyValue = notifyValues.IsCommentReplyNotify ? 1 : 0 %}
+        {% set deadlineExpValue = notifyValues.IsDeadlineExpNotify ? 1 : 0 %}
+        {% set newGoalFriendValue = notifyValues.IsNewGoalFriendNotify ? 1 : 0 %}
+        {% set newIdeaValue = notifyValues.IsNewIdeaNotify ? 1 : 0 %}
     {% else %}
-        {% set commentGoalValue = 1 %}
-        {% set commentIdeaValue = 1 %}
-        {% set successStoryGoalValue = 1 %}
-        {% set successStoryIdeaValue = 1 %}
-        {% set successStoryLikeValue = 1 %}
-        {% set publishGoalValue = 1 %}
-        {% set commentReplyValue = 1 %}
-        {% set deadlineExpValue = 1 %}
-        {% set newGoalFriendValue = 1 %}
-        {% set newIdeaValue = 1 %}
+        {% set commentGoalValue = 0 %}
+        {% set commentIdeaValue = 0 %}
+        {% set successStoryGoalValue = 0 %}
+        {% set successStoryIdeaValue = 0 %}
+        {% set successStoryLikeValue = 0 %}
+        {% set publishGoalValue = 0 %}
+        {% set commentReplyValue = 0 %}
+        {% set deadlineExpValue = 0 %}
+        {% set newGoalFriendValue = 0 %}
+        {% set newIdeaValue = 0 %}
     {% endif %}
 
     <div class="row">
