@@ -140,7 +140,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
+     *
      * @SerializedName("first_name")
      */
     protected $firstname;
@@ -189,7 +189,6 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
      * @SerializedName("last_name")
      */
     protected $lastname;
@@ -206,6 +205,12 @@ class User extends BaseUser
      * @ORM\Column(name="about_me", type="string", nullable=true)
      */
     protected $aboutMe;
+
+    /**
+     * @var
+     * @Groups({"user"})
+     */
+    protected $enabled;
 
     /**
      * @var
@@ -556,6 +561,28 @@ class User extends BaseUser
     }
 
     /**
+     * @return string
+     * @VirtualProperty()
+     * @SerializedName("first_name")
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
+     */
+    public function getFirstNameProperty()
+    {
+        return $this->getFirstName();
+    }
+
+    /**
+     * @return string
+     * @VirtualProperty()
+     * @SerializedName("last_name")
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
+     */
+    public function getLastNameProperty()
+    {
+        return $this->getLastName();
+    }
+
+    /**
      * Get firstName
      *
      * @return string
@@ -563,7 +590,7 @@ class User extends BaseUser
     public function getFirstName()
     {
         $this->firstName = $this->firstname;
-        return $this->firstname;
+        return $this->isEnabled() ? $this->firstname : 'Bucketlist127';
     }
 
     /**
@@ -588,7 +615,7 @@ class User extends BaseUser
     public function getLastName()
     {
         $this->lastName = $this->lastname;
-        return $this->lastname;
+        return $this->isEnabled() ? $this->lastname : 'User';
     }
 
     /**

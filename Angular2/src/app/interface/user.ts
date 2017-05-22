@@ -15,6 +15,7 @@ export interface User {
     stats?:any,
     activity?:any,
     badges?:any,
+    enabled?:boolean,
     completed_percent?:any,
     language?:string,
     gplus_uid?:string,

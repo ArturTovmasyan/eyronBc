@@ -3,12 +3,14 @@
  */
 import { Component, OnInit, Input, Output, EventEmitter , ViewEncapsulation, OnChanges } from '@angular/core';
 import { ProjectService } from '../../project.service';
-import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
 import { Broadcaster } from '../../tools/broadcaster';
 import { Uploader }      from 'angular2-http-file-upload';
 import { MyUploadItem }  from '../../components/my-dropzone/my-upload';
-import {MdSnackBar, MdSnackBarConfig} from '@angular/material';
+import { MdSnackBar, MdSnackBarConfig} from '@angular/material';
 import { TranslateService} from 'ng2-translate';
+import { Router } from '@angular/router';
+
 
 import {User} from "../../interface/user";
 
@@ -40,7 +42,8 @@ export class ProfileHeader implements OnInit {
         protected _cacheService: CacheService,
         protected uploaderService: Uploader,
         protected snackBar: MdSnackBar,
-        protected _translate: TranslateService
+        protected _translate: TranslateService,
+        protected router: Router
     ) { }
 
     ngOnChanges(){
@@ -100,6 +103,11 @@ export class ProfileHeader implements OnInit {
         }
 
         if(this.profileUser){
+
+            // if (this.profileUser.enabled === false) {
+            //     this.router.navigate(['/not-active']);
+            // }
+
             this.badges = this.profileUser.badges;
             this.active = this.profileUser.stats.active;
             this.listedBy = this.profileUser.stats.listedBy;
@@ -115,6 +123,11 @@ export class ProfileHeader implements OnInit {
                     this._cacheService.set('user'+this.userInfo, user, {maxAge: 3 * 24 * 60 * 60});
                 }
                 this.profileUser = user;
+
+                if (this.profileUser.enabled === false) {
+                    this.router.navigate(['/not-active']);
+                }
+
                 this.badges = user.badges;
                 this.broadcaster.broadcast('pageUser', this.profileUser);
                 this.active = this.profileUser.stats.active;

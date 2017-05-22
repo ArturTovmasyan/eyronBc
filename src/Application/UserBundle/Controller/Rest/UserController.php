@@ -353,7 +353,13 @@ class UserController extends FOSRestController
 
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('username' => $username));
 
-        if($user && $user->isEnabled()){
+        if($user && ($user->isEnabled() || date_diff($user->getUpdatedAt(), (new \DateTime('now')))->y == 0)) ;
+        {
+            if(!$user->isEnabled()) {
+                $user->setEnabled(true);
+                $em->flush();
+            }
+
             $encoderService = $this->get('security.encoder_factory');
             $encoder = $encoderService->getEncoder($user);
 
@@ -1105,9 +1111,6 @@ class UserController extends FOSRestController
         
         $currentUser->setDeleteReason($reason);
         $currentUser->setEnabled(false);
-        $currentUser->setFirstName('Bucketlist');
-        $currentUser->setLastName('User');
-        //todo set image        
 
         $em->flush();
 

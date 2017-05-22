@@ -6,6 +6,7 @@ import { Uploader }      from 'angular2-http-file-upload';
 import { ProfileHeader }  from '../profile-header';
 import {MdSnackBar, MdSnackBarConfig} from '@angular/material';
 import { TranslateService} from 'ng2-translate';
+import { Router } from '@angular/router';
 
 
 import {User} from "../../../interface/user";
@@ -43,10 +44,11 @@ export class ProfileHeaderComponent extends ProfileHeader{
         protected _cacheService: CacheService,
         protected uploaderService: Uploader,
         protected snackBar:MdSnackBar,
-        protected _translate: TranslateService
+        protected _translate: TranslateService,
+        protected router: Router
     )
     {
-        super(broadcaster, _projectService, _cacheService, uploaderService,snackBar,_translate);
+        super(broadcaster, _projectService, _cacheService, uploaderService,snackBar,_translate, router);
     }
     //
     //ngOnChanges(){

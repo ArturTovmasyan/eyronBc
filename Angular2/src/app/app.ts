@@ -75,6 +75,12 @@ export class App implements OnInit  {
                 this.inLeaderboard = (event.url.indexOf('/leaderboard') == 0);
                 this.inCreateGoal = (event.url.indexOf('/goal/create') == 0);
                 this.inInner = ((event.url.indexOf('/goal/create') != 0) && (event.url.indexOf('/goal') == 0) && (event.url.indexOf('/goal/my-ideas') != 0) && (event.url.indexOf('/goal-friends') != 0));
+
+                if (event.url == '/login') {
+                    window.scroll(0,0);
+                    this.appUser = null;
+                    this.joinShow = true;
+                }
             }
         });
     }
