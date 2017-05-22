@@ -334,7 +334,7 @@ angular.module('profile')
                 $http.get('/api/v1.0/user/notify-settings/switch-off')
                     .success(function(){
                       $(".modal-loading").hide();
-                      window.location.href = '/ideas';
+                      window.location.href = '/ideas#/discover';
                     });
                 break;
               case $scope.complaintTypes.privateGoal:
@@ -342,7 +342,7 @@ angular.module('profile')
                 $http.get('/api/v1.0/usergoals/invisible-all')
                   .success(function(){
                     $(".modal-loading").hide();
-                    window.location.href = '/ideas';
+                    window.location.href = '/ideas#/discover';
                   });
                 break;
               case $scope.complaintTypes.signOut:
