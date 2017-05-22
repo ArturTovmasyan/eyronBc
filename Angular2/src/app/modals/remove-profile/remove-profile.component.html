@@ -73,7 +73,7 @@
             <input type="password" [(ngModel)]="password" class="pass-input">
           </label>
           <div *ngIf="badPassword" class="error-message">
-            <p>Password is wrong</p>
+            <p>{{"delete_profile.wrong_pass" | translate}}</p>
           </div>
           <div class="tooltip">
             <i class="icons delete_prof_pass"></i>
