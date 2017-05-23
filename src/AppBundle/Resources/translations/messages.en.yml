@@ -45,9 +45,9 @@ delete_profile:
         sign_out: Just sign out instead
         delete_prof: Delete your account
         something_else: I found something elswhere
-        something_else_text: Bucketlist127 is used by thousands of people around the world to dream organized.We have <a href="%href%">guide</a> on how to make the most of Bucket List 172.
+        something_else_text: Bucketlist127 is used by thousands of people around the world to dream organized.We have a <a class="links" href="%href%">guide</a> on how to make the most of Bucket List 172.
         many_notify: I receive too many notifications
-        many_notify_text: You can limit the number of notifications you receive from us <a href="%href%">here</a>
+        many_notify_text: You can limit the number of notifications you receive from us <a class="links" href="%href%">here</a>
         not_expected: Bucket List 127 is just not what I expected
         not_expected_text: Let us know what you expected from the service below and we'll be sure to take your views on board
         done_everything: I've done everything on my bucket list
@@ -59,7 +59,7 @@ delete_profile:
         forgot_pass: Click here if you forgot your password
         stay: Stay on Bucketlist127
         continue: Continue
-        delete_acc: Delete Account
+        delete_acc: Delete account
         profile_was_deleted_title:  Your account has been deleted.
         profile_was_deleted: You can recover your account within a year, just log in like you used to. We hope you come back soon.
 
