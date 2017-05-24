@@ -1,4 +1,4 @@
-import { Component, OnInit , Input, ViewContainerRef} from '@angular/core';
+import { Component, OnInit ,Output, Input, ViewContainerRef, EventEmitter} from '@angular/core';
 import { Broadcaster } from '../../tools/broadcaster';
 import { ConfirmComponent} from '../../modals/confirm/confirm.component';
 import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
@@ -16,6 +16,7 @@ export class InnerStoriesComponent implements OnInit {
 
   @Input() stories:Story[];
   @Input() appUser:User;
+  @Output() onStoryClick: EventEmitter<any> = new EventEmitter();
 
   public storiesCount:number = 20;
   public activeIndex:number = null;
@@ -104,5 +105,9 @@ export class InnerStoriesComponent implements OnInit {
         this.stories.splice(index,1);
       }
     });
+  }
+  
+  openLightBox(story){
+    this.onStoryClick.emit(story);
   }
 }

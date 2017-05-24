@@ -7,7 +7,8 @@ import { Broadcaster } from '../../tools/broadcaster';
   styleUrls: ['./lightbox.component.less']
 })
 export class LightboxComponent implements OnInit {
-  @Input() goal: any;
+  @Input() data: any;
+  public img_path: any;
 
   public config: any = {
     pagination: '.swiper-pagination',
@@ -23,6 +24,13 @@ export class LightboxComponent implements OnInit {
   constructor(private broadcaster: Broadcaster) { }
 
   ngOnInit() {
+    console.log(this.data);
+    if(this.data.length == 1){
+      for (let i of this.data){
+        console.log(i.image_path);
+        this.img_path = i.image_path
+      }
+    }
   }
   closeLightBox(){
     this.broadcaster.broadcast('closeLightbox');

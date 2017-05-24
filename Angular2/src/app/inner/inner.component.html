@@ -1,4 +1,4 @@
-<lightbox *ngIf="lightbox" [goal]="goal"></lightbox>
+<lightbox *ngIf="lightbox && lightBoxData" [data]="lightBoxData"></lightbox>
 <div class="goal-preview" *ngIf="goal && type == 'view'">
     <div class="container">
         <div class="row">
@@ -94,7 +94,7 @@
             <div class="inner-content">
 
                 <div class="row no-gutter">
-                    <div class="col-md-8" *ngIf="seeAlsoShow" (click)="openLightBox()">
+                    <div class="col-md-8" *ngIf="seeAlsoShow" (click)="openLightBox(goal)">
 
                         <swiper [config]="config" id="main-slider" #mainSlider class="swiper-container"
                                 *ngIf="goal.images && goal.images.length">
@@ -548,7 +548,9 @@
                             </div>
 
                             <inner-stories [stories]="stories" [appUser]="appUser"
-                                           *ngIf="type == 'inner' && stories && stories.length > 0"></inner-stories>
+                                           (onStoryClick)="openLightBox($event)"
+                                           *ngIf="type == 'inner' && stories && stories.length > 0">
+                            </inner-stories>
 
                             <!--<app-comment *ngIf="type == 'inner'" [data]="{id: goal.id, slug:goal.slug,inner:true}">-->
                             <!--</app-comment>-->
