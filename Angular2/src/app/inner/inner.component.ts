@@ -50,6 +50,7 @@ export class InnerComponent implements OnInit {
   public show:boolean = false;
   public lightbox:boolean = false;
   public scroll:boolean;
+  public lightBoxData:any;
 
   public config: any = {
     pagination: '.swiper-pagination',
@@ -498,7 +499,18 @@ export class InnerComponent implements OnInit {
             this.broadcaster.broadcast('commentshow');
         }
     }
-    openLightBox(){
-        this.lightbox = true;
+    openLightBox(data){
+        if(data.images && data.images.length > 0){
+            this.lightBoxData = data.images;
+            this.lightbox = true;
+        }
+        else if(data.files && data.files.length > 0 ){
+            this.lightBoxData = data.files;
+            this.lightbox = true;
+        }else {
+            this.lightBoxData = null;
+            this.lightbox = false;
+
+        }
     }
 }
