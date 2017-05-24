@@ -196,13 +196,27 @@ border-color: red;
     }
   }
 }
+.delete_prof_pass{
+  margin-top: 2px;
+  height: 25px;
+  width: 25px;
+}
+.links{
+  text-decoration: underline;
+  color: grey;
+}
 @media (min-width: @screen-sm) {
-  /deep/ #remove-profile{
+  /deep/ #remove-profile {
     .large-radio {
       label {
         div.mat-radio-label-content {
           padding-left: 14px;
         }
+      }
+    }
+    .modal-body {
+      md-radio-group {
+        line-height: 30px;
       }
     }
   }
@@ -217,7 +231,7 @@ border-color: red;
     h2{
       line-height: 38px;
       font-size: 25px;
-      padding: 0;
+      padding: 0 70px;
     }
     .close-icon{
       top: 20px;
@@ -232,7 +246,9 @@ border-color: red;
   }
 
   .min-modal-container{
-    height: 320px;
+    .modal-title{
+      padding: 0;
+    }
   }
 
   .modal-body{
@@ -241,25 +257,30 @@ border-color: red;
   .relative{
     .form-control{
       height: 70px;
-      width: 250px;
+      width: 330px;
     }
   }
   .helper {
-    padding: 10px 5px 10px 0;
+    padding: 5px 5px 5px 0;
     margin: 10px 25px;
-    width: 250px;
+    width: 350px;
     background-color: #f9e99b;
     .rounded-corners(8px);
     .helper-text{
       padding: 0 5px 0 15px;
       font-size: 15px;
+      line-height: 25px;
+      margin-left: -15px;
     }
   }
   .modal-footer{
-    margin-top: 0;
+    margin-top: 10px;
+    .continue-button{
+      margin-top: 5px;
+    }
   }
   .tooltip{
-    margin-left: 300px;
+    margin-left: 330px;
   }
   .tooltip:hover{
     .link-pass{
@@ -285,6 +306,12 @@ border-color: red;
         font-size: 15px;
       }
     }
+  }
+  .purple-checkbox{
+    margin-bottom: 25px;
+  }
+  .pass-input{
+    width: 240px;
   }
 }
 @media( max-width: 767px){
