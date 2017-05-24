@@ -113,6 +113,29 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
+
+        // todo check when not enabled user
+//        if($exception->getUser() && !$exception->getUser()->isEnabled()
+//            && date_diff($exception->getUser()->getUpdatedAt(), (new \DateTime('now')))->y == 0) {
+//            $user = $exception->getUser();
+//            $user->setEnabled(true);
+//            $password = $request->get('_password');
+//            $this->em->flush();
+//
+//            $encoder = $this->encoder->getEncoder($user);
+//
+//            if($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt()))
+//            {
+//                $session = $request->get('session');
+//                $token   = new UsernamePasswordToken($user, $user->getPassword(), $this->firewallName, $user->getRoles());
+//
+//                $this->tokenStorage->setToken($token);
+//                $session->set($this->firewallName, serialize($token));
+//                $session->save();
+//
+//                return $this->onAuthenticationSuccess($request, $token);
+//            }
+//        }
         // generate url
         $url =  $request->headers->get('referer') ?
             $request->headers->get('referer') :

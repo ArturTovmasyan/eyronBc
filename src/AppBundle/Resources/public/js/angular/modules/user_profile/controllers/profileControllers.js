@@ -224,12 +224,12 @@ angular.module('profile')
         });
       });
 
-      $scope.removeProfile = function () {
-        $http.delete('/api/v1.0/user/profile')
-          .success(function(res){
-            window.location.href = '/app_dev.php/logout';
-          });
-      }
+      // $scope.removeProfile = function () {
+      //   $http.delete('/api/v1.0/user/profile')
+      //     .success(function(res){
+      //       window.location.href = '/logout';
+      //     });
+      // }
     }
   ])
   .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData', '$location',
@@ -304,5 +304,119 @@ angular.module('profile')
       $scope.castInt = function(value){
         return parseInt(value);
       };
+    }
+  ])
+  .controller('removeProfileController',['$scope', 'complaintType', 'deleteType', '$http', 'socialInfo',
+    function ($scope, complaintType, deleteType, $http, socialInfo) {
+        $scope.isMobile = (window.innerWidth < 768);
+        $scope.step = 1;
+        $scope.complaintTypes = complaintType;
+        $scope.deleteTypes = deleteType;
+        $scope.complaintType = null;
+        $scope.deleteType = null;
+        $scope.deleteReason = null;
+        $scope.isInvalid = false;
+        $scope.password = '';
+        $scope.badPassword = false;
+        $scope.deleted = false;
+
+        $scope.nextStep = function () {
+          $scope.step++;
+        };
+
+        $scope.stay = function () {
+          if($scope.complaintType == $scope.complaintTypes.deleteAccount) {
+            $.modal.close();
+          } else {
+            switch ($scope.complaintType) {
+              case $scope.complaintTypes.notificationsOf:
+                $(".modal-loading").show();
+                $http.get('/api/v1.0/user/notify-settings/switch-off')
+                    .success(function(){
+                      $(".modal-loading").hide();
+                      window.location.href = '/ideas#/discover';
+                    });
+                break;
+              case $scope.complaintTypes.privateGoal:
+                $(".modal-loading").show();
+                $http.get('/api/v1.0/usergoals/invisible-all')
+                  .success(function(){
+                    $(".modal-loading").hide();
+                    window.location.href = '/ideas#/discover';
+                  });
+                break;
+              case $scope.complaintTypes.signOut:
+                window.location.href = '/logout';
+                break;
+              default: $.modal.close();
+            }
+          }
+        };
+
+        $scope.continue = function () {
+          if($scope.step) {
+            if($scope.step == 1) {
+              if($scope.complaintType == $scope.complaintTypes.deleteAccount) {
+                $scope.nextStep();
+              }
+            } else {
+              if($scope.deleteType) {
+                if($scope.deleteType == $scope.deleteTypes.other && !$scope.deleteReason) {
+                  $scope.isInvalid = true;
+                } else {
+                  if (socialInfo.isSocial) {
+                    $scope.deleteAccount('');
+                  } else {
+                    $scope.nextStep();
+                  }
+                }
+              }
+            }
+          }
+        };
+
+        $scope.deleteAccount = function (password) {
+          var data = {
+            'password' : password,
+            'reasone' : 'no Reason'
+          };
+
+          switch ($scope.deleteType) {
+            case $scope.deleteTypes.elswhere:
+              data.reasone = 'I found something elswhere';
+              break;
+            case $scope.deleteTypes.moreNotification:
+              data.reasone = 'I receive too many notifications';
+              break;
+            case $scope.deleteTypes.notExpected:
+              data.reasone = 'Bucket List 127 is just not what I expected';
+              break;
+            case $scope.deleteTypes.doneEverything:
+              data.reasone = "I've done everything on my bucket list";
+              break;
+            case $scope.deleteTypes.other:
+              data.reasone = $scope.deleteReason;
+              break;
+          }
+          $(".modal-loading").show();
+          $http.put('/api/v1.0/user/delete/profile', data)
+              .success(function(res){
+                $(".modal-loading").hide();
+                $scope.deleted = true;
+                setTimeout(function(){
+                  window.location.href = '/logout';
+                },5000);
+              })
+            .error(function () {
+              $(".modal-loading").hide();
+              $scope.badPassword = true;
+              toastr.error('Password is wrong');
+          });
+        };
+      
+        $scope.checkAccount = function () {
+          $scope.badPassword = false;
+          $scope.deleteAccount($scope.password);
+        }
     }
   ]);

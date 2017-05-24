@@ -15,7 +15,11 @@ export interface User {
     stats?:any,
     activity?:any,
     badges?:any,
+    enabled?:boolean,
     completed_percent?:any,
-    language?:string
+    language?:string,
+    gplus_uid?:string,
+    facebook_uid?:string,
+    twitter_uid?:string,
     common_goals_count?:number
 }

@@ -55,6 +55,7 @@ import { ComponentModule } from './components/components.module';
 import { ResettingRequestComponent } from './components/resetting-request/resetting-request.component';
 import { PageComponent } from './page/page.component';
 import { ErrorComponent } from './components/error/error.component';
+import { NotActiveComponent } from './components/not-active/not-active.component';
 import { RegistrationConfirmComponent } from './components/registration-confirm/registration-confirm.component';
 
 
@@ -91,6 +92,7 @@ export function createTranslateLoader(http: Http) {
     DoneComponent,
     // ClickOutsideDirective,
     ErrorComponent,
+    NotActiveComponent,
     RegistrationConfirmComponent
 
   ],

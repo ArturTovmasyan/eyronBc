@@ -172,6 +172,35 @@ class UserNotify
      *
      * @return integer
      */
+    public function notifySwitchesOff()
+    {
+        $this->setIsCommentOnGoalNotify(false);
+        $this->setIsCommentOnIdeaNotify(false);
+        $this->setIsCommentOnGoalPush(false);
+        $this->setIsCommentOnIdeaPush(false);
+        $this->setIsSuccessStoryOnGoalNotify(false);
+        $this->setIsSuccessStoryOnIdeaNotify(false);
+        $this->setIsSuccessStoryOnGoalPush(false);
+        $this->setIsSuccessStoryOnIdeaPush(false);
+        $this->setIsSuccessStoryLikeNotify(false);
+        $this->setIsSuccessStoryLikePush(false);
+        $this->setIsGoalPublishNotify(false);
+        $this->setIsGoalPublishPush(false);
+        $this->setIsCommentReplyNotify(false);
+        $this->setIsDeadlineExpNotify(false);
+        $this->setIsDeadlineExpPush(false);
+        $this->setIsNewIdeaNotify(false);
+        $this->setIsNewIdeaPush(false);
+        $this->setIsNewGoalFriendNotify(false);
+        $this->setIsNewGoalFriendPush(false);
+        $this->setIsCommentReplyPush(false);
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
     public function getId()
     {
         return $this->id;

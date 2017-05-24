@@ -1,12 +1,12 @@
 import { Component, OnInit,ViewContainerRef, OnDestroy } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import {ProjectService} from '../project.service';
-import {CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
-import {TranslateService} from 'ng2-translate';
+import { ProjectService} from '../project.service';
+import { CacheService, CacheStoragesEnum} from 'ng2-cache/ng2-cache';
+import { TranslateService} from 'ng2-translate';
 import { Broadcaster } from '../tools/broadcaster';
 import { ValidationService } from '../validation.service';
-import {FormBuilder, Validators, FormGroup } from '@angular/forms';
-import {ConfirmComponent} from "../modals/confirm/confirm.component";
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { RemoveProfileComponent} from "../modals/remove-profile/remove-profile.component";
 import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 
 @Component({
@@ -45,8 +45,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     year:any = 0;
     notifySettings:any;
     show:boolean = false;
-    public loading:boolean = false;
-    public isMobile:Boolean= (window.innerWidth < 768);
+    loading:boolean = false;
+    isMobile:Boolean= (window.innerWidth < 768);
+    removeProfileModal: MdDialogRef<RemoveProfileComponent>;
 
     languages: any[] = [
         {
@@ -143,6 +144,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
                         this.secret = this.route.snapshot.paramMap.has('secret') ? this.route.snapshot.paramMap.get('secret') : null;
                         this.addMail = this.route.snapshot.paramMap.has('addMail') ? this.route.snapshot.paramMap.get('addMail') : null;
                         this.activationUserAddEmail(this.secret, this.addMail);
+                    }
+
+                    if(this.removeProfileModal) {
+                        this.removeProfileModal.close();
                     }
 
                     this.getUserInfoByType();
@@ -451,21 +456,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
             );
     }
     removeProfile(){
-        let dialogRef: MdDialogRef<ConfirmComponent>;
         let config = new MdDialogConfig();
         config.viewContainerRef = this.viewContainerRef;
-        dialogRef = this.dialog.open(ConfirmComponent, config);
-        this.message = this._translate.instant('remove_profile-message');
-        dialogRef.componentInstance.lsText = this.message;
-        dialogRef.afterClosed().subscribe(result => {
-            if(result == 'yes'){
-                this._projectService.removeProfile()
-                    .subscribe(
-                        () => {
-                            this.broadcaster.broadcast('log-Out')
-                        }
-                    );
-            }
+        this.removeProfileModal = this.dialog.open(RemoveProfileComponent, config);
+        this.removeProfileModal.componentInstance.appUser = this.appUser;
+        
+        this.removeProfileModal.afterClosed().subscribe(result => {
         });
     }
 }

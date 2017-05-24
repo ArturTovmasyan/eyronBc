@@ -26,6 +26,34 @@ use Symfony\Component\HttpFoundation\Response;
 class UserGoalController extends FOSRestController
 {
     /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="UserGoal",
+     *  description="This function is used to set invisible all user goals",
+     *  statusCodes={
+     *         200="OK",
+     *     },
+     * )
+     * @Rest\Get("/api/v1.0/usergoals/invisible-all", name="get_usergoal_invisible_all", options={"method_prefix"=false})
+     *
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function getInvisibleAllUserGoalsAction()
+    {
+        //get current user
+        $user = $this->getUser();
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        $em->getRepository("AppBundle:UserGoal")->setInvisibleAllUserGoals($user->getId());
+
+
+        return new JsonResponse('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * @ApiDoc(
      *  resource=true,
      *  section="UserGoal",

@@ -9,6 +9,7 @@ import { AuthGuard }      from './common/auth.guard';
 import { LoginGuard }      from './common/login.guard';
 import { PageComponent} from './page/page.component';
 import { ErrorComponent} from "./components/error/error.component";
+import { NotActiveComponent} from "./components/not-active/not-active.component";
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -29,7 +30,9 @@ const appRoutes: Routes = [
   { path: 'goal/:slug', loadChildren: './inner/inner.module#InnerModule'},
   { path: 'ideas', loadChildren: './ideas/ideas.module#IdeasModule'},
   { path: '', component: DashboardComponent, canActivate: [LoginGuard] },
+  { path: 'login', component: DashboardComponent, canActivate: [LoginGuard] },
   { path: 'error', component: ErrorComponent },
+  { path: 'not-active', component: NotActiveComponent },
   { path: '**', component: ErrorComponent }
 ];
 

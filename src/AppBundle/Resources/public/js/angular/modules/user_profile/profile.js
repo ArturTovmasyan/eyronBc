@@ -14,7 +14,21 @@ angular.module('profile', ['Interpolation',
   'notification',
   'activity',
   'PathPrefix'
-])
+  ])
+  .constant('complaintType', {
+    notificationsOf: 1,
+    privateGoal: 2,
+    googleSearch: 3,
+    signOut: 4,
+    deleteAccount: 5
+  })
+  .constant('deleteType', {
+    elswhere: 1,
+    moreNotification: 2,
+    notExpected: 3,
+    doneEverything: 4,
+    other: 5
+  })
   .directive('lsFollowManage',['envPrefix',
     '$http',
     function(envPrefix, $http){

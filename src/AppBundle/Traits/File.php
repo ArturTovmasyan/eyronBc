@@ -176,6 +176,16 @@ trait File
     }
 
     /**
+     * This function is used to return file web path
+     *
+     * @return string
+     */
+    public function getDefaultDownloadLink()
+    {
+        return '/' . $this->getUploadDir() . '/' . $this->getPath() . '/' . $this->getDefaultUserImageName();
+    }
+
+    /**
      * @return string
      */
     public function getAbsolutePath()
@@ -209,6 +219,16 @@ trait File
     protected function getUploadDir()
     {
         return 'uploads';
+    }
+
+    /**
+     * Upload folder name
+     *
+     * @return string
+     */
+    protected function getDefaultUserImageName()
+    {
+        return 'no-profile-image.png';
     }
 
     /**

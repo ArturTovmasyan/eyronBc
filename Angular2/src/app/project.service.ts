@@ -24,7 +24,7 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class ProjectService {
 
-    private baseOrigin = environment.production?'https://bucketlist127.com':(<any>environment).stage? 'http://stage.bucketlist127.com':(<any>environment).test?'http://behat.bucketlist.loc':'http://bucketlist.loc';
+    private baseOrigin = environment.production?'https://www.bucketlist127.com':(<any>environment).stage? 'http://stage.bucketlist127.com':(<any>environment).test?'http://behat.bucketlist.loc':'http://bucketlist.loc';
     private angularOrigin = environment.production?'http://stage2.bucketlist127.com':'http://ang.bucketlist.loc';
     //private baseOrigin = 'http://stage.bucketlist127.com';
 
@@ -90,7 +90,9 @@ export class ProjectService {
     private resetNearByUrl = this.baseOrigin + this.envprefix + 'usergoals/';
     private getCommentsUrl = this.baseUrl + 'comments/goal_';
     private putCommentUrl = this.baseUrl + 'comments/';
-    private removeProfileUrl = this.baseUrl + 'user/profile';
+    private removeProfileUrl = this.baseUrl + 'user/delete/profile';
+    private switchNotificationUrl = this.baseUrl + 'user/notify-settings/switch-off';
+    private invisibleAllGoalsUrl = this.baseUrl + 'usergoals/invisible-all';
 
     constructor(private http:Http, private router:Router, private broadcaster: Broadcaster) {
 
@@ -871,14 +873,34 @@ export class ProjectService {
         return this.http.post(this.changeSettingsUrl, {'bl_user_angular_settings':data}, {headers: this.headers})
             .map((r:Response) => r.json());
     }
+
     /**
-     *
-     * This service is used to save user data
-     *
+     * 
      * @param data
+     * @returns {Observable<R>}
      */
-    removeProfile(){
-        return this.http.delete(this.removeProfileUrl, {headers: this.headers})
+    removeProfile(data){
+        return this.http.put(this.removeProfileUrl, data, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @returns {Observable<R>}
+     */
+    switchNotificationsOff(){
+        return this.http.get(this.switchNotificationUrl, {headers: this.headers})
+            .map((r:Response) => r.json())
+            .catch(this.handleError);
+    }
+
+    /**
+     * 
+     * @returns {Observable<R>}
+     */
+    invisibleAllGoals(){
+        return this.http.get(this.invisibleAllGoalsUrl, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
     }

@@ -34,6 +34,35 @@ featured: Featured
 setting:
   invalid_user_name: Name cannot be symbols or numbers. Please, enter a valid name!
 
+#remove profile
+delete_profile:
+        title_1: Are you sure you want to delete your account?
+        title_2: We're sad you're leaving. Why do you want to delete your account?
+        title_3: Please type your current password to delete your account.
+        top_content: This will disable your profile,which means you'll miss all those weird, unique lifegoal ideas we add every day.If you'd rather just take a break or strat over, you can
+        notifications: Switch notifications off
+        goals: Make all your goals invisible,hide it from others
+        sign_out: Just sign out instead
+        delete_prof: Delete your account
+        something_else: I found something elswhere
+        something_else_text: Bucketlist127 is used by thousands of people around the world to dream organized.We have a <a class="links" href="%href%">guide</a> on how to make the most of Bucket List 172.
+        many_notify: I receive too many notifications
+        many_notify_text: You can limit the number of notifications you receive from us <a class="links" href="%href%">here</a>
+        not_expected: Bucket List 127 is just not what I expected
+        not_expected_text: Let us know what you expected from the service below and we'll be sure to take your views on board
+        done_everything: I've done everything on my bucket list
+        done_everything_text: That's impossible dude. We were just kidding. You will have life goals until you're alive.
+        other: Other
+        placeholder: Give us more details if you`d like to
+        other_placeholder: Show you creativity with your feedback
+        password: Current password
+        forgot_pass: Click here if you forgot your password
+        stay: Stay on Bucketlist127
+        continue: Continue
+        delete_acc: Delete account
+        profile_was_deleted_title:  Your account has been deleted.
+        profile_was_deleted: You can recover your account within a year, just log in like you used to. We hope you come back soon.
+
 #Share
 message_on_top_of_the_page: Congrats! You have successfully completed the goal!
 share_title: Share your achievement
@@ -382,7 +411,6 @@ delete_message: |
   Are you sure?
 
 delet_profile: Delete Profile
-delet_profile_message: Are you sure you want to delete your account?
 
 complete_message: Complete your profile
 

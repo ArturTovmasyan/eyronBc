@@ -43,7 +43,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v629
+        assets_version: v630
 
     default_locale:  en
     trusted_hosts:   ~
@@ -99,7 +99,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ AppBundle]
+    bundles:        [AppBundle, ApplicationUserBundle ]
     #java: /usr/bin/java
     filters:
         uglifyjs2:

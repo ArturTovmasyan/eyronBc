@@ -20,6 +20,7 @@ angular.module('goalManage', ['Interpolation',
     doneTemplate: '',
     goalUsersTemplate: '',
     reportTemplate: '',
+    removeProfileTemplate: '',
     commonTemplate: ''
   })
   .value('userGoalData', { 

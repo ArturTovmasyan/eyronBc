@@ -140,7 +140,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
+     *
      * @SerializedName("first_name")
      */
     protected $firstname;
@@ -189,7 +189,6 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
      * @SerializedName("last_name")
      */
     protected $lastname;
@@ -206,6 +205,36 @@ class User extends BaseUser
      * @ORM\Column(name="about_me", type="string", nullable=true)
      */
     protected $aboutMe;
+
+    /**
+     * @var
+     * @Groups({"user"})
+     */
+    protected $enabled;
+
+    /**
+     * @var
+     * @Groups({"user"})
+     */
+    protected $twitterUid;
+
+    /**
+     * @var
+     * @Groups({"user"})
+     */
+    protected $facebookUid;
+
+    /**
+     * @var
+     * @Groups({"user"})
+     */
+    protected $gplusUid;
+
+    /**
+     * @var
+     * @ORM\Column(name="delete_reason", type="string", nullable=true)
+     */
+    protected $deleteReason;
 
     /**
      * @var
@@ -455,7 +484,7 @@ class User extends BaseUser
      */
     public function getImagePath()
     {
-        return $this->getDownloadLink();
+        return $this->isEnabled() ? $this->getDownloadLink(): $this->getDefaultDownloadLink();
     }
 
     /**
@@ -532,6 +561,28 @@ class User extends BaseUser
     }
 
     /**
+     * @return string
+     * @VirtualProperty()
+     * @SerializedName("first_name")
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
+     */
+    public function getFirstNameProperty()
+    {
+        return $this->getFirstName();
+    }
+
+    /**
+     * @return string
+     * @VirtualProperty()
+     * @SerializedName("last_name")
+     * @Groups({"user", "tiny_user", "settings", "badge", "inspireStory"})
+     */
+    public function getLastNameProperty()
+    {
+        return $this->getLastName();
+    }
+
+    /**
      * Get firstName
      *
      * @return string
@@ -539,7 +590,7 @@ class User extends BaseUser
     public function getFirstName()
     {
         $this->firstName = $this->firstname;
-        return $this->firstname;
+        return $this->isEnabled() ? $this->firstname : 'Bucketlist127';
     }
 
     /**
@@ -564,7 +615,7 @@ class User extends BaseUser
     public function getLastName()
     {
         $this->lastName = $this->lastname;
-        return $this->lastname;
+        return $this->isEnabled() ? $this->lastname : 'User';
     }
 
     /**
@@ -588,6 +639,29 @@ class User extends BaseUser
     public function getAboutMe()
     {
         return $this->aboutMe;
+    }
+
+    /**
+     * Set deleteReason
+     *
+     * @param string $deleteReason
+     * @return User
+     */
+    public function setDeleteReason($deleteReason)
+    {
+        $this->deleteReason = $deleteReason;
+
+        return $this;
+    }
+
+    /**
+     * Get deleteReason
+     *
+     * @return string
+     */
+    public function getDeleteReason()
+    {
+        return $this->deleteReason;
     }
 
     public function getAge()

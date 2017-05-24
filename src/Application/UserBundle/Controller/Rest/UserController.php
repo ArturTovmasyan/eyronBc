@@ -353,7 +353,13 @@ class UserController extends FOSRestController
 
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('username' => $username));
 
-        if($user){
+        if($user && ($user->isEnabled() || date_diff($user->getUpdatedAt(), (new \DateTime('now')))->y == 0)) ;
+        {
+            if(!$user->isEnabled()) {
+                $user->setEnabled(true);
+                $em->flush();
+            }
+
             $encoderService = $this->get('security.encoder_factory');
             $encoder = $encoderService->getEncoder($user);
 
@@ -504,6 +510,15 @@ class UserController extends FOSRestController
 
             //set reg status for mobile
             $isRegistred = true;
+        } else {
+            if($user->isEnabled() || date_diff($user->getUpdatedAt(), (new \DateTime('now')))->y == 0){
+                if(!$user->isEnabled()) {
+                    $user->setEnabled(true);
+                    $em->flush();
+                }
+            } else {
+                return new JsonResponse("User has been Deleted", Response::HTTP_BAD_REQUEST);
+            }
         }
 
         //get response
@@ -1068,7 +1083,7 @@ class UserController extends FOSRestController
      * @return JsonResponse
      * @Secure(roles="ROLE_USER")
      */
-    public function deleteProfileAction(Request $request)
+    public function putDeleteProfileAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $currentUser = $this->getUser();
@@ -1077,8 +1092,35 @@ class UserController extends FOSRestController
             throw new HttpException(Response::HTTP_BAD_REQUEST, "User Not Found");
         }
 
-        $currentUser->setEnabled(false);
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        $password = $request->request->get('password');
+        $reason = $request->request->get('reasone');
+
+        if ($password) {
+            $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($currentUser);
+
+            $isRight = $encoder->isPasswordValid($currentUser->getPassword(),$password,$currentUser->getSalt());
+
+            if(!$isRight) {
+                return new JsonResponse('Password Not Valid', Response::HTTP_BAD_REQUEST);
+            }
+        } else {
+            if (!$currentUser->getTwitterId() && !$currentUser->getFacebookId() && !$currentUser->getGoogleId()) {
+                return new JsonResponse('Password Not Valid', Response::HTTP_BAD_REQUEST);
+            }
+        }
         
+        $currentUser->setDeleteReason($reason);
+        $currentUser->setEnabled(false);
+
         $em->flush();
 
         return new JsonResponse(Response::HTTP_NO_CONTENT);

@@ -8,7 +8,7 @@ import { MaterialModule } from '@angular/material';
 import {TranslateModule} from 'ng2-translate';
 import { ActivityBlockModule } from '../block/activityBlock.module';
 import { SettingsRouting } from './settings-routing';
-import {ConfirmComponent} from '../modals/confirm/confirm.component';
+import { RemoveProfileComponent } from '../modals/remove-profile/remove-profile.component';
 import {ModalsModule} from '../modals/modals.module';
 
 @NgModule({
@@ -27,7 +27,7 @@ import {ModalsModule} from '../modals/modals.module';
     SettingsComponent
   ],
   entryComponents: [
-    ConfirmComponent
+    RemoveProfileComponent
   ]
 })
 export class SettingsModule { }
