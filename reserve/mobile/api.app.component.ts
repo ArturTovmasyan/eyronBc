@@ -70,18 +70,22 @@ export class AppComponent extends App {
         if(number + 380 > footerOffset){
             this.nearbyscroll = true;
         }
-        if(number > 250){
-            this.upButton = true;
-        } else {this.upButton = false;}
+
+        this.upButton = (number > 250);
+
         this.myTop = number;
+        if(number <= 68){
+            this.doScroll(0);
+        }
+
         if(number < this.before){
             this.doScroll(0);
             this.before = number;
-        }
-        if(number > this.before){
+        } else if(number > this.before){
             this.doScroll(1);
             this.before = number;
         }
+
         if(number > 400 ){
             this.sOpen = false;
             this.check();
@@ -103,7 +107,7 @@ export class AppComponent extends App {
 
     doScroll(type:number) {
         this.scroll = (type == 1);
-        this.broadcaster.broadcast('menuScroll',this.scroll);
+        this.scrollInner  = this.scroll;
     }
     check(){
         if(this.sidenav && this.sidenav._isOpened){
