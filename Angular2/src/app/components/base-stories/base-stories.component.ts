@@ -14,7 +14,10 @@ import {Story} from '../../interface/story';
 export class BaseStoriesComponent implements OnInit {
   stories:Story[] = null;
   errorMessage:string;
-  base_path:string;
+  light_box_open: boolean = false;
+  lightBoxData: any;
+  lightBoxType: string = null;
+  
   config: Object = {
     observer: true,
     autoHeight: true,
@@ -30,7 +33,6 @@ export class BaseStoriesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.base_path = this._projectService.getPath();
     let data = this._cacheService.get('baseStories');
     if (data) {
       this.stories = data;
@@ -48,6 +50,16 @@ export class BaseStoriesComponent implements OnInit {
             },
             error => this.errorMessage = <any>error
         );
+  }
+  
+  openLightBox(data: any, type?: string) {
+    this.lightBoxData = data;
+    this.lightBoxType = type;
+    this.light_box_open = true;
+  }
+
+  closeLightBox() {
+    this.light_box_open = false;
   }
 
   openSignInPopover(){

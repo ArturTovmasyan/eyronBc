@@ -1,3 +1,4 @@
+<lightbox *ngIf="light_box_open" [data]="lightBoxData" [type]="lightBoxType" (onClose)="closeLightBox()"></lightbox>
 <div id="story-slider-homepage">
 
   <div class="container">
@@ -67,16 +68,15 @@
                                 <!--file.downloadLink|blImageFilter('slide_max_size')-->
                                 <ng-template ngFor let-file [ngForOf]="story.files" let-k="index">
                                   <a class="swipebox" *ngIf="k == 0">
-                                    <i class="photo-icon"></i>
+                                    <i class="photo-icon" (click)="openLightBox(story.files)"></i>
                                     <!--('story_homepage_small')-->
-                                    <img src="{{ base_path + file.image_path }}"
-                                         alt="{{ file.file_name }}" height="83" width="106"/>
+                                    <img src="{{ file.image_path }}" alt="{{ file.file_name }}" height="83" width="106"/>
                                   </a>
                                 </ng-template>
 
                                 <ng-template ngFor let-video_link [ngForOf]="story.video_link" let-k="index">
                                   <a *ngIf="k == 0" class="swipebox-video">
-                                    <i class="video-icon"></i>
+                                    <i class="video-icon" (click)="openLightBox(story.video_link, 'videos')"></i>
                                     <embed-video [href]="video_link" height="83" width="106">
                                     </embed-video>
                                   </a>

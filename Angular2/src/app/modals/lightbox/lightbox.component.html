@@ -6,11 +6,13 @@
       <!-- Slides Container -->
       <div class="swiper-wrapper">
 
-        <div class="swiper-slide" [style.height]="slideHeight+'px'"
-             *ngFor="let image of data">
-          <a class="swipebox-main">
-            <img  class="img-responsive" src="{{ image.image_path }}"
-                 alt="" [class.fullHeight]="fullHeight"/>
+        <div class="swiper-slide" *ngFor="let d of data">
+          <a class="swipebox-main" *ngIf="!type || type != 'videos'">
+            <img  class="img-responsive" src="{{ d.image_path }}" alt=""/>
+          </a>
+          <a *ngIf="type && type == 'videos'" class="swipebox-video">
+            <embed-video [href]="d" height="100%" width="100%">
+            </embed-video>
           </a>
         </div>
       </div>
