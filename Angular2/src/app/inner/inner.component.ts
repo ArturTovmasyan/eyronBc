@@ -50,6 +50,8 @@ export class InnerComponent implements OnInit {
   public show:boolean = false;
   public lightbox:boolean = false;
   public scroll:boolean;
+  public lightBoxData:any;
+  public angularPath:any;
 
   public config: any = {
     pagination: '.swiper-pagination',
@@ -92,13 +94,9 @@ export class InnerComponent implements OnInit {
           .subscribe( data => {
               this.scroll = data;
           });
-      this.broadcaster.on<any>('closeLightbox')
-          .subscribe( () => {
-              this.lightbox = false;
-          });
-
           
     this.sharePath = this._projectService.getPath();
+    this.angularPath = this._projectService.getAngularPath();
     if(localStorage.getItem('apiKey')){
       this.appUser = this._projectService.getMyUser();
       if (!this.appUser) {
@@ -130,6 +128,9 @@ export class InnerComponent implements OnInit {
     });
   }
 
+  closeLightBox(){
+    this.lightbox = false;
+  }
   /**
    *
    * @param slug
@@ -189,7 +190,7 @@ export class InnerComponent implements OnInit {
                     var js, fjs = d.getElementsByTagName(s)[0];
                     if (d.getElementById(id)) {return;}
                     js = d.createElement(s); js.id = id;
-                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=571257946411819&version=v2.0";
+                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=486680294849466&version=v2.0";
                     fjs.parentNode.insertBefore(js, fjs);
                   }(document, 'script', 'facebook-jssdk'));
                 },2000);
@@ -459,9 +460,9 @@ export class InnerComponent implements OnInit {
     
   }
 
-    isEmpty(object){
-        return (!object || !Object.keys(object).length);
-    };
+  isEmpty(object){
+    return (!object || !Object.keys(object).length);
+  };
   
   openUsersModal(id:number, count:number, category: number){
     if(!localStorage.getItem('apiKey') || !this.appUser){
@@ -498,7 +499,18 @@ export class InnerComponent implements OnInit {
             this.broadcaster.broadcast('commentshow');
         }
     }
-    openLightBox(){
-        this.lightbox = true;
+    openLightBox(data){
+        if(data.images && data.images.length > 0){
+            this.lightBoxData = data.images;
+            this.lightbox = true;
+        }
+        else if(data.files && data.files.length > 0 ){
+            this.lightBoxData = data.files;
+            this.lightbox = true;
+        }else {
+            this.lightBoxData = null;
+            this.lightbox = false;
+
+        }
     }
 }

@@ -162,7 +162,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * @var
      * @ORM\Column(name="publish", type="boolean")
-     * @Groups({"tiny_goal", "goal"})
+     * @Groups({"tiny_goal", "goal", "inspireStory"})
      */
     protected $publish = PublishAware::NOT_PUBLISH;
 
@@ -213,7 +213,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=128, unique=true, nullable=false)
-     * @Groups({"tiny_goal", "userGoal_goal"})
+     * @Groups({"tiny_goal", "userGoal_goal", "inspireStory"})
      */
     protected $slug;
 

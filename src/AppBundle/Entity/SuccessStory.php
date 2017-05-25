@@ -48,7 +48,7 @@ class SuccessStory implements ActivityableInterface
 
     /**
      * @ORM\OneToMany(targetEntity="StoryImage", mappedBy="story", cascade={"persist", "remove"})
-     * @Groups({"successStory_storyImage"})
+     * @Groups({"successStory_storyImage", "inspireStory"})
      * @Assert\Valid()
      * @Assert\Count(
      *      max = "6",

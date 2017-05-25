@@ -62,7 +62,7 @@ class StoryImage implements ImageableInterface
 
     /**
      * @SerializedName("image_path")
-     * @Groups({"storyImage"})
+     * @Groups({"storyImage", "inspireStory"})
      */
     protected $mobilePhotoPath;
 
