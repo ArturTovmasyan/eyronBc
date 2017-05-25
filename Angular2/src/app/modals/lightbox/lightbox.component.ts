@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Broadcaster } from '../../tools/broadcaster';
 
 @Component({
@@ -8,6 +8,9 @@ import { Broadcaster } from '../../tools/broadcaster';
 })
 export class LightboxComponent implements OnInit {
   @Input() data: any;
+  @Input() type: string;
+  @Output() onClose: EventEmitter<any> = new EventEmitter();
+  
   public img_path: any;
 
   public config: any = {
@@ -18,21 +21,15 @@ export class LightboxComponent implements OnInit {
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
     spaceBetween: 30,
-    autoplay: 3000
+    // autoplay: 3000
   };
 
   constructor(private broadcaster: Broadcaster) { }
 
   ngOnInit() {
-    console.log(this.data);
-    if(this.data.length == 1){
-      for (let i of this.data){
-        console.log(i.image_path);
-        this.img_path = i.image_path
-      }
-    }
   }
+  
   closeLightBox(){
-    this.broadcaster.broadcast('closeLightbox');
+    this.onClose.emit(null);
   }
 }

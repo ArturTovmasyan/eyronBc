@@ -424,6 +424,14 @@ class SuccessStoryController extends FOSRestController
             if($story->getUser() && $story->getUser()->getPhotoLink()){
                 $story->getUser()->setCachedImage($liipManager->getBrowserPath($story->getUser()->getPhotoLink(), 'user_icon'));
             }
+            
+
+            if($story->getFiles()){
+                foreach ($story->getFiles() as $file){
+                    $file->setMobileImagePath($liipManager->getBrowserPath($file->getImagePath(), 'slide_max_size'));
+                }
+            }
+            
 
             $story->getGoal()->setStats([
                 'listedBy' => $stats[$story->getGoal()->getId()]['listedBy'],

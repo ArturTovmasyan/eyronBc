@@ -1,4 +1,4 @@
-<lightbox *ngIf="lightbox && lightBoxData" [data]="lightBoxData"></lightbox>
+<lightbox *ngIf="lightbox && lightBoxData" [data]="lightBoxData" (onClose)="closeLightBox()"></lightbox>
 <div class="goal-preview" *ngIf="goal && type == 'view'">
     <div class="container">
         <div class="row">
@@ -101,7 +101,7 @@
                             <!-- Slides Container -->
                             <div style="height: 435px" class="swiper-wrapper">
 
-                                <div class="swiper-slide" [style.height]="slideHeight+'px'" (click)="openLightBox()"
+                                <div class="swiper-slide" [style.height]="slideHeight+'px'"
                                      *ngFor="let image of goal.images">
                                     <a class="swipebox-main">
                                         <!--data-title="{{ goal.title }}"-->
