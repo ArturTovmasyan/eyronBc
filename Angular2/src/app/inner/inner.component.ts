@@ -500,17 +500,17 @@ export class InnerComponent implements OnInit {
         }
     }
     openLightBox(data){
-        if(data.images && data.images.length > 0){
-            this.lightBoxData = data.images;
-            this.lightbox = true;
-        }
-        else if(data.files && data.files.length > 0 ){
-            this.lightBoxData = data.files;
-            this.lightbox = true;
-        }else {
-            this.lightBoxData = null;
-            this.lightbox = false;
-
-        }
+    //     if(data.images && data.images.length > 0){
+    //         this.lightBoxData = data.images;
+    //         this.lightbox = true;
+    //     }
+    //     else if(data.files && data.files.length > 0 ){
+    //         this.lightBoxData = data.files;
+    //         this.lightbox = true;
+    //     }else {
+    //         this.lightBoxData = null;
+    //         this.lightbox = false;
+    //
+    //     }
     }
 }
