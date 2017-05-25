@@ -66,6 +66,7 @@ import { CommonComponent } from './modals/common/common.component';
 import { UsersComponent } from './modals/users/users.component';
 import { AddComponent } from './modals/add/add.component';
 import { DoneComponent } from './modals/done/done.component';
+import { ModalsModule } from './modals/modals.module';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -120,6 +121,7 @@ export function createTranslateLoader(http: Http) {
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     DndModule.forRoot(),
     MaterialModule.forRoot(),
+    ModalsModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Broadcaster } from '../../tools/broadcaster';
 
 @Component({
@@ -7,7 +7,11 @@ import { Broadcaster } from '../../tools/broadcaster';
   styleUrls: ['./lightbox.component.less']
 })
 export class LightboxComponent implements OnInit {
-  @Input() goal: any;
+  @Input() data: any;
+  @Input() type: string;
+  @Output() onClose: EventEmitter<any> = new EventEmitter();
+  
+  public img_path: any;
 
   public config: any = {
     pagination: '.swiper-pagination',
@@ -17,14 +21,15 @@ export class LightboxComponent implements OnInit {
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
     spaceBetween: 30,
-    autoplay: 3000
+    // autoplay: 3000
   };
 
   constructor(private broadcaster: Broadcaster) { }
 
   ngOnInit() {
   }
+  
   closeLightBox(){
-    this.broadcaster.broadcast('closeLightbox');
+    this.onClose.emit(null);
   }
 }

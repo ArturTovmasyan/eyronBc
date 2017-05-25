@@ -90,10 +90,10 @@
                 <!--id="story-slider-image{{ key }}" data-ng-init="successStoryImageKeys[{{ key }}] = {{ key }}"-->
                 <!-- Slides Container -->
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" *ngFor="let file of story.files">
-                        <a href="{{ file.image_path }}">
+                    <div class="swiper-slide" (click)="openLightBox(story)" *ngFor="let file of story.files">
+                        <a>
                             <!--|blImageFilter('slide_max_size') class="swipebox-key-{{ key }}"-->
-                            <img class="img-responsive" src="{{ file.image_path }}" alt="{{ file.file_name }}"/>
+                            <img   class="img-responsive" src="{{ file.image_path }}" alt="{{ file.file_name }}"/>
                         </a>
                     </div>
                 </div>
