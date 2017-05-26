@@ -53,9 +53,9 @@ export class BaseStoriesComponent implements OnInit {
   }
   
   openLightBox(data: any, type?: string) {
-    this.lightBoxData = data;
-    this.lightBoxType = type;
-    this.light_box_open = true;
+    // this.lightBoxData = data;
+    // this.lightBoxType = type;
+    // this.light_box_open = true;
   }
 
   closeLightBox() {
