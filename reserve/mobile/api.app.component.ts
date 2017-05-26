@@ -76,14 +76,14 @@ export class AppComponent extends App {
         this.myTop = number;
         if(number <= 68){
             this.doScroll(0);
-        }
-
-        if(number < this.before){
-            this.doScroll(0);
-            this.before = number;
-        } else if(number > this.before){
-            this.doScroll(1);
-            this.before = number;
+        } else {
+            if(number < this.before){
+                this.doScroll(0);
+                this.before = number;
+            } else if(number > this.before){
+                this.doScroll(1);
+                this.before = number;
+            }
         }
 
         if(number > 400 ){
