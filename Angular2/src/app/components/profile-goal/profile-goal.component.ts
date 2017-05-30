@@ -1,4 +1,4 @@
-import { Component, OnInit, Input , ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, Input , ViewEncapsulation, Output, EventEmitter} from '@angular/core';
 import {UserGoal} from "../../interface/userGoal";
 import {Goal} from "../../interface/goal";
 import {User} from "../../interface/user";
@@ -17,6 +17,8 @@ export class ProfileGoalComponent implements OnInit {
   @Input() userGoal: UserGoal;
   @Input() last: boolean;
   @Input() first: boolean;
+  @Output('onUserGoalChange') onUserGoalChange: EventEmitter<any> = new EventEmitter();
+
   public goal:Goal;
   public change:number = 0;
   public doDate:any;
@@ -59,6 +61,7 @@ export class ProfileGoalComponent implements OnInit {
           .subscribe(data => {
             this.userGoal = data;
             this.initData();
+            this.onUserGoalChange.emit(this.userGoal);
           });
       this.broadcaster.on<any>('removeUserGoal_' + this.userGoal.id)
           .subscribe(data => {
