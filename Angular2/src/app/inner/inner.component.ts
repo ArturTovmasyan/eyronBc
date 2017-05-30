@@ -510,6 +510,7 @@ export class InnerComponent implements OnInit {
     //     }else {
     //         this.lightBoxData = null;
     //         this.lightbox = false;
+    //         this.lightbox = false;
     //
     //     }
     }

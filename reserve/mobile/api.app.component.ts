@@ -107,7 +107,8 @@ export class AppComponent extends App {
 
     doScroll(type:number) {
         this.scroll = (type == 1);
-        this.scrollInner  = this.scroll;
+        this.scrollInner = this.scroll;
+        this.broadcaster.broadcast('menuScroll', this.scroll );
     }
     check(){
         if(this.sidenav && this.sidenav._isOpened){
