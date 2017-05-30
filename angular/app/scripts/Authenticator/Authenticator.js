@@ -94,7 +94,7 @@ angular.module('Authenticator', ['PathPrefix', 'Interpolation'])
 
         el.click(function(){
           // AuthenticatorLoginService.openLoginPopup();
-          window.location.href = "https://my.bucketlist127.com/";
+          window.location.href = "https://my.bucketlist127.com/login";
         });
       }
     }
