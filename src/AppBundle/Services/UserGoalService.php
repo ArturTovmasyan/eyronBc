@@ -118,6 +118,10 @@ class UserGoalService extends AbstractProcessService
                     }
 
                     if(!$completionDate){
+                        $completionDate = \DateTime::createFromFormat('Y-m-d', $completionDateRaw);
+                    }
+
+                    if(!$completionDate){
                         return new Response('Error completed date', Response::HTTP_BAD_REQUEST);
                     }
                 }
@@ -189,6 +193,10 @@ class UserGoalService extends AbstractProcessService
                 $doDate = \DateTime::createFromFormat('m-d-Y', $doDateRaw);
             }
 
+            if(!$doDate){
+                $doDate = \DateTime::createFromFormat('Y-m-d', $doDateRaw);
+            }
+            
             if(!$doDate){
                 return new Response('Error do date', Response::HTTP_BAD_REQUEST);
             }

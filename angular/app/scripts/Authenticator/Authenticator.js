@@ -93,7 +93,8 @@ angular.module('Authenticator', ['PathPrefix', 'Interpolation'])
         });
 
         el.click(function(){
-          AuthenticatorLoginService.openLoginPopup();
+          // AuthenticatorLoginService.openLoginPopup();
+          window.location.href = "https://my.bucketlist127.com/login";
         });
       }
     }

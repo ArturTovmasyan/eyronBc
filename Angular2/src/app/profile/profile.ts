@@ -157,6 +157,13 @@ export class Profile implements OnInit, OnDestroy {
             });
     }
 
+    updateUserGoal(userGoal, i) {
+        if (this.userGoals && this.userGoals[i]) {
+            this.userGoals[i].status = userGoal.status;
+            this.userGoals[i].do_date = userGoal.do_date;
+        }
+    }
+
     getData(){
         this.start = 0;
         this.noItem = false;

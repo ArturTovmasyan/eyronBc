@@ -67,10 +67,11 @@ export class LoginComponent {
         switch (index) {
             case TWITTER:
                 this.twitterLogin().then((socialUser:any) => {
-                    if(socialUser.twitter && socialUser.twitter.accessToken){
-                        this.setData('twitter', socialUser.twitter.accessToken, socialUser.twitter.secret);
+                    if(socialUser.credential && socialUser.credential.accessToken){
+                        this.setData('twitter', socialUser.credential.accessToken, socialUser.credential.secret);
                     }
                 }).catch((error:any) => {
+                    console.log('SocialLoginTwiterError->', error);
                     if(error.credential && error.credential.accessToken && error.credential.secret){
                         this.setData('twitter', error.credential.accessToken, error.credential.secret);
                     }
@@ -79,10 +80,11 @@ export class LoginComponent {
                 break;
             case FACEBOOK:
                 this.facebookLogin().then((socialUser:any) => {
-                    if(socialUser.facebook && socialUser.facebook.accessToken){
-                        this.setData('facebook', socialUser.facebook.accessToken);
+                    if(socialUser.credential && socialUser.credential.accessToken){
+                        this.setData('facebook', socialUser.credential.accessToken);
                     }
                 }).catch((error:any) => {
+                    console.log('SocialLoginFacebookError->', error);
                     if(error.credential && error.credential.accessToken){
                         this.setData('facebook', error.credential.accessToken);
                     }

@@ -184,7 +184,7 @@ export class DoneComponent implements OnInit {
   };
 
   dateByFormat(month, day, year){
-    return '' + (month > 9?month:('0' + month)) + '-' + (day > 9?day:('0' + day)) + '-' + year;
+    return year + '-' + (month > 9?month:('0' + month)) + '-' + (day > 9?day:('0' + day));
   }
 
   isInValid() {
