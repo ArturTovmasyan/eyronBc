@@ -147,7 +147,9 @@
                         <div [ngClass]="{'active-idea': ((userGoal.status != 2) && userGoal.do_date)}"
                              class="row goals-animate"
                              *ngFor="let userGoal of userGoals;let i = index">
-                            <profile-goal [userGoal]="userGoal" [last]="i == userGoals.length - 1" [first]="i == 0"></profile-goal>
+                            <profile-goal [userGoal]="userGoal" [last]="i == userGoals.length - 1" [first]="i == 0"
+                                (onUserGoalChange)="updateUserGoal($event, i)">
+                            </profile-goal>
                         </div>
                     </div>
                     <!--{% else%}-->
