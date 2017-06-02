@@ -140,11 +140,7 @@ export class App implements OnInit  {
                 this.updatedEmail = this.appUser.username;
             }
         }
-        this.broadcaster.on<any>('menuScroll')
-            .subscribe( data => {
-                this.scrollInner = data;
-            });
-
+        
         this.broadcaster.on<any>('updateNoteCount')
             .subscribe(count => {
                 this.newNotCount = count;
