@@ -327,7 +327,7 @@
                                         {{ 'done_by'|translate | uppercase }}
 
                                         <a *ngIf="goal.stats.doneBy != 0"
-                                           (click)="openUsersModal(goal.id, goal.stats.listedBy, 2)" class="text-purple">{{ goal.stats.doneBy }}
+                                           (click)="openUsersModal(goal.id, goal.stats.doneBy, 2)" class="text-purple">{{ goal.stats.doneBy }}
                                         </a>
                                         <!--<p class="text-purple" *ngIf="goal && goal.stats">{{ goal.stats.doneBy }}</p>-->
                                     </li>
