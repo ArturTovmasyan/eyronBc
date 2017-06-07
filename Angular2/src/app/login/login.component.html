@@ -21,7 +21,6 @@
             <button md-button name="submit" class="btn btn-purple" [disabled]="!loginForm.form.valid">SIGN IN</button>
         </div>
     </form>
-
     <a routerLink="/register" (click)="joinHide()" class="sign-up">
         <span class="icon-user"></span>SIGN UP
     </a>
@@ -38,4 +37,7 @@
     </ul>
 </div>
 <!--<div id="shadow"></div>-->
+</div>
+<div id="hello" *ngIf="loading">
+        <bl-loading mode="indeterminate"></bl-loading>
 </div>
