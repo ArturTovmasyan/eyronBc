@@ -61,9 +61,20 @@ export class GoalUsersComponent implements OnInit {
 
   }
   
+  setAction(id) {
+    if (!this.appUser) {
+      this._projectService.setAction({
+        id: id,
+        type: 'like'
+      });
+      this.broadcaster.broadcast('openLogin', 'some message');
+    }
+  }
+  
   manageVote(id) {
     if(this.busy == true) return;
     this.busy = true;
+    this.setAction(id);
     if(this.isMy())return;
     let type = (!this.is_vote)?'add':'remove';
     if(type == 'add'){

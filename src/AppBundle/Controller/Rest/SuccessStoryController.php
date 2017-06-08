@@ -277,6 +277,9 @@ class SuccessStoryController extends FOSRestController
      */
     public function addStoryVoteAction($storyId)
     {
+        $em = $this->getDoctrine()->getManager();
+        $voting = $em->getRepository('AppBundle:SuccessStoryVoters')->findBy(array('successStory' => $storyId, 'user' => $this->getUser()));
+        if ($voting) return new JsonResponse();
         return $this->get('bl_story_service')->voteStory($storyId, $this->getUser());
     }
 

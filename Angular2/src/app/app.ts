@@ -154,6 +154,21 @@ export class App implements OnInit  {
                 this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                 this._projectService.updateApiKeyInHeader();
                 this.broadcaster.broadcast('getUser', user);
+                
+                let action = this._projectService.getAction();
+                if (action && action.type) {
+                    switch (action.type){
+                        case 'like':
+                            this._projectService.setAction(null);
+                            this._projectService.addVote(action.id).subscribe(
+                                () => {});
+                            break;
+                        case 'add':
+                            break;
+                        case 'done':
+                            break;
+                    }
+                }
             });
 
         this.broadcaster.on<string>('logout')
