@@ -46,12 +46,13 @@ angular.module('main',['mgcrea.ngStrap.modal',
             if(!id){
                 AuthenticatorLoginService.openLoginPopup();
             } else {
-                var url = envPrefix + 'api/v1.0/success-story/add-vote/{storyId}';
-                url = url.replace('{storyId}', id);
-                $http.get(url).success(function() {})
-                    .error(function (res) {
-                        AuthenticatorLoginService.openLoginPopup();
-                    });
+                window.location.href = "https://my.bucketlist127.com/login/like/" + id;
+                // var url = envPrefix + 'api/v1.0/success-story/add-vote/{storyId}';
+                // url = url.replace('{storyId}', id);
+                // $http.get(url).success(function() {})
+                //     .error(function (res) {
+                //         AuthenticatorLoginService.openLoginPopup();
+                //     });
             }
         };
 

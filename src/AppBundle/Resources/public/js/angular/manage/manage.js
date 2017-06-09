@@ -155,7 +155,8 @@ angular.module('manage', ['Interpolation',
                                 scope.runCallback(uGoal);
                             }, function(res){
                                 if(res.status === 401){
-                                    AuthenticatorLoginService.openLoginPopup();
+                                    window.location.href = "https://my.bucketlist127.com/login/add/" + scope.lsGoalId;
+                                    // AuthenticatorLoginService.openLoginPopup();
                                     $(".modal-loading").hide();
                                 }
                             });
@@ -186,7 +187,8 @@ angular.module('manage', ['Interpolation',
                                     scope.runCallback(uGoal);
                                 }, function(res){
                                     if(res.status === 401){
-                                        AuthenticatorLoginService.openLoginPopup();
+                                        window.location.href = "https://my.bucketlist127.com/login/add/" + scope.lsGoalId;
+                                        // AuthenticatorLoginService.openLoginPopup();
                                         $(".modal-loading").hide();
                                     }
                                 });
@@ -280,7 +282,8 @@ angular.module('manage', ['Interpolation',
                               scope.runCallback(uGoal);
                           }, function(res){
                               if(res.status === 401){
-                                  AuthenticatorLoginService.openLoginPopup();
+                                  window.location.href = "https://my.bucketlist127.com/done/add/" + scope.lsGoalId;
+                                  // AuthenticatorLoginService.openLoginPopup();
                                   $(".modal-loading").hide();
                               }
                           });
@@ -300,7 +303,8 @@ angular.module('manage', ['Interpolation',
                               });
                           }, function(res){
                               if(res.status === 401){
-                                  AuthenticatorLoginService.openLoginPopup();
+                                  window.location.href = "https://my.bucketlist127.com/login/done/" + scope.lsGoalId;
+                                  // AuthenticatorLoginService.openLoginPopup();
                                   $(".modal-loading").hide();
                               }
                           });
