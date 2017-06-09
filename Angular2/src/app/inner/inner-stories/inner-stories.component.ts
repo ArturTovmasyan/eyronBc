@@ -58,6 +58,10 @@ export class InnerStoriesComponent implements OnInit {
   report(contentType, contentId){
     if(!localStorage.getItem('apiKey')){
       this.broadcaster.broadcast('openLogin', 'some message');
+      this._projectService.setAction({
+        id: {contentType,contentId},
+        type: 'report'
+      });
     } else {
       this.broadcaster.broadcast('reportModal', {contentType,contentId});
     }

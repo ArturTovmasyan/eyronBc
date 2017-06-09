@@ -164,8 +164,35 @@ export class App implements OnInit  {
                                 () => {});
                             break;
                         case 'add':
+                            this._projectService.setAction(null);
+                            this.busy = true;
+                            this._projectService.addUserGoal(action.id, {}).subscribe((data) => {
+                                this.busy = false;
+                                this.broadcaster.broadcast('addModal', {
+                                  'userGoal': data,
+                                  'newAdded' : true,
+                                  'newCreated' : false,
+                                  'haveData': true
+                                });
+                            });
                             break;
                         case 'done':
+                            this._projectService.setAction(null);
+                            this.busy = true;
+                            this._projectService.setDoneUserGoal(action.id).subscribe(() => {
+                                this._projectService.getStory(action.id).subscribe((data)=> {
+                                    this.busy = false;
+                                    this.broadcaster.broadcast('doneModal', {
+                                      'userGoal': data,
+                                      'newAdded' : true,
+                                      'haveData': true
+                                    });
+                                })
+                            });
+                            break;
+                        case 'report':
+                            this._projectService.setAction(null);
+                            this.broadcaster.broadcast('reportModal', action.id);
                             break;
                     }
                 }

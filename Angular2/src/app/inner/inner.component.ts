@@ -309,6 +309,10 @@ export class InnerComponent implements OnInit {
     let key = localStorage.getItem('apiKey');
     if(!key){
       this.broadcaster.broadcast('openLogin', 'some message');
+        this._projectService.setAction({
+            id: id,
+            type: 'add'
+        });
     } else {
 
       let oldStatus = this.goal.is_my_goal;

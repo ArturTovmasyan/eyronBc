@@ -1,5 +1,5 @@
 export interface IAction {
-    id: number,
+    id: any,
     type: string,
     slug?: string
 }
