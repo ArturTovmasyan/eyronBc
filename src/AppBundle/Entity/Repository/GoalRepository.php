@@ -615,6 +615,32 @@ class GoalRepository extends EntityRepository
     }
 
     /**
+     * @param $slug
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findWithRelationsBySlug($slug)
+    {
+        if(is_array($slug)) {
+            $slug = $slug['slug'];
+        }
+        
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, i, t, au, gs, f, gsu, v
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.tags t
+                           LEFT JOIN g.images i
+                           LEFT JOIN g.author au
+                           LEFT JOIN g.successStories gs
+                           LEFT JOIN gs.user gsu
+                           LEFT JOIN gs.files f
+                           LEFT JOIN gs.successStoryVoters v
+                           WHERE g.slug = :slug")
+            ->setParameter('slug', $slug)
+            ->getOneOrNullResult();
+    }
+
+    /**
      * This is actual only for param converter repository method
      *
      * @param $slug
