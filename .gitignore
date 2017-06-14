@@ -34,3 +34,4 @@ app/cache/
 app/logs/
 src/node/tmp/
 web/uploads/
+/bucketlist/

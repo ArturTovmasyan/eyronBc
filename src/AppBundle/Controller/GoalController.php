@@ -440,7 +440,7 @@ class GoalController extends Controller
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
-     *   "repository_method" = "findBySlugWithTinyRelations" })
+     *   "repository_method" = "findWithRelationsBySlug" })
      *
      * @param Goal $goal
      * @return array
@@ -450,6 +450,72 @@ class GoalController extends Controller
         $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
 
         return array('goal' => $goal);
+    }
+
+    /**
+     * @Route("amp/goal/{slug}", name="amp_inner_goal")
+     * @Template()
+     * @ParamConverter("goal", class="AppBundle:Goal",  options={
+     *   "mapping": {"slug": "slug"},
+     *   "repository_method" = "findWithRelationsBySlug" })
+     *
+     * @param Goal $goal
+     * @return array
+     */
+    public function ampShowAction(Goal $goal)
+    {
+        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
+
+        $successStories = $goal->getSuccessStories()->toArray();
+        usort($successStories, function($a, $b) {
+
+            $aCount = $a->getSuccessStoryVoters()->count();
+            $bCount = $b->getSuccessStoryVoters()->count();
+
+            $currentDate = new \DateTime();
+            $aInterval = date_diff($a->getUpdated(), $currentDate)->format('%R%a');
+            $bInterval = date_diff($b->getUpdated(), $currentDate)->format('%R%a');
+
+            if ($aInterval <= 7 || $bInterval <= 7){
+                if ($aInterval == $bInterval) {
+                    if ($aCount == $bCount) {
+                        return 0;
+                    }
+
+                    return $aCount < $bCount ? 1 : -1;
+                }
+
+                return $a->getUpdated() < $b->getUpdated() ? 1 : -1;
+            }
+
+            if ($aCount == $bCount) {
+                if ($a->getUpdated() == $b->getUpdated()){
+                    return 0;
+                }
+
+                return $a->getUpdated() < $b->getUpdated() ? 1 : -1;
+            }
+
+            return $aCount < $bCount ? 1 : -1;
+        });
+
+        $goal->setSuccessStories($successStories);
+
+
+
+        $em = $this->getDoctrine()->getmanager();
+        $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal, true);
+
+        $doneByUsers   = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 0, 3);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, null, 0, 3 );
+
+
+        return array(
+            'goal'          => $goal, 
+            'aphorisms'     => $aphorisms,
+            'doneByUsers'   => $doneByUsers,
+            'listedByUsers' => $listedByUsers
+        );
     }
 
     /**
