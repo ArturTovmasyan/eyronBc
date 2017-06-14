@@ -89,6 +89,7 @@ twig:
         env_prefix: ~
         remote_console: %remote_console%
         iframe_host: %iframe_host%
+        ang2_host: %apihost%
 
     paths:
         '%kernel.root_dir%/../web': ~

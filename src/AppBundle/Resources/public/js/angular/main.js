@@ -42,11 +42,11 @@ angular.module('main',['mgcrea.ngStrap.modal',
             return $scope.capitalizeFirstLetter($filter('date')(new Date(date), "MMMM d 'at' hh:mm a"));
         };
 
-        $scope.openSignInPopover = function(id){
+        $scope.openSignInPopover = function(id, slug){
             if(!id){
                 AuthenticatorLoginService.openLoginPopup();
             } else {
-                window.location.href = "https://my.bucketlist127.com/login/like/" + id;
+                window.location.href = "https://my.bucketlist127.com/login/like/" + id + '/' + slug;
                 // var url = envPrefix + 'api/v1.0/success-story/add-vote/{storyId}';
                 // url = url.replace('{storyId}', id);
                 // $http.get(url).success(function() {})

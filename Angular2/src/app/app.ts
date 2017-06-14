@@ -156,6 +156,11 @@ export class App implements OnInit  {
                             this._projectService.setAction(null);
                             this._projectService.addVote(action.id).subscribe(
                                 () => {});
+                            if (action.slug) {
+                                setTimeout(()=>{
+                                    this.router.navigate(['/goal/' + action.slug ]);
+                                },0)
+                            }
                             break;
                         case 'add':
                             this._projectService.setAction(null);

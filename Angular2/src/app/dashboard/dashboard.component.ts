@@ -25,7 +25,8 @@ export class DashboardComponent implements OnDestroy {
             if(this.route.snapshot.paramMap.has('type') && this.route.snapshot.paramMap.has('id')) {
                 this._projectService.setAction({
                   id: this.route.snapshot.paramMap.get('id'),
-                  type: this.route.snapshot.paramMap.get('type')
+                  type: this.route.snapshot.paramMap.get('type'),
+                  slug: this.route.snapshot.paramMap.get('slug')
                 });
             }
 

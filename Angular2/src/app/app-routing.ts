@@ -32,6 +32,7 @@ const appRoutes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [LoginGuard] },
   { path: 'login', component: DashboardComponent, canActivate: [LoginGuard] },
   { path: 'login/:type/:id',  component: DashboardComponent, canActivate: [LoginGuard]},
+  { path: 'login/:type/:id/:slug',  component: DashboardComponent, canActivate: [LoginGuard]},
   { path: 'error', component: ErrorComponent },
   { path: 'not-active', component: NotActiveComponent },
   { path: '**', component: ErrorComponent }

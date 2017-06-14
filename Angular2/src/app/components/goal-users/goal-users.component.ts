@@ -65,7 +65,8 @@ export class GoalUsersComponent implements OnInit {
     if (!this.appUser) {
       this._projectService.setAction({
         id: id,
-        type: 'like'
+        type: 'like',
+        slug: this.goal.slug
       });
       this.broadcaster.broadcast('openLogin', 'some message');
     }
@@ -84,13 +85,7 @@ export class GoalUsersComponent implements OnInit {
     this._projectService[type + 'Vote'](id)
         .subscribe(
             () => {
-              if(!this.is_vote){
-
-                    this.is_vote = true;
-                  } else {
-
-                    this.is_vote = false;
-                  }
+              this.is_vote = !this.is_vote;
               this.busy = false;
             });
 

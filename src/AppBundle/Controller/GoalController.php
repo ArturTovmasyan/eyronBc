@@ -435,17 +435,17 @@ class GoalController extends Controller
         }
     }
 
-    /**
-     * @Route("goal/{slug}", name="inner_goal")
-     * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal",  options={
-     *   "mapping": {"slug": "slug"},
-     *   "repository_method" = "findWithRelationsBySlug" })
-     *
-     * @param Goal $goal
-     * @return array
-     */
-    public function showAction(Goal $goal)
+//    /**
+//     * @Route("goal/{slug}", name="inner_goal_old")
+//     * @Template()
+//     * @ParamConverter("goal", class="AppBundle:Goal",  options={
+//     *   "mapping": {"slug": "slug"},
+//     *   "repository_method" = "findWithRelationsBySlug" })
+//     *
+//     * @param Goal $goal
+//     * @return array
+//     */
+    public function oldShowAction(Goal $goal)
     {
         $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
 
@@ -453,7 +453,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("amp/goal/{slug}", name="amp_inner_goal")
+     * @Route("goal/{slug}", name="inner_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},

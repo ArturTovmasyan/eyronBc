@@ -2,10 +2,11 @@ import { Component, OnInit ,Output, Input, ViewContainerRef, EventEmitter} from 
 import { Broadcaster } from '../../tools/broadcaster';
 import { ConfirmComponent} from '../../modals/confirm/confirm.component';
 import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
-import {ProjectService} from '../../project.service';
+import { ProjectService} from '../../project.service';
 
-import {Story} from '../../interface/story';
-import {User} from '../../interface/user';
+import { Story} from '../../interface/story';
+import { User} from '../../interface/user';
+import { Goal} from '../../interface/goal';
 
 @Component({
   selector: 'inner-stories',
@@ -16,6 +17,7 @@ export class InnerStoriesComponent implements OnInit {
 
   @Input() stories:Story[];
   @Input() appUser:User;
+  @Input() goal:Goal;
   @Output() onStoryClick: EventEmitter<any> = new EventEmitter();
 
   public storiesCount:number = 20;
