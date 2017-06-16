@@ -21,16 +21,24 @@ export class DashboardComponent implements OnDestroy {
     this.sub = router.events.subscribe((event) => {
         if(event instanceof NavigationEnd ) {
           if (event.url.indexOf('/login') != -1) {
-            this.broadcaster.broadcast('openLogin', 'some message');
+            if (!localStorage.getItem('apiKey')) {
+              this.broadcaster.broadcast('openLogin', 'some message');
+            }
             if(this.route.snapshot.paramMap.has('type') && this.route.snapshot.paramMap.has('id')) {
                 this._projectService.setAction({
                   id: this.route.snapshot.paramMap.get('id'),
                   type: this.route.snapshot.paramMap.get('type'),
                   slug: this.route.snapshot.paramMap.get('slug')
                 });
+              this.broadcaster.broadcast('someAction');
             }
 
           }
+
+          if (localStorage.getItem('apiKey')) {
+            this.router.navigate(['/activity']);
+          }
+
           window.scrollTo(0,0);
         }
       });

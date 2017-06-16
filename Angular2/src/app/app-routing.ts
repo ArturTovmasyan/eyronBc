@@ -31,8 +31,8 @@ const appRoutes: Routes = [
   { path: 'ideas', loadChildren: './ideas/ideas.module#IdeasModule'},
   { path: '', component: DashboardComponent, canActivate: [LoginGuard] },
   { path: 'login', component: DashboardComponent, canActivate: [LoginGuard] },
-  { path: 'login/:type/:id',  component: DashboardComponent, canActivate: [LoginGuard]},
-  { path: 'login/:type/:id/:slug',  component: DashboardComponent, canActivate: [LoginGuard]},
+  { path: 'login/:type/:id',  component: DashboardComponent},
+  { path: 'login/:type/:id/:slug',  component: DashboardComponent},
   { path: 'error', component: ErrorComponent },
   { path: 'not-active', component: NotActiveComponent },
   { path: '**', component: ErrorComponent }
