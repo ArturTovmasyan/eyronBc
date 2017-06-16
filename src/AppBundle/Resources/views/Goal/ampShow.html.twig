@@ -14,9 +14,9 @@
             {% endstylesheets %}
 
     {% stylesheets output='css/amp-base-show.css'
-    'bundles/app/less/ampShow.css'
-    'bundles/app/less/amp-bootstrap.css'
-    filter='uglifyjs2' %}
+    'bundles/app/less/ampShow.less'
+    'bundles/app/less/amp-bootstrap.less'
+    %}
     {{ source(asset_url|remove_asset_version) }}
     {% endstylesheets %}
 {% endblock %}
