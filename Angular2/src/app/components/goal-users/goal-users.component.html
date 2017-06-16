@@ -44,7 +44,7 @@
            class="like-icon"></i>
     </button>
 
-    <button md-button (click)="setAction(story.id)" *ngIf="story && isMy()" class="user-story1" disableRipple>
+    <button md-button (click)="setAction(story.id)" *ngIf="story && isMy()" [class.user-story]="appUser" disableRipple>
         <i class="like-icon"></i>
     </button>
 </span>
