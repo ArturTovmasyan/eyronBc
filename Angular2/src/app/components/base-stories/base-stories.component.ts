@@ -62,7 +62,15 @@ export class BaseStoriesComponent implements OnInit {
     this.light_box_open = false;
   }
 
-  openSignInPopover(){
+  openSignInPopover(story?){
+    if (story && story.id && story.goal) {
+      this._projectService.setAction({
+        id: story.id,
+        type: 'like',
+        slug: story.goal.slug
+      });
+    }
+
     this.broadcaster.broadcast('openLogin', 'message');
   }
 

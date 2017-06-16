@@ -90,6 +90,19 @@ export class InnerComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.route.params.forEach((params:Params) => {
+          this.goal = null;
+          let goalSlug = params['slug'];
+          this.seeAlsoShow = false;
+          if(params['page']){
+              this.type = params['page']
+          }
+
+          window.scrollTo(0,0);
+          // load data
+          this.getProject(goalSlug);
+      });
+      
       this.broadcaster.on<any>('menuScroll')
           .subscribe( data => {
               this.scroll = data;
@@ -114,18 +127,6 @@ export class InnerComponent implements OnInit {
 
     this.serverPath = this._projectService.getPath();
     this.imgPath = this.serverPath + '/bundles/app/images/cover2.jpg';
-    this.route.params.forEach((params:Params) => {
-        this.goal = null;
-        let goalSlug = params['slug'];
-        this.seeAlsoShow = false;
-        if(params['page']){
-            this.type = params['page']
-        }
-
-        window.scrollTo(0,0);
-      // load data
-      this.getProject(goalSlug);
-    });
   }
 
   closeLightBox(){
@@ -309,6 +310,10 @@ export class InnerComponent implements OnInit {
     let key = localStorage.getItem('apiKey');
     if(!key){
       this.broadcaster.broadcast('openLogin', 'some message');
+        this._projectService.setAction({
+            id: id,
+            type: 'add'
+        });
     } else {
 
       let oldStatus = this.goal.is_my_goal;

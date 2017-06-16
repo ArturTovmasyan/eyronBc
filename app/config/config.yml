@@ -43,7 +43,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v632
+        assets_version: v633
 
     default_locale:  en
     trusted_hosts:   ~
@@ -89,6 +89,7 @@ twig:
         env_prefix: ~
         remote_console: %remote_console%
         iframe_host: %iframe_host%
+        ang2_host: %apihost%
 
     paths:
         '%kernel.root_dir%/../web': ~

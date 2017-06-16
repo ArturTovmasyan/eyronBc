@@ -24,6 +24,7 @@ export class LoginComponent {
     user:User;
     error:string;
     authState: any;
+    loading:boolean = false;
 
     constructor(
         private ProjectService: ProjectService,
@@ -64,6 +65,7 @@ export class LoginComponent {
     }
 
     loginSocial(index:number){
+        this.loading = true;
         switch (index) {
             case TWITTER:
                 this.twitterLogin().then((socialUser:any) => {
@@ -71,6 +73,7 @@ export class LoginComponent {
                         this.setData('twitter', socialUser.credential.accessToken, socialUser.credential.secret);
                     }
                 }).catch((error:any) => {
+                    this.loading = false;
                     console.log('SocialLoginTwiterError->', error);
                     if(error.credential && error.credential.accessToken && error.credential.secret){
                         this.setData('twitter', error.credential.accessToken, error.credential.secret);
@@ -84,6 +87,7 @@ export class LoginComponent {
                         this.setData('facebook', socialUser.credential.accessToken);
                     }
                 }).catch((error:any) => {
+                    this.loading = false;
                     console.log('SocialLoginFacebookError->', error);
                     if(error.credential && error.credential.accessToken){
                         this.setData('facebook', error.credential.accessToken);
@@ -99,6 +103,7 @@ export class LoginComponent {
                     // this.setData(user);
                 }).catch((error) => {
                     this.errorHandler(error);
+                    this.loading = false;
                 });
                 break;
             default:
@@ -108,9 +113,12 @@ export class LoginComponent {
     }
 
     setData(type, token, secter?) {
+        this.loading = true;
+        console.log(this.loading);
         this.ProjectService.socialLogin(type, token, secter)
             .subscribe(
                 res => {
+                    this.loading = false;
                     if(res.apiKey) {
                         localStorage.setItem('apiKey', res.apiKey);
                         this.broadcaster.broadcast('login', res.userInfo);

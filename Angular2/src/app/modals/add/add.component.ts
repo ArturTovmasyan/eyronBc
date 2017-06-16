@@ -359,9 +359,8 @@ export class AddComponent implements OnInit {
   
   removeUserGoal(){
     this.ProjectService.removeUserGoal(this.userGoal.id).subscribe((data) => {
-
+      this.broadcaster.broadcast('snackbar',0);
     });
     this.dialogRef.close({'remove': this.userGoal.id});
-    this.broadcaster.broadcast('snackbar',0);
   }
 }

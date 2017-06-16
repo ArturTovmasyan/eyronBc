@@ -547,7 +547,7 @@
                                 </swiper>
                             </div>
 
-                            <inner-stories [stories]="stories" [appUser]="appUser"
+                            <inner-stories [stories]="stories" [appUser]="appUser" [goal]="goal"
                                            (onStoryClick)="openLightBox($event)"
                                            *ngIf="type == 'inner' && stories && stories.length > 0">
                             </inner-stories>

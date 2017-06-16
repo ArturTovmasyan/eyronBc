@@ -22,25 +22,30 @@ class AphorismRepository extends EntityRepository
      * @param $goal
      * @return array|null
      */
-    public function findOneRandom($goal)
+    public function findOneRandom($goal, $getSingle = false)
     {
-        $ids = [];
+        $tags = [];
         foreach($goal->getTags() as $tag){
-            $ids[] = $tag->getId();
+            $tags[] = $tag->getId();
         }
 
-        if(count($ids) == 0){
+        if(count($tags) == 0){
             return [];
         }
 
-        //May be will be random :)
-        shuffle($ids);
-
-        return $this->getEntityManager()
+        $aphorisms = $this->getEntityManager()
             ->createQuery("SELECT a
                            FROM AppBundle:Aphorism a
                            JOIN a.tags t WITH t.id IN (:tags)")
-            ->setParameter('tags', $ids)
+            ->setParameter('tags', $tags)
             ->getResult();
+
+        shuffle($aphorisms);
+
+        if ($getSingle){
+            $aphorisms = [$aphorisms[0]];
+        }
+
+        return $aphorisms;
     }
 }
