@@ -24,7 +24,26 @@
     {{ parent() }}
     {{ '<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>' }}    
     {{ '<script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>' }}
+    {{ '<script async custom-element="amp-vimeo" src="https://cdn.ampproject.org/v0/amp-vimeo-0.1.js"></script>' }}
 {% endblock %}
+
+{%- block title -%}
+    {{ goal.title }}
+{%- endblock -%}
+{%- block meta_description -%}
+    {%- if goal.description is not empty -%}
+        {{- goal.description|markdown|replace({'#': ''})|striptags|sliceString -}}
+    {% else %}
+        {{- 'goal.view_description'|trans -}}
+    {%- endif -%}
+{%- endblock -%}
+{%- block og_image -%}
+    {%- if goal.getListPhoto -%}
+        {{- goal.getListPhoto.getDownloadLink|blImageFilter('goal_cover') -}}
+    {% else %}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock -%}
 {% block content %}
     {% set cover = goal.getCoverPhotoDownloadLink %}
     {% set goalInner = true %}
@@ -74,7 +93,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                                <p class="goal-autor goal-inner-title
+                <p class="goal-autor goal-inner-title
                     {% if goal.title|length > 10 %}title-smaller{% endif %}">
                     {{ goal.title }}
                 </p>
@@ -185,8 +204,6 @@
                     {% endif %}
                     {% if goal.videoLink and goal.videoLink is iterable %}
                         {% for video in goal.videoLink %}
-                            {#todo for vevo#}
-                            {#{{ dump(video, ang2_host) }}#}
                             {% if 'youtube.com' in video %}
                                 {% set youvd = video|split('v=')  %}
                                 {% if youvd[1] is defined %}
@@ -194,14 +211,26 @@
                                     data-videoid="{{youvd[1]}}"
                                     layout="responsive"
                                     width="480" height="270"></amp-youtube>
+                                {% elseif 'embed' in video %}
+                                    {% set youvd = video|split('/')  %}
+                                    <amp-youtube
+                                            data-videoid="{{youvd | last }}"
+                                            layout="responsive"
+                                            width="480" height="270"></amp-youtube>
                                 {% endif %}
-                            {% endif %}
-                            {% if 'youtu.be' in video %}
+                            {% elseif 'youtu.be' in video %}
                                 {% set youvd = video|split('/')  %}
                                 <amp-youtube
                                 data-videoid="{{youvd | last }}"
                                 layout="responsive"
                                 width="480" height="270"></amp-youtube>
+                            {% elseif 'vimeo.com' in video %}
+                                {% set youvd = video|split('/')  %}
+                                <amp-vimeo
+                                        data-videoid="{{ youvd | last }}"
+                                        layout="responsive"
+                                        width="480" height="270">
+                                </amp-vimeo>
                             {% endif %}
                         {% endfor %}
                         <div class="row">&nbsp;</div>
@@ -300,11 +329,34 @@
                                               layout="responsive"
                                               type="slides">
                                     {% for video in videos %}
-                                            {% set youvd = video|split('v=') %}
+                                        {% if 'youtube.com' in video %}
+                                            {% set youvd = video|split('v=')  %}
+                                            {% if youvd[1] is defined %}
+                                                <amp-youtube
+                                                        data-videoid="{{youvd[1]}}"
+                                                        layout="responsive"
+                                                        width="4" height="3"></amp-youtube>
+                                            {% elseif 'embed' in video %}
+                                                {% set youvd = video|split('/')  %}
+                                                <amp-youtube
+                                                        data-videoid="{{youvd | last }}"
+                                                        layout="responsive"
+                                                        width="4" height="3"></amp-youtube>
+                                            {% endif %}
+                                        {% elseif 'youtu.be' in video %}
+                                            {% set youvd = video|split('/')  %}
                                             <amp-youtube
-                                                 data-videoid="{{youvd[1]}}"
-                                                layout="responsive" width="4" height="3"
-                                            ></amp-youtube>
+                                                    data-videoid="{{youvd | last }}"
+                                                    layout="responsive"
+                                                    width="4" height="3"></amp-youtube>
+                                        {% elseif 'vimeo.com' in video %}
+                                            {% set youvd = video|split('/')  %}
+                                            <amp-vimeo
+                                                    data-videoid="{{ youvd | last }}"
+                                                    layout="responsive"
+                                                    width="4" height="3">
+                                            </amp-vimeo>
+                                        {% endif %}
                                     {% endfor %}
                                         </amp-carousel>
                                     </div>
