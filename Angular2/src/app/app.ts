@@ -140,6 +140,11 @@ export class App implements OnInit  {
                 this.newNotCount = count;
             });
 
+        this.broadcaster.on<any>('someAction')
+            .subscribe(() => {
+                this.checkActions();
+            });
+
         this.broadcaster.on<User>('login')
             .subscribe(user => {
                 this.appUser = user;
@@ -149,52 +154,7 @@ export class App implements OnInit  {
                 this._projectService.updateApiKeyInHeader();
                 this.broadcaster.broadcast('getUser', user);
                 
-                let action = this._projectService.getAction();
-                if (action && action.type) {
-                    switch (action.type){
-                        case 'like':
-                            this._projectService.setAction(null);
-                            this._projectService.addVote(action.id).subscribe(
-                                () => {});
-                            if (action.slug) {
-                                setTimeout(()=>{
-                                    this.router.navigate(['/goal/' + action.slug ]);
-                                },0)
-                            }
-                            break;
-                        case 'add':
-                            this._projectService.setAction(null);
-                            // this.busy = true;
-                            this._projectService.addUserGoal(action.id, {}).subscribe((data) => {
-                                // this.busy = false;
-                                this.broadcaster.broadcast('addModal', {
-                                  'userGoal': data,
-                                  'newAdded' : true,
-                                  'newCreated' : false,
-                                  'haveData': true
-                                });
-                            });
-                            break;
-                        case 'done':
-                            this._projectService.setAction(null);
-                            // this.busy = true;
-                            this._projectService.setDoneUserGoal(action.id).subscribe(() => {
-                                this._projectService.getStory(action.id).subscribe((data)=> {
-                                    // this.busy = false;
-                                    this.broadcaster.broadcast('doneModal', {
-                                      'userGoal': data,
-                                      'newAdded' : true,
-                                      'haveData': true
-                                    });
-                                })
-                            });
-                            break;
-                        case 'report':
-                            this._projectService.setAction(null);
-                            this.broadcaster.broadcast('reportModal', action.id);
-                            break;
-                    }
-                }
+                this.checkActions();
             });
 
         this.broadcaster.on<string>('logout')
@@ -386,6 +346,67 @@ export class App implements OnInit  {
             );
     }
 
+    checkActions(){
+        let action = this._projectService.getAction();
+        if (action && action.type) {
+            switch (action.type){
+                case 'like':
+                    this._projectService.setAction(null);
+                    this._projectService.addVote(action.id).subscribe(
+                        () => {
+                            if (action.slug) {
+                                this.router.navigate(['/goal/' + action.slug ]);
+                            }
+                        });
+
+                    break;
+                case 'add':
+                    this._projectService.setAction(null);
+                    // this.busy = true;
+                    this._projectService.addUserGoal(action.id, {}).subscribe((data) => {
+                        // this.busy = false;
+                        this.broadcaster.broadcast('addModal', {
+                            'userGoal': data,
+                            'newAdded' : true,
+                            'newCreated' : false,
+                            'haveData': true
+                        });
+                    });
+                    break;
+                case 'done':
+                    this._projectService.setAction(null);
+                    // this.busy = true;
+                    this._projectService.setDoneUserGoal(action.id).subscribe(() => {
+                        this._projectService.getStory(action.id).subscribe((data)=> {
+                            // this.busy = false;
+                            this.broadcaster.broadcast('doneModal', {
+                                'userGoal': data,
+                                'newAdded' : true,
+                                'haveData': true
+                            });
+                        })
+                    });
+                    break;
+                case 'listed':
+                    this._projectService.setAction(null);
+                    this.broadcaster.broadcast('usersModal', {itemId: action.id, count: action.count, category: action.category});
+                    break;
+                case 'completed':
+                    this._projectService.setAction(null);
+                    this.broadcaster.broadcast('usersModal', {itemId: action.id, count: action.count, category: action.category});
+                    break;
+                case 'likes':
+                    this._projectService.setAction(null);
+                    this.broadcaster.broadcast('usersModal', {itemId: action.id, count: action.count, category: action.category});
+                    break;
+                case 'report':
+                    this._projectService.setAction(null);
+                    this.broadcaster.broadcast('reportModal', action.id);
+                    break;
+            }
+        }    
+    }
+    
     purgeFresh(){
         if(this.appUser) {
             this.fresh = this._cacheService.get('fresh'+this.appUser.id);

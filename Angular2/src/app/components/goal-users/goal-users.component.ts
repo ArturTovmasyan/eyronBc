@@ -54,6 +54,14 @@ export class GoalUsersComponent implements OnInit {
   openUsersModal(id:number, count:number, category: number){
     if(!localStorage.getItem('apiKey') || !this.appUser){
       this.broadcaster.broadcast('openLogin', 'some message');
+      if (count) {
+        this._projectService.setAction({
+          id: id,
+          type: this.type == 1 ? 'listed': this.type == 2 ? 'completed': 'likes',
+          count: count,
+          category: category
+        });
+      }
     } else {
       if(!count || count == 0)return;
       this.broadcaster.broadcast('usersModal', {itemId: id, count: count, category: category});

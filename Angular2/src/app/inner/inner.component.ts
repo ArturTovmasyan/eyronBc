@@ -472,6 +472,14 @@ export class InnerComponent implements OnInit {
   openUsersModal(id:number, count:number, category: number){
     if(!localStorage.getItem('apiKey') || !this.appUser){
       this.broadcaster.broadcast('openLogin', 'some message');
+        if (count) {
+            this._projectService.setAction({
+                id: id,
+                type: category == 1 ? 'listed': category == 2 ? 'completed': 'likes',
+                count: count,
+                category: category
+            });
+        }
     } else {
       if(!count)return;
       this.broadcaster.broadcast('usersModal', {itemId: id, count: count, category: category});
