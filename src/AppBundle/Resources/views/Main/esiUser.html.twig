@@ -10,14 +10,15 @@
        class="settings-modal">
     </a>
 
-    <a href="javascript:void(0)"
+    <a  
+       href="javascript:void(0);"
        class="user user-popover clearfix hidden-xs"
        data-placement="bottom-left"
-       data-ng-click="joinToggle1 = !joinToggle1;$parent.joinToggle1 = !$parent.joinToggle1"
+       data-ng-click="joinToggle1 = !joinToggle1;$parent.joinToggle1 = !$parent.joinToggle1;"
        data-html="true"
        data-auto-close="true"
        data-ng-class="{'join-class': joinToggle1}"
-       data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
+       data-content='{{ include("AppBundle:Blocks:user.widget.html.twig",{"addr":app.request.server.get('PHP_SELF')}) }}'
        data-animation="am-fade-and-scale"
        data-bs-popover>
         {% if user.getPhotoLink %}
@@ -41,6 +42,7 @@
             {#<div data-open-popover data-dir="true"></div>#}
         {% endif %}
     </a>
+
     {#when mobile menu#}
     <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11;$parent.joinToggle11 = !$parent.joinToggle11;$parent.$parent.joinToggle11 = !$parent.$parent.joinToggle11" class="ng-hide mobile-user hidden-sm hidden-md hidden-lg" data-ng-show="!joinToggle11">
         {% if user.getPhotoLink %}

@@ -1,20 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Broadcaster } from '../tools/broadcaster';
+import { ProjectService } from '../project.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnDestroy {
 
-  constructor(private router: Router) { }
+  sub: any;
 
-  ngOnInit() {
-    window.scrollTo(0,0);
-    // if(localStorage.getItem('apiKey')){
-    //   this.router.navigate(['/activity']);
-    // }
+  constructor(
+      private router: Router,
+      private route: ActivatedRoute,
+      private _projectService: ProjectService,
+      private broadcaster: Broadcaster
+  ) {
+    this.sub = router.events.subscribe((event) => {
+        if(event instanceof NavigationEnd ) {
+          if (event.url.indexOf('/login') != -1) {
+            this.broadcaster.broadcast('openLogin', 'some message');
+            if(this.route.snapshot.paramMap.has('type') && this.route.snapshot.paramMap.has('id')) {
+                this._projectService.setAction({
+                  id: this.route.snapshot.paramMap.get('id'),
+                  type: this.route.snapshot.paramMap.get('type'),
+                  slug: this.route.snapshot.paramMap.get('slug')
+                });
+            }
+
+          }
+          window.scrollTo(0,0);
+        }
+      });
   }
 
+  ngOnDestroy(){
+    this.sub.unsubscribe();
+  }
 }

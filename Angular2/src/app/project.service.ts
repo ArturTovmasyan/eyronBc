@@ -4,13 +4,7 @@ import { Router } from '@angular/router';
 import { Broadcaster } from './tools/broadcaster';
 
 
-import {Goal} from "./interface/goal";
-import {Story} from "./interface/story";
-import {User} from "./interface/user";
-import {Comment} from "./interface/comment";
-import {Category} from "./interface/category";
-import {UserGoal} from "./interface/userGoal";
-import {Activity} from "./interface/activity";
+import { Goal, Story, User, Comment, Category, UserGoal, Activity, IAction } from "./interface";
 
 import {Observable}     from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -30,6 +24,7 @@ export class ProjectService {
 
     private headers = new Headers();
     private appUser:User;
+    private action: IAction = null;
 
     private envprefix = (environment.production || (<any>environment).stage)?'/':(<any>environment).test?'/':'/app_dev.php/';
     //private envprefix = '/';
@@ -219,6 +214,14 @@ export class ProjectService {
         this.appUser = data;
     }
 
+    setAction(action: IAction){
+        this.action = action;
+    }
+    
+    getAction():IAction{
+        return this.action;    
+    }
+    
     /**
      *
      * @param slug

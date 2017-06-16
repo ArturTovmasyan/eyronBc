@@ -34,7 +34,7 @@ class SuccessStory implements ActivityableInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"successStory"})
+     * @Groups({"successStory","inspireStory"})
      */
     protected $id;
 

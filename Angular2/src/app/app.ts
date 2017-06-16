@@ -75,12 +75,6 @@ export class App implements OnInit  {
                 this.inLeaderboard = (event.url.indexOf('/leaderboard') == 0);
                 this.inCreateGoal = (event.url.indexOf('/goal/create') == 0);
                 this.inInner = ((event.url.indexOf('/goal/create') != 0) && (event.url.indexOf('/goal') == 0) && (event.url.indexOf('/goal/my-ideas') != 0) && (event.url.indexOf('/goal-friends') != 0));
-
-                if (event.url == '/login') {
-                    window.scroll(0,0);
-                    this.appUser = null;
-                    this.joinShow = true;
-                }
             }
         });
     }
@@ -154,6 +148,53 @@ export class App implements OnInit  {
                 this._cacheService.set('user_', user, {maxAge: 3 * 24 * 60 * 60});
                 this._projectService.updateApiKeyInHeader();
                 this.broadcaster.broadcast('getUser', user);
+                
+                let action = this._projectService.getAction();
+                if (action && action.type) {
+                    switch (action.type){
+                        case 'like':
+                            this._projectService.setAction(null);
+                            this._projectService.addVote(action.id).subscribe(
+                                () => {});
+                            if (action.slug) {
+                                setTimeout(()=>{
+                                    this.router.navigate(['/goal/' + action.slug ]);
+                                },0)
+                            }
+                            break;
+                        case 'add':
+                            this._projectService.setAction(null);
+                            // this.busy = true;
+                            this._projectService.addUserGoal(action.id, {}).subscribe((data) => {
+                                // this.busy = false;
+                                this.broadcaster.broadcast('addModal', {
+                                  'userGoal': data,
+                                  'newAdded' : true,
+                                  'newCreated' : false,
+                                  'haveData': true
+                                });
+                            });
+                            break;
+                        case 'done':
+                            this._projectService.setAction(null);
+                            // this.busy = true;
+                            this._projectService.setDoneUserGoal(action.id).subscribe(() => {
+                                this._projectService.getStory(action.id).subscribe((data)=> {
+                                    // this.busy = false;
+                                    this.broadcaster.broadcast('doneModal', {
+                                      'userGoal': data,
+                                      'newAdded' : true,
+                                      'haveData': true
+                                    });
+                                })
+                            });
+                            break;
+                        case 'report':
+                            this._projectService.setAction(null);
+                            this.broadcaster.broadcast('reportModal', action.id);
+                            break;
+                    }
+                }
             });
 
         this.broadcaster.on<string>('logout')

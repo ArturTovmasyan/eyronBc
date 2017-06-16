@@ -1,8 +1,8 @@
 import { Component, OnInit, Input , ViewEncapsulation} from '@angular/core';
 
 import { Goal } from '../../interface/goal';
-import {Broadcaster} from '../../tools/broadcaster';
-import {ProjectService} from '../../project.service';
+import { Broadcaster } from '../../tools/broadcaster';
+import { ProjectService } from '../../project.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ import {ProjectService} from '../../project.service';
 })
 export class GoalFooterComponent implements OnInit {
   @Input() goal: Goal;
-  constructor(private broadcaster: Broadcaster, private ProjectService: ProjectService) { }
+  constructor(private broadcaster: Broadcaster, private _projectService: ProjectService) { }
 
   ngOnInit() {
   }
@@ -22,6 +22,10 @@ export class GoalFooterComponent implements OnInit {
     let key = localStorage.getItem('apiKey');
     if(!key){
       this.broadcaster.broadcast('openLogin', 'some message');
+      this._projectService.setAction({
+          id: id,
+          type: 'add'
+      });
     } else {
       this.goal.is_my_goal = 1;
       this.broadcaster.on<any>('saveGoal'+this.goal.id)
@@ -45,7 +49,7 @@ export class GoalFooterComponent implements OnInit {
             'newCreated' : false
         });
         
-      this.ProjectService.addUserGoal(id, {}).subscribe((data) => {
+      this._projectService.addUserGoal(id, {}).subscribe((data) => {
           this.broadcaster.broadcast('addModalUserGoal', data);
           // this.broadcaster.broadcast('addModal', {
           //   'userGoal': data,
@@ -61,15 +65,19 @@ export class GoalFooterComponent implements OnInit {
     let key = localStorage.getItem('apiKey');
     if(!key){
       this.broadcaster.broadcast('openLogin', 'message');
+      this._projectService.setAction({
+         id: id,
+         type: 'done'
+      });
     } else {
       this.goal.is_my_goal = 2;
         this.broadcaster.broadcast('doneModal', {
             'userGoal': {'goal':this.goal},
             'newAdded' : true
         });
-      this.ProjectService.setDoneUserGoal(id).subscribe(() => {
+      this._projectService.setDoneUserGoal(id).subscribe(() => {
           this.broadcaster.broadcast('add_my_goal'+id, {});
-          this.ProjectService.getStory(id).subscribe((data)=> {
+          this._projectService.getStory(id).subscribe((data)=> {
               this.broadcaster.broadcast('doneModalUserGoal', data);
             // this.broadcaster.broadcast('doneModal', {
             //   'userGoal': data,

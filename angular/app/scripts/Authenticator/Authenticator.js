@@ -43,11 +43,12 @@ angular.module('Authenticator', ['PathPrefix', 'Interpolation'])
 
     return {
       openLoginPopup: function(){
-        $http.get('/login')
-          .success(function(res){
-            openModal(angular.element(res));
-            $rootScope.$broadcast('showAuthenticatorLoginButton', true)
-          });
+        window.location.href = "https://my.bucketlist127.com/login";
+        // $http.get('/login')
+        //   .success(function(res){
+        //     openModal(angular.element(res));
+        //     $rootScope.$broadcast('showAuthenticatorLoginButton', true)
+        //   });
       },
       login: function(data){
         return $http({
