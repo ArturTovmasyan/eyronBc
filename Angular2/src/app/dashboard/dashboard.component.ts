@@ -30,7 +30,9 @@ export class DashboardComponent implements OnDestroy {
                   type: this.route.snapshot.paramMap.get('type'),
                   slug: this.route.snapshot.paramMap.get('slug')
                 });
-              this.broadcaster.broadcast('someAction');
+              if (localStorage.getItem('apiKey')) {
+                this.broadcaster.broadcast('someAction');
+              }
             }
 
           }
