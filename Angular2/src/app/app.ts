@@ -403,6 +403,14 @@ export class App implements OnInit  {
                     this._projectService.setAction(null);
                     this.broadcaster.broadcast('reportModal', action.id);
                     break;
+                case 'user':
+                    this._projectService.setAction(null);
+
+                    setTimeout(()=>{
+                        this.router.navigate(['/profile/' + action.id + '/activity']);
+                    });
+                    
+                    break;
             }
         }    
     }

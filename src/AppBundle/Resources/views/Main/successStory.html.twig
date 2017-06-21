@@ -28,7 +28,7 @@
                                                     <div class="clearfix">
 
                                                         <div class="pull-left">
-                                                            <a href="#" data-ng-click="openSignInPopover()">
+                                                            <a href="{{ ang2_host }}/login/user/{{ addedUser.uId }}">
                                                                 {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
                                                                 {% set className = "user-no" ~ random(4) %}
 
@@ -46,7 +46,7 @@
 
                                                         <div class="pull-left success-story-user">
                                                             <p class="user-name">
-                                                                <a href="#" data-ng-click="openSignInPopover()" class="text-dark-gray">{{ addedUser.showName }}</a>
+                                                                <a href="{{ ang2_host }}/login/user/{{ addedUser.uId }}" class="text-dark-gray">{{ addedUser.showName }}</a>
                                                             </p>
                                                             <span data-ng-cloak>
                                                                 [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]

@@ -243,12 +243,12 @@
                         <div class="col-md-12">
                             <p>
                                 <i class="story-icon">
-                                    <amp-img
-                                        src="{{ asset('/bundles/app/images/success-story-icon.svg') }}"
-                                        layout="fixed"
-                                        width="25"
-                                        height="25"
-                                    ></amp-img>
+                                <amp-img
+                                    src="{{ asset('/bundles/app/images/success-story-icon.svg') }}"
+                                    layout="fixed"
+                                    width="25"
+                                    height="25">
+                                </amp-img>
 
                                 </i>
                                 Success stories
@@ -264,14 +264,15 @@
 
                                         <div class="rfloat col-xs-2 col-sm-2 col-md-2 pull-left">
                                            {% if addedUser.getPhotoLink  %}
-                                            <amp-img
-                                            src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}"
-                                            class="img-circle"
-                                            layout="fixed"
-                                            width="36"
-                                            height="36"
-                                            alt="{{ addedUser.firstName }}"
-                                            ></amp-img>
+                                               <a href="{{ ang2_host }}/login/user/{{ addedUser.uId }}">
+                                                    <amp-img
+                                                    src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}"
+                                                    class="img-circle"
+                                                    layout="fixed"
+                                                    width="36"
+                                                    height="36"
+                                                    alt="{{ addedUser.firstName }}"></amp-img>
+                                               </a>
                                             {% else %}
 
                                             {% endif %}
@@ -279,9 +280,9 @@
 
                                         <div class="col-sm-6 col-xs-6 col-md-7 pull-left">
                                              <p class="uname">
-                                                <a href="/profile/{{story.user.id}}">{{story.user.firstname}} {{story.user.lastname}}</a>
-                                                </p>
-                                                <span class="datetime">{{story.created.date | date("M d")}} at {{story.created.date | date("H:i a")}}</span>
+                                                <a href="{{ ang2_host }}/login/user/{{ addedUser.uId }}">{{story.user.firstname}} {{story.user.lastname}}</a>
+                                             </p>
+                                             <span class="datetime">{{story.created.date | date("M d")}} at {{story.created.date | date("H:i a")}}</span>
                                         </div>
 
                                         <div class="col-sm-2 col-xs-4 col-md-3 rfloat">

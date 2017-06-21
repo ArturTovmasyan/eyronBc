@@ -64,7 +64,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(name="u_id", type="string", length=9, unique=true)
-     * @Groups({"user", "tiny_user", "badge"})
+     * @Groups({"user", "tiny_user", "badge", "inspireStory"})
      */
     protected $uId;
 
