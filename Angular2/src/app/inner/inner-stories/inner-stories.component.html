@@ -18,7 +18,7 @@
     <div class="row no-gutter">
         <div class="col-xs-9">
             <div class="clearfix">
-                <a [routerLink]="(appUser ? ('/profile/' + story.user.u_id +'/activity'): '/login')" class="pull-left">
+                <a [routerLink]="(appUser ? ('/profile/' + story.user.u_id +'/activity'): '/login/user/' + story.user.u_id)" class="pull-left">
 
                     <figure class="user-image">
                         <img *ngIf="story.user.cached_image" src="{{ story.user.cached_image }}"
@@ -34,10 +34,10 @@
 
                 <div class="pull-left">
                     <p>
-                        <a *ngIf="appUser" routerLink="/profile/{{ story.user.u_id }}/activity" class="text-dark-gray">
+                        <a [routerLink]="(appUser ? ('/profile/' +  story.user.u_id + '/activity'): '/login/user/' + story.user.u_id)" class="text-dark-gray">
                             {{ story.user.show_name }}
                         </a>
-                        <span *ngIf="!appUser" class="text-dark-gray">{{ story.user.show_name }}</span>
+                        <!--<span *ngIf="!appUser" class="text-dark-gray">{{ story.user.show_name }}</span>-->
                     </p>
 
             <span>

@@ -25,7 +25,7 @@
                           <div class="clearfix">
 
                             <div class="pull-left">
-                              <a (click)="openSignInPopover()">
+                              <a [routerLink]="'/login/user/' + story.user.u_id">
 
                                 <figure class="user-image">
                                   <!--blImageFilter('user_icon')-->
@@ -39,7 +39,7 @@
 
                             <div class="pull-left success-story-user" *ngIf="story.user">
                               <p class="user-name">
-                                <a (click)="openSignInPopover()" class="text-dark-gray">{{ story.user.show_name }}</a>
+                                <a [routerLink]="'/login/user/' + story.user.u_id" class="text-dark-gray">{{ story.user.show_name }}</a>
                               </p>
                               <span class="text-gray">
                                   {{ story.created| date:'dd MMMM,  yyyy' }} at {{ story.created| date:'HH:mm' }}
