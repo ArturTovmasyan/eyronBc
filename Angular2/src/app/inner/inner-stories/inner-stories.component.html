@@ -13,7 +13,7 @@
 
 
 <!--{% if app.user and story.user.id == app.user.id %};showMyStory[{{ story.id }}] = true{% endif %}"-->
-<div class="bg-grey stories-place story-fade-in " *ngFor="let story of stories;let k = index" [hidden]="!story.show">
+<div class="bg-grey stories-place story-fade-in " *ngFor="let story of stories | sortArray; let k = index" [hidden]="!story.show">
     <!--{% if app.user and story.user.id == app.user.id %} && showMyStory[{{ story.id }}]{% endif %}-->
     <div class="row no-gutter">
         <div class="col-xs-9">
