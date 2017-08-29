@@ -2,6 +2,7 @@
 
 angular.module('leaderboard', ['Interpolation',
   'Components',
+  'Authenticator',
   'notification',
   'infinite-scroll',
   'ngAnimate',
