@@ -23,6 +23,7 @@ export class TopIdeasBlockComponent implements OnInit {
   errorMessage:string;
   appUser:User;
   fresh:any;
+  url:string;
   categories = ['top', 'suggest', 'featured'];
   degree:number = 360;
 
@@ -36,8 +37,12 @@ export class TopIdeasBlockComponent implements OnInit {
   ngOnInit() {
     this.appUser = this._cacheService.get('user_');
     this.fresh = this.appUser?this._cacheService.get('fresh'+this.appUser.id):null;
-    
+
+    //check if category is featured
     if(this.type == this.categories[2]) {
+
+      //set category url
+      this.url = '/ideas/featured';
       let data = this._cacheService.get('featuredIdea');
       if (data && (!this.fresh || this.fresh['featuredIdea'])) {
         this.goals = data;
@@ -46,6 +51,9 @@ export class TopIdeasBlockComponent implements OnInit {
         this.getFeaturedIdeas()
       }
     } else {
+
+      //set category url
+      this.url = '/ideas/most-popular';
       let data = this._cacheService.get('topIdea');
       if (data && (!this.fresh || this.fresh['topIdea'])) {
         this.goals = data;
@@ -70,7 +78,7 @@ export class TopIdeasBlockComponent implements OnInit {
             },
             error => this.errorMessage = <any>error);
   }
-  
+
   getFeaturedIdeas() {
     this._projectService.getFeaturedIdeas()
         .subscribe(
