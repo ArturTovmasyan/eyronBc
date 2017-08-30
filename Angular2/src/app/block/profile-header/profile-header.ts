@@ -30,6 +30,7 @@ export class ProfileHeader implements OnInit {
     public listedBy;
     public active;
     public doneBy;
+    public scoreData : any;
     public errorMessage:any;
     public flashBag:any;
     public badges: any[];
@@ -108,7 +109,7 @@ export class ProfileHeader implements OnInit {
             //     this.router.navigate(['/not-active']);
             // }
 
-            this.badges = this.profileUser.badges;
+            this.scoreData = this.profileUser.badges;
             this.active = this.profileUser.stats.active;
             this.listedBy = this.profileUser.stats.listedBy;
             this.doneBy = this.profileUser.stats.doneBy;
@@ -128,7 +129,19 @@ export class ProfileHeader implements OnInit {
                     this.router.navigate(['/not-active']);
                 }
 
-                this.badges = user.badges;
+                this.scoreData = user.badges;
+
+                //generate normalizer score data and return its for badges
+                this._projectService.getMaxScore(this.scoreData)
+                  .subscribe(
+                    (data) => {
+                      this.badges = data;
+                    },
+                    error => {
+                      this.errorMessage = JSON.parse(error._body);
+                    }
+                  );
+
                 this.broadcaster.broadcast('pageUser', this.profileUser);
                 this.active = this.profileUser.stats.active;
                 this.listedBy = this.profileUser.stats.listedBy;

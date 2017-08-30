@@ -7,6 +7,8 @@ use Application\UserBundle\Services\BadgeService;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -109,5 +111,56 @@ class BadgeController extends Controller
         }
 
         return $badges;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Badge",
+     *  description="This function is used to get max score",
+     *  statusCodes={
+     *         200="Returned when max score returned",
+     *         400="Bad request"
+     *  }
+     * )
+     *
+     * @Rest\View()
+     * @param Request $request
+     * @return mixed
+     */
+    public function putMaxScoreAction(Request $request)
+    {
+        //check if request content type is json
+        if ($request->getContentType() == 'application/json' || $request->getContentType() == 'json') {
+
+            //get content and add it in request after json decode
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        //get badges
+        $badges = $request->request->get('badges');
+
+        //check if one is parameters not exists
+        if(!$badges) {
+            return new Response('Invalid link parameter', Response::HTTP_BAD_REQUEST);
+        }
+
+       $newBadges = array_map(function($item) {
+
+            // get max badge score
+            $maxBadgeScore = $this->get('bl.badge.service')->getMaxScore($item['points'], $item['type']);
+
+            //get normalizer score data
+            $maxScore = array_key_exists($item['type'], $maxBadgeScore) ? $maxBadgeScore[$item['type']] : $item['points'];
+            $normalizedScore = ($item['points']/$maxScore) * Badge::MAXIMUM_NORMALIZE_SCORE;
+            $normalizedScore = ceil($normalizedScore);
+            $item['points'] = $normalizedScore;
+
+            return $item;
+
+        }, $badges);
+
+        return $newBadges;
     }
 }
