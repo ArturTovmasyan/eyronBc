@@ -2,7 +2,7 @@
     <div class="bg-white padding round margin-top" *ngIf="goals && goals.length">
         <div class="row">
           <div class="col-xs-10">
-            <a routerLink="/ideas/most-popular" class="heading text-gray">
+            <a routerLink="{{ url }}" class="heading text-gray">
               <i [ngClass]="{'icon-top-idea': type == categories[0],'featured-icon': type == categories[2],'suggested-icon': type == categories[1]}"></i>
               <span class="text">{{ (type == categories[0])?('right_menu.ideas'|translate ): (type == categories[2])? ('featured_ideas'|translate):('right_menu.suggested'|translate) }}</span>
             </a>
