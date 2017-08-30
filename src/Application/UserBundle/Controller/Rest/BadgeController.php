@@ -117,7 +117,7 @@ class BadgeController extends Controller
      * @ApiDoc(
      *  resource=true,
      *  section="Badge",
-     *  description="This function is used to get max score",
+     *  description="This function is used to normalizer score data for badges",
      *  statusCodes={
      *         200="Returned when max score returned",
      *         400="Bad request"
@@ -141,11 +141,12 @@ class BadgeController extends Controller
         //get badges
         $badges = $request->request->get('badges');
 
-        //check if one is parameters not exists
+        //check if badges not exists
         if(!$badges) {
-            return new Response('Invalid link parameter', Response::HTTP_BAD_REQUEST);
+            return new Response('Invalid request data', Response::HTTP_BAD_REQUEST);
         }
 
+        //normalizer badges score data
        $newBadges = array_map(function($item) {
 
             // get max badge score
