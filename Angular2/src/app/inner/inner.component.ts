@@ -102,12 +102,12 @@ export class InnerComponent implements OnInit {
           // load data
           this.getProject(goalSlug);
       });
-      
+
       this.broadcaster.on<any>('menuScroll')
           .subscribe( data => {
               this.scroll = data;
           });
-          
+
     this.sharePath = this._projectService.getPath();
     this.angularPath = this._projectService.getAngularPath();
     if(localStorage.getItem('apiKey')){
@@ -186,7 +186,7 @@ export class InnerComponent implements OnInit {
                     fjs.parentNode.insertBefore(js,fjs);
                   }
 
-                  //facebbok
+                  //facebook
                   (function(d, s, id){
                     var js, fjs = d.getElementsByTagName(s)[0];
                     if (d.getElementById(id)) {return;}
@@ -214,7 +214,7 @@ export class InnerComponent implements OnInit {
                   } else {
                     this.aphorismIndex++;
                   }
-                  
+
                 }, this.delay);
               }
 
@@ -408,7 +408,7 @@ export class InnerComponent implements OnInit {
             'userGoal': {'goal':this.goal},
             'newAdded' : true
         });
-        
+
       this._projectService.setDoneUserGoal(id).subscribe(() => {
         this._projectService.getStory(id).subscribe((data)=> {
             this.broadcaster.broadcast('doneModalUserGoal', data);
@@ -430,7 +430,7 @@ export class InnerComponent implements OnInit {
     }
 
   }
-  
+
   save(id){
       this.broadcaster.broadcast('addModal', {
           'userGoal': {'goal':this.goal},
@@ -462,13 +462,13 @@ export class InnerComponent implements OnInit {
             this.router.navigate(['/profile/my/all']);
           });
     });
-    
+
   }
 
   isEmpty(object){
     return (!object || !Object.keys(object).length);
   };
-  
+
   openUsersModal(id:number, count:number, category: number){
     if(!localStorage.getItem('apiKey') || !this.appUser){
       this.broadcaster.broadcast('openLogin', 'some message');
