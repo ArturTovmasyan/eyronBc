@@ -6,7 +6,7 @@ angular.module('Facebook',['PathPrefix'])
       FB.init({
         appId      : facebookId,
         xfbml      : true,
-        version    : 'v2.4'
+        version    : 'v2.10'
       });
     };
     (function(d, s, id){
