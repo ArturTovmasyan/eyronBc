@@ -21,7 +21,7 @@ export class FbShareComponent implements OnInit {
       FB.init({
         appId      : "486680294849466",
         xfbml      : true,
-        version    : 'v2.4'
+        version    : 'v2.10'
       });
     };
     (function(d, s, id){

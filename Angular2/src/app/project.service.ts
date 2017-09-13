@@ -217,11 +217,11 @@ export class ProjectService {
     setAction(action: IAction){
         this.action = action;
     }
-    
+
     getAction():IAction{
-        return this.action;    
+        return this.action;
     }
-    
+
     /**
      *
      * @param slug
@@ -231,6 +231,18 @@ export class ProjectService {
         return this.http.get(this.goalUrl + slug, {headers: this.headers})
             .map((r:Response) => r.json())
             .catch(this.handleError);
+    }
+
+  /**
+   *
+   * @param badges
+   * @returns {Observable<any>}
+   */
+    getMaxScore(badges: any):Observable<any> {
+
+    return this.http.put(this.baseUrl+'badge/max/score', {'badges':badges},{headers: this.headers})
+      .map((r:Response) => r.json())
+      .catch(this.handleError);
     }
 
     /**
@@ -878,7 +890,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @param data
      * @returns {Observable<R>}
      */
@@ -889,7 +901,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @returns {Observable<R>}
      */
     switchNotificationsOff(){
@@ -899,7 +911,7 @@ export class ProjectService {
     }
 
     /**
-     * 
+     *
      * @returns {Observable<R>}
      */
     invisibleAllGoals(){

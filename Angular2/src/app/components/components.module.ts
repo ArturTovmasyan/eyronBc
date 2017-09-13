@@ -20,6 +20,7 @@ import { SliceEmailPipe } from '../pipes/sliceEmail.pipe';
 import { RoundPipe } from '../pipes/round.pipe';
 import { RemoveTagPipe } from '../pipes/removeTag.pipe';
 import { SafeHtmlPipe } from '../pipes/safeHtml.pipe';
+import { SortArrayPipe } from '../pipes/sortArray.pipe';
 import { HtmlDirective } from '../tools/html.directive';
 import { EmbedVideoComponent } from './embed-video/embed-video.component';
 import { InputVideoComponent } from './embed-video/input-video.component';
@@ -51,6 +52,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GoalFriendComponent,
     SliceEmailPipe,
     RoundPipe,
+    SortArrayPipe,
     RemoveTagPipe,
     SafeHtmlPipe,
     HtmlDirective,
@@ -77,6 +79,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CommentComponent,
     ProfileGoalComponent,
     RemoveTagPipe,
+    SortArrayPipe,
     SafeHtmlPipe,
     HtmlDirective,
     ControlMessagesComponent,

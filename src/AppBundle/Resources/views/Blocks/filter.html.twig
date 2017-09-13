@@ -19,6 +19,15 @@
             {% endfor %}
         {% endif %}
 
+        <li class="swiper-slide {% if selected and selected == 'discover'%}active-category{% endif %}"
+            data-ng-class="{'active-category': activeCategory == ''}">
+            <a href="#discover"
+               data-ng-click="goTo('')">
+                <img src="{{ asset('bundles/app/images/discover.svg') }}" class="svg"/>
+                <span>{{ 'discover'|trans }}</span>
+            </a>
+        </li>
+
         <li class="swiper-slide"
             data-ng-class="{'active-category': activeCategory == 'nearby'}">
             <a href="#nearby"
@@ -26,15 +35,6 @@
                data-slug="nearby">
                 <img src="{{ asset('bundles/app/images/nearby.svg') }}" class="svg"/>
                 <span>{{ 'nearby'|trans }}</span>
-            </a>
-        </li>
-
-        <li class="swiper-slide {% if selected and selected == 'discover'%}active-category{% endif %}"
-            data-ng-class="{'active-category': activeCategory == ''}">
-            <a href="#discover"
-               data-ng-click="goTo('')">
-                <img src="{{ asset('bundles/app/images/discover.svg') }}" class="svg"/>
-                <span>{{ 'discover'|trans }}</span>
             </a>
         </li>
 
