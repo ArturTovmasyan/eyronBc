@@ -40,10 +40,12 @@
     "ng2-metadata": "^1.4.2-final",
     "ng2-sharebuttons": "^1.1.5",
     "ng2-translate": "4.2.0",
-    "npm": "^4.1.2",
+    "npm": "^4.6.1",
     "rxjs": "^5.1.0",
+    "to": "^0.2.9",
     "ts-helpers": "^1.1.1",
     "typescript": "^2.2.2",
+    "update": "^0.7.4",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

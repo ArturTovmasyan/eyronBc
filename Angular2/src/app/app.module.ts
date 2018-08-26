@@ -95,7 +95,6 @@ export function createTranslateLoader(http: Http) {
     ErrorComponent,
     NotActiveComponent,
     RegistrationConfirmComponent
-
   ],
   imports: [
     BrowserModule,

@@ -134,7 +134,6 @@ doctrine:
         default_entity_manager: default
         result_cache_driver: apc
         query_cache_driver: apc
-
         dql:
             datetime_functions:
                 date:           Oro\ORM\Query\AST\Functions\SimpleFunction
@@ -151,7 +150,6 @@ doctrine:
                 month: Oro\ORM\Query\AST\Functions\SimpleFunction
             string_functions:
                 match_against: AppBundle\Extensions\Doctrine\MatchAgainst
-
         filters:
             # An array of filters
             publish_filter:
