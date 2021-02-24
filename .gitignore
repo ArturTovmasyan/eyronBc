@@ -27,6 +27,7 @@ app/SymfonyRequirements.php
 /web/uploads/*
 /web/media/
 /web/test/
+/web/node_modules/
 /web/jquery_components/
 /src/node/node_modules/
 .DS_Store
